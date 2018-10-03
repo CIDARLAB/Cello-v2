@@ -6,7 +6,7 @@
         <archive path="/Cello/src/resources-logicSynthesis/algorithms/Yosys/byuediftools-0.5.2.jar"/>
         <archive path="/Cello/src/resources-logicSynthesis/algorithms/Yosys/JHDL_provisional.jar"/>
         <archive path="/Cello/src/resources-logicSynthesis/algorithms/Yosys/JSAP-2.1.jar"/>
-	<archive path="/Cello/src/resources-placing/algorithms/Eugene/eugene-2.0.2-SNAPSHOT-jar-with-dependencies.jar"/>
+	<archive path="/Cello/src/resources-placing/algorithms/Eugene/eugene-2.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
         <archive path="/Cello/external_jars/guava-23.0.jar"/>
         <archive path="/Cello/external_jars/commons-cli-1.4.jar"/>
         <archive path="/Cello/external_jars/commons-csv-1.5.jar"/>

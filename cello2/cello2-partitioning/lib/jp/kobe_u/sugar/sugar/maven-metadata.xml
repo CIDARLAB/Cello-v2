@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>jp.kobe_u.sugar</groupId>
+  <artifactId>sugar</artifactId>
+  <versioning>
+    <release>2.3.2</release>
+    <versions>
+      <version>2.3.2</version>
+    </versions>
+    <lastUpdated>20181003202446</lastUpdated>
+  </versioning>
+</metadata>

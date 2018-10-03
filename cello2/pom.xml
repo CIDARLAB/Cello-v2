@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>org.cellocad</groupId>
+  <artifactId>cello2-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <developers>
+    <developer>
+      <id>jonests</id>
+      <name>Timothy Jones</name>
+      <email>jonests@bu.edu</email>
+      <organization>Boston University</organization>
+    </developer>
+    <developer>
+      <id>vmirian</id>
+      <name>Vincent Mirian</name>
+      <email>vmirian@mit.edu</email>
+      <organization>Massachussetts Institute of Technology</organization>
+    </developer>
+    <developer>
+      <id>jaip</id>
+      <name>Jai Padmakumar</name>
+      <email>jaip@mit.edu</email>
+      <organization>Massachussetts Institute of Technology</organization>
+    </developer>
+  </developers>
+  <modules>
+    <module>cello2-common</module>
+    <module>cello2-logicsynthesis</module>
+    <module>cello2-logicoptimization</module>
+    <module>cello2-clustering</module>
+    <module>cello2-partitioning</module>
+    <module>cello2-technologymapping</module>
+    <module>cello2-placing</module>
+    <module>cello2-export</module>
+    <module>cello2-dnacompiler</module>
+  </modules>
+  <!-- <build> -->
+  <!--   <plugins> -->
+  <!--     <plugin> -->
+  <!--       <groupId>org.apache.maven.plugins</groupId> -->
+  <!--       <artifactId>maven-dependency-plugin</artifactId> -->
+  <!--       <configuration> -->
+  <!--         <outputDirectory> -->
+  <!--           ${project.build.directory} -->
+  <!--         </outputDirectory> -->
+  <!--       </configuration> -->
+  <!--     </plugin> -->
+  <!--   </plugins> -->
+  <!-- </build> -->
+</project>
