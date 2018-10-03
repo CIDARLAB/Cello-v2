@@ -1,0 +1,5 @@
+logicSynthesis.Gates,"NOR"
+technologyMapping,SimulatedAnnealing
+partitioning,GPCC_SUGARM_BASE
+export.RepositoryUrl,"https://synbiohub.programmingbiology.org"
+export.CollectionUri,"https://synbiohub.programmingbiology.org/public/Cello_Parts/Cello_Parts_collection/1"

@@ -22,6 +22,8 @@ package org.cellocad.cello2.results.netlist.data;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.JSON.JSONUtils;
@@ -55,6 +57,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setPartitionID(PTResults.S_DEFAULT);
 		this.setClusterID(CLResults.S_DEFAULT);
 		this.setGateType(TMResults.S_DEFAULT);
+		this.setParts(new ArrayList<String>());
 		this.setPlacements(new Placements());
 	}
 
@@ -77,6 +80,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setNodeType(other.getNodeType());
 		this.setPartitionID(other.getPartitionID());
 		this.setGateType(other.getGateType());
+		this.setParts(other.getParts());
 		this.setPlacements(other.getPlacements());
 	}
 
@@ -106,6 +110,15 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		rtn += JSONUtils.getEntryToString("partitionID", this.getPartitionID());
 		// gateType
 		rtn += JSONUtils.getEntryToString("gateType", this.getGateType());
+		// parts
+		rtn += JSONUtils.getStartArrayWithMemberString("parts");
+		String parts = "";
+		for (String str : this.getParts()) {
+			parts += JSONUtils.getValueToString(str);
+		}
+		parts = JSONUtils.addIndent(1,parts);
+		rtn += parts;
+		rtn += JSONUtils.getEndArrayString();
 		// placements
 		rtn += JSONUtils.getStartArrayWithMemberString("placements");
 		rtn += this.getPlacements().toJSON();
@@ -146,6 +159,19 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 			this.setGateType(value);
 		}
 	}
+	private void parseParts(final JSONObject JObj){
+		JSONArray jsonArr;
+    	jsonArr = (JSONArray) JObj.get("parts");
+		if (jsonArr == null) {
+			throw new RuntimeException("'parts' missing in Netlist!");
+		}
+		List<String> parts = new ArrayList<>();
+    	for (int i = 0; i < jsonArr.size(); i++)
+    	{
+    	    String str = (String) jsonArr.get(i);
+    	    parts.add(str);
+    	}
+	}
 	private void parsePlacements(final JSONObject JObj){
 		JSONArray jsonArr;
     	jsonArr = (JSONArray) JObj.get("placements");
@@ -168,6 +194,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
     	this.parseNodeType(JObj);
     	this.parsePartitionID(JObj);
     	this.parseGateType(JObj);
+    	this.parseParts(JObj);
     	this.parsePlacements(JObj);
 	}
 
@@ -254,6 +281,27 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	}
 	
 	private String gateType;
+	
+	/*
+	 * Parts
+	 */
+	/**
+	 *  Setter for <i>parts</i>
+	 *  @param parts the value to set <i>parts</i>
+	 */
+	public void setParts(List<String> parts) {
+		this.parts = parts;
+	}
+
+	/**
+	 *  Getter for <i>parts</i>
+	 *  @return the parts of this instance
+	 */
+	public List<String> getParts() {
+		return this.parts;
+	}
+	
+	private List<String> parts;
 	
 	/*
 	 * Placements

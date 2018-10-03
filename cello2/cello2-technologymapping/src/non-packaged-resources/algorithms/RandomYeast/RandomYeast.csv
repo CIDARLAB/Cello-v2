@@ -1,0 +1,6 @@
+AuthorName,,
+ApplicationNames,DNACompiler,
+StagePrefix,TM,
+StageName,technologyMapping,
+AlgorithmName,,
+AlgorithmExtends,RandomYeast,

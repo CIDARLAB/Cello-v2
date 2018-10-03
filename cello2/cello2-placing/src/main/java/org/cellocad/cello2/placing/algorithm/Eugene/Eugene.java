@@ -229,15 +229,18 @@ public class Eugene extends PLAlgorithm{
 	private CObjectCollection<Part> getDevice(final NetlistNode node) {
 		CObjectCollection<Part> rtn = new CObjectCollection<>();
 		if (LSResultsUtils.isPrimaryInput(node)) {
-			rtn.addAll(this.getInputSensorParts(node));
+			//rtn.addAll(this.getInputSensorParts(node));
 		}
 		else if (LSResultsUtils.isPrimaryOutput(node)) {
-			rtn.addAll(this.getInputPromoters(node));
-			rtn.addAll(this.getOutputReporterParts(node));
+			//rtn.addAll(this.getInputPromoters(node));
+			//rtn.addAll(this.getOutputReporterParts(node));
 		}
 		else if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
-			rtn.addAll(this.getInputPromoters(node));
-			rtn.addAll(this.getCasetteParts(node));
+			//rtn.addAll(this.getInputPromoters(node));
+			for (String str : node.getResultNetlistNodeData().getParts()) {
+				Part part = this.getParts().findCObjectByName(str);
+				rtn.add(part);
+			}
 		}
 		
 		return rtn;
@@ -248,7 +251,9 @@ public class Eugene extends PLAlgorithm{
 		NetlistNode node = null;
 		node = BFS.getNextVertex();
 		while (node != null) {
-			this.getDeviceMap().put(node, getDevice(node));
+			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
+				this.getDeviceMap().put(node, getDevice(node));
+			}
 			node = BFS.getNextVertex();
 		}
 	}
@@ -576,7 +581,7 @@ public class Eugene extends PLAlgorithm{
 		name = name.replaceAll("^gate_","");
 		for (NetlistNode node : this.getDeviceMap().keySet()) {
 			String gateType = node.getResultNetlistNodeData().getGateType();
-			if (gateType.contains(name)) {
+			if (gateType.equals(name)) {
 				rtn = node;
 				break;
 			}
@@ -614,7 +619,7 @@ public class Eugene extends PLAlgorithm{
 					NamedElement el = components.get(j);
 					if (el instanceof Device) {
 						String name = el.getName();
-						
+
 						NetlistNode node = this.getNetlistNodeByGateName(name);
 						Placement placement = new Placement(true,false);
 						placement.setDirection(true);
@@ -640,7 +645,7 @@ public class Eugene extends PLAlgorithm{
 						for (NamedElement part : ((Device)el).getComponentList()) {
 							placement.addPartToPlacement(part.getName());
 						}
-						
+
 						node.getResultNetlistNodeData().getPlacements().addPlacement(placement);
 					}
 				}

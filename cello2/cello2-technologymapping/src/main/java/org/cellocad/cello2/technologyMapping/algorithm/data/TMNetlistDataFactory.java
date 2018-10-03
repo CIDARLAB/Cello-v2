@@ -22,6 +22,8 @@ package org.cellocad.cello2.technologyMapping.algorithm.data;
 
 import org.cellocad.cello2.common.algorithm.data.NetlistDataFactory;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistData;
+import org.cellocad.cello2.technologyMapping.algorithm.MinCrosstalkYeast.data.MinCrosstalkYeastNetlistData;
+import org.cellocad.cello2.technologyMapping.algorithm.RandomYeast.data.RandomYeastNetlistData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
 
 /**
@@ -43,6 +45,12 @@ public class TMNetlistDataFactory extends NetlistDataFactory<TMNetlistData>{
 	@Override
 	protected TMNetlistData getNetlistData(final String name) {
 		TMNetlistData rtn = null;
+		if (name.equals("MinCrosstalkYeast")){
+			rtn = new MinCrosstalkYeastNetlistData();
+		}
+		if (name.equals("RandomYeast")){
+			rtn = new RandomYeastNetlistData();
+		}
 		if (name.equals("Cello_JY_TP")){
 			rtn = new Cello_JY_TPNetlistData();
 		}

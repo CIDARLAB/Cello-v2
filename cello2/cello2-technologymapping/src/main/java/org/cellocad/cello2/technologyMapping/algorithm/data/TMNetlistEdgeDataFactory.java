@@ -22,6 +22,8 @@ package org.cellocad.cello2.technologyMapping.algorithm.data;
 
 import org.cellocad.cello2.common.algorithm.data.NetlistEdgeDataFactory;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistEdgeData;
+import org.cellocad.cello2.technologyMapping.algorithm.MinCrosstalkYeast.data.MinCrosstalkYeastNetlistEdgeData;
+import org.cellocad.cello2.technologyMapping.algorithm.RandomYeast.data.RandomYeastNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
 
 /**
@@ -43,6 +45,12 @@ public class TMNetlistEdgeDataFactory extends NetlistEdgeDataFactory<TMNetlistEd
 	@Override
 	protected TMNetlistEdgeData getNetlistEdgeData(final String name) {
 		TMNetlistEdgeData rtn = null;
+		if (name.equals("MinCrosstalkYeast")){
+			rtn = new MinCrosstalkYeastNetlistEdgeData();
+		}
+		if (name.equals("RandomYeast")){
+			rtn = new RandomYeastNetlistEdgeData();
+		}
 		if (name.equals("Cello_JY_TP")){
 			rtn = new Cello_JY_TPNetlistEdgeData();
 		}

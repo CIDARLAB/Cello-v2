@@ -1,0 +1,2950 @@
+[
+  {
+    "collection": "header",
+    "author": [
+      "Timothy Jones"
+    ],
+    "date": "Wed Jul 11 18:54:27 EDT 2018",
+    "description": "Yeast gates",
+    "version": "UWYeast0",
+    "organism": "Saccharomyces cerevisiae",
+    "genome": "",
+    "media": "",
+    "temperature": "",
+    "growth": ""
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_1",
+    "group_name": "RGR_1",
+    "gate_name": "RGR_1",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F3F3F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_1/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_2",
+    "group_name": "RGR_2",
+    "gate_name": "RGR_2",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F523F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_2/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_3",
+    "group_name": "RGR_3",
+    "gate_name": "RGR_3",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F663F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_3/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_4",
+    "group_name": "RGR_4",
+    "gate_name": "RGR_4",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F793F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_4/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_5",
+    "group_name": "RGR_5",
+    "gate_name": "RGR_5",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "727F3F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_5/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_6",
+    "group_name": "RGR_6",
+    "gate_name": "RGR_6",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "5F7F3F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_6/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_7",
+    "group_name": "RGR_7",
+    "gate_name": "RGR_7",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "4C7F3F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_7/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_8",
+    "group_name": "RGR_8",
+    "gate_name": "RGR_8",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F7F46",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_8/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_9",
+    "group_name": "RGR_9",
+    "gate_name": "RGR_9",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F7F59",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_9/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_10",
+    "group_name": "RGR_10",
+    "gate_name": "RGR_10",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F7F6C",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_10/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_11",
+    "group_name": "RGR_11",
+    "gate_name": "RGR_11",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F7F7F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_11/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_12",
+    "group_name": "RGR_12",
+    "gate_name": "RGR_12",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F6C7F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_12/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_13",
+    "group_name": "RGR_13",
+    "gate_name": "RGR_13",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F597F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_13/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_14",
+    "group_name": "RGR_14",
+    "gate_name": "RGR_14",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "3F467F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_14/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_15",
+    "group_name": "RGR_15",
+    "gate_name": "RGR_15",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "4C3F7F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_15/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_16",
+    "group_name": "RGR_16",
+    "gate_name": "RGR_16",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "5F3F7F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_16/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_17",
+    "group_name": "RGR_17",
+    "gate_name": "RGR_17",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "723F7F",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_17/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_18",
+    "group_name": "RGR_18",
+    "gate_name": "RGR_18",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F3F79",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_18/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_19",
+    "group_name": "RGR_19",
+    "gate_name": "RGR_19",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F3F65",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_19/1"
+  },
+  {
+    "collection": "gates",
+    "regulator": "RGR_20",
+    "group_name": "RGR_20",
+    "gate_name": "RGR_20",
+    "gate_type": "NOR",
+    "system": "crisprYeast",
+    "color_hexcode": "7F3F52",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_20/1"
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_1",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.071418036,
+        "on_threshold": 0.917082477
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 3.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.06
+      },
+      {
+        "name": "K",
+        "value": 0.07
+      },
+      {
+        "name": "n",
+        "value": 1.6
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_2",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.040190208,
+        "on_threshold": 0.164716826
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 0.5
+      },
+      {
+        "name": "ymin",
+        "value": 0.004
+      },
+      {
+        "name": "K",
+        "value": 0.04
+      },
+      {
+        "name": "n",
+        "value": 3.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_3",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.151048616,
+        "on_threshold": 0.728988942
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 0.5
+      },
+      {
+        "name": "ymin",
+        "value": 0.005
+      },
+      {
+        "name": "K",
+        "value": 0.15
+      },
+      {
+        "name": "n",
+        "value": 2.9
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_4",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.261943294,
+        "on_threshold": 0.936422328
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 0.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.01
+      },
+      {
+        "name": "K",
+        "value": 0.26
+      },
+      {
+        "name": "n",
+        "value": 3.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_5",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.41646314,
+        "on_threshold": 2.131948906
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 3.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.07
+      },
+      {
+        "name": "K",
+        "value": 0.41
+      },
+      {
+        "name": "n",
+        "value": 2.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_6",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.097441924,
+        "on_threshold": 0.680980375
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 3.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.2
+      },
+      {
+        "name": "K",
+        "value": 0.09
+      },
+      {
+        "name": "n",
+        "value": 1.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_7",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.194258377,
+        "on_threshold": 0.735147282
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.5
+      },
+      {
+        "name": "ymin",
+        "value": 0.07
+      },
+      {
+        "name": "K",
+        "value": 0.19
+      },
+      {
+        "name": "n",
+        "value": 2.6
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_8",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.105541491,
+        "on_threshold": 1.010814719
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.2
+      },
+      {
+        "name": "ymin",
+        "value": 0.08
+      },
+      {
+        "name": "K",
+        "value": 0.1
+      },
+      {
+        "name": "n",
+        "value": 1.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_9",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.050983067,
+        "on_threshold": 0.552709139
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 4.3
+      },
+      {
+        "name": "ymin",
+        "value": 0.07
+      },
+      {
+        "name": "K",
+        "value": 0.05
+      },
+      {
+        "name": "n",
+        "value": 1.7
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_10",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.19804897,
+        "on_threshold": 0.512476199
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.2
+      },
+      {
+        "name": "ymin",
+        "value": 0.2
+      },
+      {
+        "name": "K",
+        "value": 0.18
+      },
+      {
+        "name": "n",
+        "value": 2.1
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_11",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.030038585,
+        "on_threshold": 0.133146326
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 3.9
+      },
+      {
+        "name": "ymin",
+        "value": 0.01
+      },
+      {
+        "name": "K",
+        "value": 0.03
+      },
+      {
+        "name": "n",
+        "value": 4.0
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_12",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.130327211,
+        "on_threshold": 0.507702151
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 4.1
+      },
+      {
+        "name": "ymin",
+        "value": 0.02
+      },
+      {
+        "name": "K",
+        "value": 0.13
+      },
+      {
+        "name": "n",
+        "value": 3.9
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_13",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.230323307,
+        "on_threshold": 0.920133536
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 6.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.02
+      },
+      {
+        "name": "K",
+        "value": 0.23
+      },
+      {
+        "name": "n",
+        "value": 4.2
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_14",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.050155208,
+        "on_threshold": 0.379475457
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.4
+      },
+      {
+        "name": "ymin",
+        "value": 0.01
+      },
+      {
+        "name": "K",
+        "value": 0.05
+      },
+      {
+        "name": "n",
+        "value": 2.7
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_15",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.21190396,
+        "on_threshold": 1.377679427
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.8
+      },
+      {
+        "name": "ymin",
+        "value": 0.03
+      },
+      {
+        "name": "K",
+        "value": 0.21
+      },
+      {
+        "name": "n",
+        "value": 2.4
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_16",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.197556859,
+        "on_threshold": 1.197796047
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 5.9
+      },
+      {
+        "name": "ymin",
+        "value": 0.2
+      },
+      {
+        "name": "K",
+        "value": 0.19
+      },
+      {
+        "name": "n",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_17",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.010015965,
+        "on_threshold": 0.08101328
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 1.3
+      },
+      {
+        "name": "ymin",
+        "value": 0.003
+      },
+      {
+        "name": "K",
+        "value": 0.01
+      },
+      {
+        "name": "n",
+        "value": 2.9
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_18",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.040044043,
+        "on_threshold": 0.49642145
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.1
+      },
+      {
+        "name": "ymin",
+        "value": 0.003
+      },
+      {
+        "name": "K",
+        "value": 0.04
+      },
+      {
+        "name": "n",
+        "value": 2.6
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_19",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.060081844,
+        "on_threshold": 0.561105739
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.1
+      },
+      {
+        "name": "ymin",
+        "value": 0.004
+      },
+      {
+        "name": "K",
+        "value": 0.06
+      },
+      {
+        "name": "n",
+        "value": 2.8
+      }
+    ]
+  },
+  {
+    "collection": "response_functions",
+    "gate_name": "RGR_20",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+      {
+        "name": "x",
+        "off_threshold": 0.100239178,
+        "on_threshold": 0.764977507
+      }
+    ],
+    "parameters": [
+      {
+        "name": "ymax",
+        "value": 2.1
+      },
+      {
+        "name": "ymin",
+        "value": 0.007
+      },
+      {
+        "name": "K",
+        "value": 0.1
+      },
+      {
+        "name": "n",
+        "value": 2.8
+      }
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_1",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_1_grna"
+        ]
+      }
+    ],
+    "regulates": "r1",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_2",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_2_grna"
+        ]
+      }
+    ],
+    "regulates": "r2",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_3",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_3_grna"
+        ]
+      }
+    ],
+    "regulates": "r3",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_4",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_4_grna"
+        ]
+      }
+    ],
+    "regulates": "r4",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_5",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_5_grna"
+        ]
+      }
+    ],
+    "regulates": "r5",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_6",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_6_grna"
+        ]
+      }
+    ],
+    "regulates": "r6",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_7",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_7_grna"
+        ]
+      }
+    ],
+    "regulates": "r7",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_8",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_8_grna"
+        ]
+      }
+    ],
+    "regulates": "r8",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_9",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_9_grna"
+        ]
+      }
+    ],
+    "regulates": "r9",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_10",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_10_grna"
+        ]
+      }
+    ],
+    "regulates": "r10",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_11",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_11_grna"
+        ]
+      }
+    ],
+    "regulates": "r11",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_12",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_12_grna"
+        ]
+      }
+    ],
+    "regulates": "r12",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_13",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_13_grna"
+        ]
+      }
+    ],
+    "regulates": "r13",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_14",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_14_grna"
+        ]
+      }
+    ],
+    "regulates": "r14",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_15",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_15_grna"
+        ]
+      }
+    ],
+    "regulates": "r15",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_16",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_16_grna"
+        ]
+      }
+    ],
+    "regulates": "r16",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_17",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_17_grna"
+        ]
+      }
+    ],
+    "regulates": "r17",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_18",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_18_grna"
+        ]
+      }
+    ],
+    "regulates": "r18",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_19",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_19_grna"
+        ]
+      }
+    ],
+    "regulates": "r19",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "gate_parts",
+    "gate_name": "RGR_20",
+    "expression_cassettes": [
+      {
+        "maps_to_variable": "x",
+        "cassette_parts": [
+          "RGR_20_grna"
+        ]
+      }
+    ],
+    "regulates": "r20",
+    "promoter_parts": [
+      "UAS",
+      "LinkingSequence",
+      "#operator#",
+      "Codon1",
+      "TataBox",
+      "Codon2",
+      "#operator#",
+      "tss",
+      "Kozak"
+    ]
+  },
+  {
+    "collection": "PartitionProfile",
+    "PartitionProfile": {
+      "name": "PProfile0",
+      "Blocks": {
+        "Capacity_Units": [
+          "NOT",
+          "NOR",
+          "OR",
+          "Regular"
+        ],
+        "Capacity": [
+          {
+            "name": "capacity0",
+            "units": [
+              "NOT",
+              "NOR",
+              "OR"
+            ],
+            "lower_bound": 0,
+            "lower_bound_type": "greater_than_or_equal",
+            "upper_bound": 10,
+            "upper_bound_type": "less_than"
+          },
+          {
+            "name": "capacity1",
+            "units": [
+              "Regular"
+            ],
+            "lower_bound": 0,
+            "lower_bound_type": "greater_than_or_equal",
+            "upper_bound": 5,
+            "upper_bound_type": "less_than"
+          }
+        ],
+        "Blocks": [
+          {
+            "name": "block0",
+            "capacity": [
+              "capacity0"
+            ],
+            "inout_connections_capacity": [
+              "capacity1"
+            ]
+          },
+          {
+            "name": "block1",
+            "capacity": [
+              "capacity0"
+            ],
+            "inout_connections_capacity": [
+              "capacity1"
+            ]
+          }
+        ]
+      },
+      "InterBlocks": {
+        "Capacity_Units": [
+          "Regular"
+        ],
+        "Capacity": [
+          {
+            "name": "capacity0",
+            "units": [
+              "Regular"
+            ],
+            "lower_bound": 0,
+            "lower_bound_type": "greater_than_or_equal",
+            "upper_bound": 5,
+            "upper_bound_type": "less_than"
+          },
+          {
+            "name": "capacity1",
+            "units": [
+              "Regular"
+            ],
+            "lower_bound": 0,
+            "lower_bound_type": "greater_than_or_equal",
+            "upper_bound": 1,
+            "upper_bound_type": "less_than"
+          }
+        ],
+        "InterBlocks": [
+          {
+            "name": "Interblock_0_1",
+            "source": "block0",
+            "destination": "block1",
+            "capacity": [
+              "capacity0"
+            ]
+          },
+          {
+            "name": "Interblock_1_0",
+            "source": "block1",
+            "destination": "block0",
+            "capacity": [
+              "capacity1"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "collection": "eugene_rules",
+    "eugene_part_rules": ["ALL_FORWARD"],
+    "eugene_gate_rules": [
+      "gate_RGR_1 BEFORE gate_RGR_2",
+      "gate_RGR_1 BEFORE gate_RGR_3",
+      "gate_RGR_1 BEFORE gate_RGR_4",
+      "gate_RGR_1 BEFORE gate_RGR_5",
+      "gate_RGR_1 BEFORE gate_RGR_6",
+      "gate_RGR_1 BEFORE gate_RGR_7",
+      "gate_RGR_1 BEFORE gate_RGR_8",
+      "gate_RGR_1 BEFORE gate_RGR_9",
+      "gate_RGR_1 BEFORE gate_RGR_10",
+      "gate_RGR_1 BEFORE gate_RGR_11",
+      "gate_RGR_1 BEFORE gate_RGR_12",
+      "gate_RGR_1 BEFORE gate_RGR_13",
+      "gate_RGR_1 BEFORE gate_RGR_14",
+      "gate_RGR_1 BEFORE gate_RGR_15",
+      "gate_RGR_1 BEFORE gate_RGR_16",
+      "gate_RGR_1 BEFORE gate_RGR_17",
+      "gate_RGR_1 BEFORE gate_RGR_18",
+      "gate_RGR_1 BEFORE gate_RGR_19",
+      "gate_RGR_1 BEFORE gate_RGR_20",
+      "gate_RGR_2 BEFORE gate_RGR_3",
+      "gate_RGR_2 BEFORE gate_RGR_4",
+      "gate_RGR_2 BEFORE gate_RGR_5",
+      "gate_RGR_2 BEFORE gate_RGR_6",
+      "gate_RGR_2 BEFORE gate_RGR_7",
+      "gate_RGR_2 BEFORE gate_RGR_8",
+      "gate_RGR_2 BEFORE gate_RGR_9",
+      "gate_RGR_2 BEFORE gate_RGR_10",
+      "gate_RGR_2 BEFORE gate_RGR_11",
+      "gate_RGR_2 BEFORE gate_RGR_12",
+      "gate_RGR_2 BEFORE gate_RGR_13",
+      "gate_RGR_2 BEFORE gate_RGR_14",
+      "gate_RGR_2 BEFORE gate_RGR_15",
+      "gate_RGR_2 BEFORE gate_RGR_16",
+      "gate_RGR_2 BEFORE gate_RGR_17",
+      "gate_RGR_2 BEFORE gate_RGR_18",
+      "gate_RGR_2 BEFORE gate_RGR_19",
+      "gate_RGR_2 BEFORE gate_RGR_20",
+      "gate_RGR_3 BEFORE gate_RGR_4",
+      "gate_RGR_3 BEFORE gate_RGR_5",
+      "gate_RGR_3 BEFORE gate_RGR_6",
+      "gate_RGR_3 BEFORE gate_RGR_7",
+      "gate_RGR_3 BEFORE gate_RGR_8",
+      "gate_RGR_3 BEFORE gate_RGR_9",
+      "gate_RGR_3 BEFORE gate_RGR_10",
+      "gate_RGR_3 BEFORE gate_RGR_11",
+      "gate_RGR_3 BEFORE gate_RGR_12",
+      "gate_RGR_3 BEFORE gate_RGR_13",
+      "gate_RGR_3 BEFORE gate_RGR_14",
+      "gate_RGR_3 BEFORE gate_RGR_15",
+      "gate_RGR_3 BEFORE gate_RGR_16",
+      "gate_RGR_3 BEFORE gate_RGR_17",
+      "gate_RGR_3 BEFORE gate_RGR_18",
+      "gate_RGR_3 BEFORE gate_RGR_19",
+      "gate_RGR_3 BEFORE gate_RGR_20",
+      "gate_RGR_4 BEFORE gate_RGR_5",
+      "gate_RGR_4 BEFORE gate_RGR_6",
+      "gate_RGR_4 BEFORE gate_RGR_7",
+      "gate_RGR_4 BEFORE gate_RGR_8",
+      "gate_RGR_4 BEFORE gate_RGR_9",
+      "gate_RGR_4 BEFORE gate_RGR_10",
+      "gate_RGR_4 BEFORE gate_RGR_11",
+      "gate_RGR_4 BEFORE gate_RGR_12",
+      "gate_RGR_4 BEFORE gate_RGR_13",
+      "gate_RGR_4 BEFORE gate_RGR_14",
+      "gate_RGR_4 BEFORE gate_RGR_15",
+      "gate_RGR_4 BEFORE gate_RGR_16",
+      "gate_RGR_4 BEFORE gate_RGR_17",
+      "gate_RGR_4 BEFORE gate_RGR_18",
+      "gate_RGR_4 BEFORE gate_RGR_19",
+      "gate_RGR_4 BEFORE gate_RGR_20",
+      "gate_RGR_5 BEFORE gate_RGR_6",
+      "gate_RGR_5 BEFORE gate_RGR_7",
+      "gate_RGR_5 BEFORE gate_RGR_8",
+      "gate_RGR_5 BEFORE gate_RGR_9",
+      "gate_RGR_5 BEFORE gate_RGR_10",
+      "gate_RGR_5 BEFORE gate_RGR_11",
+      "gate_RGR_5 BEFORE gate_RGR_12",
+      "gate_RGR_5 BEFORE gate_RGR_13",
+      "gate_RGR_5 BEFORE gate_RGR_14",
+      "gate_RGR_5 BEFORE gate_RGR_15",
+      "gate_RGR_5 BEFORE gate_RGR_16",
+      "gate_RGR_5 BEFORE gate_RGR_17",
+      "gate_RGR_5 BEFORE gate_RGR_18",
+      "gate_RGR_5 BEFORE gate_RGR_19",
+      "gate_RGR_5 BEFORE gate_RGR_20",
+      "gate_RGR_6 BEFORE gate_RGR_7",
+      "gate_RGR_6 BEFORE gate_RGR_8",
+      "gate_RGR_6 BEFORE gate_RGR_9",
+      "gate_RGR_6 BEFORE gate_RGR_10",
+      "gate_RGR_6 BEFORE gate_RGR_11",
+      "gate_RGR_6 BEFORE gate_RGR_12",
+      "gate_RGR_6 BEFORE gate_RGR_13",
+      "gate_RGR_6 BEFORE gate_RGR_14",
+      "gate_RGR_6 BEFORE gate_RGR_15",
+      "gate_RGR_6 BEFORE gate_RGR_16",
+      "gate_RGR_6 BEFORE gate_RGR_17",
+      "gate_RGR_6 BEFORE gate_RGR_18",
+      "gate_RGR_6 BEFORE gate_RGR_19",
+      "gate_RGR_6 BEFORE gate_RGR_20",
+      "gate_RGR_7 BEFORE gate_RGR_8",
+      "gate_RGR_7 BEFORE gate_RGR_9",
+      "gate_RGR_7 BEFORE gate_RGR_10",
+      "gate_RGR_7 BEFORE gate_RGR_11",
+      "gate_RGR_7 BEFORE gate_RGR_12",
+      "gate_RGR_7 BEFORE gate_RGR_13",
+      "gate_RGR_7 BEFORE gate_RGR_14",
+      "gate_RGR_7 BEFORE gate_RGR_15",
+      "gate_RGR_7 BEFORE gate_RGR_16",
+      "gate_RGR_7 BEFORE gate_RGR_17",
+      "gate_RGR_7 BEFORE gate_RGR_18",
+      "gate_RGR_7 BEFORE gate_RGR_19",
+      "gate_RGR_7 BEFORE gate_RGR_20",
+      "gate_RGR_8 BEFORE gate_RGR_9",
+      "gate_RGR_8 BEFORE gate_RGR_10",
+      "gate_RGR_8 BEFORE gate_RGR_11",
+      "gate_RGR_8 BEFORE gate_RGR_12",
+      "gate_RGR_8 BEFORE gate_RGR_13",
+      "gate_RGR_8 BEFORE gate_RGR_14",
+      "gate_RGR_8 BEFORE gate_RGR_15",
+      "gate_RGR_8 BEFORE gate_RGR_16",
+      "gate_RGR_8 BEFORE gate_RGR_17",
+      "gate_RGR_8 BEFORE gate_RGR_18",
+      "gate_RGR_8 BEFORE gate_RGR_19",
+      "gate_RGR_8 BEFORE gate_RGR_20",
+      "gate_RGR_9 BEFORE gate_RGR_10",
+      "gate_RGR_9 BEFORE gate_RGR_11",
+      "gate_RGR_9 BEFORE gate_RGR_12",
+      "gate_RGR_9 BEFORE gate_RGR_13",
+      "gate_RGR_9 BEFORE gate_RGR_14",
+      "gate_RGR_9 BEFORE gate_RGR_15",
+      "gate_RGR_9 BEFORE gate_RGR_16",
+      "gate_RGR_9 BEFORE gate_RGR_17",
+      "gate_RGR_9 BEFORE gate_RGR_18",
+      "gate_RGR_9 BEFORE gate_RGR_19",
+      "gate_RGR_9 BEFORE gate_RGR_20",
+      "gate_RGR_10 BEFORE gate_RGR_11",
+      "gate_RGR_10 BEFORE gate_RGR_12",
+      "gate_RGR_10 BEFORE gate_RGR_13",
+      "gate_RGR_10 BEFORE gate_RGR_14",
+      "gate_RGR_10 BEFORE gate_RGR_15",
+      "gate_RGR_10 BEFORE gate_RGR_16",
+      "gate_RGR_10 BEFORE gate_RGR_17",
+      "gate_RGR_10 BEFORE gate_RGR_18",
+      "gate_RGR_10 BEFORE gate_RGR_19",
+      "gate_RGR_10 BEFORE gate_RGR_20",
+      "gate_RGR_11 BEFORE gate_RGR_12",
+      "gate_RGR_11 BEFORE gate_RGR_13",
+      "gate_RGR_11 BEFORE gate_RGR_14",
+      "gate_RGR_11 BEFORE gate_RGR_15",
+      "gate_RGR_11 BEFORE gate_RGR_16",
+      "gate_RGR_11 BEFORE gate_RGR_17",
+      "gate_RGR_11 BEFORE gate_RGR_18",
+      "gate_RGR_11 BEFORE gate_RGR_19",
+      "gate_RGR_11 BEFORE gate_RGR_20",
+      "gate_RGR_12 BEFORE gate_RGR_13",
+      "gate_RGR_12 BEFORE gate_RGR_14",
+      "gate_RGR_12 BEFORE gate_RGR_15",
+      "gate_RGR_12 BEFORE gate_RGR_16",
+      "gate_RGR_12 BEFORE gate_RGR_17",
+      "gate_RGR_12 BEFORE gate_RGR_18",
+      "gate_RGR_12 BEFORE gate_RGR_19",
+      "gate_RGR_12 BEFORE gate_RGR_20",
+      "gate_RGR_13 BEFORE gate_RGR_14",
+      "gate_RGR_13 BEFORE gate_RGR_15",
+      "gate_RGR_13 BEFORE gate_RGR_16",
+      "gate_RGR_13 BEFORE gate_RGR_17",
+      "gate_RGR_13 BEFORE gate_RGR_18",
+      "gate_RGR_13 BEFORE gate_RGR_19",
+      "gate_RGR_13 BEFORE gate_RGR_20",
+      "gate_RGR_14 BEFORE gate_RGR_15",
+      "gate_RGR_14 BEFORE gate_RGR_16",
+      "gate_RGR_14 BEFORE gate_RGR_17",
+      "gate_RGR_14 BEFORE gate_RGR_18",
+      "gate_RGR_14 BEFORE gate_RGR_19",
+      "gate_RGR_14 BEFORE gate_RGR_20",
+      "gate_RGR_15 BEFORE gate_RGR_16",
+      "gate_RGR_15 BEFORE gate_RGR_17",
+      "gate_RGR_15 BEFORE gate_RGR_18",
+      "gate_RGR_15 BEFORE gate_RGR_19",
+      "gate_RGR_15 BEFORE gate_RGR_20",
+      "gate_RGR_16 BEFORE gate_RGR_17",
+      "gate_RGR_16 BEFORE gate_RGR_18",
+      "gate_RGR_16 BEFORE gate_RGR_19",
+      "gate_RGR_16 BEFORE gate_RGR_20",
+      "gate_RGR_17 BEFORE gate_RGR_18",
+      "gate_RGR_17 BEFORE gate_RGR_19",
+      "gate_RGR_17 BEFORE gate_RGR_20",
+      "gate_RGR_18 BEFORE gate_RGR_19",
+      "gate_RGR_18 BEFORE gate_RGR_20",
+      "gate_RGR_19 BEFORE gate_RGR_20",
+      "ALL_FORWARD"]
+  },
+  {
+    "collection": "parts",
+    "type": "backbone",
+    "name": "backbone",
+    "dnasequence": "CCAATTATTGAAGGCCTCCCTAACGGGGGGCCTTTTTTTGTTTCTGGTCTCCC"
+  },
+  {
+    "collection": "parts",
+    "name": "UAS",
+    "type": "regulatory_promoter_element",
+    "dnasequence": "agtttatcattatcaatactcgccatttcaaagaatacgtaaataattaatagtagtgattttcctaactttatttagtcaaaaaattagccttttaattctgctgtaacccgtacatgcccaaaatagggggcgggttacacagaatatataacatcgtaggtgtctgggtgaacagtttattcctggcatccactaaatataatggagcccgctttttaagctggcatccagaaaaaaaaagaatcccagcaccaaaatattgttttcttcaccaaccatcagttcataggtccattctcttagcgcaactacagagaacaggggcacaaacaggcaaaaaacgggcacaacctcaatggagtgatgcaacctgcctggagtaaatgatgacacaaggcaattgacccacgcatgtatctatctcattttcttacaccttctattaccttctgctctctctgatttggaaaaagctgaaaaaaaaggttgaaaccagttccctgaaattattcccctacttgactaataagtaa",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/UAS/1"
+  },
+  {
+    "collection": "parts",
+    "name": "LinkingSequence",
+    "type": "regulatory_promoter_element",
+    "dnasequence": "attcctgcagcccgggtactgtat",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/LinkingSequence/1"
+  },
+  {
+    "collection": "parts",
+    "name": "Codon1",
+    "type": "codon",
+    "dnasequence": "tgg",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/Codon1/1"
+  },
+  {
+    "collection": "parts",
+    "name": "TataBox",
+    "type": "TATA_box",
+    "dnasequence": "catgcatgtgctctgtatgtatataaaactcttgttttcttcttttctctaaatattcttt",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/TataBox/1"
+  },
+  {
+    "collection": "parts",
+    "name": "Codon2",
+    "type": "codon",
+    "dnasequence": "cct",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/Codon2/1"
+  },
+  {
+    "collection": "parts",
+    "name": "tss",
+    "type": "TSS_element",
+    "dnasequence": "gcataaattactatacttctatagacacacaaacacaaatacacacactaatctagatattggattctagaactagtggatctac",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/tss/1"
+  },
+  {
+    "collection": "parts",
+    "name": "Kozak",
+    "type": "kozak_sequence",
+    "dnasequence": "aaa",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/Kozak/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r1",
+    "type": "operator",
+    "dnasequence": "GGAACGTGATTGAATAACTT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r1/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r2",
+    "type": "operator",
+    "dnasequence": "ACCAACGCAAAAAGATTTAG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r2/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r3",
+    "type": "operator",
+    "dnasequence": "CATTGCCATACACCTTGAGG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r3/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r4",
+    "type": "operator",
+    "dnasequence": "GAAAATCACAACTCTACTGA",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r4/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r5",
+    "type": "operator",
+    "dnasequence": "GAAGTCAGTTGACAGAGTCG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r5/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r6",
+    "type": "operator",
+    "dnasequence": "GTGGTAACTTGCTCCATGTC",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r6/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r7",
+    "type": "operator",
+    "dnasequence": "CTTTACGTATAGGTTTAGAG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r7/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r8",
+    "type": "operator",
+    "dnasequence": "CGCATTTCCTATTCAAACTT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r8/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r9",
+    "type": "operator",
+    "dnasequence": "GCAACCCACAAATATCCAGT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r9/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r10",
+    "type": "operator",
+    "dnasequence": "GTGACATAAACATTCGACTC",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r10/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r11",
+    "type": "operator",
+    "dnasequence": "GGGCAAAGAGACGCTTGTCG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r11/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r12",
+    "type": "operator",
+    "dnasequence": "GAAGTCATCGCTTCTTGTCG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r12/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r13",
+    "type": "operator",
+    "dnasequence": "GAGTTGACAAAGTATAACTT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r13/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r14",
+    "type": "operator",
+    "dnasequence": "GAAGTTTCAGAATCTCGACG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r14/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r15",
+    "type": "operator",
+    "dnasequence": "GGCTAGGATCCATCTGACTT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r15/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r16",
+    "type": "operator",
+    "dnasequence": "GCAACCATAGACTCTCCAGG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r16/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r17",
+    "type": "operator",
+    "dnasequence": "ACCACAACTGAGTCGAACCT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r17/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r18",
+    "type": "operator",
+    "dnasequence": "GGGTAGCAACACTCGTACTT",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r18/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r19",
+    "type": "operator",
+    "dnasequence": "GTAAAAGATAACTCTGTTGC",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r19/1"
+  },
+  {
+    "collection": "parts",
+    "name": "r20",
+    "type": "operator",
+    "dnasequence": "TCTACCCGAGACTCAAACGG",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/r20/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_1_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGGAACGTGATTGAATAACTTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_1_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_2_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACACCAACGCAAAAAGATTTAGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_2_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_3_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACCATTGCCATACACCTTGAGGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_3_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_4_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGAAAATCACAACTCTACTGAgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_4_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_5_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGAAGTCAGTTGACAGAGTCGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_5_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_6_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGTGGTAACTTGCTCCATGTCgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_6_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_7_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACCTTTACGTATAGGTTTAGAGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_7_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_8_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACCGCATTTCCTATTCAAACTTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_8_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_9_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGCAACCCACAAATATCCAGTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_9_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_10_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGTGACATAAACATTCGACTCgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_10_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_11_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGGGCAAAGAGACGCTTGTCGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_11_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_12_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGAAGTCATCGCTTCTTGTCGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_12_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_13_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGAGTTGACAAAGTATAACTTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_13_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_14_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGAAGTTTCAGAATCTCGACGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_14_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_15_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGGCTAGGATCCATCTGACTTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_15_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_16_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGCAACCATAGACTCTCCAGGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_16_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_17_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACACCACAACTGAGTCGAACCTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_17_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_18_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGGGTAGCAACACTCGTACTTgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_18_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_19_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACGTAAAAGATAACTCTGTTGCgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_19_grna/1"
+  },
+  {
+    "collection": "parts",
+    "name": "RGR_20_grna",
+    "type": "grna",
+    "dnasequence": "ggattctagaactagtggatctacaaaTTTACACAGTGGGACGGGCCATCATCTATCCCTGAAGAGACGAAGGCTTCGGCCAAGTCGAAACGGAAACGTCGGATAGTCGCCCGTCCCACACTCTACCCGAGACTCAAACGGgttttagagctagaaatagcaagttaaaataaggctagtccgttatcaacttgaaaaagtggcaccgagtcggtgcttttggccggcatggtcccagcctcctcgctggcgccggctgggcaacatgcttcggcatggcgaatgggactgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_20_grna/1"
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_1",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        1897.268153,
+        18137.57831,
+        17514.625340000002,
+        15889.996480000002,
+        15259.130969999998,
+        19586.56132,
+        15249.89105,
+        17031.14661,
+        17851.60743,
+        17078.86022,
+        20705.53245,
+        24124.08508,
+        20378.7565,
+        24630.18591,
+        18870.11458,
+        16900.90508,
+        14960.77358,
+        15172.32539,
+        19596.13434,
+        20680.19275
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_2",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        25447.05314,
+        2145.058156,
+        17386.44876,
+        20858.20441,
+        19158.70629,
+        27032.57196,
+        19132.87286,
+        23346.35089,
+        25974.7617,
+        18118.03702,
+        22433.9685,
+        28149.45354,
+        23782.94593,
+        32540.20269,
+        22633.10637,
+        25859.36833,
+        18875.65472,
+        19698.51997,
+        23906.28421,
+        26120.49165
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_3",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        17033.7985,
+        16135.4605,
+        5017.769156,
+        17324.21997,
+        17052.3364,
+        17952.87163,
+        16475.58923,
+        18274.39086,
+        18465.73687,
+        14973.028069999997,
+        18823.35849,
+        19132.94161,
+        17212.986930000006,
+        20897.93709,
+        18017.75795,
+        18246.75468,
+        16840.2508,
+        14898.83961,
+        17874.26681,
+        16948.63346
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_4",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        23049.45212,
+        20181.02831,
+        20899.60737,
+        4018.676307,
+        17925.44531,
+        24350.89573,
+        17543.14086,
+        20337.78337,
+        22539.57795,
+        18391.18425,
+        22878.19688,
+        25319.25575,
+        21730.20159,
+        26255.06222,
+        23408.55993,
+        21716.22391,
+        19622.27713,
+        17353.14209,
+        19826.3423,
+        23506.22715
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_5",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        22474.7668,
+        19673.67824,
+        18028.52081,
+        19943.10481,
+        1735.085266,
+        23899.144480000006,
+        18902.45868,
+        22314.977130000007,
+        20772.107180000006,
+        22408.36694,
+        23684.46216,
+        27409.133960000006,
+        27423.43527,
+        28935.19735,
+        19359.57315,
+        22347.82869,
+        20878.0508,
+        21904.98268,
+        19509.51505,
+        27094.188810000003
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_6",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        22146.5285,
+        20093.54565,
+        18859.41236,
+        19618.64839,
+        18192.42801,
+        1813.028897,
+        20517.83736,
+        21485.53852,
+        19983.13046,
+        16713.8828,
+        24330.67569,
+        22403.9055,
+        23859.5845,
+        27619.63082,
+        20378.75881,
+        19948.50485,
+        17909.84139,
+        17484.714519999998,
+        16838.60036,
+        25104.35913
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_7",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        21229.60397,
+        18643.87564,
+        18466.85279,
+        18230.15578,
+        17951.84071,
+        21226.81375,
+        1872.578173,
+        16568.93348,
+        18818.44063,
+        16689.99427,
+        20649.06974,
+        19403.65909,
+        22792.92391,
+        24176.11616,
+        18253.14724,
+        18625.48319,
+        20232.67414,
+        15531.623419999998,
+        16686.412,
+        23264.02899
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_8",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        21930.096530000006,
+        21250.86772,
+        17239.90296,
+        19910.8374,
+        20245.05674,
+        23967.08357,
+        16792.80335,
+        3798.808743,
+        19775.41124,
+        17642.6645,
+        21250.57801,
+        22570.328380000006,
+        20658.41566,
+        25569.78124,
+        21260.99128,
+        19398.04865,
+        22153.18815,
+        16785.364569999998,
+        19449.79245,
+        25107.98998
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_9",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        24201.31172,
+        22858.90568,
+        23225.37823,
+        21936.35409,
+        19628.13507,
+        23880.1114,
+        24947.53076,
+        23532.41869,
+        1891.390746,
+        15396.52376,
+        19110.02733,
+        25925.33714,
+        25298.4206,
+        25092.56258,
+        21510.39193,
+        21732.83124,
+        23726.48004,
+        20445.18534,
+        15520.29027,
+        24826.72292
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_10",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        19285.90122,
+        17651.74489,
+        18432.43553,
+        16351.00904,
+        18153.94514,
+        19934.95879,
+        20550.87225,
+        17685.82896,
+        19489.61774,
+        1832.085106,
+        19449.65585,
+        21300.86143,
+        21072.35033,
+        24519.45576,
+        16878.73398,
+        18671.92823,
+        17162.282180000002,
+        15928.92546,
+        16135.30849,
+        23823.40317
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_11",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        19430.9,
+        20260.44059,
+        21548.23388,
+        23418.69609,
+        21774.9524,
+        22050.08533,
+        22899.79309,
+        21711.4096,
+        24900.68239,
+        17273.806630000006,
+        1664.7184115523999,
+        17499.1020408163,
+        17021.8893756846,
+        21940.2201086957,
+        22323.9895013123,
+        24830.2989195678,
+        16593.244161358798,
+        23247.36197,
+        23287.27816,
+        16026.703927492399
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_12",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        19227.28556,
+        18596.84168,
+        22164.69215,
+        19810.27003,
+        18862.43446,
+        20323.75796,
+        20345.04106,
+        18537.5467,
+        17512.32377,
+        14656.84912,
+        22097.198612315697,
+        3140.0881863561,
+        17871.2594987874,
+        22606.354868913906,
+        22069.457408732997,
+        24147.572519084,
+        21838.0254403131,
+        18504.53584,
+        23815.01806,
+        15522.3075539568
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_13",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        13827.113830000002,
+        15468.37121,
+        17270.17341,
+        15033.47659,
+        12423.28553,
+        15359.731000000002,
+        16826.70235,
+        15797.33075,
+        17079.576530000002,
+        14960.35574,
+        22848.5869242199,
+        19364.9984089101,
+        1967.8345132743,
+        23916.8109360519,
+        21395.2337662338,
+        21814.1308016878,
+        17285.2716627635,
+        12256.46224,
+        14332.14512,
+        18699.373655913998
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_14",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        20203.93728,
+        23032.5464,
+        22909.36915,
+        21125.65792,
+        22124.81298,
+        24228.40863,
+        21780.31535,
+        19399.29174,
+        21039.72424,
+        22340.2916,
+        21210.2635494155,
+        19657.975879397,
+        15849.9255874674,
+        2051.5504915103,
+        19393.1438032167,
+        22778.211055276402,
+        16207.4865591398,
+        22879.746,
+        20432.43716,
+        18660.2658959538
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_15",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        17598.3337,
+        20801.36162,
+        20048.09081,
+        18220.05918,
+        19362.61749,
+        19724.76244,
+        20072.34073,
+        27900.49976,
+        16550.58134,
+        21988.46124,
+        22903.132820019302,
+        19052.0609756098,
+        16252.1239669421,
+        22319.026845637596,
+        2233.9438040346,
+        20557.3966386555,
+        16375.8293963255,
+        15055.522530000002,
+        15595.51154,
+        18150.5911949686
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_16",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        24195.36632,
+        28674.32319,
+        23138.39666,
+        21849.40124,
+        20192.65464,
+        26050.95487,
+        24623.8785,
+        21411.44427,
+        19892.33084,
+        22026.18712,
+        22815.2369098712,
+        18952.5393883225,
+        17669.0142959257,
+        22597.5919583023,
+        20581.9938380282,
+        1734.5833333332998,
+        13842.951704545501,
+        20202.59328,
+        20163.17536,
+        16292.575342465801
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_17",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        17548.65323,
+        15613.86172,
+        17984.48314,
+        14237.27321,
+        15000.244969999998,
+        16451.82415,
+        17396.564440000002,
+        14397.4615,
+        18089.01207,
+        16550.195040000002,
+        22746.1396070321,
+        17587.2216216216,
+        17357.9420174742,
+        21292.941730934,
+        20917.5370018975,
+        23439.807106599,
+        2037.056379822,
+        13588.59709,
+        15042.103030000002,
+        19059.3604651163
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_18",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        21999.39535,
+        20069.12133,
+        19044.8621,
+        18680.30424,
+        17713.98935,
+        17657.5441,
+        18720.8138,
+        17122.3878,
+        19136.51362,
+        18131.40541,
+        19279.57254,
+        24522.88542,
+        21223.77341,
+        16635.9505,
+        19453.58516,
+        17326.95981,
+        20656.95385,
+        2237.472678,
+        18365.82549,
+        20003.96075
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_19",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        16005.90909,
+        20031.13173,
+        17156.467969999998,
+        19404.89249,
+        18140.36231,
+        23221.53571,
+        19211.57734,
+        21021.08032,
+        19215.09512,
+        18356.2687,
+        14505.02736,
+        18404.29563,
+        20063.65815,
+        18647.94366,
+        18589.64608,
+        18991.86047,
+        18312.26404,
+        19826.85026,
+        9933.092133,
+        17819.89124
+      ]
+    }
+  },
+  {
+    "collection": "gate_orthogonality",
+    "gate_name": "RGR_20",
+    "maps_to_variable": "x",
+    "crosstalk_data": {
+      "inputs": [
+        "RGR_1",
+        "RGR_2",
+        "RGR_3",
+        "RGR_4",
+        "RGR_5",
+        "RGR_6",
+        "RGR_7",
+        "RGR_8",
+        "RGR_9",
+        "RGR_10",
+        "RGR_11",
+        "RGR_12",
+        "RGR_13",
+        "RGR_14",
+        "RGR_15",
+        "RGR_16",
+        "RGR_17",
+        "RGR_18",
+        "RGR_19",
+        "RGR_20"
+      ],
+      "outputs": [
+        23182.54414,
+        25385.64226,
+        25082.12447,
+        25024.3317,
+        23612.83516,
+        24178.65345,
+        23107.22757,
+        24070.72825,
+        26362.33086,
+        26055.650530000006,
+        24575.6923670008,
+        19614.00795053,
+        17481.6542222222,
+        22391.407310705,
+        21304.9598308668,
+        23049.941176470602,
+        15519.818696883898,
+        22659.7265,
+        19913.61059,
+        2288.0
+      ]
+    }
+  }
+]

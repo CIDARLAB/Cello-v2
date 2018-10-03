@@ -9,7 +9,7 @@
             "name": "partitioning"
         },
         {
-            "algorithm_name": "SimulatedAnnealing",
+            "algorithm_name": "RandomYeast",
             "name": "technologyMapping"
         },
         {

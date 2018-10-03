@@ -28,6 +28,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.placing.placement.Placement;
+import org.cellocad.cello2.results.placing.placement.Placements;
 
 /**
  * 
@@ -51,13 +52,23 @@ public class Plasmids {
 	 */
 	public Plasmids(final Netlist netlist, final Boolean Up, final Boolean Down, final CObjectCollection<Part> parts) {
 		init();
-		NetlistNode first = netlist.getVertexAtIdx(0);
-		Integer num = first.getResultNetlistNodeData().getPlacements().getNumPlacements();
+		Integer num = 0;
+		for (int i = 0; i < netlist.getNumVertex(); i++) {
+			NetlistNode node = netlist.getVertexAtIdx(i);
+			num = node.getResultNetlistNodeData().getPlacements().getNumPlacements();
+			if (num > 0) {
+				break;
+			}
+		}
 		for (int i = 0; i < num; i++) {
 			Plasmid plasmid = new Plasmid(Up, Down);
 			for (int j = 0; j < netlist.getNumVertex(); j++) {
 				NetlistNode node = netlist.getVertexAtIdx(j);
-				Placement placement = node.getResultNetlistNodeData().getPlacements().getPlacementAtIdx(i);
+				Placements placements = node.getResultNetlistNodeData().getPlacements();
+				if (placements.getNumPlacements() <= i) {
+					continue;
+				}
+				Placement placement = placements.getPlacementAtIdx(i);
 				TranscriptionalUnit unit = new TranscriptionalUnit(placement,Up,Down,parts);
 				unit.setDirection(placement.getDirection());
 				unit.setIdx(placement.getIdx());

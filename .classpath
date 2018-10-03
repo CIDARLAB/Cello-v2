@@ -6,8 +6,6 @@
 	<classpathentry kind="src" path="src/data"/>
 	<classpathentry kind="src" path="src/constraint"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PorosCompilerlib"/>
-	<classpathentry kind="output" path="bin/"/>
 	<classpathentry kind="src" path="src/DNACompiler"/>
 	<classpathentry kind="src" path="src/logicSynthesis"/>
 	<classpathentry kind="src" path="src/partitioning"/>
@@ -16,4 +14,7 @@
 	<classpathentry kind="src" path="src/logicOptimization"/>
 	<classpathentry kind="src" path="src/clustering"/>
 	<classpathentry kind="src" path="src/export"/>
+	<classpathentry kind="lib" path="/home/tsj/postdoc/src/Cello2/src/resources-export/algorithms/SBOL/virtualparts-data-2.0.14-SNAPSHOT.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PorosCompilerlib"/>
+	<classpathentry kind="output" path="bin/"/>
 </classpath>

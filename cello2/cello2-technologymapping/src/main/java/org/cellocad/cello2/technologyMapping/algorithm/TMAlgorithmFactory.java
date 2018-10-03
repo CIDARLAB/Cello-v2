@@ -22,6 +22,8 @@ package org.cellocad.cello2.technologyMapping.algorithm;
 
 import org.cellocad.cello2.common.algorithm.AlgorithmFactory;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.Cello_JY_TP;
+import org.cellocad.cello2.technologyMapping.algorithm.MinCrosstalkYeast.MinCrosstalkYeast;
+import org.cellocad.cello2.technologyMapping.algorithm.RandomYeast.RandomYeast;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealing;
 
 /**
@@ -43,6 +45,12 @@ public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm>{
 	@Override
 	protected TMAlgorithm getAlgorithm(final String name) {
 		TMAlgorithm rtn = null;
+		if (name.equals("MinCrosstalkYeast")){
+			rtn = new MinCrosstalkYeast();
+		}
+		if (name.equals("RandomYeast")){
+			rtn = new RandomYeast();
+		}
 		if (name.equals("Cello_JY_TP")){
 			rtn = new Cello_JY_TP();
 		}

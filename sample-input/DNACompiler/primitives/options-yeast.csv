@@ -1,0 +1,5 @@
+logicSynthesis.Gates,"NOR"
+technologyMapping,RandomYeast
+export.RepositoryUrl,"https://synbiohub.programmingbiology.org"
+export.CollectionUri,"https://synbiohub.programmingbiology.org/public/UWYeast1/UWYeast1_collection/1"
+export.AddInteractions,false

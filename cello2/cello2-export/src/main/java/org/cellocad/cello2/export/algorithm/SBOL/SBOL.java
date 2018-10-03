@@ -20,13 +20,18 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL;
 
+import java.io.Console;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -51,10 +56,7 @@ import org.sbolstandard.core2.AccessType;
 import org.sbolstandard.core2.Component;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.DirectionType;
-import org.sbolstandard.core2.FunctionalComponent;
-import org.sbolstandard.core2.Module;
 import org.sbolstandard.core2.ModuleDefinition;
-import org.sbolstandard.core2.RefinementType;
 import org.sbolstandard.core2.RestrictionType;
 import org.sbolstandard.core2.SBOLConversionException;
 import org.sbolstandard.core2.SBOLDocument;
@@ -63,6 +65,9 @@ import org.sbolstandard.core2.SBOLWriter;
 import org.sbolstandard.core2.Sequence;
 import org.sbolstandard.core2.SequenceAnnotation;
 import org.sbolstandard.core2.SequenceOntology;
+import org.synbiohub.frontend.IdentifiedMetadata;
+import org.synbiohub.frontend.SearchCriteria;
+import org.synbiohub.frontend.SearchQuery;
 import org.synbiohub.frontend.SynBioHubException;
 import org.synbiohub.frontend.SynBioHubFrontend;
 import org.virtualparts.VPRException;
@@ -248,13 +253,88 @@ public class SBOL extends EXAlgorithm{
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			TranscriptionalUnit unit = plasmid.getTranscriptionalUnit(node);
+			if (unit == null) {
+				continue;
+			}
 			for (int j = 0; j < unit.getNumParts(); j++) {
 				Part part = unit.getPartAtIdx(j);
 				this.addPartDefinition(part, document);
 			}
 		}
 	}
+
+	protected ComponentDefinition addPromoterDefinition(SBOLDocument document, TranscriptionalUnit unit) throws SBOLValidationException {
+		// parts
+		String sequence = "";
+
+		String operatorA = unit.getPartAtIdx(2).getName();
+		String operatorB = unit.getPartAtIdx(6).getName();
+		
+		// promoter
+		String name = "Pro_" + operatorA + "_" + operatorB;
+		ComponentDefinition cd = document.createComponentDefinition(name,ComponentDefinition.DNA);
+		cd.addRole(SequenceOntology.PROMOTER);
+		for (int j = 0; j < unit.getNumParts() - 1; j++) {
+			Part part = unit.getPartAtIdx(j);
+			
+			// Component
+			Component c = cd.createComponent(part.getName() + "_component", AccessType.PUBLIC, URI.create(part.getUri()));
+				
+			// SequenceAnnotation
+			SequenceAnnotation sa =
+				cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(j),
+											"SequenceAnnotation" + String.valueOf(j) + "_Range",
+											sequence.length() + 1,
+											sequence.length() + 1 + part.getDNASequence().length());
+			sa.setComponent(c.getIdentity());
+			sequence += part.getDNASequence();
+				
+			// SequenceConstraint
+			if (j != 0) {
+				cd.createSequenceConstraint(cd.getDisplayId() + "_Constraint" + String.valueOf(j),
+											RestrictionType.PRECEDES,
+											cd.getComponent(unit.getPartAtIdx(j-1).getName() + "_component").getIdentity(),
+											cd.getComponent(part.getName() + "_component").getIdentity());
+			}
+		}
+
+		// Sequence
+		Sequence s = document.createSequence(cd.getDisplayId() + "_sequence",sequence,Sequence.IUPAC_DNA);
+		cd.addSequence(s);
+
+		return cd;
+	}
 	
+	protected ComponentDefinition addCdsDefinition(SBOLDocument document, TranscriptionalUnit unit) throws SBOLValidationException {
+		// parts
+		String sequence = "";
+		
+		String operatorA = unit.getPartAtIdx(2).getName();
+		String operatorB = unit.getPartAtIdx(6).getName();
+		String name = operatorA + "_" + operatorB + "_" + unit.getName();
+		ComponentDefinition cd = document.createComponentDefinition(operatorA + "_" + operatorB + "_" + unit.getName(),ComponentDefinition.DNA);
+		cd.addRole(SequenceOntology.ENGINEERED_REGION);
+
+		Part part = unit.getPartAtIdx(unit.getNumParts()-1);
+				
+			// Component
+		Component c = null;
+		c = cd.createComponent(part.getName() + "_component", AccessType.PUBLIC, URI.create(part.getUri()));
+				
+		// SequenceAnnotation
+		SequenceAnnotation sa = cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(0),
+															"SequenceAnnotation" + String.valueOf(0) + "_Range",
+															sequence.length() + 1,
+															sequence.length() + 1 + part.getDNASequence().length());
+		sa.setComponent(c.getIdentity());
+		sequence += part.getDNASequence();
+			
+		Sequence s = document.createSequence(cd.getDisplayId() + "_sequence",sequence,Sequence.IUPAC_DNA);
+		cd.addSequence(s);
+			
+		return cd;
+	}
+
 	/**
 	 * Add transcriptional unit component definitions to an SBOLDocument.
 	 * @param document the SBOLDocument
@@ -269,37 +349,53 @@ public class SBOL extends EXAlgorithm{
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			String gateType = node.getResultNetlistNodeData().getGateType();
+			if (gateType.equals("")) {
+				continue;
+			}
+			TranscriptionalUnit unit = plasmid.getTranscriptionalUnit(node);
 			
 			// ComponentDefinition
 			ComponentDefinition cd = document.createComponentDefinition(name + "_" + gateType,ComponentDefinition.DNA);
 			cd.addRole(SequenceOntology.ENGINEERED_REGION);
-			
-			// parts
-			TranscriptionalUnit unit = plasmid.getTranscriptionalUnit(node);
+
+			// promoter
+			ComponentDefinition promoter = this.addPromoterDefinition(document,unit);
+
+			// coding sequence
+			ComponentDefinition cds = this.addCdsDefinition(document,unit);
+
+			Component c = null;
+			SequenceAnnotation sa = null;
 			String sequence = "";
-			for (int j = 0; j < unit.getNumParts(); j++) {
-				Part part = unit.getPartAtIdx(j);
-				
-				// Component
-				Component c = cd.createComponent(part.getName() + "_component", AccessType.PUBLIC, URI.create(part.getUri()));
-				
-				// SequenceAnnotation
-				SequenceAnnotation sa =
-						cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(j),
-								"SequenceAnnotation" + String.valueOf(j) + "_Range",
-								sequence.length() + 1,
-								sequence.length() + 1 + part.getDNASequence().length());
-				sa.setComponent(c.getIdentity());
-				sequence += part.getDNASequence();
-				
-				// SequenceConstraint
-				if (j != 0) {
-					cd.createSequenceConstraint(cd.getDisplayId() + "Constraint" + String.valueOf(j),
-							RestrictionType.PRECEDES,
-							cd.getComponent(unit.getPartAtIdx(j-1).getName() + "_component").getIdentity(),
-							cd.getComponent(part.getName() + "_component").getIdentity());
-				}
-			}
+			String temp = null;
+			
+			/*
+			 * transcriptional unit
+			 */
+			// promoter
+			temp = promoter.getSequences().iterator().next().getElements();
+			Component pc = cd.createComponent(promoter.getDisplayId() + "_component", AccessType.PUBLIC, promoter.getIdentity());
+			sa = cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(0),
+											 "SequenceAnnotation" + String.valueOf(0) + "_Range",
+											 sequence.length() + 1,
+											 sequence.length() + 1 + temp.length());
+			sa.setComponent(pc.getIdentity());
+			sequence += temp;
+
+			// cds
+			temp = cds.getSequences().iterator().next().getElements();
+			Component cc = cd.createComponent(cds.getDisplayId() + "_component", AccessType.PUBLIC, cds.getIdentity());
+			sa = cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(1),
+											 "SequenceAnnotation" + String.valueOf(1) + "_Range",
+											 sequence.length() + 1,
+											 sequence.length() + 1 + temp.length());
+			sa.setComponent(cc.getIdentity());
+			sequence += temp;
+
+			cd.createSequenceConstraint(cd.getDisplayId() + "_Constraint" + String.valueOf(0),
+										RestrictionType.PRECEDES,
+										pc.getIdentity(),
+										cc.getIdentity());
 			
 			// Sequence
 			Sequence s = document.createSequence(cd.getDisplayId() + "_sequence",sequence,Sequence.IUPAC_DNA);
@@ -413,53 +509,111 @@ public class SBOL extends EXAlgorithm{
 			cd.addSequence(s);
 		}
 	}
-	
+
 	/**
-	 * Add ModuleDefinitions for the plasmids.
+	 * Add ModuleDefinitions for the designs.
 	 * @param document
 	 * @throws SBOLValidationException
 	 */
-	protected void addPlasmidModules(SBOLDocument document) throws SBOLValidationException {
-		Plasmid first = this.getPlasmids().getPlasmidAtIdx(0);
-		ModuleDefinition vpr = document.getModuleDefinition(this.getDesignName(), "");
-		for (int j = 0; j < this.getPlasmids().getPlasmidAtIdx(0).getNumTranscriptionalUnits(); j++) {
-			TranscriptionalUnit unit = this.getPlasmids().getPlasmidAtIdx(0).getTranscriptionalUnitAtIdx(j);
-			ComponentDefinition txnCD = document.getComponentDefinition(unit.getName(), "");
-			vpr.createFunctionalComponent(unit.getName(), AccessType.PUBLIC, txnCD.getIdentity(), DirectionType.NONE);
-		}
+	protected void addDesignModules(SBOLDocument document) throws SBOLValidationException {
+		ModuleDefinition designMD = document.createModuleDefinition("design_module_" + String.valueOf(0));
 		
-		for (int i = 0; i < this.getPlasmids().getNumPlasmids(); i++) {
-			Plasmid plasmid = this.getPlasmids().getPlasmidAtIdx(i);
-			ModuleDefinition plasmidMD = document.createModuleDefinition("design_module_" + String.valueOf(i));
+		Plasmid plasmid = this.getPlasmids().getPlasmidAtIdx(0);
+
+		for (int i = 0; i < plasmid.getNumTranscriptionalUnits(); i++) {
+			ComponentDefinition cd = document.createComponentDefinition("plasmid_" + String.valueOf(i), ComponentDefinition.DNA);
+
+			plasmid.setUri(cd.getIdentity());
+			cd.addRole(SequenceOntology.ENGINEERED_REGION);
+			cd.addType(SequenceOntology.CIRCULAR);
+
+			String sequence = "";
+
+			// backbone
+			Part backbone = this.getParts().findCObjectByName("backbone");
+			Component bbComponent = cd.createComponent("backbone_component", AccessType.PUBLIC, "backbone");
+			SequenceAnnotation bbAnnotation = cd.createSequenceAnnotation("SequenceAnnotation_backbone",
+					"SequenceAnnotation_backbone_Range",
+					sequence.length() + 1,
+					sequence.length() + 1 + backbone.getDNASequence().length());
+			bbAnnotation.setComponent(bbComponent.getIdentity());
+			sequence += backbone.getDNASequence();
+
+			TranscriptionalUnit unit = plasmid.getTranscriptionalUnitAtIdx(i);
+			String name = unit.getName();
+			// Component
+			Component c = cd.createComponent(name + "_component", AccessType.PUBLIC, name);
 			
-			String name = "plasmid_" + String.valueOf(i);
-			// plasmid FC
-			FunctionalComponent fc = plasmidMD.createFunctionalComponent(name, AccessType.PUBLIC, name, DirectionType.NONE);
+			// SequenceAnnotation
+			SequenceAnnotation sa = null;
+			sa =
+				cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(0),
+											"SequenceAnnotation" + String.valueOf(0) + "_Range",
+											sequence.length() + 1,
+											sequence.length() + 1 + unit.getDNASequence().length());
+
+			cd.createSequenceConstraint(cd.getDisplayId() + "Constraint" + String.valueOf(0),
+							RestrictionType.PRECEDES,
+							cd.getComponent(backbone.getName() + "_component").getIdentity(),
+							cd.getComponent(unit.getName() + "_component").getIdentity());
 			
-			// vpr Module
-			Module topMod = plasmidMD.createModule("circuit_design", vpr.getIdentity());
+			sa.setComponent(c.getIdentity());
+			sequence += unit.getDNASequence();
 			
-			for (int j = 0; j < this.getPlasmids().getPlasmidAtIdx(0).getNumTranscriptionalUnits(); j++) {
-				TranscriptionalUnit unit = plasmid.getTranscriptionalUnitAtIdx(j);
+			// Sequence
+			Sequence s = document.createSequence(cd.getDisplayId() + "_sequence",sequence,Sequence.IUPAC_DNA);
+			cd.addSequence(s);
 
-				ComponentDefinition txnCD = document.getComponentDefinition(unit.getName(), "");
-				FunctionalComponent vprTxnFC = vpr.getFunctionalComponent(unit.getName());
-
-				//Module vprTxnMod = vpr.getModule(this.getDesignName() + "_" + unit.getName() + "_module_sub");
-				//FunctionalComponent remote = vprTxnMod.getDefinition().getFunctionalComponent(unit.getName());
-				//vprTxnMod.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, vprTxnFC.getIdentity(), remote.getIdentity());
-
-				FunctionalComponent local = plasmidMD.createFunctionalComponent(unit.getName() + "_pm", AccessType.PUBLIC, unit.getName(), DirectionType.NONE);
-
-				// Plasmid FC
-				Component plasmidRemote = document.getComponentDefinition(first.getUri()).getComponent(unit.getName() + "_component");
-				fc.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, local.getIdentity(), plasmidRemote.getIdentity());
-
-				// Top MD
-				topMod.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, local.getIdentity(), vprTxnFC.getIdentity());
-			}
+			designMD.createFunctionalComponent("plasmid_" + String.valueOf(i), AccessType.PUBLIC, cd.getIdentity(), DirectionType.NONE);
 		}
 	}
+	
+	// /**
+	//  * Add ModuleDefinitions for the designs.
+	//  * @param document
+	//  * @throws SBOLValidationException
+	//  */
+	// protected void addDesignModules(SBOLDocument document) throws SBOLValidationException {
+	// 	Plasmid first = this.getPlasmids().getPlasmidAtIdx(0);
+	// 	ModuleDefinition vpr = document.getModuleDefinition(this.getDesignName(), "");
+	// 	for (int j = 0; j < this.getPlasmids().getPlasmidAtIdx(0).getNumTranscriptionalUnits(); j++) {
+	// 		TranscriptionalUnit unit = this.getPlasmids().getPlasmidAtIdx(0).getTranscriptionalUnitAtIdx(j);
+	// 		ComponentDefinition txnCD = document.getComponentDefinition(unit.getName(), "");
+	// 		vpr.createFunctionalComponent(unit.getName(), AccessType.PUBLIC, txnCD.getIdentity(), DirectionType.NONE);
+	// 	}
+		
+	// 	for (int i = 0; i < this.getPlasmids().getNumPlasmids(); i++) {
+	// 		Plasmid plasmid = this.getPlasmids().getPlasmidAtIdx(i);
+	// 		ModuleDefinition plasmidMD = document.createModuleDefinition("design_module_" + String.valueOf(i));
+			
+	// 		String name = "plasmid_" + String.valueOf(i);
+	// 		// plasmid FC
+	// 		FunctionalComponent fc = plasmidMD.createFunctionalComponent(name, AccessType.PUBLIC, name, DirectionType.NONE);
+			
+	// 		// vpr Module
+	// 		Module topMod = plasmidMD.createModule("circuit_design", vpr.getIdentity());
+			
+	// 		for (int j = 0; j < this.getPlasmids().getPlasmidAtIdx(0).getNumTranscriptionalUnits(); j++) {
+	// 			TranscriptionalUnit unit = plasmid.getTranscriptionalUnitAtIdx(j);
+
+	// 			ComponentDefinition txnCD = document.getComponentDefinition(unit.getName(), "");
+	// 			FunctionalComponent vprTxnFC = vpr.getFunctionalComponent(unit.getName());
+
+	// 			//Module vprTxnMod = vpr.getModule(this.getDesignName() + "_" + unit.getName() + "_module_sub");
+	// 			//FunctionalComponent remote = vprTxnMod.getDefinition().getFunctionalComponent(unit.getName());
+	// 			//vprTxnMod.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, vprTxnFC.getIdentity(), remote.getIdentity());
+
+	// 			FunctionalComponent local = plasmidMD.createFunctionalComponent(unit.getName() + "_pm", AccessType.PUBLIC, unit.getName(), DirectionType.NONE);
+
+	// 			// Plasmid FC
+	// 			Component plasmidRemote = document.getComponentDefinition(first.getUri()).getComponent(unit.getName() + "_component");
+	// 			fc.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, local.getIdentity(), plasmidRemote.getIdentity());
+
+	// 			// Top MD
+	// 			topMod.createMapsTo(unit.getName(), RefinementType.VERIFYIDENTICAL, local.getIdentity(), vprTxnFC.getIdentity());
+	// 		}
+	// 	}
+	// }
 	
 	/**
 	 *  Run the (core) algorithm
@@ -492,20 +646,21 @@ public class SBOL extends EXAlgorithm{
 		logInfo("adding plasmids");
 		try {
 			addBackboneDefinition(this.getSbolDocument());
-			addPlasmidDefinitions(this.getSbolDocument());
+			addDesignModules(this.getSbolDocument());
+			// addPlasmidDefinitions(this.getSbolDocument());
 		} catch (SBOLValidationException | SynBioHubException e) {
 			e.printStackTrace();		
 		}
 		
-		// plasmid module
-		if (this.getAddInteractions()) {
-			logInfo("adding modules");
-			try {
-				addPlasmidModules(this.getSbolDocument());
-			} catch (SBOLValidationException e) {
-				e.printStackTrace();
-			}
-		}
+		// // design module
+		// if (this.getAddInteractions()) {
+		// 	logInfo("adding modules");
+		// 	try {
+		// 		addDesignModules(this.getSbolDocument());
+		// 	} catch (SBOLValidationException e) {
+		// 		e.printStackTrace();
+		// 	}
+		// }
 
 	}
 
@@ -520,6 +675,175 @@ public class SBOL extends EXAlgorithm{
 			SBOLWriter.write(this.getSbolDocument(),getSbolFilename());
 		} catch (SBOLConversionException | IOException e) {
 			e.printStackTrace();
+		}
+
+		Console console = System.console();		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("=== SynBioHub Upload ===");
+		System.out.println("");
+		System.out.println("Do you want to upload the SBOL representation to SynBioHub [Y/n]?");
+		String response = "";
+		Scanner uin = new Scanner(System.in);
+		response = uin.nextLine();
+		if (response.equalsIgnoreCase("n")) {
+			return;
+		}
+		String url = "";
+		if (this.getRepositoryUrl().length() != 0) {
+			System.out.println("");
+			System.out.println("The repository URL supplied in the stage configuration is:");
+			System.out.println(this.getRepositoryUrl());
+			System.out.println("");
+			System.out.println("Is this where you would like to submit the SBOL document [Y/n]?");
+		}
+		response = uin.nextLine();
+		if (this.getRepositoryUrl().length() == 0 || response.equalsIgnoreCase("n")) {
+			while (url.equals("")) {
+				System.out.println("Please enter a URL.");
+				response = uin.nextLine();
+				try {
+					new URL(response);
+				} catch (MalformedURLException e) {
+					System.out.println("");
+					System.out.println("Invalid URL.");
+					continue;
+				}
+				url = response;
+			}
+		} else {
+			url = this.getRepositoryUrl();
+		}
+		SynBioHubFrontend sbh = new SynBioHubFrontend(url);
+		System.out.println("Login.");
+		String username = "";
+		String password = "";
+
+		while (username.length() == 0) {
+			username = new String(console.readLine("email: "));
+		}
+		while (password.length() == 0) {
+			password = new String(console.readPassword("password: "));
+		}
+		System.out.println("");
+		try {
+			sbh.login(username,password);
+		} catch (SynBioHubException e) {
+			System.out.println("Login error.");
+			e.printStackTrace();
+			return;
+		}
+
+		System.out.println("Upload to Existing collection or add to New collection [E/n]?");
+		response = uin.nextLine();
+		System.out.println("");
+		if (response.equalsIgnoreCase("n")) {
+			// id
+			String id = "";
+			while (id.length() == 0) {
+				id = new String(console.readLine("id: "));
+			}
+			// version
+			String version = "";
+			while (version.length() == 0) {
+				version = new String(console.readLine("version: "));
+			}
+			// name
+			String name = "";
+			while (name.length() == 0) {
+				name = new String(console.readLine("name: "));
+			}
+			// description
+			String description = "";
+			while (description.length() == 0) {
+				description = new String(console.readLine("description: "));
+			}
+			// citations
+			String citations = "";
+			citations = new String(console.readLine("citations (optional): "));
+			// overwrite
+			boolean overwrite = true;
+			response = new String(console.readLine("overwrite [T/f]: "));
+			if (response.equalsIgnoreCase("t")) {
+				overwrite = true;
+			}
+			else if (response.equalsIgnoreCase("f")) {
+				overwrite = false;
+			}
+			else {
+				overwrite = true;
+			}
+			try {
+				//sbh.createCollection(id,version,name,description,"",true,this.getSbolDocument());
+				sbh.createCollection(id,version,name,description,citations,overwrite,this.getSbolDocument());
+			} catch (SynBioHubException e) {
+				System.out.println("Error with collection creation. Terminating.");
+				e.printStackTrace();
+				return;
+			}
+			System.out.println("");
+			System.out.println("Submitted. Bye.");
+		} else {
+			SearchQuery query = new SearchQuery();
+			SearchCriteria crit = new SearchCriteria();
+			crit.setKey("objectType");
+			crit.setValue("Collection");
+			query.addCriteria(crit);
+			query.setLimit(10000);
+			query.setOffset(0);
+			List<IdentifiedMetadata> collections = null;
+			try {
+				collections = sbh.search(query);
+			} catch (SynBioHubException e) {
+				System.out.println("Error in collection search. Terminating.");
+				return;
+			}
+			Map<Integer,IdentifiedMetadata> map = new HashMap<>();
+			System.out.println("Available collections:");
+			int i = 1;
+			for (IdentifiedMetadata im : collections) {
+				// don't add collections that have "/public" in the URI.
+				if (!im.getUri().contains("/public/")) {
+					map.put(i,im);
+					String str = "";
+					str += String.format("%-6s","[" + String.valueOf(i) + "]");
+					str += im.getName() + "/" + im.getVersion();
+					System.out.println(str);
+					i++;
+				}
+			}
+			String choice = "";
+			Integer num = -1;
+			while (num < 1 || num > map.keySet().size()) {
+				choice = new String(console.readLine("choice: "));
+				try {
+					num = Integer.valueOf(choice);
+				} catch (NumberFormatException e) {
+					continue;
+				}
+			}
+			// overwrite
+			boolean overwrite = true;
+			response = new String(console.readLine("overwrite [T/f]: "));
+			if (response.equalsIgnoreCase("t")) {
+				overwrite = true;
+			}
+			else if (response.equalsIgnoreCase("f")) {
+				overwrite = false;
+			}
+			else {
+				overwrite = true;
+			}
+			try {
+				sbh.addToCollection(URI.create(map.get(num).getUri()),overwrite,this.getSbolDocument());
+			} catch (SynBioHubException e) {
+				System.out.println("Error with submission. Terminating.");
+				e.printStackTrace();
+				return;
+			}
+			System.out.println("");
+			System.out.println("Submitted. Bye.");
 		}
 	}
 	
