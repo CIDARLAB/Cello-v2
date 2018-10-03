@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="Cello">
+	<taskdef resource="net${file.separator}sf${file.separator}antcontrib${file.separator}antlib.xml" classpath="external_jars${file.separator}ant-contrib.jar"/>
+	<!-- Build -->
+    <property environment="env"/>
+	<property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+	<property name="source.dir" value="src"/>
+	<property name="build.dir" value="bin"/>
+	<property name="jar.dir" value="${build.dir}${file.separator}jar"/>
+	<property name="tools.dir" value="tools"/>
+	<property name="exec.dir" value="exec"/>
+	<property name="exec.dir.absolute.path" value="${basedir}${file.separator}${exec.dir}"/>
+	<property name="external-jars.dir" value="external_jars"/>
+	<property name="main-class" value="runtime.Main"/>
+	<property name="lib.dir" value="lib${file.separator}"/>
+	<property name="api.dir" value="Documentation${file.separator}api"/>
+	<!-- classpath -->
+    <path id="external_jars">
+		<fileset dir="external_jars${file.separator}">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+    <path id="source.dir_jars">
+		<fileset dir="${source.dir}${file.separator}">
+			<include name="**/*.jar"/>
+		</fileset>
+    </path>
+    <path id="Poros.classpath">
+        <pathelement location="${source.dir}"/>
+        <pathelement location="${build.dir}"/>
+        <pathelement path="${classpath}"/>
+        <path refid="external_jars"/>
+        <path refid="source.dir_jars"/>
+    </path>
+	<!-- Init -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    	<copy todir="${build.dir}/">
+            <fileset dir="${source.dir}/">
+                <exclude name="**${file.separator}*.launch"/>
+                <exclude name="**${file.separator}*.java"/>
+            </fileset>
+        </copy>
+    	<!-- make executable -->
+		<make_executable dir="${build.dir}"/>
+    </target>
+	<!-- Clean -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${exec.dir}"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+	<!-- Build -->
+    <target depends="build-subprojects,build-project,initExecDir,build-jars,copy-external-jars" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${build.dir}" includeantruntime="false" source="${source}" target="${target}">
+        	<src path="${source.dir}"/>
+        	<classpath refid="Poros.classpath"/>
+        </javac>
+    </target>
+	<!-- Init Exec Directory -->
+    <target name="initExecDir">
+    	<echo>"Creating directory: ${exec.dir}"</echo>
+		<mkdir dir="${exec.dir}"/>
+		<!-- copy run.py for exec -->
+		<copy todir="${exec.dir}" file="${tools.dir}${file.separator}run.py"/>
+		<chmod perm="u+rx" type="file" file="${exec.dir}${file.separator}run.py"/>
+		<!-- copy resources for exec -->
+    	<copy todir="${exec.dir}/resources" >  
+	        <fileset dir="${source.dir}/resources"/>
+   		</copy>
+    </target>
+	<!-- make executable -->
+	<macrodef name="make_executable">
+		<attribute name="dir"/>
+		<sequential>
+			<chmod perm="u+rx" type="file">
+				<fileset dir="@{dir}">
+					<include name="**/resources-*/executable/**"/>
+				</fileset>
+			</chmod>
+		</sequential>
+	</macrodef>
+	<!-- copy external_jars -->
+	<macrodef name="copy_external_jars">
+		<sequential>
+			<mkdir dir="${jar.dir}/lib"/>
+			<copy todir="${jar.dir}/lib">
+				<fileset dir="${external-jars.dir}" excludes="ant-contrib.jar"/>
+			</copy>
+		</sequential>
+	</macrodef>
+	<!-- copy resources -->
+	<macrodef name="copy_resources">
+		<attribute name="name"/>
+		<sequential>
+			<mkdir dir="${exec.dir}/resources-@{name}"/>
+			<copy todir="${exec.dir}/resources-@{name}">
+				<fileset dir="${source.dir}${file.separator}/resources-@{name}"/>
+			</copy>
+		</sequential>
+	</macrodef>
+	<!-- Javadoc -->
+	<macrodef name="build_javadoc">
+		<attribute name="name"/>
+		<sequential>
+			<!-- build javadoc -->
+			<javadoc packagenames="@{name}.*"
+				defaultexcludes="yes"
+				destdir="${api.dir}${file.separator}@{name}"
+				author="true"
+				version="true"
+				use="true"
+				windowtitle="Cello API">
+			<sourcepath>
+				<path location="${external-jars.dir}"/>
+				<path location="${source.dir}${file.separator}@{name}"/>
+				<path location="${source.dir}${file.separator}common"/>
+				<path location="${source.dir}${file.separator}results"/>
+				<path location="${source.dir}${file.separator}data"/>
+				<path location="${source.dir}${file.separator}constraint"/>
+			</sourcepath>
+			<classpath>
+				<path refid="Poros.classpath"/>
+			</classpath>
+			<doctitle><![CDATA[<h1>Cello</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2018 Massachusetts Institute of Technology (MIT). All Rights Reserved.</i>]]></bottom>
+			<tag name="todo" scope="all" description="To do:"/>
+			<tag name="date" scope="all" description="Date:"/>
+			<group title="@{name}" packages="*"/>
+			</javadoc>
+		</sequential>
+	</macrodef>
+	<!-- Build-Common-Jar Macro -->
+	<macrodef name="build_common_jar">
+		<attribute name="name"/>
+		<sequential>
+			<!-- make jar directory -->
+	        <mkdir dir="${jar.dir}"/>
+			<!-- copy files for jar -->
+			<copy todir="${jar.dir}${file.separator}@{name}">
+				<fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/>
+			</copy>
+			<!-- copy resources for jar -->
+			<copy_resources name="@{name}"/>
+			<!-- copy logger property -->
+			<copy file="${source.dir}/log4j2.xml" todir="${jar.dir}"/>
+	    	<!-- make executable -->
+			<make_executable dir="${exec.dir}"/>
+			<!-- make jar -->
+			<jar jarfile="${exec.dir}${file.separator}@{name}.jar" basedir="${jar.dir}">
+				<!-- <fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/> -->
+			</jar>
+	        <delete dir="${jar.dir}"/>
+		</sequential>
+	</macrodef>
+	<!-- Build-Other-Jar Macro -->
+	<macrodef name="build_other_jar">
+		<attribute name="name"/>
+		<sequential>
+			<!-- make jar directory -->
+	        <mkdir dir="${jar.dir}"/>
+			<!-- copy files for jar -->
+			<copy todir="${jar.dir}${file.separator}@{name}">
+				<fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/>
+			</copy>
+			<!-- copy resources for jar -->
+			<copy_resources name="@{name}"/>
+	    	<!-- make executable -->
+			<make_executable dir="${exec.dir}"/>
+			<!-- make jar -->
+			<jar jarfile="${exec.dir}${file.separator}@{name}.jar" basedir="${jar.dir}">
+				<!-- <fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/> -->
+			</jar>
+	        <delete dir="${jar.dir}"/>
+		</sequential>
+	</macrodef>
+	<!-- Build-Exec-Jar Macro for Stage -->
+	<macrodef name="build_exec_jar_for_stage">
+		<attribute name="name"/>
+		<sequential>
+			<!-- make jar directory -->
+	        <mkdir dir="${jar.dir}"/>
+			<!-- copy files for jar -->
+			<copy todir="${jar.dir}${file.separator}@{name}">
+				<fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/>
+			</copy>
+			<!-- copy resources for jar -->
+			<copy_resources name="@{name}"/>
+	    	<!-- make executable -->
+			<make_executable dir="${exec.dir}"/>
+			<!-- make jar -->
+			<jar jarfile="${exec.dir}${file.separator}@{name}.jar" basedir="${jar.dir}">
+				<!-- <fileset dir="${build.dir}${file.separator}@{name}${file.separator}"/> -->
+				<manifest>
+					<attribute name="Main-Class" value="@{name}.${main-class}"/>
+				</manifest>
+			</jar>
+	        <delete dir="${jar.dir}"/>
+		</sequential>
+	</macrodef>
+	<!-- Build Jars -->
+	<target depends="build-common-jars,build-other-jars,build-stage-jars" name="build-jars"/>
+	<!-- Build Javadoc -->
+	<target name="build-javadoc"> 
+		<for param="file">
+			<path>
+				<dirset dir="${source.dir}" includes="*"/>
+			</path>
+			<sequential>
+				<var name="name" unset="true"/>
+				<basename file="@{file}" property="name" />
+				<if>
+					<and>
+						<not>
+							<contains string="${name}" substring="resources"/>
+						</not>
+						<length length="0" when="greater">
+							<fileset dir="${source.dir}${file.separator}${name}" followsymlinks="false"/>
+						</length>
+					</and>
+					<then>
+						<build_javadoc name="${name}"/>
+					</then>
+				</if>
+			</sequential>
+		</for>  
+	</target>
+	<!-- Common Jars -->
+	<target name="build-common-jars">
+		<echo message="Building jar for: common" />
+		<build_common_jar name="common"/>
+	</target>
+	<!-- Other Jars -->
+	<target name="build-other-jars">
+		<echo message="Building jar for: results" />
+		<build_other_jar name="results"/>
+		<echo message="Building jar for: data" />
+		<build_other_jar name="data"/>
+		<echo message="Building jar for: constraint" />
+		<build_other_jar name="constraint"/>
+	</target>
+	<!-- Stage Jars -->
+	<target name="build-stage-jars"> 
+		<for param="file">
+			<path>
+				<dirset dir="${source.dir}" includes="*"/>
+			</path>
+			<sequential>
+				<var name="name" unset="true"/>
+				<basename file="@{file}" property="name" />
+				<!-- <echo message="@{file}, ${name}"/> -->
+				<if>
+					<!-- it's a stage -->
+					<and>
+						<not>
+							<equals arg1="${name}" arg2="common"/>
+						</not>
+						<not>
+							<equals arg1="${name}" arg2="results"/>
+						</not>
+						<not>
+							<equals arg1="${name}" arg2="data"/>
+						</not>
+						<not>
+							<equals arg1="${name}" arg2="constraint"/>
+						</not>
+						<not>
+							<contains string="${name}" substring="resources"/>
+						</not>
+					</and>
+					<then>
+						<echo message="Building jar for: ${name}" />
+						<build_exec_jar_for_stage name="${name}"/>
+					</then>
+					<elseif>
+						<contains string="${name}" substring="resources"/>
+						<then>
+							<echo message="Copying jars to ${exec.dir}${file.separator}${external-jars.dir}" />
+							<copy todir="${exec.dir}${file.separator}${external-jars.dir}" flatten="true">
+							    <fileset dir="@{file}">
+							        <include name="**/*.jar"/>
+							    </fileset>
+							</copy>
+						</then>
+					</elseif>
+				<else>
+					<!-- it's not a stage -->
+				</else>
+				</if>
+			</sequential>
+		</for>  
+	</target>
+	<!-- Copy External tools -->
+    <target name="copy-external-jars">
+		<echo>"Copying External jars to directory: ${exec.dir}"</echo>
+		<copy todir="${exec.dir}${file.separator}${external-jars.dir}">
+			<fileset dir="${external-jars.dir}" includes="**" excludes="ant-contrib.jar"/>
+		</copy>
+    </target>
+</project>

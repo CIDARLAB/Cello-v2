@@ -1,0 +1,10 @@
+AuthorName,Vincent Mirian,
+ApplicationNames,DNACompiler
+StagePrefix,PT,
+StageName,partitioning,
+AlgorithmName,GPCC_SUGARM_BASE,
+AlgorithmExtends,GPCC_BASE,
+LowerBoundValue,-1,int,ADDED
+UpperBoundValue,-1,int,ADDED
+Attempts,-1,int,ADDED
+Iteration,-1,int,ADDED

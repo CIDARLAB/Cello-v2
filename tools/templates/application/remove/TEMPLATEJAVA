@@ -1,0 +1,19 @@
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			To remove the stage in the main execution flow of
+|			an application ${APPLICATION_NAME}, where
+|			${APPLICATION_NAME} is one of:
+|			##NONCE##21##APPLIST##21##NONCE
+|			
+|			remove the code starting with the following snippet of
+|			JAVA code from the 'main' function of the
+|			applications JAVA file
+|			(${PROJECT_DIRECTORY}/src/${APPLICATION_NAME}/
+|			${APPLICATION_NAME}/runtime/Main.java)
++------------------------------------------------------------------------------
+		// ##NONCE##21##STAGENAME##21##NONCE
+		currentStage = appCfg.getStageByName("##NONCE##21##STAGENAME##21##NONCE");
+		VARRuntimeObject VAR = new VARRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		VAR.execute();
+		<OTHER RELATED CODE>

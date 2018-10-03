@@ -1,0 +1,42 @@
+
+
+
+
+
+{
+	"collection": "quorum_pair",
+	"name": "NONCE_Q_Lux",
+	"input" :{
+		"name": "NONCE_Q_Lux",
+		"off_reu": 0.0035,
+		"on_reu": 0.3044,
+		"K": 643.097,
+		"n": 0.45386,
+		"a": 1.0,
+		"b": 1.0,
+		"seq": "ATAGCTTCTTACCGGACCTGTAGGATCGTACAGGTTTACGCAAGAAAATGGTTTGTTACTTTCGAATAAA"
+	},
+	"output" :{
+		"name": "NONCE_Q_Lux",
+		"seq": "Atgaaaaacataaatgccgacgacacatacagaataattaataaaattaaagcttgtagaagcaataatgatattaatcaatgcttatctgatatgactaaaatggtacattgtgaatattatttactcgcgatcatttatcctcattctatggttaaatctgatatttcaatcctagataattaccctaaaaaatggaggcaatattatgatgacgctaatttaataaaatatgatcctatagtagattattctaactccaatcattcaccaattaattggaatatatttgaaaacaatgctgtaaataaaaaatctccaaatgtaattaaagaagcgaaaacatcaggtcttatcactgggtttagtttccctattcatacggctaacaatggcttcggaatgcttagttttgcacattcagaaaaagacaactatatagatagtttatttttacatgcgtgtatgaacataccattaattgttccttctctagttgataattatcgaaaaataaatatagcaaataataaatcaaacaacgatttaaccaaaagagaaaaagaatgtttagcgtgggcatgcgaaggaaaaagctcttgggatatttcaaaaatattaggttgcagtgagcgtactgtcactttccatttaaccaatgcgcaaatgaaactcaatacaacaaaccgctgccaaagtatttctaaagcaattttaacaggagcaattgattgcccatactttaaaaattgataa"
+	},
+},
+{
+	"collection": "quorum_pair",
+	"name": "NONCE_Q_Rpa",
+	"input" :{
+		"name": "NONCE_Q_Rpa",
+		"off_reu": 0.0007,
+		"on_reu": 0.6896,
+		"K": 3.54057,
+		"n": 1.36769,
+		"a": 1.0,
+		"b": 1.0,
+		"seq": "ATAGCTTCTTACCGGACCTGTAGGATCGTACAGGTTTACGCAAGAAAATGGTTTGTTACTTTCGAATAAA"
+	},
+	"output" :{
+		"name": "NONCE_Q_Rpa",
+		"seq":
+"Atgattgtgggtgaagatcagctgtggggtcgtcgtacactggaatttgttgatagcgttgaacgtctggaagcaccggcactgattagccgttttgaaagcctgattgcaagctgtggttttaccgcctatatcatggcaggtctgccgagccgtaatgccggtctgccggaactgaccctggcaaatggttggcctcgtgattggtttgatctgtatgttagcgaaaactttagcgcagttgatccggttccgcgttatggtgcaaccactgttcatccgtttgtttggagtgatgcaccgtatgatcgtgaccgtgatcaggcagcacatcgtgttatgacccgtgcagcagaatttggtctggttgaaggttattgtattccgctgcattacgatgatggtagcgcagcaattagtatggcaggtgaagatcctgatctgagtccggcagcccgtggtgtaatgcagctggttagcatttatgcacatagccgtctgcgtgtactgagccgtccgaaaccgattcgtcgtaatcgtctgacaccgcgtgaatgtgaaattctgcagtgggcagcacagggtaaaaccgcatgggaaattagcgttattctgtgtattaccgaacgcaccgttaaatttcatctgattgaagcagcacgtaaactggatgcagcaaatcgtaccgcagcagttgcaaaagcactgacactgggtctgattcgtctgtga"
+	}
+},

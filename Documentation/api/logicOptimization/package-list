@@ -1,0 +1,10 @@
+logicOptimization.algorithm
+logicOptimization.algorithm.data
+logicOptimization.algorithm.data.utils
+logicOptimization.algorithm.maxFanout
+logicOptimization.algorithm.maxFanout.data
+logicOptimization.common
+logicOptimization.netlist.data
+logicOptimization.netlist.data.utils
+logicOptimization.runtime
+logicOptimization.runtime.environment

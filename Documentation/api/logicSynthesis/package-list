@@ -1,0 +1,10 @@
+logicSynthesis.algorithm
+logicSynthesis.algorithm.Yosys
+logicSynthesis.algorithm.Yosys.data
+logicSynthesis.algorithm.data
+logicSynthesis.algorithm.data.utils
+logicSynthesis.common
+logicSynthesis.netlist.data
+logicSynthesis.netlist.data.utils
+logicSynthesis.runtime
+logicSynthesis.runtime.environment

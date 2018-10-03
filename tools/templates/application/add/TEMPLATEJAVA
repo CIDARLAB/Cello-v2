@@ -1,0 +1,25 @@
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			You can write your algorithm in the
+|			following JAVA file:
++------------------------------------------------------------------------------
+		${PROJECT_DIRECTORY}/src/##NONCE##21##STAGENAME##21##NONCE/##NONCE##21##STAGENAME##21##NONCE/algorithm/##NONCE##21##ALGONAME##21##NONCE/##NONCE##21##ALGONAME##21##NONCE.java
+
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			You can place algorithm dependant data in
+|			following directory:
++------------------------------------------------------------------------------
+		${PROJECT_DIRECTORY}/src/##NONCE##21##STAGENAME##21##NONCE/##NONCE##21##STAGENAME##21##NONCE/algorithm/##NONCE##21##ALGONAME##21##NONCE/data/
+
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			You can place temporary Netlist data for your algorithm
+|			in following JAVA files:
++------------------------------------------------------------------------------
+		${PROJECT_DIRECTORY}/src/##NONCE##21##STAGENAME##21##NONCE/##NONCE##21##STAGENAME##21##NONCE/algorithm/##NONCE##21##ALGONAME##21##NONCE/data/##NONCE##21##ALGONAME##21##NONCENetlistData.java
+		${PROJECT_DIRECTORY}/src/##NONCE##21##STAGENAME##21##NONCE/##NONCE##21##STAGENAME##21##NONCE/algorithm/##NONCE##21##ALGONAME##21##NONCE/data/##NONCE##21##ALGONAME##21##NONCENetlistEdgeData.java
+		${PROJECT_DIRECTORY}/src/##NONCE##21##STAGENAME##21##NONCE/##NONCE##21##STAGENAME##21##NONCE/algorithm/##NONCE##21##ALGONAME##21##NONCE/data/##NONCE##21##ALGONAME##21##NONCENetlistNodeData.java

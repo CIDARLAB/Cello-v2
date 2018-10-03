@@ -1,0 +1,65 @@
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			If the stage is not present in the main execution flow
+|			of an application ${APPLICATION_NAME}, where
+|			${APPLICATION_NAME} is one of:
+|			##NONCE##21##APPLIST##21##NONCE
+|			
+|			copy the following snippet of JAVA code and paste it
+|			into the header function of the application JAVA file
+|			between the package and class declaration
+|			(${PROJECT_DIRECTORY}/src/${APPLICATION_NAME}/
+|			${APPLICATION_NAME}/runtime/Main.java)
++------------------------------------------------------------------------------
+		import ##NONCE##21##STAGENAME##21##NONCE.runtime.##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject;
+		
+	Example:
+		package ${APPLICATION_NAME}.runtime;
+		<INSERT HERE>
+		public class Main {
+
+	Becomes:
+		package ${APPLICATION_NAME}.runtime;
+		import ##NONCE##21##STAGENAME##21##NONCE.runtime.##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject;
+		public class Main {
+
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			To enable a new default algorithm for an application
+|			${APPLICATION_NAME}, where ${APPLICATION_NAME} is
+|			one of:
+|			##NONCE##21##APPLIST##21##NONCE
+|			
+|			copy the following snippet of JAVA code and prepend it
+|			in the stage section of the DNACompiler default 
+|			algorithm file
+|			(${PROJECT_DIRECTORY}/src/resources-${APPLICATION_NAME}/
+|			Configuration.json)
++------------------------------------------------------------------------------
+		{
+			"name" :  "##NONCE##21##STAGENAME##21##NONCE",
+			"algorithm_name": "##NONCE##21##ALGONAME##21##NONCE"
+		},
+
+	Example:
+		"stages": [
+			{
+				"name" :  "STAGE_NAME",
+				"algorithm_name": "STAGE_ALGO_NAME"
+			}
+		]
+
+	Becomes:
+		"stages": [
+			{
+				"name" :  "##NONCE##21##STAGENAME##21##NONCE",
+				"algorithm_name": "##NONCE##21##ALGONAME##21##NONCE"
+			},
+			{
+				"name" :  "STAGE_NAME",
+				"algorithm_name": "STAGE_ALGO_NAME"
+			}
+		]
+

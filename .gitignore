@@ -1,0 +1,7 @@
+log.log
+.settings/org.eclipse.jdt.ui.prefs
+bin/
+exec/
+compressExecInput.sh
+untarCello.sh
+exec_example

@@ -1,0 +1,16 @@
+AuthorName,NewAuthor,
+ApplicationNames,DNACompiler,other
+StagePrefix,LS,
+StageName,logicSynthesis,
+AlgorithmName,NewParamBase,
+AlgorithmExtends,Base,
+BooleanType,TRUE,boolean,
+ByteType,0,byte,
+CharType,c,char,
+ShortType,0,short,
+IntegerType,0,int,
+LongType,0,long,
+FloatType,0,float,
+DoubleType,0,double,
+StringType,"str",string,
+NewParam,"newParam",string,ADDED

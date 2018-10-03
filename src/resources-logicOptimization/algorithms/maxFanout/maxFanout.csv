@@ -1,0 +1,7 @@
+AuthorName,,
+ApplicationNames,DNACompiler,
+StagePrefix,LO,
+StageName,logicOptimization,
+AlgorithmName,,
+AlgorithmExtends,maxFanout,
+max,4,int,

@@ -1,0 +1,7 @@
+AuthorName,Vincent Mirian,
+ApplicationNames,DNACompiler
+StagePrefix,LS,
+StageName,logicSynthesis,
+AlgorithmName,Yosys,
+AlgorithmExtends,,
+Gates,"NOR",string,

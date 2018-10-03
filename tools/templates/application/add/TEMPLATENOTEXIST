@@ -1,0 +1,17 @@
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			To use the stage in the main execution flow of
+|			an application ${APPLICATION_NAME}, where
+|			${APPLICATION_NAME} is one of:
+|			##NONCE##21##APPLIST##21##NONCE
+|			
+|			copy the following snippet of JAVA code and paste it
+|			into the 'main' function of the applications JAVA file
+|			(${PROJECT_DIRECTORY}/src/${APPLICATION_NAME}/
+|			${APPLICATION_NAME}/runtime/Main.java)
++------------------------------------------------------------------------------
+		// ##NONCE##21##STAGENAME##21##NONCE
+		currentStage = appCfg.getStageByName("##NONCE##21##STAGENAME##21##NONCE");
+		##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject ##NONCE##21##STAGEPREFIX##21##NONCE = new ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		##NONCE##21##STAGEPREFIX##21##NONCE.execute();

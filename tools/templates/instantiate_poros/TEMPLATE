@@ -1,0 +1,23 @@
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			SET NEW BUILD TYPE IN ECLIPSE
++------------------------------------------------------------------------------
+	1. Windows > Show View > Ant
+	2. Right click on the Ant window > Add Buildfiles...
+	3. Select the 'build.xml' in the ##NONCE##21##PROJECTNAME##21##NONCE project directory
+	4. Right click on Project > Properties
+	5. Builders > Import > ...
+	6. Find and select "build.xml" in the ##NONCE##21##PROJECTNAME##21##NONCE project directory
+
++------------------------------------------------------------------------------
+|	IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT! IMPORTANT!
+|	Instructions:
+|			ADD EXTERNAL JAR TO ECLIPSE PROJECT
++------------------------------------------------------------------------------
+	1. Click on Windows > Preferences
+	2. Java  > Build Path > User Libraries > New...
+	3. Enter 'PorosCompilerlib'
+	4. Select 'PorosCompilerlib'
+	5. Click Add Jars...
+	6. Select all jars in external_jars folder of the ##NONCE##21##PROJECTNAME##21##NONCE project directory

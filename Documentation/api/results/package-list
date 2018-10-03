@@ -1,0 +1,12 @@
+results.common
+results.logicOptimization
+results.logicSynthesis
+results.logicSynthesis.logic
+results.logicSynthesis.logic.truthtable
+results.logicSynthesis.netlist
+results.netlist
+results.netlist.data
+results.partitioning
+results.partitioning.block
+results.placing
+results.technologyMapping

@@ -1,0 +1,4 @@
+logicSynthesis.Gates,"NOR"
+
+partitioning,GPCC_SUGARM_BASE
+partitioning.LowerBoundValue,55
