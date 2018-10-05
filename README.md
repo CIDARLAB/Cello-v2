@@ -1,10 +1,5 @@
 # Clone
 
-- Download & install [git-lfs](https://git-lfs.github.com/)
-- Initialize git-lfs
-
-      git lfs install
-
 - Clone
 
       git clone $repo $dir; cd $dir
