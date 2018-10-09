@@ -66,25 +66,25 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <id>process-test-classes</id>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <chmod file="target${file.separator}classes${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys" perm="755" />
-                <chmod file="target${file.separator}classes${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys-abc" perm="755" />
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+      <!-- <plugin> -->
+      <!--   <artifactId>maven-antrun-plugin</artifactId> -->
+      <!--   <version>1.7</version> -->
+      <!--   <executions> -->
+      <!--     <execution> -->
+      <!--       <id>process-test-classes</id> -->
+      <!--       <phase>process-test-classes</phase> -->
+      <!--       <goals> -->
+      <!--         <goal>run</goal> -->
+      <!--       </goals> -->
+      <!--       <configuration> -->
+      <!--         <target> -->
+      <!--           <chmod file="target${file.separator}classes${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys" perm="755" /> -->
+      <!--           <chmod file="target${file.separator}classes${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys-abc" perm="755" /> -->
+      <!--         </target> -->
+      <!--       </configuration> -->
+      <!--     </execution> -->
+      <!--   </executions> -->
+      <!-- </plugin> -->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
 	<version>3.1.0</version>
