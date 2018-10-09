@@ -174,7 +174,7 @@ public class Main {
 		// export
 		currentStage = appCfg.getStageByName("export");
 		EXRuntimeObject EX = new EXRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
-		//EX.execute();
+		EX.execute();
 		/*
 		 * Add Stages above
 		 */

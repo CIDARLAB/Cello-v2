@@ -209,7 +209,7 @@ public class SBOL extends EXAlgorithm{
 	protected ComponentDefinition addPartDefinition(Part part, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
 		String uri = part.getUri();
 		ComponentDefinition rtn = null;
-		
+
 		if ((uri != null) && (this.getSbhFrontend() != null)) {
 			URI temp = URI.create(uri);
 			SBOLDocument sbol = this.getSbhFrontend().getSBOL(temp);
