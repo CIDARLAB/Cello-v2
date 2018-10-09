@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.logicOptimization.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The LOUtils class is class with utility methods for the <i>logicOptimization</i> stage.
@@ -39,7 +42,9 @@ public class LOUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = LOUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(LOUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = LOUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

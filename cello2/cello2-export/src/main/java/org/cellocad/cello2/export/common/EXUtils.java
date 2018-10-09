@@ -20,6 +20,10 @@
  */
 package org.cellocad.cello2.export.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
+
 /**
  * The EXUtils class is class with utility methods for the <i>export</i> stage.
  * 
@@ -38,7 +42,9 @@ public class EXUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = EXUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(EXUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = EXUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

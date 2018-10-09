@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.clustering.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The CLUtils class is class with utility methods for the <i>clustering</i> stage.
@@ -39,7 +42,9 @@ public class CLUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = CLUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(CLUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = CLUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

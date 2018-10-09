@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.logicSynthesis.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The LSUtils class is class with utility methods for the <i>logicSynthesis</i> stage.
@@ -39,7 +42,9 @@ public class LSUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = LSUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(LSUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = LSUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

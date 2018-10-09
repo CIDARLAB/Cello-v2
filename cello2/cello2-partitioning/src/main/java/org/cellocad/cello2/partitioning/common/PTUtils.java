@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.partitioning.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The PTUtils class is class with utility methods for the <i>partitioning</i> stage.
@@ -39,7 +42,9 @@ public class PTUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = PTUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(PTUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = PTUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

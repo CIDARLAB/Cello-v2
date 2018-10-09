@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.technologyMapping.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The TMUtils class is class with utility methods for the <i>technologyMapping</i> stage.
@@ -39,7 +42,9 @@ public class TMUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = TMUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(TMUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = TMUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

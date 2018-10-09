@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.DNACompiler.common;
 
+import java.io.File;
+
 import org.cellocad.cello2.common.Utils;
 
 /**
@@ -40,7 +42,9 @@ public class DNACompilerUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = DNACompilerUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(DNACompilerUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = DNACompilerUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

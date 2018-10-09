@@ -46,7 +46,10 @@ final public class Utils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = Utils.class.getClassLoader().getResource(".").getPath();
+		// System.out.println();
+		rtn = (new File(Utils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = Utils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 

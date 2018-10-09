@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.placing.common;
 
+import java.io.File;
+
+import org.cellocad.cello2.common.Utils;
 
 /**
  * The PLUtils class is class with utility methods for the <i>placing</i> stage.
@@ -39,7 +42,9 @@ public class PLUtils {
 	 */
 	static public String getFilepath(){
 		String rtn = "";
-		rtn = PLUtils.class.getClassLoader().getResource(".").getPath();
+		rtn += (new File(PLUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
+		rtn += Utils.getFileSeparator();
+		// rtn = PLUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 
