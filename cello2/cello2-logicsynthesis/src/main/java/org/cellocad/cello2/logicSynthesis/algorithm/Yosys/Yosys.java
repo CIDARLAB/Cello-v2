@@ -164,11 +164,18 @@ public class Yosys extends LSAlgorithm{
 		else if (Utils.isMac()) {
 			exec += "Mac";
 		}
+		else if (Utils.isWin()) {
+			exec += "Win";
+		}
 		else {
 			throw new RuntimeException("OS not supported by Yosys!");
 		}
 		exec += Utils.getFileSeparator();
-		exec += "yosys -s ";
+		exec += "yosys";
+		if (Utils.isWin()) {
+			exec += ".exe";
+		}
+		exec += " -s ";
 		this.setYosysExec(exec);
 		// create Yosys script
 		String script = "";

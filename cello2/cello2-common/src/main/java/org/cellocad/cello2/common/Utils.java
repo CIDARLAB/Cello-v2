@@ -147,7 +147,17 @@ final public class Utils {
 		rtn = file.delete();
 		return rtn;
 	}
-	
+
+	/**
+	 * Returns a boolean flag signifying the Operating System being Windows-based. 
+	 * 
+	 * @return true if the Operating System is Windows-based, otherwise false.
+	 *
+	 */
+	public static boolean isWin() {
+		return (Utils.isWin(Utils.getOS()));
+	}
+
 	/**
 	 * Returns a boolean flag signifying the Operating System being Mac-based. 
 	 * 
@@ -176,6 +186,10 @@ final public class Utils {
 	 */
 	private static String getOS() {
 		return System.getProperty("os.name");
+	}
+
+	private static boolean isWin(final String OS) {
+		return (OS.toLowerCase().indexOf("win") >= 0);
 	}
 
 	private static boolean isMac(final String OS) {
