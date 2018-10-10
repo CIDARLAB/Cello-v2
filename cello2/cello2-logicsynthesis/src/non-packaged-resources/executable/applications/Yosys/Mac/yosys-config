@@ -1,0 +1,107 @@
+#!/bin/bash
+
+help() {
+	{
+		echo ""
+		echo "Usage: $0 [--exec] [--prefix pf] args.."
+		echo "       $0 --build modname.so cppsources.."
+		echo ""
+		echo "Replecement args:"
+		echo "    --cxx         clang"
+		echo "    --cxxflags    $( echo '-Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.7_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.7_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER' | fmt -w60 | sed ':a;N;$!ba;s/\n/ \\\n                      /g' )"
+		echo "    --ldflags     -L/usr/local/Cellar/yosys/0.7_1/lib"
+		echo "    --ldlibs      -lstdc++ -lm -lreadline -L/usr/local/Cellar/libffi/3.2.1/lib -lffi -ldl -ltcl8.5"
+		echo "    --bindir      /usr/local/Cellar/yosys/0.7_1/bin"
+		echo "    --datdir      /usr/local/Cellar/yosys/0.7_1/share/yosys"
+		echo ""
+		echo "All other args are passed through as they are."
+		echo ""
+		echo "Use --exec to call a command instead of generating output. Example usage:"
+		echo ""
+		echo "  yosys-config --exec --cxx --cxxflags --ldflags -o plugin.so -shared plugin.cc --ldlibs"
+		echo ""
+		echo "The above command can be abbreviated as:"
+		echo ""
+		echo "  yosys-config --build plugin.so plugin.cc"
+		echo ""
+		echo "Use --prefix to change the prefix for the special args from '--' to"
+		echo "something else. Example:"
+		echo ""
+		echo "  yosys-config --prefix @ bindir: @bindir"
+		echo ""
+		echo "The args --bindir and --datdir can be directly followed by a slash and"
+		echo "additional text. Example:"
+		echo ""
+		echo "  yosys-config --datdir/simlib.v"
+		echo ""
+	} >&2
+	exit 1
+}
+
+if [ $# -eq 0 ]; then
+	help
+fi
+
+if [ "$1" == "--build" ]; then
+	modname="$2"; shift 2
+	set -- --exec --cxx --cxxflags --ldflags -o "$modname" -shared "$@" --ldlibs
+fi
+
+prefix="--"
+get_prefix=false
+exec_mode=false
+declare -a tokens=()
+
+for opt; do
+	if $get_prefix; then
+		prefix="$opt"
+		get_prefix=false
+		continue
+	fi
+	case "$opt" in
+		"$prefix"cxx)
+			tokens=( "${tokens[@]}"  clang       ) ;;
+		"$prefix"cxxflags)
+			tokens=( "${tokens[@]}"  -Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.7_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.7_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER  ) ;;
+		"$prefix"ldflags)
+			tokens=( "${tokens[@]}"  -L/usr/local/Cellar/yosys/0.7_1/lib   ) ;;
+		"$prefix"ldlibs)
+			tokens=( "${tokens[@]}"  -lstdc++ -lm -lreadline -L/usr/local/Cellar/libffi/3.2.1/lib -lffi -ldl -ltcl8.5    ) ;;
+		"$prefix"bindir)
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/bin'   ) ;;
+		"$prefix"datdir)
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/share/yosys'   ) ;;
+		"$prefix"bindir/*)
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/bin'"${opt#${prefix}bindir}" ) ;;
+		"$prefix"datdir/*)
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/share/yosys'"${opt#${prefix}datdir}" ) ;;
+		--help|-\?|-h)
+			if [ ${#tokens[@]} -eq 0 ]; then
+				help
+			else
+				tokens=( "${tokens[@]}" "$opt" )
+			fi ;;
+		--exec)
+			if [ ${#tokens[@]} -eq 0 ]; then
+				exec_mode=true
+			else
+				tokens=( "${tokens[@]}" "$opt" )
+			fi ;;
+		--prefix)
+			if [ ${#tokens[@]} -eq 0 ]; then
+				get_prefix=true
+			else
+				tokens=( "${tokens[@]}" "$opt" )
+			fi ;;
+		*)
+			tokens=( "${tokens[@]}" "$opt" )
+	esac
+done
+
+if $exec_mode; then
+	exec "${tokens[@]}"
+fi
+
+echo "${tokens[@]}"
+exit 0
+

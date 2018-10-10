@@ -1,0 +1,33 @@
+{
+    "stages": [
+        {
+            "algorithm_name": "Yosys",
+            "name": "logicSynthesis"
+        },
+        {
+            "algorithm_name": "GPCC_SUGARM_BASE",
+            "name": "partitioning"
+        },
+        {
+            "algorithm_name": "SimulatedAnnealing",
+            "name": "technologyMapping"
+        },
+        {
+            "algorithm_name": "Eugene",
+            "name": "placing"
+        },
+        {
+            "algorithm_name": "maxFanout",
+            "name": "logicOptimization"
+        },
+        {
+            "algorithm_name": "CL_RC",
+            "name": "clustering"
+        },
+        {
+            "name": "export",
+            "algorithm_name": "SBOL"
+        }
+    ],
+    "name": "DNACompiler"
+}
