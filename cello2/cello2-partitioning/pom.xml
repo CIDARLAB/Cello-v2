@@ -96,7 +96,7 @@
               <resources>
                 <resource>
                   <directory>src${file.separator}non-packaged-resources</directory>
-                  <filtering>true</filtering>
+                  <filtering>false</filtering>
                 </resource>
               </resources>
             </configuration>
@@ -105,7 +105,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
+        <version>1.8</version>
         <executions>
           <execution>
             <id>set-executable-permissions</id>

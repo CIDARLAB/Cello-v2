@@ -118,7 +118,7 @@
               <resources>
                 <resource>
                   <directory>src${file.separator}non-packaged-resources</directory>
-                  <filtering>true</filtering>
+                  <filtering>false</filtering>
                 </resource>
               </resources>
             </configuration>
