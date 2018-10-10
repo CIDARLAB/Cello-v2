@@ -9,6 +9,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cello2-common</artifactId>
+  <properties>
+    <stage.name>common</stage.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -91,7 +94,29 @@
                   <classifier>jar-with-dependencies</classifier>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>../target</outputDirectory>
+              <outputDirectory>..${file.separator}target</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src${file.separator}non-packaged-resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>

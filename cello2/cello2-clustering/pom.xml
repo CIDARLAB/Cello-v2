@@ -9,6 +9,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent> 
   <artifactId>cello2-clustering</artifactId>
+  <properties>
+    <stage.name>clustering</stage.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.cellocad</groupId>
@@ -24,7 +27,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>clustering.runtime.Main</mainClass>
+              <mainClass>org.cellocad.cello2.${stage.name}.runtime.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
@@ -61,11 +64,33 @@
                   <classifier>jar-with-dependencies</classifier>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>../target</outputDirectory>
+              <outputDirectory>..${file.separator}target</outputDirectory>
             </configuration>
           </execution>
         </executions>
-      </plugin>      
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src${file.separator}non-packaged-resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

@@ -9,11 +9,14 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cello2-placing</artifactId>
+  <properties>
+    <stage.name>placing</stage.name>
+  </properties>
   <repositories>
     <repository>
       <id>project.local</id>
       <name>project</name>
-      <url>file:${project.basedir}/lib</url>
+      <url>file:${project.basedir}${file.separator}lib</url>
     </repository>
   </repositories>
   <dependencies>
@@ -53,7 +56,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>placing.runtime.Main</mainClass>
+              <mainClass>org.cellocad.cello2.${stage.name}.runtime.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
@@ -90,7 +93,29 @@
                   <classifier>jar-with-dependencies</classifier>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>../target</outputDirectory>
+              <outputDirectory>..${file.separator}target</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src${file.separator}non-packaged-resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>

@@ -9,6 +9,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>cello2-dnacompiler</artifactId>
+  <properties>
+    <stage.name>DNACompiler</stage.name>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.cellocad</groupId>
@@ -78,33 +81,55 @@
                   <type>${project.packaging}</type>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>../target</outputDirectory>
+              <outputDirectory>..${file.separator}target</outputDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
-  <!--     <plugin> -->
-  <!--       <artifactId>maven-assembly-plugin</artifactId> -->
-  <!--       <configuration> -->
-  <!--         <archive> -->
-  <!--           <manifest> -->
-  <!--             <mainClass>org.cellocad.dnacompiler.runtime.Main</mainClass> -->
-  <!--           </manifest> -->
-  <!--         </archive> -->
-  <!--         <descriptorRefs> -->
-  <!--           <descriptorRef>jar</descriptorRef> -->
-  <!--         </descriptorRefs> -->
-  <!--       </configuration> -->
-  <!--       <executions> -->
-  <!--         <execution> -->
-  <!--           <id>make-assembly</id> <!-\- this is used for inheritance merges -\-> -->
-  <!--           <phase>package</phase> <!-\- bind to the packaging phase -\-> -->
-  <!--           <goals> -->
-  <!--             <goal>single</goal> -->
-  <!--           </goals> -->
-  <!--         </execution> -->
-  <!--       </executions> -->
-  <!--     </plugin> -->
+      <!--     <plugin> -->
+      <!--       <artifactId>maven-assembly-plugin</artifactId> -->
+      <!--       <configuration> -->
+      <!--         <archive> -->
+      <!--           <manifest> -->
+      <!--             <mainClass>org.cellocad.dnacompiler.runtime.Main</mainClass> -->
+      <!--           </manifest> -->
+      <!--         </archive> -->
+      <!--         <descriptorRefs> -->
+      <!--           <descriptorRef>jar</descriptorRef> -->
+      <!--         </descriptorRefs> -->
+      <!--       </configuration> -->
+      <!--       <executions> -->
+      <!--         <execution> -->
+      <!--           <id>make-assembly</id> <!-\- this is used for inheritance merges -\-> -->
+      <!--           <phase>package</phase> <!-\- bind to the packaging phase -\-> -->
+      <!--           <goals> -->
+      <!--             <goal>single</goal> -->
+      <!--           </goals> -->
+      <!--         </execution> -->
+      <!--       </executions> -->
+      <!--     </plugin> -->
+      <plugin>
+	<artifactId>maven-resources-plugin</artifactId>
+	<version>3.1.0</version>
+	<executions>
+	  <execution>
+            <id>copy-resources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
+              <resources>
+		<resource>
+		  <directory>src${file.separator}non-packaged-resources</directory>
+		  <filtering>true</filtering>
+		</resource>
+              </resources>
+            </configuration>
+	  </execution>
+	</executions>
+      </plugin>
     </plugins>
   </build>
 </project>
