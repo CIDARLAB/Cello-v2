@@ -30,10 +30,10 @@
 
 ## Test DNACompiler application
 
-    cd $dir
-	LD_LIBRARY_PATH="resources-partitioning/algorithms/GPCC_SUGARM_BASE/linux64" \
-	java -cp "./*" org.cellocad.cello2.DNACompiler.runtime.Main \
-	-targetDataFile ../../sample-input/DNACompiler/and/Eco1C1G1T1-synbiohub.UCF.json \
-	-inputNetlist ../../sample-input/DNACompiler/and/and.v \
-	-options ../../sample-input/DNACompiler/and/options.csv \
-	-outputDir /path/to/output/dir
+    cd $dir/cello2/target
+    LD_LIBRARY_PATH="resources-partitioning/algorithms/GPCC_SUGARM_BASE/linux64" \
+    java -cp "./*" org.cellocad.cello2.DNACompiler.runtime.Main \
+    -targetDataFile ../../sample-input/DNACompiler/and/Eco1C1G1T1-synbiohub.UCF.json \
+    -inputNetlist ../../sample-input/DNACompiler/and/and.v \
+    -options ../../sample-input/DNACompiler/and/options.csv \
+    -outputDir /path/to/output/dir
