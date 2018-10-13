@@ -12,14 +12,14 @@ import shutil
 #####################################
 #	getSourcePath
 #####################################
-def getSourcePath(Directory, Name):
-	return os.path.join(Directory,"src",Name)
+def getSourcePath(Directory, StageName):
+	return os.path.join(Directory,"cello2-"+StageName.lower(),"src","main","java","org","cellocad","cello2",StageName)
 
 #####################################
 #	getResourcePath
 #####################################
-def getResourcePath(Directory, Name):
-	return os.path.join(Directory,"src","resources-"+Name)
+def getResourcePath(Directory, StageName):
+	return os.path.join(Directory,"cello2-"+StageName.lower(),"non-packaged-resources")
 
 #####################################
 #	getSampleInputPath

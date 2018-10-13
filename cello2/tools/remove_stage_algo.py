@@ -22,13 +22,13 @@ def isEmpty(value):
 #	getSourcePath
 #####################################
 def getSourcePath(Directory, StageName):
-	return os.path.join(Directory,"src",StageName)
+	return os.path.join(Directory,"cello2-"+StageName.lower(),"src","main","java","org","cellocad","cello2",StageName)
 
 #####################################
 #	getResourcePath
 #####################################
 def getResourcePath(Directory, StageName):
-	return os.path.join(Directory,"src","resources-"+StageName)
+	return os.path.join(Directory,"cello2-"+StageName.lower(),"non-packaged-resources")
 
 #####################################
 #	getSampleInputPath
@@ -40,19 +40,19 @@ def getSampleInputPath(Directory, Name):
 #	getResultsPath
 #####################################
 def getResultsPath(Directory, Name):
-	return os.path.join(Directory,"src","results","results",Name)
+	return os.path.join(getSourcePath(Directory,"common"),"..","results",Name)
 
 #####################################
 #	getDataPath
 #####################################
 def getDataPath(Directory, Name):
-	return os.path.join(Directory,"src","data","data",Name)
+	return os.path.join(getSourcePath(Directory,"common"),"..","data",Name)
 
 #####################################
 #	getConstraintPath
 #####################################
 def getConstraintPath(Directory, Name):
-	return os.path.join(Directory,"src","constraint","constraint",Name)
+	return os.path.join(getSourcePath(Directory,"common"),"..","constraint",Name)
 
 #####################################
 #	getAlgorithmPath
