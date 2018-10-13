@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.cidarlab</groupId>
+  <artifactId>eugene</artifactId>
+  <version>2.0.2-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20181003.202358</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20181003202358</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <classifier>jar-with-dependencies</classifier>
+        <extension>jar</extension>
+        <value>2.0.2-20181003.202358-1</value>
+        <updated>20181003202358</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>2.0.2-20181003.202358-1</value>
+        <updated>20181003202358</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
