@@ -44,17 +44,4 @@
     <module>cello2-export</module>
     <module>cello2-dnacompiler</module>
   </modules>
-  <!-- <build> -->
-  <!--   <plugins> -->
-  <!--     <plugin> -->
-  <!--       <groupId>org.apache.maven.plugins</groupId> -->
-  <!--       <artifactId>maven-dependency-plugin</artifactId> -->
-  <!--       <configuration> -->
-  <!--         <outputDirectory> -->
-  <!--           ${project.build.directory} -->
-  <!--         </outputDirectory> -->
-  <!--       </configuration> -->
-  <!--     </plugin> -->
-  <!--   </plugins> -->
-  <!-- </build> -->
 </project>

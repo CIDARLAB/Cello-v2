@@ -5,6 +5,50 @@
 import os
 import sys
 import argparse
+import platform
+
+#####################################
+#	set environment
+#####################################
+def setEnv(FilePath):
+	# fileExt
+	fileExt = ""
+	#envVar
+	envVar = ""
+	#platformPath
+	platformPath = ""
+	# linux
+	if sys.platform == "linux" or sys.platform == "linux2":
+		fileExt=".so"
+		envVar="LD_LIBRARY_PATH"
+		platformPath="linux"
+	# OS X	
+	elif sys.platform == "darwin":
+		fileExt=".dylib"
+		envVar="DYLD_LIBRARY_PATH"
+		platformPath="mac"
+	# Windows
+	elif sys.platform == "win32":
+		fileExt=".dll"
+		envVar="PATH"
+		platformPath="win"
+	#architecture
+	if platform.architecture()[0] == "64bit":
+		platformPath+="64"
+	else:
+		platformPath+="32"
+	# path
+	path = ""
+	for root, dirs, files in os.walk("./"):
+		for file in files:
+			if file.endswith(fileExt) and (root.find(platformPath) != -1):
+				path = root + ":" + path
+	path += "./"
+	# set
+	if envVar not in os.environ.keys():
+		os.environ[envVar] = ""
+	os.environ[envVar] += ":"+path
+	return path
 
 #####################################
 # 		Main
@@ -32,6 +76,11 @@ def main(arguments):
 	# exec_args
 	exec_args = args.exec_args
 
+        #####################################
+	# 	Set Environment
+	#####################################
+	path = setEnv("./")
+	path = "./"
 	#####################################
 	# 	Get Jar
 	#####################################
@@ -55,6 +104,7 @@ def main(arguments):
 	cmd += " -classpath "
 	cmd += classpath
 	cmd += " "
+	cmd += "org.cellocad.cello2."
 	cmd += executable
 	cmd += ".runtime.Main "
 	if (exec_args != None):

@@ -114,7 +114,7 @@
 	<version>3.1.0</version>
 	<executions>
 	  <execution>
-            <id>copy-resources</id>
+            <id>copy-resources-1</id>
             <phase>install</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -129,7 +129,46 @@
               </resources>
             </configuration>
 	  </execution>
+	  <execution>
+            <id>copy-resources-2</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+	    <configuration>
+              <outputDirectory>..${file.separator}target</outputDirectory>
+              <resources>
+		<resource>
+      		  <directory>..${file.separator}tools${file.separator}</directory>
+      		  <includes>
+      		    <include>
+      		      run.py
+      		    </include>
+      		  </includes>
+      		  <filtering>false</filtering>
+      		</resource>
+              </resources>
+            </configuration>
+	  </execution>
 	</executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>set-executable-permissions</id>
+	    <phase>install</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <chmod file="..${file.separator}target${file.separator}run.py" perm="755" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
