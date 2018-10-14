@@ -570,7 +570,7 @@ def copyStageFiles(env, stage):
 			# template path
 			templatePath = os.path.join(TemplateDirectory,relativepath,files)
 			# new file path
-			newFilePath = os.path.join(getSourcePath(ProjectDirectory, StageName),StageName,relativepath)
+			newFilePath = os.path.join(getSourcePath(ProjectDirectory, StageName),relativepath)
 			# mkdir
 			makedir(newFilePath)
 			# add filename
@@ -646,10 +646,10 @@ def createAlgo(env, stage, algo):
 	print("		Creating algo")
 	print("-------------------------------")
 	# create algo directory
-	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm",AlgorithmName)
+	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm",AlgorithmName)
 	makedir(algo_path)
 	# create algo data directory
-	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm",AlgorithmName, "data")
+	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm",AlgorithmName, "data")
 	makedir(algo_path)
 
 #####################################
@@ -766,7 +766,7 @@ def copyAlgorithmFile(env, stage, algo):
 	if not isfile(TemplateFilePath):
 		sys.exit()
 	# new file path
-	NewFilePath = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm",AlgorithmName,AlgorithmName+".java")
+	NewFilePath = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm",AlgorithmName,AlgorithmName+".java")
 	# copy file
 	copyAlgoFileAndReplace(env, stage, algo, NewFilePath, TemplateFilePath, False)
 	# template reference
@@ -781,7 +781,7 @@ def copyAlgorithmFile(env, stage, algo):
 			# template path
 			templatePath = os.path.join(TemplateFilePath,relativepath,files)
 			# new file path
-			newFilePath = os.path.join(getSourcePath(ProjectDirectory, StageName),StageName,"algorithm",AlgorithmName,relativepath)
+			newFilePath = os.path.join(getSourcePath(ProjectDirectory, StageName),"algorithm",AlgorithmName,relativepath)
 			# mkdir
 			makedir(newFilePath)
 			# add filename
@@ -799,7 +799,7 @@ def updateAlgorithmFactory(env, stage, algo):
 	AlgorithmName = algo.Name
 	print("Updating Algorithm Factory")
 	# new file path
-	AFFilePath = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm",StagePrefix+"AlgorithmFactory.java")
+	AFFilePath = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm",StagePrefix+"AlgorithmFactory.java")
 	print("Updating Algorithm Factory: " + AFFilePath)
 	# update file
 	AFFile = open(AFFilePath, "r")
@@ -855,12 +855,12 @@ def updateAlgorithmDataFactory(env, stage, algo):
 	AlgorithmName = algo.Name
 	print("Updating Algorithm Data Factory")
 	# new file path
-	File = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm","data",StagePrefix+"NetlistDataFactory.java")
+	File = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm","data",StagePrefix+"NetlistDataFactory.java")
 	print (File)
 	updateAlgorithmDataFactoryFile(env, stage, algo, File, "Netlist")
-	File = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm","data",StagePrefix+"NetlistEdgeDataFactory.java")
+	File = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm","data",StagePrefix+"NetlistEdgeDataFactory.java")
 	updateAlgorithmDataFactoryFile(env, stage, algo, File, "NetlistEdge")
-	File = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm","data",StagePrefix+"NetlistNodeDataFactory.java")
+	File = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm","data",StagePrefix+"NetlistNodeDataFactory.java")
 	updateAlgorithmDataFactoryFile(env, stage, algo, File, "NetlistNode")
 
 #####################################
@@ -967,7 +967,7 @@ def doAlgo(env, stage, algo, app):
 	# 		algoExists
 	#####################################
 	algoExists = False
-	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),StageName,"algorithm",AlgorithmName)
+	algo_path = os.path.join(getSourcePath(ProjectDirectory,StageName),"algorithm",AlgorithmName)
 	if os.path.isdir(algo_path):
 		algoExists = True
 		print ("Algorithm " + AlgorithmName + " exists.")
