@@ -23,6 +23,7 @@ package org.cellocad.cello2.technologyMapping.algorithm;
 import org.cellocad.cello2.common.algorithm.AlgorithmFactory;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.Cello_JY_TP;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealing;
+import org.cellocad.cello2.technologyMapping.algorithm.DSGRN.DSGRN;
 
 /**
  * The TMAlgorithmFactory is an algorithm factory for the <i>technologyMapping</i> stage. 
@@ -48,6 +49,9 @@ public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm>{
 		}
 		if (name.equals("SimulatedAnnealing")){
 			rtn = new SimulatedAnnealing();
+		}
+		if (name.equals("DSGRN")){
+			rtn = new DSGRN();
 		}
 		return rtn;
 	}
