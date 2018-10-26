@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2018 Boston Univeristy (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -49,7 +49,7 @@ import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
  * 
  * @author Timothy Jones
  * 
- * @date Today
+ * @date 2018-10-15
  *
  */
 public class DSGRN extends TMAlgorithm{
@@ -180,7 +180,8 @@ public class DSGRN extends TMAlgorithm{
 				for (int j = 0; j < node.getNumInEdge(); j++) {
 					NetlistNode src = node.getInEdgeAtIdx(j).getSrc();
 					rtn += S_DSGRN_PARENTHESIS_OPEN;
-					rtn += S_DSGRN_REPRESSION;
+					if (!LSResultsUtils.isPrimaryInput(src))
+						rtn += S_DSGRN_REPRESSION;
 					rtn += src.getName();
 					rtn += S_DSGRN_PARENTHESIS_CLOSE;
 				}
@@ -222,7 +223,7 @@ public class DSGRN extends TMAlgorithm{
 					rtn += S_PY_QUOT_CLOSE;
 					rtn += S_PY_DICT_SEPARATOR;
 					rtn += S_PY_LIST_OPEN;
-					if (output.getState(node) == output.getOne()) {
+					if (output.getState(node).equals(output.getOne())) {
 						rtn += String.valueOf(node.getNumOutEdge() + 1);
 						rtn += S_PY_DELIMITER;
 						rtn += String.valueOf(node.getNumOutEdge() + 1);
@@ -264,7 +265,7 @@ public class DSGRN extends TMAlgorithm{
 		cmd += this.getRuntimeEnv().getOptionValue(TMArgString.PYTHONENV);
 		cmd += " ";
 		cmd += this.getDSGRNScriptFilename();
-		// Utils.executeAndWaitForCommand(cmd);
+		Utils.executeAndWaitForCommand(cmd);
 	}
 
 	/**
