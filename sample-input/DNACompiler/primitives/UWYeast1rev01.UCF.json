@@ -1928,6 +1928,13 @@
     "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/RGR_20_grna/1"
   },
   {
+    "collection": "parts",
+    "name": "yeGFP",
+    "type": "cds",
+    "dnasequence": "ggattctagaactagtggatctacaaaatgtctaaaggtgaagaattattcactggtgttgtcccaattttggttgaattagatggtgatgttaatggtcacaaattttctgtctccggtgaaggtgaaggtgatgctacttacggtaaattgaccttaaaatttatttgtactactggtaaattgccagttccatggccaaccttagtcactactttcggttatggtgttcaatgttttgctagatacccagatcatatgaaacaacatgactttttcaagtctgccatgccagaaggttatgttcaagaaagaactatttttttcaaagatgacggtaactacaagaccagagctgaagtcaagtttgaaggtgataccttagttaatagaatcgaattaaaaggtattgattttaaagaagatggtaacattttaggtcacaaattggaatacaactataactctcacaatgtttacatcatggctgacaaacaaaagaatggtatcaaagttaacttcaaaattagacacaacattgaagatggttctgttcaattagctgaccattatcaacaaaatactccaattggtgatggtccagtcttgttaccagacaaccattacttatccactcaatctgccttatccaaagatccaaacgaaaagagagaccacatggtcttgttagaatttgttactgctgctggtattacccatggtatggatgaattgtacaaataatgataccgtcgacctcgagtc",
+    "uri": "https://synbiohub.programmingbiology.org/public/UWYeast1/yeGFP/1"
+  },
+  {
     "collection": "gate_orthogonality",
     "gate_name": "RGR_1",
     "maps_to_variable": "x",
