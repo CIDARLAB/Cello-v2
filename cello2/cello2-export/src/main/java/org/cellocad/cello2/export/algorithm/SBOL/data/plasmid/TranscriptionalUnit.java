@@ -25,7 +25,13 @@ import java.util.List;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
 import org.cellocad.cello2.results.placing.placement.Placement;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
@@ -44,15 +50,19 @@ public class TranscriptionalUnit extends CObject {
 		unit = new ArrayList<>();
 	}
 	
-	protected void addPart(Part part) {
-		unit.add(part);
+	protected void addComponent(Component component) {
+		unit.add(component);
 	}
 	
-	protected void addPart(int index, Part part) {
-		unit.add(index,part);
+	protected void addComponent(int index, Component component) {
+		unit.add(index,component);
 	}
 	
-	TranscriptionalUnit(final Placement placement, final Boolean Up, final Boolean Down, CObjectCollection<Part> parts) {
+	TranscriptionalUnit(final Placement placement,
+						final Boolean Up,
+						final Boolean Down,
+						final CObjectCollection<Part> parts,
+						final CObjectCollection<Gate> gates) {
 		init();
 		if (placement.getDirection() == Down) {
 			this.setDirection(Down);
@@ -60,10 +70,20 @@ public class TranscriptionalUnit extends CObject {
 		else {
 			this.setDirection(Up);
 		}
-		for (int i = 0; i < placement.getNumParts(); i++) {
-			String name = placement.getPartAtIdx(i);
+		for (int i = 0; i < placement.getNumComponent(); i++) {
+			String name = placement.getComponentAtIdx(i);
 			Part part = parts.findCObjectByName(name);
-			this.addPart(part);
+			Gate gate = gates.findCObjectByName(name);
+			if (part != null) {
+				this.addComponent(part);
+			}
+			else if (gate != null) {
+				this.addComponent(gate);
+			}
+			else {
+				System.out.println(name);
+				throw new RuntimeException("Unknown part or gate.");
+			}
 		}
 	}
 	
@@ -75,8 +95,29 @@ public class TranscriptionalUnit extends CObject {
 	 */
 	public String getDNASequence() {
 		String rtn = "";
-		for (Part part : this.getTranscriptionalUnit()) {
-			rtn = rtn + part.getDNASequence();
+		for (Component component : this.getTranscriptionalUnit()) {
+			rtn += this.getComponentDNASequence(component);
+		}
+		return rtn;
+	}
+
+	private String getComponentDNASequence(Component component) {
+		String rtn = "";
+		if (component instanceof Gate) {
+			Gate gate = (Gate)component;
+			ResponseFunction rf = gate.getResponseFunction();
+			GateParts gateParts = gate.getGateParts();
+			for (int i = 0; i < rf.getNumVariable(); i++) {
+				ResponseFunctionVariable variable = rf.getVariableAtIdx(i);
+				CasetteParts casetteParts = gateParts.getCasetteParts(variable.getName());
+				for (int j = 0; j < casetteParts.getNumParts(); j++) {
+					Part part = casetteParts.getPartAtIdx(j);
+					rtn += part.getDNASequence();
+				}
+			}
+		}
+		if (component instanceof Part) {
+			rtn += ((Part)component).getDNASequence();
 		}
 		return rtn;
 	}
@@ -86,7 +127,7 @@ public class TranscriptionalUnit extends CObject {
 	 * 
 	 * @return the number of parts in this instance.
 	 */
-	public int getNumParts() {
+	public int getNumComponent() {
 		return this.getTranscriptionalUnit().size();
 	}
 	
@@ -94,12 +135,12 @@ public class TranscriptionalUnit extends CObject {
 	 *  Returns the part at index <i>index</i>
 	 *  @return the part at <i>index</i> if the part exists, null otherwise
 	 */
-	public Part getPartAtIdx(final int index) {
-		Part rtn = null;
+	public Component getComponentAtIdx(final int index) {
+		Component rtn = null;
 		if (
 				(0 <= index)
 				&&
-				(index < this.getNumParts())
+				(index < this.getNumComponent())
 				) {
 			rtn = this.getTranscriptionalUnit().get(index);
 		}
@@ -110,7 +151,7 @@ public class TranscriptionalUnit extends CObject {
 	 * Getter for <i>unit</i>
 	 * @return value of <i>unit</i>
 	 */
-	protected List<Part> getTranscriptionalUnit() {
+	protected List<Component> getTranscriptionalUnit() {
 		return unit;
 	}
 	
@@ -153,6 +194,6 @@ public class TranscriptionalUnit extends CObject {
 
 	private String name;
 	private Boolean direction;
-	List<Part> unit;
+	List<Component> unit;
 
 }

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistNode;
@@ -49,7 +50,7 @@ public class Plasmids {
 	/**
 	 * @param netlist
 	 */
-	public Plasmids(final Netlist netlist, final Boolean Up, final Boolean Down, final CObjectCollection<Part> parts) {
+	public Plasmids(final Netlist netlist, final Boolean Up, final Boolean Down, final CObjectCollection<Part> parts, final CObjectCollection<Gate> gates) {
 		init();
 		NetlistNode first = netlist.getVertexAtIdx(0);
 		Integer num = first.getResultNetlistNodeData().getPlacements().getNumPlacements();
@@ -58,7 +59,7 @@ public class Plasmids {
 			for (int j = 0; j < netlist.getNumVertex(); j++) {
 				NetlistNode node = netlist.getVertexAtIdx(j);
 				Placement placement = node.getResultNetlistNodeData().getPlacements().getPlacementAtIdx(i);
-				TranscriptionalUnit unit = new TranscriptionalUnit(placement,Up,Down,parts);
+				TranscriptionalUnit unit = new TranscriptionalUnit(placement,Up,Down,parts,gates);
 				unit.setDirection(placement.getDirection());
 				unit.setIdx(placement.getIdx());
 				unit.setName(netlist.getName() + "_" + node.getResultNetlistNodeData().getGateType());

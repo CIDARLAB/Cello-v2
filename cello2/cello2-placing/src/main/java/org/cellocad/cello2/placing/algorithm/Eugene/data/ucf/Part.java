@@ -22,6 +22,7 @@ package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.Component;
 import org.json.simple.JSONObject;
 
 /**
@@ -32,7 +33,7 @@ import org.json.simple.JSONObject;
  * @date 2018-05-21
  *
  */
-public class Part extends CObject{
+public class Part extends Component{
 
 	private void parseName(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "name");

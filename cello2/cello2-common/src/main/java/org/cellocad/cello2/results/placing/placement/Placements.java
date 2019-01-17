@@ -71,8 +71,8 @@ public class Placements {
 	}
 		
 	/**
-	 * Add a part and its placement index to this instance
-	 * @param part add the <i>part</i> to the placement unit
+	 * Add a component and its placement index to this instance
+	 * @param component add the <i>component</i> to the placement unit
 	 * @param index assign placement index <i>index</i> to the placement unit
 	 */
 	public void addPlacement(Placement placement) {

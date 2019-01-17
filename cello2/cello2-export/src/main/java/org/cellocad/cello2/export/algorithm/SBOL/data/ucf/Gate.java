@@ -20,8 +20,8 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL.data.ucf;
 
-import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.cellocad.cello2.export.algorithm.SBOL.data.Device;
 import org.json.simple.JSONObject;
 
 /**
@@ -32,7 +32,7 @@ import org.json.simple.JSONObject;
  * @date 2018-05-21
  *
  */
-public class Gate extends CObject{
+public class Gate extends Device{
 
 	private void parseRegulator(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "regulator");
@@ -58,6 +58,11 @@ public class Gate extends CObject{
 		String value = ProfileUtils.getString(JObj, "system");
 		this.setSystem(value);
 	}
+
+	private void parseUri(final JSONObject JObj){
+		String value = ProfileUtils.getString(JObj, "uri");
+		this.setUri(value);
+	}
 	
 	private void parseGate(final JSONObject jObj) {
 		this.parseRegulator(jObj);
@@ -65,6 +70,7 @@ public class Gate extends CObject{
 		this.parseGateName(jObj);
 		this.parseGateType(jObj);
 		this.parseSystem(jObj);
+		this.parseUri(jObj);
 	}
 	
 	public Gate(final JSONObject jObj) {
@@ -170,5 +176,18 @@ public class Gate extends CObject{
 	}
 	
 	private GateParts gateParts;
+
+	/*
+	 * URI
+	 */
+	public void setUri(final String uri){
+		this.uri = uri;
+	}
+	
+	public String getUri(){
+		return this.uri;
+	}
+	
+	private String uri;
 	
 }
