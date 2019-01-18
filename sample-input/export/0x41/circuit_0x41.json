@@ -1,0 +1,281 @@
+{
+    "name": "circuit_0x41",
+    "inputFilename": "circuit_0x41.v",
+    "nodes": [
+        {
+            "name": "output_YFP",
+            "nodeType": "PRIMARY_OUTPUT",
+            "gateType": "YFP",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 0,
+                    "direction": 1,
+                    "parts": [
+                        "pBM3R1",
+                        "RiboJ",
+                        "BBa_B0064_rbs",
+                        "YFP",
+                        "L3S2P21_terminator"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "B2_BM3R1",
+            "nodeType": "NOR",
+            "gateType": "B2_BM3R1",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 1,
+                    "direction": 1,
+                    "parts": [
+                        "pHlyIIR",
+                        "pPhlF",
+			"SarJ",
+			"B2",
+			"BM3R1",
+			"L3S2P11"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "P3_PhlF",
+            "nodeType": "NOR",
+            "gateType": "P3_PhlF",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 2,
+                    "direction": 1,
+                    "parts": [
+                        "pBetI",
+                        "pSrpR",
+			"RiboJ53",
+			"P3",
+			"PhlF",
+			"ECK120033737"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "E1_BetI",
+            "nodeType": "NOR",
+            "gateType": "E1_BetI",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 3,
+                    "direction": 1,
+                    "parts": [
+                        "pAmeR",
+                        "pAmtR",
+			"RiboJ57",
+			"E1",
+			"BetI",
+			"L3S3P11"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "H1_HlyIIR",
+            "nodeType": "NOT",
+            "gateType": "H1_HlyIIR",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 4,
+                    "direction": 1,
+                    "parts": [
+                        "pTac",
+			"RiboJ51",
+			"H1",
+			"HlyIIR",
+			"ECK120033736"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "S2_SrpR",
+            "nodeType": "NOR",
+            "gateType": "S2_SrpR",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 5,
+                    "direction": 1,
+                    "parts": [
+                        "pTet",
+                        "pBAD",
+			"RiboJ10",
+			"S2",
+			"SrpR",
+			"ECK120029600"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "A1_AmtR",
+            "nodeType": "NOT",
+            "gateType": "A1_AmtR",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 6,
+                    "direction": 1,
+                    "parts": [
+                        "pBAD",
+			"BydvJ",
+			"A1",
+			"AmtR",
+			"L3S2P55"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "F1_AmeR",
+            "nodeType": "NOT",
+            "gateType": "F1_AmeR",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 7,
+                    "direction": 1,
+                    "parts": [
+                        "pTet",
+			"RiboJ54",
+			"F1",
+			"AmeR",
+			"L3S3P31"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "input_pTet",
+            "nodeType": "PRIMARY_INPUT",
+            "gateType": "pTet",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 8,
+                    "direction": 1,
+                    "parts": [
+                        "pCONST",
+                        "RiboJ",
+                        "BBa_B0064_rbs",
+                        "TetR",
+                        "L3S2P21_terminator"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "input_pTac",
+            "nodeType": "PRIMARY_INPUT",
+            "gateType": "pTac",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 9,
+                    "direction": 1,
+                    "parts": [
+                        "pCONST",
+                        "RiboJ",
+                        "BBa_B0064_rbs",
+                        "LacI",
+                        "L3S2P21_terminator"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "input_pBAD",
+            "nodeType": "PRIMARY_INPUT",
+            "gateType": "pBAD",
+            "partitionID": -1,
+            "placements": [
+                {
+                    "position": 10,
+                    "direction": 1,
+                    "parts": [
+                        "pCONST",
+                        "RiboJ",
+                        "BBa_B0064_rbs",
+                        "AraC",
+                        "L3S2P21_terminator"
+                    ]
+                }
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "name": "B2_BM3R1_output_YFP",
+            "src": "B2_BM3R1",
+            "dst": "output_YFP"
+        },
+        {
+            "name": "H1_HlyIIR_B2_BM3R1",
+            "src": "H1_HlyIIR",
+            "dst": "B2_BM3R1"
+        },
+        {
+            "name": "P3_PhlF_B2_BM3R1",
+            "src": "P3_PhlF",
+            "dst": "B2_BM3R1"
+        },
+        {
+            "name": "E1_BetI_P3_PhlF",
+            "src": "E1_BetI",
+            "dst": "P3_PhlF"
+        },
+        {
+            "name": "S2_SrpR_P3_PhlF",
+            "src": "S2_SrpR",
+            "dst": "P3_PhlF"
+        },
+        {
+            "name": "F1_AmeR_E1_BetI",
+            "src": "F1_AmeR",
+            "dst": "E1_BetI"
+        },
+        {
+            "name": "A1_AmtR_E1_BetI",
+            "src": "A1_AmtR",
+            "dst": "E1_BetI"
+        },
+        {
+            "name": "input_pTac_H1_HlyIIR",
+            "src": "input_pTac",
+            "dst": "H1_HlyIIR"
+        },
+        {
+            "name": "input_pTet_S2_SrpR",
+            "src": "input_pTet",
+            "dst": "S2_SrpR"
+        },
+        {
+            "name": "input_pBAD_S2_SrpR",
+            "src": "input_pBAD",
+            "dst": "S2_SrpR"
+        },
+        {
+            "name": "input_pBAD_A1_AmtR",
+            "src": "input_pBAD",
+            "dst": "A1_AmtR"
+        },
+        {
+            "name": "input_pTet_F1_AmeR",
+            "src": "input_pTet",
+            "dst": "F1_AmeR"
+        }
+    ]
+}
