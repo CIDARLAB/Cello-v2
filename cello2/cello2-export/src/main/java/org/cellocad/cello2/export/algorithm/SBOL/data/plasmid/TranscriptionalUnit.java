@@ -29,6 +29,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
@@ -62,7 +63,8 @@ public class TranscriptionalUnit extends CObject {
 						final Boolean Up,
 						final Boolean Down,
 						final CObjectCollection<Part> parts,
-						final CObjectCollection<Gate> gates) {
+						final CObjectCollection<Gate> gates,
+						final CObjectCollection<OutputReporter> reporters) {
 		init();
 		if (placement.getDirection() == Down) {
 			this.setDirection(Down);
@@ -74,14 +76,17 @@ public class TranscriptionalUnit extends CObject {
 			String name = placement.getComponentAtIdx(i);
 			Part part = parts.findCObjectByName(name);
 			Gate gate = gates.findCObjectByName(name);
+			OutputReporter reporter = reporters.findCObjectByName(name);
 			if (part != null) {
 				this.addComponent(part);
 			}
 			else if (gate != null) {
 				this.addComponent(gate);
 			}
+			else if (reporter != null) {
+				this.addComponent(reporter);
+			}
 			else {
-				System.out.println(name);
 				throw new RuntimeException("Unknown part or gate.");
 			}
 		}

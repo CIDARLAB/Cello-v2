@@ -48,6 +48,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.plasmid.TranscriptionalUni
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
@@ -137,6 +138,7 @@ public class SBOL extends EXAlgorithm{
 	@Override
 	protected void getDataFromUCF() {
 		this.setGates(SBOLDataUtils.getGates(this.getTargetData()));
+		this.setOutputReporters(SBOLDataUtils.getOutputReporters(this.getTargetData()));
 		this.setParts(SBOLDataUtils.getParts(this.getTargetData()));
 	}
 
@@ -203,7 +205,7 @@ public class SBOL extends EXAlgorithm{
 	protected void preprocessing() {
 		NetlistUtils.writeJSONForNetlist(this.getNetlist(), "/home/tsj/foo.json");
 		// plasmids
-		this.setPlasmids(new Plasmids(this.getNetlist(),true,false,this.getParts(),this.getGates()));
+		this.setPlasmids(new Plasmids(this.getNetlist(),true,false,this.getParts(),this.getGates(),this.getOutputReporters()));
 		// sbh frontend
 		if (this.getRepositoryUrl() != null) {
 			this.setSbhFrontend(new SynBioHubFrontend(this.getRepositoryUrl()));
@@ -251,6 +253,94 @@ public class SBOL extends EXAlgorithm{
 		
 		return rtn;
 	}
+
+	/**
+	 * Add a component definition of <i>part</i> to <i>document</i>. Use SynBioHub definition if available, add sequences if found.
+	 * @param part the part to add
+	 * @param document the <i>SBOLDocument</i> to add the <i>ComponentDefinition</i>
+	 * @throws SynBioHubException unable to fetch SBOL from SynBioHub for <i>part</i>
+	 * @throws SBOLValidationException unable to create component definition
+	 */
+	protected ComponentDefinition addGateDefinition(Gate gate, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
+		String uri = gate.getUri();
+		ComponentDefinition rtn = null;
+
+		if ((uri != null) && (this.getSbhFrontend() != null)) {
+			URI temp = URI.create(uri);
+			SBOLDocument sbol = this.getSbhFrontend().getSBOL(temp);
+			rtn = sbol.getComponentDefinition(temp);
+		}
+		
+		if (rtn != null) {
+			// gate.setUri(uri);
+			document.createCopy(rtn);
+			Set<Sequence> sequences = rtn.getSequences();
+			if (sequences != null) {
+				for (Sequence s : sequences) {
+					document.createCopy(s);
+				}
+			}
+			Set<org.sbolstandard.core2.Component> components = rtn.getComponents();
+			if (components != null) {
+				for (org.sbolstandard.core2.Component c : components) {
+					ComponentDefinition cd = c.getDefinition();
+					document.createCopy(cd);
+				}
+			}
+		} else {
+			rtn = document.createComponentDefinition(gate.getName(),"1",ComponentDefinition.DNA);
+			gate.setUri(rtn.getIdentity().toString());
+			Sequence sequence = document.createSequence(gate.getName() + "_sequence",this.getGateDNASequence(gate),Sequence.IUPAC_DNA);
+			rtn.addSequence(sequence);
+			// TODO add subpart definitions
+		}
+		
+		return rtn;
+	}
+
+	/**
+	 * Add a component definition of <i>part</i> to <i>document</i>. Use SynBioHub definition if available, add sequences if found.
+	 * @param part the part to add
+	 * @param document the <i>SBOLDocument</i> to add the <i>ComponentDefinition</i>
+	 * @throws SynBioHubException unable to fetch SBOL from SynBioHub for <i>part</i>
+	 * @throws SBOLValidationException unable to create component definition
+	 */
+	protected ComponentDefinition addOutputReporterDefinition(OutputReporter reporter, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
+		String uri = reporter.getUri();
+		ComponentDefinition rtn = null;
+
+		if ((uri != null) && (this.getSbhFrontend() != null)) {
+			URI temp = URI.create(uri);
+			SBOLDocument sbol = this.getSbhFrontend().getSBOL(temp);
+			rtn = sbol.getComponentDefinition(temp);
+		}
+		
+		if (rtn != null) {
+			// gate.setUri(uri);
+			document.createCopy(rtn);
+			Set<Sequence> sequences = rtn.getSequences();
+			if (sequences != null) {
+				for (Sequence s : sequences) {
+					document.createCopy(s);
+				}
+			}
+			Set<org.sbolstandard.core2.Component> components = rtn.getComponents();
+			if (components != null) {
+				for (org.sbolstandard.core2.Component c : components) {
+					ComponentDefinition cd = c.getDefinition();
+					document.createCopy(cd);
+				}
+			}
+		} else {
+			rtn = document.createComponentDefinition(reporter.getName(),"1",ComponentDefinition.DNA);
+			reporter.setUri(rtn.getIdentity().toString());
+			Sequence sequence = document.createSequence(reporter.getName() + "_sequence",this.getOutputReporterDNASequence(reporter),Sequence.IUPAC_DNA);
+			rtn.addSequence(sequence);
+			// TODO add subpart definitions
+		}
+		
+		return rtn;
+	}
 	
 	/**
 	 * Add component definitions for all parts of all gates in the netlist.
@@ -259,7 +349,7 @@ public class SBOL extends EXAlgorithm{
 	 * @throws SynBioHubException unable to fetch part SBOL from SynBioHub
 	 * @throws SBOLValidationException unable to create component definition
 	 */
-	protected void addPartDefinitions(SBOLDocument document) throws SynBioHubException, SBOLValidationException {
+	protected void addComponentDefinitions(SBOLDocument document) throws SynBioHubException, SBOLValidationException {
 		Netlist netlist = this.getNetlist();
 		Plasmid plasmid = this.getPlasmids().getPlasmidAtIdx(0);
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
@@ -270,6 +360,14 @@ public class SBOL extends EXAlgorithm{
 				if (component instanceof Part) {
 					Part part = (Part)component;
 					this.addPartDefinition(part, document);
+				}
+				if (component instanceof Gate) {
+					Gate gate = (Gate)component;
+					this.addGateDefinition(gate, document);
+				}
+				if (component instanceof OutputReporter) {
+					OutputReporter reporter = (OutputReporter)component;
+					this.addOutputReporterDefinition(reporter, document);
 				}
 			}
 		}
@@ -286,6 +384,15 @@ public class SBOL extends EXAlgorithm{
 				Part part = casetteParts.getPartAtIdx(j);
 				rtn += part.getDNASequence();
 			}
+		}
+		return rtn;
+	}
+
+	protected String getOutputReporterDNASequence(OutputReporter reporter) {
+		String rtn = "";
+		for (int i = 0; i < reporter.getNumParts(); i++) {
+			Part part = reporter.getPartAtIdx(i);
+			rtn += part.getDNASequence();
 		}
 		return rtn;
 	}
@@ -314,7 +421,7 @@ public class SBOL extends EXAlgorithm{
 			String sequence = "";
 			for (int j = 0; j < unit.getNumComponent(); j++) {
 				Component component = unit.getComponentAtIdx(j);
-				// TODO
+				// TODO combine, implement getComponentDNASequence()
 				if (component instanceof Part) {
 					Part part = (Part)component;
 				
@@ -328,7 +435,7 @@ public class SBOL extends EXAlgorithm{
 						cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(j),
 													"SequenceAnnotation" + String.valueOf(j) + "_Range",
 													sequence.length() + 1,
-													sequence.length() + 1 + part.getDNASequence().length());
+													sequence.length() + part.getDNASequence().length());
 					sa.setComponent(c.getIdentity());
 					sequence += part.getDNASequence();
 				
@@ -340,7 +447,7 @@ public class SBOL extends EXAlgorithm{
 													cd.getComponent(part.getName() + "_component").getIdentity());
 					}
 				}
-				else if (component instanceof Device) {
+				else if (component instanceof Gate) {
 					Device device = (Device)component;
 					Gate gate = this.getGates().findCObjectByName(device.getName());
 
@@ -354,7 +461,7 @@ public class SBOL extends EXAlgorithm{
 						cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(j),
 													"SequenceAnnotation" + String.valueOf(j) + "_Range",
 													sequence.length() + 1,
-													sequence.length() + 1 + this.getGateDNASequence(gate).length());
+													sequence.length() + this.getGateDNASequence(gate).length());
 					sa.setComponent(c.getIdentity());
 					sequence += this.getGateDNASequence(gate);
 
@@ -364,6 +471,32 @@ public class SBOL extends EXAlgorithm{
 													RestrictionType.PRECEDES,
 													cd.getComponent(unit.getComponentAtIdx(j-1).getName() + "_component").getIdentity(),
 													cd.getComponent(gate.getName() + "_component").getIdentity());
+					}
+				}
+				else if (component instanceof OutputReporter) {
+					Device device = (Device)component;
+					OutputReporter reporter = this.getOutputReporters().findCObjectByName(device.getName());
+
+					// Component
+					org.sbolstandard.core2.Component c = cd.createComponent(reporter.getName() + "_component",
+																			AccessType.PUBLIC,
+																			URI.create(reporter.getUri()));
+
+					// SequenceAnnotation
+					SequenceAnnotation sa =
+						cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(j),
+													"SequenceAnnotation" + String.valueOf(j) + "_Range",
+													sequence.length() + 1,
+													sequence.length() + this.getOutputReporterDNASequence(reporter).length());
+					sa.setComponent(c.getIdentity());
+					sequence += this.getOutputReporterDNASequence(reporter);
+
+					// SequenceConstraint
+					if (j != 0) {
+						cd.createSequenceConstraint(cd.getDisplayId() + "Constraint" + String.valueOf(j),
+													RestrictionType.PRECEDES,
+													cd.getComponent(unit.getComponentAtIdx(j-1).getName() + "_component").getIdentity(),
+													cd.getComponent(reporter.getName() + "_component").getIdentity());
 					}
 				}
 			}
@@ -383,7 +516,7 @@ public class SBOL extends EXAlgorithm{
 		SBOLDocument document = new SBOLDocument();
 		document.setDefaultURIprefix("http://cellocad.org/v2");
 
-		this.addPartDefinitions(document);
+		this.addComponentDefinitions(document);
 		this.addTranscriptionalUnitDefinitions(document);
 		
 		return document;
@@ -811,6 +944,22 @@ public class SBOL extends EXAlgorithm{
 	}
 
 	/**
+	 * Getter for <i>reporters</i>
+	 * @return value of <i>reporters</i>
+	 */
+	public CObjectCollection<OutputReporter> getOutputReporters() {
+		return reporters;
+	}
+
+	/**
+	 * Setter for <i>reporters</i>
+	 * @param reporters the value to set <i>reporters</i>
+	 */
+	protected void setOutputReporters(final CObjectCollection<OutputReporter> reporters) {
+		this.reporters = reporters;
+	}
+
+	/**
 	 * Getter for <i>parts</i>
 	 * @return value of <i>parts</i>
 	 */
@@ -861,6 +1010,7 @@ public class SBOL extends EXAlgorithm{
 	private SBOLDocument sbolDocument;
 	private String sbolFilename;
 	private CObjectCollection<Gate> gates;
+	private CObjectCollection<OutputReporter> reporters;
 	private CObjectCollection<Part> parts;
 	private Plasmids plasmids;
 	private static final Logger logger = LogManager.getLogger(SBOL.class.getSimpleName());

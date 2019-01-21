@@ -27,6 +27,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Cytometry;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CytometryData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
@@ -118,7 +119,18 @@ public class SBOLDataUtils {
 		return rtn;
 	}
 	
+	static public CObjectCollection<OutputReporter> getOutputReporters(final TargetData td) {
+		CObjectCollection<OutputReporter> rtn = new CObjectCollection<OutputReporter>();
+		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_OUTPUTREPORTERS); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_OUTPUTREPORTERS, i);
+			OutputReporter reporter = new OutputReporter(jObj,getParts(td));
+			rtn.add(reporter);
+		}
+		return rtn;
+	}
+	
 	private static String S_GATES = "gates";
+	private static String S_OUTPUTREPORTERS = "output_reporters";
 	private static String S_RESPONSEFUNCTION = "response_functions";
 	private static String S_PARTS = "parts";
 	private static String S_GATEPARTS = "gate_parts";
