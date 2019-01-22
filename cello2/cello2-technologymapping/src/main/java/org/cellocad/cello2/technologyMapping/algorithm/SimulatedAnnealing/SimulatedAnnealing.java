@@ -33,6 +33,7 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
+import org.cellocad.cello2.common.graph.algorithm.Tarjan;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -173,6 +174,15 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	protected void setTruthTable() {
 		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
+		Tarjan<NetlistNode, NetlistEdge, Netlist> tarjan = new Tarjan<NetlistNode, NetlistEdge, Netlist>(this.getNetlist());
+		CObjectCollection<NetlistNode> component = null;
+		while ((component = tarjan.getNextComponent()) != null) {
+			if (component.size() <= 1)
+				continue;
+			for (int i = 0; i < component.size(); i++) {
+				NetlistNode node = component.get(i);
+			}
+		}		
 		this.setLSLogicEvaluation(new LSLogicEvaluation(this.getNetlist()));
 		this.logInfo(this.getLSLogicEvaluation().toString());
 	}

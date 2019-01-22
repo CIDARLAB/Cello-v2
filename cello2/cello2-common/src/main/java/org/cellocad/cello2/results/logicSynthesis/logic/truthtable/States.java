@@ -21,6 +21,8 @@
 package org.cellocad.cello2.results.logicSynthesis.logic.truthtable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -96,6 +98,22 @@ public class States <T>{
 	public int getNumStates() {
 		return this.getStates().size();
 	}
+
+	/**
+	 * Removes the <i>states</i> in this instance.
+	 * 
+	 * @param stats the collection of State<T> to remove.
+	 * @return true if this instance is changed as a result of the call.
+	 */
+	public Boolean removeStates(final Collection<State<T>> states) {
+		Iterator<State<T>> it = states.iterator();
+		while (it.hasNext()) {
+			State<T> state = it.next();
+			this.getStates().remove(state);
+		}
+		return true;
+	}
+	
 	/*
 	 * On
 	 */
@@ -113,6 +131,7 @@ public class States <T>{
 	protected void setOne(Boolean One) {
 		bOne = One;
 	}
+	
 	/*
 	 * Off
 	 */

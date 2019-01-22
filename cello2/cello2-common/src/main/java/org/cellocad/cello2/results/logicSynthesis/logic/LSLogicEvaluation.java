@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2018 
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,13 +25,17 @@ package org.cellocad.cello2.results.logicSynthesis.logic;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.graph.algorithm.SinkDFS;
+import org.cellocad.cello2.common.graph.algorithm.Tarjan;
 import org.cellocad.cello2.results.logicSynthesis.LSResults;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.truthtable.State;
@@ -43,6 +49,7 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
  * The LSLogicEvaluation class is class evaluating the logic of a netlist in the <i>logicSynthesis</i> stage.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
@@ -66,10 +73,16 @@ public class LSLogicEvaluation {
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");
 		}
+		if (!this.isSupportedTopology(netlist)) {
+			throw new RuntimeException("Topology not supported!");
+		}
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(netlist);
+		inputNodes.addAll(this.getStatefulNodes(netlist));
 		Boolean One = new Boolean(true);
 		Boolean Zero = new Boolean(false);
 		States<NetlistNode> states = new States<NetlistNode>(inputNodes, One, Zero);
+		Collection<State<NetlistNode>> forbidden = this.getForbiddenStates(netlist,states);
+		states.removeStates(forbidden);
 		this.setStates(states);
 		List<NetlistNode> outputNodes = new ArrayList<NetlistNode>();
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
@@ -80,6 +93,132 @@ public class LSLogicEvaluation {
 			this.getTruthTables().put(node, truthTable);
 		}
 		this.evaluate(netlist);
+	}
+
+	private Collection<State<NetlistNode>> getForbiddenStates(Netlist netlist, States<NetlistNode> states) {
+		Collection<State<NetlistNode>> rtn = new HashSet<>();
+		Tarjan<NetlistNode,NetlistEdge,Netlist> tarjan = new Tarjan<>(netlist);
+		CObjectCollection<NetlistNode> component = null;
+		while ((component = tarjan.getNextComponent()) != null) {
+			if (this.isNORLatch(component)) {
+				NetlistNode a = component.get(0);
+				NetlistNode b = component.get(1);
+				NetlistNode in1 = null;
+				NetlistNode in2 = null;
+				for (int j = 0; j < a.getNumInEdge(); j++) {
+					NetlistEdge e = a.getInEdgeAtIdx(j);
+					NetlistNode src = e.getSrc();
+					if (src.equals(b))
+						continue;
+					else
+						in1 = src;
+				}
+				for (int j = 0; j < b.getNumInEdge(); j++) {
+					NetlistEdge e = b.getInEdgeAtIdx(j);
+					NetlistNode src = e.getSrc();
+					if (src.equals(a))
+						continue;
+					else
+						in2 = src;
+				}
+				for (int i = 0; i < states.getNumStates(); i++) {
+					State<NetlistNode> state = states.getStateAtIdx(i);
+					if (state.getState(a).equals(state.getState(b)))
+						rtn.add(state);
+					if (state.getState(in1).equals(true)
+						&&
+						state.getState(in2).equals(true))
+						rtn.add(state);
+				}
+			}
+		}
+		System.out.println(rtn.size());
+		return rtn;
+	}
+
+	/**
+	 * Returns a CObjectCollection of NetlistNode from the netlist with nodes that hold state
+	 * 
+	 * @return a CObjectCollection of NetlistNode from the netlist with nodes that hold state
+	 */	
+	private CObjectCollection<NetlistNode> getStatefulNodes(Netlist netlist) {
+		CObjectCollection<NetlistNode> rtn = new CObjectCollection<>();
+		Tarjan<NetlistNode,NetlistEdge,Netlist> tarjan = new Tarjan<>(netlist);
+		CObjectCollection<NetlistNode> component = null;
+		while ((component = tarjan.getNextComponent()) != null) {
+			if (component.size() <= 1)
+				continue;
+			for (int i = 0; i < component.size(); i++) {
+				rtn.add(component.get(i));
+			}
+		}
+		return rtn;
+	}
+		
+	private Boolean isUpstreamOnceOf(NetlistNode src, NetlistNode dst) {
+		Boolean rtn = false;
+		for (int i = 0; i < src.getNumOutEdge(); i++) {
+			NetlistEdge e = src.getOutEdgeAtIdx(i);
+			for (int j = 0; j < e.getNumDst(); j++) {
+				NetlistNode temp = e.getDstAtIdx(j);
+				if (temp.equals(dst)) {
+					rtn = rtn ^ true;
+				}
+			}
+		}
+		return rtn;
+	}
+	
+	/**
+	 * Returns true if the collection of NetlistNode is in a NOR latch configuration
+	 * 
+	 * @param component the collection of NetlistNode
+	 * @return true if the collection of NetlistNode is in a NOR latch configuration
+	 */
+	private Boolean isNORLatch(CObjectCollection<NetlistNode> component) {
+		Boolean rtn = false;
+		if (component.size() != 2)
+			return false;
+		NetlistNode a = component.get(0);
+		NetlistNode b = component.get(1);
+		if (
+				this.isUpstreamOnceOf(a,b)
+				&& 
+				this.isUpstreamOnceOf(b,a)
+				&&
+				a.getResultNetlistNodeData().getNodeType().equals(LSResults.S_NOR)
+				&&
+				b.getResultNetlistNodeData().getNodeType().equals(LSResults.S_NOR)
+				) {
+			rtn = true;
+
+		}
+		return rtn;
+	}
+	
+	/**
+	 * Returns true if the netlist topology is supported, false otherwise
+	 * 
+	 * @param netlist the Netlist
+	 * @return true if the netlist topology is supported, false otherwise
+	 */
+	private Boolean isSupportedTopology(Netlist netlist) {
+		Boolean rtn = true;
+		Tarjan<NetlistNode,NetlistEdge,Netlist> tarjan = new Tarjan<>(netlist);
+		CObjectCollection<NetlistNode> component = null;
+		while ((component = tarjan.getNextComponent()) != null) {
+			if (component.size() <= 1)
+				continue;
+			if (component.size() > 2) {
+				rtn = false;
+				break;
+			}
+			if (!this.isNORLatch(component)) {
+				rtn = false;
+				break;
+			}
+		}
+		return rtn;
 	}
 
 	/**
@@ -141,24 +280,6 @@ public class LSLogicEvaluation {
 	}
 	
 	/**
-	 *  Returns the evaluation for a Primary Input for NetlistNode defined by parameter <i>node</i>
-	 *  at the state defined by parameter <i>state</i>
-	 *  
-	 *  @param node the NetlistNode
-	 *  @param state the state
-	 *  @return the evaluation for a Primary Input for NetlistNode defined by parameter <i>node</i>
-	 *  at the state defined by parameter <i>state</i>
-	 */
-	private Boolean computePrimaryInput(final NetlistNode node, final State<NetlistNode> state) {
-		Boolean rtn = null;
-		List<Boolean> inputList = this.getInputLogic(node, state);
-		if (inputList.size() == 0) {
-			rtn = state.getState(node);
-		}
-		return rtn;
-	}
-	
-	/**
 	 *  Returns the evaluation for a Primary Output for NetlistNode defined by parameter <i>node</i>
 	 *  at the state defined by parameter <i>state</i>
 	 *  
@@ -172,6 +293,24 @@ public class LSLogicEvaluation {
 		List<Boolean> inputList = this.getInputLogic(node, state);
 		if (inputList.size() == 1) {
 			rtn = inputList.get(0);
+		}
+		return rtn;
+	}
+	
+	/**
+	 *  Returns the evaluation for a Primary Input for NetlistNode defined by parameter <i>node</i>
+	 *  at the state defined by parameter <i>state</i>
+	 *  
+	 *  @param node the NetlistNode
+	 *  @param state the state
+	 *  @return the evaluation for a Primary Input for NetlistNode defined by parameter <i>node</i>
+	 *  at the state defined by parameter <i>state</i>
+	 */
+	private Boolean computePrimaryInput(final NetlistNode node, final State<NetlistNode> state) {
+		Boolean rtn = null;
+		List<Boolean> inputList = this.getInputLogic(node, state);
+		if (inputList.size() == 0) {
+			rtn = state.getState(node);
 		}
 		if (inputList.size() > 1) {
 			rtn = this.computeOR(node,state);
@@ -370,6 +509,12 @@ public class LSLogicEvaluation {
 				default:{
 					throw new RuntimeException("Unknown nodeType");
 				}
+			}
+			// stateful nodes
+			if (!nodeType.equals(LSResults.S_PRIMARYINPUT) 
+					&& 
+					inputState.getState(node) != null) {
+				result = inputState.getState(node);
 			}
 			Utils.isNullRuntimeException(result, "result");
 			if (!outputState.setState(node, result)) {

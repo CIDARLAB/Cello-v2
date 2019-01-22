@@ -207,6 +207,37 @@ public class State <T> extends CObject{
 	protected void setZero(Boolean Zero) {
 		bZero = Zero;
 	}
+	
+	/*
+	 * Equals
+	 */
+	/**
+	 *  Indicates whether some other object is "equal to" this one.
+	 *  
+	 *  @param obj the object to compare with.
+	 *  @return true if this object is the same as the obj argument; false otherwise.
+	 */
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!(obj instanceof State<?>))
+			return false;
+		State<?> other = (State<?>) obj;
+		if (bOne != other.bOne)
+			return false;
+		if (bZero != other.bZero)
+			return false;
+		if (!stateEntryMap.equals(other.stateEntryMap))
+			return false;
+		if (!stateEntry.equals(other.stateEntry))
+			return false;
+		return true;
+	}
 
 	private List<Pair<T,Boolean>> stateEntry;
 	private Map<T,Boolean> stateEntryMap;
