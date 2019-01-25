@@ -167,6 +167,7 @@ public class Main {
 		currentStage = appCfg.getStageByName("technologyMapping");
 		TMRuntimeObject TM = new TMRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		TM.execute();
+		NetlistUtils.writeDotFileForGraph(netlist, outputDir + netlist.getName()+ "_technologyMapping" + ".dot");
 		// placing
 		currentStage = appCfg.getStageByName("placing");
 		PLRuntimeObject PL = new PLRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
