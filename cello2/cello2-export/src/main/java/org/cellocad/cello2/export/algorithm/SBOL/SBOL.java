@@ -226,7 +226,7 @@ public class SBOL extends EXAlgorithm{
 				}
 			}
 		} else {
-			rtn = document.createComponentDefinition(part.getName(),ComponentDefinition.DNA);
+			rtn = document.createComponentDefinition(part.getName(),ComponentDefinition.DNA_REGION);
 			part.setUri(rtn.getIdentity().toString());
 			Sequence sequence = document.createSequence(part.getName() + "_sequence",part.getDNASequence(),Sequence.IUPAC_DNA);
 			rtn.addSequence(sequence);
@@ -271,7 +271,7 @@ public class SBOL extends EXAlgorithm{
 			String gateType = node.getResultNetlistNodeData().getGateType();
 			
 			// ComponentDefinition
-			ComponentDefinition cd = document.createComponentDefinition(name + "_" + gateType,ComponentDefinition.DNA);
+			ComponentDefinition cd = document.createComponentDefinition(name + "_" + gateType,ComponentDefinition.DNA_REGION);
 			cd.addRole(SequenceOntology.ENGINEERED_REGION);
 			
 			// parts
@@ -366,7 +366,7 @@ public class SBOL extends EXAlgorithm{
 	protected void addPlasmidDefinitions(SBOLDocument document) throws SBOLValidationException {
 		for (int i = 0; i < this.getPlasmids().getNumPlasmids(); i++) {
 			Plasmid plasmid = this.getPlasmids().getPlasmidAtIdx(i);
-			ComponentDefinition cd = document.createComponentDefinition("plasmid_" + String.valueOf(i), ComponentDefinition.DNA);
+			ComponentDefinition cd = document.createComponentDefinition("plasmid_" + String.valueOf(i), ComponentDefinition.DNA_REGION);
 			plasmid.setUri(cd.getIdentity());
 			cd.addRole(SequenceOntology.ENGINEERED_REGION);
 			cd.addType(SequenceOntology.CIRCULAR);
