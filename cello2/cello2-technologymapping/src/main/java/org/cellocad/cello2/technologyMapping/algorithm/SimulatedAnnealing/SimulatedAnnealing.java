@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2018
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -37,7 +39,6 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.cello2.results.technologyMapping.activity.signal.SensorSignals;
 import org.cellocad.cello2.results.technologyMapping.cytometry.TMCytometryEvaluation;
-import org.cellocad.cello2.results.technologyMapping.toxicity.TMToxicityEvaluation;
 import org.cellocad.cello2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingDataUtils;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
@@ -46,6 +47,7 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.S
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
@@ -53,10 +55,10 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 
 /**
  * The SimulatedAnnealing class implements the <i>SimulatedAnnealing</i> algorithm in the <i>technologyMapping</i> stage.
- * 
+ *
  * @author Vincent Mirian
  * @author Timothy Jones
- * 
+ *
  * @date 2018-05-21
  *
  */
@@ -129,7 +131,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	@Override
 	protected void validateParameterValues() {
-		
+
 	}
 
 	/**
@@ -140,7 +142,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.setLSLogicEvaluation(new LSLogicEvaluation(this.getNetlist()));
 		this.logInfo(this.getLSLogicEvaluation().toString());
 	}
-	
+
 	protected void assignInputNodes() {
 		// assign input
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(this.getNetlist());
@@ -155,7 +157,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			data.setGate(sensor);
 		}
 	}
-	
+
 	protected void assignOutputNodes() {
 		// assign output
 		CObjectCollection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
@@ -170,7 +172,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			data.setGate(reporter);
 		}
 	}
-	
+
 	protected void assignNodes() {
 		// assign random gates
 		GateManager GM = this.getGateManager();
@@ -189,7 +191,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			GM.setAssignedGate(gate);
 		}
 	}
-	
+
 	@Override
 	protected void preprocessing() {
 		this.random = new Random(L_SEED);
@@ -207,8 +209,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.setSensorSignals(this.getNetlist());
 		// activity evaluation
 		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(),this.getSensorSignals(),this.getLSLogicEvaluation()));
-		// toxicity evaluation
-		this.setTMToxicityEvaluation(new TMToxicityEvaluation());
 	}
 
 	/**
@@ -217,88 +217,110 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	@Override
 	protected void run() {
 
-        Double MAXTEMP = 100.0;
-        Double MINTEMP = 0.001;
+		Double MAXTEMP = 100.0;
+		Double MINTEMP = 0.001;
 
-        Integer STEPS = 100;
+		Integer STEPS = 100;
 
-        Double LOGMAX = Math.log10(MAXTEMP);
-        Double LOGMIN = Math.log10(MINTEMP);
+		Double LOGMAX = Math.log10(MAXTEMP);
+		Double LOGMIN = Math.log10(MINTEMP);
 
-        Double LOGINC = (LOGMAX - LOGMIN) / STEPS;
+		Double LOGINC = (LOGMAX - LOGMIN) / STEPS;
 
-        Integer T0_STEPS = 100;
-        	
-        this.assignNodes();
+		Integer T0_STEPS = 100;
 
-        // evaluate
+		this.assignNodes();
 
-        for (int j = 0; j < STEPS + T0_STEPS; ++j) {
+		// evaluate
+		for (int j = 0; j < STEPS + T0_STEPS; ++j) {
+			Double LOGTEMP = LOGMAX - j * LOGINC;
+			Double TEMP = Math.pow(10, LOGTEMP);
 
-        	Double LOGTEMP = LOGMAX - j * LOGINC;
-        	Double TEMP = Math.pow(10, LOGTEMP);
+			if (j >= STEPS) {
+				TEMP = 0.0;
+			}
 
-        	if (j >= STEPS) {
-        		TEMP = 0.0;
-        	}
-        	
-        	Evaluator eval = null;
-        	eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
-        	eval.evaluate();
-        	
-        	Double before = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation());
-        	
-    		GateManager GM = this.getGateManager();
-    		Netlist netlist = this.getNetlist();
-    		
-          	// get random node
-        	NetlistNode node = null;
-        	while (node == null) {
-        		int rand = random(0,netlist.getNumVertex() - 1);
-        		NetlistNode temp = netlist.getVertexAtIdx(rand);
-        		if (!LSResultsUtils.isAllOutput(temp) && !LSResultsUtils.isAllInput(temp)) {
-        			node = temp;
-        		}
-        	}
-        	SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
-        	
-        	// get random gate
-        	Gate original = (Gate)data.getGate();
-        	Gate candidate = GM.getRandomGateFromUnassignedGroup();
-        	if (candidate == null) {
-    			throw new RuntimeException("Gate assignment error!");
-    		}
-        	
-        	// set gate
-        	GM.setUnassignedGate(original);
-        	data.setGate(candidate);
-        	GM.setAssignedGate(candidate);
-        	
-        	// evaluate
-        	TMActivityEvaluation temp = new TMActivityEvaluation(this.getNetlist(),
-        			this.getSensorSignals(),
-        			this.getLSLogicEvaluation());
-        	eval = new Evaluator(this.getNetlist(),temp,this.getUnitConversion());
-        	eval.evaluate();
-        	Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),temp);
+			Evaluator eval = null;
+			eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
+			eval.evaluate();
+			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
 
-        	// accept or reject
-        	Double probability = Math.exp( (after-before) / TEMP ); // e^b
-        	Double ep = Math.random();
+			Double before = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation());
 
-        	if (ep < probability) {
-        		this.setTMActivityEvaluation(temp);
-        	} else {
-        		// undo
-        		GM.setUnassignedGate(candidate);
-            	data.setGate(original);
-            	GM.setAssignedGate(original);
-        	}
+			GateManager GM = this.getGateManager();
+			Netlist netlist = this.getNetlist();
 
-        }
-        
+			// get random node
+			NetlistNode node = null;
+			while (node == null) {
+				int rand = random(0,netlist.getNumVertex() - 1);
+				NetlistNode temp = netlist.getVertexAtIdx(rand);
+				if (!LSResultsUtils.isAllOutput(temp) && !LSResultsUtils.isAllInput(temp)) {
+					node = temp;
+				}
+			}
+			SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
+
+			// get random gate
+			Gate original = (Gate)data.getGate();
+			Gate candidate = GM.getRandomGateFromUnassignedGroup();
+			if (candidate == null) {
+				throw new RuntimeException("Gate assignment error!");
+			}
+			// set gate
+			GM.setUnassignedGate(original);
+			data.setGate(candidate);
+			GM.setAssignedGate(candidate);
+
+			// evaluate
+			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
+			                                                     this.getSensorSignals(),
+			                                                     this.getLSLogicEvaluation());
+			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
+			eval.evaluate();
+			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
+
+			// toxicity
+			TMToxicityEvaluation tempToxicity = new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation());
+			if (this.getTMToxicityEvaluation().getMinimumGrowth() < D_GROWTH_THRESHOLD) {
+				if (tempToxicity.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
+					this.setTMToxicityEvaluation(tmte);
+					this.setTMActivityEvaluation(tempActivity);
+					continue;
+				}
+				else {
+					// undo
+					GM.setUnassignedGate(candidate);
+					data.setGate(original);
+					GM.setAssignedGate(original);
+					continue;
+				}
+			}
+			else if (tempToxicity.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
+				// undo
+				GM.setUnassignedGate(candidate);
+				data.setGate(original);
+				GM.setAssignedGate(original);
+				continue;
+			}
+
+			// accept or reject
+			Double probability = Math.exp( (after-before) / TEMP ); // e^b
+			Double ep = Math.random();
+
+			if (ep < probability) {
+				this.setTMActivityEvaluation(tempActivity);
+			} else {
+				// undo
+				GM.setUnassignedGate(candidate);
+				data.setGate(original);
+				GM.setAssignedGate(original);
+			}
+
+		}
+
 	}
-	
+
 	/**
 	 * Copy the gate assignements to the netlist
 	 */
@@ -319,7 +341,9 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void postprocessing() {
 		updateNetlist(this.getNetlist());
 		this.setTMCytometryEvaluation(new TMCytometryEvaluation());
+		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
 		this.logInfo(this.getTMActivityEvaluation().toString());
+		this.logInfo(this.getTMToxicityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
 			Assignable gate = this.getSimulatedAnnealingNetlistNodeData(node).getGate();
@@ -347,7 +371,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected Logger getLogger() {
 		return SimulatedAnnealing.logger;
 	}
-	
+
 	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class.getSimpleName());
 
 	/*
@@ -356,14 +380,14 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void setGates(final CObjectCollection<Gate> gates) {
 		this.gates = gates;
 	}
-	
+
 	public CObjectCollection<Gate> getGates() {
 		return this.gates;
 	}
 
 
 	private CObjectCollection<Gate> gates;
-	
+
 	/*
 	 * InputSensors
 	 */
@@ -384,7 +408,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private CObjectCollection<InputSensor> sensors;
-	
+
 	/**
 	 * Getter for <i>reporters</i>
 	 * @return value of <i>reporters</i>
@@ -402,14 +426,14 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private CObjectCollection<OutputReporter> reporters;
-	
+
 	/**
 	 * @param unitConversion the unitConversion to set
 	 */
 	protected void setUnitConversion(final Double unitConversion) {
 		this.unitConversion = unitConversion;
 	}
-	
+
 	/**
 	 * @return the unitConversion
 	 */
@@ -418,33 +442,33 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private Double unitConversion;
-	
+
 	/*
 	 * GateManager
 	 */
 	protected void setGateManager(final GateManager gateManager) {
 		this.gateManager = gateManager;
 	}
-	
+
 	public GateManager getGateManager() {
 		return this.gateManager;
 	}
-	
-	private GateManager gateManager; 
-	
+
+	private GateManager gateManager;
+
 	/*
 	 * LSLogicEvaluation
 	 */
 	protected void setLSLogicEvaluation(final LSLogicEvaluation lsle) {
 		this.lsle = lsle;
 	}
-	
+
 	public LSLogicEvaluation getLSLogicEvaluation() {
 		return this.lsle;
 	}
 
 	private LSLogicEvaluation lsle;
-	
+
 	/**
 	 * Getter for <i>signals</i>
 	 * @return value of <i>signals</i>
@@ -468,7 +492,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		}
 		this.signals = signals;
 	}
-	
+
 	/**
 	 * Setter for <i>signals</i>
 	 * @param signals the value to set <i>signals</i>
@@ -476,7 +500,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void setSensorSignals(final SensorSignals<NetlistNode> signals) {
 		this.signals = signals;
 	}
-	
+
 	private SensorSignals<NetlistNode> signals;
 
 	/*
@@ -497,10 +521,10 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void setTMToxicityEvaluation(final TMToxicityEvaluation tmte) {
 		this.tmte = tmte;
 	}
-	
+
 	private TMToxicityEvaluation tmte;
 
-	
+
 	/*
 	 * TMToxicityEvaluation
 	 */
@@ -511,7 +535,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void setTMActivityEvaluation(final TMActivityEvaluation tmae) {
 		this.tmae = tmae;
 	}
-	
+
 	/**
 	 * Setter for <i>tmae</i>
 	 * @param tmte the value to set <i>tmae</i>
@@ -520,7 +544,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		updateNetlist(netlist);
 		tmae = new TMActivityEvaluation(netlist,signals,lsle);
 	}
-	
+
 	/**
 	 * Getter for <i>tmte</i>
 	 * @return value of <i>tmte</i>
@@ -530,7 +554,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private TMActivityEvaluation tmae;
-	
+
 	/**
 	 * Getter for <i>tmce</i>
 	 * @return value of <i>tmce</i>
@@ -546,9 +570,9 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void setTMCytometryEvaluation(final TMCytometryEvaluation tmce) {
 		this.tmce = tmce;
 	}
-	
+
 	private TMCytometryEvaluation tmce;
-	
+
 	/*
 	 * Random
 	 */
@@ -558,11 +582,13 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		rtn = random.nextInt(max - min + 1) + min;
 		return rtn;
 	}
-	
+
 	private Random getRandom(){
 		return this.random;
 	}
-	
+
 	private Random random;
 	private static long L_SEED = 21;
+	private static final double D_GROWTH_THRESHOLD = 0.75;
+
 }
