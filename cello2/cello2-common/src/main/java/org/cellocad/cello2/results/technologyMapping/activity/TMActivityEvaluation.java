@@ -29,9 +29,12 @@ import java.util.Map;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.graph.algorithm.Tarjan;
+import org.cellocad.cello2.results.logicSynthesis.LSResults;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.netlist.Netlist;
+import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.technologyMapping.activity.activitytable.Activities;
 import org.cellocad.cello2.results.technologyMapping.activity.activitytable.Activity;
@@ -65,6 +68,7 @@ public class TMActivityEvaluation {
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");
 		}
+		this.setNetlist(netlist);
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(netlist);
 		Activities<NetlistNode> activities = new Activities<NetlistNode>(inputNodes, lsle.getStates(), sensorSignals);
 		this.setActivities(activities);
@@ -100,6 +104,22 @@ public class TMActivityEvaluation {
 			rtn.add(outputActivity.getActivity(inputNode));
 		}
 		return rtn;
+	}
+
+	/**
+	 * Getter for <i>netlist</i>
+	 * @return value of <i>netlist</i>
+	 */
+	protected Netlist getNetlist() {
+		return netlist;
+	}
+
+	/**
+	 * Setter for <i>netlist</i>
+	 * @param netlist the value to set <i>netlist</i>
+	 */
+	protected void setNetlist(final Netlist netlist) {
+		this.netlist = netlist;
 	}
 
 	protected Map<NetlistNode,ActivityTable<NetlistNode,NetlistNode>> getActivityTables(){
@@ -174,7 +194,7 @@ public class TMActivityEvaluation {
 
 	private static final String S_HEADER = "--------------------------------------------";
 
-
+	private Netlist netlist;
 	private Map<NetlistNode, ActivityTable<NetlistNode, NetlistNode>> activitytables;
 	private Activities<NetlistNode> activities;
 }

@@ -701,7 +701,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private Random random;
-	private static long L_SEED = 21;
+	private static long L_SEED = 29;
 	private static final double D_GROWTH_THRESHOLD = 0.75;
-
 }

@@ -114,7 +114,7 @@ public class ActivityTable<Input,Output> {
 	 * Returns the Activity<Input> at the specified position in this instance.
 	 * 
 	 * @param index index of the Activity<Input> to return
-	 * @return if the index is within the bounds (0 <= bounds < this.getNumActivitys()), returns the Activity<Input> at the specified position in this instance, otherwise null
+	 * @return if the index is within the bounds (0 <= bounds < this.getNumActivities()), returns the Activity<Input> at the specified position in this instance, otherwise null
 	 */
 	public Activity<Input> getActivityAtIdx(final int index){
 		Activity<Input> rtn = null;

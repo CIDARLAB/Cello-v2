@@ -1,21 +1,13 @@
-/* 
+/*
  SR Latch
-*/
-module sr_latch
-(
- s,
- r,
- q,
- qnot
- );
+ */
 
-   input s;
-   input r;
+module sr_latch (S,R,Q,Q_not);
 
-   output q;
-   output qnot;
+   input   S, R;
+   output  Q, Q_not;
 
-   nor(q,r,qnot);
-   nor(qnot,s,q);
- 
+   nor (Q,Q_not,R);
+   nor (Q_not,Q,S);
+   
 endmodule // sr_latch

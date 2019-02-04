@@ -21,11 +21,15 @@
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.graph.algorithm.SinkDFS;
 import org.cellocad.cello2.results.logicSynthesis.LSResults;
+import org.cellocad.cello2.common.graph.algorithm.Tarjan;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
@@ -74,7 +78,7 @@ public class Evaluator {
 		for (int i = 0; i < node.getNumInEdge(); i++) {
 			NetlistNode inputNode = node.getInEdgeAtIdx(i).getSrc();
 			ActivityTable<NetlistNode, NetlistNode> activityTable = this.getTMActivityEvaluation().getActivityTable(inputNode);
-			activityTable.getActivityOutput(activity);
+			// activityTable.getActivityOutput(activity);
 			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(activity);
 			if (outputActivity.getNumActivityPosition() != 1) {
 				throw new RuntimeException("Invalid number of output(s)!");
@@ -194,6 +198,24 @@ public class Evaluator {
 			}
 		}
 	}
+
+	// private  getCyclicComponent(NetlistNode node) {
+	// 	Boolean rtn = false;
+	// 	Tarjan<NetlistNode,NetlistEdge,Netlist> tarjan = new Tarjan<>(this.getNetlist());
+	// 	CObjectCollection<NetlistNode> component = null;
+	// 	while ((component = tarjan.getNextComponent()) != null) {
+	// 		if (component.size() <= 1)
+	// 			continue;
+	// 		for (int i = 0; i < component.size(); i++) {
+	// 			NetlistNode temp = component.get(i);
+	// 			if (temp.equals(node)) {
+	// 				rtn = true;
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// 	return rtn;
+	// }
 	
 	/**
 	 *  Evaluates the Netlist defined by parameter <i>netlist</i> and stores the result in the TMActivityEvaluation defined by parameter <i>tmae</i>
@@ -201,15 +223,83 @@ public class Evaluator {
 	 *  @param netlist the Netlist
 	 *  @param tmae the TMActivityEvaluation
 	 */
-	public void evaluate() {
-		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(this.getNetlist());
-		NetlistNode node = null;
-		node = DFS.getNextVertex();
-		while (node != null) {
+	public void zero() {
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
 			ActivityTable<NetlistNode,NetlistNode> activityTable = this.getTMActivityEvaluation().getActivityTable(node);
-			evaluateActivityTable(node,activityTable);
-			node = DFS.getNextVertex();
+			final String nodeType = node.getResultNetlistNodeData().getNodeType();
+			for (int j = 0; j < activityTable.getNumActivities(); j++) {
+				Activity<NetlistNode> inputActivity = activityTable.getActivityAtIdx(j);
+				Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
+				outputActivity.setActivity(node,0.0);
+			}
 		}
+	}
+
+	/**
+	 *  Evaluates the Netlist defined by parameter <i>netlist</i> and stores the result in the TMActivityEvaluation defined by parameter <i>tmae</i>
+	 *  
+	 *  @param netlist the Netlist
+	 *  @param tmae the TMActivityEvaluation
+	 */
+	public void evaluate() {
+		Tarjan<NetlistNode,NetlistEdge,Netlist> tarjan = new Tarjan<>(this.getNetlist());
+		CObjectCollection<NetlistNode> component = null;
+		while ((component = tarjan.getNextComponent()) != null) {
+			Map<NetlistNode,List<Double>> delta = new HashMap<>();
+			final Double epsilon = 0.001;
+			int step = 0;
+			Double max;
+			do {
+				max = Double.MIN_VALUE;
+				for (int i = 0; i < component.size(); i++) {
+					NetlistNode node = component.get(i);
+					List<Double> d = new ArrayList<>();
+					ActivityTable<NetlistNode,NetlistNode> activityTable = this.getTMActivityEvaluation().getActivityTable(node);
+					for (int j = 0; j < activityTable.getNumActivities(); j++) {
+						Activity<NetlistNode> inputActivity = activityTable.getActivityAtIdx(j);
+						Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
+						Double value = outputActivity.getActivity(node);
+						d.add(value);
+					}
+					evaluateActivityTable(node,activityTable);
+					for (int j = 0; j < activityTable.getNumActivities(); j++) {
+						Activity<NetlistNode> inputActivity = activityTable.getActivityAtIdx(j);
+						Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
+						Double value = Math.abs(d.get(j) - outputActivity.getActivity(node));
+						d.set(j,value);
+					}
+					delta.put(node,d);
+				}
+				for (int i = 0; i < component.size(); i++) {
+					NetlistNode node = component.get(i);
+				    List<Double> temp = delta.get(node);
+					for (int j = 0; j < temp.size(); j++) {
+						if (temp.get(j) > max) {
+							max = temp.get(j);
+						}
+					}
+				}
+				step = step + 1;
+				if (step >= 20) {
+					for (int i = 0; i < component.size(); i++) {
+						NetlistNode node = component.get(i);
+						SimulatedAnnealingNetlistNodeData data = (SimulatedAnnealingNetlistNodeData) node.getNetlistNodeData();
+						Gate gate = (Gate) data.getGate();
+						// System.out.println(gate.getName());
+					}
+					this.zero();
+					// throw new RuntimeException("Activity evaluation did not converge.");
+					
+				}
+			} while (max > epsilon);
+		}
+		// SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(this.getNetlist());
+		// NetlistNode node = null;
+		// while ((node = DFS.getNextVertex()) != null) {
+		// 	ActivityTable<NetlistNode,NetlistNode> activityTable = this.getTMActivityEvaluation().getActivityTable(node);
+		// 	evaluateActivityTable(node,activityTable);
+		// }
 	}
 	
 	/**
