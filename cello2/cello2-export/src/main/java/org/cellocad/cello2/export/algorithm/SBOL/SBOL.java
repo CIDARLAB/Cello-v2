@@ -302,6 +302,12 @@ public class SBOL extends EXAlgorithm{
 		if (rtn != null) {
 			document.createCopy(rtn);
 			this.addChildCDsAndSequences(rtn,document);
+			Set<Sequence> sequences = rtn.getSequences();
+			if (sequences != null) {
+				for (Sequence s : sequences) {
+					document.createCopy(s);
+				}
+			}
 		} else {
 			rtn = document.createComponentDefinition(device.getName(),"1",ComponentDefinition.DNA_REGION);
 			device.setUri(rtn.getIdentity().toString());
@@ -382,26 +388,28 @@ public class SBOL extends EXAlgorithm{
 					for (int l = 0; l < unit.getNumComponent(); l++) {
 						Component component = unit.getComponentAtIdx(l);
 						// Component
-						org.sbolstandard.core2.Component c = cd.createComponent(component.getName() + "_component",
-						                                                        AccessType.PUBLIC,
-						                                                        URI.create(component.getUri()));
+						String cDisplayId = component.getName() + "_component";
+						AccessType cAccess = AccessType.PUBLIC;
+						URI cDefinitionURI = URI.create(component.getUri());
+						org.sbolstandard.core2.Component c = cd.createComponent(cDisplayId,cAccess,cDefinitionURI);
 
 						// SequenceAnnotation
 						String s = SBOLDataUtils.getDNASequence(component);
-						SequenceAnnotation sa =
-							cd.createSequenceAnnotation("SequenceAnnotation" + String.valueOf(l),
-							                            "SequenceAnnotation" + String.valueOf(l) + "_Range",
-							                            sequence.length() + 1,
-							                            sequence.length() + s.length());
+						String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
+						String saLocationId = saDisplayId + "_Range";
+						int start = sequence.length() + 1;
+						int end = start + s.length();
+						SequenceAnnotation sa = cd.createSequenceAnnotation(saDisplayId,saLocationId,start,end);
 						sa.setComponent(c.getIdentity());
 						sequence += s;
 
 						// SequenceConstraint
 						if (l != 0) {
-							cd.createSequenceConstraint(cd.getDisplayId() + "Constraint" + String.valueOf(l),
-							                            RestrictionType.PRECEDES,
-							                            cd.getComponent(unit.getComponentAtIdx(l-1).getName() + "_component").getIdentity(),
-							                            cd.getComponent(component.getName() + "_component").getIdentity());
+							String scDisplayId = String.format("%s_Constraint_%d",cd.getDisplayId(),l);
+							RestrictionType scRestriction = RestrictionType.PRECEDES;
+							URI scSubjectId = cd.getComponent(unit.getComponentAtIdx(l-1).getName() + "_component").getIdentity();
+							URI scObjectId = cd.getComponent(component.getName() + "_component").getIdentity();
+							cd.createSequenceConstraint(scDisplayId,scRestriction,RestrictionType.PRECEDES,scSubjectId,scObjectId);
 						}
 					}
 					// Sequence
