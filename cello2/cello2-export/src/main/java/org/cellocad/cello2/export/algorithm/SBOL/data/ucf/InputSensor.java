@@ -20,20 +20,36 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL.data.ucf;
 
-import org.cellocad.cello2.common.CObject;
+import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.cellocad.cello2.export.algorithm.SBOL.data.Device;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * 
+ * The InputSensor is class representing an input sensor for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
  *
  * @date 2018-05-23
  *
  */
-public class InputSensor extends CObject{
-	
+public class InputSensor extends Device{
+
+	private void init() {
+		parts = new CObjectCollection<Part>();
+	}
+
+	private void parseName(final JSONObject JObj){
+		String value = ProfileUtils.getString(JObj, "name");
+		this.setName(value);
+	}
+
+	private void parseUri(final JSONObject JObj){
+		String value = ProfileUtils.getString(JObj, "uri");
+		this.setUri(value);
+	}
+
 	private void parsePromoter(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "promoter");
 		this.setPromoter(value);
@@ -49,14 +65,27 @@ public class InputSensor extends CObject{
 		this.setHighSignal(value);
 	}
 	
-	private void parseInputSensor(final JSONObject jObj) {
+	private void parseParts(final JSONObject jObj, CObjectCollection<Part> parts) {
+		JSONArray jArr = (JSONArray) jObj.get("parts");
+		for (int i = 0; i < jArr.size(); i++) {
+			String partName = (String) jArr.get(i);
+			Part part = parts.findCObjectByName(partName);
+			this.getParts().add(part);
+		}
+	}
+	
+	private void parseInputSensor(final JSONObject jObj, CObjectCollection<Part> parts) {
+		this.parseName(jObj);
+		this.parseUri(jObj);
 		this.parsePromoter(jObj);
 		this.parseLowSignal(jObj);
 		this.parseHighSignal(jObj);
+		this.parseParts(jObj,parts);
 	}
 	
-	public InputSensor(final JSONObject jObj) {
-		this.parseInputSensor(jObj);
+	public InputSensor(final JSONObject jObj, CObjectCollection<Part> parts) {
+		this.init();
+		this.parseInputSensor(jObj,parts);
 	}
 	
 	@Override
@@ -130,5 +159,30 @@ public class InputSensor extends CObject{
 	}
 
 	private Double highSignal;
+	
+	/*
+	 * Parts
+	 */
+	private CObjectCollection<Part> getParts(){
+		return this.parts;
+	}
+	
+	public Part getPartAtIdx(final int index){
+		Part rtn = null;
+		if (
+				(0 <= index)
+				&&
+				(index < this.getNumParts())
+				) {
+			rtn = this.getParts().get(index);
+		}
+		return rtn;
+	}
+	
+	public int getNumParts(){
+		return this.getParts().size();
+	}
+	
+	private CObjectCollection<Part> parts;
 	
 }

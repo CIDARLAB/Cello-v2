@@ -27,7 +27,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * 
+ * The OutputReporter is class representing an output reporter for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
  *
@@ -45,11 +45,6 @@ public class OutputReporter extends Device{
 		this.setName(value);
 	}
 	
-	private void parseOutputReporter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseUri(jObj);
-	}
-	
 	private void parseParts(final JSONObject jObj, CObjectCollection<Part> parts) {
 		JSONArray jArr = (JSONArray) jObj.get("parts");
 		for (int i = 0; i < jArr.size(); i++) {
@@ -63,12 +58,16 @@ public class OutputReporter extends Device{
 		String value = ProfileUtils.getString(JObj, "uri");
 		this.setUri(value);
 	}
-
+	
+	private void parseOutputReporter(final JSONObject jObj, CObjectCollection<Part> parts) {
+		this.parseName(jObj);
+		this.parseUri(jObj);
+		this.parseParts(jObj,parts);
+	}
 	
 	public OutputReporter(final JSONObject jObj, CObjectCollection<Part> parts) {
 		this.init();
-		this.parseOutputReporter(jObj);
-		this.parseParts(jObj,parts);
+		this.parseOutputReporter(jObj,parts);
 	}
 	
 	@Override
@@ -102,18 +101,5 @@ public class OutputReporter extends Device{
 	}
 	
 	private CObjectCollection<Part> parts;
-	
-	/*
-	 * URI
-	 */
-	public void setUri(final String uri){
-		this.uri = uri;
-	}
-	
-	public String getUri(){
-		return this.uri;
-	}
-	
-	private String uri;
 		
 }

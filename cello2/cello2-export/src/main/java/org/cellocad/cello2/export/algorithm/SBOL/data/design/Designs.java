@@ -18,13 +18,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.data.plasmid;
+package org.cellocad.cello2.export.algorithm.SBOL.data.design;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.InputSensor;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -32,121 +33,87 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.placing.placement.Placement;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
  * @date 2018-06-14
  *
  */
-public class Plasmids {
-	
+public class Designs {
+
 	/**
 	 *  Initialize class members
 	 */
 	private void init() {
-		plasmids = new ArrayList<>();
+		designs = new ArrayList<>();
 	}
-	
+
 	/**
 	 * @param netlist
 	 */
-	public Plasmids(final Netlist netlist,
-					final Boolean Up,
-					final Boolean Down,
-					final CObjectCollection<Part> parts,
-					final CObjectCollection<Gate> gates,
-					final CObjectCollection<OutputReporter> reporters) {
+	public Designs(final Netlist netlist,
+	               final Boolean Up,
+	               final Boolean Down,
+	               final CObjectCollection<Part> parts,
+	               final CObjectCollection<Gate> gates,
+	               final CObjectCollection<InputSensor> sensors,
+	               final CObjectCollection<OutputReporter> reporters) {
 		init();
 		NetlistNode first = netlist.getVertexAtIdx(0);
 		Integer num = first.getResultNetlistNodeData().getPlacements().getNumPlacements();
 		for (int i = 0; i < num; i++) {
+			Design design = new Design();
 			Plasmid plasmid = new Plasmid(Up, Down);
 			for (int j = 0; j < netlist.getNumVertex(); j++) {
 				NetlistNode node = netlist.getVertexAtIdx(j);
 				Placement placement = node.getResultNetlistNodeData().getPlacements().getPlacementAtIdx(i);
-				TranscriptionalUnit unit = new TranscriptionalUnit(placement,Up,Down,parts,gates,reporters);
+				TranscriptionalUnit unit = new TranscriptionalUnit(placement,Up,Down,parts,gates,sensors,reporters);
 				unit.setDirection(placement.getDirection());
 				unit.setIdx(placement.getIdx());
 				unit.setName(netlist.getName() + "_" + node.getResultNetlistNodeData().getGateType());
 				plasmid.addTranscriptionalUnit(node,unit);
 			}
-			this.getPlasmids().add(plasmid);
+			design.addPlasmid(plasmid);
+			this.getDesigns().add(design);
 		}
 	}
-	
+
 	/**
 	 * Returns the Plasmid at the specified position in this instance.
-	 * 
+	 *
 	 * @param index index of the Plasmid to return
 	 * @return if the index is within the bounds (0 <= bounds < this.getNumPlasmids()), returns the Plasmid at the specified position in this instance, otherwise null
 	 */
-	public Plasmid getPlasmidAtIdx(int index) {
-		Plasmid rtn = null;
+	public Design getDesignAtIdx(int index) {
+		Design rtn = null;
 		if (
-				(0 <= index)
-				&&
-				(index < this.getNumPlasmids())
-				) {
-			rtn = this.getPlasmids().get(index);
+		    (0 <= index)
+		    &&
+		    (index < this.getNumDesign())
+		    ) {
+			rtn = this.getDesigns().get(index);
 		}
 		return rtn;
 	}
-	
+
 	/**
-	 * Returns the number of Plasmid in this instance.
-	 * 
-	 * @return the number of Plasmid in this instance.
+	 * Returns the number of Design in this instance.
+	 *
+	 * @return the number of Design in this instance.
 	 */
-	public int getNumPlasmids() {
-		return this.getPlasmids().size();
+	public int getNumDesign() {
+		return this.getDesigns().size();
 	}
-	
+
 	/**
-	 *  Getter for <i>plasmids</i>
-	 *  @return the plasmids of this instance
+	 *  Getter for <i>designs</i>
+	 *  @return the designs of this instance
 	 */
-	protected List<Plasmid> getPlasmids() {
-		return plasmids;
+	protected List<Design> getDesigns() {
+		return designs;
 	}
-	
-	/*
-	 * Up
-	 */
-	/**
-	 * Getter for <i>bUp</i>
-	 * @return value of <i>bUp</i>
-	 */
-	protected Boolean getUp() {
-		return bUp;
-	}
-	/**
-	 * Setter for <i>bUp</i>
-	 * @param Up the value to set <i>bUp</i>
-	 */
-	protected void setUp(final Boolean Up) {
-		this.bUp = Up;
-	}
-	/*
-	 * Down
-	 */
-	/**
-	 * Getter for <i>bDown</i>
-	 * @return value of <i>bDown</i>
-	 */
-	protected Boolean getDown() {
-		return bDown;
-	}
-	/**
-	 * Setter for <i>bDown</i>
-	 * @param Down the value to set <i>bDown</i>
-	 */
-	protected void setDown(final Boolean Down) {
-		this.bDown = Down;
-	}
-	
-	List<Plasmid> plasmids;
-	private Boolean bUp;
-	private Boolean bDown;
+
+	List<Design> designs;
 
 }

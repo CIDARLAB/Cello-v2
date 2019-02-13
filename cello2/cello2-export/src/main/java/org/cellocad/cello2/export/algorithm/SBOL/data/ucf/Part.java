@@ -91,17 +91,5 @@ public class Part extends Component{
 	}
 	
 	private String dnaSequence;
-	
-	/*
-	 * URI
-	 */
-	public void setUri(final String uri){
-		this.uri = uri;
-	}
-	
-	public String getUri(){
-		return this.uri;
-	}
-	
-	private String uri;
+
 }

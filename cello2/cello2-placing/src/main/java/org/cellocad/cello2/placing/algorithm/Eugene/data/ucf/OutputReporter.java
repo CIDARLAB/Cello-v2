@@ -44,8 +44,9 @@ public class OutputReporter extends Assignable{
 		this.setName(value);
 	}
 	
-	private void parseOutputReporter(final JSONObject jObj) {
+	private void parseOutputReporter(final JSONObject jObj, final CObjectCollection<Part> parts) {
 		this.parseName(jObj);
+		this.parseParts(jObj,parts);
 	}
 	
 	private void parseParts(final JSONObject jObj, CObjectCollection<Part> parts) {
@@ -59,8 +60,7 @@ public class OutputReporter extends Assignable{
 	
 	public OutputReporter(final JSONObject jObj, CObjectCollection<Part> parts) {
 		this.init();
-		this.parseOutputReporter(jObj);
-		this.parseParts(jObj,parts);
+		this.parseOutputReporter(jObj,parts);
 	}
 	
 	@Override

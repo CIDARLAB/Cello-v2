@@ -32,7 +32,7 @@ import org.cellocad.cello2.common.CObjectCollection;
  */
 public class Device extends Component{
 
-	void init() {
+	private void init() {
 		this.setComponents(new CObjectCollection<Component>());
 	}
 
@@ -44,7 +44,7 @@ public class Device extends Component{
 		this.init();
 		this.setComponents(components);
 	}
-	
+
 	CObjectCollection<Component> components;
 
 	/**
@@ -58,7 +58,7 @@ public class Device extends Component{
 
 	/**
 	 * Returns the Component at the specified position in this instance.
-	 * 
+	 *
 	 * @param index index of the Component to return
 	 * @return if the index is within the bounds (0 <= bounds < this.getNumComponent()), returns the Component at the specified position in this instance, otherwise null
 	 */
@@ -73,10 +73,10 @@ public class Device extends Component{
 		}
 		return rtn;
 	}
-	
+
 	/**
 	 * Returns the number of Component in this instance.
-	 * 
+	 *
 	 * @return the number of Component in this instance.
 	 */
 	public int getNumComponent() {

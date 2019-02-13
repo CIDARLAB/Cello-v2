@@ -177,17 +177,4 @@ public class Gate extends Device{
 	
 	private GateParts gateParts;
 
-	/*
-	 * URI
-	 */
-	public void setUri(final String uri){
-		this.uri = uri;
-	}
-	
-	public String getUri(){
-		return this.uri;
-	}
-	
-	private String uri;
-	
 }

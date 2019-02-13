@@ -141,7 +141,7 @@ public class Eugene extends PLAlgorithm{
 
 		Boolean present = false;
 
-		present = this.getAlgorithmProfile().getStringParameter("MaxPlacments").getFirst();
+		present = this.getAlgorithmProfile().getIntParameter("MaxPlacements").getFirst();
 		if (present) {
 			this.setMaxPlacements(this.getAlgorithmProfile().getIntParameter("MaxPlacements").getSecond());
 		}
@@ -164,7 +164,8 @@ public class Eugene extends PLAlgorithm{
 			String promoter = "";
 			String gateType = src.getResultNetlistNodeData().getGateType();
 			if (LSResultsUtils.isAllInput(src)) {
-				promoter = gateType;
+				InputSensor sensor = this.getInputSensors().findCObjectByName(gateType);
+				promoter = sensor.getPromoter();
 			} else {
 				Gate gate = this.getGates().findCObjectByName(gateType);
 				if (gate == null) {
@@ -200,7 +201,7 @@ public class Eugene extends PLAlgorithm{
 		String gateType = node.getResultNetlistNodeData().getGateType();
 		OutputReporter reporter = this.getOutputReporters().findCObjectByName(gateType);
 		if (reporter == null) {
-			new RuntimeException("Unknown input sensor.");
+			new RuntimeException("Unknown output reporter.");
 		}
 		for (int i = 0; i < reporter.getNumParts(); i++) {
 			Part part = reporter.getPartAtIdx(i);
@@ -239,13 +240,23 @@ public class Eugene extends PLAlgorithm{
 		Device rtn = null;
 		CObjectCollection<Component> components = new CObjectCollection<>();
 		if (LSResultsUtils.isPrimaryInput(node)) {
-			components.addAll(this.getInputSensorParts(node));
+			//components.addAll(this.getInputSensorParts(node));
+			// cassette parts
+			CObjectCollection<Component> parts = new CObjectCollection<>();
+			parts.addAll(this.getInputSensorParts(node));
+			Device sensor = new Device(parts);
+			sensor.setName(node.getResultNetlistNodeData().getGateType());
+			components.add(sensor);
 		}
 		else if (LSResultsUtils.isPrimaryOutput(node)) {
 			// input promoters
 			components.addAll(this.getInputPromoters(node));
-			// casette parts
-			components.addAll(this.getOutputReporterParts(node));
+			// cassette parts
+			CObjectCollection<Component> parts = new CObjectCollection<>();
+			parts.addAll(this.getOutputReporterParts(node));
+			Device reporter = new Device(parts);
+			reporter.setName(node.getResultNetlistNodeData().getGateType());
+			components.add(reporter);
 		}
 		else if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
 			// input promoters
@@ -271,19 +282,19 @@ public class Eugene extends PLAlgorithm{
 		}
 	}
 
-	private List<Part> getDeviceParts(Device device) {
-		List<Part> rtn = new ArrayList<Part>();
-		for (int i = 0; i < device.getNumComponent(); i++) {
-			Component component = device.getComponentAtIdx(i);
-			if (component instanceof Part) {
-				rtn.add((Part)component);
-			}
-			else if (component instanceof Device) {
-				// rtn.addAll(this.getDeviceParts((Device)component));
-			}
-		}
-		return rtn;
-	}
+//	private List<Part> getDeviceParts(Device device) {
+//		List<Part> rtn = new ArrayList<Part>();
+//		for (int i = 0; i < device.getNumComponent(); i++) {
+//			Component component = device.getComponentAtIdx(i);
+//			if (component instanceof Part) {
+//				rtn.add((Part)component);
+//			}
+//			else if (component instanceof Device) {
+//				// rtn.addAll(this.getDeviceParts((Device)component));
+//			}
+//		}
+//		return rtn;
+//	}
 
 	private Collection<String> getPartTypes() {
 		Set<String> rtn = new HashSet<String>();
@@ -365,11 +376,11 @@ public class Eugene extends PLAlgorithm{
 		return rtn;
 	}
 
-	private String getGateCasetteName(NetlistNode node) {
-		String rtn = "";
-		rtn += this.getGateBaseName(node);
-		return rtn;
-	}
+//	private String getGateCasetteName(NetlistNode node) {
+//		String rtn = "";
+//		rtn += this.getGateBaseName(node);
+//		return rtn;
+//	}
 
 	// TODO
 	private Collection<String> getDeviceDefinitions() {
@@ -412,13 +423,13 @@ public class Eugene extends PLAlgorithm{
 		return rtn;
 	}
 
-	private Collection<String> getPartNamesFromParts(CObjectCollection<Part> parts) {
-		Collection<String> rtn = new ArrayList<>();
-		for (Part part : parts) {
-			rtn.add(part.getName());
-		}
-		return rtn;
-	}
+//	private Collection<String> getPartNamesFromParts(CObjectCollection<Part> parts) {
+//		Collection<String> rtn = new ArrayList<>();
+//		for (Part part : parts) {
+//			rtn.add(part.getName());
+//		}
+//		return rtn;
+//	}
 
 	// TODO
 	private Collection<String> getDeviceRules() {
@@ -443,13 +454,13 @@ public class Eugene extends PLAlgorithm{
 						str += Utils.getNewLine();
 					}
 				}
-			// }
-			// for ( part : device) {
-			// 	if (part.getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
-			// 		str += Utils.getTabCharacter();
-			// 		str += String.format("%s %s %s",Rules.S_CONTAINS,part.getName(),Rules.S_AND);
-			// 		str += Utils.getNewLine();
-			// 	}
+				// }
+				// for ( part : device) {
+				// 	if (part.getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
+				// 		str += Utils.getTabCharacter();
+				// 		str += String.format("%s %s %s",Rules.S_CONTAINS,part.getName(),Rules.S_AND);
+				// 		str += Utils.getNewLine();
+				// 	}
 				// for (String r : this.getRules().getPartRules()) {
 				for (String r : rules) {
 					Collection<String> ruleParts = this.getNamesFromRule(r);
@@ -636,11 +647,11 @@ public class Eugene extends PLAlgorithm{
 			org.cidarlab.eugene.Eugene eugene = new org.cidarlab.eugene.Eugene();
 
 			File cruft = new File(Utils.getWorkingDirectory()
-					+ Utils.getFileSeparator()
-					+ "exports");
+			                      + Utils.getFileSeparator()
+			                      + "exports");
 			(new File(cruft.getPath()
-					+ Utils.getFileSeparator()
-					+ "pigeon")).delete();
+			          + Utils.getFileSeparator()
+			          + "pigeon")).delete();
 			cruft.delete();
 
 			EugeneCollection ec = eugene.executeScript(this.getEugeneScript());

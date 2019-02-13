@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston Univeristy (BU)
+ * Copyright (C) 2018 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,7 +18,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.data;
+package org.cellocad.cello2.export.algorithm.SBOL.data.design;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.cellocad.cello2.common.CObject;
 
@@ -27,31 +31,60 @@ import org.cellocad.cello2.common.CObject;
  *
  * @author Timothy Jones
  *
- * @date 2018-12-19
+ * @date 2018-06-14
  *
  */
-public abstract class Component extends CObject{
+public class Design extends CObject {
 
-	public Component() {
-		super();
+	private void init() {
+		design = new ArrayList<>();
 	}
 
-	/**
-	 * Setter for <i>uri</i>
-	 * @param uri the value to set <i>uri</i>
-	 */
-	public void setUri(final String uri){
-		this.uri = uri;
+	public Design() {
+		init();
+	}
+
+	protected List<Plasmid> getPlasmids() {
+		return design;
+	}
+
+	public Plasmid getPlasmidAtIdx(int index) {
+		Plasmid rtn = null;
+		if (
+		    (0 <= index)
+		    &&
+		    (index < this.getNumPlasmid())
+		    ) {
+			rtn = this.getPlasmids().get(index);
+		}
+		return rtn;
+	}
+
+	public int getNumPlasmid() {
+		return this.getPlasmids().size();
+	}
+
+	protected void addPlasmid(Plasmid plasmid) {
+		getPlasmids().add(plasmid);
 	}
 
 	/**
 	 * Getter for <i>uri</i>
 	 * @return value of <i>uri</i>
 	 */
-	public String getUri(){
-		return this.uri;
+	public URI getUri() {
+		return uri;
 	}
 
-	private String uri;
+	/**
+	 * Setter for <i>uri</i>
+	 * @param uri the value to set <i>uri</i>
+	 */
+	public void setUri(URI uri) {
+		this.uri = uri;
+	}
+
+	private List<Plasmid> design;
+	private URI uri;
 
 }
