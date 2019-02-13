@@ -22,6 +22,7 @@ package org.cellocad.cello2.export.algorithm.SBOL.data.ucf;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
 import org.json.simple.JSONObject;
 
 /**
@@ -32,7 +33,7 @@ import org.json.simple.JSONObject;
  * @date 2018-05-21
  *
  */
-public class Part extends CObject{
+public class Part extends Component{
 
 	private void parseName(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "name");
@@ -90,17 +91,5 @@ public class Part extends CObject{
 	}
 	
 	private String dnaSequence;
-	
-	/*
-	 * URI
-	 */
-	public void setUri(final String uri){
-		this.uri = uri;
-	}
-	
-	public String getUri(){
-		return this.uri;
-	}
-	
-	private String uri;
+
 }

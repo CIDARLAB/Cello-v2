@@ -18,55 +18,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.data.plasmid;
+package org.cellocad.cello2.export.algorithm.SBOL.data.design;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
  * @date 2018-06-14
  *
  */
-public class Plasmid {
-	
+public class Plasmid extends CObject {
+
 	private void init() {
 		plasmid = new CObjectCollection<>();
 		plasmidMap = new HashMap<>();
 	}
-	
+
 	public Plasmid(final Boolean Up, final Boolean Down) {
 		init();
 	}
-	
+
 	protected CObjectCollection<TranscriptionalUnit> getPlasmid() {
 		return plasmid;
 	}
-	
+
 	public TranscriptionalUnit getTranscriptionalUnitAtIdx(int index) {
 		TranscriptionalUnit rtn = null;
-//		if (
-//				(0 <= index)
-//				&&
-//				(index < this.getNumTranscriptionalUnits())
-//				) {
-//			rtn = this.getPlasmid().get(index);
-//		}
 		rtn = this.getPlasmid().findCObjectByIdx(index);
 		return rtn;
 	}
 
-	public int getNumTranscriptionalUnits() {
+	public int getNumTranscriptionalUnit() {
 		return this.getPlasmid().size();
 	}
-	
+
 	/**
 	 * Getter for <i>plasmidMap</i>
 	 * @return value of <i>plasmidMap</i>
@@ -80,17 +74,17 @@ public class Plasmid {
 		rtn = this.getPlasmidMap().get(node);
 		return rtn;
 	}
-	
+
 	protected void addTranscriptionalUnit(NetlistNode node, TranscriptionalUnit unit) {
 		getPlasmid().add(unit);
 		getPlasmidMap().put(node,unit);
 	}
-	
+
 	protected void addTranscriptionalUnit(int index, NetlistNode node, TranscriptionalUnit unit) {
 		getPlasmid().add(index,unit);
 		getPlasmidMap().put(node,unit);
 	}
-	
+
 	/*
 	 * Up
 	 */
@@ -108,6 +102,7 @@ public class Plasmid {
 	protected void setUp(final Boolean Up) {
 		this.bUp = Up;
 	}
+
 	/*
 	 * Down
 	 */
@@ -147,5 +142,5 @@ public class Plasmid {
 	private Boolean bUp;
 	private Boolean bDown;
 	private URI uri;
-	
+
 }

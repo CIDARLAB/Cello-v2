@@ -18,20 +18,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.data.plasmid;
+package org.cellocad.cello2.export.algorithm.SBOL.data.design;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.InputSensor;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
 import org.cellocad.cello2.results.placing.placement.Placement;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
@@ -39,20 +48,26 @@ import org.sbolstandard.core2.SBOLDocument;
  *
  */
 public class TranscriptionalUnit extends CObject {
-	
+
 	private void init() {
 		unit = new ArrayList<>();
 	}
-	
-	protected void addPart(Part part) {
-		unit.add(part);
+
+	protected void addComponent(Component component) {
+		unit.add(component);
 	}
-	
-	protected void addPart(int index, Part part) {
-		unit.add(index,part);
+
+	protected void addComponent(int index, Component component) {
+		unit.add(index,component);
 	}
-	
-	TranscriptionalUnit(final Placement placement, final Boolean Up, final Boolean Down, CObjectCollection<Part> parts) {
+
+	TranscriptionalUnit(final Placement placement,
+	                    final Boolean Up,
+	                    final Boolean Down,
+	                    final CObjectCollection<Part> parts,
+	                    final CObjectCollection<Gate> gates,
+	                    final CObjectCollection<InputSensor> sensors,
+	                    final CObjectCollection<OutputReporter> reporters) {
 		init();
 		if (placement.getDirection() == Down) {
 			this.setDirection(Down);
@@ -60,60 +75,98 @@ public class TranscriptionalUnit extends CObject {
 		else {
 			this.setDirection(Up);
 		}
-		for (int i = 0; i < placement.getNumParts(); i++) {
-			String name = placement.getPartAtIdx(i);
+		for (int i = 0; i < placement.getNumComponent(); i++) {
+			String name = placement.getComponentAtIdx(i);
+			Gate gate = gates.findCObjectByName(name);
+			InputSensor sensor = sensors.findCObjectByName(name);
+			OutputReporter reporter = reporters.findCObjectByName(name);
 			Part part = parts.findCObjectByName(name);
-			this.addPart(part);
+			if (gate != null) {
+				this.addComponent(gate);
+			}
+			else if (sensor != null) {
+				this.addComponent(sensor);
+			}
+			else if (reporter != null) {
+				this.addComponent(reporter);
+			}
+			else if (part != null) {
+				this.addComponent(part);
+			}
+			else {
+				throw new RuntimeException("Unknown part or gate.");
+			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Returns the DNA sequence of this instance.
-	 * 
+	 *
 	 * @return the DNA sequence of this instance.
 	 */
 	public String getDNASequence() {
 		String rtn = "";
-		for (Part part : this.getTranscriptionalUnit()) {
-			rtn = rtn + part.getDNASequence();
+		for (Component component : this.getTranscriptionalUnit()) {
+			rtn += this.getComponentDNASequence(component);
 		}
 		return rtn;
 	}
-	
+
+	private String getComponentDNASequence(Component component) {
+		String rtn = "";
+		if (component instanceof Gate) {
+			Gate gate = (Gate)component;
+			ResponseFunction rf = gate.getResponseFunction();
+			GateParts gateParts = gate.getGateParts();
+			for (int i = 0; i < rf.getNumVariable(); i++) {
+				ResponseFunctionVariable variable = rf.getVariableAtIdx(i);
+				CasetteParts casetteParts = gateParts.getCasetteParts(variable.getName());
+				for (int j = 0; j < casetteParts.getNumParts(); j++) {
+					Part part = casetteParts.getPartAtIdx(j);
+					rtn += part.getDNASequence();
+				}
+			}
+		}
+		if (component instanceof Part) {
+			rtn += ((Part)component).getDNASequence();
+		}
+		return rtn;
+	}
+
 	/**
 	 * Returns the number of parts in this instance.
-	 * 
+	 *
 	 * @return the number of parts in this instance.
 	 */
-	public int getNumParts() {
+	public int getNumComponent() {
 		return this.getTranscriptionalUnit().size();
 	}
-	
+
 	/**
 	 *  Returns the part at index <i>index</i>
 	 *  @return the part at <i>index</i> if the part exists, null otherwise
 	 */
-	public Part getPartAtIdx(final int index) {
-		Part rtn = null;
+	public Component getComponentAtIdx(final int index) {
+		Component rtn = null;
 		if (
-				(0 <= index)
-				&&
-				(index < this.getNumParts())
-				) {
+		    (0 <= index)
+		    &&
+		    (index < this.getNumComponent())
+		    ) {
 			rtn = this.getTranscriptionalUnit().get(index);
 		}
 		return rtn;
 	}
-	
+
 	/**
 	 * Getter for <i>unit</i>
 	 * @return value of <i>unit</i>
 	 */
-	protected List<Part> getTranscriptionalUnit() {
+	protected List<Component> getTranscriptionalUnit() {
 		return unit;
 	}
-	
+
 	protected ComponentDefinition getComponentDefinition(SBOLDocument document) {
 		ComponentDefinition rtn = null;
 		return rtn;
@@ -142,7 +195,7 @@ public class TranscriptionalUnit extends CObject {
 	public Boolean getDirection() {
 		return direction;
 	}
-	
+
 	/**
 	 * Setter for <i>direction</i>
 	 * @param direction the value to set <i>direction</i>
@@ -151,8 +204,25 @@ public class TranscriptionalUnit extends CObject {
 		this.direction = direction;
 	}
 
+	/**
+	 * Getter for <i>uri</i>
+	 * @return value of <i>uri</i>
+	 */
+	public URI getUri() {
+		return uri;
+	}
+
+	/**
+	 * Setter for <i>uri</i>
+	 * @param uri the value to set <i>uri</i>
+	 */
+	public void setUri(URI uri) {
+		this.uri = uri;
+	}
+
 	private String name;
 	private Boolean direction;
-	List<Part> unit;
+	List<Component> unit;
+	private URI uri;
 
 }

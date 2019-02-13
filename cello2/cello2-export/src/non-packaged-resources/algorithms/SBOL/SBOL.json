@@ -17,5 +17,15 @@
 			"type" : "boolean",
 			"value": true
 		}
+		{
+			"name" : "AddPlasmidModules",
+			"type" : "boolean",
+			"value": true
+		}
+		{
+			"name" : "AddBackbone",
+			"type" : "boolean",
+			"value": true
+		}
 	]
 }

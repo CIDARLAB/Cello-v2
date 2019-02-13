@@ -65,7 +65,7 @@ public class Placement extends CObject {
 		this.parse(JObj);
 	}
 	
-	private String partsToJSON() {
+	private String componentsToJSON() {
 		String rtn = "";
 		for (int i = 0; i < this.getPlacement().size(); i++) {
 			String str = this.getPlacement().get(i);
@@ -81,8 +81,8 @@ public class Placement extends CObject {
 		String str = "";
 		str += JSONUtils.getEntryToString("position", this.getPosition());
 		str += JSONUtils.getEntryToString("direction", this.getDirection() ? 1 : 0);
-		str += JSONUtils.getStartArrayWithMemberString("parts");
-		str += this.partsToJSON();
+		str += JSONUtils.getStartArrayWithMemberString("components");
+		str += this.componentsToJSON();
 		str += JSONUtils.getEndArrayString();
 		str = JSONUtils.addIndent(1, str);
 		rtn += str;
@@ -110,14 +110,14 @@ public class Placement extends CObject {
 			this.setDirection(this.getUp());
 		}
 		JSONArray jsonArr;
-    	jsonArr = (JSONArray) JObj.get("parts");
+    	jsonArr = (JSONArray) JObj.get("components");
 		if (jsonArr == null) {
-			throw new RuntimeException("'parts' missing in Placement!");
+			throw new RuntimeException("'components' missing in Placement!");
 		}
 		for (int i = 0; i < jsonArr.size(); i++)
 		{
-			String part = (String) jsonArr.get(i);
-			this.addPartToPlacement(part);
+			String component = (String) jsonArr.get(i);
+			this.addComponentToPlacement(component);
 		}
 	}
 	
@@ -126,21 +126,21 @@ public class Placement extends CObject {
 	}
 	
 	/**
-	 * Add a part and its placement index to this instance
-	 * @param part add the <i>part</i> to the placement unit
+	 * Add a component and its placement index to this instance
+	 * @param component add the <i>component</i> to the placement unit
 	 * @param index assign placement index <i>index</i> to the placement unit
 	 */
-	public void addPartToPlacement(final String part) {
-		placementEntry.add(part);
+	public void addComponentToPlacement(final String component) {
+		placementEntry.add(component);
 	}
 	
 	/**
-	 * Add a part and its placement index to this instance
+	 * Add a component and its placement index to this instance
 	 * @param index assign placement index <i>index</i> to the placement unit
-	 * @param part add the <i>part</i> to the placement unit
+	 * @param component add the <i>component</i> to the placement unit
 	 */
-	public void addPartToPlacement(final Integer index, final String part) {
-		placementEntry.add(index,part);
+	public void addComponentToPlacement(final Integer index, final String component) {
+		placementEntry.add(index,component);
 	}
 	
 	/**
@@ -149,12 +149,12 @@ public class Placement extends CObject {
 	 * @param index index of the Pair<String,Integer> to return
 	 * @return if the index is within the bounds (0 <= bounds < this.getNumPlacementUnitPosition()), returns the Pair<String,Integer> at the specified position in this instance, otherwise null
 	 */
-	public String getPartAtIdx(final int index){
+	public String getComponentAtIdx(final int index){
 		String rtn = null;
 		if (
 				(0 <= index)
 				&&
-				(index < this.getNumParts())
+				(index < this.getNumComponent())
 				) {
 			rtn = this.getPlacement().get(index);
 		}
@@ -166,7 +166,7 @@ public class Placement extends CObject {
 	 * 
 	 * @return the number of Pair<String,Integer> in this instance.
 	 */
-	public int getNumParts() {
+	public int getNumComponent() {
 		return this.getPlacement().size();
 	}
 	
