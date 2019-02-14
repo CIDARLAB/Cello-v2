@@ -36,6 +36,7 @@ import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.cello2.results.technologyMapping.activity.signal.SensorSignals;
 import org.cellocad.cello2.results.technologyMapping.cytometry.TMCytometryEvaluation;
@@ -52,6 +53,8 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputReporter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
+import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
 
 /**
  * The SimulatedAnnealing class implements the <i>SimulatedAnnealing</i> algorithm in the <i>technologyMapping</i> stage.
@@ -340,10 +343,21 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	@Override
 	protected void postprocessing() {
 		updateNetlist(this.getNetlist());
+		String inputFilename = this.getNetlist().getInputFilename();
+		String filename = Utils.getFilename(inputFilename);
+		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR);
+		String outputFile = outputDir + Utils.getFileSeparator() + filename;
+		// logic
+		LSResultsUtils.writeCSVForLSLogicEvaluation(this.getLSLogicEvaluation(),outputFile + "_logic.csv");
+		// cytometry
 		this.setTMCytometryEvaluation(new TMCytometryEvaluation());
+		//toxicity
 		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
-		this.logInfo(this.getTMActivityEvaluation().toString());
+		SimulatedAnnealingResultsUtils.writeCSVForTMToxicityEvaluation(this.getTMToxicityEvaluation(),outputFile + "_toxicity.csv");
 		this.logInfo(this.getTMToxicityEvaluation().toString());
+		//activity
+		TMResultsUtils.writeCSVForTMActivityEvaluation(this.getTMActivityEvaluation(),outputFile + "_activity.csv");
+		this.logInfo(this.getTMActivityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
 			Assignable gate = this.getSimulatedAnnealingNetlistNodeData(node).getGate();

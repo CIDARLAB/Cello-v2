@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston University (BU)
+ * Copyright (C) 2019 Boston Univeristy (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.results.technologyMapping;
+package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,33 +27,33 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import org.cellocad.cello2.common.Utils;
-import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 
 /**
- * 
+ * The NetlistUtils class is a class with utility methods for the result of the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
  *
- * @date 2018-05-24
+ * @date 2019-02-14
  *
  */
-public class TMResultsUtils {
+public class SimulatedAnnealingResultsUtils {
 
 	/**
-	 *  Writes the activity evaluation defined by parameter <i>tmae</i> to file defined by <i>filename</i>
+	 *  Writes the toxicity evaluation defined by parameter <i>tmte</i> to file defined by <i>filename</i>
 	 *
-	 *  @param tmae the activity evaluation
-	 *  @param filename the file to write the activity evaluation
+	 *  @param tmte the toxicity evaluation
+	 *  @param filename the file to write the toxicity evaluation
 	 *  @throws RuntimeException if: <br>
 	 *  Any of the parameters are null<br>
 	 */
-	static public void writeCSVForTMActivityEvaluation(final TMActivityEvaluation tmae, final String filename){
-		Utils.isNullRuntimeException(tmae, "tmte");
+	static public void writeCSVForTMToxicityEvaluation(final TMToxicityEvaluation tmte, final String filename){
+		Utils.isNullRuntimeException(tmte, "tmte");
 		Utils.isNullRuntimeException(filename, "filename");
 		try {
 			OutputStream outputStream = new FileOutputStream(filename);
 			Writer outputStreamWriter = new OutputStreamWriter(outputStream);
-			tmae.writeCSV(",", outputStreamWriter);
+			tmte.writeCSV(",", outputStreamWriter);
 			outputStreamWriter.close();
 			outputStream.close();
 		} catch (IOException e) {

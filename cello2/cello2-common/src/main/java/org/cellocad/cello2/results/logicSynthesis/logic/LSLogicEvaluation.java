@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.results.logicSynthesis.logic;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -435,7 +437,29 @@ public class LSLogicEvaluation {
 		rtn += S_HEADER + Utils.getNewLine();
 		return rtn;
 	}
-	
+
+	/**
+	 *  Writes this instance in CSV format to the writer defined by parameter <i>os</i> with the delimiter equivalent to the parameter <i>delimiter</i>
+	 *  @param delimiter the delimiter
+	 *  @param os the writer
+	 *  @throws IOException If an I/O error occurs
+	 */
+	public void writeCSV(String delimiter, Writer os) throws IOException {
+		String str = "";
+		for (NetlistNode node : this.getTruthTables().keySet()) {
+			str += node.getName();
+			TruthTable<NetlistNode,NetlistNode> truthtable = this.getTruthTable(node);
+			for (int i = 0; i < truthtable.getNumStates(); i++) {
+				State<NetlistNode> input = truthtable.getStateAtIdx(i);
+				State<NetlistNode> output = truthtable.getStateOutput(input);
+				str += delimiter;
+				str += String.format("%s",output.getState(node));
+			}
+			str += Utils.getNewLine();
+		}
+		os.write(str);
+	}
+
 	private static final String S_HEADER = "--------------------------------------------";
 
 	private Map<NetlistNode, TruthTable<NetlistNode, NetlistNode>> truthtables;

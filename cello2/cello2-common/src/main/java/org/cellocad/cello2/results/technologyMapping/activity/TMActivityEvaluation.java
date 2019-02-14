@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.results.technologyMapping.activity;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -147,7 +149,29 @@ public class TMActivityEvaluation {
 		rtn += S_HEADER + Utils.getNewLine();
 		return rtn;
 	}
-	
+
+	/**
+	 *  Writes this instance in CSV format to the writer defined by parameter <i>os</i> with the delimiter equivalent to the parameter <i>delimiter</i>
+	 *  @param delimiter the delimiter
+	 *  @param os the writer
+	 *  @throws IOException If an I/O error occurs
+	 */
+	public void writeCSV(String delimiter, Writer os) throws IOException {
+		String str = "";
+		for (NetlistNode node : this.getActivityTables().keySet()) {
+			str += node.getName();
+			ActivityTable<NetlistNode,NetlistNode> activitytable = this.getActivityTable(node);
+			for (int i = 0; i < activitytable.getNumActivities(); i++) {
+				Activity<NetlistNode> input = activitytable.getActivityAtIdx(i);
+				Activity<NetlistNode> output = activitytable.getActivityOutput(input);
+				str += delimiter;
+				str += String.format("%.2f",output.getActivity(node));
+			}
+			str += Utils.getNewLine();
+		}
+		os.write(str);
+	}
+
 	private static final String S_HEADER = "--------------------------------------------";
 
 

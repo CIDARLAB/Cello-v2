@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -254,6 +256,28 @@ public class TMToxicityEvaluation extends CObject{
 		rtn += Utils.getNewLine();
 		rtn += S_HEADER + Utils.getNewLine();
 		return rtn;
+	}
+
+	/**
+	 *  Writes this instance in CSV format to the writer defined by parameter <i>os</i> with the delimiter equivalent to the parameter <i>delimiter</i>
+	 *  @param delimiter the delimiter
+	 *  @param os the writer
+	 *  @throws IOException If an I/O error occurs
+	 */
+	public void writeCSV(String delimiter, Writer os) throws IOException {
+		String str = "";
+		for (NetlistNode node : this.getToxicityTables().keySet()) {
+			str += node.getName();
+			ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
+			for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
+				Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
+				Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
+				str += delimiter;
+				str += String.format("%.2f",output.getToxicity(node));
+			}
+			str += Utils.getNewLine();
+		}
+		os.write(str);
 	}
 
 	private static final String S_HEADER = "--------------------------------------------";

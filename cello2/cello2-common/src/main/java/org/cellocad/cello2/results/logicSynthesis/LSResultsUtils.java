@@ -20,11 +20,18 @@
  */
 package org.cellocad.cello2.results.logicSynthesis;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
@@ -320,5 +327,27 @@ public class LSResultsUtils {
 		rtn = ValidNodeTypes.contains(nodeType);
 		return rtn;
 	}
-	
+
+	/**
+	 *  Writes the activity evaluation defined by parameter <i>tmae</i> to file defined by <i>filename</i>
+	 *
+	 *  @param tmae the activity evaluation
+	 *  @param filename the file to write the activity evaluation
+	 *  @throws RuntimeException if: <br>
+	 *  Any of the parameters are null<br>
+	 */
+	static public void writeCSVForLSLogicEvaluation(final LSLogicEvaluation lsle, final String filename){
+		Utils.isNullRuntimeException(lsle, "lsle");
+		Utils.isNullRuntimeException(filename, "filename");
+		try {
+			OutputStream outputStream = new FileOutputStream(filename);
+			Writer outputStreamWriter = new OutputStreamWriter(outputStream);
+			lsle.writeCSV(",", outputStreamWriter);
+			outputStreamWriter.close();
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
