@@ -354,8 +354,6 @@ public class SBOL extends EXAlgorithm{
 		}
 	}
 
-
-
 	/**
 	 * Add transcriptional unit component definitions to an SBOLDocument.
 	 * @param document the SBOLDocument
@@ -409,7 +407,7 @@ public class SBOL extends EXAlgorithm{
 							RestrictionType scRestriction = RestrictionType.PRECEDES;
 							URI scSubjectId = cd.getComponent(unit.getComponentAtIdx(l-1).getName() + "_component").getIdentity();
 							URI scObjectId = cd.getComponent(component.getName() + "_component").getIdentity();
-							cd.createSequenceConstraint(scDisplayId,scRestriction,RestrictionType.PRECEDES,scSubjectId,scObjectId);
+							cd.createSequenceConstraint(scDisplayId,scRestriction,scSubjectId,scObjectId);
 						}
 					}
 					// Sequence
