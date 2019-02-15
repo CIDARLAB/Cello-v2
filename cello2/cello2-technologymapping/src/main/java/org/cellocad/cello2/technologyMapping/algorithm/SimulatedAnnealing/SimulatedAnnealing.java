@@ -22,14 +22,17 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -55,6 +58,7 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputReporter;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
+import org.json.simple.JSONObject;
 
 /**
  * The SimulatedAnnealing class implements the <i>SimulatedAnnealing</i> algorithm in the <i>technologyMapping</i> stage.
@@ -108,7 +112,34 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	@Override
 	protected void getConstraintFromNetlistConstraintFile() {
-
+		NetlistConstraint constraint = this.getNetlistConstraint();
+		String type = "";
+		// input constraints
+		type = "input_constraints";
+		Map<String,String> inputMap = new HashMap<>();
+		for (int i = 0; i < constraint.getNumJSONObject(type); i++) {
+			JSONObject jObj = constraint.getJSONObjectAtIdx(type,i);
+			JSONObject map = (JSONObject) jObj.get("sensor_map");
+			for (Object obj : map.keySet()) {
+				String key = (String) obj;
+				String value = (String) map.get(obj);
+				inputMap.put(key,value);
+			}
+		}
+		this.setInputMap(inputMap);
+		// ouptut constraints
+		type = "output_constraints";
+		Map<String,String> outputMap = new HashMap<>();
+		for (int i = 0; i < constraint.getNumJSONObject(type); i++) {
+			JSONObject jObj = constraint.getJSONObjectAtIdx(type,i);
+			JSONObject map = (JSONObject) jObj.get("reporter_map");
+			for (Object obj : map.keySet()) {
+				String key = (String) obj;
+				String value = (String) map.get(obj);
+				outputMap.put(key,value);
+			}
+		}
+		this.setOutputMap(outputMap);
 	}
 
 	/**
@@ -149,6 +180,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void assignInputNodes() {
 		// assign input
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(this.getNetlist());
+		Map<String,String> inputMap = this.getInputMap();
 		Iterator<InputSensor> it = this.getInputSensors().iterator();
 		for (int i = 0; i < inputNodes.size(); i++) {
 			NetlistNode node = inputNodes.get(i);
@@ -156,7 +188,17 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough input sensors in the library to cover the netlist inputs.");
 			}
-			InputSensor sensor = it.next();
+			InputSensor sensor = null;
+			if (inputMap.containsKey(node.getName())) {
+				String value = inputMap.get(node.getName());
+				sensor = this.getInputSensors().findCObjectByName(value);
+			}
+			while (sensor == null) {
+				InputSensor temp = it.next();
+				if (!inputMap.containsValue(temp.getName())) {
+					sensor = temp;
+				}
+			}
 			data.setGate(sensor);
 		}
 	}
@@ -164,6 +206,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void assignOutputNodes() {
 		// assign output
 		CObjectCollection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
+		Map<String,String> outputMap = this.getOutputMap();
 		Iterator<OutputReporter> it = this.getOutputReporters().iterator();
 		for (int i = 0; i < outputNodes.size(); i++) {
 			NetlistNode node = outputNodes.get(i);
@@ -171,7 +214,17 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough output reporters in the library to cover the netlist outputs.");
 			}
-			OutputReporter reporter = it.next();
+			OutputReporter reporter = null;
+			if (outputMap.containsKey(node.getName())) {
+				String value = outputMap.get(node.getName());
+				reporter = this.getOutputReporters().findCObjectByName(value);
+			}
+			while (reporter == null) {
+				OutputReporter temp = it.next();
+				if (!outputMap.containsValue(temp.getName())) {
+					reporter = temp;
+				}
+			}
 			data.setGate(reporter);
 		}
 	}
@@ -440,6 +493,42 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private CObjectCollection<OutputReporter> reporters;
+
+	/**
+	 * Getter for <i>inputMap</i>
+	 * @return value of <i>inputMap</i>
+	 */
+	protected Map<String,String> getInputMap() {
+		return inputMap;
+	}
+
+	/**
+	 * Setter for <i>inputMap</i>
+	 * @param inputMap the value to set <i>inputMap</i>
+	 */
+	protected void setInputMap(final Map<String,String> inputMap) {
+		this.inputMap = inputMap;
+	}
+
+	private Map<String,String> inputMap;
+
+	/**
+	 * Getter for <i>outputMap</i>
+	 * @return value of <i>outputMap</i>
+	 */
+	protected Map<String, String> getOutputMap() {
+		return outputMap;
+	}
+
+	/**
+	 * Setter for <i>outputMap</i>
+	 * @param outputMap the value to set <i>outputMap</i>
+	 */
+	protected void setOutputMap(final Map<String, String> outputMap) {
+		this.outputMap = outputMap;
+	}
+
+	private Map<String,String> outputMap;
 
 	/**
 	 * @param unitConversion the unitConversion to set

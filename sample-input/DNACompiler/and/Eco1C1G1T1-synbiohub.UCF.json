@@ -5063,21 +5063,21 @@
   },
   {
     "collection": "output_reporters",
-    "name": "GFP",
+    "name": "GFP_reporter",
     "parts": [
       "GFP"
     ]
   },
   {
     "collection": "output_reporters",
-    "name": "RFP",
+    "name": "RFP_reporter",
     "parts": [
       "RFP"
     ]
   },
   {
     "collection": "output_reporters",
-    "name": "BFP",
+    "name": "BFP_reporter",
     "parts": [
       "BFP"
     ]
