@@ -11,17 +11,17 @@
 			"name" : "CollectionUri",
 			"type" : "string",
 			"value": "https://synbiohub.programmingbiology.org/public/Cello_Parts/Cello_Parts_collection/1"
-		}
+		},
 		{
 			"name" : "AddInteractions",
 			"type" : "boolean",
 			"value": true
-		}
+		},
 		{
 			"name" : "AddPlasmidModules",
 			"type" : "boolean",
 			"value": true
-		}
+		},
 		{
 			"name" : "AddBackbone",
 			"type" : "boolean",

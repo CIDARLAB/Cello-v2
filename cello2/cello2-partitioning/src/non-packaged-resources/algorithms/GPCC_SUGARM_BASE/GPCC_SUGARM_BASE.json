@@ -21,6 +21,6 @@
 			"name" : "Iteration",
 			"type" : "int",
 			"value": -1
-		},
+		}
 	]
 }

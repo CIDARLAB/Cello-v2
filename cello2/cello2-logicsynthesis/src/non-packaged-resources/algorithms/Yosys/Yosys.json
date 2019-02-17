@@ -6,6 +6,6 @@
 			"name" : "Gates",
 			"type" : "string",
 			"value": "NOR"
-		},
+		}
 	]
 }

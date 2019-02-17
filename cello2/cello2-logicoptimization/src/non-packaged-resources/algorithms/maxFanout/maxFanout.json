@@ -6,6 +6,6 @@
 			"name" : "max",
 			"type" : "int",
 			"value": 4
-		},
+		}
 	]
 }
