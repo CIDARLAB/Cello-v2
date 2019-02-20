@@ -5,7 +5,7 @@
 			"a": "LacI_sensor",
 			"b": "TetR_sensor"
 		}
-	}
+	},
 	{
 		"collection": "output_constraints",
 		"reporter_map": {
