@@ -150,19 +150,6 @@ public class CLRuntimeObject extends RuntimeObject{
 		CLNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
 	}
-	
-	/**
-	 * Returns the path of the Resources directory for the clustering stage
-	 * 
-	 * @return the path of the Resources directory for the clustering stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = CLUtils.getResourcesFilepath();
-		return rtn;
-	}
 
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the clustering stage

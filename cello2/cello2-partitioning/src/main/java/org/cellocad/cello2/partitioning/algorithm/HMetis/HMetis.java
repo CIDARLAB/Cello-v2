@@ -150,19 +150,7 @@ public class HMetis extends PTAlgorithm{
 	 *  Creates the the HMetis Execution command
 	 */
 	protected void createHMetisExec() {
-		String[] pathPrefix = {PTUtils.getResourcesFilepath(),"executable","applications","HMetis"};
 		String cmd = "";
-		cmd += Utils.getPath(pathPrefix);
-		if (Utils.isMac()) {
-			cmd = cmd + "OSX";
-		}
-		else if (Utils.isUnix()) {
-			cmd = cmd + "Linux";
-		}
-		else {
-			throw new RuntimeException("OS not supported!");
-		}
-		cmd += Utils.getFileSeparator();
 		cmd += "hmetis ";
 		cmd += this.getHMetisInFile();
 		cmd += " ";

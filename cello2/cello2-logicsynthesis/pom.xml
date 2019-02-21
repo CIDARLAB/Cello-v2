@@ -38,36 +38,6 @@
     </dependency>
   </dependencies>
   <build>
-    <pluginManagement>
-      <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build 
-            itself. -->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <versionRange>[1.7,)</versionRange>
-                    <goals>
-                      <goal>run</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -114,49 +84,6 @@
                 </artifactItem>
               </artifactItems>
               <outputDirectory>..${file.separator}target</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src${file.separator}non-packaged-resources</directory>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-          <execution>
-            <id>set-executable-permissions</id>
-	    <phase>install</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <chmod file="..${file.separator}target${file.separator}resources-${stage.name}${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys" perm="755" />
-                <chmod file="..${file.separator}target${file.separator}resources-${stage.name}${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Linux${file.separator}yosys-abc" perm="755" />
-		<chmod file="..${file.separator}target${file.separator}resources-${stage.name}${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Mac${file.separator}yosys" perm="755" />
-                <chmod file="..${file.separator}target${file.separator}resources-${stage.name}${file.separator}executable${file.separator}applications${file.separator}Yosys${file.separator}Mac${file.separator}yosys-abc" perm="755" />
-              </target>
             </configuration>
           </execution>
         </executions>

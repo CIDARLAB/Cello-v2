@@ -159,16 +159,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE{
 		this.setOUTFilename(outputDir + Utils.getFileSeparator() + filename + "_SUGARM.out");
 		this.setPartitionDotFile(outputDir + Utils.getFileSeparator() + filename + "_SUGARM.dot");	
 		// exec
-		String[] pathPrefix = {PTUtils.getResourcesFilepath(), "executable", "applications", "SUGARM"};
 		String exec = "";
-		exec += Utils.getPath(pathPrefix);
-		if (Utils.isUnix()) {
-			exec += "Linux";
-		}
-		else {
-			throw new RuntimeException("OS not supported by SUGARM!");
-		}
-		exec += Utils.getFileSeparator();
 		exec += "minisat ";
 		this.setExec(exec);
 	}

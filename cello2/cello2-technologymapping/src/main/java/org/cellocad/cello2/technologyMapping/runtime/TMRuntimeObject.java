@@ -150,19 +150,6 @@ public class TMRuntimeObject extends RuntimeObject{
 		TMNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
 	}
-	
-	/**
-	 * Returns the path of the Resources directory for the technologyMapping stage
-	 * 
-	 * @return the path of the Resources directory for the technologyMapping stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = TMUtils.getResourcesFilepath();
-		return rtn;
-	}
 
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the technologyMapping stage

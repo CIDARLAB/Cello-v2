@@ -1,0 +1,11 @@
+{
+	"name": "maxFanout",
+	"parameters":
+	[
+		{
+			"name" : "max",
+			"type" : "int",
+			"value": 4
+		},
+	]
+}

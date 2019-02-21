@@ -1,0 +1,7 @@
+AuthorName,,
+ApplicationNames,DNACompiler,
+StagePrefix,LS,
+StageName,logicSynthesis,
+AlgorithmName,,
+AlgorithmExtends,Yosys,
+Gates,"NOR",string,

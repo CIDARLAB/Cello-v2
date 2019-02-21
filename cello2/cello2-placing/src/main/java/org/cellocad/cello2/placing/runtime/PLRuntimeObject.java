@@ -150,19 +150,6 @@ public class PLRuntimeObject extends RuntimeObject{
 		PLNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
 	}
-	
-	/**
-	 * Returns the path of the Resources directory for the placing stage
-	 * 
-	 * @return the path of the Resources directory for the placing stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = PLUtils.getResourcesFilepath();
-		return rtn;
-	}
 
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the placing stage

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston University (BU)
+ * Copyright (C) 2019 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,45 +20,42 @@
  */
 package org.cellocad.cello2.export.common;
 
-import java.io.File;
-
-import org.cellocad.cello2.common.Utils;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 /**
  * The EXUtils class is class with utility methods for the <i>export</i> stage.
  * 
  * @author Timothy Jones
  * 
- * @date 2018-06-04
+ * @date 2019-02-20
  *
  */
 public class EXUtils {
 	
-	/**
-	 * Returns the path of the ClassLoader
-	 * 
-	 * @return the path of the ClassLoader
-	 *
-	 */
-	static public String getFilepath(){
-		String rtn = "";
-		rtn += (new File(EXUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getParent();
-		rtn += Utils.getFileSeparator();
-		// rtn = EXUtils.class.getClassLoader().getResource(".").getPath();
+	static public URL getResource(String resource) {
+		URL rtn = null;
+		rtn = EXUtils.class.getClassLoader().getResource(resource);
 		return rtn;
 	}
-
-	/**
-	 * Returns the path of the Resources directory for the <i>export</i> stage
-	 * 
-	 * @return the path of the Resources directory for the <i>export</i> stage
-	 *
-	 */	
-	static public String getResourcesFilepath(){
+	
+	static public String getResourceAsString(String resource) throws IOException {
 		String rtn = "";
-		rtn += EXUtils.getFilepath();
-		rtn += "resources-";
-		rtn += "export";
+		InputStream is = getResource(resource).openStream();
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		StringBuffer sb = new StringBuffer();
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		br.close();
+		isr.close();
+		is.close();
+		rtn = sb.toString();
 		return rtn;
 	}
 	

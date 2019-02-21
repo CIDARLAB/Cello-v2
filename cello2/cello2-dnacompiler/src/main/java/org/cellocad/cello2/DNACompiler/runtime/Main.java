@@ -20,6 +20,9 @@
  */
 package org.cellocad.cello2.DNACompiler.runtime;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +39,7 @@ import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraintUtils;
 import org.cellocad.cello2.common.stage.Stage;
 import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.common.target.data.TargetDataUtils;
+import org.cellocad.cello2.export.common.EXUtils;
 import org.cellocad.cello2.export.runtime.EXRuntimeObject;
 import org.cellocad.cello2.logicOptimization.runtime.LORuntimeObject;
 import org.cellocad.cello2.logicSynthesis.runtime.LSRuntimeObject;
@@ -44,7 +48,6 @@ import org.cellocad.cello2.placing.runtime.PLRuntimeObject;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsStats;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistUtils;
-import org.cellocad.cello2.results.partitioning.PTResultsStats;
 import org.cellocad.cello2.results.partitioning.block.PTBlockNetlist;
 import org.cellocad.cello2.technologyMapping.runtime.TMRuntimeObject;
 
@@ -86,8 +89,9 @@ public class Main {
 	 * The <i>main</i> method is the executable for the <i>DNACompiler</i> application.
 	 * 
 	 * @param args command line argument(s)
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		/*
 		 * Preparation
 		 */
@@ -107,7 +111,7 @@ public class Main {
 		// Netlist
 		Netlist netlist = new Netlist();
 		// ApplicationConfiguration
-		ApplicationConfiguration appCfg = ApplicationUtils.getApplicationConfiguration(runEnv, DNACompilerArgString.OPTIONS, DNACompilerUtils.getResourcesConfigurationFile());
+		ApplicationConfiguration appCfg = ApplicationUtils.getApplicationConfiguration(runEnv, DNACompilerArgString.OPTIONS, DNACompilerUtils.getApplicationConfiguration());
 		if (!appCfg.isValid()) {
 			throw new RuntimeException("ApplicationConfiguration is invalid!");
 		}
@@ -208,13 +212,19 @@ public class Main {
 			logfile = "log.log";
 		}
 		logfile = runEnv.getOptionValue(DNACompilerArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
-		String[] path = {Utils.getResourcesFilepath(), "logger", "log4j2.xml"};
+		String[] path = {"logger", "log4j2.xml"};
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
 		LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-		File file = new File(Utils.getPathFile(path));
+		String file = Utils.getPathFile(path);
+		URI uri;
+		try {
+			uri = EXUtils.getResource(file).toURI();
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Error with logger.");
+		}
 		// this will force a reconfiguration
-		context.setConfigLocation(file.toURI());
+		context.setConfigLocation(uri);
 	}
 
 	/**

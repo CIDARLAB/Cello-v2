@@ -21,10 +21,13 @@
 package org.cellocad.cello2.clustering.runtime;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.cellocad.cello2.clustering.common.CLUtils;
 import org.cellocad.cello2.clustering.runtime.environment.CLArgString;
 import org.cellocad.cello2.clustering.runtime.environment.CLRuntimeEnv;
 import org.cellocad.cello2.common.Utils;
@@ -114,13 +117,19 @@ public class Main {
 			logfile = "log.log";
 		}
 		logfile = runEnv.getOptionValue(CLArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
-		String[] path = {Utils.getResourcesFilepath(), "logger", "log4j2.xml"};
+		String[] path = {"logger", "log4j2.xml"};
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
 		LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-		File file = new File(Utils.getPathFile(path));
+		String file = Utils.getPathFile(path);
+		URI uri;
+		try {
+			uri = CLUtils.getResource(file).toURI();
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Error with logger.");
+		}
 		// this will force a reconfiguration
-		context.setConfigLocation(file.toURI());
+		context.setConfigLocation(uri);
 	}
 
 	/**

@@ -584,7 +584,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 	protected void run() {
 		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR) + Utils.getFileSeparator();
 		String UCFFile = this.getRuntimeEnv().getOptionValue(TMArgString.TARGETDATAFILE) + Utils.getFileSeparator();
-		String[] path = {TMUtils.getResourcesFilepath(), "algorithms", "Cello_JY_TP", "files", "default_histogram.txt"};
+		String[] path = {"algorithms", "Cello_JY_TP", "files", "default_histogram.txt"};
 		String [] optList;
 		String file = "";
 		DNACompiler cello = new DNACompiler();

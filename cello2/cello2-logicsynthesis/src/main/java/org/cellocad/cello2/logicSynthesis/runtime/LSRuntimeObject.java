@@ -150,19 +150,6 @@ public class LSRuntimeObject extends RuntimeObject{
 		LSNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
 	}
-	
-	/**
-	 * Returns the path of the Resources directory for the logicSynthesis stage
-	 * 
-	 * @return the path of the Resources directory for the logicSynthesis stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = LSUtils.getResourcesFilepath();
-		return rtn;
-	}
 
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the logicSynthesis stage

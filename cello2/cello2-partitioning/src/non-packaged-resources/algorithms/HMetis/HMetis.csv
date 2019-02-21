@@ -1,6 +1,0 @@
-AuthorName,,
-ApplicationNames,DNACompiler,
-StagePrefix,PT,
-StageName,partitioning,
-AlgorithmName,,
-AlgorithmExtends,HMetis,
