@@ -146,31 +146,23 @@ final public class AlgorithmProfileUtils {
 	 */
 	static public AlgorithmProfile getAlgorithmProfile(final String filename){
 		AlgorithmProfile rtn = null;
-		Reader APReader = null;
 		JSONObject jsonTop = null;
-		// Create File Reader
+		String profile = null;
+		System.out.println(filename);
 		try {
-			APReader = new FileReader(filename);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Error with file: " + filename);
+			profile = Utils.getResourceAsString(filename);
+		} catch (IOException e) {
+			throw new RuntimeException("File IO Exception for: " + filename + ".");
 		}
 		// Create JSON object from File Reader
 		JSONParser parser = new JSONParser();
         try{
-        	jsonTop = (JSONObject) parser.parse(APReader);
-	    } catch (IOException e) {
-	        throw new RuntimeException("File IO Exception for: " + filename + ".");
-	    } catch (ParseException e) {
+        	jsonTop = (JSONObject) parser.parse(profile);
+        } catch (ParseException e) {
 	        throw new RuntimeException("Parser Exception for: " + filename + ".");
 	    }
 		// Create TargetInfo object
 	    rtn = new AlgorithmProfile(jsonTop);
-	    try {
-	    	APReader.close();
-		} catch (IOException e) {
-			throw new RuntimeException("Error with file: " + filename);
-		}
-		
 		return rtn;		
 	}
 }

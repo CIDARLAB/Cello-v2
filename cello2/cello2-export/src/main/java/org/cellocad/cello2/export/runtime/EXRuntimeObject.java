@@ -35,7 +35,6 @@ import org.cellocad.cello2.export.algorithm.data.EXNetlistEdgeData;
 import org.cellocad.cello2.export.algorithm.data.EXNetlistEdgeDataFactory;
 import org.cellocad.cello2.export.algorithm.data.EXNetlistNodeData;
 import org.cellocad.cello2.export.algorithm.data.EXNetlistNodeDataFactory;
-import org.cellocad.cello2.export.common.EXUtils;
 import org.cellocad.cello2.export.netlist.data.EXStageNetlistData;
 import org.cellocad.cello2.export.netlist.data.EXStageNetlistEdgeData;
 import org.cellocad.cello2.export.netlist.data.EXStageNetlistNodeData;
@@ -149,19 +148,6 @@ public class EXRuntimeObject extends RuntimeObject{
 	protected void setNetlistEdgeData(NetlistEdge edge) {
 		EXNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
-	}
-	
-	/**
-	 * Returns the path of the Resources directory for the export stage
-	 * 
-	 * @return the path of the Resources directory for the export stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = EXUtils.getResourcesFilepath();
-		return rtn;
 	}
 
 	/**

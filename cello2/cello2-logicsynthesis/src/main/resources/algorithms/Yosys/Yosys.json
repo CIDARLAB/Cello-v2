@@ -1,0 +1,11 @@
+{
+	"name": "Yosys",
+	"parameters":
+	[
+		{
+			"name" : "Gates",
+			"type" : "string",
+			"value": "NOR"
+		}
+	]
+}

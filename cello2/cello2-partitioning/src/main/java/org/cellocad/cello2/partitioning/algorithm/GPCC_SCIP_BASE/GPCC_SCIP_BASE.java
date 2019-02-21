@@ -208,16 +208,7 @@ public class GPCC_SCIP_BASE extends GPCC_BASE{
 	 */
 	private void setupExec() {
 		// exec
-		String[] pathPrefix = {PTUtils.getResourcesFilepath(),"executable","applications","SCIP"};
 		String exec = "";
-		exec += Utils.getPath(pathPrefix);
-		if (Utils.isUnix()) {
-			exec += "Linux";
-		}
-		else {
-			throw new RuntimeException("OS not supported by SCIP!");
-		}
-		exec += Utils.getFileSeparator();
 		exec += "scip -b ";
 		this.setSCIPExec(exec);
 	}

@@ -78,37 +78,21 @@ final public class ApplicationUtils {
 	 *  Error accessing <i>projectFilename</i><br>
 	 *  Error parsing <i>projectFilename</i><br>
 	 */
-	static public ApplicationConfiguration getApplicationConfiguration(final RuntimeEnv runEnv, final String options, final String projectFilename){
+	static public ApplicationConfiguration getApplicationConfiguration(final RuntimeEnv runEnv, final String options, final String project){
 		Utils.isNullRuntimeException(runEnv, "runEnv");
 		Utils.isNullRuntimeException(options, "options");
-		Utils.isNullRuntimeException(projectFilename, "projectFilename");
+		Utils.isNullRuntimeException(project, "projectFilename");
 		ApplicationConfiguration rtn = null;
-		// get Application File
-	    File applicationFile = new File(projectFilename);
-	    Reader applicationReader = null;
 		JSONObject jsonTop = null;
-		// Create File Reader
-		try {
-			applicationReader = new FileReader(applicationFile);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Error with file: " + applicationFile);
-		}
 		// Create JSON object from File Reader
 		JSONParser parser = new JSONParser();
         try{
-        	jsonTop = (JSONObject) parser.parse(applicationReader);
-	    } catch (IOException e) {
-	        throw new RuntimeException("File IO Exception for: " + applicationFile + ".");
+        	jsonTop = (JSONObject) parser.parse(project);
 	    } catch (ParseException e) {
-	        throw new RuntimeException("Parser Exception for: " + applicationFile + ".");
+	        throw new RuntimeException("Parser Exception.");
 	    }
 		// Create ApplicationInfo object
 	    rtn = new ApplicationConfiguration(jsonTop);
-	    try {
-			applicationReader.close();
-		} catch (IOException e) {
-			throw new RuntimeException("Error with file: " + applicationFile);
-		}
 	    // override with options
 	    Options optionsObj = OptionsUtils.getOptions(runEnv, options);
 	    ApplicationUtils.OverrideWithOptions(rtn, optionsObj);

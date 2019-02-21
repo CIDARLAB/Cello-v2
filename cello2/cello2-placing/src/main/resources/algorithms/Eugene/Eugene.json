@@ -1,0 +1,11 @@
+{
+	"name": "Eugene",
+	"parameters":
+	[
+		{
+			"name" : "MaxPlacements",
+			"type" : "int",
+			"value": 5
+		}
+	]
+}

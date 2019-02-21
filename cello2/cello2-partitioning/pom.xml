@@ -82,46 +82,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>install</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src${file.separator}non-packaged-resources</directory>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-          <execution>
-            <id>set-executable-permissions</id>
-	    <phase>install</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <chmod file="..${file.separator}target${file.separator}resources-${stage.name}${file.separator}executable${file.separator}applications${file.separator}SUGARM${file.separator}Linux${file.separator}minisat" perm="755" />
-              </target>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 </project>

@@ -150,19 +150,6 @@ public class PTRuntimeObject extends RuntimeObject{
 		PTNetlistEdgeData data = this.getNetlistEdgeDataFactory().getNetlistEdgeData(this.getAlgorithmProfile());
 		edge.setNetlistEdgeData(data);
 	}
-	
-	/**
-	 * Returns the path of the Resources directory for the partitioning stage
-	 * 
-	 * @return the path of the Resources directory for the partitioning stage
-	 *
-	 */
-	@Override
-	protected String getResourcesFilepath() {
-		String rtn = null;
-		rtn = PTUtils.getResourcesFilepath();
-		return rtn;
-	}
 
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the partitioning stage

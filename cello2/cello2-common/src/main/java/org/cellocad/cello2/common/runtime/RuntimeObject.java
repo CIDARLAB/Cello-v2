@@ -244,14 +244,6 @@ abstract public class RuntimeObject extends CObject{
 	protected abstract void setNetlistEdgeData(NetlistEdge edge);
 
 	/**
-	 * Returns the path of the Resources directory for the stage
-	 * 
-	 * @return the path of the Resources directory for the stage
-	 *
-	 */
-	protected abstract String getResourcesFilepath();
-
-	/**
 	 *  Returns a string representing the OPTIONS command line argument for the stage
 	 *  
 	 *  @return a string representing the OPTIONS command line argument for the stage
@@ -268,8 +260,6 @@ abstract public class RuntimeObject extends CObject{
 		AlgorithmProfile rtn = null;
 		if (!this.getStage().getAlgorithmName().isEmpty()) {
 			String path = "";
-			path += this.getResourcesFilepath();
-			path += Utils.getFileSeparator();
 			path += "algorithms";
 			path += Utils.getFileSeparator();
 			path += this.getStage().getAlgorithmName();

@@ -110,10 +110,10 @@
       <!--       </executions> -->
       <!--     </plugin> -->
       <plugin>
-	<artifactId>maven-resources-plugin</artifactId>
-	<version>3.1.0</version>
-	<executions>
-	  <execution>
+		<artifactId>maven-resources-plugin</artifactId>
+		<version>3.1.0</version>
+		<executions>
+		  <execution>
             <id>copy-resources-1</id>
             <phase>install</phase>
             <goals>
@@ -122,35 +122,35 @@
             <configuration>
               <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
               <resources>
-		<resource>
-		  <directory>src${file.separator}non-packaged-resources</directory>
-		  <filtering>false</filtering>
-		</resource>
+				<resource>
+				  <directory>src${file.separator}non-packaged-resources</directory>
+				  <filtering>false</filtering>
+				</resource>
               </resources>
             </configuration>
-	  </execution>
-	  <execution>
+		  </execution>
+		  <execution>
             <id>copy-resources-2</id>
             <phase>install</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
-	    <configuration>
+			<configuration>
               <outputDirectory>..${file.separator}target</outputDirectory>
               <resources>
-		<resource>
-      		  <directory>..${file.separator}tools${file.separator}</directory>
-      		  <includes>
-      		    <include>
-      		      run.py
-      		    </include>
-      		  </includes>
-      		  <filtering>false</filtering>
-      		</resource>
+				<resource>
+      			  <directory>..${file.separator}tools${file.separator}</directory>
+      			  <includes>
+      				<include>
+      				  run.py
+      				</include>
+      			  </includes>
+      			  <filtering>false</filtering>
+      			</resource>
               </resources>
             </configuration>
-	  </execution>
-	</executions>
+		  </execution>
+		</executions>
       </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -158,7 +158,7 @@
         <executions>
           <execution>
             <id>set-executable-permissions</id>
-	    <phase>install</phase>
+			<phase>install</phase>
             <goals>
               <goal>run</goal>
             </goals>

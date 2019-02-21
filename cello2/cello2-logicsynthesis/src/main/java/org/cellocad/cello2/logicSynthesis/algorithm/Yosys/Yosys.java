@@ -155,22 +155,7 @@ public class Yosys extends LSAlgorithm{
 		this.setYosysEdifFilename(outputDir + Utils.getFileSeparator() + filename + ".edif");
 		this.setYosysJSONFilename(outputDir + Utils.getFileSeparator() + filename + ".json");
 		// exec
-		String[] pathPrefix = {LSUtils.getResourcesFilepath(),"executable","applications","Yosys"};
 		String exec = "";
-		exec += Utils.getPath(pathPrefix);
-		if (Utils.isUnix()) {
-			exec += "Linux";
-		}
-		else if (Utils.isMac()) {
-			exec += "Mac";
-		}
-		else if (Utils.isWin()) {
-			exec += "Win";
-		}
-		else {
-			throw new RuntimeException("OS not supported by Yosys!");
-		}
-		exec += Utils.getFileSeparator();
 		exec += "yosys";
 		if (Utils.isWin()) {
 			exec += ".exe";
