@@ -91,7 +91,7 @@ public class Main {
 	 * @param args command line argument(s)
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		/*
 		 * Preparation
 		 */
@@ -111,7 +111,12 @@ public class Main {
 		// Netlist
 		Netlist netlist = new Netlist();
 		// ApplicationConfiguration
-		ApplicationConfiguration appCfg = ApplicationUtils.getApplicationConfiguration(runEnv, DNACompilerArgString.OPTIONS, DNACompilerUtils.getApplicationConfiguration());
+		ApplicationConfiguration appCfg;
+		try {
+			appCfg = ApplicationUtils.getApplicationConfiguration(runEnv, DNACompilerArgString.OPTIONS, DNACompilerUtils.getApplicationConfiguration());
+		} catch (IOException e) {
+			throw new RuntimeException("Error with application configuration file.");
+		}
 		if (!appCfg.isValid()) {
 			throw new RuntimeException("ApplicationConfiguration is invalid!");
 		}
