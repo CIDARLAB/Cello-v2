@@ -8,11 +8,11 @@ help() {
 		echo ""
 		echo "Replecement args:"
 		echo "    --cxx         clang"
-		echo "    --cxxflags    $( echo '-Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.7_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.7_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER' | fmt -w60 | sed ':a;N;$!ba;s/\n/ \\\n                      /g' )"
-		echo "    --ldflags     -L/usr/local/Cellar/yosys/0.7_1/lib"
+		echo "    --cxxflags    $( echo '-Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.8_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.8_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER' | fmt -w60 | sed ':a;N;$!ba;s/\n/ \\\n                      /g' )"
+		echo "    --ldflags     -L/usr/local/Cellar/yosys/0.8_1/lib -undefined dynamic_lookup"
 		echo "    --ldlibs      -lstdc++ -lm -lreadline -L/usr/local/Cellar/libffi/3.2.1/lib -lffi -ldl -ltcl8.5"
-		echo "    --bindir      /usr/local/Cellar/yosys/0.7_1/bin"
-		echo "    --datdir      /usr/local/Cellar/yosys/0.7_1/share/yosys"
+		echo "    --bindir      /usr/local/Cellar/yosys/0.8_1/bin"
+		echo "    --datdir      /usr/local/Cellar/yosys/0.8_1/share/yosys"
 		echo ""
 		echo "All other args are passed through as they are."
 		echo ""
@@ -62,19 +62,19 @@ for opt; do
 		"$prefix"cxx)
 			tokens=( "${tokens[@]}"  clang       ) ;;
 		"$prefix"cxxflags)
-			tokens=( "${tokens[@]}"  -Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.7_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.7_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER  ) ;;
+			tokens=( "${tokens[@]}"  -Wall -Wextra -ggdb -I"/usr/local/Cellar/yosys/0.8_1/share/yosys/include" -MD -D_YOSYS_ -fPIC -I/usr/local/Cellar/yosys/0.8_1/include -std=c++11 -Os -DYOSYS_ENABLE_READLINE -I/usr/local/Cellar/libffi/3.2.1/lib/libffi-3.2.1/include -DYOSYS_ENABLE_PLUGINS -I/usr/include/tcl8.5 -DYOSYS_ENABLE_TCL -DYOSYS_ENABLE_ABC -DYOSYS_ENABLE_COVER  ) ;;
 		"$prefix"ldflags)
-			tokens=( "${tokens[@]}"  -L/usr/local/Cellar/yosys/0.7_1/lib   ) ;;
+			tokens=( "${tokens[@]}"  -L/usr/local/Cellar/yosys/0.8_1/lib -undefined dynamic_lookup   ) ;;
 		"$prefix"ldlibs)
 			tokens=( "${tokens[@]}"  -lstdc++ -lm -lreadline -L/usr/local/Cellar/libffi/3.2.1/lib -lffi -ldl -ltcl8.5    ) ;;
 		"$prefix"bindir)
-			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/bin'   ) ;;
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.8_1/bin'   ) ;;
 		"$prefix"datdir)
-			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/share/yosys'   ) ;;
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.8_1/share/yosys'   ) ;;
 		"$prefix"bindir/*)
-			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/bin'"${opt#${prefix}bindir}" ) ;;
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.8_1/bin'"${opt#${prefix}bindir}" ) ;;
 		"$prefix"datdir/*)
-			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.7_1/share/yosys'"${opt#${prefix}datdir}" ) ;;
+			tokens=( "${tokens[@]}" '/usr/local/Cellar/yosys/0.8_1/share/yosys'"${opt#${prefix}datdir}" ) ;;
 		--help|-\?|-h)
 			if [ ${#tokens[@]} -eq 0 ]; then
 				help
