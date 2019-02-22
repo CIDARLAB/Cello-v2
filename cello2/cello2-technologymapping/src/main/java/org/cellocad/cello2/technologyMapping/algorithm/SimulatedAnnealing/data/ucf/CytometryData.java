@@ -45,21 +45,21 @@ public class CytometryData extends CObject{
 	}
 	
 	private void parseInput(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "input");
+		Double value = ((Number)JObj.get("input")).doubleValue();
 		this.setInput(value);
 	}
 
 	private void parseOutputBins(final JSONObject JObj){
 		JSONArray JArr = (JSONArray) JObj.get("output_bins");
 		for (int i = 0; i < JArr.size(); i++) {
-			this.getOutputBins().add((Double) JArr.get(i));
+			this.getOutputBins().add(((Number)JArr.get(i)).doubleValue());
 		}
 	}
 
 	private void parseOutputCounts(final JSONObject JObj){
 		JSONArray JArr = (JSONArray) JObj.get("output_counts");
 		for (int i = 0; i < JArr.size(); i++) {
-			this.getOutputBins().add((Double) JArr.get(i));
+			this.getOutputBins().add(((Number)JArr.get(i)).doubleValue());
 		}
 	}
 

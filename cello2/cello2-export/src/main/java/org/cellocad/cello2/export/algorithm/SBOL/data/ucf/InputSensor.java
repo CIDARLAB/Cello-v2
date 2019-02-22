@@ -56,12 +56,12 @@ public class InputSensor extends Device{
 	}
 	
 	private void parseLowSignal(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "signal_low");
+		Double value = ((Number)JObj.get("signal_low")).doubleValue();
 		this.setLowSignal(value);
 	}
 	
 	private void parseHighSignal(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "signal_high");
+		Double value = ((Number)JObj.get("signal_high")).doubleValue();
 		this.setHighSignal(value);
 	}
 	

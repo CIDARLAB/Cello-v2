@@ -43,12 +43,12 @@ public class ResponseFunctionVariable extends CObject{
 	}
 	
 	private void parseOffThreshold(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "off_threshold");
+		Double value = ((Number)JObj.get("off_threshold")).doubleValue();
 		this.setOffThreshold(value);
 	}
 	
 	private void parseOnThreshold(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "on_threshold");
+		Double value = ((Number)JObj.get("on_threshold")).doubleValue();
 		this.setOnThreshold(value);
 	}
 	

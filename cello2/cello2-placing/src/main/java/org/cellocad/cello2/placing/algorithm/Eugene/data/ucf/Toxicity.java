@@ -52,7 +52,7 @@ public class Toxicity extends CObject{
 	private void parseInput(final JSONObject JObj){
 		JSONArray jArr = (JSONArray) JObj.get("input");
 		for (int i = 0; i < jArr.size(); i++) {
-			Double input = ProfileUtils.getDouble(jArr.get(i));
+			Double input = ((Number)jArr.get(i)).doubleValue();
 			this.getInput().add(input);
 		}
 	}
@@ -60,7 +60,7 @@ public class Toxicity extends CObject{
 	private void parseGrowth(final JSONObject JObj){
 		JSONArray jArr = (JSONArray) JObj.get("growth");
 		for (int i = 0; i < jArr.size(); i++) {
-			Double growth = ProfileUtils.getDouble(jArr.get(i));
+			Double growth = ((Number)jArr.get(i)).doubleValue();
 			this.getGrowth().add(growth);
 		}
 	}

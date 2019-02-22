@@ -40,7 +40,7 @@ public class ResponseFunctionParameter extends CObject{
 	}
 	
 	private void parseValue(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "value");
+		Double value = ((Number)JObj.get("value")).doubleValue();
 		this.setValue(value);
 	}
 
