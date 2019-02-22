@@ -35,7 +35,6 @@ import org.cellocad.cello2.placing.algorithm.data.PLNetlistEdgeData;
 import org.cellocad.cello2.placing.algorithm.data.PLNetlistEdgeDataFactory;
 import org.cellocad.cello2.placing.algorithm.data.PLNetlistNodeData;
 import org.cellocad.cello2.placing.algorithm.data.PLNetlistNodeDataFactory;
-import org.cellocad.cello2.placing.common.PLUtils;
 import org.cellocad.cello2.placing.netlist.data.PLStageNetlistData;
 import org.cellocad.cello2.placing.netlist.data.PLStageNetlistEdgeData;
 import org.cellocad.cello2.placing.netlist.data.PLStageNetlistNodeData;

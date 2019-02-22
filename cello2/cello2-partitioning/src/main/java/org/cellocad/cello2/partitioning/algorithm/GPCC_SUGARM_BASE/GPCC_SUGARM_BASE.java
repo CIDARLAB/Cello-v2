@@ -36,7 +36,6 @@ import org.cellocad.cello2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUG
 import org.cellocad.cello2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistNodeData;
 import org.cellocad.cello2.partitioning.common.Block;
 import org.cellocad.cello2.partitioning.common.Move;
-import org.cellocad.cello2.partitioning.common.PTUtils;
 import org.cellocad.cello2.partitioning.common.Partition;
 import org.cellocad.cello2.partitioning.common.PartitionUtils;
 import org.cellocad.cello2.partitioning.netlist.PTNetlistNode;

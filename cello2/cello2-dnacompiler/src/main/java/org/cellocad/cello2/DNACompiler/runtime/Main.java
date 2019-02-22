@@ -30,7 +30,6 @@ import org.apache.logging.log4j.core.LoggerContext;
 import org.cellocad.cello2.DNACompiler.common.DNACompilerUtils;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerArgString;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerRuntimeEnv;
-import org.cellocad.cello2.clustering.runtime.CLRuntimeObject;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.application.ApplicationConfiguration;
 import org.cellocad.cello2.common.application.ApplicationUtils;
@@ -39,11 +38,8 @@ import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraintUtils;
 import org.cellocad.cello2.common.stage.Stage;
 import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.common.target.data.TargetDataUtils;
-import org.cellocad.cello2.export.common.EXUtils;
 import org.cellocad.cello2.export.runtime.EXRuntimeObject;
-import org.cellocad.cello2.logicOptimization.runtime.LORuntimeObject;
 import org.cellocad.cello2.logicSynthesis.runtime.LSRuntimeObject;
-import org.cellocad.cello2.partitioning.runtime.PTRuntimeObject;
 import org.cellocad.cello2.placing.runtime.PLRuntimeObject;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsStats;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -156,18 +152,18 @@ public class Main {
 		NetlistUtils.writeDotFileForGraph(netlist, outputDir + netlist.getName()+ "_logicSynthesis" + ".dot");
 		Main.getLogger().info(LSResultsStats.getLogicSynthesisStats(netlist));
 		// logicOptimization
-		currentStage = appCfg.getStageByName("logicOptimization");
-		LORuntimeObject LO = new LORuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		//currentStage = appCfg.getStageByName("logicOptimization");
+		//LORuntimeObject LO = new LORuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		//LO.execute();
 		//NetlistUtils.writeDotFileForGraph(netlist, outputDir + netlist.getName()+ "_logicOptimization" + ".dot");
 		//Main.getLogger().info(LOResultsStats.getLogicOptimizationStats(netlist));
 		// clustering
-		currentStage = appCfg.getStageByName("clustering");
-		CLRuntimeObject CL = new CLRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		//currentStage = appCfg.getStageByName("clustering");
+		//CLRuntimeObject CL = new CLRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		// CL.execute();
 		// partitioning
-		currentStage = appCfg.getStageByName("partitioning");
-		PTRuntimeObject PT = new PTRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		//currentStage = appCfg.getStageByName("partitioning");
+		//PTRuntimeObject PT = new PTRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		// PT.execute();
 		// Main.printPartitioningGraphs(runEnv, netlist);
 		// Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
@@ -224,7 +220,7 @@ public class Main {
 		String file = Utils.getPathFile(path);
 		URI uri;
 		try {
-			uri = EXUtils.getResource(file).toURI();
+			uri = DNACompilerUtils.getResource(file).toURI();
 		} catch (URISyntaxException e) {
 			throw new RuntimeException("Error with logger.");
 		}

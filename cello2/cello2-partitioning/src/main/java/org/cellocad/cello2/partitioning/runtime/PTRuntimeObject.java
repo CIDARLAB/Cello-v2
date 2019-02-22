@@ -35,7 +35,6 @@ import org.cellocad.cello2.partitioning.algorithm.data.PTNetlistEdgeData;
 import org.cellocad.cello2.partitioning.algorithm.data.PTNetlistEdgeDataFactory;
 import org.cellocad.cello2.partitioning.algorithm.data.PTNetlistNodeData;
 import org.cellocad.cello2.partitioning.algorithm.data.PTNetlistNodeDataFactory;
-import org.cellocad.cello2.partitioning.common.PTUtils;
 import org.cellocad.cello2.partitioning.netlist.data.PTStageNetlistData;
 import org.cellocad.cello2.partitioning.netlist.data.PTStageNetlistEdgeData;
 import org.cellocad.cello2.partitioning.netlist.data.PTStageNetlistNodeData;

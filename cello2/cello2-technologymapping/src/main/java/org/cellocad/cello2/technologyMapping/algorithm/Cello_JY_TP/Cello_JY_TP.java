@@ -51,7 +51,6 @@ import org.cellocad.cello2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistData;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistNodeData;
-import org.cellocad.cello2.technologyMapping.common.TMUtils;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
 
 /**

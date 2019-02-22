@@ -20,12 +20,6 @@
  */
 package org.cellocad.cello2.common.application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.options.Options;
 import org.cellocad.cello2.common.options.OptionsUtils;

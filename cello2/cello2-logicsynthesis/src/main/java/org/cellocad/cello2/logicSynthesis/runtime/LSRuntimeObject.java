@@ -35,7 +35,6 @@ import org.cellocad.cello2.logicSynthesis.algorithm.data.LSNetlistEdgeData;
 import org.cellocad.cello2.logicSynthesis.algorithm.data.LSNetlistEdgeDataFactory;
 import org.cellocad.cello2.logicSynthesis.algorithm.data.LSNetlistNodeData;
 import org.cellocad.cello2.logicSynthesis.algorithm.data.LSNetlistNodeDataFactory;
-import org.cellocad.cello2.logicSynthesis.common.LSUtils;
 import org.cellocad.cello2.logicSynthesis.netlist.data.LSStageNetlistData;
 import org.cellocad.cello2.logicSynthesis.netlist.data.LSStageNetlistEdgeData;
 import org.cellocad.cello2.logicSynthesis.netlist.data.LSStageNetlistNodeData;

@@ -33,7 +33,6 @@ import org.cellocad.cello2.partitioning.algorithm.GPCC_BASE.GPCC_BASE;
 import org.cellocad.cello2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistData;
 import org.cellocad.cello2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistEdgeData;
 import org.cellocad.cello2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistNodeData;
-import org.cellocad.cello2.partitioning.common.PTUtils;
 import org.cellocad.cello2.partitioning.runtime.environment.PTArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;

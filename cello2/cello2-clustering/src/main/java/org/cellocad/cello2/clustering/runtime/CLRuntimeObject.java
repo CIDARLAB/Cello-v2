@@ -30,7 +30,6 @@ import org.cellocad.cello2.clustering.algorithm.data.CLNetlistEdgeData;
 import org.cellocad.cello2.clustering.algorithm.data.CLNetlistEdgeDataFactory;
 import org.cellocad.cello2.clustering.algorithm.data.CLNetlistNodeData;
 import org.cellocad.cello2.clustering.algorithm.data.CLNetlistNodeDataFactory;
-import org.cellocad.cello2.clustering.common.CLUtils;
 import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistData;
 import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistEdgeData;
 import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistNodeData;

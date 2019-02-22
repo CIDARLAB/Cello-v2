@@ -45,7 +45,6 @@ import org.cellocad.cello2.partitioning.algorithm.HMetis.data.HMetisNetlistNodeD
 import org.cellocad.cello2.partitioning.common.Block;
 import org.cellocad.cello2.partitioning.common.Move;
 import org.cellocad.cello2.partitioning.common.Netlister;
-import org.cellocad.cello2.partitioning.common.PTUtils;
 import org.cellocad.cello2.partitioning.common.Partition;
 import org.cellocad.cello2.partitioning.common.Partitioner;
 import org.cellocad.cello2.partitioning.netlist.PTNetlist;

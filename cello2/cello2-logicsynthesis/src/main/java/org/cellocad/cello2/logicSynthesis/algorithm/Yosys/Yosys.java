@@ -38,7 +38,6 @@ import org.cellocad.cello2.logicSynthesis.algorithm.LSAlgorithm;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistEdgeData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistNodeData;
-import org.cellocad.cello2.logicSynthesis.common.LSUtils;
 import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;

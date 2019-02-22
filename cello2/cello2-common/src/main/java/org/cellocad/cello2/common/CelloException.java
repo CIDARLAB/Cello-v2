@@ -30,6 +30,8 @@ package org.cellocad.cello2.common;
  */
 public class CelloException extends Exception {
 
+	private static final long serialVersionUID = -6058127022926616592L;
+
 	public CelloException() {
 		super();
 	}

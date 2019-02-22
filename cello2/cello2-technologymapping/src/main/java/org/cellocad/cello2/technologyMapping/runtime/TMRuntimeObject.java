@@ -38,7 +38,6 @@ import org.cellocad.cello2.technologyMapping.algorithm.data.TMNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.algorithm.data.TMNetlistEdgeDataFactory;
 import org.cellocad.cello2.technologyMapping.algorithm.data.TMNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.data.TMNetlistNodeDataFactory;
-import org.cellocad.cello2.technologyMapping.common.TMUtils;
 import org.cellocad.cello2.technologyMapping.netlist.data.TMStageNetlistData;
 import org.cellocad.cello2.technologyMapping.netlist.data.TMStageNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.netlist.data.TMStageNetlistNodeData;

@@ -35,7 +35,6 @@ import org.cellocad.cello2.logicOptimization.algorithm.data.LONetlistEdgeData;
 import org.cellocad.cello2.logicOptimization.algorithm.data.LONetlistEdgeDataFactory;
 import org.cellocad.cello2.logicOptimization.algorithm.data.LONetlistNodeData;
 import org.cellocad.cello2.logicOptimization.algorithm.data.LONetlistNodeDataFactory;
-import org.cellocad.cello2.logicOptimization.common.LOUtils;
 import org.cellocad.cello2.logicOptimization.netlist.data.LOStageNetlistData;
 import org.cellocad.cello2.logicOptimization.netlist.data.LOStageNetlistEdgeData;
 import org.cellocad.cello2.logicOptimization.netlist.data.LOStageNetlistNodeData;

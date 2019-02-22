@@ -20,7 +20,6 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL.data.ucf;
 
-import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
 import org.json.simple.JSONObject;
