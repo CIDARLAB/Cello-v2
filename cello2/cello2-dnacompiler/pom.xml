@@ -62,6 +62,29 @@
   </dependencies>
   <build>
     <plugins>
+	      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+	<version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.cellocad.cello2.${stage.name}.runtime.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -80,6 +103,7 @@
                   <artifactId>${project.artifactId}</artifactId>
                   <version>${project.version}</version>
                   <type>${project.packaging}</type>
+				  <classifier>jar-with-dependencies</classifier>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>..${file.separator}target</outputDirectory>
@@ -113,22 +137,6 @@
 		<artifactId>maven-resources-plugin</artifactId>
 		<version>3.1.0</version>
 		<executions>
-		  <execution>
-            <id>copy-resources-1</id>
-            <phase>install</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>..${file.separator}target${file.separator}resources-${stage.name}</outputDirectory>
-              <resources>
-				<resource>
-				  <directory>src${file.separator}non-packaged-resources</directory>
-				  <filtering>false</filtering>
-				</resource>
-              </resources>
-            </configuration>
-		  </execution>
 		  <execution>
             <id>copy-resources-2</id>
             <phase>install</phase>
