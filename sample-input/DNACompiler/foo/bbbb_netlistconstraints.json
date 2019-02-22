@@ -1,0 +1,10 @@
+[
+  {
+    "collection": "input_constraints",
+    "sensor_map": {}
+  },
+  {
+    "reporter_map": {},
+    "collection": "output_constraints"
+  }
+]
