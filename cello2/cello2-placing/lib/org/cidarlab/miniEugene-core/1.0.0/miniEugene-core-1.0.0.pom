@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+  
+	<groupId>org.cidarlab</groupId>
+	<artifactId>miniEugene-core</artifactId>
+	<version>1.0.0</version>
+  
+  	<build>
+    
+	    <sourceDirectory>src/main/java</sourceDirectory>
+	    <testSourceDirectory>src/test/java</testSourceDirectory>
+	    <resources>
+	      	<resource>
+	        	<directory>src/main/resources</directory>
+	        	<excludes>
+	          		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	    </resources>
+    
+		<plugins>
+		
+	        <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5</version>
+	            <configuration>
+					<outputDirectory>dist</outputDirectory>
+	                <descriptorRefs>
+	                    <descriptorRef>jar-with-dependencies</descriptorRef>
+	                </descriptorRefs>
+	                <archive>
+			            <manifest>
+			                <addClasspath>true</addClasspath>
+			                <classpathPrefix>lib/</classpathPrefix>
+			                <mainClass>org.cidarlab.minieugene.MiniEugene</mainClass>
+			            </manifest>
+			        </archive>
+	            </configuration>
+	        </plugin>
+	        
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-jar-plugin</artifactId>
+			    <version>2.5</version>
+			    <configuration>
+					<outputDirectory>dist</outputDirectory>
+			        <archive>
+			            <manifest>
+			                <addClasspath>true</addClasspath>
+			                <classpathPrefix>lib/</classpathPrefix>
+			                <mainClass>org.cidarlab.minieugene.MiniEugene</mainClass>
+			            </manifest>
+			        </archive>
+			    </configuration>
+			</plugin>
+	      	
+	      	<plugin>
+	        	<artifactId>maven-compiler-plugin</artifactId>
+	        	<version>3.1</version>
+	        	<configuration>
+	          		<source>1.7</source>
+	          		<target>1.7</target>
+	        	</configuration>
+	      	</plugin>
+	
+		</plugins>
+    
+	</build>
+  
+  	<repositories>
+        <repository>
+            <id>Sonatype OSS Snapshot Repository</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+  
+  
+    <dependencies>
+	    <dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>4.3.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.3.5</version>
+		</dependency>
+		
+		<!--  JUNit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		
+		<!--  JaCoP: Java Constraint Programming 
+			needs to be installed manually:
+			http://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
+		  -->
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>jacop</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		
+    </dependencies>
+    
+</project>
