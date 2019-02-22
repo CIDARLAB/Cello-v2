@@ -148,7 +148,6 @@ final public class AlgorithmProfileUtils {
 		AlgorithmProfile rtn = null;
 		JSONObject jsonTop = null;
 		String profile = null;
-		System.out.println(filename);
 		try {
 			profile = Utils.getResourceAsString(filename);
 		} catch (IOException e) {
