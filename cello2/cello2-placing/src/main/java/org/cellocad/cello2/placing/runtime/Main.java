@@ -121,7 +121,7 @@ public class Main {
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
 		LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-		String file = Utils.getPathFile(path);
+		String file = "logger/log4j2.xml";
 		URI uri;
 		try {
 			uri = PLUtils.getResource(file).toURI();

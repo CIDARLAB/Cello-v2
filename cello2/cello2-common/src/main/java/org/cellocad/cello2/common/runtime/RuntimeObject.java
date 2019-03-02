@@ -261,9 +261,9 @@ abstract public class RuntimeObject extends CObject{
 		if (!this.getStage().getAlgorithmName().isEmpty()) {
 			String path = "";
 			path += "algorithms";
-			path += Utils.getFileSeparator();
+			path += "/";
 			path += this.getStage().getAlgorithmName();
-			path += Utils.getFileSeparator();
+			path += "/";
 			path += this.getStage().getAlgorithmName();
 			path += ".json";
 			Options options = OptionsUtils.getOptions(getRuntimeEnv(), this.getOptionsString());
