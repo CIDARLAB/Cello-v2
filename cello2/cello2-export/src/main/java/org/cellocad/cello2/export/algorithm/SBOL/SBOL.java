@@ -198,7 +198,6 @@ public class SBOL extends EXAlgorithm{
 	 */
 	@Override
 	protected void preprocessing() {
-		NetlistUtils.writeJSONForNetlist(this.getNetlist(), "/home/tsj/foo.json");
 		// plasmids
 		this.setDesigns(new Designs(this.getNetlist(),
 		                            true,
