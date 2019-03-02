@@ -1,4 +1,0 @@
-*.jar filter=lfs diff=lfs merge=lfs -text
-*.UCF.json filter=lfs diff=lfs merge=lfs -text
-EcoJS4ib_110215_model_up_JS_cytometry_Tox.UCF.json filter=lfs diff=lfs merge=lfs -text
-EcoJS4ib_110215_model_up_JS_cytometry.UCF.json filter=lfs diff=lfs merge=lfs -text
