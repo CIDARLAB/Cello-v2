@@ -402,8 +402,7 @@ public class Eugene extends PLAlgorithm{
 				str += String.format("%s,",entry);
 				str += Utils.getNewLine();
 			}
-			str = str.substring(0, str.length() - 2);
-			str += Utils.getNewLine();
+			str = str.replaceAll("," + Utils.getNewLine() + "$", Utils.getNewLine());
 			str += ");";
 			rtn.add(str);
 		}
