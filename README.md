@@ -2,7 +2,7 @@
 
   + Java JDK 8 (Oracle, OpenJDK)
   + Python 3
-  + [maven](https://maven.apache.org/)
+  + [Maven](https://maven.apache.org/)
   + [Yosys](http://www.clifford.at/yosys/)
     - Linux: check your package manager
     - Mac OSX: `brew install yosys`
