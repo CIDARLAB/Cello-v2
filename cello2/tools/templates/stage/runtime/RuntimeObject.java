@@ -247,6 +247,6 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	protected Logger getLogger() {
 		return ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject.class);
 
 }

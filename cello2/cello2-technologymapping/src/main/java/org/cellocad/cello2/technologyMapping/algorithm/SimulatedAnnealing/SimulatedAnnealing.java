@@ -439,7 +439,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		return SimulatedAnnealing.logger;
 	}
 
-	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class);
 
 	/*
 	 * Gate

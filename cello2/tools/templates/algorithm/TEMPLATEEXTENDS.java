@@ -147,6 +147,6 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 		return ##NONCE##21##ALGONAME##21##NONCE.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(##NONCE##21##ALGONAME##21##NONCE.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(##NONCE##21##ALGONAME##21##NONCE.class);
 
 }

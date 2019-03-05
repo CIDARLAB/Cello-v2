@@ -278,7 +278,7 @@ public class Yosys extends LSAlgorithm{
 		return Yosys.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(Yosys.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(Yosys.class);
 	
 	/*
 	 * Log

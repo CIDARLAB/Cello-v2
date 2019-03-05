@@ -255,6 +255,6 @@ public abstract class Algorithm extends CObject{
 		return Algorithm.logger;
 	}
 	
-    private static final Logger logger = LogManager.getLogger(Algorithm.class.getSimpleName());
+    private static final Logger logger = LogManager.getLogger(Algorithm.class);
     
 }

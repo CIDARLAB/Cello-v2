@@ -86,5 +86,5 @@ public abstract class CLAlgorithm extends Algorithm{
 		return CLAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(CLAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(CLAlgorithm.class);
 }

@@ -86,5 +86,5 @@ public abstract class PTAlgorithm extends Algorithm{
 		return PTAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(PTAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(PTAlgorithm.class);
 }

@@ -142,5 +142,5 @@ public class GPCC_GRID extends PLAlgorithm{
 		return GPCC_GRID.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(GPCC_GRID.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(GPCC_GRID.class);
 }

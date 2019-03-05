@@ -386,5 +386,5 @@ abstract public class RuntimeObject extends CObject{
 	private final Netlist netlist;
 	private final NetlistConstraint netlistConstraint;
 	private final RuntimeEnv runEnv;
-    private static final Logger logger = LogManager.getLogger(RuntimeObject.class.getSimpleName());
+    private static final Logger logger = LogManager.getLogger(RuntimeObject.class);
 }

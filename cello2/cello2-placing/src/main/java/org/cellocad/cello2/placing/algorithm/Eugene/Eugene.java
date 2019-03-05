@@ -750,7 +750,7 @@ public class Eugene extends PLAlgorithm{
 		return Eugene.logger;
 	}
 
-	private static final Logger logger = LogManager.getLogger(Eugene.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(Eugene.class);
 
 	/**
 	 * Getter for <i>maxPlacements</i>

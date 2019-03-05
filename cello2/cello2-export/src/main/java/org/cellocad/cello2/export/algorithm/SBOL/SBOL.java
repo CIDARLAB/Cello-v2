@@ -883,7 +883,7 @@ public class SBOL extends EXAlgorithm{
 	private CObjectCollection<InputSensor> sensors;
 	private CObjectCollection<OutputReporter> reporters;
 	private Designs designs;
-	private static final Logger logger = LogManager.getLogger(SBOL.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(SBOL.class);
 
 	private static final String S_BACKBONE_ROLE = "http://identifiers.org/so/SO:0000755";
 }

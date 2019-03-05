@@ -232,6 +232,6 @@ public class PTRuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return PTRuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(PTRuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(PTRuntimeObject.class);
 
 }

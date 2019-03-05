@@ -232,6 +232,6 @@ public class PLRuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return PLRuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(PLRuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(PLRuntimeObject.class);
 
 }

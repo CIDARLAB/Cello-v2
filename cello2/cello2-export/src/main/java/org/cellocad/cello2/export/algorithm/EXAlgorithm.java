@@ -86,5 +86,5 @@ public abstract class EXAlgorithm extends Algorithm{
 		return EXAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(EXAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(EXAlgorithm.class);
 }

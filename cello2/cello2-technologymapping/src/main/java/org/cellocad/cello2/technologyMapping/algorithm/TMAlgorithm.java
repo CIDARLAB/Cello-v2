@@ -86,5 +86,5 @@ public abstract class TMAlgorithm extends Algorithm{
 		return TMAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(TMAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(TMAlgorithm.class);
 }

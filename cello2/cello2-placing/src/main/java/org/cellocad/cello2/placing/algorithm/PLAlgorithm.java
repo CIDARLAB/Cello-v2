@@ -86,5 +86,5 @@ public abstract class PLAlgorithm extends Algorithm{
 		return PLAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(PLAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(PLAlgorithm.class);
 }

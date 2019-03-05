@@ -232,6 +232,6 @@ public class EXRuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return EXRuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(EXRuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(EXRuntimeObject.class);
 
 }

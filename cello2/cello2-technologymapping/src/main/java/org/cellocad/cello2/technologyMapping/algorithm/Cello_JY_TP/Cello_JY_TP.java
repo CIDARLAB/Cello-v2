@@ -656,7 +656,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 		return Cello_JY_TP.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(Cello_JY_TP.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(Cello_JY_TP.class);
 	
 	/**
 	 * Setter for <i>input</i>

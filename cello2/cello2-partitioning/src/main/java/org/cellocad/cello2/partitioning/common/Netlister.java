@@ -201,5 +201,5 @@ public class Netlister extends CObject {
 		return Netlister.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(Netlister.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(Netlister.class);
 }

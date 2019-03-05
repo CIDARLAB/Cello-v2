@@ -232,6 +232,6 @@ public class LORuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return LORuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(LORuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(LORuntimeObject.class);
 
 }

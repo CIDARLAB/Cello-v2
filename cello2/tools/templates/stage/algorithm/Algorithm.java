@@ -87,5 +87,5 @@ public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algor
 		return ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm.class);
 }

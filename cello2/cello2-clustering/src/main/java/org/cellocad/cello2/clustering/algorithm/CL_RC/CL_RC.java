@@ -142,5 +142,5 @@ public class CL_RC extends CLAlgorithm{
 		return CL_RC.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(CL_RC.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(CL_RC.class);
 }

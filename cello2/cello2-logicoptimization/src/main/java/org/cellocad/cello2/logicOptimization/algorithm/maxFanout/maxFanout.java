@@ -242,7 +242,7 @@ public class maxFanout extends LOAlgorithm{
 		return maxFanout.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(maxFanout.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(maxFanout.class);
 	
 	static private final String S_DUPLICATE = "_Duplicate";
 }

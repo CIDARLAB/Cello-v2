@@ -348,7 +348,7 @@ public class HMetis extends PTAlgorithm{
 		return HMetis.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(HMetis.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(HMetis.class);
 
 	/*
 	 * hMetisInFile

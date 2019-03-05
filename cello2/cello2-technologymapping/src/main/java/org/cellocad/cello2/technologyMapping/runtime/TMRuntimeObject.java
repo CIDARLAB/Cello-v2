@@ -232,6 +232,6 @@ public class TMRuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return TMRuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(TMRuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(TMRuntimeObject.class);
 
 }

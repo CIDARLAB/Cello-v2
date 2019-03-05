@@ -368,5 +368,5 @@ public class GPCC_BASE extends PTAlgorithm{
 		return GPCC_BASE.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(GPCC_BASE.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(GPCC_BASE.class);
 }

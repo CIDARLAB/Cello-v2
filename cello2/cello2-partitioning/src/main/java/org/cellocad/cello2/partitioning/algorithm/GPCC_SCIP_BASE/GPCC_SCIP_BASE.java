@@ -346,7 +346,7 @@ public class GPCC_SCIP_BASE extends GPCC_BASE{
 		return GPCC_SCIP_BASE.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(GPCC_SCIP_BASE.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(GPCC_SCIP_BASE.class);
 
 	protected static String S_HEADER_FOOTER = "+-----------------------------------------------------";
 	protected static String S_HEADER_LINE_PREFIX = "|";

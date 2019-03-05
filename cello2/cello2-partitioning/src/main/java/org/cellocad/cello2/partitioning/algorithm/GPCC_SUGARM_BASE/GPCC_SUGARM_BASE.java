@@ -573,7 +573,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE{
 		return GPCC_SUGARM_BASE.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(GPCC_SUGARM_BASE.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(GPCC_SUGARM_BASE.class);
 
 	static private boolean B_CLEANUP = false;
 	static String S_ENCODE = "-encode";

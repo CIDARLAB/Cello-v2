@@ -140,6 +140,6 @@ public class Main {
 		return Main.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(Main.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(Main.class);
 	
 }

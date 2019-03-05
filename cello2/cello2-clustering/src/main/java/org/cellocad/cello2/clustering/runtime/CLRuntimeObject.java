@@ -232,6 +232,6 @@ public class CLRuntimeObject extends RuntimeObject{
 	protected Logger getLogger() {
 		return CLRuntimeObject.logger;
 	}
-	private static final Logger logger = LogManager.getLogger(CLRuntimeObject.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(CLRuntimeObject.class);
 
 }

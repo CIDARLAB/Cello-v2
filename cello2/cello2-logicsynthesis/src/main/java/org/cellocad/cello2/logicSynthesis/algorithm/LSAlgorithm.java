@@ -86,5 +86,5 @@ public abstract class LSAlgorithm extends Algorithm{
 		return LSAlgorithm.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(LSAlgorithm.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(LSAlgorithm.class);
 }
