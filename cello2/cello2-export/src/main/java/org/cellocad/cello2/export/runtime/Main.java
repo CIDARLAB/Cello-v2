@@ -21,12 +21,9 @@
 package org.cellocad.cello2.export.runtime;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraintUtils;
@@ -34,7 +31,6 @@ import org.cellocad.cello2.common.stage.Stage;
 import org.cellocad.cello2.common.stage.StageUtils;
 import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.common.target.data.TargetDataUtils;
-import org.cellocad.cello2.export.common.EXUtils;
 import org.cellocad.cello2.export.runtime.environment.EXArgString;
 import org.cellocad.cello2.export.runtime.environment.EXRuntimeEnv;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -119,16 +115,7 @@ public class Main {
 		logfile = runEnv.getOptionValue(EXArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
-		LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-		String file = "logger/log4j2.xml";
-		URI uri;
-		try {
-			uri = EXUtils.getResource(file).toURI();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException("Error with logger.");
-		}
-		// this will force a reconfiguration
-		context.setConfigLocation(uri);
+		logger = LogManager.getLogger(Main.class);
 	}
 
 	/**
@@ -140,5 +127,5 @@ public class Main {
 		return Main.logger;
 	}
 	
-	private static final Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger;
 }

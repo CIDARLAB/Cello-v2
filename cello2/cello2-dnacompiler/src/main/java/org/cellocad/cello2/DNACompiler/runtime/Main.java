@@ -21,12 +21,9 @@
 package org.cellocad.cello2.DNACompiler.runtime;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.cellocad.cello2.DNACompiler.common.DNACompilerUtils;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerArgString;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerRuntimeEnv;
@@ -215,16 +212,7 @@ public class Main {
 		logfile = runEnv.getOptionValue(DNACompilerArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
-		LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-		String file = "logger/log4j2.xml";
-		URI uri;
-		try {
-			uri = DNACompilerUtils.getResource(file).toURI();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException("Error with logger.");
-		}
-		// this will force a reconfiguration
-		context.setConfigLocation(uri);
+		logger = LogManager.getLogger(Main.class);
 	}
 
 	/**
@@ -236,6 +224,6 @@ public class Main {
 		return Main.logger;
 	}
 
-	private static final Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger;
 	
 }
