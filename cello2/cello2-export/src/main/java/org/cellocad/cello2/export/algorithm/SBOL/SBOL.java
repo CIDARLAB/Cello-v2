@@ -52,7 +52,6 @@ import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
-import org.cellocad.cello2.results.netlist.NetlistUtils;
 import org.sbolstandard.core2.AccessType;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.DirectionType;
@@ -219,106 +218,6 @@ public class SBOL extends EXAlgorithm{
 	}
 
 	/**
-	 * Add a component definition of <i>part</i> to <i>document</i>. Use SynBioHub definition if available, add sequences if found.
-	 * @param part the part to add
-	 * @param document the <i>SBOLDocument</i> to add the <i>ComponentDefinition</i>
-	 * @throws SynBioHubException unable to fetch SBOL from SynBioHub for <i>part</i>
-	 * @throws SBOLValidationException unable to create component definition
-	 */
-	protected ComponentDefinition addPartDefinition(Part part, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
-		String uri = part.getUri();
-		ComponentDefinition rtn = null;
-
-		if (uri != null) {
-			rtn = document.getComponentDefinition(URI.create(uri));
-			if (rtn != null)
-				return rtn;
-			if (this.getSbhFrontend() != null) {
-				URI temp = URI.create(uri);
-				SBOLDocument sbol = this.getSbhFrontend().getSBOL(temp);
-				rtn = sbol.getComponentDefinition(temp);
-			}
-		}
-
-		if (rtn != null) {
-			part.setUri(uri);
-			document.createCopy(rtn);
-			Set<Sequence> sequences = rtn.getSequences();
-			if (sequences != null) {
-				for (Sequence s : sequences) {
-					document.createCopy(s);
-				}
-			}
-		} else {
-			rtn = document.createComponentDefinition(part.getName(),"1",ComponentDefinition.DNA_REGION);
-			part.setUri(rtn.getIdentity().toString());
-			Sequence sequence = document.createSequence(part.getName() + "_sequence",SBOLDataUtils.getDNASequence(part),Sequence.IUPAC_DNA);
-			rtn.addSequence(sequence);
-		}
-
-		return rtn;
-	}
-
-	protected void addChildCDsAndSequences(ComponentDefinition cd, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
-		Set<org.sbolstandard.core2.Component> components = cd.getComponents();
-		if (components != null) {
-			for (org.sbolstandard.core2.Component c : components) {
-				ComponentDefinition child = c.getDefinition();
-				document.createCopy(child);
-				Set<Sequence> sequences = child.getSequences();
-				if (sequences != null) {
-					for (Sequence s : sequences) {
-						document.createCopy(s);
-					}
-				}
-				this.addChildCDsAndSequences(child,document);
-			}
-		}
-	}
-
-	/**
-	 * Add a component definition of <i>device</i> to <i>document</i>. Use SynBioHub definition if available, add sequences if found.
-	 * @param device the device to add
-	 * @param document the <i>SBOLDocument</i> to add the <i>ComponentDefinition</i>
-	 * @throws SynBioHubException unable to fetch SBOL from SynBioHub for <i>device</i>
-	 * @throws SBOLValidationException unable to create component definition
-	 */
-	protected ComponentDefinition addDeviceDefinition(Device device, SBOLDocument document) throws SynBioHubException, SBOLValidationException {
-		String uri = device.getUri();
-		ComponentDefinition rtn = null;
-
-		if (uri != null) {
-			rtn = document.getComponentDefinition(URI.create(uri));
-			if (rtn != null)
-				return rtn;
-			if (this.getSbhFrontend() != null) {
-				URI temp = URI.create(uri);
-				SBOLDocument sbol = this.getSbhFrontend().getSBOL(temp);
-				rtn = sbol.getComponentDefinition(temp);
-			}
-		}
-
-		if (rtn != null) {
-			document.createCopy(rtn);
-			this.addChildCDsAndSequences(rtn,document);
-			Set<Sequence> sequences = rtn.getSequences();
-			if (sequences != null) {
-				for (Sequence s : sequences) {
-					document.createCopy(s);
-				}
-			}
-		} else {
-			rtn = document.createComponentDefinition(device.getName(),"1",ComponentDefinition.DNA_REGION);
-			device.setUri(rtn.getIdentity().toString());
-			Sequence sequence = document.createSequence(device.getName() + "_sequence",SBOLDataUtils.getDNASequence(device),Sequence.IUPAC_DNA);
-			rtn.addSequence(sequence);
-			// TODO add part definitions
-		}
-
-		return rtn;
-	}
-
-	/**
 	 * Add component definitions for all parts of all gates in the netlist.
 	 * @param netlist the <i>netlist</i> with component definitions to add
 	 * @param document the <i>SBOLDocument</i> to which to add the definitions
@@ -341,11 +240,11 @@ public class SBOL extends EXAlgorithm{
 						Component component = unit.getComponentAtIdx(l);
 						if (component instanceof Part) {
 							Part part = (Part)component;
-							this.addPartDefinition(part, document);
+							SBOLUtils.addPartDefinition(part, document, this.getSbhFrontend());
 						}
 						if (component instanceof Device) {
 							Device device = (Device)component;
-							this.addDeviceDefinition(device, document);
+							SBOLUtils.addDeviceDefinition(device, document, this.getSbhFrontend());
 						}
 					}
 				}
@@ -464,7 +363,8 @@ public class SBOL extends EXAlgorithm{
 	 * @throws SBOLValidationException unable to add backbone ComponentDefinition
 	 */
 	protected void addBackboneDefinition(SBOLDocument document) throws SynBioHubException, SBOLValidationException {
-		ComponentDefinition cd = this.addPartDefinition(this.getParts().findCObjectByName("backbone"), document);
+		Part backbone = this.getParts().findCObjectByName("backbone");
+		ComponentDefinition cd = SBOLUtils.addPartDefinition(backbone, document, this.getSbhFrontend());
 		cd.addRole(URI.create(S_BACKBONE_ROLE)); // plasmid_vector
 	}
 
