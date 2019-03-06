@@ -24,6 +24,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraintUtils;
@@ -51,7 +52,7 @@ public class Main {
 	 * 
 	 * @param args command line argument(s)
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CelloException {
 		TMRuntimeEnv runEnv = new TMRuntimeEnv(args);
 		runEnv.setName("technologyMapping");
 		// Setup Logger
@@ -60,12 +61,12 @@ public class Main {
 		String inputFilePath = runEnv.getOptionValue(TMArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
-			throw new RuntimeException("Input file does not exist!");
+			throw new CelloException("Input file does not exist!");
 		}
 		// Read Netlist
 		Netlist netlist = NetlistUtils.getNetlist(runEnv, TMArgString.INPUTNETLIST);
 		if (!netlist.isValid()) {
-			throw new RuntimeException("Netlist is invalid!");
+			throw new CelloException("Netlist is invalid!");
 		}
 		// get Stage
 		Stage stage = StageUtils.getStage(runEnv, TMArgString.ALGORITHMNAME);
@@ -77,7 +78,7 @@ public class Main {
 		// get TargetData
 		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, TMArgString.TARGETDATAFILE);
 		if (!td.isValid()) {
-			throw new RuntimeException("TargetData is invalid!");
+			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv, TMArgString.NETLISTCONSTRAINTFILE);

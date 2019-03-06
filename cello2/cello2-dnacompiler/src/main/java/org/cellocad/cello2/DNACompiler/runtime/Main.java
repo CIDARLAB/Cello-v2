@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.DNACompiler.common.DNACompilerUtils;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerArgString;
 import org.cellocad.cello2.DNACompiler.runtime.environment.DNACompilerRuntimeEnv;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.application.ApplicationConfiguration;
 import org.cellocad.cello2.common.application.ApplicationUtils;
@@ -84,7 +85,7 @@ public class Main {
 	 * @param args command line argument(s)
 	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CelloException {
 		/*
 		 * Preparation
 		 */
@@ -116,7 +117,7 @@ public class Main {
 		// get TargetData
 		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, DNACompilerArgString.TARGETDATAFILE);
 		if (!td.isValid()) {
-			throw new RuntimeException("TargetData is invalid!");
+			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv, DNACompilerArgString.NETLISTCONSTRAINTFILE);
@@ -130,7 +131,7 @@ public class Main {
 		String inputFilePath = runEnv.getOptionValue(DNACompilerArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
-			throw new RuntimeException("Input file does not exist!");
+			throw new CelloException("Input file does not exist!");
 		}
 		// Input from User
 		netlist.setInputFilename(inputFilePath);

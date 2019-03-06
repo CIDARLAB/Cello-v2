@@ -24,6 +24,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraintUtils;
@@ -51,7 +52,7 @@ public class Main {
 	 * 
 	 * @param args command line argument(s)
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CelloException {
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
 		// Setup Logger
@@ -60,12 +61,12 @@ public class Main {
 		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
-			throw new RuntimeException("Input file does not exist!");
+			throw new CelloException("Input file does not exist!");
 		}
 		// Read Netlist
 		Netlist netlist = NetlistUtils.getNetlist(runEnv, PLArgString.INPUTNETLIST);
 		if (!netlist.isValid()) {
-			throw new RuntimeException("Netlist is invalid!");
+			throw new CelloException("Netlist is invalid!");
 		}
 		// get Stage
 		Stage stage = StageUtils.getStage(runEnv, PLArgString.ALGORITHMNAME);
@@ -77,7 +78,7 @@ public class Main {
 		// get TargetData
 		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.TARGETDATAFILE);
 		if (!td.isValid()) {
-			throw new RuntimeException("TargetData is invalid!");
+			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv, PLArgString.NETLISTCONSTRAINTFILE);
@@ -113,7 +114,6 @@ public class Main {
 			logfile = "log.log";
 		}
 		logfile = runEnv.getOptionValue(PLArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
-		String[] path = {"logger", "log4j2.xml"};
 		// the logger will write to the specified file
 		System.setProperty("logfile.name", logfile);
 		logger = LogManager.getLogger(Main.class);
