@@ -128,6 +128,20 @@ public class TranscriptionalUnit extends CObject {
 				}
 			}
 		}
+		if (component instanceof InputSensor) {
+			InputSensor sensor = (InputSensor)component;
+			for (int i = 0; i < sensor.getNumParts(); i++) {
+				Part part = sensor.getPartAtIdx(i);
+				rtn += part.getDNASequence();
+			}
+		}
+		if (component instanceof OutputReporter) {
+			OutputReporter reporter = (OutputReporter)component;
+			for (int i = 0; i < reporter.getNumParts(); i++) {
+				Part part = reporter.getPartAtIdx(i);
+				rtn += part.getDNASequence();
+			}
+		}
 		if (component instanceof Part) {
 			rtn += ((Part)component).getDNASequence();
 		}

@@ -294,7 +294,7 @@ public class SBOL extends EXAlgorithm{
 						String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
 						String saLocationId = saDisplayId + "_Range";
 						int start = sequence.length() + 1;
-						int end = start + s.length();
+						int end = start + s.length() - 1;
 						SequenceAnnotation sa = cd.createSequenceAnnotation(saDisplayId,saLocationId,start,end);
 						sa.setComponent(c.getIdentity());
 						sequence += s;
@@ -396,15 +396,15 @@ public class SBOL extends EXAlgorithm{
 					Part backbone = this.getParts().findCObjectByName("backbone");
 					String seq = SBOLDataUtils.getDNASequence(backbone);
 
-					String cDefinitionId = "backbone";
-					String cDisplayId = cDefinitionId + "_component";
+					URI cDefinition = URI.create(backbone.getUri());
+					String cDisplayId = "backbone_component";
 					AccessType cAccess = AccessType.PUBLIC;
-					org.sbolstandard.core2.Component bbComponent = cd.createComponent(cDisplayId,cAccess,cDefinitionId);
+					org.sbolstandard.core2.Component bbComponent = cd.createComponent(cDisplayId,cAccess,cDefinition);
 
 					String displayId = "SequenceAnnotation_backbone";
 					String locationId = displayId + "_Range";
 					int start = sequence.length() + 1;
-					int end = start + seq.length();
+					int end = start + seq.length() - 1;
 
 					SequenceAnnotation bbAnnotation = cd.createSequenceAnnotation(displayId,locationId,start,end);
 					bbAnnotation.setComponent(bbComponent.getIdentity());
@@ -426,7 +426,7 @@ public class SBOL extends EXAlgorithm{
 					String saDisplayId = String.format("SequenceAnnotation_%d",k);
 					String saLocationId = saDisplayId + "_Range";
 					int start = sequence.length() + 1;
-					int end = start + seq.length();
+					int end = start + seq.length() - 1;
 					SequenceAnnotation sa = cd.createSequenceAnnotation(saDisplayId,saLocationId,start,end);
 					sa.setComponent(c.getIdentity());
 					sequence += seq;
