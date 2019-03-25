@@ -6128,7 +6128,8 @@
     "collection": "parts",
     "type": "backbone",
     "name": "backbone",
-    "dnasequence": "CCAATTATTGAAGGCCTCCCTAACGGGGGGCCTTTTTTTGTTTCTGGTCTCCC"
+    "dnasequence": "CCAATTATTGAAGGCCTCCCTAACGGGGGGCCTTTTTTTGTTTCTGGTCTCCC",
+    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/backbone/1"
   },
   {
     "collection": "parts",
