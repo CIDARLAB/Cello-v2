@@ -173,6 +173,9 @@ public class LSLogicEvaluation {
 		if (inputList.size() == 1) {
 			rtn = inputList.get(0);
 		}
+		if (inputList.size() > 1) {
+			rtn = this.computeOR(node,state);
+		}
 		return rtn;
 	}
 	
@@ -362,10 +365,6 @@ public class LSLogicEvaluation {
 				}
 				case LSResults.S_XNOR:{
 					result = this.computeXNOR(node, inputState);
-					break;
-				}
-				case LSResults.S_OUTPUT_OR:{
-					result = this.computeOR(node, inputState);
 					break;
 				}
 				default:{

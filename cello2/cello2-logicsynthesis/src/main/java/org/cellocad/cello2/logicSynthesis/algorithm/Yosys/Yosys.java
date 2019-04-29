@@ -251,8 +251,8 @@ public class Yosys extends LSAlgorithm{
 			Utils.deleteFilename(this.getYosysScriptFilename());
 		}
 		Collection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
-		for (NetlistNode node : outputNodes) {
-			NetlistEdge e1 = node.getInEdgeAtIdx(0);
+		for (NetlistNode out : outputNodes) {
+			NetlistEdge e1 = out.getInEdgeAtIdx(0);
 			NetlistNode src1 = e1.getSrc();
 			if (src1.getResultNetlistNodeData().getNodeType().equals(LSResults.S_NOT)) {
 				for (int j = 0; j < src1.getNumInEdge(); j++) {
@@ -269,23 +269,15 @@ public class Yosys extends LSAlgorithm{
 						this.getNetlist().removeEdge(e4);
 						this.getNetlist().removeVertex(src1);
 						this.getNetlist().removeVertex(src2);
-						node.removeInEdge(e1);
+						out.removeInEdge(e1);
 						src3.removeOutEdge(e3);
 						src4.removeOutEdge(e4);
-						NetlistNode or = new NetlistNode();
-						or.setName(src1.getName());
-						or.getResultNetlistNodeData().setNodeType(LSResults.S_OUTPUT_OR);
-						e3 = new NetlistEdge(src3,or);
-						e4 = new NetlistEdge(src4,or);
-						e1 = new NetlistEdge(or,node);
-						or.addInEdge(e3);
-						or.addInEdge(e4);
-						or.addOutEdge(e1);
+						e3 = new NetlistEdge(src3,out);
+						e4 = new NetlistEdge(src4,out);
+						out.addInEdge(e3);
+						out.addInEdge(e4);
 						src3.addOutEdge(e3);
 						src4.addOutEdge(e4);
-						node.addInEdge(e1);
-						this.getNetlist().addVertex(or);
-						this.getNetlist().addEdge(e1);
 						this.getNetlist().addEdge(e3);
 						this.getNetlist().addEdge(e4);
 					}

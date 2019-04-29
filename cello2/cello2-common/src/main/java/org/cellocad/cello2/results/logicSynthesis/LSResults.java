@@ -106,9 +106,5 @@ public class LSResults {
 	 *  S_OAI4: value for LSResults
 	 */
 	static public final String S_OAI4 = "OAI4";
-	/**
-	 *  S_OUTPUT_OR: value for LSResults
-	 */
-	static public final String S_OUTPUT_OR = "OUTPUT_OR";
 	
 }
