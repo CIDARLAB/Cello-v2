@@ -364,6 +364,10 @@ public class LSLogicEvaluation {
 					result = this.computeXNOR(node, inputState);
 					break;
 				}
+				case LSResults.S_OUTPUT_OR:{
+					result = this.computeOR(node, inputState);
+					break;
+				}
 				default:{
 					throw new RuntimeException("Unknown nodeType");
 				}
