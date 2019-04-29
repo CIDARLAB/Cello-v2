@@ -117,6 +117,13 @@ public class Evaluator {
 		if (inputList.size() == 1) {
 			rtn = inputList.get(0) * this.getConversion();
 		}
+		if (inputList.size() > 1) {
+			Double sum = 0.0;
+			for (Double input : inputList) {
+				sum += input;
+			}
+			rtn = sum * this.getConversion();
+		}
 		return rtn;
 	}
 	

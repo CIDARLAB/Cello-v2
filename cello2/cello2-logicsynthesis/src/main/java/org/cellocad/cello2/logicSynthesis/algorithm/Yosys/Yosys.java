@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -39,6 +40,8 @@ import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistEdgeData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistNodeData;
 import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
+import org.cellocad.cello2.results.logicSynthesis.LSResults;
+import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
@@ -246,6 +249,40 @@ public class Yosys extends LSAlgorithm{
 			Utils.deleteFilename(this.getYosysEdifFilename());
 			Utils.deleteFilename(this.getYosysJSONFilename());
 			Utils.deleteFilename(this.getYosysScriptFilename());
+		}
+		Collection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
+		for (NetlistNode out : outputNodes) {
+			NetlistEdge e1 = out.getInEdgeAtIdx(0);
+			NetlistNode src1 = e1.getSrc();
+			if (src1.getResultNetlistNodeData().getNodeType().equals(LSResults.S_NOT)) {
+				for (int j = 0; j < src1.getNumInEdge(); j++) {
+					NetlistEdge e2 = src1.getInEdgeAtIdx(j);
+					NetlistNode src2 = e2.getSrc();
+					if (src2.getResultNetlistNodeData().getNodeType().equals(LSResults.S_NOR)) {
+						NetlistEdge e3 = src2.getInEdgeAtIdx(0);
+						NetlistEdge e4 = src2.getInEdgeAtIdx(1);
+						NetlistNode src3 = e3.getSrc();
+						NetlistNode src4 = e4.getSrc();
+						this.getNetlist().removeEdge(e1);
+						this.getNetlist().removeEdge(e2);
+						this.getNetlist().removeEdge(e3);
+						this.getNetlist().removeEdge(e4);
+						this.getNetlist().removeVertex(src1);
+						this.getNetlist().removeVertex(src2);
+						out.removeInEdge(e1);
+						src3.removeOutEdge(e3);
+						src4.removeOutEdge(e4);
+						e3 = new NetlistEdge(src3,out);
+						e4 = new NetlistEdge(src4,out);
+						out.addInEdge(e3);
+						out.addInEdge(e4);
+						src3.addOutEdge(e3);
+						src4.addOutEdge(e4);
+						this.getNetlist().addEdge(e3);
+						this.getNetlist().addEdge(e4);
+					}
+				}
+			}
 		}
 	}
 

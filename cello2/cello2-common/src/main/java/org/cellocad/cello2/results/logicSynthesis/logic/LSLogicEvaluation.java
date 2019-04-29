@@ -173,6 +173,9 @@ public class LSLogicEvaluation {
 		if (inputList.size() == 1) {
 			rtn = inputList.get(0);
 		}
+		if (inputList.size() > 1) {
+			rtn = this.computeOR(node,state);
+		}
 		return rtn;
 	}
 	
