@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.cello2.common.application.data.ApplicationNetlistData;
+import org.cellocad.cello2.results.placing.placement.Placement;
+import org.cellocad.cello2.results.placing.placement.Placements;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -34,7 +37,7 @@ import org.json.simple.JSONObject;
  * @date 2018-05-21
  *
  */
-public class ResultNetlistData extends ApplicationNetlistData{
+public class ResultNetlistData extends ApplicationNetlistData {
 
 	private void setDefault() {
 	}
@@ -42,7 +45,7 @@ public class ResultNetlistData extends ApplicationNetlistData{
 	/**
 	 *  Initializes a newly created ResultNetlistData 
 	 */
-	public ResultNetlistData(){
+	public ResultNetlistData() {
 		super();
 		this.setDefault();
 	}
@@ -52,7 +55,7 @@ public class ResultNetlistData extends ApplicationNetlistData{
 	 *  
 	 *  @param other the other ResultNetlistData
 	 */
-	public ResultNetlistData(ResultNetlistData other){
+	public ResultNetlistData(ResultNetlistData other) {
 		super();
 		this.setDefault();
 	}
@@ -62,7 +65,7 @@ public class ResultNetlistData extends ApplicationNetlistData{
 	 *  
 	 *  @param JObj the JavaScript Object Notation (JSON) representation of the ResultNetlistData Object
 	 */
-	public ResultNetlistData(final JSONObject JObj){
+	public ResultNetlistData(final JSONObject JObj) {
 		super();
 		this.setDefault();
 		this.parse(JObj);
@@ -74,15 +77,54 @@ public class ResultNetlistData extends ApplicationNetlistData{
 	 *  @param os the writer
 	 *  @throws IOException If an I/O error occurs
 	 */
-	public void writeJSON(int indent, Writer os) throws IOException{
+	public void writeJSON(int indent, Writer os) throws IOException {
+		this.getPlacements().writeJSON(indent,os);
 	}
 
+	/*
+	 * Parse
+	 */
+	private void parsePlacements(final JSONObject JObj) {
+		JSONArray jsonArr;
+    	jsonArr = (JSONArray) JObj.get("placements");
+		if (jsonArr == null) {
+			return;
+		}
+    	for (int i = 0; i < jsonArr.size(); i++)
+    	{
+    	    JSONArray jsonObj = (JSONArray) jsonArr.get(i);
+    	    Placement placement = new Placement(jsonObj,true,false);
+    	    this.getPlacements().addPlacement(placement);
+    	}
+	}
 	/**
 	 *  Parses the data attached to this instance
 	 *  
 	 *  @param JObj the JavaScript Object Notation (JSON) representation of the Project NetlistData Object
 	 */
-	public void parse(final JSONObject JObj){
+	public void parse(final JSONObject JObj) {
+		this.parsePlacements(JObj);
 	}
+	
+	/*
+	 * Placements
+	 */
+	/**
+	 *  Setter for <i>placements</i>
+	 *  @param placements the value to set <i>placements</i>
+	 */
+	public void setPlacements(Placements placements) {
+		this.placements = placements;
+	}
+
+	/**
+	 *  Getter for <i>placements</i>
+	 *  @return the placements of this instance
+	 */
+	public Placements getPlacements() {
+		return this.placements;
+	}
+	
+	private Placements placements;
 
 }

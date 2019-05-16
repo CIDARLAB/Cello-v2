@@ -20,9 +20,6 @@
  */
 package org.cellocad.cello2.common.target.data;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +27,8 @@ import java.util.Map;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * The TargetData class is a class for managing and accessing the target data.

@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.results.placing.placement;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,21 +57,26 @@ public class Placements {
 		init();
 		this.setPlacements(placements);
 	}
-	
-	/*
-	 * 
+
+	/**
+	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
+	 *  @param indent the number of indents
+	 *  @param os the writer
+	 *  @throws IOException If an I/O error occurs
 	 */
-	public String toJSON() {
-		String rtn = "";
-		// Placement
-		for (int i = 0; i < this.getNumPlacements(); i++) {
-			Placement p = this.getPlacementAtIdx(i);
-			rtn += p.toJSON();
+	public void writeJSON(int indent, Writer os) throws IOException {
+		String str = null;
+		str = JSONUtils.getStartArrayWithMemberString("placements");
+		str = JSONUtils.addIndent(indent, str);
+		os.write(str);
+		for (int i = 0; i < this.getNumPlacement(); i++) {
+			this.getPlacementAtIdx(i).writeJSON(indent + 1,os);
 		}
-		rtn = JSONUtils.addIndent(1, rtn);
-		return rtn;
+		str = JSONUtils.getEndArrayString();
+		str = JSONUtils.addIndent(indent, str);
+		os.write(str);
 	}
-		
+
 	/**
 	 * Add a component and its placement index to this instance
 	 * @param component add the <i>component</i> to the placement unit
@@ -79,7 +86,7 @@ public class Placements {
 		this.getPlacements().add(placement);
 	}
 	
-	public int getNumPlacements() {
+	public int getNumPlacement() {
 		return this.getPlacements().size();
 	}
 	

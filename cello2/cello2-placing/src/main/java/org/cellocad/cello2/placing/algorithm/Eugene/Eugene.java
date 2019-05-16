@@ -53,10 +53,13 @@ import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ResponseFunction;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Rules;
 import org.cellocad.cello2.placing.runtime.environment.PLArgString;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
+import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.placing.placement.Placement;
+import org.cellocad.cello2.results.placing.placement.PlacementGroup;
+import org.cellocad.cello2.results.placing.placement.Placements;
 import org.cidarlab.eugene.dom.NamedElement;
 import org.cidarlab.eugene.dom.imp.container.EugeneArray;
 import org.cidarlab.eugene.dom.imp.container.EugeneCollection;
@@ -604,6 +607,7 @@ public class Eugene extends PLAlgorithm{
 	 */
 	@Override
 	protected void preprocessing() {
+		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
 		this.setDeviceMap(new HashMap<NetlistNode,Device>());
 
 		// devices
@@ -679,28 +683,38 @@ public class Eugene extends PLAlgorithm{
 	@Override
 	protected void postprocessing() {
 		logInfo("processing Eugene output");
+		
+		Placements placements = new Placements();
+		this.getNetlist().getResultNetlistData().setPlacements(placements);
 
-		EugeneArray plasmids = this.getEugeneResults();
+		EugeneArray results = this.getEugeneResults();
 
-		if (plasmids == null) {
+		if (results == null) {
 			throw new RuntimeException("Eugene error!");
 		}
 
-		for (int i = 0; i < plasmids.getElements().size(); i++) {
+		for (int i = 0; i < results.getElements().size(); i++) {
 			if (i >= this.getMaxPlacements())
 				break;
 
-			NamedElement plasmid = null;
+			Placement placement = new Placement(true,false);
+			placements.addPlacement(placement);
+			PlacementGroup group = new PlacementGroup(true,false);
+			group.setName("plasmid");
+			group.setBackbone("backbone");
+			placement.addPlacementGroup(group);
+
+			NamedElement result = null;
 
 			try {
-				plasmid = plasmids.getElement(i);
+				result = results.getElement(i);
 			} catch (EugeneException e) {
 				e.printStackTrace();
 			}
 
-			if (plasmid instanceof org.cidarlab.eugene.dom.Device) {
+			if (result instanceof org.cidarlab.eugene.dom.Device) {
 
-				List<NamedElement> components = ((org.cidarlab.eugene.dom.Device)plasmid).getComponentList();
+				List<NamedElement> components = ((org.cidarlab.eugene.dom.Device)result).getComponentList();
 
 				for (int j = 0; j < components.size(); j++) {
 					NamedElement el = components.get(j);
@@ -708,13 +722,10 @@ public class Eugene extends PLAlgorithm{
 						String name = el.getName();
 
 						NetlistNode node = this.getNetlistNodeByGateName(name);
-						Placement placement = new Placement(true,false);
-						placement.setDirection(true);
-						placement.setIdx(j);
 
 						String o = "";
 						try {
-							o = ((org.cidarlab.eugene.dom.Device)plasmid).getOrientations(j).toString();
+							o = ((org.cidarlab.eugene.dom.Device)result).getOrientations(j).toString();
 						} catch (EugeneException e) {
 							e.printStackTrace();
 						}
@@ -728,12 +739,15 @@ public class Eugene extends PLAlgorithm{
 								e.printStackTrace();
 							}
 						}
-
+						
+						List<String> parts = new ArrayList<>();
 						for (NamedElement part : ((org.cidarlab.eugene.dom.Device)el).getComponentList()) {
-							placement.addComponentToPlacement(part.getName());
+							parts.add(part.getName());
 						}
-
-						node.getResultNetlistNodeData().getPlacements().addPlacement(placement);
+						org.cellocad.cello2.results.placing.placement.Component component = new org.cellocad.cello2.results.placing.placement.Component(parts,true,false);
+						component.setDirection(true);
+						component.setNode(node.getName());
+						group.addComponent(component);
 					}
 				}
 			}

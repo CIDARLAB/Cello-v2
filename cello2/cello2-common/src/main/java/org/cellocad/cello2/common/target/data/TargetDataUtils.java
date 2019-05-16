@@ -26,12 +26,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import org.cellocad.cello2.common.Utils;
-import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
 
 /**
  * The TargetDataUtils class is class with utility methods for <i>TargetData</i> instances.

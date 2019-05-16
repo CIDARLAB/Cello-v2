@@ -61,7 +61,7 @@ public class Designs {
 	               final CObjectCollection<OutputReporter> reporters) {
 		init();
 		NetlistNode first = netlist.getVertexAtIdx(0);
-		Integer num = first.getResultNetlistNodeData().getPlacements().getNumPlacements();
+		Integer num = first.getResultNetlistNodeData().getPlacements().getNumPlacement();
 		for (int i = 0; i < num; i++) {
 			Design design = new Design();
 			Plasmid plasmid = new Plasmid(Up, Down);

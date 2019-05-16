@@ -30,15 +30,12 @@ import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.cellocad.cello2.results.clustering.CLResults;
 import org.cellocad.cello2.results.logicSynthesis.LSResults;
 import org.cellocad.cello2.results.partitioning.PTResults;
-import org.cellocad.cello2.results.placing.placement.Placement;
-import org.cellocad.cello2.results.placing.placement.Placements;
 import org.cellocad.cello2.results.technologyMapping.TMResults;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * The ResultNetlistNodeData class contains all the data for a node used within the project.
- * 
+ * The ResultNetlistNodeData class contaiata for a node used within the project.
+ * ns all the d
  * @author Vincent Mirian
  * @author Timothy Jones
  * 
@@ -55,7 +52,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setPartitionID(PTResults.S_DEFAULT);
 		this.setClusterID(CLResults.S_DEFAULT);
 		this.setGateType(TMResults.S_DEFAULT);
-		this.setPlacements(new Placements());
 	}
 
 	/**
@@ -77,7 +73,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setNodeType(other.getNodeType());
 		this.setPartitionID(other.getPartitionID());
 		this.setGateType(other.getGateType());
-		this.setPlacements(other.getPlacements());
 	}
 
 	/**
@@ -106,10 +101,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		rtn += JSONUtils.getEntryToString("partitionID", this.getPartitionID());
 		// gateType
 		rtn += JSONUtils.getEntryToString("gateType", this.getGateType());
-		// placements
-		rtn += JSONUtils.getStartArrayWithMemberString("placements");
-		rtn += this.getPlacements().toJSON();
-		rtn += JSONUtils.getEndArrayString();
 		return rtn;
 	}
 	
@@ -146,19 +137,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 			this.setGateType(value);
 		}
 	}
-	private void parsePlacements(final JSONObject JObj){
-		JSONArray jsonArr;
-    	jsonArr = (JSONArray) JObj.get("placements");
-		if (jsonArr == null) {
-			throw new RuntimeException("'placements' missing in Netlist!");
-		}
-    	for (int i = 0; i < jsonArr.size(); i++)
-    	{
-    	    JSONObject jsonObj = (JSONObject) jsonArr.get(i);
-    	    Placement placement = new Placement(jsonObj,true,false);
-    	    this.getPlacements().addPlacement(placement);
-    	}
-	}
 	/**
 	 *  Parses the data attached to this instance
 	 *  
@@ -168,7 +146,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
     	this.parseNodeType(JObj);
     	this.parsePartitionID(JObj);
     	this.parseGateType(JObj);
-    	this.parsePlacements(JObj);
 	}
 
 	/*
@@ -254,27 +231,6 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	}
 	
 	private String gateType;
-	
-	/*
-	 * Placements
-	 */
-	/**
-	 *  Setter for <i>placements</i>
-	 *  @param placements the value to set <i>placements</i>
-	 */
-	public void setPlacements(Placements placements) {
-		this.placements = placements;
-	}
-
-	/**
-	 *  Getter for <i>placements</i>
-	 *  @return the placements of this instance
-	 */
-	public Placements getPlacements() {
-		return this.placements;
-	}
-	
-	private Placements placements;
 	
 	/**
 	 *  Returns a string representation of the object.
