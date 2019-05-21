@@ -22,6 +22,7 @@ package org.cellocad.cello2.results.placing.placement;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,11 @@ public class Component extends CObject {
 	 * Parse
 	 */
 	private void parseComponent(final JSONObject JObj) {
+		String name = ProfileUtils.getString(JObj, "name");
+		if (name == null) {
+			throw new RuntimeException("'name' missing in Netlist!");
+		}
+		this.setName(name);
 		String node = ProfileUtils.getString(JObj, "node");
 		if (node == null) {
 			throw new RuntimeException("'node' missing in Netlist!");
@@ -107,6 +113,7 @@ public class Component extends CObject {
 		str = JSONUtils.addIndent(indent, str);
 		os.write(str);
 		str = "";
+		str += JSONUtils.getEntryToString("name",this.getName());
 		str += JSONUtils.getEntryToString("node",this.getNode());
 		str += JSONUtils.getEntryToString("direction",this.getDirection().toString());
 		str += JSONUtils.getStartArrayWithMemberString("parts");
@@ -209,10 +216,27 @@ public class Component extends CObject {
 		this.direction = direction;
 	}
 
+	/**
+	 * Getter for <i>uri</i>
+	 * @return value of <i>uri</i>
+	 */
+	public URI getUri() {
+		return uri;
+	}
+
+	/**
+	 * Setter for <i>uri</i>
+	 * @param uri the value to set <i>uri</i>
+	 */
+	public void setUri(final URI uri) {
+		this.uri = uri;
+	}
+
 	private String node;
 	private List<String> parts;
 	private Boolean bUp;
 	private Boolean bDown;
 	private Boolean direction;
+	private URI uri;
 
 }

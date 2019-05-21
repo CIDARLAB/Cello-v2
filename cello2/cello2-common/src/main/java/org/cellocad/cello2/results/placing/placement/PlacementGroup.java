@@ -22,6 +22,7 @@ package org.cellocad.cello2.results.placing.placement;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,9 +192,26 @@ public class PlacementGroup extends CObject {
 		this.bDown = Down;
 	}
 
+	/**
+	 * Getter for <i>uri</i>
+	 * @return value of <i>uri</i>
+	 */
+	public URI getUri() {
+		return uri;
+	}
+
+	/**
+	 * Setter for <i>uri</i>
+	 * @param uri the value to set <i>uri</i>
+	 */
+	public void setUri(final URI uri) {
+		this.uri = uri;
+	}
+
 	private String backbone;
 	private List<Component> placementGroup;
 	private Boolean bUp;
 	private Boolean bDown;
+	private URI uri;
 	
 }

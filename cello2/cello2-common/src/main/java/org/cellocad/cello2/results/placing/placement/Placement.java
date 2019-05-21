@@ -22,6 +22,7 @@ package org.cellocad.cello2.results.placing.placement;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,9 +217,26 @@ public class Placement extends CObject {
 		this.direction = direction;
 	}
 
+	/**
+	 * Getter for <i>uri</i>
+	 * @return value of <i>uri</i>
+	 */
+	public URI getUri() {
+		return uri;
+	}
+
+	/**
+	 * Setter for <i>uri</i>
+	 * @param uri the value to set <i>uri</i>
+	 */
+	public void setUri(final URI uri) {
+		this.uri = uri;
+	}
+
 	private List<PlacementGroup> placement;
 	private Boolean bUp;
 	private Boolean bDown;
 	private Boolean direction;
+	private URI uri;
 
 }

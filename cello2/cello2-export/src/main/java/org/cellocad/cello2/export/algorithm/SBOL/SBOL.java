@@ -40,10 +40,6 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLNetlistData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
-import org.cellocad.cello2.export.algorithm.SBOL.data.design.Design;
-import org.cellocad.cello2.export.algorithm.SBOL.data.design.Designs;
-import org.cellocad.cello2.export.algorithm.SBOL.data.design.Plasmid;
-import org.cellocad.cello2.export.algorithm.SBOL.data.design.TranscriptionalUnit;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.InputSensor;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
@@ -52,6 +48,9 @@ import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.results.placing.placement.Placement;
+import org.cellocad.cello2.results.placing.placement.PlacementGroup;
+import org.cellocad.cello2.results.placing.placement.Placements;
 import org.sbolstandard.core2.AccessType;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.DirectionType;
@@ -197,14 +196,6 @@ public class SBOL extends EXAlgorithm{
 	 */
 	@Override
 	protected void preprocessing() {
-		// plasmids
-		this.setDesigns(new Designs(this.getNetlist(),
-		                            true,
-		                            false,
-		                            this.getParts(),
-		                            this.getGates(),
-		                            this.getInputSensors(),
-		                            this.getOutputReporters()));
 		// sbh frontend
 		if (this.getRepositoryUrl() != null) {
 			this.setSbhFrontend(new SynBioHubFrontend(this.getRepositoryUrl()));
@@ -226,26 +217,32 @@ public class SBOL extends EXAlgorithm{
 	 */
 	protected void addComponentDefinitions(SBOLDocument document) throws SynBioHubException, SBOLValidationException {
 		Netlist netlist = this.getNetlist();
-		Designs designs = this.getDesigns();
-		for (int i = 0; i < designs.getNumDesign(); i++) {
-			Design design = this.getDesigns().getDesignAtIdx(i);
-			for (int j = 0; j < design.getNumPlasmid(); j++) {
-				Plasmid plasmid = design.getPlasmidAtIdx(j);
-				for (int k = 0; k < netlist.getNumVertex(); k++) {
-					NetlistNode node = netlist.getVertexAtIdx(k);
-					TranscriptionalUnit unit = plasmid.getTranscriptionalUnit(node);
-					if (unit == null)
-						continue;
-					for (int l = 0; l < unit.getNumComponent(); l++) {
-						Component component = unit.getComponentAtIdx(l);
-						if (component instanceof Part) {
-							Part part = (Part)component;
+		Placements placements = netlist.getResultNetlistData().getPlacements();
+		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			Placement placement = placements.getPlacementAtIdx(i);
+			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
+				for (int k = 0; k < group.getNumComponent(); k++) {
+					org.cellocad.cello2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					for (int l = 0; l < component.getNumPart(); l++) {
+						String str = component.getPartAtIdx(l);
+						Part part = this.getParts().findCObjectByName(str);
+						Gate gate = this.getGates().findCObjectByName(str);
+						InputSensor sensor = this.getInputSensors().findCObjectByName(str);
+						OutputReporter reporter = this.getOutputReporters().findCObjectByName(str);
+						if (part != null) {
 							SBOLUtils.addPartDefinition(part, document, this.getSbhFrontend());
+							continue;
 						}
-						if (component instanceof Device) {
-							Device device = (Device)component;
+						Device device = null;
+						if (gate != null)
+							device = gate;
+						if (sensor != null)
+							device = sensor;
+						if (reporter != null)
+							device = reporter;
+						if (device != null)
 							SBOLUtils.addDeviceDefinition(device, document, this.getSbhFrontend());
-						}
 					}
 				}
 			}
@@ -260,37 +257,43 @@ public class SBOL extends EXAlgorithm{
 	protected void addTranscriptionalUnitDefinitions(SBOLDocument document) throws SBOLValidationException {
 		Netlist netlist = this.getNetlist();
 		//String name = netlist.getName();
-		Designs designs = this.getDesigns();
-		for (int i = 0; i < designs.getNumDesign(); i++) {
-			Design design = this.getDesigns().getDesignAtIdx(i);
-			for (int j = 0; j < design.getNumPlasmid(); j++) {
-				Plasmid plasmid = design.getPlasmidAtIdx(j);
+		Placements placements = netlist.getResultNetlistData().getPlacements();
+		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			Placement placement = placements.getPlacementAtIdx(i);
+			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
 				String name = String.format("d%dp%d",i,j);
-				for (int k = 0; k < netlist.getNumVertex(); k++) {
-					NetlistNode node = netlist.getVertexAtIdx(k);
-					TranscriptionalUnit unit = plasmid.getTranscriptionalUnit(node);
-					if (unit == null)
-						continue;
-
+				for (int k = 0; k < group.getNumComponent(); k++) {
+					org.cellocad.cello2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					String nodeName = component.getNode();
+					NetlistNode node = null;
+					for (int l = 0; l < netlist.getNumVertex(); l++) {
+						NetlistNode v = netlist.getVertexAtIdx(l);
+						if (v.getName().equals(nodeName)) {
+							node = v;
+							break;
+						}
+					}
 					String gateType = node.getResultNetlistNodeData().getGateType();
 
 					// ComponentDefinition
-					ComponentDefinition cd = document.createComponentDefinition(name + "_" + gateType,"1",ComponentDefinition.DNA_REGION);
+					ComponentDefinition cd = document.createComponentDefinition(name + "_" + component.getName(),"1",ComponentDefinition.DNA_REGION);
 					cd.addRole(SequenceOntology.ENGINEERED_REGION);
-					unit.setUri(cd.getIdentity());
+					component.setUri(cd.getIdentity());
 
 					// parts
 					String sequence = "";
-					for (int l = 0; l < unit.getNumComponent(); l++) {
-						Component component = unit.getComponentAtIdx(l);
+					for (int l = 0; l < component.getNumPart(); l++) {
+						String componentName = component.getPartAtIdx(l);
+						Component comp = this.getComponentByName(componentName);
 						// Component
-						String cDisplayId = component.getName() + "_component";
+						String cDisplayId = componentName + "_component";
 						AccessType cAccess = AccessType.PUBLIC;
-						URI cDefinitionURI = URI.create(component.getUri());
+						URI cDefinitionURI = URI.create(comp.getUri());
 						org.sbolstandard.core2.Component c = cd.createComponent(cDisplayId,cAccess,cDefinitionURI);
 
 						// SequenceAnnotation
-						String s = SBOLDataUtils.getDNASequence(component);
+						String s = SBOLDataUtils.getDNASequence(comp);
 						String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
 						String saLocationId = saDisplayId + "_Range";
 						int start = sequence.length() + 1;
@@ -303,8 +306,8 @@ public class SBOL extends EXAlgorithm{
 						if (l != 0) {
 							String scDisplayId = String.format("%s_Constraint_%d",cd.getDisplayId(),l);
 							RestrictionType scRestriction = RestrictionType.PRECEDES;
-							URI scSubjectId = cd.getComponent(unit.getComponentAtIdx(l-1).getName() + "_component").getIdentity();
-							URI scObjectId = cd.getComponent(component.getName() + "_component").getIdentity();
+							URI scSubjectId = cd.getComponent(component.getPartAtIdx(l-1) + "_component").getIdentity();
+							URI scObjectId = cd.getComponent(componentName + "_component").getIdentity();
 							cd.createSequenceConstraint(scDisplayId,scRestriction,scSubjectId,scObjectId);
 						}
 					}
@@ -367,6 +370,23 @@ public class SBOL extends EXAlgorithm{
 		ComponentDefinition cd = SBOLUtils.addPartDefinition(backbone, document, this.getSbhFrontend());
 		cd.addRole(URI.create(S_BACKBONE_ROLE)); // plasmid_vector
 	}
+	
+	protected Component getComponentByName(String name) {
+		Component rtn = null;
+		Part part = this.getParts().findCObjectByName(name);
+		Gate gate = this.getGates().findCObjectByName(name);
+		InputSensor sensor = this.getInputSensors().findCObjectByName(name);
+		OutputReporter reporter = this.getOutputReporters().findCObjectByName(name);
+		if (part != null)
+			rtn = part;
+		if (gate != null)
+			rtn = gate;
+		if (sensor != null)
+			rtn = sensor;
+		if (reporter != null)
+			rtn = reporter;
+		return rtn;
+	}
 
 	/**
 	 * Generate plasmid component definitions.
@@ -374,12 +394,14 @@ public class SBOL extends EXAlgorithm{
 	 * @throws SBOLValidationException unable to add plasmid definition
 	 */
 	protected void addPlasmidDefinitions(SBOLDocument document) throws SBOLValidationException {
-		for (int i = 0; i < this.getDesigns().getNumDesign(); i++) {
-			Design design = this.getDesigns().getDesignAtIdx(i);
-			for (int j = 0; j < design.getNumPlasmid(); j++) {
-				Plasmid plasmid = design.getPlasmidAtIdx(j);
+		Netlist netlist = this.getNetlist();
+		Placements placements = netlist.getResultNetlistData().getPlacements();
+		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			Placement placement = placements.getPlacementAtIdx(i);
+			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
 
-				String plasmidName = String.format("design_%d_plasmid_%d", i, j);
+				String plasmidName = String.format("design_%d_group_%d", i, j);
 				String version = "1";
 				URI type = ComponentDefinition.DNA_REGION;
 
@@ -387,7 +409,7 @@ public class SBOL extends EXAlgorithm{
 				cd.addRole(SequenceOntology.ENGINEERED_REGION);
 				cd.addType(SequenceOntology.CIRCULAR);
 
-				plasmid.setUri(cd.getIdentity());
+				group.setUri(cd.getIdentity());
 
 				String sequence = "";
 
@@ -412,13 +434,18 @@ public class SBOL extends EXAlgorithm{
 				}
 
 				// transcriptional units
-				for (int k = 0; k < plasmid.getNumTranscriptionalUnit(); k++) {
-					TranscriptionalUnit unit = plasmid.getTranscriptionalUnitAtIdx(k);
-					String seq = unit.getDNASequence();
+				for (int k = 0; k < group.getNumComponent(); k++) {
+					org.cellocad.cello2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					String seq = "";
+					for (int l = 0; l < component.getNumPart(); l++) {
+						String name = component.getPartAtIdx(l);
+						Component c = this.getComponentByName(name);
+						seq += SBOLDataUtils.getDNASequence(c);
+					}
 
 					// Component
-					String cDisplayId = unit.getName() + "_component";
-					URI cDefinitionId = unit.getUri();
+					String cDisplayId = component.getName() + "_component";
+					URI cDefinitionId = component.getUri();
 					AccessType cAccess = AccessType.PUBLIC;
 					org.sbolstandard.core2.Component c = cd.createComponent(cDisplayId,cAccess,cDefinitionId);
 
@@ -435,8 +462,8 @@ public class SBOL extends EXAlgorithm{
 					if (k != 0) {
 						String scDisplayId = String.format("%s_Constraint_%d",cd.getDisplayId(),k);
 						RestrictionType scRestriction = RestrictionType.PRECEDES;
-						URI scSubjectId = cd.getComponent(plasmid.getTranscriptionalUnitAtIdx(k-1).getName() + "_component").getIdentity();
-						URI scObjectId = cd.getComponent(unit.getName() + "_component").getIdentity();
+						URI scSubjectId = cd.getComponent(group.getComponentAtIdx(k-1).getName() + "_component").getIdentity();
+						URI scObjectId = cd.getComponent(component.getName() + "_component").getIdentity();
 						cd.createSequenceConstraint(scDisplayId,scRestriction,scSubjectId,scObjectId);
 					}
 				}
@@ -456,19 +483,20 @@ public class SBOL extends EXAlgorithm{
 	 * @throws SBOLValidationException
 	 */
 	protected void addDesignModules(SBOLDocument document) throws SBOLValidationException {
-		Designs designs = this.getDesigns();
-		for (int i = 0; i < designs.getNumDesign(); i++) {
-			Design design = designs.getDesignAtIdx(i);
+		Netlist netlist = this.getNetlist();
+		Placements placements = netlist.getResultNetlistData().getPlacements();
+		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			Placement placement = placements.getPlacementAtIdx(i);
 
 			String mdDisplayId = String.format("design_module_%d",i);
 			ModuleDefinition md = document.createModuleDefinition(mdDisplayId);
-			design.setUri(md.getIdentity());
+			placement.setUri(md.getIdentity());
 
-			for (int j = 0; j < design.getNumPlasmid(); j++) {
-				Plasmid plasmid = design.getPlasmidAtIdx(j);
+			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
 				String fcDisplayId = String.format("design_%d_plasmid_%d",i,j);
 				AccessType fcAccess = AccessType.PUBLIC;
-				URI fcDefinitionURI = plasmid.getUri();
+				URI fcDefinitionURI = group.getUri();
 				DirectionType fcDirection = DirectionType.NONE;
 				md.createFunctionalComponent(fcDisplayId,fcAccess,fcDefinitionURI,fcDirection);
 			}
@@ -745,22 +773,6 @@ public class SBOL extends EXAlgorithm{
 	}
 
 	/**
-	 * Getter for <i>designs</i>
-	 * @return value of <i>designs</i>
-	 */
-	protected Designs getDesigns() {
-		return designs;
-	}
-
-	/**
-	 * Setter for <i>designs</i>
-	 * @param designs the value to set <i>designs</i>
-	 */
-	protected void setDesigns(final Designs designs) {
-		this.designs = designs;
-	}
-
-	/**
 	 *  Returns the Logger for the <i>SBOL</i> algorithm
 	 *
 	 *  @return the logger for the <i>SBOL</i> algorithm
@@ -782,7 +794,6 @@ public class SBOL extends EXAlgorithm{
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<InputSensor> sensors;
 	private CObjectCollection<OutputReporter> reporters;
-	private Designs designs;
 	private static final Logger logger = LogManager.getLogger(SBOL.class);
 
 	private static final String S_BACKBONE_ROLE = "http://identifiers.org/so/SO:0000755";
