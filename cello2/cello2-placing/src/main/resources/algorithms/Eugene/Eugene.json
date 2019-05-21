@@ -6,6 +6,11 @@
 			"name" : "MaxPlacements",
 			"type" : "int",
 			"value": 5
+		},
+		{
+			"name" : "SplitTandemPromoters",
+			"type" : "boolean",
+			"value": false
 		}
 	]
 }

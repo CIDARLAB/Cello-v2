@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston University (BU)
+ * Copyright (C) 2019 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,63 +28,65 @@ import java.util.List;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.JSON.JSONUtils;
+import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
- * @date 2018-06-05
+ * @date 2019-05-15
  *
  */
-public class Placement extends CObject {
+public class PlacementGroup extends CObject {
 	
 	/**
 	 *  Initialize class members
 	 */
 	private void init() {
-		placement = new ArrayList<PlacementGroup>();
+		placementGroup = new ArrayList<>();
 	}
 	
-	/**
-	 *  Initializes a newly created Placement
-	 */
-	public Placement(final Boolean Up, final Boolean Down) {
+	public PlacementGroup(final Boolean Up, final Boolean Down) {
 		init();
 		this.setUp(Up);
 		this.setDown(Down);
 	}
 	
-	/**
-	 *  Initializes a newly created Placement using the parameter <i>JObj</i>.
-	 *  
-	 *  @param JObj the JavaScript Object Notation (JSON) representation of the NetlistNode Object
-	 */
-	public Placement(final JSONArray JObj, final Boolean Up, final Boolean Down) {
+	public PlacementGroup(final JSONObject JObj, final Boolean Up, final Boolean Down) {
 		this(Up,Down);
-		this.parse(JObj);
+		parse(JObj);
 	}
-	
+
 	/*
 	 * Parse
 	 */
-	private void parsePlacement(final JSONArray JObj) {
-		if (JObj == null) {
-			throw new RuntimeException("Placement is empty!");
+	private void parsePlacementGroup(final JSONObject JObj) {
+		String name = ProfileUtils.getString(JObj, "name");
+		if (name == null) {
+			throw new RuntimeException("'name' missing in placement group!");
 		}
-		for (int i = 0; i < JObj.size(); i++) {
-			JSONObject obj = (JSONObject) JObj.get(i);
-			PlacementGroup group = new PlacementGroup(obj,this.getUp(),this.getDown());
-			this.addPlacementGroup(group);
+		this.setName(name);
+		String backbone = ProfileUtils.getString(JObj, "backbone");
+		this.setBackbone(backbone);
+		JSONArray jsonArr;
+    	jsonArr = (JSONArray) JObj.get("components");
+		if (jsonArr == null) {
+			throw new RuntimeException("'components' missing in placement group!");
+		}
+		for (int i = 0; i < jsonArr.size(); i++) {
+			JSONObject obj = (JSONObject) jsonArr.get(i);
+			Component component = new Component(obj,this.getUp(),this.getDown());
+			this.getPlacementGroup().add(component);
 		}
 	}
-	
-	private void parse(final JSONArray JObj) {
-    	this.parsePlacement(JObj);
+
+	private void parse(final JSONObject JObj) {
+    	this.parsePlacementGroup(JObj);
 	}
-	
+
 	/**
 	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
 	 *  @param indent the number of indents
@@ -93,13 +95,24 @@ public class Placement extends CObject {
 	 */
 	public void writeJSON(int indent, Writer os) throws IOException {
 		String str = null;
-		str = JSONUtils.getStartArrayString();
+		str = JSONUtils.getStartEntryString();
 		str = JSONUtils.addIndent(indent, str);
 		os.write(str);
-		for (int i = 0; i < this.getNumPlacementGroup(); i++) {
-			this.getPlacementGroupAtIdx(i).writeJSON(indent + 1,os);
+		str = "";
+		str += JSONUtils.getEntryToString("name",this.getName());
+		if (this.getBackbone() != null) {
+			str += JSONUtils.getEntryToString("backbone",this.getBackbone());
+		}
+		str += JSONUtils.getStartArrayWithMemberString("components");
+		str = JSONUtils.addIndent(indent + 1, str);
+		os.write(str);
+		for (int i = 0; i < this.getNumComponent(); i++) {
+			this.getComponentAtIdx(i).writeJSON(indent + 2,os);
 		}
 		str = JSONUtils.getEndArrayString();
+		str = JSONUtils.addIndent(indent + 1, str);
+		os.write(str);
+		str = JSONUtils.getEndEntryString();
 		str = JSONUtils.addIndent(indent, str);
 		os.write(str);
 	}
@@ -109,62 +122,41 @@ public class Placement extends CObject {
 	 * @param component add the <i>component</i> to the placement unit
 	 * @param index assign placement index <i>index</i> to the placement unit
 	 */
-	public void addPlacementGroup(final PlacementGroup group) {
-		placement.add(group);
-	}
-	
-	/**
-	 * Add a component and its placement index to this instance
-	 * @param index assign placement index <i>index</i> to the placement unit
-	 * @param component add the <i>component</i> to the placement unit
-	 */
-	public void addPlacementGroup(final Integer index, final PlacementGroup group) {
-		placement.add(index,group);
-	}
-	
-	/**
-	 * Returns the Pair<String,Integer> at the specified position in this instance.
-	 * 
-	 * @param index index of the Pair<String,Integer> to return
-	 * @return if the index is within the bounds (0 <= bounds < this.getNumPlacementUnitPosition()), returns the Pair<String,Integer> at the specified position in this instance, otherwise null
-	 */
-	public PlacementGroup getPlacementGroupAtIdx(final int index){
-		PlacementGroup rtn = null;
-		if (
-				(0 <= index)
-				&&
-				(index < this.getNumPlacementGroup())
-				) {
-			rtn = this.getPlacement().get(index);
-		}
-		return rtn;
-	}
-	
-	/**
-	 * Returns the number of Pair<String,Integer> in this instance.
-	 * 
-	 * @return the number of Pair<String,Integer> in this instance.
-	 */
-	public int getNumPlacementGroup() {
-		return this.getPlacement().size();
-	}
-	
-	/**
-	 * Getter for <i>placement</i>
-	 * @return value of <i>placement</i>
-	 */
-	protected List<PlacementGroup> getPlacement() {
-		return placement;
+	public void addComponent(final Component component) {
+		this.getPlacementGroup().add(component);
 	}
 
 	/**
-	 * Getter for <i>position</i>
-	 * @return value of <i>position</i>
+	 * @return the components
 	 */
-	protected Integer getPosition() {
-		return this.getIdx();
+	protected List<Component> getPlacementGroup() {
+		return placementGroup;
 	}
 	
+	public int getNumComponent() {
+		return this.getPlacementGroup().size();
+	}
+	
+	public Component getComponentAtIdx(final int index) {
+		Component rtn = null;
+		rtn = this.getPlacementGroup().get(index);
+		return rtn;
+	}
+
+	/**
+	 * @return the backbone
+	 */
+	public String getBackbone() {
+		return backbone;
+	}
+
+	/**
+	 * @param backbone the backbone to set
+	 */
+	public void setBackbone(final String backbone) {
+		this.backbone = backbone;
+	}
+
 	/*
 	 * Up
 	 */
@@ -199,23 +191,6 @@ public class Placement extends CObject {
 	protected void setDown(final Boolean Down) {
 		this.bDown = Down;
 	}
-	/*
-	 * Direction
-	 */
-	/**
-	 * Getter for <i>direction</i>
-	 * @return value of <i>direction</i>
-	 */
-	public Boolean getDirection() {
-		return direction;
-	}
-	/**
-	 * Setter for <i>direction</i>
-	 * @param direction the value to set <i>direction</i>
-	 */
-	public void setDirection(final Boolean direction) {
-		this.direction = direction;
-	}
 
 	/**
 	 * Getter for <i>uri</i>
@@ -233,10 +208,10 @@ public class Placement extends CObject {
 		this.uri = uri;
 	}
 
-	private List<PlacementGroup> placement;
+	private String backbone;
+	private List<Component> placementGroup;
 	private Boolean bUp;
 	private Boolean bDown;
-	private Boolean direction;
 	private URI uri;
-
+	
 }
