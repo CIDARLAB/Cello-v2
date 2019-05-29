@@ -165,7 +165,7 @@ public class TMActivityEvaluation {
 				Activity<NetlistNode> input = activitytable.getActivityAtIdx(i);
 				Activity<NetlistNode> output = activitytable.getActivityOutput(input);
 				str += delimiter;
-				str += String.format("%.2f",output.getActivity(node));
+				str += String.format("%1.5e",output.getActivity(node));
 			}
 			str += Utils.getNewLine();
 		}
