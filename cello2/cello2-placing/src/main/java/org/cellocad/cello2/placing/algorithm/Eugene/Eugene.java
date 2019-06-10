@@ -671,7 +671,7 @@ public class Eugene extends PLAlgorithm{
 							org.cellocad.cello2.results.placing.placement.Component component = new org.cellocad.cello2.results.placing.placement.Component(parts,true,false);
 							component.setDirection(true);
 							component.setNode(node.getName());
-							component.setName(parts.get(parts.size()-1) + "_" + String.valueOf(j));
+							component.setName(parts.get(parts.size()-1) + "_" + String.valueOf(k));
 							group.addComponent(component);
 						}
 					}

@@ -115,7 +115,11 @@ public class Component extends CObject {
 		str = "";
 		str += JSONUtils.getEntryToString("name",this.getName());
 		str += JSONUtils.getEntryToString("node",this.getNode());
-		str += JSONUtils.getEntryToString("direction",this.getDirection().toString());
+		Integer direction = -1;
+		if (this.getDirection().equals(this.getUp())) {
+			direction = 1;
+		}
+		str += JSONUtils.getEntryToString("direction",direction);
 		str += JSONUtils.getStartArrayWithMemberString("parts");
 		str = JSONUtils.addIndent(indent + 1, str);
 		os.write(str);
