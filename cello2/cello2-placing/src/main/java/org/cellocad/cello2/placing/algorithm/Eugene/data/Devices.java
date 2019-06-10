@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.data;
 
+import java.util.Collection;
+
 import org.cellocad.cello2.common.CObjectCollection;
 
 /**
@@ -48,12 +50,32 @@ public class Devices extends Component {
 	CObjectCollection<Device> devices;
 
 	/**
-	 * Add a part and its device index to this instance
+	 * Add a Device to this instance
 	 * @param part add the <i>part</i> to the device unit
-	 * @param index assign device index <i>index</i> to the device unit
 	 */
-	public void addDevice(Device device) {
+	public void add(Device device) {
 		this.getDevices().add(device);
+	}
+	
+	/**
+	 * Add a Device to this instance
+	 * @param part add the <i>part</i> to the device unit
+	 */
+	public void addAll(Collection<Device> devices) {
+		for (Device device : devices) {
+			this.getDevices().add(device);
+		}
+	}
+	
+	/**
+	 * Add a Device to this instance
+	 * @param part add the <i>part</i> to the device unit
+	 */
+	public void addAll(Devices devices) {
+		for (int i = 0; i < devices.getNumDevice(); i++) {
+			Device device = devices.getDeviceAtIdx(i);
+			this.getDevices().add(device);
+		}
 	}
 
 	/**

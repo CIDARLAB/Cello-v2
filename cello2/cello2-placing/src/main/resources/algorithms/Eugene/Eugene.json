@@ -8,6 +8,16 @@
 			"value": 5
 		},
 		{
+			"name" : "InputSensors",
+			"type" : "string",
+			"value": "none"
+		},
+		{
+			"name" : "OutputReporters",
+			"type" : "string",
+			"value": "none"
+		},
+		{
 			"name" : "SplitTandemPromoters",
 			"type" : "boolean",
 			"value": false

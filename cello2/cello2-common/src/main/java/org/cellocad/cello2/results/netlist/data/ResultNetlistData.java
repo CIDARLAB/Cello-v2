@@ -40,6 +40,7 @@ import org.json.simple.JSONObject;
 public class ResultNetlistData extends ApplicationNetlistData {
 
 	private void setDefault() {
+		this.setPlacements(new Placements());
 	}
 
 	/**
