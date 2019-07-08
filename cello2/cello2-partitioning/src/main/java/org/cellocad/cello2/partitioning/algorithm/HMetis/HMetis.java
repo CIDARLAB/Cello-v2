@@ -97,6 +97,8 @@ public class HMetis extends PTAlgorithm{
 	 */
 	protected void createHMetisOutFilePath() {
 		String file = "";
+		file += this.getRuntimeEnv().getOptionValue(PTArgString.OUTPUTDIR);
+		file += Utils.getFileSeparator();
 		file += "TEMP_GRAPH_FILE.hgr.part.";
 		file += this.getPartitioner().getPartition().getNumBlock();
 		this.setHMetisOutFile(file);	
@@ -287,10 +289,10 @@ public class HMetis extends PTAlgorithm{
 	protected void preprocessing() {
 		Netlist netlist = this.getNetlist();
 		this.setNetlister(new Netlister(netlist));
-		//this.setPartitioner(new Partitioner(this.getTargetData()));
-		int nblocks = netlist.getNumVertex() - LSResultsUtils.getPrimaryInputOutputNodes(netlist).size();
-		nblocks = ((Double)Math.ceil((double)nblocks/9)).intValue();
-		this.setPartitioner(new Partitioner(nblocks));
+		this.setPartitioner(new Partitioner(this.getTargetData()));
+		//int nblocks = netlist.getNumVertex() - LSResultsUtils.getPrimaryInputOutputNodes(netlist).size();
+		//nblocks = ((Double)Math.ceil((double)nblocks/9)).intValue();
+		//this.setPartitioner(new Partitioner(nblocks));
 		// Map Nodes to integers
 		Map<Integer, PTNetlistNode> integerVertexMap = this.getIntegerVertexMap();
 		Map<PTNetlistNode, Integer> vertexIntegerMap = this.getVertexIntegerMap();
