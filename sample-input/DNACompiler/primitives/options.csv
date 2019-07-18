@@ -1,5 +1,5 @@
 logicSynthesis.Gates,"NOR"
 technologyMapping,SimulatedAnnealing
-partitioning,GPCC_SUGARM_BASE
+partitioning,HMetis
 export.AddInteractions,false
 export.RepositoryUrl,https://synbiohub.programmingbiology.org
