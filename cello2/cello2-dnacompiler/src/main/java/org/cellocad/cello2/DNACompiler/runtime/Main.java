@@ -168,6 +168,7 @@ public class Main {
 		Main.printPartitioningGraphs(runEnv, netlist);
 		Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
 		netlist = new PTBlockNetlist(netlist).getVirtualLargeNetlistFO();
+		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
 		// technologyMapping
 		currentStage = appCfg.getStageByName("technologyMapping");
 		TMRuntimeObject TM = new TMRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
@@ -184,10 +185,11 @@ public class Main {
 		/*
 		 * Add Stages above
 		 */
-		/*
-		 * Write netlist
-		 */
 		// Write netlist
+		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
+	}
+
+	protected static void writeJSONForNetlist(DNACompilerRuntimeEnv runEnv, Netlist netlist, String inputFilePath) {
 		String outputNetlistFilePath = null;
 		outputNetlistFilePath = runEnv.getOptionValue(DNACompilerArgString.OUTPUTNETLIST);
 		if (outputNetlistFilePath == null)
