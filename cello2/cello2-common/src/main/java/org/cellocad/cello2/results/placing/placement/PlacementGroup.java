@@ -69,8 +69,6 @@ public class PlacementGroup extends CObject {
 			throw new RuntimeException("'name' missing in placement group!");
 		}
 		this.setName(name);
-		String backbone = ProfileUtils.getString(JObj, "backbone");
-		this.setBackbone(backbone);
 		JSONArray jsonArr;
     	jsonArr = (JSONArray) JObj.get("components");
 		if (jsonArr == null) {
@@ -100,9 +98,6 @@ public class PlacementGroup extends CObject {
 		os.write(str);
 		str = "";
 		str += JSONUtils.getEntryToString("name",this.getName());
-		if (this.getBackbone() != null) {
-			str += JSONUtils.getEntryToString("backbone",this.getBackbone());
-		}
 		str += JSONUtils.getStartArrayWithMemberString("components");
 		str = JSONUtils.addIndent(indent + 1, str);
 		os.write(str);
@@ -141,20 +136,6 @@ public class PlacementGroup extends CObject {
 		Component rtn = null;
 		rtn = this.getPlacementGroup().get(index);
 		return rtn;
-	}
-
-	/**
-	 * @return the backbone
-	 */
-	public String getBackbone() {
-		return backbone;
-	}
-
-	/**
-	 * @param backbone the backbone to set
-	 */
-	public void setBackbone(final String backbone) {
-		this.backbone = backbone;
 	}
 
 	/*
@@ -208,7 +189,6 @@ public class PlacementGroup extends CObject {
 		this.uri = uri;
 	}
 
-	private String backbone;
 	private List<Component> placementGroup;
 	private Boolean bUp;
 	private Boolean bDown;

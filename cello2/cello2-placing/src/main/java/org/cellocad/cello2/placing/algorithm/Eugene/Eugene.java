@@ -44,13 +44,13 @@ import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneDataUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistData;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistNodeData;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.InputSensor;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputReporter;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Rules;
 import org.cellocad.cello2.placing.runtime.environment.PLArgString;
-import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
@@ -128,6 +128,7 @@ public class Eugene extends PLAlgorithm{
 		this.setInputSensors(EugeneDataUtils.getInputSensors(this.getTargetData()));
 		this.setOutputReporters(EugeneDataUtils.getOutputReporters(this.getTargetData()));
 		this.setRules(EugeneDataUtils.getRules(this.getTargetData()));
+		this.setContainerSpecifications(EugeneDataUtils.getContainerSpecifications(this.getTargetData()));
 	}
 
 	/**
@@ -150,13 +151,9 @@ public class Eugene extends PLAlgorithm{
 		if (present) {
 			this.setSplitTandemPromoters(this.getAlgorithmProfile().getBooleanParameter("SplitTandemPromoters").getSecond());
 		}
-		present = this.getAlgorithmProfile().getStringParameter("OutputReporters").getFirst();
+		present = this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getFirst();
 		if (present) {
-			this.setOutputReporterOption(this.getAlgorithmProfile().getStringParameter("OutputReporters").getSecond());
-		}
-		present = this.getAlgorithmProfile().getStringParameter("InputSensors").getFirst();
-		if (present) {
-			this.setInputSensorOption(this.getAlgorithmProfile().getStringParameter("InputSensors").getSecond());
+			this.setOverrideGateType(this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getSecond());
 		}
 	}
 
@@ -170,41 +167,56 @@ public class Eugene extends PLAlgorithm{
 		if (this.getSplitTandemPromoters() == null)
 			this.setSplitTandemPromoters(false);
 	}
+	
+	private ContainerSpecification getContainerSpecification(NetlistNode node) {
+		ContainerSpecification rtn = null;
+		String type = node.getResultNetlistNodeData().getNodeType();
+		for (ContainerSpecification spec : this.getContainerSpecifications()) {
+			if (spec.getGateTypes().contains(type)) {
+				rtn = spec;
+				break;
+			}
+		}
+		return rtn;
+	}
+	
+	private ContainerSpecification getAlternateContainerSpecification(NetlistNode node) {
+		ContainerSpecification rtn = null;
+		ContainerSpecification orig = this.getContainerSpecification(node);
+		Double delta = Double.MAX_VALUE;
+		for (ContainerSpecification spec : this.getContainerSpecifications()) {
+			if (spec.equals(orig))
+				continue;
+			Double temp = Math.abs(spec.getCopyNumber() - orig.getCopyNumber());
+			if (temp < delta) {
+				delta = temp;
+				rtn = spec;
+			}	
+		}
+		return rtn;
+	}
 
 	private void setGroups() {
-		Devices input = new Devices();
-		Devices circuit = new Devices();
-		Devices output = new Devices();
+		Map<ContainerSpecification,Devices> map = new HashMap<>();
+		this.setGroupsMap(map);
+		for (ContainerSpecification spec : this.getContainerSpecifications()) {
+			Devices devices = new Devices();
+			devices.setName(spec.getName());
+			this.getGroupsMap().put(spec, devices);
+		}
 		for (NetlistNode node : this.getDevicesMap().keySet()) {
 			Devices devices = this.getDevicesMap().get(node);
-			if (LSResultsUtils.isPrimaryInput(node)) {
-				if (this.getInputSensorOption().equals(S_SEPARATE)) {
-					input.addAll(devices);
+			ContainerSpecification spec = this.getContainerSpecification(node);
+			for (int i = 0; i < devices.getNumDevice(); i++) {
+				Device device = devices.getDeviceAtIdx(i);
+				if (i == 0) {
+					this.getGroupsMap().get(spec).add(device);
 				}
-				else if (this.getInputSensorOption().equals(S_WITH_CIRCUIT)) {
-					circuit.addAll(devices);
-				}
-			}
-			else if (LSResultsUtils.isPrimaryOutput(node)) {
-				if (this.getOutputReporterOption().equals(S_SEPARATE)) {
-					output.addAll(devices);
-				}
-				else if (this.getOutputReporterOption().equals(S_WITH_CIRCUIT)) {
-					circuit.addAll(devices);
+				if (i == 1 && this.getOverrideGateType()) {
+					ContainerSpecification alt = this.getAlternateContainerSpecification(node);
+					this.getGroupsMap().get(alt).add(device);
 				}
 			}
-			else {
-				circuit.addAll(devices);
-			}
-		}
-		if (input.getNumDevice() > 0) {
-			this.getGroups().add(input);
-		}
-		if (circuit.getNumDevice() > 0) {
-			this.getGroups().add(circuit);
-		}
-		if (output.getNumDevice() > 0) {
-			this.getGroups().add(output);
 		}
 	}
 
@@ -400,8 +412,10 @@ public class Eugene extends PLAlgorithm{
 
 	private String getCircuitDeclaration() {
 		String rtn = "";
-		for (int i = 0; i < this.getGroups().size(); i++) {
-			rtn += String.format("Device group_%d();",i);
+		for (Devices devices : this.getGroupsMap().values()) {
+			if (devices.getNumDevice() == 0)
+				continue;
+			rtn += String.format("Device %s();",devices.getName());
 			rtn += Utils.getNewLine();
 		}
 		rtn += Utils.getNewLine();
@@ -412,9 +426,10 @@ public class Eugene extends PLAlgorithm{
 
 	private String getCircuitInstantiation() {
 		String rtn = "";
-		int i = 0;
-		for (Devices devices : this.getGroups()) {
-			rtn += String.format("Device group_%d(",i);
+		for (Devices devices : this.getGroupsMap().values()) {
+			if (devices.getNumDevice() == 0)
+				continue;
+			rtn += String.format("Device %s(",devices.getName());
 			for (String str : this.getGateDeviceNames(devices)) {
 				rtn += Utils.getNewLine();
 				rtn += Utils.getTabCharacter();
@@ -425,16 +440,15 @@ public class Eugene extends PLAlgorithm{
 			rtn += Utils.getNewLine();
 			rtn += ");";
 			rtn += Utils.getNewLine();
-			i++;
 		}
 		rtn += "Device groups(";
-		i = 0;
-		for (Devices devices : this.getGroups()) {
+		for (Devices devices : this.getGroupsMap().values()) {
+			if (devices.getNumDevice() == 0)
+				continue;
 			rtn += Utils.getNewLine();
 			rtn += Utils.getTabCharacter();
-			rtn += String.format("group_%d",i);
+			rtn += String.format("%s",devices.getName());
 			rtn += ",";
-			i++;
 		}
 		rtn = rtn.substring(0, rtn.length() - 1);
 		rtn += Utils.getNewLine();
@@ -445,10 +459,11 @@ public class Eugene extends PLAlgorithm{
 
 	private String getCircuitRules() {
 		String rtn = "";
-		int i = 0;
-		for (Devices devices : this.getGroups()) {
+		for (Devices devices : this.getGroupsMap().values()) {
+			if (devices.getNumDevice() == 0)
+				continue;
 			Collection<String> gates = this.getGateDeviceNames(devices);
-			rtn += String.format("Rule allRules_%d( ON group_%d:",i,i);
+			rtn += String.format("Rule allRules_%s( ON %s:",devices.getName(),devices.getName());
 			for (String str : gates) {
 				rtn += Utils.getNewLine();
 				rtn += Utils.getTabCharacter();
@@ -466,7 +481,6 @@ public class Eugene extends PLAlgorithm{
 			rtn += Utils.getNewLine();
 			rtn += ");";
 			rtn += Utils.getNewLine() + Utils.getNewLine();
-			i++;
 		}
 		return rtn;
 	}
@@ -476,7 +490,7 @@ public class Eugene extends PLAlgorithm{
 		rtn += "Array allResults;";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
 		int j = 0;
-		for (Devices devices : this.getGroups()) {
+		for (Devices devices : this.getGroupsMap().values()) {
 			for (int i = 0; i < devices.getNumDevice(); i++) {
 				Device device = devices.getDeviceAtIdx(i);
 				j++;
@@ -486,7 +500,7 @@ public class Eugene extends PLAlgorithm{
 		}
 		rtn += Utils.getNewLine();
 		j = 0;
-		for (Devices devices : this.getGroups()) {
+		for (Devices devices : this.getGroupsMap().values()) {
 			for (int i = 0; i < devices.getNumDevice(); i++) {
 				Device device = devices.getDeviceAtIdx(i);
 				j++;
@@ -501,7 +515,7 @@ public class Eugene extends PLAlgorithm{
 		rtn += Utils.getNewLine() + Utils.getNewLine();
 		rtn += "allResults = allResults + result;";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
-		for (Devices devices : this.getGroups()) {
+		for (Devices devices : this.getGroupsMap().values()) {
 			for (int i = 0; i < devices.getNumDevice(); i++) {
 				rtn += "}";
 				rtn += Utils.getNewLine();
@@ -524,7 +538,7 @@ public class Eugene extends PLAlgorithm{
 	protected void preprocessing() {
 		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
 		this.setDevicesMap(new HashMap<NetlistNode,Devices>());
-		this.setGroups(new CObjectCollection<Devices>());
+		this.setGroups();
 
 		// devices
 		this.setDevices();
@@ -535,27 +549,27 @@ public class Eugene extends PLAlgorithm{
 
 		String script = "";
 
-			// part types
-			script += this.getBlock(this.getPartTypes());
-			// part sequences
-			script += this.getBlock(this.getPartSequences());
-			// device definitions
-			script += this.getBlock(this.getDeviceDefinitions());
-			// device rules
-			script += this.getBlock(this.getDeviceRules());
-			// products
-			script += this.getBlock(this.getProducts());
-			// gate definitions
-			script += this.getBlock(this.getGateDefinitions());
-			// circuit definition
-			script += this.getCircuitDeclaration();
-			// circuit rules
-			script += this.getCircuitRules();
-			// results
-			script += this.getResults();
+		// part types
+		script += this.getBlock(this.getPartTypes());
+		// part sequences
+		script += this.getBlock(this.getPartSequences());
+		// device definitions
+		script += this.getBlock(this.getDeviceDefinitions());
+		// device rules
+		script += this.getBlock(this.getDeviceRules());
+		// products
+		script += this.getBlock(this.getProducts());
+		// gate definitions
+		script += this.getBlock(this.getGateDefinitions());
+		// circuit definition
+		script += this.getCircuitDeclaration();
+		// circuit rules
+		script += this.getCircuitRules();
+		// results
+		script += this.getResults();
 
-			this.setEugeneScript(script);
-			Utils.writeToFile(script,this.getEugeneScriptFilename());
+		this.setEugeneScript(script);
+		Utils.writeToFile(script,this.getEugeneScriptFilename());
 	}
 
 	/**
@@ -635,7 +649,6 @@ public class Eugene extends PLAlgorithm{
 					NamedElement groupElement = groups.get(j);
 					PlacementGroup group = new PlacementGroup(true,false);
 					group.setName(groupElement.getName());
-					group.setBackbone("backbone");
 					placement.addPlacementGroup(group);
 					if (groupElement instanceof org.cidarlab.eugene.dom.Device) {
 						org.cidarlab.eugene.dom.Device groupDevice = (org.cidarlab.eugene.dom.Device) groupElement;
@@ -649,7 +662,8 @@ public class Eugene extends PLAlgorithm{
 
 							String o = "";
 							try {
-								o = componentDevice.getOrientations(j).toString();
+								// FIXME: part orientations not respected
+								o = componentDevice.getOrientations(0).toString();
 							} catch (EugeneException e) {
 								e.printStackTrace();
 							}
@@ -725,6 +739,22 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
+	 * Getter for <i>overrideGateType</i>
+	 * @return value of <i>overrideGateType</i>
+	 */
+	public Boolean getOverrideGateType() {
+		return overrideGateType;
+	}
+
+	/**
+	 * Setter for <i>overrideGateType</i>
+	 * @param overrideGateType the value to set <i>overrideGateType</i>
+	 */
+	public void setOverrideGateType(Boolean overrideGateType) {
+		this.overrideGateType = overrideGateType;
+	}
+
+	/**
 	 * Getter for <i>eugeneResults</i>
 	 * @return value of <i>eugeneResults</i>
 	 */
@@ -787,19 +817,19 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 * Getter for <i>groups</i>
-	 * @return value of <i>groups</i>
+	 * Getter for <i>groupsMap</i>
+	 * @return value of <i>groupsMap</i>
 	 */
-	public CObjectCollection<Devices> getGroups() {
-		return groups;
+	public Map<ContainerSpecification, Devices> getGroupsMap() {
+		return groupsMap;
 	}
 
 	/**
-	 * Setter for <i>groups</i>
-	 * @param groups the value to set <i>groups</i>
+	 * Setter for <i>groupsMap</i>
+	 * @param groupsMap the value to set <i>groupsMap</i>
 	 */
-	public void setGroups(CObjectCollection<Devices> groups) {
-		this.groups = groups;
+	public void setGroupsMap(Map<ContainerSpecification, Devices> groupsMap) {
+		this.groupsMap = groupsMap;
 	}
 
 	/**
@@ -886,61 +916,35 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 * Getter for <i>outputReporterOption</i>
-	 * @return value of <i>outputReporterOption</i>
+	 * Getter for <i>containerSpecifications</i>
+	 * @return value of <i>containerSpecifications</i>
 	 */
-	public String getOutputReporterOption() {
-		return outputReporterOption;
+	public CObjectCollection<ContainerSpecification> getContainerSpecifications() {
+		return containerSpecifications;
 	}
 
 	/**
-	 * Setter for <i>outputReporterOption</i>
-	 * @param outputReporterOption the value to set outputReporterOption
+	 * Setter for <i>containerSpecifications</i>
+	 * @param containerSpecifications the value to set <i>containerSpecifications</i>
 	 */
-	public void setOutputReporterOption(String outputReporterOption) {
-		this.outputReporterOption = outputReporterOption;
+	public void setContainerSpecifications(CObjectCollection<ContainerSpecification> containerSpecifications) {
+		this.containerSpecifications = containerSpecifications;
 	}
-
-	/**
-	 * Getter for <i>inputSensorOption</i>
-	 * @return value of <i>inputSensorOption</i>
-	 */
-	public String getInputSensorOption() {
-		return inputSensorOption;
-	}
-
-	/**
-	 * Setter for <i>inputSensorOption</i>
-	 * @param inputSensorOption the value to set inputSensorOption
-	 */
-	public void setInputSensorOption(String inputSensorOption) {
-		this.inputSensorOption = inputSensorOption;
-	}
-
-	private static String S_NONE = "none";
-	private static String S_WITH_CIRCUIT = "with_circuit";
-	private static String S_SEPARATE = "separate";
-	private static final String[] ValidPlacementOptions =
-		{
-			S_NONE,
-			S_WITH_CIRCUIT,
-			S_SEPARATE
-		};
 
 	private Integer maxPlacements;
 	private Boolean splitTandemPromoters;
-	private String outputReporterOption;
-	private String inputSensorOption;
+	private Boolean overrideGateType;
 	private EugeneArray eugeneResults;
 	private String eugeneScript;
 	private String eugeneScriptFilename;
 	private Map<NetlistNode,Devices> devicesMap;
-	private CObjectCollection<Devices> groups;
+	private Map<ContainerSpecification,Devices> groupsMap;
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<Part> parts;
 	private CObjectCollection<InputSensor> sensors;
 	private CObjectCollection<OutputReporter> reporters;
 	private Rules rules;
+	private CObjectCollection<ContainerSpecification> containerSpecifications;
 
 	static private String S_PROMOTER = "promoter";
 }

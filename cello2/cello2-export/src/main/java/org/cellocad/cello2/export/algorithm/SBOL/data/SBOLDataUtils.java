@@ -26,6 +26,8 @@ import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ContainerSpecification;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ContainerSpecificationFactory;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Cytometry;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CytometryData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
@@ -196,6 +198,17 @@ public class SBOLDataUtils {
 		}
 		return rtn;
 	}
+	
+	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
+		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
+		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();
+		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_CONTAINERS); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_CONTAINERS, i);
+			ContainerSpecification spec = factory.getContainerSpecification(jObj);
+			rtn.add(spec);
+		}
+		return rtn;
+	}
 
 	private static String S_GATES = "gates";
 	private static String S_INPUTSENSORS = "input_sensors";
@@ -205,4 +218,5 @@ public class SBOLDataUtils {
 	private static String S_GATEPARTS = "gate_parts";
 	private static String S_GATETOXICITY = "gate_toxicity";
 	private static String S_GATECYTOMETRY = "gate_cytometry";
+	private static String S_CONTAINERS = "containers";
 }

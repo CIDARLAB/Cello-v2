@@ -6009,118 +6009,98 @@
       "name": "PProfile0",
       "Blocks":
       {
-	"Capacity_Units":
-	[
-	  "NOT",
-	  "NOR",
-	  "OR",
-	  "Regular"
-	],
-	"Capacity":
-	[
-	  {
-	    "name": "capacity0",
-	    "units":
-	    [
-	      "NOT",
-	      "NOR",
-	      "OR"
-	    ],
-	    "lower_bound": 0,
-	    "lower_bound_type": "greater_than_or_equal",
-	    "upper_bound": 10,
-	    "upper_bound_type": "less_than"
-	  },
-	  {
-	    "name": "capacity1",
-	    "units":
-	    [
-	      "Regular"
-	    ],
-	    "lower_bound": 0,
-	    "lower_bound_type": "greater_than_or_equal",
-	    "upper_bound": 5,
-	    "upper_bound_type": "less_than"
-	  }
-	],
-	"Blocks":
-	[
-	  {
-	    "name" : "block0",
-	    "capacity":
-	    [
-	      "capacity0"
-	    ],
-	    "inout_connections_capacity":
-	    [
-	      "capacity1"
-	    ]
-	  },
-	  {
-	    "name" : "block1",
-	    "capacity":
-	    [
-	      "capacity0"
-	    ],
-	    "inout_connections_capacity":
-	    [
-	      "capacity1"
-	    ]
-	  }
-	]
+		"Capacity_Units":
+		[
+		  "NOT",
+		  "NOR",
+		  "OR",
+		  "Regular"
+		],
+		"Capacity":
+		[
+		  {
+			"name": "capacity0",
+			"units":
+			[
+			  "NOT",
+			  "NOR",
+			  "OR"
+			],
+			"lower_bound": 0,
+			"lower_bound_type": "greater_than_or_equal",
+			"upper_bound": 20,
+			"upper_bound_type": "less_than"
+		  },
+		  {
+			"name": "capacity1",
+			"units":
+			[
+			  "Regular"
+			],
+			"lower_bound": 0,
+			"lower_bound_type": "greater_than_or_equal",
+			"upper_bound": 10,
+			"upper_bound_type": "less_than"
+		  }
+		],
+		"Blocks":
+		[
+		  {
+			"name" : "block0",
+			"capacity":
+			[
+			  "capacity0"
+			],
+			"inout_connections_capacity":
+			[
+			  "capacity1"
+			]
+		  }
+		]
       },
       "InterBlocks":
       {
-	"Capacity_Units":
-	[
-	  "Regular"
-	],
-	"Capacity":
-	[
-	  {
-	    "name": "capacity0",
-	    "units":
-	    [
-	      "Regular"
-	    ],
-	    "lower_bound": 0,
-	    "lower_bound_type": "greater_than_or_equal",
-	    "upper_bound": 5,
-	    "upper_bound_type": "less_than"
-	  },
-	  {
-	    "name": "capacity1",
-	    "units":
-	    [
-	      "Regular"
-	    ],
-	    "lower_bound": 0,
-	    "lower_bound_type": "greater_than_or_equal",
-	    "upper_bound": 1,
-	    "upper_bound_type": "less_than"
-	  }
-	],
-	"InterBlocks":
-	[
-	  {
-	    "name" : "Interblock_0_1",
-	    "source" : "block0",
-	    "destination" : "block1",
-	    "capacity":
-	    [
-	      "capacity0"
-	    ]
-	  },
-	  {
-	    "name" : "Interblock_1_0",
-	    "source" : "block1",
-	    "destination" : "block0",
-	    "capacity":
-	    [
-	      "capacity1"
-	    ]
-	  }
-	]
+		"Capacity_Units":
+		[
+		  "Regular"
+		],
+		"Capacity":
+		[
+		  {
+			"name": "capacity0",
+			"units":
+			[
+			  "Regular"
+			],
+			"lower_bound": 0,
+			"lower_bound_type": "greater_than_or_equal",
+			"upper_bound": 5,
+			"upper_bound_type": "less_than"
+		  },
+		  {
+			"name": "capacity1",
+			"units":
+			[
+			  "Regular"
+			],
+			"lower_bound": 0,
+			"lower_bound_type": "greater_than_or_equal",
+			"upper_bound": 1,
+			"upper_bound_type": "less_than"
+		  }
+		],
+		"InterBlocks":
+		[
+		  {
+			"name" : "Interblock_0_1",
+			"source" : "block0",
+			"destination" : "block0",
+			"capacity":
+			[
+			  "capacity0"
+			]
+		  }
+		]
       }
     }
   },
@@ -130355,24 +130335,24 @@
   },
   {
     "collection": "containers",
-	"name": "plasmid1",
-	"type": "plasmid",
+	"name": "lp1",
+	"type": "landing_pad",
 	"gate_type": "INPUT,PRIMARY_INPUT",
-	"backbone": "backbone"
+	"copy_number": 1.5
   },
   {
 	"collection": "containers",
-	"name": "plasmid2",
-	"type": "plasmid",
+	"name": "lp2",
+	"type": "landing_pad",
 	"gate_type": "OUTPUT,PRIMARY_OUTPUT",
-	"backbone": "backbone"
+	"copy_number": 1.0
   },
   {
 	"collection": "containers",
-	"name": "plasmid3",
-	"type": "plasmid",
+	"name": "lp3",
+	"type": "landing_pad",
 	"gate_type": "NOT,NOR",
-	"backbone": "backbone"
+	"copy_number": 1.4
   },
   {
     "collection": "parts",

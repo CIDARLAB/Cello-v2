@@ -23,6 +23,8 @@ package org.cellocad.cello2.placing.algorithm.Eugene.data;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.target.data.TargetData;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecificationFactory;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Cytometry;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CytometryData;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
@@ -144,6 +146,17 @@ public class EugeneDataUtils {
 		return rtn;
 	}
 	
+	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
+		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
+		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_CONTAINERS); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_CONTAINERS, i);
+			ContainerSpecification spec = factory.getContainerSpecification(jObj);
+			rtn.add(spec);
+		}
+		return rtn;
+	}
+	
 	private static String S_GATES = "gates";
 	private static String S_RESPONSEFUNCTION = "response_functions";
 	private static String S_PARTS = "parts";
@@ -153,4 +166,5 @@ public class EugeneDataUtils {
 	private static String S_INPUTSENSORS = "input_sensors";
 	private static String S_OUTPUTREPORTERS = "output_reporters";
 	private static String S_RULES = "eugene_rules";
+	private static String S_CONTAINERS = "containers";
 }
