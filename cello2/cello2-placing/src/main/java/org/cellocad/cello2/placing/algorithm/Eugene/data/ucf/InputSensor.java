@@ -98,8 +98,8 @@ public class InputSensor extends Assignable{
 		this.promoter = promoter;
 	}
 
-	private String promoter;
-	
+	private String promoter;	
+
 	/*
 	 * Parameter
 	 */

@@ -35,7 +35,7 @@ import org.cellocad.cello2.results.technologyMapping.activity.activitytable.Acti
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionParameter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
 
 /**
  * The Evaluator class evaluates the activity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -151,7 +151,7 @@ public class Evaluator {
 			
 			MathEval eval = new MathEval();
 			for (int i = 0; i < function.getNumParameter(); i++) {
-				ResponseFunctionParameter param = function.getParameterAtIdx(i);
+				Parameter param = function.getParameterAtIdx(i);
 				eval.setConstant(param.getName(), param.getValue());
 			}
 			eval.setVariable(function.getVariableByName("x").getName(), value);

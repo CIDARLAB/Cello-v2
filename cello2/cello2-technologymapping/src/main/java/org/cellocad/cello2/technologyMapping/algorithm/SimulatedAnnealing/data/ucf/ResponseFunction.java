@@ -59,11 +59,11 @@ public class ResponseFunction extends CObject{
 	}
 	
 	private void parseParameters(final JSONObject JObj){
-		CObjectCollection<ResponseFunctionParameter> parameters = this.getParameters();
+		CObjectCollection<Parameter> parameters = this.getParameters();
 		JSONArray jArr = (JSONArray) JObj.get("parameters");
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject jObj = (JSONObject) jArr.get(i);
-			ResponseFunctionParameter parameter = new ResponseFunctionParameter(jObj);
+			Parameter parameter = new Parameter(jObj);
 			parameters.add(parameter);
 		}
 	}
@@ -76,7 +76,7 @@ public class ResponseFunction extends CObject{
     }
 	
 	private void init() {
-		this.parameters = new CObjectCollection<ResponseFunctionParameter>();
+		this.parameters = new CObjectCollection<Parameter>();
 		this.variables = new CObjectCollection<ResponseFunctionVariable>();
 	}
 	
@@ -154,12 +154,12 @@ public class ResponseFunction extends CObject{
 	/*
 	 * Parameter
 	 */
-	public ResponseFunctionParameter getParameterValueByName(final String name) {
+	public Parameter getParameterValueByName(final String name) {
 		return this.getParameters().findCObjectByName(name);
 	}
 	
-	public ResponseFunctionParameter getParameterAtIdx(final int index){
-		ResponseFunctionParameter rtn = null;
+	public Parameter getParameterAtIdx(final int index){
+		Parameter rtn = null;
 		if (
 				(0 <= index)
 				&&
@@ -174,10 +174,10 @@ public class ResponseFunction extends CObject{
 		return this.getParameters().size();
 	}
 	
-	private CObjectCollection<ResponseFunctionParameter> getParameters(){
+	private CObjectCollection<Parameter> getParameters(){
 		return this.parameters;
 	}
 	
-	private CObjectCollection<ResponseFunctionParameter> parameters;
+	private CObjectCollection<Parameter> parameters;
 	
 }

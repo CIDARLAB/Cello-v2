@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Boston University (BU)
+ * Copyright (C) 2018 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,49 +25,51 @@ import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
- *
- *
+ * The ResponseFunctionParameter is class representing a Parameter of a Response Function for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * 
  * @author Timothy Jones
- *
- * @date 2020-01-30
+ * 
+ * @date 2018-07-19
  *
  */
-public class Parameter extends CObject {
-
-	private void parseName(final JSONObject JObj) {
+public class Parameter extends CObject{
+	
+	private void parseName(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "name");
 		this.setName(value);
 	}
-
-	private void parseValue(final JSONObject JObj) {
-		Double value = ((Number) JObj.get("value")).doubleValue();
+	
+	private void parseValue(final JSONObject JObj){
+		Double value = ((Number)JObj.get("value")).doubleValue();
 		this.setValue(value);
 	}
 
+		
 	private void parseParameter(final JSONObject jObj) {
 		this.parseName(jObj);
 		this.parseValue(jObj);
-	}
-
+    }
+	
 	private void init() {
 	}
-
+	
 	public Parameter(final JSONObject jobj) {
 		this.init();
 		this.parseParameter(jobj);
 	}
-
+	
 	/*
 	 * Value
 	 */
-	private void setValue(final Double value) {
+	private void setValue(final Double value){
 		this.value = value;
 	}
-
-	public Double getValue() {
+	
+	public Double getValue(){
 		return this.value;
 	}
-
+	
 	private Double value;
 
+	
 }
