@@ -51,53 +51,54 @@ import org.json.JSONException;
 import org.json.simple.JSONArray;
 
 /**
- * The Yosys class implements the <i>Yosys</i> algorithm in the <i>logicSynthesis</i> stage.
+ * The Yosys class implements the <i>Yosys</i> algorithm in the
+ * <i>logicSynthesis</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date 2018-05-21
  *
  */
-public class Yosys extends LSAlgorithm{
+public class Yosys extends LSAlgorithm {
 
 	/**
-	 *  Returns the <i>YosysNetlistNodeData</i> of the <i>node</i>
+	 * Returns the <i>YosysNetlistNodeData</i> of the <i>node</i>
 	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>YosysNetlistNodeData</i> instance if it exists, null otherwise
+	 * @param node a node within the <i>netlist</i> of this instance
+	 * @return the <i>YosysNetlistNodeData</i> instance if it exists, null otherwise
 	 */
-	protected YosysNetlistNodeData getYosysNetlistNodeData(NetlistNode node){
+	protected YosysNetlistNodeData getYosysNetlistNodeData(NetlistNode node) {
 		YosysNetlistNodeData rtn = null;
 		rtn = (YosysNetlistNodeData) node.getNetlistNodeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>YosysNetlistEdgeData</i> of the <i>edge</i>
+	 * Returns the <i>YosysNetlistEdgeData</i> of the <i>edge</i>
 	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>YosysNetlistEdgeData</i> instance if it exists, null otherwise
+	 * @param edge an edge within the <i>netlist</i> of this instance
+	 * @return the <i>YosysNetlistEdgeData</i> instance if it exists, null otherwise
 	 */
-	protected YosysNetlistEdgeData getYosysNetlistEdgeData(NetlistEdge edge){
+	protected YosysNetlistEdgeData getYosysNetlistEdgeData(NetlistEdge edge) {
 		YosysNetlistEdgeData rtn = null;
 		rtn = (YosysNetlistEdgeData) edge.getNetlistEdgeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>YosysNetlistData</i> of the <i>netlist</i>
+	 * Returns the <i>YosysNetlistData</i> of the <i>netlist</i>
 	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>YosysNetlistData</i> instance if it exists, null otherwise
+	 * @param netlist the netlist of this instance
+	 * @return the <i>YosysNetlistData</i> instance if it exists, null otherwise
 	 */
-	protected YosysNetlistData getYosysNetlistData(Netlist netlist){
+	protected YosysNetlistData getYosysNetlistData(Netlist netlist) {
 		YosysNetlistData rtn = null;
 		rtn = (YosysNetlistData) netlist.getNetlistData();
 		return rtn;
 	}
 
 	/**
-	 *  Gets the Constraint data from the NetlistConstraintFile
+	 * Gets the Constraint data from the NetlistConstraintFile
 	 */
 	@Override
 	protected void getConstraintFromNetlistConstraintFile() {
@@ -105,7 +106,7 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
 	 */
 	@Override
 	protected void getDataFromUCF() {
@@ -113,29 +114,20 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Set parameter(s) value(s) of the algorithm
+	 * Set parameter(s) value(s) of the algorithm
 	 */
 	@Override
 	protected void setParameterValues() {
-		Boolean present = true;
-		present = this.getAlgorithmProfile().getStringParameter("Gates").getFirst();
-		if (present) {
-			this.setGates(this.getAlgorithmProfile().getStringParameter("Gates").getSecond());
-		}
-		present = this.getAlgorithmProfile().getBooleanParameter("NetSynth").getFirst();
-		if (present) {
-			this.setNetSynth(this.getAlgorithmProfile().getBooleanParameter("NetSynth").getSecond());
-		}
+		this.setGates(this.getAlgorithmProfile().getStringParameter("Gates").getSecond());
 	}
 
-
 	/**
-	 *  Validate parameter value for <i>Gates</i>
+	 * Validate parameter value for <i>Gates</i>
 	 */
 	protected void validateGatesParameterValues() {
 		List<String> validGates = new ArrayList<String>(Arrays.asList(YosysUtils.ValidGates));
 		StringTokenizer strtok = new StringTokenizer(this.getGates(), Yosys.S_GATES_DELIM);
-		while(strtok.hasMoreTokens()) {
+		while (strtok.hasMoreTokens()) {
 			String token = strtok.nextToken();
 			if (!validGates.contains(token)) {
 				this.logError(token + " is not a valid value for parameter Gates!");
@@ -143,9 +135,9 @@ public class Yosys extends LSAlgorithm{
 			}
 		}
 	}
-	
+
 	/**
-	 *  Validate parameter value of the algorithm
+	 * Validate parameter value of the algorithm
 	 */
 	@Override
 	protected void validateParameterValues() {
@@ -153,7 +145,7 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Perform preprocessing
+	 * Perform preprocessing
 	 */
 	@Override
 	protected void preprocessing() {
@@ -234,7 +226,7 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
 	 */
 	@Override
 	protected void run() {
@@ -285,17 +277,19 @@ public class Yosys extends LSAlgorithm{
 
 	/**
 	 * Setter for <i>Gates</i>
+	 * 
 	 * @param value the value to set <i>Gates</i>
-	*/
-	protected void setGates(final String value){
+	 */
+	protected void setGates(final String value) {
 		this.Gates = value;
 	}
 
 	/**
 	 * Getter for <i>Gates</i>
+	 * 
 	 * @return value of <i>Gates</i>
-	*/
-	protected String getGates(){
+	 */
+	protected String getGates() {
 		return this.Gates;
 	}
 
@@ -323,22 +317,22 @@ public class Yosys extends LSAlgorithm{
 
 
 	/**
-	 *  Returns the Logger for the <i>Yosys</i> algorithm
+	 * Returns the Logger for the <i>Yosys</i> algorithm
 	 *
-	 *  @return the logger for the <i>Yosys</i> algorithm
+	 * @return the logger for the <i>Yosys</i> algorithm
 	 */
 	@Override
 	protected Logger getLogger() {
 		return Yosys.logger;
 	}
-	
+
 	private static final Logger logger = LogManager.getLogger(Yosys.class);
-	
+
 	/*
 	 * Log
 	 */
 	/**
-	 *  Logs the Result header
+	 * Logs the Result header
 	 */
 	protected void logResultHeader() {
 		this.logInfo(Yosys.S_HEADER_FOOTER);
@@ -347,101 +341,112 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Logs the Results from the execution of the Yosys tool by the process defined in parameter <i>proc</i>
-	 *  
-	 *  @param proc the process
+	 * Logs the Results from the execution of the Yosys tool by the process defined
+	 * in parameter <i>proc</i>
+	 * 
+	 * @param proc the process
 	 */
 	protected void getResults(ExecCommand proc) {
 		this.logResultHeader();
 		StringTokenizer strtok = new StringTokenizer(proc.getOutput(), Utils.getNewLine());
-		while(strtok.hasMoreTokens()) {
+		while (strtok.hasMoreTokens()) {
 			String token = strtok.nextToken();
-		    if (token.contains(Yosys.S_ABC_RESULT)) {
-			    this.logInfo(token.replaceFirst(Yosys.S_ABC_RESULT, "").trim());
-		    }
+			if (token.contains(Yosys.S_ABC_RESULT)) {
+				this.logInfo(token.replaceFirst(Yosys.S_ABC_RESULT, "").trim());
+			}
 		}
 		this.logInfo(Yosys.S_HEADER_FOOTER);
 	}
-	
+
 	/*
 	 * Getter and Setter
 	 */
 	/**
 	 * Setter for <i>yosysScriptFilename</i>
+	 * 
 	 * @param str the value to set <i>yosysScriptFilename</i>
-	*/
+	 */
 	protected void setYosysScriptFilename(final String str) {
 		this.yosysScriptFilename = str;
 	}
 
 	/**
 	 * Getter for <i>yosysScriptFilename</i>
+	 * 
 	 * @return value of <i>yosysScriptFilename</i>
-	*/
+	 */
 	protected String getYosysScriptFilename() {
 		return this.yosysScriptFilename;
 	}
 
 	/**
 	 * Setter for <i>yosysEdifFilename</i>
+	 * 
 	 * @param str the value to set <i>yosysEdifFilename</i>
-	*/
+	 */
 	protected void setYosysEdifFilename(final String str) {
 		this.yosysEdifFilename = str;
 	}
 
 	/**
 	 * Getter for <i>yosysEdifFilename</i>
+	 * 
 	 * @return value of <i>yosysEdifFilename</i>
-	*/
+	 */
 	protected String getYosysEdifFilename() {
 		return this.yosysEdifFilename;
 	}
 
 	/**
 	 * Setter for <i>yosysJSONFilename</i>
+	 * 
 	 * @param str the value to set <i>yosysJSONFilename</i>
-	*/
+	 */
 	protected void setYosysJSONFilename(final String str) {
 		this.yosysJSONFilename = str;
 	}
 
 	/**
 	 * Getter for <i>yosysJSONFilename</i>
+	 * 
 	 * @return value of <i>yosysJSONFilename</i>
-	*/
+	 */
 	protected String getYosysJSONFilename() {
 		return this.yosysJSONFilename;
 	}
 
 	/**
 	 * Setter for <i>yosysDotFilename</i>
+	 * 
 	 * @param str the value to set <i>yosysDotFilename</i>
-	*/
+	 */
 	protected void setYosysDotFilename(final String str) {
 		this.yosysDotFilename = str;
 	}
 
 	/**
 	 * Getter for <i>yosysDotFilename</i>
+	 * 
 	 * @return value of <i>yosysDotFilename</i>
-	*/
+	 */
 	protected String getYosysDotFilename() {
 		return this.yosysDotFilename;
 	}
 
 	/**
 	 * Setter for <i>yosysExec</i>
+	 * 
 	 * @param str the value to set <i>yosysExec</i>
-	*/
+	 */
 	protected void setYosysExec(final String str) {
 		this.yosysExec = str;
 	}
 
 	/**
 	 * Getter for <i>yosysExec</i>
+	 * 
 	 * @return value of <i>yosysExec</i>
-	*/
+	 */
 	protected String getYosysExec() {
 		return this.yosysExec;
 	}

@@ -128,6 +128,13 @@ public class EugeneUtils {
 			final CObjectCollection<InputSensor> sensors, final CObjectCollection<Gate> gates,
 			final CObjectCollection<Part> parts) {
 		CObjectCollection<Part> rtn = new CObjectCollection<>();
+		Collection<String> partNames = node.getResultNetlistNodeData().getParts();
+		if (partNames.size() > 0) {
+			for (String p : partNames) {
+				Part part = parts.findCObjectByName(p);
+				rtn.add(part);
+			}
+		}
 		for (int i = 0; i < node.getNumInEdge(); i++) {
 			NetlistEdge e = node.getInEdgeAtIdx(i);
 			NetlistNode src = e.getSrc();

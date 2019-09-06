@@ -67,6 +67,7 @@ public class InputSensor extends Assignable{
 	}
 	
 	public InputSensor(final JSONObject jObj) {
+		this.init();
 		this.parseInputSensor(jObj);
 	}
 	
@@ -106,48 +107,26 @@ public class InputSensor extends Assignable{
 	public Parameter getParameterValueByName(final String name) {
 		return this.getParameters().findCObjectByName(name);
 	}
-<<<<<<< HEAD
 
 	public Parameter getParameterAtIdx(final int index) {
 		Parameter rtn = null;
 		if ((0 <= index) && (index < this.getNumParameter())) {
-=======
-	
-	public Parameter getParameterAtIdx(final int index){
-		Parameter rtn = null;
-		if (
-				(0 <= index)
-				&&
-				(index < this.getNumParameter())
-				) {
->>>>>>> 0d2e7ef... Parse UCF parameters. Tandem promoter options.
 			rtn = this.getParameters().get(index);
 		}
 		return rtn;
 	}
 	
-<<<<<<< HEAD
 	public int getNumParameter() {
 		return this.getParameters().size();
 	}
 
 	private CObjectCollection<Parameter> getParameters() {
-=======
-	public int getNumParameter(){
-		return this.getParameters().size();
-	}
-	
-	private CObjectCollection<Parameter> getParameters(){
->>>>>>> 0d2e7ef... Parse UCF parameters. Tandem promoter options.
 		return this.parameters;
 	}
 	
 	private CObjectCollection<Parameter> parameters;
 
-<<<<<<< HEAD
 	public static String S_HI = "signal_high";
 	public static String S_LO = "signal_low";
 
-=======
->>>>>>> 0d2e7ef... Parse UCF parameters. Tandem promoter options.
 }

@@ -8,9 +8,9 @@
 			"value": 5
 		},
 		{
-			"name" : "PermutePromoters",
+			"name" : "KeepPromoterOrder",
 			"type" : "boolean",
-			"value": true
+			"value": false
 		}
 	]
 }

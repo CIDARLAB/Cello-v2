@@ -34,7 +34,7 @@ Test.
     cd target
     ./run.py -e DNACompiler -j "-Xms2G -Xmx5G" -a " \
     -targetDataFile ../../sample-input/ucf/Eco1C1G1T1.UCF.json \
-    -inputNetlist ../../sample-input/DNACompiler/and/and.v \
-    -options ../../sample-input/DNACompiler/and/options.csv \
+    -inputNetlist ../../sample-input/DNACompiler/primitives/and.v \
+    -options ../../sample-input/DNACompiler/primitives/options.csv \
     -outputDir /path/to/output/dir \
-	-pythonEnv /path/to/python
+	-pythonEnv /path/to/python "

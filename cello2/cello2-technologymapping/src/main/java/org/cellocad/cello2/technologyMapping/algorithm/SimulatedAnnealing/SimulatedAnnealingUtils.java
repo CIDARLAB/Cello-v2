@@ -76,4 +76,51 @@ public class SimulatedAnnealingUtils {
 		return rtn;
 	}
 
+	/**
+	 * Sorts a collection of CObject according to the idx property.
+	 * 
+	 * @param <T>     the object type
+	 * @param objects the collection of objects to sort
+	 * @return the sorted collection
+	 */
+	public static <T extends CObject> List<T> getCObjectsSortedByIdx(final List<T> objects) {
+		List<T> rtn = new ArrayList<>();
+		rtn.addAll(objects);
+		Integer n = rtn.size();
+		Boolean swapped = null;
+		do {
+			swapped = false;
+			for (int i = 1; i <= n - 1; i++) {
+				if (rtn.get(i - 1).getIdx() > rtn.get(i).getIdx()) {
+					T temp1 = rtn.get(i - 1);
+					T temp2 = rtn.get(i);
+					rtn.set(i - 1, temp2);
+					rtn.set(i, temp1);
+					swapped = true;
+				}
+			}
+		} while (swapped);
+		return rtn;
+	}
+
+	public static List<NetlistEdge> getInEdgeSortedByIdx(final NetlistNode node) {
+		List<NetlistEdge> rtn = new ArrayList<>();
+		for (int i = 0; i < node.getNumInEdge(); i++) {
+			NetlistEdge e = node.getInEdgeAtIdx(i);
+			rtn.add(e);
+		}
+		rtn = getCObjectsSortedByIdx(rtn);
+		return rtn;
+	}
+
+	public static void initInEdgeIdx(final Netlist netlist) {
+		for (int i = 0; i < netlist.getNumVertex(); i++) {
+			NetlistNode node = netlist.getVertexAtIdx(i);
+			for (int j = 0; j < node.getNumInEdge(); j++) {
+				NetlistEdge e = node.getInEdgeAtIdx(j);
+				e.setIdx(j);
+			}
+		}
+	}
+
 }

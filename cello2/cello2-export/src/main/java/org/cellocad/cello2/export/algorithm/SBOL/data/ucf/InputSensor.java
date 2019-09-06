@@ -109,9 +109,6 @@ public class InputSensor extends Device {
 
 	private String promoter;
 
-	/*
-	 * Parameter
-	 */
 	public Parameter getParameterValueByName(final String name) {
 		return this.getParameters().findCObjectByName(name);
 	}

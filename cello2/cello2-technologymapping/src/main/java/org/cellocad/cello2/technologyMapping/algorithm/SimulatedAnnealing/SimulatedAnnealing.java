@@ -22,6 +22,8 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -49,9 +51,11 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.S
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.TandemEvaluator;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.CasetteParts;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
@@ -62,7 +66,8 @@ import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
 import org.json.simple.JSONObject;
 
 /**
- * The SimulatedAnnealing class implements the <i>SimulatedAnnealing</i> algorithm in the <i>technologyMapping</i> stage.
+ * The SimulatedAnnealing class implements the <i>SimulatedAnnealing</i>
+ * algorithm in the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
  * @author Timothy Jones
@@ -70,7 +75,7 @@ import org.json.simple.JSONObject;
  * @date 2018-05-21
  *
  */
-public class SimulatedAnnealing extends TMAlgorithm{
+public class SimulatedAnnealing extends TMAlgorithm {
 
 	/**
 	 *  Gets the Constraint data from the NetlistConstraintFile
@@ -81,34 +86,34 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		String type = "";
 		// input constraints
 		type = "input_constraints";
-		Map<String,String> inputMap = new HashMap<>();
+		Map<String, String> inputMap = new HashMap<>();
 		for (int i = 0; i < constraint.getNumJSONObject(type); i++) {
-			JSONObject jObj = constraint.getJSONObjectAtIdx(type,i);
+			JSONObject jObj = constraint.getJSONObjectAtIdx(type, i);
 			JSONObject map = (JSONObject) jObj.get("sensor_map");
 			for (Object obj : map.keySet()) {
 				String key = (String) obj;
 				String value = (String) map.get(obj);
-				inputMap.put(key,value);
+				inputMap.put(key, value);
 			}
 		}
 		this.setInputMap(inputMap);
 		// ouptut constraints
 		type = "output_constraints";
-		Map<String,String> outputMap = new HashMap<>();
+		Map<String, String> outputMap = new HashMap<>();
 		for (int i = 0; i < constraint.getNumJSONObject(type); i++) {
-			JSONObject jObj = constraint.getJSONObjectAtIdx(type,i);
+			JSONObject jObj = constraint.getJSONObjectAtIdx(type, i);
 			JSONObject map = (JSONObject) jObj.get("reporter_map");
 			for (Object obj : map.keySet()) {
 				String key = (String) obj;
 				String value = (String) map.get(obj);
-				outputMap.put(key,value);
+				outputMap.put(key, value);
 			}
 		}
 		this.setOutputMap(outputMap);
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
 	 */
 	@Override
 	protected void getDataFromUCF() {
@@ -119,22 +124,23 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	/**
-	 *  Set parameter(s) value(s) of the algorithm
+	 * Set parameter(s) value(s) of the algorithm
 	 */
 	@Override
 	protected void setParameterValues() {
 	}
 
 	/**
-	 *  Validate parameter value of the algorithm
+	 * Validate parameter value of the algorithm
 	 */
 	@Override
 	protected void validateParameterValues() {
-
+		this.setComputeTandemEfficiency(
+				this.getAlgorithmProfile().getBooleanParameter("ComputeTandemEfficiency").getSecond());
 	}
 
 	/**
-	 *  Perform preprocessing
+	 * Perform preprocessing
 	 */
 	protected void setTruthTable() {
 		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
@@ -145,7 +151,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void assignInputNodes() {
 		// assign input
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(this.getNetlist());
-		Map<String,String> inputMap = this.getInputMap();
+		Map<String, String> inputMap = this.getInputMap();
 		Iterator<InputSensor> it = this.getInputSensors().iterator();
 		for (int i = 0; i < inputNodes.size(); i++) {
 			NetlistNode node = inputNodes.get(i);
@@ -229,11 +235,74 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// sensor signals
 		this.setSensorSignals(this.getNetlist());
 		// activity evaluation
-		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(),this.getSensorSignals(),this.getLSLogicEvaluation()));
+		this.setTMActivityEvaluation(
+				new TMActivityEvaluation(this.getNetlist(), this.getSensorSignals(), this.getLSLogicEvaluation()));
+		// init edge idx
+		if (this.getComputeTandemEfficiency())
+			SimulatedAnnealingUtils.initInEdgeIdx(this.getNetlist());
+	}
+
+	private Integer getNumTandemPair() {
+		Integer rtn = 0;
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			if (node.getNumInEdge() == 2 && !LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
+				rtn++;
+			}
+		}
+		return rtn;
+	}
+
+	private Integer getNumSwappableGate() {
+		Integer rtn = 0;
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
+				rtn++;
+			}
+		}
+		return rtn;
+	}
+
+	private NetlistNode getRandomNodeWithTandemPair() {
+		NetlistNode rtn = null;
+		Double r = Math.random() * this.getNumTandemPair();
+		Integer n = r.intValue() + 1;
+		int k = 0;
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node) && node.getNumInEdge() == 2) {
+				k++;
+			}
+			if (k == n) {
+				rtn = node;
+				break;
+			}
+		}
+		return rtn;
+	}
+
+	private void swapGate(SimulatedAnnealingNetlistNodeData data, Gate a, Gate b) {
+		GateManager GM = this.getGateManager();
+		GM.setUnassignedGate(a);
+		data.setGate(b);
+		GM.setAssignedGate(b);
+	}
+
+	private void swapTandemOrder(NetlistNode node) {
+		if (node.getNumInEdge() != 2) {
+			throw new RuntimeException("Error with swap.");
+		}
+		NetlistEdge e1 = node.getInEdgeAtIdx(0);
+		NetlistEdge e2 = node.getInEdgeAtIdx(1);
+		int i1 = node.getIdx();
+		int i2 = node.getIdx();
+		e1.setIdx(i2);
+		e2.setIdx(i1);
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
 	 */
 	@Override
 	protected void run() {
@@ -252,6 +321,10 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 		this.assignNodes();
 
+		Double numTandem = this.getNumTandemPair().doubleValue();
+		Double numSwappable = this.getNumSwappableGate().doubleValue();
+		Double thresh = numTandem / (numTandem + numSwappable);
+
 		// evaluate
 		for (int j = 0; j < STEPS + T0_STEPS; ++j) {
 			Double LOGTEMP = LOGMAX - j * LOGINC;
@@ -262,11 +335,16 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			}
 
 			Evaluator eval = null;
-			eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
+			eval = new Evaluator(this.getNetlist(), this.getTMActivityEvaluation(), this.getUnitConversion());
 			eval.evaluate();
-			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
+			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
 
-			Double before = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation());
+			Double before = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(),
+					this.getTMActivityEvaluation());
+			Double after = before;
+
+			Boolean reject = false;
+			Boolean tandemSwap = false;
 
 			GateManager GM = this.getGateManager();
 			Netlist netlist = this.getNetlist();
@@ -274,7 +352,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			// get random node
 			NetlistNode node = null;
 			while (node == null) {
-				int rand = random(0,netlist.getNumVertex() - 1);
+				int rand = random(0, netlist.getNumVertex() - 1);
 				NetlistNode temp = netlist.getVertexAtIdx(rand);
 				if (!LSResultsUtils.isAllOutput(temp) && !LSResultsUtils.isAllInput(temp)) {
 					node = temp;
@@ -282,60 +360,94 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			}
 			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 
-			// get random gate
-			Gate original = (Gate)data.getGate();
-			Gate candidate = GM.getRandomGateFromUnassignedGroup();
-			if (candidate == null) {
-				throw new RuntimeException("Gate assignment error!");
+			// TODO: gate swap or input order swap
+			// DONE 0. init edge idx
+			// DONE 1. get number of input pairs (NOR gates) and number of gates (for
+			// probablity normalization)
+			// DONE 2. compute probability of swapping gate or swapping input order
+			// DONE 3. get random number and decide
+			// DONE 4. if gate swap, proceed as usual. if input swap, set edge idx
+			// DONE? 5. compute circuit output using edge idx
+			// DONE a. get edges sorted by idx (maps to promoter order)
+			// DONE? b. Evaluator
+			// 6. do rule check either way (new code needed for check against edge order)
+			// DONE 7. write parts in netlist (needs to be there if we chose promoter order
+			// in
+			// this stage)
+			// 7. read parts in Eugene stage
+
+			Double r = Math.random();
+			if (r < thresh && this.getComputeTandemEfficiency()) {
+				tandemSwap = true;
 			}
-			// set gate
-			GM.setUnassignedGate(original);
-			data.setGate(candidate);
-			GM.setAssignedGate(candidate);
+
+			Gate original = null;
+			Gate candidate = null;
+			NetlistNode swapNode = null;
+
+			if (!tandemSwap) {
+				// get random gate
+				original = (Gate) data.getGate();
+				candidate = GM.getRandomGateFromUnassignedGroup();
+				if (candidate == null) {
+					throw new RuntimeException("Gate assignment error!");
+				}
+				// set gate
+				this.swapGate(data, original, candidate);
+			} else {
+				swapNode = this.getRandomNodeWithTandemPair();
+				this.swapTandemOrder(swapNode);
+			}
 
 			// evaluate
-			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
-			                                                     this.getSensorSignals(),
-			                                                     this.getLSLogicEvaluation());
-			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
+			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(), this.getSensorSignals(),
+					this.getLSLogicEvaluation());
+
+			if (this.getComputeTandemEfficiency())
+				eval = new TandemEvaluator(this.getNetlist(), tempActivity, this.getUnitConversion());
+			else
+				eval = new Evaluator(this.getNetlist(), tempActivity, this.getUnitConversion());
+
 			eval.evaluate();
-			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
+			after = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(), tempActivity);
 
 			// toxicity
-			TMToxicityEvaluation tempToxicity = new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation());
+			TMToxicityEvaluation tempToxicity = new TMToxicityEvaluation(this.getNetlist(),
+					this.getTMActivityEvaluation());
 			if (this.getTMToxicityEvaluation().getMinimumGrowth() < D_GROWTH_THRESHOLD) {
 				if (tempToxicity.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
 					this.setTMToxicityEvaluation(tmte);
 					this.setTMActivityEvaluation(tempActivity);
 					continue;
-				}
-				else {
-					// undo
-					GM.setUnassignedGate(candidate);
-					data.setGate(original);
-					GM.setAssignedGate(original);
-					continue;
+				} else {
+					reject = true;
 				}
 			}
-			else if (tempToxicity.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
-				// undo
-				GM.setUnassignedGate(candidate);
-				data.setGate(original);
-				GM.setAssignedGate(original);
+			if (tempToxicity.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
+				reject = true;
+			}
+
+			if (reject) {
+				if (!tandemSwap)
+					this.swapGate(data, candidate, original);
+				else
+					this.swapTandemOrder(swapNode);
 				continue;
 			}
 
+			// TODO: rule check
+
 			// accept or reject
-			Double probability = Math.exp( (after-before) / TEMP ); // e^b
+			Double probability = Math.exp((after - before) / TEMP); // e^b
 			Double ep = Math.random();
 
 			if (ep < probability) {
 				this.setTMActivityEvaluation(tempActivity);
 			} else {
-				// undo
-				GM.setUnassignedGate(candidate);
-				data.setGate(original);
-				GM.setAssignedGate(original);
+				if (!tandemSwap)
+					this.swapGate(data, candidate, original);
+				else
+					this.swapTandemOrder(swapNode);
 			}
 
 		}
@@ -346,17 +458,40 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 * Copy the gate assignements to the netlist
 	 */
 	protected void updateNetlist(final Netlist netlist) {
-		for(int i = 0; i < netlist.getNumVertex(); i++) {
+		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			Assignable gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
 				node.getResultNetlistNodeData().setGateType(gate.getName());
 			}
+			if (this.getComputeTandemEfficiency()) {
+				Collection<String> parts = new ArrayList<>();
+				for (NetlistEdge e : SimulatedAnnealingUtils.getInEdgeSortedByIdx(node)) {
+					NetlistNode src = e.getSrc();
+					Assignable g = this.getSimulatedAnnealingNetlistNodeData(src).getGate();
+					if (g instanceof Gate) {
+						parts.add(((Gate) g).getGateParts().getPromoter());
+					}
+					if (g instanceof InputSensor) {
+						parts.add(((InputSensor) g).getPromoter());
+					}
+				}
+				if (gate != null && gate instanceof Gate) {
+					Gate g = (Gate) gate;
+					for (int j = 0; j < g.getResponseFunction().getNumVariable(); j++) {
+						ResponseFunctionVariable var = g.getResponseFunction().getVariableAtIdx(j);
+						CasetteParts cassette = var.getCasetteParts();
+						for (int k = 0; k < cassette.getNumParts(); k++) {
+							parts.add(cassette.getPartAtIdx(k).getName());
+						}
+					}
+				}
+			}
 		}
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
 	 */
 	@Override
 	protected void postprocessing() {
@@ -366,15 +501,16 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR);
 		String outputFile = outputDir + Utils.getFileSeparator() + filename;
 		// logic
-		LSResultsUtils.writeCSVForLSLogicEvaluation(this.getLSLogicEvaluation(),outputFile + "_logic.csv");
+		LSResultsUtils.writeCSVForLSLogicEvaluation(this.getLSLogicEvaluation(), outputFile + "_logic.csv");
 		// cytometry
 		this.setTMCytometryEvaluation(new TMCytometryEvaluation());
-		//toxicity
-		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
-		SimulatedAnnealingResultsUtils.writeCSVForTMToxicityEvaluation(this.getTMToxicityEvaluation(),outputFile + "_toxicity.csv");
+		// toxicity
+		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
+		SimulatedAnnealingResultsUtils.writeCSVForTMToxicityEvaluation(this.getTMToxicityEvaluation(),
+				outputFile + "_toxicity.csv");
 		this.logInfo(this.getTMToxicityEvaluation().toString());
-		//activity
-		TMResultsUtils.writeCSVForTMActivityEvaluation(this.getTMActivityEvaluation(),outputFile + "_activity.csv");
+		// activity
+		TMResultsUtils.writeCSVForTMActivityEvaluation(this.getTMActivityEvaluation(), outputFile + "_activity.csv");
 		this.logInfo(this.getTMActivityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
@@ -397,11 +533,10 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
 	}
 
-
 	/**
-	 *  Returns the Logger for the <i>SimulatedAnnealing</i> algorithm
-	 *
-	 *  @return the logger for the <i>SimulatedAnnealing</i> algorithm
+	 * Returns the Logger for the <i>SimulatedAnnealing</i> algorithm
+	 * 
+	 * @return the logger for the <i>SimulatedAnnealing</i> algorithm
 	 */
 	@Override
 	protected Logger getLogger() {
@@ -409,6 +544,16 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class);
+
+	protected void setComputeTandemEfficiency(final Boolean computeTandemEfficiency) {
+		this.computeTandemEfficiency = computeTandemEfficiency;
+	}
+
+	public Boolean getComputeTandemEfficiency() {
+		return this.computeTandemEfficiency;
+	}
+
+	private Boolean computeTandemEfficiency;
 
 	/*
 	 * Gate
@@ -421,7 +566,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		return this.gates;
 	}
 
-
 	private CObjectCollection<Gate> gates;
 
 	/*
@@ -429,6 +573,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	/**
 	 * Getter for <i>sensors</i>
+	 * 
 	 * @return value of <i>sensors</i>
 	 */
 	public CObjectCollection<InputSensor> getInputSensors() {
@@ -437,6 +582,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>sensors</i>
+	 * 
 	 * @param sensors the value to set <i>sensors</i>
 	 */
 	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
@@ -447,6 +593,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Getter for <i>reporters</i>
+	 * 
 	 * @return value of <i>reporters</i>
 	 */
 	public CObjectCollection<OutputDevice> getOutputReporters() {
@@ -455,6 +602,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>reporters</i>
+	 * 
 	 * @param reporters the value to set <i>reporters</i>
 	 */
 	protected void setOutputReporters(final CObjectCollection<OutputDevice> reporters) {
@@ -465,24 +613,27 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Getter for <i>inputMap</i>
+	 * 
 	 * @return value of <i>inputMap</i>
 	 */
-	protected Map<String,String> getInputMap() {
+	protected Map<String, String> getInputMap() {
 		return inputMap;
 	}
 
 	/**
 	 * Setter for <i>inputMap</i>
+	 * 
 	 * @param inputMap the value to set <i>inputMap</i>
 	 */
-	protected void setInputMap(final Map<String,String> inputMap) {
+	protected void setInputMap(final Map<String, String> inputMap) {
 		this.inputMap = inputMap;
 	}
 
-	private Map<String,String> inputMap;
+	private Map<String, String> inputMap;
 
 	/**
 	 * Getter for <i>outputMap</i>
+	 * 
 	 * @return value of <i>outputMap</i>
 	 */
 	protected Map<String, String> getOutputMap() {
@@ -491,13 +642,14 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>outputMap</i>
+	 * 
 	 * @param outputMap the value to set <i>outputMap</i>
 	 */
 	protected void setOutputMap(final Map<String, String> outputMap) {
 		this.outputMap = outputMap;
 	}
 
-	private Map<String,String> outputMap;
+	private Map<String, String> outputMap;
 
 	/**
 	 * @param unitConversion the unitConversion to set
@@ -543,6 +695,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Getter for <i>signals</i>
+	 * 
 	 * @return value of <i>signals</i>
 	 */
 	protected SensorSignals<NetlistNode> getSensorSignals() {
@@ -577,6 +730,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>signals</i>
+	 * 
 	 * @param signals the value to set <i>signals</i>
 	 */
 	protected void setSensorSignals(final SensorSignals<NetlistNode> signals) {
@@ -590,6 +744,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	/**
 	 * Getter for <i>tmae</i>
+	 * 
 	 * @return value of <i>tmae</i>
 	 */
 	public TMActivityEvaluation getTMActivityEvaluation() {
@@ -598,6 +753,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>tmte</i>
+	 * 
 	 * @param tmte the value to set <i>tmte</i>
 	 */
 	protected void setTMToxicityEvaluation(final TMToxicityEvaluation tmte) {
@@ -606,12 +762,12 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	private TMToxicityEvaluation tmte;
 
-
 	/*
 	 * TMToxicityEvaluation
 	 */
 	/**
 	 * Setter for <i>tmae</i>
+	 * 
 	 * @param tmae the value to set <i>tmae</i>
 	 */
 	protected void setTMActivityEvaluation(final TMActivityEvaluation tmae) {
@@ -620,15 +776,18 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>tmae</i>
+	 * 
 	 * @param tmte the value to set <i>tmae</i>
 	 */
-	protected void setTMActivityEvaluation(final Netlist netlist, final SensorSignals<NetlistNode> signals, final LSLogicEvaluation lsle) {
+	protected void setTMActivityEvaluation(final Netlist netlist, final SensorSignals<NetlistNode> signals,
+			final LSLogicEvaluation lsle) {
 		updateNetlist(netlist);
-		tmae = new TMActivityEvaluation(netlist,signals,lsle);
+		tmae = new TMActivityEvaluation(netlist, signals, lsle);
 	}
 
 	/**
 	 * Getter for <i>tmte</i>
+	 * 
 	 * @return value of <i>tmte</i>
 	 */
 	public TMToxicityEvaluation getTMToxicityEvaluation() {
@@ -639,6 +798,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Getter for <i>tmce</i>
+	 * 
 	 * @return value of <i>tmce</i>
 	 */
 	public TMCytometryEvaluation getTMCytometryEvaluation() {
@@ -647,6 +807,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>tmce</i>
+	 * 
 	 * @param tmce the value to set <i>tmce</i>
 	 */
 	protected void setTMCytometryEvaluation(final TMCytometryEvaluation tmce) {
@@ -665,7 +826,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		return rtn;
 	}
 
-	private Random getRandom(){
+	private Random getRandom() {
 		return this.random;
 	}
 

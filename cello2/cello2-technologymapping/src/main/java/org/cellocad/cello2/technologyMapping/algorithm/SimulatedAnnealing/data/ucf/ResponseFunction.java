@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2019
+ * Massachusetts Institute of Technology (MIT)
  * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +48,11 @@ public class ResponseFunction extends CObject{
 		String value = ProfileUtils.getString(JObj, "equation");
 		this.setEquation(value);
 	}
+	
+	private void parseTandemEfficiencyFactor(final JSONObject JObj){
+		String value = ProfileUtils.getString(JObj, "tandem_efficiency_factor");
+		this.setTandemEfficiencyFactor(value);
+	}
 
 	private void parseVariables(final JSONObject JObj){
 		CObjectCollection<ResponseFunctionVariable> variables = this.getVariables();
@@ -71,6 +77,7 @@ public class ResponseFunction extends CObject{
 	private void parseResponseFunction(final JSONObject jObj) {
 		this.parseGateName(jObj);
 		this.parseEquation(jObj);
+		this.parseTandemEfficiencyFactor(jObj);
 		this.parseVariables(jObj);
 		this.parseParameters(jObj);
     }
@@ -111,6 +118,19 @@ public class ResponseFunction extends CObject{
 	
 	/*
 	 * Equation
+	 */
+	private void setTandemEfficiencyFactor(final String expr){
+		this.tandemEfficiencyFactor = expr;
+	}
+	
+	public String getTandemEfficiencyFactor(){
+		return this.tandemEfficiencyFactor;
+	}
+	
+	private String tandemEfficiencyFactor;
+	
+	/*
+	 * Tandem efficiency factor
 	 */
 	private void setEquation(final String equation){
 		this.equation = equation;

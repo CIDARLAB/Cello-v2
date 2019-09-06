@@ -1,0 +1,7 @@
+logicSynthesis.Gates,"NOR"
+technologyMapping,SimulatedAnnealing
+partitioning,HMetis
+export.AddInteractions,false
+export.RepositoryUrl,https://synbiohub.programmingbiology.org
+placing.MaxPlacements,1
+technologyMapping.ComputeTandemEfficiency,true

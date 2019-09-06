@@ -157,12 +157,10 @@ public class Eugene extends PLAlgorithm {
 		String filename = outputDir + Utils.getFileSeparator() + Utils.getFilename(inputFilename) + "_eugeneScript.eug";
 		this.setEugeneScriptFilename(filename);
 
-		Boolean present = false;
-
-		present = this.getAlgorithmProfile().getIntParameter("MaxPlacements").getFirst();
-		if (present) {
-			this.setMaxPlacements(this.getAlgorithmProfile().getIntParameter("MaxPlacements").getSecond());
-		}
+		this.setMaxPlacements(this.getAlgorithmProfile().getIntParameter("MaxPlacements").getSecond());
+		this.setSplitTandemPromoters(
+				this.getAlgorithmProfile().getBooleanParameter("SplitTandemPromoters").getSecond());
+		this.setOverrideGateType(this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getSecond());
 	}
 
 	/**
@@ -784,8 +782,8 @@ public class Eugene extends PLAlgorithm {
 	 * 
 	 * @param eugeneScriptFilename the value to set <i>eugeneScriptFilename</i>
 	 */
-	protected void setEugeneScriptFilename(final String eugeneScriptFilename) {
-		this.eugeneScriptFilename = eugeneScriptFilename;
+	public void setDevicesMap(Map<NetlistNode, Devices> devicesMap) {
+		this.devicesMap = devicesMap;
 	}
 
 	/**
