@@ -11,6 +11,7 @@
   <artifactId>cello2-dnacompiler</artifactId>
   <properties>
     <stage.name>DNACompiler</stage.name>
+	<docker.image.prefix>cidarlab</docker.image.prefix>
   </properties>
   <dependencies>
     <dependency>
@@ -62,9 +63,21 @@
   </dependencies>
   <build>
     <plugins>
-	      <plugin>
+	  <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.4.9</version>
+        <configuration>
+          <repository>${docker.image.prefix}/${project.artifactId}</repository>
+          <buildArgs>
+            <YOSYS_VERSION>0.9</YOSYS_VERSION>
+            <JAR_FILE>${project.build.finalName}-jar-with-dependencies.jar</JAR_FILE>
+          </buildArgs>
+        </configuration>
+      </plugin>
+	  <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-	<version>3.1.0</version>
+		<version>3.1.0</version>
         <configuration>
           <archive>
             <manifest>
