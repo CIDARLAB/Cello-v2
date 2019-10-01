@@ -185,15 +185,25 @@ public class TMToxicityEvaluation extends CObject{
 		return rtn;
 	}
 
+	// public Double getMinimumGrowth() {
+	// 	Double rtn = D_MAXGROWTH;
+	// 	for (NetlistNode node : this.getToxicityTables().keySet()) {
+	// 		ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
+	// 		for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
+	// 			Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
+	// 			Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
+	// 			rtn = Math.min(rtn,output.getToxicity(node));
+	// 		}
+	// 	}
+	// 	return rtn;
+	// }
+
 	public Double getMinimumGrowth() {
 		Double rtn = D_MAXGROWTH;
-		for (NetlistNode node : this.getToxicityTables().keySet()) {
-			ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
-			for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
-				Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
-				Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
-				rtn = Math.min(rtn,output.getToxicity(node));
-			}
+		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getActivities();
+		for (int i = 0; i < activities.getNumActivities(); i++) {
+			Activity<NetlistNode> activity = activities.getActivityAtIdx(i);
+			rtn = Math.min(rtn,this.getGrowth(activity));
 		}
 		return rtn;
 	}
