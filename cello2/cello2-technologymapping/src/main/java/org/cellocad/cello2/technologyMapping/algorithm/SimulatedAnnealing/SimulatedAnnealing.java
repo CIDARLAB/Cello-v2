@@ -276,7 +276,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		Double MAXTEMP = 100.0;
 		Double MINTEMP = 0.001;
 
-		Integer STEPS = 100;
+		Integer STEPS = 500;
 
 		Double LOGMAX = Math.log10(MAXTEMP);
 		Double LOGMIN = Math.log10(MINTEMP);
