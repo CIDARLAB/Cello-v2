@@ -22,6 +22,7 @@ package org.cellocad.cello2.partitioning.runtime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.runtime.RuntimeObject;
 import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
@@ -44,40 +45,37 @@ import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * The PTRuntimeObject class is the RuntimeObject class for the <i>partitioning</i> stage.
+ * The PTRuntimeObject class is the RuntimeObject class for the
+ * <i>partitioning</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date 2018-05-21
  *
  */
-public class PTRuntimeObject extends RuntimeObject{
+public class PTRuntimeObject extends RuntimeObject {
 
 	/**
-	 *  Initializes a newly created PTRuntimeObject with its <i>stage</i> set to parameter <i>stage</i>,
-	 *  its <i>targetData</i> set to parameter <i>targetData</i>,
-	 *  its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 *  its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 *  
-	 *  @param stage Stage used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param netlist Netlist used during execution
-	 *  @param runEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 * Initializes a newly created PTRuntimeObject with its <i>stage</i> set to
+	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
+	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 * 
+	 * @param stage             Stage used during execution
+	 * @param targetData        TargetData used during execution
+	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param netlist           Netlist used during execution
+	 * @param runEnv            RuntimeEnv used during execution
+	 * @throws RuntimeException if any of the parameters are null
 	 */
-	public PTRuntimeObject(
-			final Stage stage,
-			final TargetData targetData,
-			final NetlistConstraint netlistConstraint,
-			final Netlist netlist,
-			final RuntimeEnv runEnv
-			) {
+	public PTRuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
+			final Netlist netlist, final RuntimeEnv runEnv) {
 		super(stage, targetData, netlistConstraint, netlist, runEnv);
 	}
 
 	/**
-	 * 	Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the partitioning stage.
+	 * Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the
+	 * partitioning stage.
 	 */
 	@Override
 	protected void prepareDataFactory() {
@@ -86,12 +84,11 @@ public class PTRuntimeObject extends RuntimeObject{
 		this.setNetlistEdgeDataFactory(new PTNetlistEdgeDataFactory());
 	}
 
-	
 	/**
-	 *  Sets the PTStageNetlistData for the partitioning stage in parameter <i>netlist</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the PTStageNetlistData for the partitioning stage in parameter
+	 * <i>netlist</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistData(Netlist netlist) {
@@ -99,10 +96,10 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the PTStageNetlistNodeData for the partitioning stage in parameter <i>node</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the PTStageNetlistNodeData for the partitioning stage in parameter
+	 * <i>node</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistNodeData(NetlistNode node) {
@@ -110,10 +107,10 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the PTStageNetlistEdgeData for the partitioning stage in parameter <i>edge</i>
-	 *  <b>Note: method this will be deprecated in the future.</b>
-	 *  
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the PTStageNetlistEdgeData for the partitioning stage in parameter
+	 * <i>edge</i> <b>Note: method this will be deprecated in the future.</b>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistEdgeData(NetlistEdge edge) {
@@ -121,8 +118,9 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistData(Netlist netlist) {
@@ -131,8 +129,10 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter <i>node</i>
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
+	 * <i>node</i>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistNodeData(NetlistNode node) {
@@ -141,8 +141,10 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter <i>edge</i>
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
+	 * <i>edge</i>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistEdgeData(NetlistEdge edge) {
@@ -151,9 +153,11 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Returns a string representing the OPTIONS command line argument for the partitioning stage
-	 *  
-	 *  @return a string representing the OPTIONS command line argument for the partitioning stage
+	 * Returns a string representing the OPTIONS command line argument for the
+	 * partitioning stage
+	 * 
+	 * @return a string representing the OPTIONS command line argument for the
+	 *         partitioning stage
 	 */
 	@Override
 	protected String getOptionsString() {
@@ -161,77 +165,86 @@ public class PTRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 * 	Executes the algorithm of the partitioning stage.
+	 * Executes the algorithm of the partitioning stage.
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void runAlgo() {
+	protected void runAlgo() throws CelloException {
 		// get Algorithm from Factory
 		PTAlgorithmFactory AF = new PTAlgorithmFactory();
 		PTAlgorithm algo = AF.getAlgorithm(this.getAlgorithmProfile());
-		//executeAlgo
+		// executeAlgo
 		this.executeAlgo(algo);
 	}
 
 	/**
-	 *  Getter for the PTNetlistDataFactory
-	 *  @return the PTNetlistDataFactory
+	 * Getter for the PTNetlistDataFactory
+	 * 
+	 * @return the PTNetlistDataFactory
 	 */
 	protected PTNetlistDataFactory getNetlistDataFactory() {
 		return this.netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the PTNetlistDataFactory
-	 *  @param netlistDataFactory the PTNetlistDataFactory
+	 * Setter for the PTNetlistDataFactory
+	 * 
+	 * @param netlistDataFactory the PTNetlistDataFactory
 	 */
 	private void setNetlistDataFactory(final PTNetlistDataFactory netlistDataFactory) {
 		this.netlistDataFactory = netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the PTNetlistNodeDataFactory
-	 *  @return the PTNetlistNodeDataFactory
+	 * Getter for the PTNetlistNodeDataFactory
+	 * 
+	 * @return the PTNetlistNodeDataFactory
 	 */
 	protected PTNetlistNodeDataFactory getNetlistNodeDataFactory() {
 		return this.netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the PTNetlistNodeDataFactory
-	 *  @param netlistNodeDataFactory the PTNetlistNodeDataFactory
+	 * Setter for the PTNetlistNodeDataFactory
+	 * 
+	 * @param netlistNodeDataFactory the PTNetlistNodeDataFactory
 	 */
 	private void setNetlistNodeDataFactory(final PTNetlistNodeDataFactory netlistNodeDataFactory) {
 		this.netlistNodeDataFactory = netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the PTNetlistEdgeDataFactory
-	 *  @return the PTNetlistEdgeDataFactory
+	 * Getter for the PTNetlistEdgeDataFactory
+	 * 
+	 * @return the PTNetlistEdgeDataFactory
 	 */
 	protected PTNetlistEdgeDataFactory getNetlistEdgeDataFactory() {
 		return this.netlistEdgeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the PTNetlistEdgeDataFactor
-	 *  @param netlistEdgeDataFactory the PTNetlistEdgeDataFactor
+	 * Setter for the PTNetlistEdgeDataFactor
+	 * 
+	 * @param netlistEdgeDataFactory the PTNetlistEdgeDataFactor
 	 */
 	private void setNetlistEdgeDataFactory(final PTNetlistEdgeDataFactory netlistEdgeDataFactory) {
 		this.netlistEdgeDataFactory = netlistEdgeDataFactory;
 	}
-	
+
 	private PTNetlistDataFactory netlistDataFactory;
 	private PTNetlistEdgeDataFactory netlistEdgeDataFactory;
 	private PTNetlistNodeDataFactory netlistNodeDataFactory;
 
-
 	/**
-	 *  Returns the Logger instance for the <i>partitioning</i> stage.
-	 *  @return the Logger instance for the <i>partitioning</i> stage.
+	 * Returns the Logger instance for the <i>partitioning</i> stage.
+	 * 
+	 * @return the Logger instance for the <i>partitioning</i> stage.
 	 */
 	protected Logger getLogger() {
 		return PTRuntimeObject.logger;
 	}
+
 	private static final Logger logger = LogManager.getLogger(PTRuntimeObject.class);
 
 }

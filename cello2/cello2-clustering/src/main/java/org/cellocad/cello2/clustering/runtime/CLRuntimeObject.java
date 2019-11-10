@@ -34,6 +34,7 @@ import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistData;
 import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistEdgeData;
 import org.cellocad.cello2.clustering.netlist.data.CLStageNetlistNodeData;
 import org.cellocad.cello2.clustering.runtime.environment.CLArgString;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.runtime.RuntimeObject;
 import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
@@ -44,40 +45,37 @@ import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * The CLRuntimeObject class is the RuntimeObject class for the <i>clustering</i> stage.
+ * The CLRuntimeObject class is the RuntimeObject class for the
+ * <i>clustering</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date 2018-05-21
  *
  */
-public class CLRuntimeObject extends RuntimeObject{
+public class CLRuntimeObject extends RuntimeObject {
 
 	/**
-	 *  Initializes a newly created CLRuntimeObject with its <i>stage</i> set to parameter <i>stage</i>,
-	 *  its <i>targetData</i> set to parameter <i>targetData</i>,
-	 *  its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 *  its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 *  
-	 *  @param stage Stage used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param netlist Netlist used during execution
-	 *  @param runEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 * Initializes a newly created CLRuntimeObject with its <i>stage</i> set to
+	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
+	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 * 
+	 * @param stage             Stage used during execution
+	 * @param targetData        TargetData used during execution
+	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param netlist           Netlist used during execution
+	 * @param runEnv            RuntimeEnv used during execution
+	 * @throws RuntimeException if any of the parameters are null
 	 */
-	public CLRuntimeObject(
-			final Stage stage,
-			final TargetData targetData,
-			final NetlistConstraint netlistConstraint,
-			final Netlist netlist,
-			final RuntimeEnv runEnv
-			) {
+	public CLRuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
+			final Netlist netlist, final RuntimeEnv runEnv) {
 		super(stage, targetData, netlistConstraint, netlist, runEnv);
 	}
 
 	/**
-	 * 	Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the clustering stage.
+	 * Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the
+	 * clustering stage.
 	 */
 	@Override
 	protected void prepareDataFactory() {
@@ -86,12 +84,11 @@ public class CLRuntimeObject extends RuntimeObject{
 		this.setNetlistEdgeDataFactory(new CLNetlistEdgeDataFactory());
 	}
 
-	
 	/**
-	 *  Sets the CLStageNetlistData for the clustering stage in parameter <i>netlist</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the CLStageNetlistData for the clustering stage in parameter
+	 * <i>netlist</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistData(Netlist netlist) {
@@ -99,10 +96,10 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the CLStageNetlistNodeData for the clustering stage in parameter <i>node</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the CLStageNetlistNodeData for the clustering stage in parameter
+	 * <i>node</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistNodeData(NetlistNode node) {
@@ -110,10 +107,10 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the CLStageNetlistEdgeData for the clustering stage in parameter <i>edge</i>
-	 *  <b>Note: method this will be deprecated in the future.</b>
-	 *  
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the CLStageNetlistEdgeData for the clustering stage in parameter
+	 * <i>edge</i> <b>Note: method this will be deprecated in the future.</b>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistEdgeData(NetlistEdge edge) {
@@ -121,8 +118,9 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistData(Netlist netlist) {
@@ -131,8 +129,10 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter <i>node</i>
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
+	 * <i>node</i>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistNodeData(NetlistNode node) {
@@ -141,8 +141,10 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter <i>edge</i>
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
+	 * <i>edge</i>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistEdgeData(NetlistEdge edge) {
@@ -151,9 +153,11 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Returns a string representing the OPTIONS command line argument for the clustering stage
-	 *  
-	 *  @return a string representing the OPTIONS command line argument for the clustering stage
+	 * Returns a string representing the OPTIONS command line argument for the
+	 * clustering stage
+	 * 
+	 * @return a string representing the OPTIONS command line argument for the
+	 *         clustering stage
 	 */
 	@Override
 	protected String getOptionsString() {
@@ -161,77 +165,86 @@ public class CLRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 * 	Executes the algorithm of the clustering stage.
+	 * Executes the algorithm of the clustering stage.
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void runAlgo() {
+	protected void runAlgo() throws CelloException {
 		// get Algorithm from Factory
 		CLAlgorithmFactory AF = new CLAlgorithmFactory();
 		CLAlgorithm algo = AF.getAlgorithm(this.getAlgorithmProfile());
-		//executeAlgo
+		// executeAlgo
 		this.executeAlgo(algo);
 	}
 
 	/**
-	 *  Getter for the CLNetlistDataFactory
-	 *  @return the CLNetlistDataFactory
+	 * Getter for the CLNetlistDataFactory
+	 * 
+	 * @return the CLNetlistDataFactory
 	 */
 	protected CLNetlistDataFactory getNetlistDataFactory() {
 		return this.netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the CLNetlistDataFactory
-	 *  @param netlistDataFactory the CLNetlistDataFactory
+	 * Setter for the CLNetlistDataFactory
+	 * 
+	 * @param netlistDataFactory the CLNetlistDataFactory
 	 */
 	private void setNetlistDataFactory(final CLNetlistDataFactory netlistDataFactory) {
 		this.netlistDataFactory = netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the CLNetlistNodeDataFactory
-	 *  @return the CLNetlistNodeDataFactory
+	 * Getter for the CLNetlistNodeDataFactory
+	 * 
+	 * @return the CLNetlistNodeDataFactory
 	 */
 	protected CLNetlistNodeDataFactory getNetlistNodeDataFactory() {
 		return this.netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the CLNetlistNodeDataFactory
-	 *  @param netlistNodeDataFactory the CLNetlistNodeDataFactory
+	 * Setter for the CLNetlistNodeDataFactory
+	 * 
+	 * @param netlistNodeDataFactory the CLNetlistNodeDataFactory
 	 */
 	private void setNetlistNodeDataFactory(final CLNetlistNodeDataFactory netlistNodeDataFactory) {
 		this.netlistNodeDataFactory = netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the CLNetlistEdgeDataFactory
-	 *  @return the CLNetlistEdgeDataFactory
+	 * Getter for the CLNetlistEdgeDataFactory
+	 * 
+	 * @return the CLNetlistEdgeDataFactory
 	 */
 	protected CLNetlistEdgeDataFactory getNetlistEdgeDataFactory() {
 		return this.netlistEdgeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the CLNetlistEdgeDataFactor
-	 *  @param netlistEdgeDataFactory the CLNetlistEdgeDataFactor
+	 * Setter for the CLNetlistEdgeDataFactor
+	 * 
+	 * @param netlistEdgeDataFactory the CLNetlistEdgeDataFactor
 	 */
 	private void setNetlistEdgeDataFactory(final CLNetlistEdgeDataFactory netlistEdgeDataFactory) {
 		this.netlistEdgeDataFactory = netlistEdgeDataFactory;
 	}
-	
+
 	private CLNetlistDataFactory netlistDataFactory;
 	private CLNetlistEdgeDataFactory netlistEdgeDataFactory;
 	private CLNetlistNodeDataFactory netlistNodeDataFactory;
 
-
 	/**
-	 *  Returns the Logger instance for the <i>clustering</i> stage.
-	 *  @return the Logger instance for the <i>clustering</i> stage.
+	 * Returns the Logger instance for the <i>clustering</i> stage.
+	 * 
+	 * @return the Logger instance for the <i>clustering</i> stage.
 	 */
 	protected Logger getLogger() {
 		return CLRuntimeObject.logger;
 	}
+
 	private static final Logger logger = LogManager.getLogger(CLRuntimeObject.class);
 
 }

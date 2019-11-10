@@ -37,7 +37,9 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.file.dot.utils.Dot2Pdf;
 import org.cellocad.cello2.partitioning.algorithm.PTAlgorithm;
 import org.cellocad.cello2.partitioning.algorithm.HMetis.data.HMetisNetlistData;
 import org.cellocad.cello2.partitioning.algorithm.HMetis.data.HMetisNetlistEdgeData;
@@ -54,20 +56,20 @@ import org.cellocad.cello2.partitioning.netlist.PTNetlistNode;
 import org.cellocad.cello2.partitioning.netlist.PTNetlistNodeUtils;
 import org.cellocad.cello2.partitioning.netlist.PTNetlistUtils;
 import org.cellocad.cello2.partitioning.runtime.environment.PTArgString;
-import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * The HMetis class implements the <i>HMetis</i> algorithm in the <i>partitioning</i> stage.
+ * The HMetis class implements the <i>HMetis</i> algorithm in the
+ * <i>partitioning</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date 2018-05-21
  *
  */
-public class HMetis extends PTAlgorithm{
+public class HMetis extends PTAlgorithm {
 
 	private void init() {
 		integerVertexMap = new HashMap<Integer, PTNetlistNode>();
@@ -75,14 +77,14 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Initializes a newly created HMetis
+	 * Initializes a newly created HMetis
 	 */
 	public HMetis() {
 		this.init();
 	}
 
 	/**
-	 *  Creates the file path for the HMetis Input File
+	 * Creates the file path for the HMetis Input File
 	 */
 	protected void createHMetisInFilePath() {
 		String file = "";
@@ -93,7 +95,7 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Creates the file path for the HMetis Output File
+	 * Creates the file path for the HMetis Output File
 	 */
 	protected void createHMetisOutFilePath() {
 		String file = "";
@@ -101,11 +103,11 @@ public class HMetis extends PTAlgorithm{
 		file += Utils.getFileSeparator();
 		file += "TEMP_GRAPH_FILE.hgr.part.";
 		file += this.getPartitioner().getPartition().getNumBlock();
-		this.setHMetisOutFile(file);	
+		this.setHMetisOutFile(file);
 	}
 
 	/**
-	 *  Adds the content to the HMetis Input File
+	 * Adds the content to the HMetis Input File
 	 */
 	protected void addContentHMetisInFilePath() {
 		PTNetlist ptNetlist = this.getNetlister().getPTNetlist();
@@ -118,12 +120,12 @@ public class HMetis extends PTAlgorithm{
 		Integer srcInteger = null;
 		Integer dstInteger = null;
 		int temp = 0;
-		for (int i = 0; i < ptNetlist.getNumEdge(); i++){
+		for (int i = 0; i < ptNetlist.getNumEdge(); i++) {
 			PTNetlistEdge edge = ptNetlist.getEdgeAtIdx(i);
 			if (PTNetlistEdgeUtils.isEdgeConnectedToPrimary(edge)) {
 				continue;
 			}
-			temp ++;
+			temp++;
 			src = edge.getSrc();
 			dst = edge.getDst();
 			srcInteger = vertexIntegerMap.get(src);
@@ -134,12 +136,12 @@ public class HMetis extends PTAlgorithm{
 			OutputStream outputStream = new FileOutputStream(this.getHMetisInFile());
 			Writer outputStreamWriter = new OutputStreamWriter(outputStream);
 			// Format of Hypergraph Input File
-			// header lines are: [number of edges] [number of vertices] 
-			//		subsequent lines give each edge, one edge per line
+			// header lines are: [number of edges] [number of vertices]
+			// subsequent lines give each edge, one edge per line
 			outputStreamWriter.write(temp + " " + vertexIntegerMap.size() + newline);
 			for (int i = 0; i < fileContent.size(); i++) {
 				outputStreamWriter.write(fileContent.get(i));
-			}			
+			}
 			outputStreamWriter.close();
 			outputStream.close();
 		} catch (IOException e) {
@@ -148,7 +150,7 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Creates the the HMetis Execution command
+	 * Creates the the HMetis Execution command
 	 */
 	protected void createHMetisExec() {
 		String cmd = "";
@@ -162,7 +164,7 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Creates the file path for the Partition Dot File
+	 * Creates the file path for the Partition Dot File
 	 */
 	protected void createPartitionDotFilePath() {
 		String file = "";
@@ -174,15 +176,15 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Translates the result from HMetis application to the Netlist
+	 * Translates the result from HMetis application to the Netlist
 	 */
 	protected void applyResult() {
 		List<Move> moves = new ArrayList<Move>();
 		Move move = null;
 		Partition partition = this.getPartitioner().getPartition();
-	    File resultFile = new File(this.getHMetisOutFile());
-	    Map<Integer, PTNetlistNode> integerVertexMap = this.getIntegerVertexMap();
-	    Reader resultReader = null;
+		File resultFile = new File(this.getHMetisOutFile());
+		Map<Integer, PTNetlistNode> integerVertexMap = this.getIntegerVertexMap();
+		Reader resultReader = null;
 		// Create File Reader
 		try {
 			resultReader = new FileReader(resultFile);
@@ -206,53 +208,55 @@ public class HMetis extends PTAlgorithm{
 			throw new RuntimeException("Error with file: " + resultFile);
 		}
 		// close
-	    try {
-	    	resultReader.close();
+		try {
+			resultReader.close();
 		} catch (IOException e) {
 			throw new RuntimeException("Error with file: " + resultFile);
 		}
-	    // do moves
-	    partition.doMoves(moves);
+		// do moves
+		partition.doMoves(moves);
 	}
 
 	/**
-	 *  Returns the <i>HMetisNetlistNodeData</i> of the <i>node</i>
+	 * Returns the <i>HMetisNetlistNodeData</i> of the <i>node</i>
 	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>HMetisNetlistNodeData</i> instance if it exists, null otherwise
+	 * @param node a node within the <i>netlist</i> of this instance
+	 * @return the <i>HMetisNetlistNodeData</i> instance if it exists, null
+	 *         otherwise
 	 */
-	protected HMetisNetlistNodeData getHMetisNetlistNodeData(NetlistNode node){
+	protected HMetisNetlistNodeData getHMetisNetlistNodeData(NetlistNode node) {
 		HMetisNetlistNodeData rtn = null;
 		rtn = (HMetisNetlistNodeData) node.getNetlistNodeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>HMetisNetlistEdgeData</i> of the <i>edge</i>
+	 * Returns the <i>HMetisNetlistEdgeData</i> of the <i>edge</i>
 	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>HMetisNetlistEdgeData</i> instance if it exists, null otherwise
+	 * @param edge an edge within the <i>netlist</i> of this instance
+	 * @return the <i>HMetisNetlistEdgeData</i> instance if it exists, null
+	 *         otherwise
 	 */
-	protected HMetisNetlistEdgeData getHMetisNetlistEdgeData(NetlistEdge edge){
+	protected HMetisNetlistEdgeData getHMetisNetlistEdgeData(NetlistEdge edge) {
 		HMetisNetlistEdgeData rtn = null;
 		rtn = (HMetisNetlistEdgeData) edge.getNetlistEdgeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>HMetisNetlistData</i> of the <i>netlist</i>
+	 * Returns the <i>HMetisNetlistData</i> of the <i>netlist</i>
 	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>HMetisNetlistData</i> instance if it exists, null otherwise
+	 * @param netlist the netlist of this instance
+	 * @return the <i>HMetisNetlistData</i> instance if it exists, null otherwise
 	 */
-	protected HMetisNetlistData getHMetisNetlistData(Netlist netlist){
+	protected HMetisNetlistData getHMetisNetlistData(Netlist netlist) {
 		HMetisNetlistData rtn = null;
 		rtn = (HMetisNetlistData) netlist.getNetlistData();
 		return rtn;
 	}
 
 	/**
-	 *  Gets the Constraint data from the NetlistConstraintFile
+	 * Gets the Constraint data from the NetlistConstraintFile
 	 */
 	@Override
 	protected void getConstraintFromNetlistConstraintFile() {
@@ -260,7 +264,7 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
 	 */
 	@Override
 	protected void getDataFromUCF() {
@@ -268,31 +272,32 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Set parameter(s) value(s) of the algorithm
+	 * Set parameter(s) value(s) of the algorithm
 	 */
 	@Override
 	protected void setParameterValues() {
 	}
 
 	/**
-	 *  Validate parameter value of the algorithm
+	 * Validate parameter value of the algorithm
 	 */
 	@Override
 	protected void validateParameterValues() {
-		
+
 	}
 
 	/**
-	 *  Perform preprocessing
+	 * Perform preprocessing
 	 */
 	@Override
 	protected void preprocessing() {
 		Netlist netlist = this.getNetlist();
 		this.setNetlister(new Netlister(netlist));
 		this.setPartitioner(new Partitioner(this.getTargetData()));
-		//int nblocks = netlist.getNumVertex() - LSResultsUtils.getPrimaryInputOutputNodes(netlist).size();
-		//nblocks = ((Double)Math.ceil((double)nblocks/9)).intValue();
-		//this.setPartitioner(new Partitioner(nblocks));
+		// int nblocks = netlist.getNumVertex() -
+		// LSResultsUtils.getPrimaryInputOutputNodes(netlist).size();
+		// nblocks = ((Double)Math.ceil((double)nblocks/9)).intValue();
+		// this.setPartitioner(new Partitioner(nblocks));
 		// Map Nodes to integers
 		Map<Integer, PTNetlistNode> integerVertexMap = this.getIntegerVertexMap();
 		Map<PTNetlistNode, Integer> vertexIntegerMap = this.getVertexIntegerMap();
@@ -316,11 +321,11 @@ public class HMetis extends PTAlgorithm{
 		// create HMetisExec
 		this.createHMetisExec();
 		// create path to PartitionDotFile
-		this.createPartitionDotFilePath();		
+		this.createPartitionDotFilePath();
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
 	 */
 	@Override
 	protected void run() {
@@ -328,28 +333,31 @@ public class HMetis extends PTAlgorithm{
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void postprocessing() {
+	protected void postprocessing() throws CelloException {
 		this.applyResult();
 		this.getNetlister().getNetlist();
 		Utils.deleteFilename(this.getHMetisInFile());
 		Utils.deleteFilename(this.getHMetisOutFile());
-		PTNetlistUtils.writeDotFileForPartition(this.getNetlister().getPTNetlist(), this.getPartitionDotFile());
+		File dotFile = new File(this.getPartitionDotFile());
+		PTNetlistUtils.writeDotFileForPartition(this.getNetlister().getPTNetlist(), dotFile.getAbsolutePath());
+		Dot2Pdf.dot2pdf(dotFile);
 	}
 
-
 	/**
-	 *  Returns the Logger for the <i>HMetis</i> algorithm
+	 * Returns the Logger for the <i>HMetis</i> algorithm
 	 *
-	 *  @return the logger for the <i>HMetis</i> algorithm
+	 * @return the logger for the <i>HMetis</i> algorithm
 	 */
 	@Override
 	protected Logger getLogger() {
 		return HMetis.logger;
 	}
-	
+
 	private static final Logger logger = LogManager.getLogger(HMetis.class);
 
 	/*
@@ -357,142 +365,154 @@ public class HMetis extends PTAlgorithm{
 	 */
 	/**
 	 * Setter for <i>hMetisInFile</i>
+	 * 
 	 * @param str the value to set <i>hMetisInFile</i>
-	*/
+	 */
 	protected void setHMetisInFile(final String str) {
 		this.hMetisInFile = str;
 	}
 
 	/**
 	 * Getter for <i>hMetisInFile</i>
+	 * 
 	 * @return value of <i>hMetisInFile</i>
-	*/
+	 */
 	protected String getHMetisInFile() {
 		return this.hMetisInFile;
 	}
 
 	private String hMetisInFile;
-	
+
 	/*
 	 * hMetisOutFile
 	 */
 	/**
 	 * Setter for <i>hMetisOutFile</i>
+	 * 
 	 * @param str the value to set <i>hMetisOutFile</i>
-	*/
+	 */
 	protected void setHMetisOutFile(final String str) {
 		this.hMetisOutFile = str;
 	}
 
 	/**
 	 * Getter for <i>hMetisOutFile</i>
+	 * 
 	 * @return value of <i>hMetisOutFile</i>
-	*/
+	 */
 	protected String getHMetisOutFile() {
 		return this.hMetisOutFile;
 	}
 
 	private String hMetisOutFile;
-	
+
 	/*
 	 * PartitionDot
 	 */
 	/**
 	 * Setter for <i>partitionDot</i>
+	 * 
 	 * @param str the value to set <i>partitionDot</i>
-	*/
+	 */
 	protected void setPartitionDotFile(final String str) {
 		this.partitionDot = str;
 	}
 
 	/**
 	 * Getter for <i>partitionDot</i>
+	 * 
 	 * @return value of <i>partitionDot</i>
-	*/
+	 */
 	protected String getPartitionDotFile() {
 		return this.partitionDot;
 	}
 
 	private String partitionDot;
-	
+
 	/*
 	 * hMetisExec
 	 */
 	/**
 	 * Setter for <i>hMetisExec</i>
+	 * 
 	 * @param str the value to set <i>hMetisExec</i>
-	*/
+	 */
 	protected void setHMetisExec(final String str) {
 		this.hMetisExec = str;
 	}
 
 	/**
 	 * Getter for <i>hMetisExec</i>
+	 * 
 	 * @return value of <i>hMetisExec</i>
-	*/
+	 */
 	protected String getHMetisExec() {
 		return this.hMetisExec;
 	}
 
 	private String hMetisExec;
-	
+
 	/*
 	 * Netlister
 	 */
 	/**
 	 * Setter for <i>netlister</i>
+	 * 
 	 * @param netlister the value to set <i>netlister</i>
-	*/
+	 */
 	protected void setNetlister(final Netlister netlister) {
 		this.netlister = netlister;
 	}
 
 	/**
 	 * Getter for <i>netlister</i>
+	 * 
 	 * @return value of <i>netlister</i>
-	*/
+	 */
 	protected Netlister getNetlister() {
 		return this.netlister;
 	}
-	
+
 	private Netlister netlister;
-	
+
 	/*
 	 * Partitioner
 	 */
 	/**
 	 * Setter for <i>partitioner</i>
+	 * 
 	 * @param partitioner the value to set <i>partitioner</i>
-	*/
+	 */
 	protected void setPartitioner(final Partitioner partitioner) {
 		this.partitioner = partitioner;
 	}
 
 	/**
 	 * Getter for <i>partitioner</i>
+	 * 
 	 * @return value of <i>partitioner</i>
-	*/
+	 */
 	protected Partitioner getPartitioner() {
 		return this.partitioner;
 	}
-	
+
 	private Partitioner partitioner;
-	
+
 	/*
 	 * integerVertexMap
 	 */
 	private Map<Integer, PTNetlistNode> integerVertexMap;
-	
-	private Map<Integer, PTNetlistNode> getIntegerVertexMap(){
+
+	private Map<Integer, PTNetlistNode> getIntegerVertexMap() {
 		return this.integerVertexMap;
 	}
-	
+
 	/*
 	 * vertexIntegerMap
 	 */
 	private Map<PTNetlistNode, Integer> vertexIntegerMap;
-	
-	private Map<PTNetlistNode, Integer> getVertexIntegerMap(){
+
+	private Map<PTNetlistNode, Integer> getVertexIntegerMap() {
 		return this.vertexIntegerMap;
 	}
 }

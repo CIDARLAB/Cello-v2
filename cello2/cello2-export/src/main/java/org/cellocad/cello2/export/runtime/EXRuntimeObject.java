@@ -22,6 +22,7 @@ package org.cellocad.cello2.export.runtime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.runtime.RuntimeObject;
 import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
@@ -44,40 +45,37 @@ import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * The EXRuntimeObject class is the RuntimeObject class for the <i>export</i> stage.
+ * The EXRuntimeObject class is the RuntimeObject class for the <i>export</i>
+ * stage.
  * 
  * @author Timothy Jones
  * 
  * @date 2018-06-04
  *
  */
-public class EXRuntimeObject extends RuntimeObject{
+public class EXRuntimeObject extends RuntimeObject {
 
 	/**
-	 *  Initializes a newly created EXRuntimeObject with its <i>stage</i> set to parameter <i>stage</i>,
-	 *  its <i>targetData</i> set to parameter <i>targetData</i>,
-	 *  its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 *  its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 *  
-	 *  @param stage Stage used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param netlist Netlist used during execution
-	 *  @param runEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 * Initializes a newly created EXRuntimeObject with its <i>stage</i> set to
+	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
+	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 * 
+	 * @param stage             Stage used during execution
+	 * @param targetData        TargetData used during execution
+	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param netlist           Netlist used during execution
+	 * @param runEnv            RuntimeEnv used during execution
+	 * @throws RuntimeException if any of the parameters are null
 	 */
-	public EXRuntimeObject(
-			final Stage stage,
-			final TargetData targetData,
-			final NetlistConstraint netlistConstraint,
-			final Netlist netlist,
-			final RuntimeEnv runEnv
-			) {
+	public EXRuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
+			final Netlist netlist, final RuntimeEnv runEnv) {
 		super(stage, targetData, netlistConstraint, netlist, runEnv);
 	}
 
 	/**
-	 * 	Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the export stage.
+	 * Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the
+	 * export stage.
 	 */
 	@Override
 	protected void prepareDataFactory() {
@@ -86,12 +84,11 @@ public class EXRuntimeObject extends RuntimeObject{
 		this.setNetlistEdgeDataFactory(new EXNetlistEdgeDataFactory());
 	}
 
-	
 	/**
-	 *  Sets the EXStageNetlistData for the export stage in parameter <i>netlist</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the EXStageNetlistData for the export stage in parameter <i>netlist</i>
+	 * <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistData(Netlist netlist) {
@@ -99,10 +96,10 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the EXStageNetlistNodeData for the export stage in parameter <i>node</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the EXStageNetlistNodeData for the export stage in parameter <i>node</i>
+	 * <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistNodeData(NetlistNode node) {
@@ -110,10 +107,10 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the EXStageNetlistEdgeData for the export stage in parameter <i>edge</i>
-	 *  <b>Note: method this will be deprecated in the future.</b>
-	 *  
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the EXStageNetlistEdgeData for the export stage in parameter <i>edge</i>
+	 * <b>Note: method this will be deprecated in the future.</b>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistEdgeData(NetlistEdge edge) {
@@ -121,8 +118,9 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistData(Netlist netlist) {
@@ -131,8 +129,10 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter <i>node</i>
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
+	 * <i>node</i>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistNodeData(NetlistNode node) {
@@ -141,8 +141,10 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter <i>edge</i>
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
+	 * <i>edge</i>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistEdgeData(NetlistEdge edge) {
@@ -151,9 +153,11 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Returns a string representing the OPTIONS command line argument for the export stage
-	 *  
-	 *  @return a string representing the OPTIONS command line argument for the export stage
+	 * Returns a string representing the OPTIONS command line argument for the
+	 * export stage
+	 * 
+	 * @return a string representing the OPTIONS command line argument for the
+	 *         export stage
 	 */
 	@Override
 	protected String getOptionsString() {
@@ -161,77 +165,86 @@ public class EXRuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 * 	Executes the algorithm of the export stage.
+	 * Executes the algorithm of the export stage.
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void runAlgo() {
+	protected void runAlgo() throws CelloException {
 		// get Algorithm from Factory
 		EXAlgorithmFactory AF = new EXAlgorithmFactory();
 		EXAlgorithm algo = AF.getAlgorithm(this.getAlgorithmProfile());
-		//executeAlgo
+		// executeAlgo
 		this.executeAlgo(algo);
 	}
 
 	/**
-	 *  Getter for the EXNetlistDataFactory
-	 *  @return the EXNetlistDataFactory
+	 * Getter for the EXNetlistDataFactory
+	 * 
+	 * @return the EXNetlistDataFactory
 	 */
 	protected EXNetlistDataFactory getNetlistDataFactory() {
 		return this.netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the EXNetlistDataFactory
-	 *  @param netlistDataFactory the EXNetlistDataFactory
+	 * Setter for the EXNetlistDataFactory
+	 * 
+	 * @param netlistDataFactory the EXNetlistDataFactory
 	 */
 	private void setNetlistDataFactory(final EXNetlistDataFactory netlistDataFactory) {
 		this.netlistDataFactory = netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the EXNetlistNodeDataFactory
-	 *  @return the EXNetlistNodeDataFactory
+	 * Getter for the EXNetlistNodeDataFactory
+	 * 
+	 * @return the EXNetlistNodeDataFactory
 	 */
 	protected EXNetlistNodeDataFactory getNetlistNodeDataFactory() {
 		return this.netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the EXNetlistNodeDataFactory
-	 *  @param netlistNodeDataFactory the EXNetlistNodeDataFactory
+	 * Setter for the EXNetlistNodeDataFactory
+	 * 
+	 * @param netlistNodeDataFactory the EXNetlistNodeDataFactory
 	 */
 	private void setNetlistNodeDataFactory(final EXNetlistNodeDataFactory netlistNodeDataFactory) {
 		this.netlistNodeDataFactory = netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the EXNetlistEdgeDataFactory
-	 *  @return the EXNetlistEdgeDataFactory
+	 * Getter for the EXNetlistEdgeDataFactory
+	 * 
+	 * @return the EXNetlistEdgeDataFactory
 	 */
 	protected EXNetlistEdgeDataFactory getNetlistEdgeDataFactory() {
 		return this.netlistEdgeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the EXNetlistEdgeDataFactor
-	 *  @param netlistEdgeDataFactory the EXNetlistEdgeDataFactor
+	 * Setter for the EXNetlistEdgeDataFactor
+	 * 
+	 * @param netlistEdgeDataFactory the EXNetlistEdgeDataFactor
 	 */
 	private void setNetlistEdgeDataFactory(final EXNetlistEdgeDataFactory netlistEdgeDataFactory) {
 		this.netlistEdgeDataFactory = netlistEdgeDataFactory;
 	}
-	
+
 	private EXNetlistDataFactory netlistDataFactory;
 	private EXNetlistEdgeDataFactory netlistEdgeDataFactory;
 	private EXNetlistNodeDataFactory netlistNodeDataFactory;
 
-
 	/**
-	 *  Returns the Logger instance for the <i>export</i> stage.
-	 *  @return the Logger instance for the <i>export</i> stage.
+	 * Returns the Logger instance for the <i>export</i> stage.
+	 * 
+	 * @return the Logger instance for the <i>export</i> stage.
 	 */
 	protected Logger getLogger() {
 		return EXRuntimeObject.logger;
 	}
+
 	private static final Logger logger = LogManager.getLogger(EXRuntimeObject.class);
 
 }

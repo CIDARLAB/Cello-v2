@@ -23,6 +23,7 @@ package org.cellocad.cello2.common.algorithm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CObject;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.profile.AlgorithmProfile;
@@ -31,39 +32,37 @@ import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.results.netlist.Netlist;
 
 /**
- * Algorithm class is the base class for all algorithms using the Poros framework.
+ * Algorithm class is the base class for all algorithms using the Poros
+ * framework.
  * 
  * @author Vincent Mirian
  * 
  * @date Nov 17, 2017
  *
  */
-public abstract class Algorithm extends CObject{
+public abstract class Algorithm extends CObject {
 
 	/**
-	 *  Executes the algorithm. Executes the following methods in sequential order:<br>
-	 *  {@link #getConstraintFromNetlistConstraintFile()}<br>
-	 *  {@link #getDataFromUCF()}<br>
-	 *  {@link #setParameterValues()}<br>
-	 *  {@link #validateParameterValues()}<br>
-	 *  {@link #preprocessing()}<br>
-	 *  {@link #run()}<br>
-	 *  {@link #postprocessing()}<br>
-	 *  
-	 *  @param netlist Netlist used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param AProfile AlgorithmProfile used during execution
-	 *  @param runtimeEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 * Executes the algorithm. Executes the following methods in sequential
+	 * order:<br>
+	 * {@link #getConstraintFromNetlistConstraintFile()}<br>
+	 * {@link #getDataFromUCF()}<br>
+	 * {@link #setParameterValues()}<br>
+	 * {@link #validateParameterValues()}<br>
+	 * {@link #preprocessing()}<br>
+	 * {@link #run()}<br>
+	 * {@link #postprocessing()}<br>
+	 * 
+	 * @param netlist           Netlist used during execution
+	 * @param targetData        TargetData used during execution
+	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param AProfile          AlgorithmProfile used during execution
+	 * @param runtimeEnv        RuntimeEnv used during execution
+	 * @throws CelloException
+	 * @throws RuntimeException if any of the parameters are null
 	 */
-	public void execute(
-			final Netlist netlist,
-			final TargetData targetData,
-			final NetlistConstraint netlistConstraint,
-			final AlgorithmProfile AProfile,
-			final RuntimeEnv runtimeEnv
-			){
+	public void execute(final Netlist netlist, final TargetData targetData, final NetlistConstraint netlistConstraint,
+			final AlgorithmProfile AProfile, final RuntimeEnv runtimeEnv) throws CelloException {
 		Utils.isNullRuntimeException(netlist, "netlist");
 		Utils.isNullRuntimeException(targetData, "targetData");
 		Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
@@ -84,81 +83,97 @@ public abstract class Algorithm extends CObject{
 		this.run();
 		this.postprocessing();
 	}
-	
+
 	/*
 	 * Getter and Setter
 	 */
 
 	/**
-	 *  Setter for <i>netlist</i>
-	 *  @param netlist the Netlist to set <i>netlist</i>
+	 * Setter for <i>netlist</i>
+	 * 
+	 * @param netlist the Netlist to set <i>netlist</i>
 	 */
-	private void setNetlist (final Netlist netlist) {
+	private void setNetlist(final Netlist netlist) {
 		this.netlist = netlist;
 	}
+
 	/**
-	 *  Getter for <i>netlist</i>
-	 *  @return the Netlist of this instance
+	 * Getter for <i>netlist</i>
+	 * 
+	 * @return the Netlist of this instance
 	 */
 	protected Netlist getNetlist() {
 		return this.netlist;
 	}
 
 	/**
-	 *  Setter for <i>targetData</i>
-	 *  @param targetData the TargetData to set <i>targetData</i>
+	 * Setter for <i>targetData</i>
+	 * 
+	 * @param targetData the TargetData to set <i>targetData</i>
 	 */
-	private void setTargetData (final TargetData targetData) {
+	private void setTargetData(final TargetData targetData) {
 		this.targetData = targetData;
 	}
+
 	/**
-	 *  Getter for <i>targetData</i>
-	 *  @return the TargetData of this instance
+	 * Getter for <i>targetData</i>
+	 * 
+	 * @return the TargetData of this instance
 	 */
 	protected TargetData getTargetData() {
 		return this.targetData;
 	}
 
 	/**
-	 *  Setter for <i>netlistConstraint</i>
-	 *  @param netlistConstraint the NetlistConstraint to set <i>netlistConstraint</i>
+	 * Setter for <i>netlistConstraint</i>
+	 * 
+	 * @param netlistConstraint the NetlistConstraint to set
+	 *                          <i>netlistConstraint</i>
 	 */
-	private void setNetlistConstraint (final NetlistConstraint netlistConstraint) {
+	private void setNetlistConstraint(final NetlistConstraint netlistConstraint) {
 		this.netlistConstraint = netlistConstraint;
 	}
+
 	/**
-	 *  Getter for <i>netlistConstraint</i>
-	 *  @return the NetlistConstraint of this instance
+	 * Getter for <i>netlistConstraint</i>
+	 * 
+	 * @return the NetlistConstraint of this instance
 	 */
 	protected NetlistConstraint getNetlistConstraint() {
 		return this.netlistConstraint;
 	}
 
 	/**
-	 *  Setter for <i>AProfile</i>
-	 *  @param AProfile the AlgorithmProfile to set <i>AProfile</i>
+	 * Setter for <i>AProfile</i>
+	 * 
+	 * @param AProfile the AlgorithmProfile to set <i>AProfile</i>
 	 */
-	private void setAlgorithmProfile (final AlgorithmProfile AProfile) {
+	private void setAlgorithmProfile(final AlgorithmProfile AProfile) {
 		this.AProfile = AProfile;
 	}
+
 	/**
-	 *  Getter for <i>AProfile</i>
-	 *  @return the AlgorithmProfile of this instance
+	 * Getter for <i>AProfile</i>
+	 * 
+	 * @return the AlgorithmProfile of this instance
 	 */
 	protected AlgorithmProfile getAlgorithmProfile() {
 		return this.AProfile;
 	}
 
 	/**
-	 *  Setter for <i>runtimeEnv</i>
-	 *  @param runtimeEnv the RuntimeEnv to set <i>runtimeEnv</i>
+	 * Setter for <i>runtimeEnv</i>
+	 * 
+	 * @param runtimeEnv the RuntimeEnv to set <i>runtimeEnv</i>
 	 */
-	private void setRuntimeEnv (final RuntimeEnv runtimeEnv) {
+	private void setRuntimeEnv(final RuntimeEnv runtimeEnv) {
 		this.runtimeEnv = runtimeEnv;
 	}
+
 	/**
-	 *  Getter for <i>runtimeEnv</i>
-	 *  @return the RuntimeEnv of this instance
+	 * Getter for <i>runtimeEnv</i>
+	 * 
+	 * @return the RuntimeEnv of this instance
 	 */
 	protected RuntimeEnv getRuntimeEnv() {
 		return this.runtimeEnv;
@@ -171,90 +186,105 @@ public abstract class Algorithm extends CObject{
 	private RuntimeEnv runtimeEnv;
 
 	/**
-	 *  Gets the Constraint data from the NetlistConstraintFile
+	 * Gets the Constraint data from the NetlistConstraintFile
 	 */
 	abstract protected void getConstraintFromNetlistConstraintFile();
-	/**
-	 *  Gets the data from the UCF
-	 */
-	abstract protected void getDataFromUCF();
-	/**
-	 *  Set parameter(s) value(s) of the algorithm
-	 */
-	abstract protected void setParameterValues();
-	/**
-	 *  Validate parameter value of the algorithm
-	 */
-	abstract protected void validateParameterValues();
-	/**
-	 *  Perform preprocessing
-	 */
-	abstract protected void preprocessing();
-	/**
-	 *  Run the (core) algorithm
-	 */
-	abstract protected void run();
-	/**
-	 *  Perform postprocessing
-	 */
-	abstract protected void postprocessing();
 
 	/**
-	 *  Log parameter <i>str</i> at the Trace level
-	 *  @param str string to log
+	 * Gets the data from the UCF
+	 */
+	abstract protected void getDataFromUCF();
+
+	/**
+	 * Set parameter(s) value(s) of the algorithm
+	 */
+	abstract protected void setParameterValues();
+
+	/**
+	 * Validate parameter value of the algorithm
+	 */
+	abstract protected void validateParameterValues();
+
+	/**
+	 * Perform preprocessing
+	 */
+	abstract protected void preprocessing();
+
+	/**
+	 * Run the (core) algorithm
+	 */
+	abstract protected void run();
+
+	/**
+	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
+	 */
+	abstract protected void postprocessing() throws CelloException;
+
+	/**
+	 * Log parameter <i>str</i> at the Trace level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logTrace(String str) {
 		this.getLogger().trace(str);
 	}
 
 	/**
-	 *  Log parameter <i>str</i> at the Debug level
-	 *  @param str string to log
+	 * Log parameter <i>str</i> at the Debug level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logDebug(String str) {
 		this.getLogger().debug(str);
 	}
 
 	/**
-	 *  Log parameter <i>str</i> at the Info level
-	 *  @param str string to log
+	 * Log parameter <i>str</i> at the Info level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logInfo(String str) {
 		this.getLogger().info(str);
 	}
 
 	/**
-	 *  Log parameter <i>str</i> at the Warn level
-	 *  @param str string to log
+	 * Log parameter <i>str</i> at the Warn level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logWarn(String str) {
 		this.getLogger().warn(str);
 	}
 
 	/**
-	 *  Log parameter <i>str</i> at the Error level
-	 *  @param str string to log
+	 * Log parameter <i>str</i> at the Error level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logError(String str) {
 		this.getLogger().error(str);
 	}
 
 	/**
-	 *  Log parameter <i>str</i> at the Fatal level
-	 *  @param str string to log
+	 * Log parameter <i>str</i> at the Fatal level
+	 * 
+	 * @param str string to log
 	 */
 	protected void logFatal(String str) {
 		this.getLogger().fatal(str);
 	}
 
 	/**
-	 *  Returns the Logger instance for the class
-	 *  @return the Logger instance for the class
+	 * Returns the Logger instance for the class
+	 * 
+	 * @return the Logger instance for the class
 	 */
 	protected Logger getLogger() {
 		return Algorithm.logger;
 	}
-	
-    private static final Logger logger = LogManager.getLogger(Algorithm.class);
-    
+
+	private static final Logger logger = LogManager.getLogger(Algorithm.class);
+
 }

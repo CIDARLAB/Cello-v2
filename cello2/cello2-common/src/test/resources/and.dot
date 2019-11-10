@@ -1,0 +1,31 @@
+digraph and_gate {
+label="and_gate"
+rankdir="LR"
+remincross=true
+splines=ortho
+{rank = same; "a";"b";}
+{rank = same; "out";}
+"a" [shape=octagon, label="a
+PRIMARY_INPUT
+LacI_sensor"]
+"b" [shape=octagon, label="b
+PRIMARY_INPUT
+TetR_sensor"]
+"out" [shape=octagon, label="out
+PRIMARY_OUTPUT
+YFP_reporter"]
+"$48" [shape=box, label="$48
+NOT
+B3_BM3R1"]
+"$49" [shape=box, label="$49
+NOT
+P1_PhlF"]
+"$50" [shape=box, label="$50
+NOR
+S2_SrpR"]
+"$49" -> "$50"
+"a" -> "$48"
+"b" -> "$49"
+"$48" -> "$50"
+"$50" -> "out"
+}

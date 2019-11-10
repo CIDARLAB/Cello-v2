@@ -22,6 +22,7 @@ package org.cellocad.cello2.logicOptimization.runtime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.common.runtime.RuntimeObject;
 import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
@@ -44,40 +45,37 @@ import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
 /**
- * The LORuntimeObject class is the RuntimeObject class for the <i>logicOptimization</i> stage.
+ * The LORuntimeObject class is the RuntimeObject class for the
+ * <i>logicOptimization</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date 2018-05-21
  *
  */
-public class LORuntimeObject extends RuntimeObject{
+public class LORuntimeObject extends RuntimeObject {
 
 	/**
-	 *  Initializes a newly created LORuntimeObject with its <i>stage</i> set to parameter <i>stage</i>,
-	 *  its <i>targetData</i> set to parameter <i>targetData</i>,
-	 *  its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 *  its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 *  
-	 *  @param stage Stage used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param netlist Netlist used during execution
-	 *  @param runEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 * Initializes a newly created LORuntimeObject with its <i>stage</i> set to
+	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
+	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 * 
+	 * @param stage             Stage used during execution
+	 * @param targetData        TargetData used during execution
+	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param netlist           Netlist used during execution
+	 * @param runEnv            RuntimeEnv used during execution
+	 * @throws RuntimeException if any of the parameters are null
 	 */
-	public LORuntimeObject(
-			final Stage stage,
-			final TargetData targetData,
-			final NetlistConstraint netlistConstraint,
-			final Netlist netlist,
-			final RuntimeEnv runEnv
-			) {
+	public LORuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
+			final Netlist netlist, final RuntimeEnv runEnv) {
 		super(stage, targetData, netlistConstraint, netlist, runEnv);
 	}
 
 	/**
-	 * 	Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the logicOptimization stage.
+	 * Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of the
+	 * logicOptimization stage.
 	 */
 	@Override
 	protected void prepareDataFactory() {
@@ -86,12 +84,11 @@ public class LORuntimeObject extends RuntimeObject{
 		this.setNetlistEdgeDataFactory(new LONetlistEdgeDataFactory());
 	}
 
-	
 	/**
-	 *  Sets the LOStageNetlistData for the logicOptimization stage in parameter <i>netlist</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the LOStageNetlistData for the logicOptimization stage in parameter
+	 * <i>netlist</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistData(Netlist netlist) {
@@ -99,10 +96,10 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the LOStageNetlistNodeData for the logicOptimization stage in parameter <i>node</i>
-	 *  <b>Note: this method will be deprecated in the future.</b>
-	 *  
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the LOStageNetlistNodeData for the logicOptimization stage in parameter
+	 * <i>node</i> <b>Note: this method will be deprecated in the future.</b>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistNodeData(NetlistNode node) {
@@ -110,10 +107,10 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the LOStageNetlistEdgeData for the logicOptimization stage in parameter <i>edge</i>
-	 *  <b>Note: method this will be deprecated in the future.</b>
-	 *  
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the LOStageNetlistEdgeData for the logicOptimization stage in parameter
+	 * <i>edge</i> <b>Note: method this will be deprecated in the future.</b>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setStageNetlistEdgeData(NetlistEdge edge) {
@@ -121,8 +118,9 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 *  @param netlist the <i>netlist</i> of this instance
+	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
+	 * 
+	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistData(Netlist netlist) {
@@ -131,8 +129,10 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter <i>node</i>
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
+	 * <i>node</i>
+	 * 
+	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistNodeData(NetlistNode node) {
@@ -141,8 +141,10 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter <i>edge</i>
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
+	 * <i>edge</i>
+	 * 
+	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
 	protected void setNetlistEdgeData(NetlistEdge edge) {
@@ -151,9 +153,11 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 *  Returns a string representing the OPTIONS command line argument for the logicOptimization stage
-	 *  
-	 *  @return a string representing the OPTIONS command line argument for the logicOptimization stage
+	 * Returns a string representing the OPTIONS command line argument for the
+	 * logicOptimization stage
+	 * 
+	 * @return a string representing the OPTIONS command line argument for the
+	 *         logicOptimization stage
 	 */
 	@Override
 	protected String getOptionsString() {
@@ -161,77 +165,86 @@ public class LORuntimeObject extends RuntimeObject{
 	}
 
 	/**
-	 * 	Executes the algorithm of the logicOptimization stage.
+	 * Executes the algorithm of the logicOptimization stage.
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void runAlgo() {
+	protected void runAlgo() throws CelloException {
 		// get Algorithm from Factory
 		LOAlgorithmFactory AF = new LOAlgorithmFactory();
 		LOAlgorithm algo = AF.getAlgorithm(this.getAlgorithmProfile());
-		//executeAlgo
+		// executeAlgo
 		this.executeAlgo(algo);
 	}
 
 	/**
-	 *  Getter for the LONetlistDataFactory
-	 *  @return the LONetlistDataFactory
+	 * Getter for the LONetlistDataFactory
+	 * 
+	 * @return the LONetlistDataFactory
 	 */
 	protected LONetlistDataFactory getNetlistDataFactory() {
 		return this.netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the LONetlistDataFactory
-	 *  @param netlistDataFactory the LONetlistDataFactory
+	 * Setter for the LONetlistDataFactory
+	 * 
+	 * @param netlistDataFactory the LONetlistDataFactory
 	 */
 	private void setNetlistDataFactory(final LONetlistDataFactory netlistDataFactory) {
 		this.netlistDataFactory = netlistDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the LONetlistNodeDataFactory
-	 *  @return the LONetlistNodeDataFactory
+	 * Getter for the LONetlistNodeDataFactory
+	 * 
+	 * @return the LONetlistNodeDataFactory
 	 */
 	protected LONetlistNodeDataFactory getNetlistNodeDataFactory() {
 		return this.netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the LONetlistNodeDataFactory
-	 *  @param netlistNodeDataFactory the LONetlistNodeDataFactory
+	 * Setter for the LONetlistNodeDataFactory
+	 * 
+	 * @param netlistNodeDataFactory the LONetlistNodeDataFactory
 	 */
 	private void setNetlistNodeDataFactory(final LONetlistNodeDataFactory netlistNodeDataFactory) {
 		this.netlistNodeDataFactory = netlistNodeDataFactory;
 	}
-	
+
 	/**
-	 *  Getter for the LONetlistEdgeDataFactory
-	 *  @return the LONetlistEdgeDataFactory
+	 * Getter for the LONetlistEdgeDataFactory
+	 * 
+	 * @return the LONetlistEdgeDataFactory
 	 */
 	protected LONetlistEdgeDataFactory getNetlistEdgeDataFactory() {
 		return this.netlistEdgeDataFactory;
 	}
-	
+
 	/**
-	 *  Setter for the LONetlistEdgeDataFactor
-	 *  @param netlistEdgeDataFactory the LONetlistEdgeDataFactor
+	 * Setter for the LONetlistEdgeDataFactor
+	 * 
+	 * @param netlistEdgeDataFactory the LONetlistEdgeDataFactor
 	 */
 	private void setNetlistEdgeDataFactory(final LONetlistEdgeDataFactory netlistEdgeDataFactory) {
 		this.netlistEdgeDataFactory = netlistEdgeDataFactory;
 	}
-	
+
 	private LONetlistDataFactory netlistDataFactory;
 	private LONetlistEdgeDataFactory netlistEdgeDataFactory;
 	private LONetlistNodeDataFactory netlistNodeDataFactory;
 
-
 	/**
-	 *  Returns the Logger instance for the <i>logicOptimization</i> stage.
-	 *  @return the Logger instance for the <i>logicOptimization</i> stage.
+	 * Returns the Logger instance for the <i>logicOptimization</i> stage.
+	 * 
+	 * @return the Logger instance for the <i>logicOptimization</i> stage.
 	 */
 	protected Logger getLogger() {
 		return LORuntimeObject.logger;
 	}
+
 	private static final Logger logger = LogManager.getLogger(LORuntimeObject.class);
 
 }
