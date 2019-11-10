@@ -40,6 +40,7 @@ import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.common.target.data.TargetDataUtils;
 import org.cellocad.cello2.export.runtime.EXRuntimeObject;
 import org.cellocad.cello2.logicSynthesis.runtime.LSRuntimeObject;
+import org.cellocad.cello2.partitioning.runtime.PTRuntimeObject;
 import org.cellocad.cello2.placing.runtime.PLRuntimeObject;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsStats;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -183,10 +184,9 @@ public class Main {
 		// netlist, runEnv);
 		// CL.execute();
 		// partitioning
-		// currentStage = appCfg.getStageByName("partitioning");
-		// PTRuntimeObject PT = new PTRuntimeObject(currentStage, td, netlistConstraint,
-		// netlist, runEnv);
-		// PT.execute();
+		currentStage = appCfg.getStageByName("partitioning");
+		PTRuntimeObject PT = new PTRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
+		PT.execute();
 		Main.printPartitioningGraphs(runEnv, netlist);
 		Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
 		netlist = new PTBlockNetlist(netlist).getVirtualLargeNetlistFO();

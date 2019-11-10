@@ -69,6 +69,7 @@
         <version>1.4.9</version>
         <configuration>
           <repository>${docker.image.prefix}/${project.artifactId}</repository>
+		  <tag>partitioning</tag>
           <buildArgs>
             <YOSYS_VERSION>0.9</YOSYS_VERSION>
             <JAR_FILE>${project.build.finalName}-jar-with-dependencies.jar</JAR_FILE>
