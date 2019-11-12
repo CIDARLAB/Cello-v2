@@ -4993,6 +4993,8 @@
   {
     "collection": "input_sensors",
     "name": "LacI_sensor",
+    "input_molecule": "IPTG",
+    "type": "sequester_inhibitor",
     "promoter": "pTac",
     "signal_low": 0.0034,
     "signal_high": 2.8,
@@ -5008,6 +5010,8 @@
   {
     "collection": "input_sensors",
     "name": "TetR_sensor",
+    "input_molecule": "aTc",
+    "type": "sequester_inhibitor",
     "promoter": "pTet",
     "signal_low": 0.0013,
     "signal_high": 4.4,
@@ -5024,6 +5028,8 @@
     "collection": "input_sensors",
     "name": "AraC_sensor",
     "promoter": "pBAD",
+    "input_molecule": "Ara",
+    "type": "complex_stimulator",
     "signal_low": 0.0082,
     "signal_high": 2.5,
     "parts": [
@@ -5039,6 +5045,8 @@
     "collection": "input_sensors",
     "name": "LuxR_sensor",
     "promoter": "pLuxStar",
+    "input_molecule": "HSL",
+    "type": "complex_stimulator",
     "signal_low": 0.025,
     "signal_high": 0.31,
     "parts": [
@@ -5060,27 +5068,6 @@
       "L3S2P21_terminator"
     ],
 	"uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/YFP_reporter/1"
-  },
-  {
-    "collection": "output_reporters",
-    "name": "GFP_reporter",
-    "parts": [
-      "GFP"
-    ]
-  },
-  {
-    "collection": "output_reporters",
-    "name": "RFP_reporter",
-    "parts": [
-      "RFP"
-    ]
-  },
-  {
-    "collection": "output_reporters",
-    "name": "BFP_reporter",
-    "parts": [
-      "BFP"
-    ]
   },
   {
     "collection": "response_functions",
@@ -6009,98 +5996,118 @@
       "name": "PProfile0",
       "Blocks":
       {
-		"Capacity_Units":
-		[
-		  "NOT",
-		  "NOR",
-		  "OR",
-		  "Regular"
-		],
-		"Capacity":
-		[
-		  {
-			"name": "capacity0",
-			"units":
-			[
-			  "NOT",
-			  "NOR",
-			  "OR"
-			],
-			"lower_bound": 0,
-			"lower_bound_type": "greater_than_or_equal",
-			"upper_bound": 20,
-			"upper_bound_type": "less_than"
-		  },
-		  {
-			"name": "capacity1",
-			"units":
-			[
-			  "Regular"
-			],
-			"lower_bound": 0,
-			"lower_bound_type": "greater_than_or_equal",
-			"upper_bound": 10,
-			"upper_bound_type": "less_than"
-		  }
-		],
-		"Blocks":
-		[
-		  {
-			"name" : "block0",
-			"capacity":
-			[
-			  "capacity0"
-			],
-			"inout_connections_capacity":
-			[
-			  "capacity1"
-			]
-		  }
-		]
+	"Capacity_Units":
+	[
+	  "NOT",
+	  "NOR",
+	  "OR",
+	  "Regular"
+	],
+	"Capacity":
+	[
+	  {
+	    "name": "capacity0",
+	    "units":
+	    [
+	      "NOT",
+	      "NOR",
+	      "OR"
+	    ],
+	    "lower_bound": 0,
+	    "lower_bound_type": "greater_than_or_equal",
+	    "upper_bound": 10,
+	    "upper_bound_type": "less_than"
+	  },
+	  {
+	    "name": "capacity1",
+	    "units":
+	    [
+	      "Regular"
+	    ],
+	    "lower_bound": 0,
+	    "lower_bound_type": "greater_than_or_equal",
+	    "upper_bound": 5,
+	    "upper_bound_type": "less_than"
+	  }
+	],
+	"Blocks":
+	[
+	  {
+	    "name" : "block0",
+	    "capacity":
+	    [
+	      "capacity0"
+	    ],
+	    "inout_connections_capacity":
+	    [
+	      "capacity1"
+	    ]
+	  },
+	  {
+	    "name" : "block1",
+	    "capacity":
+	    [
+	      "capacity0"
+	    ],
+	    "inout_connections_capacity":
+	    [
+	      "capacity1"
+	    ]
+	  }
+	]
       },
       "InterBlocks":
       {
-		"Capacity_Units":
-		[
-		  "Regular"
-		],
-		"Capacity":
-		[
-		  {
-			"name": "capacity0",
-			"units":
-			[
-			  "Regular"
-			],
-			"lower_bound": 0,
-			"lower_bound_type": "greater_than_or_equal",
-			"upper_bound": 5,
-			"upper_bound_type": "less_than"
-		  },
-		  {
-			"name": "capacity1",
-			"units":
-			[
-			  "Regular"
-			],
-			"lower_bound": 0,
-			"lower_bound_type": "greater_than_or_equal",
-			"upper_bound": 1,
-			"upper_bound_type": "less_than"
-		  }
-		],
-		"InterBlocks":
-		[
-		  {
-			"name" : "Interblock_0_1",
-			"source" : "block0",
-			"destination" : "block0",
-			"capacity":
-			[
-			  "capacity0"
-			]
-		  }
-		]
+	"Capacity_Units":
+	[
+	  "Regular"
+	],
+	"Capacity":
+	[
+	  {
+	    "name": "capacity0",
+	    "units":
+	    [
+	      "Regular"
+	    ],
+	    "lower_bound": 0,
+	    "lower_bound_type": "greater_than_or_equal",
+	    "upper_bound": 5,
+	    "upper_bound_type": "less_than"
+	  },
+	  {
+	    "name": "capacity1",
+	    "units":
+	    [
+	      "Regular"
+	    ],
+	    "lower_bound": 0,
+	    "lower_bound_type": "greater_than_or_equal",
+	    "upper_bound": 1,
+	    "upper_bound_type": "less_than"
+	  }
+	],
+	"InterBlocks":
+	[
+	  {
+	    "name" : "Interblock_0_1",
+	    "source" : "block0",
+	    "destination" : "block1",
+	    "capacity":
+	    [
+	      "capacity0"
+	    ]
+	  },
+	  {
+	    "name" : "Interblock_1_0",
+	    "source" : "block1",
+	    "destination" : "block0",
+	    "capacity":
+	    [
+	      "capacity1"
+	    ]
+	  }
+	]
       }
     }
   },
@@ -6207,7 +6214,7 @@
   },
   {
     "collection": "parts",
-    "type": "rbs",
+    "type": "terminator",
     "name": "L3S2P21_terminator",
     "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/L3S2P21_terminator/1"
