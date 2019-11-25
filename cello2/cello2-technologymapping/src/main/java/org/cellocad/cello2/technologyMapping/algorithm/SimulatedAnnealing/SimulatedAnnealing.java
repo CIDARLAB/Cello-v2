@@ -50,7 +50,7 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.S
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.NetlistEvaluator;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
@@ -306,8 +306,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 				TEMP = 0.0;
 			}
 
-			Evaluator eval = null;
-			eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
+			NetlistEvaluator eval = null;
+			eval = new NetlistEvaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
 			eval.evaluate();
 			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
 
@@ -342,7 +342,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
 			                                                     this.getSensorSignals(),
 			                                                     this.getLSLogicEvaluation());
-			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
+			eval = new NetlistEvaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
 			eval.evaluate();
 			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
 

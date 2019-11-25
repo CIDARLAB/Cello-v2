@@ -1,0 +1,30 @@
+{
+    "collection": "response_functions",
+    "gate_name": "S3_SrpR",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+		{
+			"name": "x",
+			"off_threshold": 0.060081844,
+			"on_threshold": 0.561105739
+		}
+    ],
+    "parameters": [
+		{
+			"name": "ymax",
+			"value": 2.1
+		},
+		{
+			"name": "ymin",
+			"value": 0.004
+		},
+		{
+			"name": "K",
+			"value": 0.06
+		},
+		{
+			"name": "n",
+			"value": 2.8
+		}
+    ]
+}

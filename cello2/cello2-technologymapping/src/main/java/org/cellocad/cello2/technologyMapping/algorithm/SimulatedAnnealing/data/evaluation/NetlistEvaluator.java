@@ -36,6 +36,7 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.cello2.results.technologyMapping.activity.activitytable.Activity;
 import org.cellocad.cello2.results.technologyMapping.activity.activitytable.ActivityTable;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.MathEval;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
@@ -49,12 +50,12 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
  * @date 2018-07-17
  *
  */
-public class Evaluator {
+public class NetlistEvaluator {
 	
 	private void init() {
 	}
 	
-	public Evaluator(Netlist netlist, TMActivityEvaluation tmae, Double conversion) {
+	public NetlistEvaluator(Netlist netlist, TMActivityEvaluation tmae, Double conversion) {
 		init();
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");

@@ -1,0 +1,10 @@
+{
+    "collection": "gates",
+    "regulator": "SrpR",
+    "group_name": "SrpR",
+    "gate_name": "S3_SrpR",
+    "gate_type": "NOR",
+    "system": "TetR",
+    "color_hexcode": "006838",
+    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/S3_SrpR/1"
+}

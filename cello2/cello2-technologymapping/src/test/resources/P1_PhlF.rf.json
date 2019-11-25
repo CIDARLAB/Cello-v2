@@ -1,0 +1,30 @@
+{
+    "collection": "response_functions",
+    "gate_name": "P1_PhlF",
+    "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+    "variables": [
+		{
+			"name": "x",
+			"off_threshold": 0.030038585,
+			"on_threshold": 0.133146326
+		}
+    ],
+    "parameters": [
+		{
+			"name": "ymax",
+			"value": 3.9
+		},
+		{
+			"name": "ymin",
+			"value": 0.01
+		},
+		{
+			"name": "K",
+			"value": 0.03
+		},
+		{
+			"name": "n",
+			"value": 4.0
+		}
+    ]
+}

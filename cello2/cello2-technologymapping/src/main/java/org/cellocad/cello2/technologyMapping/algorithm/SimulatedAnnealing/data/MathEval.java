@@ -10,7 +10,7 @@
 // is not liable for any losses of any kind, direct or indirect, which result
 // from the use of this software.
 
-package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation;
+package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data;
 
 import java.util.Collections;
 import java.util.Map;

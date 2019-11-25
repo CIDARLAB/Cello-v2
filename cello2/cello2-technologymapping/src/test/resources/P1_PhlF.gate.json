@@ -1,0 +1,10 @@
+{
+    "collection": "gates",
+    "regulator": "PhlF",
+    "group_name": "PhlF",
+    "gate_name": "P1_PhlF",
+    "gate_type": "NOR",
+    "system": "TetR",
+    "color_hexcode": "F9A427",
+    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/P1_PhlF/1"
+}
