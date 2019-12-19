@@ -4993,11 +4993,25 @@
   {
     "collection": "input_sensors",
     "name": "LacI_sensor",
-    "input_molecule": "IPTG",
-    "type": "sequester_inhibitor",
     "promoter": "pTac",
-    "signal_low": 0.0034,
-    "signal_high": 2.8,
+	"parameters": [
+	  {
+		"name": "signal_low",
+		"value": 0.0034
+	  },
+	  {
+		"name": "signal_high",
+		"value": 2.8
+	  },
+	  {
+		"name": "alpha",
+		"value": 0.73
+	  },
+	  {
+		"name": "beta",
+		"value": 0.04
+	  }
+	],
     "parts": [
       "pCONST",
       "RiboJ",
@@ -5010,11 +5024,25 @@
   {
     "collection": "input_sensors",
     "name": "TetR_sensor",
-    "input_molecule": "aTc",
-    "type": "sequester_inhibitor",
     "promoter": "pTet",
-    "signal_low": 0.0013,
-    "signal_high": 4.4,
+	"parameters": [
+	  {
+		"name": "signal_low",
+		"value": 0.0013
+	  },
+	  {
+		"name": "signal_high",
+		"value": 4.4
+	  },
+	  {
+		"name": "alpha",
+		"value": 0.69
+	  },
+	  {
+		"name": "beta",
+		"value": 1.0
+	  }
+	],
     "parts": [
       "pCONST",
       "RiboJ",
@@ -5028,10 +5056,24 @@
     "collection": "input_sensors",
     "name": "AraC_sensor",
     "promoter": "pBAD",
-    "input_molecule": "Ara",
-    "type": "complex_stimulator",
-    "signal_low": 0.0082,
-    "signal_high": 2.5,
+	"parameters": [
+	  {
+		"name": "signal_low",
+		"value": 0.0082
+	  },
+	  {
+		"name": "signal_high",
+		"value": 2.5
+	  },
+	  {
+		"name": "alpha",
+		"value": 0.01
+	  },
+	  {
+		"name": "beta",
+		"value": 0.99
+	  }
+	],
     "parts": [
       "pCONST",
       "RiboJ",
@@ -5045,10 +5087,24 @@
     "collection": "input_sensors",
     "name": "LuxR_sensor",
     "promoter": "pLuxStar",
-    "input_molecule": "HSL",
-    "type": "complex_stimulator",
-    "signal_low": 0.025,
-    "signal_high": 0.31,
+	"parameters": [
+	  {
+		"name": "signal_low",
+		"value": 0.025
+	  },
+	  {
+		"name": "signal_high",
+		"value": 0.31
+	  },
+	  {
+		"name": "alpha",
+		"value": 0.8
+	  },
+	  {
+		"name": "beta",
+		"value": 1.0
+	  }
+	],
     "parts": [
       "pCONST",
       "RiboJ",
@@ -5073,6 +5129,7 @@
     "collection": "response_functions",
     "gate_name": "A1_AmtR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5096,6 +5153,14 @@
       {
         "name": "n",
         "value": 1.6
+      },
+      {
+        "name": "alpha",
+        "value": 0.2747976308366057
+      },
+      {
+        "name": "beta",
+        "value": 1.0
       }
     ]
   },
@@ -5103,6 +5168,7 @@
     "collection": "response_functions",
     "gate_name": "B1_BM3R1",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5126,6 +5192,14 @@
       {
         "name": "n",
         "value": 3.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.6405592709674027
+      },
+      {
+        "name": "beta",
+        "value": 0.0534087894478268
       }
     ]
   },
@@ -5133,6 +5207,7 @@
     "collection": "response_functions",
     "gate_name": "B2_BM3R1",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5156,6 +5231,14 @@
       {
         "name": "n",
         "value": 2.9
+      },
+      {
+        "name": "alpha",
+        "value": 0.7069227889248032
+      },
+      {
+        "name": "beta",
+        "value": 0.045991086746751626
       }
     ]
   },
@@ -5163,6 +5246,7 @@
     "collection": "response_functions",
     "gate_name": "B3_BM3R1",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5186,6 +5270,14 @@
       {
         "name": "n",
         "value": 3.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.7378112921568719
+      },
+      {
+        "name": "beta",
+        "value": 0.04519953510264872
       }
     ]
   },
@@ -5193,6 +5285,7 @@
     "collection": "response_functions",
     "gate_name": "E1_BetI",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5216,6 +5309,14 @@
       {
         "name": "n",
         "value": 2.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.6432002990749837
+      },
+      {
+        "name": "beta",
+        "value": 0.4581999467137076
       }
     ]
   },
@@ -5223,6 +5324,7 @@
     "collection": "response_functions",
     "gate_name": "F1_AmeR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5246,6 +5348,14 @@
       {
         "name": "n",
         "value": 1.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.09276381977393494
+      },
+      {
+        "name": "beta",
+        "value": 1.0
       }
     ]
   },
@@ -5253,6 +5363,7 @@
     "collection": "response_functions",
     "gate_name": "H1_HlyIIR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5276,6 +5387,14 @@
       {
         "name": "n",
         "value": 2.6
+      },
+      {
+        "name": "alpha",
+        "value": 0.14804949666452663
+      },
+      {
+        "name": "beta",
+        "value": 1.0
       }
     ]
   },
@@ -5283,6 +5402,7 @@
     "collection": "response_functions",
     "gate_name": "I1_IcaRA",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5306,6 +5426,14 @@
       {
         "name": "n",
         "value": 1.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.3748404992150903
+      },
+      {
+        "name": "beta",
+        "value": 0.43564010137683185
       }
     ]
   },
@@ -5313,6 +5441,7 @@
     "collection": "response_functions",
     "gate_name": "L1_LitR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5336,6 +5465,14 @@
       {
         "name": "n",
         "value": 1.7
+      },
+      {
+        "name": "alpha",
+        "value": 0.3748404992150903
+      },
+      {
+        "name": "beta",
+        "value": 0.43564010137683185
       }
     ]
   },
@@ -5343,6 +5480,7 @@
     "collection": "response_functions",
     "gate_name": "N1_LmrA",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5366,6 +5504,14 @@
       {
         "name": "n",
         "value": 2.1
+      },
+      {
+        "name": "alpha",
+        "value": 0.2839901653137192
+      },
+      {
+        "name": "beta",
+        "value": 1.0
       }
     ]
   },
@@ -5373,6 +5519,7 @@
     "collection": "response_functions",
     "gate_name": "P1_PhlF",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5396,6 +5543,14 @@
       {
         "name": "n",
         "value": 4.0
+      },
+      {
+        "name": "alpha",
+        "value": 0.22220421323746709
+      },
+      {
+        "name": "beta",
+        "value": 0.06438800857775553
       }
     ]
   },
@@ -5403,6 +5558,7 @@
     "collection": "response_functions",
     "gate_name": "P2_PhlF",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5426,6 +5582,14 @@
       {
         "name": "n",
         "value": 3.9
+      },
+      {
+        "name": "alpha",
+        "value": 0.1463206009221345
+      },
+      {
+        "name": "beta",
+        "value": 0.11755699456950987
       }
     ]
   },
@@ -5433,6 +5597,7 @@
     "collection": "response_functions",
     "gate_name": "P3_PhlF",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5456,6 +5621,14 @@
       {
         "name": "n",
         "value": 4.2
+      },
+      {
+        "name": "alpha",
+        "value": 0.24070011453960044
+      },
+      {
+        "name": "beta",
+        "value": 0.061908386254441006
       }
     ]
   },
@@ -5463,6 +5636,7 @@
     "collection": "response_functions",
     "gate_name": "Q1_QacR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5486,6 +5660,14 @@
       {
         "name": "n",
         "value": 2.7
+      },
+      {
+        "name": "alpha",
+        "value": 0.3748404992150903
+      },
+      {
+        "name": "beta",
+        "value": 0.43564010137683185
       }
     ]
   },
@@ -5493,6 +5675,7 @@
     "collection": "response_functions",
     "gate_name": "Q2_QacR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5516,6 +5699,14 @@
       {
         "name": "n",
         "value": 2.4
+      },
+      {
+        "name": "alpha",
+        "value": 0.3748404992150903
+      },
+      {
+        "name": "beta",
+        "value": 0.43564010137683185
       }
     ]
   },
@@ -5523,6 +5714,7 @@
     "collection": "response_functions",
     "gate_name": "R1_PsrA",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5546,6 +5738,14 @@
       {
         "name": "n",
         "value": 1.8
+      },
+      {
+        "name": "alpha",
+        "value": 0.3748404992150903
+      },
+      {
+        "name": "beta",
+        "value": 0.43564010137683185
       }
     ]
   },
@@ -5553,6 +5753,7 @@
     "collection": "response_functions",
     "gate_name": "S1_SrpR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5576,6 +5777,14 @@
       {
         "name": "n",
         "value": 2.9
+      },
+      {
+        "name": "alpha",
+        "value": 0.4969774844849547
+      },
+      {
+        "name": "beta",
+        "value": 0.05429615831701271
       }
     ]
   },
@@ -5583,6 +5792,7 @@
     "collection": "response_functions",
     "gate_name": "S2_SrpR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5606,6 +5816,14 @@
       {
         "name": "n",
         "value": 2.6
+      },
+      {
+        "name": "alpha",
+        "value": 0.35162069790016137
+      },
+      {
+        "name": "beta",
+        "value": 0.08575127838151375
       }
     ]
   },
@@ -5613,6 +5831,7 @@
     "collection": "response_functions",
     "gate_name": "S3_SrpR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5636,6 +5855,14 @@
       {
         "name": "n",
         "value": 2.8
+      },
+      {
+        "name": "alpha",
+        "value": 0.3337025658634261
+      },
+      {
+        "name": "beta",
+        "value": 0.09255808434135396
       }
     ]
   },
@@ -5643,6 +5870,7 @@
     "collection": "response_functions",
     "gate_name": "S4_SrpR",
     "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+	"tandem_efficiency_factor": "alpha * (K^n + beta * x^n) / (K^n + x^n)",
     "variables": [
       {
         "name": "x",
@@ -5666,6 +5894,14 @@
       {
         "name": "n",
         "value": 2.8
+      },
+      {
+        "name": "alpha",
+        "value": 0.3781909455221124
+      },
+      {
+        "name": "beta",
+        "value": 0.0895092758664231
       }
     ]
   },
@@ -5990,6 +6226,141 @@
     "promoter": "pSrpR"
   },
   {
+	"collection": "terminators",
+	"name": "ECK120010818",
+	"strength": 148.26
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120010876",
+	"strength": 97.42
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120015440",
+	"strength": 119.21
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120016170",
+	"strength": 85.78
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120019600",
+	"strength": 378.38
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120029600",
+	"strength": 378.38
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120033736",
+	"strength": 164.60
+  },
+  {
+	"collection": "terminators",
+	"name": "ECK120033737",
+	"strength": 312.50
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S2P11",
+	"strength": 261.55
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S2P21_terminator",
+	"strength": 382.13
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S2P24",
+	"strength": 151.16
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S2P55",
+	"strength": 255.66
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S3P11",
+	"strength": 172.60
+  },
+  {
+	"collection": "terminators",
+	"name": "L3S3P31",
+	"strength": 113.76
+  },
+  {
+	"collection": "ribozymes",
+	"name": "BydvJ",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "SarJ",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ57",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ54",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ51",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "ElvJ",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "PlmJ",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ64",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ53",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ60",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "ScmJ",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ10",
+	"efficiency": 0.95
+  },
+  {
+	"collection": "ribozymes",
+	"name": "RiboJ",
+	"efficiency": 0.95
+  },
+  {
     "collection": "PartitionProfile",
     "PartitionProfile":
     {
@@ -6155,44 +6526,6 @@
   },
   {
     "collection": "parts",
-    "type": "cds",
-    "name": "RFP",
-    "dnasequence": "CTGAAGTGGTCGTGATCTGAAACTCGATCACCTGATGAGCTCAAGGCAGAGCGAAACCACCTCTACAAATAATTTTGTTTAATACTAGAGTCACACAGGAAAGTACTAGATGGCTTCCTCCGAAGACGTTATCAAAGAGTTCATGCGTTTCAAAGTTCGTATGGAAGGTTCCGTTAACGGTCACGAGTTCGAAATCGAAGGTGAAGGTGAAGGTCGTCCGTACGAAGGTACCCAGACCGCTAAACTGAAAGTTACCAAAGGTGGTCCGCTGCCGTTCGCTTGGGACATCCTGTCCCCGCAGTTCCAGTACGGTTCCAAAGCTTACGTTAAACACCCGGCTGACATCCCGGACTACCTGAAACTGTCCTTCCCGGAAGGTTTCAAATGGGAACGTGTTATGAACTTCGAAGACGGTGGTGTTGTTACCGTTACCCAGGACTCCTCCCTGCAAGACGGTGAGTTCATCTACAAAGTTAAACTGCGTGGTACCAACTTCCCGTCCGACGGTCCGGTTATGCAGAAAAAAACCATGGGTTGGGAAGCTTCCACCGAACGTATGTACCCGGAAGACGGTGCTCTGAAAGGTGAAATCAAAATGCGTCTGAAACTGAAAGACGGTGGTCACTACGACGCTGAAGTTAAAACCACCTACATGGCTAAAAAACCGGTTCAGCTGCCGGGTGCTTACAAAACCGACATCAAACTGGACATCACCTCCCACAACGAAGACTACACCATCGTTGAACAGTACGAACGTGCTGAAGGTCGTCACTCCACCGGTGCTTAATAACAGATAAAAAAAATCCTTAGCTTTCGCTAAGGATGATTTCT",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RFP/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "BFP",
-    "dnasequence": "CTGAAGTTCCAGTCGAGACCTGAAGTGGGTTTCCTGATGAGGCTGTGGAGAGAGCGAAAGCTTTACTCCCGCACAAGCCGAAACTGGAACCTCTACAAATAATTTTGTTTAAGAGTCACACAGGAAAGTACTAGATGAGCGAGCTGATTAAGGAGAACATGCACATGAAGCTGTACATGGAGGGCACCGTGGACAACCATCACTTCAAGTGCACATCCGAGGGCGAAGGCAAGCCCTACGAGGGCACCCAGACCATGAGAATCAAGGTGGTCGAGGGCGGCCCTCTCCCCTTCGCCTTCGACATCCTGGCTACTAGCTTCCTCTACGGCAGCAAGACCTTCATCAACCACACCCAGGGCATCCCCGACTTCTTCAAGCAGTCCTTCCCTGAGGGCTTCACATGGGAGAGAGTCACCACATACGAAGATGGGGGCGTGCTGACCGCTACCCAGGACACCAGCCTCCAGGACGGCTGCCTCATCTACAACGTCAAGATCAGAGGGGTGAACTTCACATCCAACGGCCCTGTGATGCAGAAGAAAACACTCGGCTGGGAGGCCTTCACCGAGACGCTGTACCCCGCTGACGGCGGCCTGGAAGGCAGAAACGACATGGCCCTGAAGCTCGTGGGCGGGAGCCATCTGATCGCAAACATCAAGACCACATATAGATCCAAGAAACCCGCTAAGAACCTCAAGATGCCTGGCGTCTACTATGTGGACTACAGACTGGAAAGAATCAAGGAGGCCAACAACGAGACCTACGTCGAGCAGCACGAGGTGGCAGTGGCCAGATACTGCGACCTCCCTAGCAAACTGGGGCACTAACCAGGCATCAAATAAAACGAAAGGCTCAGTCGAAAGACTGGGCCTTTCGTTTTATCTGTTGTTTGTCGGTGAACGCTCTCTACTAGAGTCACACTGGCTCACCTTCGGGTGGGCCTTTCTGCGTTTATA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/BFP/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaK1FR",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGACGCGCTTGAACCTGAGGTTCCTCGGTTCGTTCAACCTCCAGCCGACCGTCAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaT3",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGAAGCGCCTGGACATGATTTTCTTGGGTCAATTTCGCTTGCAACCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaT7",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGAGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGACGCGCTTGAACCTGATGTTCCTCGGTCAGTTCCGCTTACAGCCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaCGG",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTAAAACGCGCGTGCATATTATGTTCCTCGGTCAGTTCGAAATGCAGCCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACGCAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
     "type": "promoter",
     "name": "pCONST",
     "dnasequence": "GATAAGTCCCTAACTTTTACAGCTAGCTCAGTCCTAGGTATTATGCTAGC",
@@ -6291,13 +6624,6 @@
   },
   {
     "collection": "parts",
-    "type": "ribozyme",
-    "name": "SarJ",
-    "dnasequence": "CTGAGACTGTCGCCGGATGTGTATCCGACCTGACGATGGCCCAAAAGGGCCGAAACAGTCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/SarJ/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "B2",
     "dnasequence": "CTATGGACTATGTTTTTCAAAGACGAAAAACTACTAG",
@@ -6305,59 +6631,10 @@
   },
   {
     "collection": "parts",
-    "type": "cds",
-    "name": "BM3R1",
-    "dnasequence": "ATGGAAAGCACCCCGACCAAACAGAAAGCAATTTTTAGCGCAAGCCTGCTGCTGTTTGCAGAACGTGGTTTTGATGCAACCACCATGCCGATGATTGCAGAAAATGCAAAAGTTGGTGCAGGCACCATTTATCGCTATTTCAAAAACAAAGAAAGCCTGGTGAACGAACTGTTTCAGCAGCATGTTAATGAATTTCTGCAGTGTATTGAAAGCGGTCTGGCAAATGAACGTGATGGTTATCGTGATGGCTTTCATCACATTTTTGAAGGTATGGTGACCTTTACCAAAAATCATCCGCGTGCACTGGGTTTTATCAAAACCCATAGCCAGGGCACCTTTCTGACCGAAGAAAGCCGTCTGGCATATCAGAAACTGGTTGAATTTGTGTGCACCTTTTTTCGTGAAGGTCAGAAACAGGGTGTGATTCGTAATCTGCCGGAAAATGCACTGATTGCAATTCTGTTTGGCAGCTTTATGGAAGTGTATGAAATGATCGAGAACGATTATCTGAGCCTGACCGATGAACTGCTGACCGGTGTTGAAGAAAGCCTGTGGGCAGCACTGAGCCGTCAGAGCTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/BM3R1/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "L3S2P11",
-    "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/L3S2P11/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pBM3R1",
-    "dnasequence": "AATCCGCGTGATAGGTCTGATTCGTTACCAATTGACGGAATGAACGTTCATTCCGATAATGCTAGC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pBM3R1/1"
-  },
-  {
-    "collection": "parts",
-    "type": "ribozyme",
-    "name": "SarJ",
-    "dnasequence": "CTGAGACTGTCGCCGGATGTGTATCCGACCTGACGATGGCCCAAAAGGGCCGAAACAGTCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/SarJ/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "B3",
     "dnasequence": "CCAAACGAGGCCGGGAGG",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/B3/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "BM3R1",
-    "dnasequence": "ATGGAAAGCACCCCGACCAAACAGAAAGCAATTTTTAGCGCAAGCCTGCTGCTGTTTGCAGAACGTGGTTTTGATGCAACCACCATGCCGATGATTGCAGAAAATGCAAAAGTTGGTGCAGGCACCATTTATCGCTATTTCAAAAACAAAGAAAGCCTGGTGAACGAACTGTTTCAGCAGCATGTTAATGAATTTCTGCAGTGTATTGAAAGCGGTCTGGCAAATGAACGTGATGGTTATCGTGATGGCTTTCATCACATTTTTGAAGGTATGGTGACCTTTACCAAAAATCATCCGCGTGCACTGGGTTTTATCAAAACCCATAGCCAGGGCACCTTTCTGACCGAAGAAAGCCGTCTGGCATATCAGAAACTGGTTGAATTTGTGTGCACCTTTTTTCGTGAAGGTCAGAAACAGGGTGTGATTCGTAATCTGCCGGAAAATGCACTGATTGCAATTCTGTTTGGCAGCTTTATGGAAGTGTATGAAATGATCGAGAACGATTATCTGAGCCTGACCGATGAACTGCTGACCGGTGTTGAAGAAAGCCTGTGGGCAGCACTGAGCCGTCAGAGCTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/BM3R1/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "L3S2P11",
-    "dnasequence": "CTCGGTACCAAATTCCAGAAAAGAGACGCTTTCGAGCGTCTTTTTTCGTTTTGGTCC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/L3S2P11/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pBM3R1",
-    "dnasequence": "AATCCGCGTGATAGGTCTGATTCGTTACCAATTGACGGAATGAACGTTCATTCCGATAATGCTAGC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pBM3R1/1"
   },
   {
     "collection": "parts",
@@ -6606,13 +6883,6 @@
   },
   {
     "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ53",
-    "dnasequence": "CTGAAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ53/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "P2",
     "dnasequence": "GGAGCTATGGACTATGTTTGAAAGGCTGAAATACTAG",
@@ -6620,59 +6890,10 @@
   },
   {
     "collection": "parts",
-    "type": "cds",
-    "name": "PhlF",
-    "dnasequence": "ATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/PhlF/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "ECK120033737",
-    "dnasequence": "GGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGG",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120033737/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pPhlF",
-    "dnasequence": "CGACGTACGGTGGAATCTGATTCGTTACCAATTGACATGATACGAAACGTACCGTATCGTTAAGGT",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pPhlF/1"
-  },
-  {
-    "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ53",
-    "dnasequence": "CTGAAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ53/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "P3",
     "dnasequence": "CTTTACGAGGGCGATCCT",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/P3/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "PhlF",
-    "dnasequence": "ATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/PhlF/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "ECK120033737",
-    "dnasequence": "ggaaacacagAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTcgaccaaagg",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120033737/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pPhlF",
-    "dnasequence": "CGACGTACGGTGGAAtctgattcgttaccaattgacATGATACGAAACGTACCGTATCGTTAAGGT",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pPhlF/1"
   },
   {
     "collection": "parts",
@@ -6711,38 +6932,10 @@
   },
   {
     "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ60",
-    "dnasequence": "CTGAAGTCGTCAAGTGCTGTGCTTGCACTTCTGATGAGGCAGTGATGCCGAAACGACCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ60/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "Q2",
     "dnasequence": "GCCATGCCATTGGCTTTTGATAGAGGACAACTACTAG",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/Q2/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "QacR",
-    "dnasequence": "ATGAACCTGAAAGATAAAATTCTGGGCGTTGCCAAAGAACTGTTTATCAAAAATGGCTATAACGCAACCACCACCGGTGAAATTGTTAAACTGAGCGAAAGCAGCAAAGGCAATCTGTATTATCACTTTAAAACCAAAGAGAACCTGTTTCTGGAAATCCTGAACATCGAAGAAAGCAAATGGCAAGAGCAGTGGAAAAAAGAACAAATCAAATGCAAAACCAACCGCGAGAAATTCTATCTGTATAATGAACTGAGCCTGACCACCGAATATTACTATCCGCTGCAGAATGCCATCATCGAGTTTTATACCGAGTACTATAAAACCAACAGCATCAACGAGAAAATGAACAAACTGGAAAACAAATACATCGATGCCTACCACGTGATCTTTAAAGAAGGTAATCTGAACGGCGAATGGTGCATTAATGATGTTAATGCCGTGAGCAAAATTGCAGCAAATGCCGTTAATGGCATTGTTACCTTTACCCATGAGCAGAATATCAACGAACGCATTAAACTGATGAACAAATTCAGCCAGATCTTTCTGAATGGCCTGAGCAAATAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/QacR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "ECK120010818",
-    "dnasequence": "GTCAGTTTCACCTGTTTTACGTAAAAACCCGCTTCGGCGGGTTTTTACTTTTGG",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120010818/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pQacR",
-    "dnasequence": "ggtatggaagctatacgttaccaattgacagctagctcagtccTACTTTAGTATATAGACCGTGCGATCGGTCTATA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pQacR/1"
   },
   {
     "collection": "parts",
@@ -6816,13 +7009,6 @@
   },
   {
     "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ10",
-    "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ10/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "S2",
     "dnasequence": "GAGTCTATGGACTATGTTTTCACATATGAGATACCAGG",
@@ -6830,31 +7016,10 @@
   },
   {
     "collection": "parts",
-    "type": "cds",
-    "name": "SrpR",
-    "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/SrpR/1"
-  },
-  {
-    "collection": "parts",
     "type": "terminator",
     "name": "ECK120029600",
     "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120029600/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pSrpR",
-    "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pSrpR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ10",
-    "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ10/1"
   },
   {
     "collection": "parts",
@@ -6865,59 +7030,10 @@
   },
   {
     "collection": "parts",
-    "type": "cds",
-    "name": "SrpR",
-    "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/SrpR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "ECK120029600",
-    "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120029600/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pSrpR",
-    "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pSrpR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "ribozyme",
-    "name": "RiboJ10",
-    "dnasequence": "CTGAAGCGCTCAACGGGTGTGCTTCCCGTTCTGATGAGTCCGTGAGGACGAAAGCGCCTCTACAAATAATTTTGTTTAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RiboJ10/1"
-  },
-  {
-    "collection": "parts",
     "type": "rbs",
     "name": "S4",
     "dnasequence": "CTATGGACTATGTTTTCACACAGGAAATACCAGG",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/S4/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "SrpR",
-    "dnasequence": "ATGGCACGTAAAACCGCAGCAGAAGCAGAAGAAACCCGTCAGCGTATTATTGATGCAGCACTGGAAGTTTTTGTTGCACAGGGTGTTAGTGATGCAACCCTGGATCAGATTGCACGTAAAGCCGGTGTTACCCGTGGTGCAGTTTATTGGCATTTTAATGGTAAACTGGAAGTTCTGCAGGCAGTTCTGGCAAGCCGTCAGCATCCGCTGGAACTGGATTTTACACCGGATCTGGGTATTGAACGTAGCTGGGAAGCAGTTGTTGTTGCAATGCTGGATGCAGTTCATAGTCCGCAGAGCAAACAGTTTAGCGAAATTCTGATTTATCAGGGTCTGGATGAAAGCGGTCTGATTCATAATCGTATGGTTCAGGCAAGCGATCGTTTTCTGCAGTATATTCATCAGGTTCTGCGTCATGCAGTTACCCAGGGTGAACTGCCGATTAATCTGGATCTGCAGACCAGCATTGGTGTTTTTAAAGGTCTGATTACCGGTCTGCTGTATGAAGGTCTGCGTAGCAAAGATCAGCAGGCACAGATTATCAAAGTTGCACTGGGTAGCTTTTGGGCACTGCTGCGTGAACCGCCTCGTTTTCTGCTGTGTGAAGAAGCACAGATTAAACAGGTGAAATCCTTCGAATAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/SrpR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "terminator",
-    "name": "ECK120029600",
-    "dnasequence": "TTCAGCCAAAAAACTTAAGACCGCCGGTCTTGTCCACTACCTTGCAGTAATGCGGTGGACAGGATCGGCGGTTTTCTTTTCTCTTCTCAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/ECK120029600/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pSrpR",
-    "dnasequence": "TCTATGATTGGTCCAGATTCGTTACCAATTGACAGCTAGCTCAGTCCTAGGTATATACATACATGCTTGTTTGTTTGTAAAC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pSrpR/1"
   },
   {
     "collection": "parts",
@@ -130342,24 +130458,24 @@
   },
   {
     "collection": "containers",
-	"name": "lp1",
-	"type": "landing_pad",
+	"name": "plasmid1",
+	"type": "plasmid",
 	"gate_type": "INPUT,PRIMARY_INPUT",
-	"copy_number": 1.5
+	"backbone": "backbone"
   },
   {
 	"collection": "containers",
-	"name": "lp2",
-	"type": "landing_pad",
+	"name": "plasmid2",
+	"type": "plasmid",
 	"gate_type": "OUTPUT,PRIMARY_OUTPUT",
-	"copy_number": 1.0
+	"backbone": "backbone"
   },
   {
 	"collection": "containers",
-	"name": "lp3",
-	"type": "landing_pad",
+	"name": "plasmid3",
+	"type": "plasmid",
 	"gate_type": "NOT,NOR",
-	"copy_number": 1.4
+	"backbone": "backbone"
   },
   {
     "collection": "parts",
@@ -130388,85 +130504,5 @@
     "name": "LuxR",
     "dnasequence": "ATGAACATTAAAAATATAAATGCTAATGAGAAGATAATTGATAAAATTAAAACTTGTAATAATAATAAAGATATTAATCAATGTTTATCTGAAATAGCAAAGATAATACATTGTGAATATTACCTATTCGCTATTATCTATCCTCACTCAATAATTAAACCTGATGTTTCAATTATAGATAATTACCCTGAAAAATGGCGTAAATATTATGATGATGCCGGACTACTAGAATATGACCCTGTAGTCGATTACTCTAAGTCCCATCATTCACCAATTAATTGGAACGTATTCGAAAAAAAAACAATAAAAAAAGAGTCTCCGAATGTAATAAAAGAAGCACAGGAATCGGGACTCATTACTGGATTTAGCTTTCCAATTCATACTGCAAGTAATGGTTTTGGAATGCTCAGTTTTGCTCATTCAGATAAAGATATTTATACTGACAGTTTATTTTTACACGCTAGTACAAATGTACCATTAATGCTTCCTTCTTTAGTCGATAATTATCAAAAAATAAATACGACACGTAAAAAGTCAGATTCTATTTTAACAAAAAGAGAAAAAGAATGCTTAGCGTGGGCGAGTGAAGGAAAAAGTACATGGGATATTTCAAAAATACTTGGCTGCAGTGAGCGTACTGTCACTTTTCATTTAACCAATACTCAAATGAAACTCAATACAACTAACCGCTGCCAAAGTATTTCTAAAGCAATTTTAACTGGCGCCATTAATTGTCCATACCTTAAAAATTAA",
     "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/LuxR/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pCONST",
-    "dnasequence": "GATAAGTCCCTAACTTTTACAGCTAGCTCAGTCCTAGGTATTATGCTAGC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pCONST/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pTac",
-    "dnasequence": "AACGATCGTTGGCTGTGTTGACAATTAATCATCGGCTCGTATAATGTGTGGAATTGTGAGCGCTCACAATT",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pTac/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pTet",
-    "dnasequence": "TACTCCACCGTTGGCTTTTTTCCCTATCAGTGATAGAGATTGACATCCCTATCAGTGATAGAGATAATGAGCAC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pTet/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pBAD",
-    "dnasequence": "ACTTTTCATACTCCCGCCATTCAGAGAAGAAACCAATTGTCCATATTGCATCAGACATTGCCGTCACTGCGTCTTTTACTGGCTCTTCTCGCTAACCAAACCGGTAACCCCGCTTATTAAAAGCATTCTGTAACAAAGCGGGACCAAAGCCATGACAAAAACGCGTAACAAAAGTGTCTATAATCACGGCAGAAAAGTCCACATTGATTATTTGCACGGCGTCACACTTTGCTATGCCATAGCATTTTTATCCATAAGATTAGCGGATCCTACCTGACGCTTTTTATCGCAACTCTCTACTGTTTCTCCATACCCGTTTTTTTGGGCTAGC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pBAD/1"
-  },
-  {
-    "collection": "parts",
-    "type": "promoter",
-    "name": "pLuxStar",
-    "dnasequence": "ATAGCTTCTTACCGGACCTGTAGGATCGTACAGGTTTACGCAAGAAAATGGTTTGTTACTTTCGAATAAA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/pLuxStar/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "YFP",
-    "dnasequence": "CTGAAGCTGTCACCGGATGTGCTTTCCGGTCTGATGAGTCCGTGAGGACGAAACAGCCTCTACAAATAATTTTGTTTAATACTAGAGAAAGAGGGGAAATACTAGATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACAGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCTTCGGCTACGGCCTGCAATGCTTCGCCCGCTACCCCGACCACATGAAGCTGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCAATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTTAGCTACCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAACTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCC",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/YFP/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "RFP",
-    "dnasequence": "CTGAAGTGGTCGTGATCTGAAACTCGATCACCTGATGAGCTCAAGGCAGAGCGAAACCACCTCTACAAATAATTTTGTTTAATACTAGAGTCACACAGGAAAGTACTAGATGGCTTCCTCCGAAGACGTTATCAAAGAGTTCATGCGTTTCAAAGTTCGTATGGAAGGTTCCGTTAACGGTCACGAGTTCGAAATCGAAGGTGAAGGTGAAGGTCGTCCGTACGAAGGTACCCAGACCGCTAAACTGAAAGTTACCAAAGGTGGTCCGCTGCCGTTCGCTTGGGACATCCTGTCCCCGCAGTTCCAGTACGGTTCCAAAGCTTACGTTAAACACCCGGCTGACATCCCGGACTACCTGAAACTGTCCTTCCCGGAAGGTTTCAAATGGGAACGTGTTATGAACTTCGAAGACGGTGGTGTTGTTACCGTTACCCAGGACTCCTCCCTGCAAGACGGTGAGTTCATCTACAAAGTTAAACTGCGTGGTACCAACTTCCCGTCCGACGGTCCGGTTATGCAGAAAAAAACCATGGGTTGGGAAGCTTCCACCGAACGTATGTACCCGGAAGACGGTGCTCTGAAAGGTGAAATCAAAATGCGTCTGAAACTGAAAGACGGTGGTCACTACGACGCTGAAGTTAAAACCACCTACATGGCTAAAAAACCGGTTCAGCTGCCGGGTGCTTACAAAACCGACATCAAACTGGACATCACCTCCCACAACGAAGACTACACCATCGTTGAACAGTACGAACGTGCTGAAGGTCGTCACTCCACCGGTGCTTAATAACAGATAAAAAAAATCCTTAGCTTTCGCTAAGGATGATTTCT",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/RFP/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "BFP",
-    "dnasequence": "CTGAAGTTCCAGTCGAGACCTGAAGTGGGTTTCCTGATGAGGCTGTGGAGAGAGCGAAAGCTTTACTCCCGCACAAGCCGAAACTGGAACCTCTACAAATAATTTTGTTTAAGAGTCACACAGGAAAGTACTAGATGAGCGAGCTGATTAAGGAGAACATGCACATGAAGCTGTACATGGAGGGCACCGTGGACAACCATCACTTCAAGTGCACATCCGAGGGCGAAGGCAAGCCCTACGAGGGCACCCAGACCATGAGAATCAAGGTGGTCGAGGGCGGCCCTCTCCCCTTCGCCTTCGACATCCTGGCTACTAGCTTCCTCTACGGCAGCAAGACCTTCATCAACCACACCCAGGGCATCCCCGACTTCTTCAAGCAGTCCTTCCCTGAGGGCTTCACATGGGAGAGAGTCACCACATACGAAGATGGGGGCGTGCTGACCGCTACCCAGGACACCAGCCTCCAGGACGGCTGCCTCATCTACAACGTCAAGATCAGAGGGGTGAACTTCACATCCAACGGCCCTGTGATGCAGAAGAAAACACTCGGCTGGGAGGCCTTCACCGAGACGCTGTACCCCGCTGACGGCGGCCTGGAAGGCAGAAACGACATGGCCCTGAAGCTCGTGGGCGGGAGCCATCTGATCGCAAACATCAAGACCACATATAGATCCAAGAAACCCGCTAAGAACCTCAAGATGCCTGGCGTCTACTATGTGGACTACAGACTGGAAAGAATCAAGGAGGCCAACAACGAGACCTACGTCGAGCAGCACGAGGTGGCAGTGGCCAGATACTGCGACCTCCCTAGCAAACTGGGGCACTAACCAGGCATCAAATAAAACGAAAGGCTCAGTCGAAAGACTGGGCCTTTCGTTTTATCTGTTGTTTGTCGGTGAACGCTCTCTACTAGAGTCACACTGGCTCACCTTCGGGTGGGCCTTTCTGCGTTTATA",
-    "uri": "https://synbiohub.programmingbiology.org/public/Eco1C1G1T1/BFP/1"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaK1FR",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGACGCGCTTGAACCTGAGGTTCCTCGGTTCGTTCAACCTCCAGCCGACCGTCAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaT3",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGAAGCGCCTGGACATGATTTTCTTGGGTCAATTTCGCTTGCAACCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaT7",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGAGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTCAGACGCGCTTGAACCTGATGTTCCTCGGTCAGTTCCGCTTACAGCCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACACAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
-  },
-  {
-    "collection": "parts",
-    "type": "cds",
-    "name": "sigmaCGG",
-    "dnasequence": "ATGAGCATCGCGGCGACCCTGGAGAACGATCTGGCGCGTCTGGAAAACGAAAACGCTCGTCTCGAAAAAGACATCGCGAACCTGGAACGTGACCTGGCGAAACTGGAGCGTGAAGAAGCGTACTTCGGAGGTTCAGGTGGTAAGAACACTGGTGAAATCTCTGAGAAAGTCAAGCTGGGCACTAAGGCACTGGCTGGTCAATGGCTGGCTTACGGTGTTACTCGCAGTGTGACTAAGCGTTCAGTCATGACGCTGGCTTACGGGTCCAAAGAGTTCGGCTTCCGTCAACAAGTGCTGGAAGATACCATTCAGCCAGCTATTGATTCCGGCAAGGGTCTGATGTTCACTCAGCCGAATCAGGCTGCTGGATACATGGCTAAGCTGATTTGGGAATCTGTGAGCGTGACGGTGGTAGCTGCGGTTGAAGCAATGAACTGGCTTAAGTCTGCTGCTAAGCTGCTGGCTGCTGAGGTCAAAGATAAGAAGACTGGAGAGATTCTTCGCAAGCGTTGCGCTGTGCATTGGGTAACTCCTGATGGTTTCCCTGTGTGGCAGGAATACAAGAAGCCTATTAAAACGCGCGTGCATATTATGTTCCTCGGTCAGTTCGAAATGCAGCCTACCATTAACACCAACAAAGATAGCGAGATTGATGCACGCAAACAGGAGTCTGGTATCGCTCCTAACTTTGTACACAGCCAAGACGGTAGCCACCTTCGTAAGACTGTAGTGTGGGCACACGAGAAGTACGGAATCGAATCTTTTGCACTGATTCACGACTCCTTCGGTACGATTCCGGCTGACGCTGCGAACCTGTTCAAAGCAGTGCGCGAAACTATGGTTGACACATATGAGTCTTGTGATGTACTGGCTGATTTCTACGACCAGTTCGCTGACCAGTTGCACGAGTCTCAATTGGACAAAATGCCAGCACTTCCGGCTAAAGGTAACTTGAACCTCCGTGACATCTTAGAGTCGGACTTCGCGTTCGCG"
   }
 ]
