@@ -328,52 +328,52 @@ public class Eugene extends PLAlgorithm{
 		return rtn;
 	}
 
-	private Collection<String> getDeviceRules() {
-		Collection<String> rtn = new ArrayList<>();
-		Collection<String> rules = this.getRules().getPartRules();
-		for (Devices devices : this.getDevicesMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				// rule
-				String str = "";
-				str += String.format("Rule %s_rules ( ON %s:",device.getName(),device.getName());
-				str += Utils.getNewLine();
-				// Collection<String> parts = this.getPartNamesFromParts(device);
-				Collection<String> parts = new ArrayList<>();
-				for (int j = 0; j < device.getNumComponent(); j++) {
-					Component component = device.getComponentAtIdx(j);
-					if (component instanceof Part) {
-						Part part = (Part)component;
-						parts.add(component.getName());
-						if (part.getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
-							str += Utils.getTabCharacter();
-							str += String.format("%s %s %s",Rules.S_CONTAINS,part.getName(),Rules.S_AND);
-							str += Utils.getNewLine();
-						}
-					}
-					for (String r : rules) {
-						Collection<String> ruleParts = this.getNamesFromRule(r);
-						if (parts.containsAll(ruleParts)) {
-							if (!str.toLowerCase().contains(Rules.S_STARTSWITH.toLowerCase())) {
-								str += Utils.getTabCharacter();
-								str += String.format("%s %s",r,Rules.S_AND);
-								str += Utils.getNewLine();
-							} else {
-								// TODO log something about duplicate startswith
-							}
-						}
-					}
-				}
-				str += Utils.getTabCharacter();
-				str += "ALL_FORWARD";
-				str += Utils.getNewLine();
-				str += ");";
-				str += Utils.getNewLine();
-				rtn.add(str);
-			}
-		}
-		return rtn;
-	}
+//	private Collection<String> getDeviceRules() {
+//		Collection<String> rtn = new ArrayList<>();
+//		Collection<String> rules = this.getRules().getPartRules();
+//		for (Devices devices : this.getDevicesMap().values()) {
+//			for (int i = 0; i < devices.getNumDevice(); i++) {
+//				Device device = devices.getDeviceAtIdx(i);
+//				// rule
+//				String str = "";
+//				str += String.format("Rule %s_rules ( ON %s:",device.getName(),device.getName());
+//				str += Utils.getNewLine();
+//				// Collection<String> parts = this.getPartNamesFromParts(device);
+//				Collection<String> parts = new ArrayList<>();
+//				for (int j = 0; j < device.getNumComponent(); j++) {
+//					Component component = device.getComponentAtIdx(j);
+//					if (component instanceof Part) {
+//						Part part = (Part)component;
+//						parts.add(component.getName());
+//						if (part.getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
+//							str += Utils.getTabCharacter();
+//							str += String.format("%s %s %s",Rules.S_CONTAINS,part.getName(),Rules.S_AND);
+//							str += Utils.getNewLine();
+//						}
+//					}
+//					for (String r : rules) {
+//						Collection<String> ruleParts = this.getNamesFromRule(r);
+//						if (parts.containsAll(ruleParts)) {
+//							if (!str.toLowerCase().contains(Rules.S_STARTSWITH.toLowerCase())) {
+//								str += Utils.getTabCharacter();
+//								str += String.format("%s %s",r,Rules.S_AND);
+//								str += Utils.getNewLine();
+//							} else {
+//								// TODO log something about duplicate startswith
+//							}
+//						}
+//					}
+//				}
+//				str += Utils.getTabCharacter();
+//				str += "ALL_FORWARD";
+//				str += Utils.getNewLine();
+//				str += ");";
+//				str += Utils.getNewLine();
+//				rtn.add(str);
+//			}
+//		}
+//		return rtn;
+//	}
 
 	private Collection<String> getProducts() {
 		Collection<String> rtn = new ArrayList<>();
@@ -457,33 +457,33 @@ public class Eugene extends PLAlgorithm{
 		return rtn;
 	}
 
-	private String getCircuitRules() {
-		String rtn = "";
-		for (Devices devices : this.getGroupsMap().values()) {
-			if (devices.getNumDevice() == 0)
-				continue;
-			Collection<String> gates = this.getGateDeviceNames(devices);
-			rtn += String.format("Rule allRules_%s( ON %s:",devices.getName(),devices.getName());
-			for (String str : gates) {
-				rtn += Utils.getNewLine();
-				rtn += Utils.getTabCharacter();
-				rtn += String.format("unit_%s %s 1 %s", str, Rules.S_EXACTLY, Rules.S_AND);
-			}
-			for (String str : this.getRules().getGateRules()) {
-				Collection<String> names = getNamesFromRule(str);
-				if (gates.containsAll(names)) {
-					rtn += Utils.getNewLine();
-					rtn += Utils.getTabCharacter();
-					rtn += String.format("%s %s",str,Rules.S_AND);
-				}
-			}
-			rtn = rtn.replaceAll(" " + Rules.S_AND + "$","");
-			rtn += Utils.getNewLine();
-			rtn += ");";
-			rtn += Utils.getNewLine() + Utils.getNewLine();
-		}
-		return rtn;
-	}
+//	private String getCircuitRules() {
+//		String rtn = "";
+//		for (Devices devices : this.getGroupsMap().values()) {
+//			if (devices.getNumDevice() == 0)
+//				continue;
+//			Collection<String> gates = this.getGateDeviceNames(devices);
+//			rtn += String.format("Rule allRules_%s( ON %s:",devices.getName(),devices.getName());
+//			for (String str : gates) {
+//				rtn += Utils.getNewLine();
+//				rtn += Utils.getTabCharacter();
+//				rtn += String.format("unit_%s %s 1 %s", str, Rules.S_EXACTLY, Rules.S_AND);
+//			}
+//			for (String str : this.getRules().getGateRules()) {
+//				Collection<String> names = getNamesFromRule(str);
+//				if (gates.containsAll(names)) {
+//					rtn += Utils.getNewLine();
+//					rtn += Utils.getTabCharacter();
+//					rtn += String.format("%s %s",str,Rules.S_AND);
+//				}
+//			}
+//			rtn = rtn.replaceAll(" " + Rules.S_AND + "$","");
+//			rtn += Utils.getNewLine();
+//			rtn += ");";
+//			rtn += Utils.getNewLine() + Utils.getNewLine();
+//		}
+//		return rtn;
+//	}
 
 	private String getResults() {
 		String rtn = "";
@@ -556,7 +556,7 @@ public class Eugene extends PLAlgorithm{
 		// device definitions
 		script += this.getBlock(this.getDeviceDefinitions());
 		// device rules
-		script += this.getBlock(this.getDeviceRules());
+		// script += this.getBlock(this.getDeviceRules());
 		// products
 		script += this.getBlock(this.getProducts());
 		// gate definitions
@@ -564,7 +564,7 @@ public class Eugene extends PLAlgorithm{
 		// circuit definition
 		script += this.getCircuitDeclaration();
 		// circuit rules
-		script += this.getCircuitRules();
+		script += this.getRules().toString();
 		// results
 		script += this.getResults();
 

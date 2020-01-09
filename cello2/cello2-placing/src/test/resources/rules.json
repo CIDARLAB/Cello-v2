@@ -1,0 +1,124 @@
+{
+	"collection": "circuit_rules",
+	"rules": [
+		{
+			"function": "AND",
+			"rules": [
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"P1_PhlF_a BEFORE L2",
+								"P1_PhlF_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"P1_PhlF_b BEFORE L2",
+								"P1_PhlF_a AFTER L2"
+							]
+						}
+					]
+				},
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"Q1_QacR_a BEFORE L2",
+								"Q1_QacR_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"Q1_QacR_b BEFORE L2",
+								"Q1_QacR_a AFTER L2"
+							]
+						}
+					]
+				},
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"A1_AmtR_a BEFORE L2",
+								"A1_AmtR_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"A1_AmtR_b BEFORE L2",
+								"A1_AmtR_a AFTER L2"
+							]
+						}
+					]
+				},
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"B3_BM3R1_a BEFORE L2",
+								"B3_BM3R1_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"B3_BM3R1_b BEFORE L2",
+								"B3_BM3R1_a AFTER L2"
+							]
+						}
+					]
+				},
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"F2_AmeRs_a BEFORE L2",
+								"F2_AmeRs_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"F2_AmeRs_b BEFORE L2",
+								"F2_AmeRs_a AFTER L2"
+							]
+						}
+					]
+				},
+				{
+					"function": "OR",
+					"rules": [
+						{
+							"function": "AND",
+							"rules": [
+								"E1_BetI_a BEFORE L2",
+								"E1_BetI_b AFTER L2"
+							]
+						},
+						{
+							"function": "AND",
+							"rules": [
+								"E1_BetI_b BEFORE L2",
+								"E1_BetI_a AFTER L2"
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
