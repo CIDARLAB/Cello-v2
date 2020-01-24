@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.cellocad.cello2.common.Utils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.logicng.formulas.Formula;
@@ -35,15 +36,16 @@ import org.logicng.io.parsers.PropositionalParser;
 import org.logicng.transformations.dnf.DNFFactorization;
 
 /**
- * Rules is a class representing the rules for part and gate placement <i>Eugene</i> algorithm.
+ * Rules is a class representing the rules for part and gate placement
+ * <i>Eugene</i> algorithm.
  * 
  * @author Timothy Jones
  * 
  * @date 2018-08-10
  *
  */
-public class Rules {
-	
+public class CircuitRules {
+
 	private static class Namer {
 
 		public Namer() {
@@ -55,8 +57,7 @@ public class Rules {
 			int len = this.last.length();
 			if (this.last.endsWith("Z") || len < 1) {
 				rtn = this.last + "A";
-			}
-			else {
+			} else {
 				String prefix = this.last.substring(0, len - 1);
 				char c = this.last.charAt(len - 1);
 				rtn = prefix + nextChar(c);
@@ -83,8 +84,7 @@ public class Rules {
 		char c = '\0';
 		if (op.equals("AND")) {
 			c = '&';
-		}
-		else if (op.equals("OR")) {
+		} else if (op.equals("OR")) {
 			c = '|';
 		}
 		for (int i = 0; i < arr.size(); i++) {
@@ -105,7 +105,7 @@ public class Rules {
 
 	private String buildRule(StringTokenizer st, Map<String, String> names, int num) {
 		String rtn = "";
-		rtn += "Rule CircuitRule" + String.valueOf(num) + "( ON circuit:\n";
+		rtn += "Rule CircuitRule" + String.valueOf(num) + "( ON circuit:" + Utils.getNewLine();
 		while (true) {
 			if (!st.hasMoreTokens())
 				break;
@@ -113,12 +113,12 @@ public class Rules {
 			if (t.equals("|"))
 				break;
 			if (t.equals("&")) {
-				rtn += " AND\n";
+				rtn += " " + EugeneRules.S_AND + Utils.getNewLine();
 				continue;
 			}
 			rtn += "    " + names.get(t);
 		}
-		rtn += "\n);\n";
+		rtn += Utils.getNewLine() + ");" + Utils.getNewLine();
 		return rtn;
 	}
 
@@ -147,21 +147,21 @@ public class Rules {
 		final DNFFactorization d = new DNFFactorization();
 		final Formula r = d.apply(formula, false);
 		StringTokenizer st = new StringTokenizer(r.toString());
-		buildRules(st, names);
+		buildRules(st, this.getNames());
 	}
-	
+
 	private void init() {
 		this.rules = new ArrayList<>();
 		this.names = new HashMap<>();
 	}
-	
-	public Rules(final JSONObject jObj) {
+
+	public CircuitRules(final JSONObject jObj) {
 		init();
 		this.parseRules(jObj);
 	}
 
 	public String toString() {
-		return String.join("\n", this.getRules());
+		return String.join(Utils.getNewLine(), this.getRules());
 	}
 
 	/*
@@ -170,102 +170,13 @@ public class Rules {
 	private Collection<String> getRules() {
 		return this.rules;
 	}
-	
+
 	private Collection<String> rules;
-	
+
 	private Map<String, String> getNames() {
 		return this.names;
 	}
 
 	private Map<String, String> names;
-
-	/*
-	 * keywords
-	 */
-	// counting
-	static public final String S_CONTAINS = "CONTAINS";
-	static public final String S_NOTCONTAINS = "NOTCONTAINS";
-	static public final String S_EXACTLY = "EXACTLY";
-	static public final String S_NOTEXACTLY = "NOTEXACTLY";
-	static public final String S_MORETHAN = "MORETHAN";
-	static public final String S_NOTMORETHAN = "NOTMORETHAN";
-	static public final String S_SAMECOUNT = "SAME_COUNT";
-	static public final String S_WITH = "WITH";
-	static public final String S_NOTWITH = "NOTWITH";
-	static public final String S_THEN = "THEN";
-	// positioning
-	static public final String S_STARTSWITH = "STARTSWITH";
-	static public final String S_ENDSWITH = "ENDSWITH";
-	static public final String S_AFTER = "AFTER";
-	static public final String S_ALLAFTER = "ALL_AFTER";
-	static public final String S_SOMEAFTER = "SOME_AFTER";
-	static public final String S_BEFORE = "BEFORE";
-	static public final String S_ALLBEFORE = "ALL_BEFORE";
-	static public final String S_SOMEBEFORE = "SOME_BEFORE";
-	static public final String S_NEXTTO = "NEXTTO";
-	static public final String S_ALLNEXTTO = "ALL_NEXTTO";
-	static public final String S_SOMENEXTTO = "SOME_NEXTTO";
-	// pairing
-	static public final String S_EQUALS = "EQUALS";
-	static public final String S_NOTEQUALS = "NOTEQUALS";
-	// orientation
-	static public final String S_ALLFORWARD = "ALL_FORWARD";
-	static public final String S_ALLREVERSE = "ALL_REVERSE";
-	static public final String S_FORWARD = "FORWARD";
-	static public final String S_REVERSE = "REVERSE";
-	static public final String S_SAMEORIENTATION = "SAME_ORIENTATION";
-	static public final String S_ALLSAMEORIENTATION = "ALL_SAME_ORIENTATION";
-	static public final String S_ALTERNATEORIENTATION = "ALTERNATE_ORIENTATION";
-	// interaction
-	static public final String S_REPRESSES = "REPRESSES";
-	static public final String S_INDUCES = "INDUCES";
-	static public final String S_DRIVES = "DRIVES";
-	// logic
-	static public final String S_NOT = "NOT";
-	static public final String S_AND = "AND";
-	static public final String S_OR = "OR";
-	
-	/**
-	 *  ValidNodeTypes: Array of Strings containing valid rule keyword
-	 */
-	public static final String[] ValidRuleKeywords =
-		{
-			Rules.S_CONTAINS,
-			Rules.S_NOTCONTAINS,
-			Rules.S_EXACTLY,
-			Rules.S_NOTEXACTLY,
-			Rules.S_MORETHAN,
-			Rules.S_NOTMORETHAN,
-			Rules.S_SAMECOUNT,
-			Rules.S_WITH,
-			Rules.S_NOTWITH,
-			Rules.S_THEN,
-			Rules.S_STARTSWITH,
-			Rules.S_ENDSWITH,
-			Rules.S_AFTER,
-			Rules.S_ALLAFTER,
-			Rules.S_SOMEAFTER,
-			Rules.S_BEFORE,
-			Rules.S_ALLBEFORE,
-			Rules.S_SOMEBEFORE,
-			Rules.S_NEXTTO,
-			Rules.S_ALLNEXTTO,
-			Rules.S_SOMENEXTTO,
-			Rules.S_EQUALS,
-			Rules.S_NOTEQUALS,
-			Rules.S_ALLFORWARD,
-			Rules.S_ALLREVERSE,
-			Rules.S_FORWARD,
-			Rules.S_REVERSE,
-			Rules.S_SAMEORIENTATION,
-			Rules.S_ALLSAMEORIENTATION,
-			Rules.S_ALTERNATEORIENTATION,
-			Rules.S_REPRESSES,
-			Rules.S_INDUCES,
-			Rules.S_DRIVES,
-			Rules.S_NOT,
-			Rules.S_AND,
-			Rules.S_OR
-		};
 
 }
