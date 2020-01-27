@@ -7,7 +7,7 @@
         "author": [
             "Mao Taketani",
             "Shuyi Zhang",
-			"Timothy Jones"
+            "Timothy Jones"
         ],
         "organism": "Bacteroides thetaiotaomicron VPI-5482",
         "genome": "wildtype with dCas9 integrated",
@@ -15,13 +15,13 @@
         "temperature": "37",
         "growth": "Inoculation: Inoculate individual colonies into TYG media without antibiotics and grow 18 hours overnight in the anaerobic chamber.  Dilution and Induction: Next day, dilute 100-fold into pre-reduced TYG with inducers (no antibiotics), grow for 6 hours in the anaerobic chamber.  Measurement: Plate Reader, data processing for RPUL normalization."
     },
-	{
+    {
         "collection": "genetic_locations",
         "symbol": "L1",
         "locus": 3448657,
         "sequence": "NCBI NC_004663.1"
     },
-	{
+    {
         "collection": "genetic_locations",
         "symbol": "L2",
         "locus": [6217227, 6138320],
@@ -5386,187 +5386,187 @@
             }
         ]
     },
-	{
-		"collection": "circuit_rules",
-		"rules": {
-			"function": "AND",
-			"rules": [
-				{
-					"function": "AND",
-					"rules": [
-						"Gate1_a BEFORE nanoluc_reporter_a",
-						"Gate2_a BEFORE nanoluc_reporter_a",
-						"Gate3_a BEFORE nanoluc_reporter_a",
-						"Gate4_a BEFORE nanoluc_reporter_a",
-						"Gate5_a BEFORE nanoluc_reporter_a",
-						"Gate6_a BEFORE nanoluc_reporter_a",
-						"Gate7_a BEFORE nanoluc_reporter_a",
-						"Gate1_b BEFORE nanoluc_reporter_a",
-						"Gate2_b BEFORE nanoluc_reporter_a",
-						"Gate3_b BEFORE nanoluc_reporter_a",
-						"Gate4_b BEFORE nanoluc_reporter_a",
-						"Gate5_b BEFORE nanoluc_reporter_a",
-						"Gate6_b BEFORE nanoluc_reporter_a",
-						"Gate7_b BEFORE nanoluc_reporter_a",
-						"Gate1_a BEFORE nanoluc_reporter_b",
-						"Gate2_a BEFORE nanoluc_reporter_b",
-						"Gate3_a BEFORE nanoluc_reporter_b",
-						"Gate4_a BEFORE nanoluc_reporter_b",
-						"Gate5_a BEFORE nanoluc_reporter_b",
-						"Gate6_a BEFORE nanoluc_reporter_b",
-						"Gate7_a BEFORE nanoluc_reporter_b",
-						"Gate1_b BEFORE nanoluc_reporter_b",
-						"Gate2_b BEFORE nanoluc_reporter_b",
-						"Gate3_b BEFORE nanoluc_reporter_b",
-						"Gate4_b BEFORE nanoluc_reporter_b",
-						"Gate5_b BEFORE nanoluc_reporter_b",
-						"Gate6_b BEFORE nanoluc_reporter_b",
-						"Gate7_b BEFORE nanoluc_reporter_b",
-						"ALL_FORWARD"
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate1_a BEFORE L2",
-								"Gate1_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate1_b AFTER L2",
-								"Gate1_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate2_a BEFORE L2",
-								"Gate2_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate2_a AFTER L2",
-								"Gate2_b BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate3_a BEFORE L2",
-								"Gate3_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate3_a AFTER L2",
-								"Gate3_b BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate4_a BEFORE L2",
-								"Gate4_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate4_a AFTER L2",
-								"Gate4_b BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate5_a BEFORE L2",
-								"Gate5_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate5_a AFTER L2",
-								"Gate5_b BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate6_a BEFORE L2",
-								"Gate6_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate6_a AFTER L2",
-								"Gate6_b BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Gate7_a BEFORE L2",
-								"Gate7_b AFTER L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Gate7_a AFTER L2",
-								"Gate7_b BEFORE L2"
-							]
-						}
-					]
-				}
-			]
-		}
-	},
-	{
-		"collection": "device_rules",
-		"rules": [
-			"ALL_FORWARD"
-		]
-	},
+    {
+        "collection": "circuit_rules",
+        "rules": {
+            "function": "AND",
+            "rules": [
+                {
+                    "function": "AND",
+                    "rules": [
+                        "Gate1_a BEFORE nanoluc_reporter_a",
+                        "Gate2_a BEFORE nanoluc_reporter_a",
+                        "Gate3_a BEFORE nanoluc_reporter_a",
+                        "Gate4_a BEFORE nanoluc_reporter_a",
+                        "Gate5_a BEFORE nanoluc_reporter_a",
+                        "Gate6_a BEFORE nanoluc_reporter_a",
+                        "Gate7_a BEFORE nanoluc_reporter_a",
+                        "Gate1_b BEFORE nanoluc_reporter_a",
+                        "Gate2_b BEFORE nanoluc_reporter_a",
+                        "Gate3_b BEFORE nanoluc_reporter_a",
+                        "Gate4_b BEFORE nanoluc_reporter_a",
+                        "Gate5_b BEFORE nanoluc_reporter_a",
+                        "Gate6_b BEFORE nanoluc_reporter_a",
+                        "Gate7_b BEFORE nanoluc_reporter_a",
+                        "Gate1_a BEFORE nanoluc_reporter_b",
+                        "Gate2_a BEFORE nanoluc_reporter_b",
+                        "Gate3_a BEFORE nanoluc_reporter_b",
+                        "Gate4_a BEFORE nanoluc_reporter_b",
+                        "Gate5_a BEFORE nanoluc_reporter_b",
+                        "Gate6_a BEFORE nanoluc_reporter_b",
+                        "Gate7_a BEFORE nanoluc_reporter_b",
+                        "Gate1_b BEFORE nanoluc_reporter_b",
+                        "Gate2_b BEFORE nanoluc_reporter_b",
+                        "Gate3_b BEFORE nanoluc_reporter_b",
+                        "Gate4_b BEFORE nanoluc_reporter_b",
+                        "Gate5_b BEFORE nanoluc_reporter_b",
+                        "Gate6_b BEFORE nanoluc_reporter_b",
+                        "Gate7_b BEFORE nanoluc_reporter_b",
+                        "ALL_FORWARD"
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate1_a BEFORE L2",
+                                "Gate1_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate1_b AFTER L2",
+                                "Gate1_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate2_a BEFORE L2",
+                                "Gate2_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate2_a AFTER L2",
+                                "Gate2_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate3_a BEFORE L2",
+                                "Gate3_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate3_a AFTER L2",
+                                "Gate3_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate4_a BEFORE L2",
+                                "Gate4_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate4_a AFTER L2",
+                                "Gate4_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate5_a BEFORE L2",
+                                "Gate5_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate5_a AFTER L2",
+                                "Gate5_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate6_a BEFORE L2",
+                                "Gate6_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate6_a AFTER L2",
+                                "Gate6_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate7_a BEFORE L2",
+                                "Gate7_b AFTER L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Gate7_a AFTER L2",
+                                "Gate7_b BEFORE L2"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "collection": "device_rules",
+        "rules": [
+            "ALL_FORWARD"
+        ]
+    },
     {
         "collection": "parts",
         "type": "cds",
@@ -6052,23 +6052,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate1",
-		"output": "PM1",
+        "output": "PM1",
         "devices": [
             {
                 "name": "Gate1_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M1",
+                    "M1",
                     "L3S3P41"
                 ]
             },
-			{
+            {
                 "name": "Gate1_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M1",
+                    "M1",
                     "L3S3P41"
                 ]
             }
@@ -6077,23 +6077,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate2",
-		"output": "PM2",
+        "output": "PM2",
         "devices": [
             {
                 "name": "Gate2_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M2",
+                    "M2",
                     "ECK120029600"
                 ]
             },
-			{
+            {
                 "name": "Gate2_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M2",
+                    "M2",
                     "ECK120029600"
                 ]
             }
@@ -6102,23 +6102,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate3",
-		"output": "PM3",
+        "output": "PM3",
         "devices": [
             {
                 "name": "Gate3_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M3",
+                    "M3",
                     "ECK120034435"
                 ]
             },
-			{
+            {
                 "name": "Gate3_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M3",
+                    "M3",
                     "ECK120034435"
                 ]
             }
@@ -6127,23 +6127,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate4",
-		"output": "PM4",
+        "output": "PM4",
         "devices": [
             {
                 "name": "Gate4_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M4",
+                    "M4",
                     "ECK120033736"
                 ]
             },
-			{
+            {
                 "name": "Gate4_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M4",
+                    "M4",
                     "ECK120033736"
                 ]
             }
@@ -6152,23 +6152,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate5",
-		"output": "PM5",
+        "output": "PM5",
         "devices": [
             {
                 "name": "Gate5_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M5",
+                    "M5",
                     "ECK125109870"
                 ]
             },
-			{
+            {
                 "name": "Gate5_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M5",
+                    "M5",
                     "ECK125109870"
                 ]
             }
@@ -6177,23 +6177,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate6",
-		"output": "PM6",
+        "output": "PM6",
         "devices": [
             {
                 "name": "Gate6_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M6",
+                    "M6",
                     "L3S3P31"
                 ]
             },
-			{
+            {
                 "name": "Gate6_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M6",
+                    "M6",
                     "L3S3P31"
                 ]
             }
@@ -6202,23 +6202,23 @@
     {
         "collection": "gate_structure",
         "gate_name": "Gate7",
-		"output": "PM7",
+        "output": "PM7",
         "devices": [
             {
                 "name": "Gate7_a",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M7",
+                    "M7",
                     "pheA_1"
                 ]
             },
-			{
+            {
                 "name": "Gate7_b",
-				"maps_to_variable": "x",
+                "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"M7",
+                    "M7",
                     "pheA_1"
                 ]
             }

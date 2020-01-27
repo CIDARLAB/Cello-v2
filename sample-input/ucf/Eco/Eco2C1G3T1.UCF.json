@@ -7,7 +7,7 @@
         "author": [
             "Yongjin Park",
             "Shuyi Zhang",
-			"Timothy Jones"
+            "Timothy Jones"
         ],
         "organism": "Escherichia coli MG1655 K-12",
         "genome": "wildtype (NCBI RefSeq: NC_000913.3) with three landing pads integrated",
@@ -15,25 +15,25 @@
         "temperature": "37",
         "growth": "Inoculation: Individual colonies into M9 media, 16 hours overnight in plate shaker.\tDilution: Next day, cells dilute ~200-fold into M9 media with antibiotics, growth for 3 hours.\tInduction: Cells diluted ~700-fold into M9 media with antibiotics.\tGrowth: shaking incubator for 5 hours.\tArrest protein production: PBS and 2mg/ml kanamycin.  Measurement: flow cytometry, data processing for REU normalization."
     },
-	{
-		"collection": "measurement_std",
-		"signal_carrier_units": "RPUG",
-		"normalization_instructions": "The following equation converts the median YFP fluorescence to RPUG.  RPUG = (YFP – YFP0)/(YFPRPUG – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPRPUG is the median fluorescence of the cells containing the measurement standard on the genome landing pad",
-		"plasmid_description": "Genome integrated RPU standard where YFP fluorescent protein is driven by J23101 promoter and B0034 RBS. RiboJ was used as a ribozyme insulator. A bidirectional terminator DT3 was used to insulate YFP from the genome. The insertion is in the landing pad #1, at the position of 4196314"
-	},
+    {
+        "collection": "measurement_std",
+        "signal_carrier_units": "RPUG",
+        "normalization_instructions": "The following equation converts the median YFP fluorescence to RPUG.  RPUG = (YFP – YFP0)/(YFPRPUG – YFP0), where YFP is the median fluorescence of the cells of interest, YFP0 is the median autofluorescence, and YFPRPUG is the median fluorescence of the cells containing the measurement standard on the genome landing pad",
+        "plasmid_description": "Genome integrated RPU standard where YFP fluorescent protein is driven by J23101 promoter and B0034 RBS. RiboJ was used as a ribozyme insulator. A bidirectional terminator DT3 was used to insulate YFP from the genome. The insertion is in the landing pad #1, at the position of 4196314"
+    },
     {
         "collection": "genetic_locations",
         "symbol": "L1",
         "locus": 4196314,
         "sequence": "NCBI U00096.3"
     },
-	{
+    {
         "collection": "genetic_locations",
         "symbol": "L2",
         "locus": 4506858,
         "sequence": "NCBI U00096.3"
     },
-	{
+    {
         "collection": "genetic_locations",
         "symbol": "L3",
         "locus": 3911814,
@@ -9342,7 +9342,7 @@
     {
         "collection": "gate_structure",
         "gate_name": "Q1_QacR",
-		"output": "pQacR",
+        "output": "pQacR",
         "devices": [
             {
                 "name": "Q1_QacR_a",
@@ -9371,14 +9371,14 @@
     {
         "collection": "gate_structure",
         "gate_name": "A1_AmtR",
-		"output": "pAmtR",
+        "output": "pAmtR",
         "devices": [
             {
                 "name": "A1_AmtR_a",
                 "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"BydvJ",
+                    "BydvJ",
                     "A1",
                     "AmtR",
                     "DT65"
@@ -9389,7 +9389,7 @@
                 "maps_to_variable": "x",
                 "components": [
                     "#promoter?",
-					"BydvJ",
+                    "BydvJ",
                     "A1",
                     "AmtR",
                     "DT65"
@@ -9400,7 +9400,7 @@
     {
         "collection": "gate_structure",
         "gate_name": "B3_BM3R1",
-		"output": "pBM3R1",
+        "output": "pBM3R1",
         "devices": [
             {
                 "name": "B3_BM3R1_a",
@@ -9429,7 +9429,7 @@
     {
         "collection": "gate_structure",
         "gate_name": "F2_AmeRs",
-		"output": "pAmeR",
+        "output": "pAmeR",
         "devices": [
             {
                 "name": "F2_AmeRs_a",
@@ -9458,7 +9458,7 @@
     {
         "collection": "gate_structure",
         "gate_name": "E1_BetI",
-		"output": "pBetI",
+        "output": "pBetI",
         "devices": [
             {
                 "name": "E1_BetI_a",
@@ -9664,249 +9664,249 @@
             }
         ]
     },
-	{
-		"collection": "circuit_rules",
-		"rules": {
-			"function": "AND",
-			"rules": [
-				{
-					"function": "AND",
-					"rules": [
-						"YFP_reporter AFTER L3",
-						"ALL_FORWARD"
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"P1_PhlF_a AFTER L2",
-								"P1_PhlF_a BEFORE L3",
-								"P1_PhlF_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"P1_PhlF_a AFTER L2",
-								"P1_PhlF_a BEFORE L3",
-								"P1_PhlF_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"P1_PhlF_b AFTER L2",
-								"P1_PhlF_b BEFORE L3",
-								"P1_PhlF_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"P1_PhlF_b AFTER L2",
-								"P1_PhlF_b BEFORE L3",
-								"P1_PhlF_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"Q1_QacR_a AFTER L2",
-								"Q1_QacR_a BEFORE L3",
-								"Q1_QacR_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Q1_QacR_a AFTER L2",
-								"Q1_QacR_a BEFORE L3",
-								"Q1_QacR_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Q1_QacR_b AFTER L2",
-								"Q1_QacR_b BEFORE L3",
-								"Q1_QacR_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"Q1_QacR_b AFTER L2",
-								"Q1_QacR_b BEFORE L3",
-								"Q1_QacR_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"A1_AmtR_a AFTER L2",
-								"A1_AmtR_a BEFORE L3",
-								"A1_AmtR_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"A1_AmtR_a AFTER L2",
-								"A1_AmtR_a BEFORE L3",
-								"A1_AmtR_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"A1_AmtR_b AFTER L2",
-								"A1_AmtR_b BEFORE L3",
-								"A1_AmtR_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"A1_AmtR_b AFTER L2",
-								"A1_AmtR_b BEFORE L3",
-								"A1_AmtR_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"B3_BM3R1_a AFTER L2",
-								"B3_BM3R1_a BEFORE L3",
-								"B3_BM3R1_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"B3_BM3R1_a AFTER L2",
-								"B3_BM3R1_a BEFORE L3",
-								"B3_BM3R1_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"B3_BM3R1_b AFTER L2",
-								"B3_BM3R1_b BEFORE L3",
-								"B3_BM3R1_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"B3_BM3R1_b AFTER L2",
-								"B3_BM3R1_b BEFORE L3",
-								"B3_BM3R1_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"F1_AmeRs_a AFTER L2",
-								"F1_AmeRs_a BEFORE L3",
-								"F1_AmeRs_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"F1_AmeRs_a AFTER L2",
-								"F1_AmeRs_a BEFORE L3",
-								"F1_AmeRs_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"F1_AmeRs_b AFTER L2",
-								"F1_AmeRs_b BEFORE L3",
-								"F1_AmeRs_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"F1_AmeRs_b AFTER L2",
-								"F1_AmeRs_b BEFORE L3",
-								"F1_AmeRs_a BEFORE L2"
-							]
-						}
-					]
-				},
-				{
-					"function": "OR",
-					"rules": [
-						{
-							"function": "AND",
-							"rules": [
-								"E1_BetI_a AFTER L2",
-								"E1_BetI_a BEFORE L3",
-								"E1_BetI_b AFTER L3"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"E1_BetI_a AFTER L2",
-								"E1_BetI_a BEFORE L3",
-								"E1_BetI_b BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"E1_BetI_b AFTER L2",
-								"E1_BetI_b BEFORE L3",
-								"E1_BetI_a BEFORE L2"
-							]
-						},
-						{
-							"function": "AND",
-							"rules": [
-								"E1_BetI_b AFTER L2",
-								"E1_BetI_b BEFORE L3",
-								"E1_BetI_a BEFORE L2"
-							]
-						}
-					]
-				}
-			]
-		}
-	},
-	{
-		"collection": "device_rules",
-		"rules": [
-			"ALL_FORWARD"
-		]
-	},
+    {
+        "collection": "circuit_rules",
+        "rules": {
+            "function": "AND",
+            "rules": [
+                {
+                    "function": "AND",
+                    "rules": [
+                        "YFP_reporter AFTER L3",
+                        "ALL_FORWARD"
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "P1_PhlF_a AFTER L2",
+                                "P1_PhlF_a BEFORE L3",
+                                "P1_PhlF_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "P1_PhlF_a AFTER L2",
+                                "P1_PhlF_a BEFORE L3",
+                                "P1_PhlF_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "P1_PhlF_b AFTER L2",
+                                "P1_PhlF_b BEFORE L3",
+                                "P1_PhlF_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "P1_PhlF_b AFTER L2",
+                                "P1_PhlF_b BEFORE L3",
+                                "P1_PhlF_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Q1_QacR_a AFTER L2",
+                                "Q1_QacR_a BEFORE L3",
+                                "Q1_QacR_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Q1_QacR_a AFTER L2",
+                                "Q1_QacR_a BEFORE L3",
+                                "Q1_QacR_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Q1_QacR_b AFTER L2",
+                                "Q1_QacR_b BEFORE L3",
+                                "Q1_QacR_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "Q1_QacR_b AFTER L2",
+                                "Q1_QacR_b BEFORE L3",
+                                "Q1_QacR_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "A1_AmtR_a AFTER L2",
+                                "A1_AmtR_a BEFORE L3",
+                                "A1_AmtR_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "A1_AmtR_a AFTER L2",
+                                "A1_AmtR_a BEFORE L3",
+                                "A1_AmtR_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "A1_AmtR_b AFTER L2",
+                                "A1_AmtR_b BEFORE L3",
+                                "A1_AmtR_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "A1_AmtR_b AFTER L2",
+                                "A1_AmtR_b BEFORE L3",
+                                "A1_AmtR_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "B3_BM3R1_a AFTER L2",
+                                "B3_BM3R1_a BEFORE L3",
+                                "B3_BM3R1_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "B3_BM3R1_a AFTER L2",
+                                "B3_BM3R1_a BEFORE L3",
+                                "B3_BM3R1_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "B3_BM3R1_b AFTER L2",
+                                "B3_BM3R1_b BEFORE L3",
+                                "B3_BM3R1_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "B3_BM3R1_b AFTER L2",
+                                "B3_BM3R1_b BEFORE L3",
+                                "B3_BM3R1_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "F1_AmeRs_a AFTER L2",
+                                "F1_AmeRs_a BEFORE L3",
+                                "F1_AmeRs_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "F1_AmeRs_a AFTER L2",
+                                "F1_AmeRs_a BEFORE L3",
+                                "F1_AmeRs_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "F1_AmeRs_b AFTER L2",
+                                "F1_AmeRs_b BEFORE L3",
+                                "F1_AmeRs_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "F1_AmeRs_b AFTER L2",
+                                "F1_AmeRs_b BEFORE L3",
+                                "F1_AmeRs_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "E1_BetI_a AFTER L2",
+                                "E1_BetI_a BEFORE L3",
+                                "E1_BetI_b AFTER L3"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "E1_BetI_a AFTER L2",
+                                "E1_BetI_a BEFORE L3",
+                                "E1_BetI_b BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "E1_BetI_b AFTER L2",
+                                "E1_BetI_b BEFORE L3",
+                                "E1_BetI_a BEFORE L2"
+                            ]
+                        },
+                        {
+                            "function": "AND",
+                            "rules": [
+                                "E1_BetI_b AFTER L2",
+                                "E1_BetI_b BEFORE L3",
+                                "E1_BetI_a BEFORE L2"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "collection": "device_rules",
+        "rules": [
+            "ALL_FORWARD"
+        ]
+    },
     {
         "collection": "parts",
         "type": "ribozyme",
