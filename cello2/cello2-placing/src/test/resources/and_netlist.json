@@ -26,19 +26,19 @@
 			"name": "$48",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "S2_SrpR"
+			"gateType": "E1_BetI"
 		},
 		{
 			"name": "$49",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "H1_HlyIIR"
+			"gateType": "A1_AmtR"
 		},
 		{
 			"name": "$50",
 			"nodeType": "NOR",
 			"partitionID": -1,
-			"gateType": "P3_PhlF"
+			"gateType": "P1_PhlF"
 		}
 	],
 	"edges": 
