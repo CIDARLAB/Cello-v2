@@ -54,8 +54,10 @@ public class EugeneTest {
 	public void init() throws CelloException {
 		if (initIsDone)
 			return;
-		String[] args = { "-inputNetlist", Utils.getResource("and_netlist.json").getFile(), "-targetDataFile",
-				Utils.getResource("Eco2C1G3T1.UCF.json").getFile(), "-algoName", "Eugene" };
+		String[] args = { "-inputNetlist", Utils.getResource("and_netlist.json").getFile(), "-userConstraintsFile",
+				Utils.getResource("Eco2C1G3T1.UCF.json").getFile(), "-inputSensorFile",
+				Utils.getResource("Eco1C1G1T1.input.json").getFile(), "-outputDeviceFile",
+				Utils.getResource("Eco1C1G1T1.output.json").getFile(), "-algoName", "Eugene" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
 		// InputFile
@@ -77,7 +79,8 @@ public class EugeneTest {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.TARGETDATAFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.USERCONSTRAINTSFILE,
+				PLArgString.INPUTSENSORFILE, PLArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
