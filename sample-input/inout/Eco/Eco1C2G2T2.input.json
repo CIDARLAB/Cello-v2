@@ -6,11 +6,11 @@
 		"parameters": [
 			{
 				"name": "signal_low",
-				"value": 0.0034
+				"value": 0.008
 			},
 			{
 				"name": "signal_high",
-				"value": 2.8
+				"value": 1.686
 			},
 			{
 				"name": "alpha",
@@ -29,11 +29,11 @@
 		"parameters": [
 			{
 				"name": "signal_low",
-				"value": 0.0013
+				"value": 0.04
 			},
 			{
 				"name": "signal_high",
-				"value": 4.4
+				"value": 1.967
 			},
 			{
 				"name": "alpha",
@@ -41,22 +41,45 @@
 			},
 			{
 				"name": "beta",
-				"value": 1.0
+				"value": 1.00
 			}
 		]
 	},
 	{
 		"collection": "input_sensors",
-		"name": "AraC_sensor",
-		"promoter": "pBAD",
+		"name": "LuxR_sensor",
+		"promoter": "pLux2",
 		"parameters": [
 			{
 				"name": "signal_low",
-				"value": 0.0082
+				"value": 0.03
 			},
 			{
 				"name": "signal_high",
-				"value": 2.5
+				"value": 2.234
+			},
+			{
+				"name": "alpha",
+				"value": 0.80
+			},
+			{
+				"name": "beta",
+				"value": 1.00
+			}
+		]
+	},
+	{
+		"collection": "input_sensors",
+		"name": "CinR_sensor",
+		"promoter": "pCin",
+		"parameters": [
+			{
+				"name": "signal_low",
+				"value": 0.005
+			},
+			{
+				"name": "signal_high",
+				"value": 3.178
 			},
 			{
 				"name": "alpha",
@@ -65,29 +88,6 @@
 			{
 				"name": "beta",
 				"value": 0.99
-			}
-		]
-	},
-	{
-		"collection": "input_sensors",
-		"name": "LuxR_sensor",
-		"promoter": "pLuxStar",
-		"parameters": [
-			{
-				"name": "signal_low",
-				"value": 0.025
-			},
-			{
-				"name": "signal_high",
-				"value": 0.31
-			},
-			{
-				"name": "alpha",
-				"value": 0.8
-			},
-			{
-				"name": "beta",
-				"value": 1.0
 			}
 		]
 	},
@@ -106,13 +106,13 @@
 	{
 		"collection": "parts",
 		"type": "promoter",
-		"name": "pBAD",
-		"dnasequence": "ACTTTTCATACTCCCGCCATTCAGAGAAGAAACCAATTGTCCATATTGCATCAGACATTGCCGTCACTGCGTCTTTTACTGGCTCTTCTCGCTAACCAAACCGGTAACCCCGCTTATTAAAAGCATTCTGTAACAAAGCGGGACCAAAGCCATGACAAAAACGCGTAACAAAAGTGTCTATAATCACGGCAGAAAAGTCCACATTGATTATTTGCACGGCGTCACACTTTGCTATGCCATAGCATTTTTATCCATAAGATTAGCGGATCCTACCTGACGCTTTTTATCGCAACTCTCTACTGTTTCTCCATACCCGTTTTTTTGGGCTAGC",
+		"name": "pLux2",
+		"dnasequence": "ATAGCTTCTTACCGGACCTGTAGGATCGTACAGGTTTACGCAAGAAAATGGTTTGTTATTTTCGAATAAA",
 	},
 	{
 		"collection": "parts",
 		"type": "promoter",
-		"name": "pLuxStar",
-		"dnasequence": "ATAGCTTCTTACCGGACCTGTAGGATCGTACAGGTTTACGCAAGAAAATGGTTTGTTACTTTCGAATAAA",
+		"name": "pCin",
+		"dnasequence": "CCCTTTGTGCGTCCAAACGGACGCACGGCGCTCTAAAGCGGGTCGCGATCTTTCAGATTCGCTCCTCGCGCTTTCAGTCTTTGTTTTGGCGCATGTCGTTATCGCAAAACCGCTGCACACTTTTGCGCGACATGCTCTGATCCCCCTCATCTGGGGGGGCCTATCTGAGGGAATTTCCGATCCGGCTCGCCTGAACCATTCTGCTTTCCACGAACTTGAAAACGCT",
 	}
 ]
