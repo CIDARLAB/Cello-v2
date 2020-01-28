@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,9 +33,11 @@ import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.Utils;
 
 /**
- * The RuntimeEnv class is a class for managing and parsing command line argument(s) for a stage and an application.
+ * The RuntimeEnv class is a class for managing and parsing command line
+ * argument(s) for a stage and an application.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Nov 13, 2017
  *
@@ -95,7 +99,9 @@ public class RuntimeEnv extends CObject{
 	protected void setOptions() {
 		Options options = this.getOptions();
 		options.addOption(this.getHelpOption());
-		options.addOption(this.getTargetDataFileOption());
+		options.addOption(this.getInputSensorFileOption());
+		options.addOption(this.getOutputDeviceFileOption());
+		options.addOption(this.getUserConstraintsFileOption());
 		options.addOption(this.getOptionsOption());
 		options.addOption(this.getOutputDirOption());
 		options.addOption(this.getPythonEnvOption());
@@ -114,11 +120,34 @@ public class RuntimeEnv extends CObject{
 	}
 
 	/**
-	 *  Getter for the TARGETDATAFILE Option. This option is required.
-	 *  @return the TARGETDATAFILE Option for this instance
+	 * Getter for the INPUTSENSORFILE Option. This option is required.
+	 * 
+	 * @return the INPUTSENSORFILE Option for this instance
 	 */
-	protected Option getTargetDataFileOption(){
-		Option rtn = new Option( ArgString.TARGETDATAFILE, true, ArgDescription.TARGETDATAFILE_DESCRIPTION);
+	protected Option getInputSensorFileOption() {
+		Option rtn = new Option(ArgString.INPUTSENSORFILE, true, ArgDescription.INPUTSENSORFILE_DESCRIPTION);
+		this.makeRequired(rtn);
+		return rtn;
+	}
+
+	/**
+	 * Getter for the OUTPUTDEVICEFILE Option. This option is required.
+	 * 
+	 * @return the OUTPUTDEVICEFILE Option for this instance
+	 */
+	protected Option getOutputDeviceFileOption() {
+		Option rtn = new Option(ArgString.OUTPUTDEVICEFILE, true, ArgDescription.OUTPUTDEVICEFILE_DESCRIPTION);
+		this.makeRequired(rtn);
+		return rtn;
+	}
+
+	/**
+	 * Getter for the USERCONSTRAINTSFILE Option. This option is required.
+	 * 
+	 * @return the USERCONSTRAINTSFILE Option for this instance
+	 */
+	protected Option getUserConstraintsFileOption() {
+		Option rtn = new Option(ArgString.USERCONSTRAINTSFILE, true, ArgDescription.USERCONSTRAINTSFILE_DESCRIPTION);
 		this.makeRequired(rtn);
 		return rtn;
 	}

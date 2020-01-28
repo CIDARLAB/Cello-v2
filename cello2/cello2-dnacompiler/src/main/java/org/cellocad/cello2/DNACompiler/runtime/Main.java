@@ -130,7 +130,8 @@ public class Main {
 			throw new RuntimeException("ApplicationConfiguration is invalid!");
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, DNACompilerArgString.TARGETDATAFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, DNACompilerArgString.USERCONSTRAINTSFILE,
+				DNACompilerArgString.INPUTSENSORFILE, DNACompilerArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}

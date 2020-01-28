@@ -76,7 +76,8 @@ public class Main {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, LSArgString.TARGETDATAFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, LSArgString.USERCONSTRAINTSFILE,
+				LSArgString.INPUTSENSORFILE, LSArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
