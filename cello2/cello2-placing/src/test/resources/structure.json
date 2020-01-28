@@ -1,0 +1,42 @@
+{
+    "collection": "gate_structure",
+    "gate_name": "P1_PhlF",
+    "devices": [
+        {
+            "name": "P1_PhlF_a_cassette",
+            "components": [
+                "RiboJ53",
+                "P1",
+                "PhlF_a",
+                "DT5"
+            ]
+        },
+        {
+            "name": "P1_PhlF_a",
+            "components": [
+                "#promoter?",
+                "P1_PhlF_a_cassette"
+            ],
+            "maps_to_variable": "x",
+            "output": "pPhlF_a"
+        },
+        {
+            "name": "P1_PhlF_b_cassette",
+            "components": [
+                "RiboJ53",
+                "P1",
+                "PhlF_b",
+                "DT5"
+            ]
+        },
+        {
+            "name": "P1_PhlF_b",
+            "components": [
+                "#promoter?",
+                "P1_PhlF_b_cassette"
+            ],
+            "maps_to_variable": "x",
+            "output": "pPhlF_b"
+        }
+    ]
+}
