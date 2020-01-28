@@ -18,12 +18,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.placing.test;
+package org.cellocad.cello2.placing.algorithm.Eugene.test;
 
 import java.io.IOException;
 
 import org.cellocad.cello2.common.Utils;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Rules;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CircuitRules;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -44,8 +44,7 @@ public class RulesTest {
 		String str = Utils.getResourceAsString("rules.json");
 		JSONParser parser = new JSONParser();
 		JSONObject obj = (JSONObject) parser.parse(str);
-		Rules rules = new Rules(obj);
-		// System.out.println(rules.toString());
+		CircuitRules rules = new CircuitRules(obj);
 	}
 
 }
