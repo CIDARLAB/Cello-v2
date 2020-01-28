@@ -73,35 +73,135 @@ public class CircuitRules {
 		private String last;
 	}
 
-	private void parseBlock(final JSONObject obj, StringBuilder builder, Namer namer) {
-		JSONArray rules = (JSONArray) obj.get("rules");
-		String op = (String) obj.get("function");
-		parseBlocks(rules, builder, namer, op);
+	private String getOperator(final String op) {
+		String rtn = null;
+		if (op.equals("AND")) {
+			rtn = "&";
+		} else if (op.equals("OR")) {
+			rtn = "|";
+		}
+		return rtn;
 	}
 
-	private void parseBlocks(final JSONArray arr, StringBuilder builder, final Namer namer, String op) {
-		builder.append("( ");
-		char c = '\0';
-		if (op.equals("AND")) {
-			c = '&';
-		} else if (op.equals("OR")) {
-			c = '|';
-		}
-		for (int i = 0; i < arr.size(); i++) {
-			Object obj = arr.get(i);
-			if (obj instanceof JSONObject) {
-				JSONObject jObj = (JSONObject) obj;
-				parseBlock(jObj, builder, namer);
-			} else if (obj instanceof String) {
+	private void trim(StringBuilder builder) {
+		boolean f;
+		do {
+			int l = builder.length();
+			char b = builder.charAt(l - 1);
+			char a = builder.charAt(l - 2);
+			f = false;
+			if (a == '(' && b == ')') {
+				builder.deleteCharAt(l - 1);
+				builder.deleteCharAt(l - 2);
+				f = true;
+			}
+			if (b == '&' || b == '|') {
+				builder.deleteCharAt(l - 1);
+				f = true;
+			}
+		} while (f);
+	}
+
+	private void parseBlock(final JSONObject obj, final Collection<String> objects, StringBuilder builder,
+			Namer namer) {
+		JSONArray rules = (JSONArray) obj.get("rules");
+		String op = this.getOperator((String) obj.get("function"));
+		builder.append("(");
+		for (int i = 0; i < rules.size(); i++) {
+			Object o = rules.get(i);
+			if (o instanceof JSONObject) {
+				JSONObject j = (JSONObject) o;
+				parseBlock(j, objects, builder, namer);
+			} else if (o instanceof String) {
+				String str = (String) o;
+				Collection<String> stuff = EugeneRules.getObjects(str);
+				if (!objects.containsAll(stuff) && !EugeneRules.GlobalOrientationRuleKeywords.contains(str))
+					continue;
 				String name = namer.next();
-				this.getNames().put(name, (String) obj);
+				this.getNames().put(name, str);
 				builder.append(name);
 			}
-			if (i < arr.size() - 1)
-				builder.append(' ' + String.valueOf(c) + ' ');
+			builder.append(op);
 		}
-		builder.append(" )");
+		this.trim(builder);
+		builder.append(")");
+		this.trim(builder);
 	}
+
+//	private void parseBlocks(final JSONArray arr, final Collection<String> objects, StringBuilder builder, Namer namer,
+//			final String op) {
+//		char c = '\0';
+//		if (op.equals("AND")) {
+//			c = '&';
+//		} else if (op.equals("OR")) {
+//			c = '|';
+//		}
+//		for (int i = 0; i < arr.size(); i++) {
+//			Object obj = arr.get(i);
+//			if (obj instanceof JSONObject) {
+//				JSONObject jObj = (JSONObject) obj;
+//				builder.append("( ");
+//				int len = parseBlock(jObj, objects, builder, namer);
+//				builder.append(" )");
+//				builder.append(' ' + String.valueOf(c) + ' ');
+//				if (builder.substring(builder.length() - 3, builder.length()).equals("( ) "))
+//					builder.delete(builder.length() - 3, builder.length());
+//			} else if (obj instanceof String) {
+//				String str = (String) obj;
+//				Collection<String> o = EugeneRules.getObjects(str);
+//				if (!objects.containsAll(o) && !EugeneRules.GlobalOrientationRuleKeywords.contains(str))
+//					continue;
+//				String name = namer.next();
+//				this.getNames().put(name, (String) obj);
+//				builder.append(name);
+//				builder.append(' ' + String.valueOf(c) + ' ');
+//			}
+//			if (builder.substring(builder.length() - 3, builder.length()).equals(" " + c + " "))
+//				builder.delete(builder.length() - 3, builder.length());
+//		}
+////		if (builder.substring(builder.length() - 3, builder.length()).equals(" " + c + " ")) {
+////			builder.delete(builder.length() - 3, builder.length());
+////		}
+//	}
+
+//	private void parseBlock(final JSONObject obj, final Collection<String> objects, StringBuilder builder,
+//			Namer namer) {
+//		JSONArray rules = (JSONArray) obj.get("rules");
+//		String op = (String) obj.get("function");
+//		parseBlocks(rules, objects, builder, namer, op);
+//	}
+//
+//	private void parseBlocks(final JSONArray arr, final Collection<String> objects, StringBuilder builder, Namer namer,
+//			final String op) {
+//		builder.append("( ");
+//		char c = '\0';
+//		if (op.equals("AND")) {
+//			c = '&';
+//		} else if (op.equals("OR")) {
+//			c = '|';
+//		}
+//		for (int i = 0; i < arr.size(); i++) {
+//			Object obj = arr.get(i);
+//			if (obj instanceof JSONObject) {
+//				JSONObject jObj = (JSONObject) obj;
+//				parseBlock(jObj, objects, builder, namer);
+//				builder.append(' ' + String.valueOf(c) + ' ');
+//			} else if (obj instanceof String) {
+//				String str = (String) obj;
+//				Collection<String> o = EugeneRules.getObjects(str);
+//				if (!objects.containsAll(o) && !EugeneRules.GlobalOrientationRuleKeywords.contains(str))
+//					continue;
+//				String name = namer.next();
+//				this.getNames().put(name, (String) obj);
+//				builder.append(name);
+//				builder.append(' ' + String.valueOf(c) + ' ');
+//			}
+//		}
+//		if (builder.substring(builder.length() - 3, builder.length()).equals(" " + c + " ")) {
+//			builder.delete(builder.length() - 3, builder.length());
+//		}
+//		builder.append(" )");
+//	}
 
 	private String buildRule(StringTokenizer st, Map<String, String> names, int num) {
 		String rtn = "";
@@ -130,11 +230,11 @@ public class CircuitRules {
 		}
 	}
 
-	private void parseRules(final JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get("rules");
+	private void parseRules(final JSONObject jObj, final Collection<String> objects) {
+		JSONObject jArr = (JSONObject) jObj.get("rules");
 		StringBuilder builder = new StringBuilder();
 		Namer namer = new Namer();
-		parseBlocks(jArr, builder, namer, "AND");
+		parseBlock(jArr, objects, builder, namer);
 		String expr = builder.toString();
 		final FormulaFactory f = new FormulaFactory();
 		final PropositionalParser p = new PropositionalParser(f);
@@ -157,12 +257,18 @@ public class CircuitRules {
 
 	public CircuitRules(final JSONObject jObj) {
 		init();
-		this.parseRules(jObj);
+		// this.parseRules(jObj);
+		this.json = jObj;
 	}
 
-	public String toString() {
+	public String filter(Collection<String> objects) {
+		this.parseRules(this.getJson(), objects);
 		return String.join(Utils.getNewLine(), this.getRules());
 	}
+
+//	public String toString() {
+//		return String.join(Utils.getNewLine(), this.getRules());
+//	}
 
 	/*
 	 * rules
@@ -178,5 +284,14 @@ public class CircuitRules {
 	}
 
 	private Map<String, String> names;
+
+	/**
+	 * @return the json
+	 */
+	private JSONObject getJson() {
+		return json;
+	}
+
+	private JSONObject json;
 
 }
