@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017, 2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,16 +23,20 @@
 package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.structure.EugeneDevice;
 import org.json.simple.JSONObject;
 
 /**
- * The ResponseFunctionVariable is class representing a Variable of a Response Function for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * The ResponseFunctionVariable is class representing a Variable of a Response
+ * Function for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
@@ -90,21 +96,31 @@ public class ResponseFunctionVariable extends CObject{
 	public double getOnThreshold(){
 		return this.onThreshold;
 	}
-	
+
 	private double onThreshold;
 
 	/*
-	 * CasetteParts
+	 * EugeneDevices
 	 */
-	public void setCasetteParts(final CasetteParts casetteParts){
-		this.casetteParts = casetteParts;
+	/**
+	 * Getter for <i>eugeneDevices</i>
+	 *
+	 * @return value of <i>eugeneDevices</i>
+	 */
+	public Collection<EugeneDevice> getEugeneDevices() {
+		return eugeneDevices;
 	}
-	
-	public CasetteParts getCasetteParts(){
-		return this.casetteParts;
+
+	/**
+	 * Setter for <i>eugeneDevices</i>
+	 *
+	 * @param eugeneDevices the value to set <i>eugeneDevices</i>
+	 */
+	public void setEugeneDevices(final Collection<EugeneDevice> eugeneDevices) {
+		this.eugeneDevices = eugeneDevices;
 	}
-	
-	private CasetteParts casetteParts;
+
+	private Collection<EugeneDevice> eugeneDevices;
 	
 	/*
 	 * Toxicity
