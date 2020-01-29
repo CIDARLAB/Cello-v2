@@ -20,6 +20,7 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -27,6 +28,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +37,7 @@ import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.export.algorithm.EXAlgorithm;
 import org.cellocad.cello2.export.algorithm.SBOL.data.Component;
+import org.cellocad.cello2.export.algorithm.SBOL.data.DNAPlotLibUtils;
 import org.cellocad.cello2.export.algorithm.SBOL.data.Device;
 import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLNetlistData;
@@ -46,7 +49,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.InputSensor;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.PlasmidSpecification;
-import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
+import org.cellocad.cello2.export.runtime.environment.EXArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
@@ -195,7 +198,7 @@ public class SBOL extends EXAlgorithm{
 			this.setSbhFrontend(new SynBioHubFrontend(this.getRepositoryUrl()));
 		}
 		// output directory
-		String outputDir = this.getRuntimeEnv().getOptionValue(LSArgString.OUTPUTDIR);
+		String outputDir = this.getRuntimeEnv().getOptionValue(EXArgString.OUTPUTDIR);
 		// output filename
 		String inputFilename = this.getNetlist().getInputFilename();
 		String filename = Utils.getFilename(inputFilename);
@@ -539,6 +542,36 @@ public class SBOL extends EXAlgorithm{
 			}
 		}
 
+		logInfo("generating dnaplotlib figures");
+		// DNAPlotLib
+		String outputDir = this.getRuntimeEnv().getOptionValue(EXArgString.OUTPUTDIR);
+		File file = null;
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(this.getNetlist());
+		String designsFilename = outputDir + Utils.getFileSeparator() + "dpl_dna_designs.csv";
+		file = new File(designsFilename);
+		DNAPlotLibUtils.writeCSV(designs, file);
+		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(), this.getParts(), this.getGates());
+		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
+		file = new File(partsFilename);
+		DNAPlotLibUtils.writeCSV(parts, file);
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getGates());
+		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
+		file = new File(regFilename);
+		DNAPlotLibUtils.writeCSV(reg, file);
+		String params;
+		try {
+			params = Utils.getResourceAsString("plot_parameters.csv");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String paramsFilename = outputDir + Utils.getFileSeparator() + "plot_parameters.csv";
+		Utils.writeToFile(params, paramsFilename);
+		String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
+		String output = outputDir + Utils.getFileSeparator() + this.getNetlist().getName() + "_dpl";
+		String cmd = String.format(fmt, EXArgString.PYTHONENV, "library_plot.py", partsFilename, designsFilename,
+				regFilename, output);
+		Utils.executeAndWaitForCommand(cmd + ".pdf");
+		Utils.executeAndWaitForCommand(cmd + ".png");
 	}
 
 	/**
