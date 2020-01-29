@@ -1,0 +1,151 @@
+{
+	"name": "and_gateVirtualNetlistFO",
+	"inputFilename": "/Users/tsj/src/Cello2/cello2/cello2-dnacompiler/../../sample-input/DNACompiler/primitives/and.v",
+	"placements": 
+	[
+		[
+			{
+				"name": "plasmid1",
+				"components": 
+				[
+					{
+						"name": "YFP_reporter_0",
+						"node": "out",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF",
+							"YFP"
+						]
+					},
+					{
+						"name": "P2_PhlF_1",
+						"node": "$50",
+						"direction": 1,
+						"parts": 
+						[
+							"pAmtR",
+							"RiboJ53",
+							"P2",
+							"PhlF",
+							"ECK120033737"
+						]
+					},
+
+				]
+			},
+			{
+				"name": "plasmid2",
+				"components": 
+				[
+					{
+						"name": "P2_PhlF_0",
+						"node": "$50",
+						"direction": 1,
+						"parts": 
+						[
+							"pSrpR",
+							"RiboJ53",
+							"P2",
+							"PhlF",
+							"ECK120033737"
+						]
+					},
+					{
+						"name": "S2_SrpR_1",
+						"node": "$49",
+						"direction": 1,
+						"parts": 
+						[
+							"pTet",
+							"RiboJ10",
+							"S2",
+							"SrpR",
+							"ECK120029600"
+						]
+					},
+					{
+						"name": "A1_AmtR_2",
+						"node": "$48",
+						"direction": 1,
+						"parts": 
+						[
+							"pTac",
+							"BydvJ",
+							"A1",
+							"AmtR",
+							"L3S2P55"
+						]
+					}
+				]
+			}
+		]
+	],
+	"nodes": 
+	[
+		{
+			"name": "a",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": "LacI_sensor"
+		},
+		{
+			"name": "b",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": "TetR_sensor"
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"gateType": "YFP_reporter"
+		},
+		{
+			"name": "$48",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": "A1_AmtR"
+		},
+		{
+			"name": "$49",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": "S2_SrpR"
+		},
+		{
+			"name": "$50",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": "P2_PhlF"
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "a_0",
+			"src": "a",
+			"dst": "$48"
+		},
+		{
+			"name": "b_0",
+			"src": "b",
+			"dst": "$49"
+		},
+		{
+			"name": "$new_n5__0",
+			"src": "$49",
+			"dst": "$50"
+		},
+		{
+			"name": "$new_n4__0",
+			"src": "$48",
+			"dst": "$50"
+		},
+		{
+			"name": "out_0",
+			"src": "$50",
+			"dst": "out"
+		}
+	]
+}
