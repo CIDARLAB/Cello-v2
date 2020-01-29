@@ -158,7 +158,7 @@ public class DNAPlotLibUtils {
 								rgb = getRGB(color);
 							}
 							if (LSResultsUtils.isPrimaryOutput(node)) {
-								type = "UserDefined";
+								type = S_USERDEFINED;
 								rgb = getRGB(Color.BLACK);
 								x = String.valueOf(25);
 								y = String.valueOf(5);
@@ -168,7 +168,7 @@ public class DNAPlotLibUtils {
 					}
 				}
 				if ((j + 1) < placement.getNumPlacementGroup()) {
-					String pad = String.format("_NONCE_PAD%d,UserDefined,30,,,,1.00;1.00;1.00,,,,,", j);
+					String pad = String.format("_NONCE_PAD%d," + S_USERDEFINED + ",30,,,,1.00;1.00;1.00,,,,,", j);
 					rtn.add(pad);
 				}
 
@@ -196,7 +196,7 @@ public class DNAPlotLibUtils {
 					if (part.getPartType().equals("cds")) {
 						Collection<String> fields = new ArrayList<>();
 						fields.add(part.getName());
-						fields.add("Repression");
+						fields.add(S_REPRESSION);
 						fields.add(parts.getPromoter());
 						fields.add(String.valueOf(3));
 						fields.add("-");
@@ -216,5 +216,7 @@ public class DNAPlotLibUtils {
 	private static String S_RBS = "RBS";
 	private static String S_CDS = "CDS";
 	private static String S_TERMINATOR = "Terminator";
+	private static String S_REPRESSION = "Repression";
+	private static String S_USERDEFINED = "UserDefined";
 
 }
