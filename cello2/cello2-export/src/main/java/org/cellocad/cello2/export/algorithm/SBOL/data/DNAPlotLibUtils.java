@@ -106,7 +106,7 @@ public class DNAPlotLibUtils {
 					}
 				}
 				if ((j + 1) < placement.getNumPlacementGroup()) {
-					String pad = String.format("_NONCE_PAD%d", j);
+					String pad = String.format("%s%d", S_NONCEPAD, j);
 					design.add(pad);
 				}
 			}
@@ -168,7 +168,7 @@ public class DNAPlotLibUtils {
 					}
 				}
 				if ((j + 1) < placement.getNumPlacementGroup()) {
-					String pad = String.format("_NONCE_PAD%d," + S_USERDEFINED + ",30,,,,1.00;1.00;1.00,,,,,", j);
+					String pad = String.format("%s%d,%s,30,,,,1.00;1.00;1.00,,,,,", S_NONCEPAD, j, S_USERDEFINED);
 					rtn.add(pad);
 				}
 
@@ -218,5 +218,6 @@ public class DNAPlotLibUtils {
 	private static String S_TERMINATOR = "Terminator";
 	private static String S_REPRESSION = "Repression";
 	private static String S_USERDEFINED = "UserDefined";
+	private static String S_NONCEPAD = "_NONCE_PAD";
 
 }
