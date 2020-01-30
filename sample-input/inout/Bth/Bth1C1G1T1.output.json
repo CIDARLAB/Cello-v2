@@ -1,6 +1,6 @@
 [
 	{
-		"collection": "circuit_outputs",
+		"collection": "output_devices",
 		"name": "nanoluc_reporter",
 	},
 	{
@@ -8,14 +8,14 @@
 		"gate_name": "nanoluc_reporter",
 		"devices": [
 			{
-				"name": "YFP_reporter_a",
+				"name": "nanoluc_reporter_a",
 				"components": [
 					"#promoter?",
 					"nanoluc_cassette"
 				]
 			},
 			{
-				"name": "YFP_reporter_b",
+				"name": "nanoluc_reporter_b",
 				"components": [
 					"#promoter?",
 					"nanoluc_cassette"
