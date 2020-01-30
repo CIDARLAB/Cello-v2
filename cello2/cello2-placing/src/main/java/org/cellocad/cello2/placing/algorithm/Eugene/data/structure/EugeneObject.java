@@ -20,6 +20,8 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.data.structure;
 
+import org.cellocad.cello2.common.CObject;
+
 /**
  *
  *
@@ -28,7 +30,7 @@ package org.cellocad.cello2.placing.algorithm.Eugene.data.structure;
  * @date 2020-01-09
  *
  */
-public abstract class EugeneObject {
+public abstract class EugeneObject extends CObject {
 
 	public EugeneObject() {
 

@@ -22,14 +22,13 @@ package org.cellocad.cello2.placing.algorithm.Eugene;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,19 +36,24 @@ import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.graph.algorithm.SinkBFS;
 import org.cellocad.cello2.placing.algorithm.PLAlgorithm;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.Component;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.Device;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.Devices;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneDataUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistData;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneNetlistNodeData;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.structure.EugeneDevice;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.structure.EugeneObject;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.structure.EugenePart;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.structure.EugeneTemplate;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CircuitRules;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.DeviceRules;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.EugeneRules;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GeneticLocation;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.InputSensor;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputReporter;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputDevice;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Rules;
 import org.cellocad.cello2.placing.runtime.environment.PLArgString;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -65,53 +69,56 @@ import org.cidarlab.eugene.exception.EugeneException;
 import org.cidarlab.eugene.util.DeviceUtils;
 
 /**
- * The Eugene class implements the <i>Eugene</i> algorithm in the <i>placing</i> stage.
+ * The Eugene class implements the <i>Eugene</i> algorithm in the <i>placing</i>
+ * stage.
  *
  * @author Timothy Jones
  *
  * @date 2018-06-06
  *
  */
-public class Eugene extends PLAlgorithm{
+public class Eugene extends PLAlgorithm {
 
 	/**
-	 *  Returns the <i>EugeneNetlistNodeData</i> of the <i>node</i>
+	 * Returns the <i>EugeneNetlistNodeData</i> of the <i>node</i>
 	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>EugeneNetlistNodeData</i> instance if it exists, null otherwise
+	 * @param node a node within the <i>netlist</i> of this instance
+	 * @return the <i>EugeneNetlistNodeData</i> instance if it exists, null
+	 *         otherwise
 	 */
-	protected EugeneNetlistNodeData getEugeneNetlistNodeData(NetlistNode node){
+	protected EugeneNetlistNodeData getEugeneNetlistNodeData(NetlistNode node) {
 		EugeneNetlistNodeData rtn = null;
 		rtn = (EugeneNetlistNodeData) node.getNetlistNodeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>EugeneNetlistEdgeData</i> of the <i>edge</i>
+	 * Returns the <i>EugeneNetlistEdgeData</i> of the <i>edge</i>
 	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>EugeneNetlistEdgeData</i> instance if it exists, null otherwise
+	 * @param edge an edge within the <i>netlist</i> of this instance
+	 * @return the <i>EugeneNetlistEdgeData</i> instance if it exists, null
+	 *         otherwise
 	 */
-	protected EugeneNetlistEdgeData getEugeneNetlistEdgeData(NetlistEdge edge){
+	protected EugeneNetlistEdgeData getEugeneNetlistEdgeData(NetlistEdge edge) {
 		EugeneNetlistEdgeData rtn = null;
 		rtn = (EugeneNetlistEdgeData) edge.getNetlistEdgeData();
 		return rtn;
 	}
 
 	/**
-	 *  Returns the <i>EugeneNetlistData</i> of the <i>netlist</i>
+	 * Returns the <i>EugeneNetlistData</i> of the <i>netlist</i>
 	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>EugeneNetlistData</i> instance if it exists, null otherwise
+	 * @param netlist the netlist of this instance
+	 * @return the <i>EugeneNetlistData</i> instance if it exists, null otherwise
 	 */
-	protected EugeneNetlistData getEugeneNetlistData(Netlist netlist){
+	protected EugeneNetlistData getEugeneNetlistData(Netlist netlist) {
 		EugeneNetlistData rtn = null;
 		rtn = (EugeneNetlistData) netlist.getNetlistData();
 		return rtn;
 	}
 
 	/**
-	 *  Gets the Constraint data from the NetlistConstraintFile
+	 * Gets the Constraint data from the NetlistConstraintFile
 	 */
 	@Override
 	protected void getConstraintFromNetlistConstraintFile() {
@@ -119,20 +126,22 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
 	 */
 	@Override
 	protected void getDataFromUCF() {
 		this.setGates(EugeneDataUtils.getGates(this.getTargetData()));
 		this.setParts(EugeneDataUtils.getParts(this.getTargetData()));
 		this.setInputSensors(EugeneDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputReporters(EugeneDataUtils.getOutputReporters(this.getTargetData()));
-		this.setRules(EugeneDataUtils.getRules(this.getTargetData()));
+		this.setOutputDevices(EugeneDataUtils.getOutputReporters(this.getTargetData()));
+		this.setCircuitRules(EugeneDataUtils.getCircuitRules(this.getTargetData()));
+		this.setDeviceRules(EugeneDataUtils.getDeviceRules(this.getTargetData()));
+		this.setGeneticLocations(EugeneDataUtils.getGeneticLocations(this.getTargetData()));
 		this.setContainerSpecifications(EugeneDataUtils.getContainerSpecifications(this.getTargetData()));
 	}
 
 	/**
-	 *  Set parameter(s) value(s) of the algorithm
+	 * Set parameter(s) value(s) of the algorithm
 	 */
 	@Override
 	protected void setParameterValues() {
@@ -147,91 +156,24 @@ public class Eugene extends PLAlgorithm{
 		if (present) {
 			this.setMaxPlacements(this.getAlgorithmProfile().getIntParameter("MaxPlacements").getSecond());
 		}
-		present = this.getAlgorithmProfile().getBooleanParameter("SplitTandemPromoters").getFirst();
-		if (present) {
-			this.setSplitTandemPromoters(this.getAlgorithmProfile().getBooleanParameter("SplitTandemPromoters").getSecond());
-		}
-		present = this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getFirst();
-		if (present) {
-			this.setOverrideGateType(this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getSecond());
-		}
 	}
 
 	/**
-	 *  Validate parameter value of the algorithm
+	 * Validate parameter value of the algorithm
 	 */
 	@Override
 	protected void validateParameterValues() {
 		if (this.getMaxPlacements() == null || this.getMaxPlacements() <= 0)
 			this.setMaxPlacements(5);
-		if (this.getSplitTandemPromoters() == null)
-			this.setSplitTandemPromoters(false);
-	}
-	
-	private ContainerSpecification getContainerSpecification(NetlistNode node) {
-		ContainerSpecification rtn = null;
-		String type = node.getResultNetlistNodeData().getNodeType();
-		for (ContainerSpecification spec : this.getContainerSpecifications()) {
-			if (spec.getGateTypes().contains(type)) {
-				rtn = spec;
-				break;
-			}
-		}
-		return rtn;
-	}
-	
-	private ContainerSpecification getAlternateContainerSpecification(NetlistNode node) {
-		ContainerSpecification rtn = null;
-		ContainerSpecification orig = this.getContainerSpecification(node);
-		Double delta = Double.MAX_VALUE;
-		for (ContainerSpecification spec : this.getContainerSpecifications()) {
-			if (spec.equals(orig))
-				continue;
-			Double temp = Math.abs(spec.getCopyNumber() - orig.getCopyNumber());
-			if (temp < delta) {
-				delta = temp;
-				rtn = spec;
-			}	
-		}
-		return rtn;
-	}
-
-	private void setGroups() {
-		Map<ContainerSpecification,Devices> map = new HashMap<>();
-		this.setGroupsMap(map);
-		for (ContainerSpecification spec : this.getContainerSpecifications()) {
-			Devices devices = new Devices();
-			devices.setName(spec.getName());
-			this.getGroupsMap().put(spec, devices);
-		}
-		for (NetlistNode node : this.getDevicesMap().keySet()) {
-			Devices devices = this.getDevicesMap().get(node);
-			ContainerSpecification spec = this.getContainerSpecification(node);
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				if (i == 0) {
-					this.getGroupsMap().get(spec).add(device);
-				}
-				if (i == 1 && this.getOverrideGateType()) {
-					ContainerSpecification alt = this.getAlternateContainerSpecification(node);
-					this.getGroupsMap().get(alt).add(device);
-				}
-			}
-		}
 	}
 
 	private void setDevices() {
-		SinkBFS<NetlistNode, NetlistEdge, Netlist> BFS = new SinkBFS<NetlistNode, NetlistEdge, Netlist>(this.getNetlist());
+		SinkBFS<NetlistNode, NetlistEdge, Netlist> BFS = new SinkBFS<NetlistNode, NetlistEdge, Netlist>(
+				this.getNetlist());
 		NetlistNode node = null;
 		node = BFS.getNextVertex();
 		while (node != null) {
-			Devices devices = EugeneUtils.getDevices(
-					node, 
-					this.getInputSensors(), 
-					this.getOutputReporters(),
-					this.getGates(),
-					this.getParts(),
-					this.getSplitTandemPromoters());
+			Collection<EugeneDevice> devices = EugeneUtils.getDevices(node, this.getGates(), this.getOutputDevices());
 			this.getDevicesMap().put(node, devices);
 			node = BFS.getNextVertex();
 		}
@@ -239,49 +181,36 @@ public class Eugene extends PLAlgorithm{
 
 	private Collection<String> getPartTypes() {
 		Set<String> rtn = new HashSet<String>();
-		for (Devices devices : this.getDevicesMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				for (int j = 0; j < device.getNumComponent(); j++) {
-					Component component = device.getComponentAtIdx(j);
-					String str = "";
-					if (component instanceof Part) {
-						str = ((Part)component).getPartType();
-					}
-					else if (component instanceof Device) {
-						str = "cassette";
-					}
-					String type = String.format("PartType %s;", str);
-					rtn.add(type);
-				}
+		Set<String> temp = new HashSet<String>();
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			Iterator<EugeneDevice> it = devices.iterator();
+			while (it.hasNext()) {
+				EugeneDevice d = it.next();
+				temp.addAll(EugeneUtils.getPartTypes(d, this.getParts()));
 			}
+		}
+		Iterator<String> it = temp.iterator();
+		while (it.hasNext()) {
+			String str = EugeneUtils.getPartTypeDefinition(it.next());
+			rtn.add(str);
 		}
 		return rtn;
 	}
 
-	private Collection<String> getPartSequences() {
+	private Collection<String> getPartDefinitions() {
 		Set<String> rtn = new HashSet<String>();
-		for (Devices devices : this.getDevicesMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				for (int j = 0; j < device.getNumComponent(); j++) {
-					Component component = device.getComponentAtIdx(j);
-					if (component instanceof Part) {
-						Part p = (Part)component;
-						String seq = String.format("%s %s(.SEQUENCE(\"%s\"));", p.getPartType(), p.getName(), p.getDNASequence());
-						rtn.add(seq);
-					}
-					else if (component instanceof Device) {
-						String str = "";
-						Device d = (Device)component;
-						for (int k = 0; k < d.getNumComponent(); k++) {
-							Part p = (Part)(d.getComponentAtIdx(k));
-							str += p.getDNASequence();
-						}
-						String seq = String.format("%s %s(.SEQUENCE(\"%s\"));", "cassette", component.getName(), str);
-						rtn.add(seq);
-					}
-				}
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			Iterator<EugeneDevice> it = devices.iterator();
+			while (it.hasNext()) {
+				EugeneDevice d = it.next();
+				rtn.addAll(EugeneUtils.getPartDefinitions(d, this.getParts()));
+			}
+		}
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(), this.getParts());
+			for (Part p : inputs) {
+				rtn.add(EugeneUtils.getPartDefinition(p));
 			}
 		}
 		return rtn;
@@ -289,121 +218,87 @@ public class Eugene extends PLAlgorithm{
 
 	private Collection<String> getDeviceDefinitions() {
 		Collection<String> rtn = new ArrayList<String>();
-		for (Devices devices : this.getDevicesMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				String str = "";
-				str += String.format("Device %s(",device.getName());
-				str += Utils.getNewLine();
-				for (int j = 0; j < device.getNumComponent(); j++) {
-					Component component = device.getComponentAtIdx(j);
-					String entry = "";
-					if (component instanceof Part && ((Part)component).getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
-						entry = ((Part)component).getPartType();
-					} else {
-						entry = component.getName();
-					}
-					str += Utils.getTabCharacter();
-					str += String.format("%s,",entry);
-					str += Utils.getNewLine();
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			Iterator<EugeneDevice> it = devices.iterator();
+			while (it.hasNext()) {
+				EugeneDevice d = it.next();
+				rtn.add(d.getDevice());
+			}
+		}
+		return rtn;
+	}
+
+	private Collection<String> getLocationSpecifications() {
+		Collection<String> rtn = new ArrayList<>();
+		rtn.add(EugeneUtils.getPartTypeDefinition(S_FENCEPOST));
+		for (int i = 1; i < this.getGeneticLocations().size(); i++) {
+			GeneticLocation l = this.getGeneticLocations().get(i);
+			rtn.add(String.format("%s %s();", S_FENCEPOST, l.getName()));
+		}
+		return rtn;
+	}
+
+	private Collection<String> getDeviceRuleSpecifications(EugeneDevice device, NetlistNode node) {
+		Collection<String> rtn = new ArrayList<>();
+		Collection<EugeneDevice> subs = new ArrayList<>();
+		String str = "";
+		str += String.format("Rule %sRules ( ON %s:", device.getName(), device.getName());
+		str += Utils.getNewLine();
+		Collection<String> rules = new HashSet<>();
+		CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(),
+				this.getParts());
+		int i = device.getIdx();
+		for (EugeneObject o : device.getComponents()) {
+			if (o instanceof EugenePart) {
+				for (String rule : this.getDeviceRules().getRulesByObjectName(o.getName())) {
+					rules.add(Utils.getTabCharacter() + rule);
 				}
-				str = str.replaceAll("," + Utils.getNewLine() + "$", Utils.getNewLine());
-				str += ");";
-				rtn.add(str);
 			}
+			if (o instanceof EugeneDevice) {
+				subs.add((EugeneDevice) o);
+			}
+			if (o instanceof EugeneTemplate) {
+				Part input = inputs.get(i);
+				i++;
+				rules.add(Utils.getTabCharacter() + EugeneRules.S_CONTAINS + " " + input.getName());
+			}
+		}
+		str += String.join(" " + EugeneRules.S_AND + Utils.getNewLine(), rules);
+		str += Utils.getNewLine();
+		str += ");" + Utils.getNewLine();
+		rtn.add(str);
+		for (EugeneDevice d : subs) {
+			rtn.addAll(getDeviceRuleSpecifications(d, node));
 		}
 		return rtn;
 	}
 
-	private Collection<String> getNamesFromRule(String rule) {
-		Collection<String> rtn = new HashSet<>();
-		Collection<String> keywords = Arrays.asList(Rules.ValidRuleKeywords);
-		StringTokenizer st = new StringTokenizer(rule, " \t\n\r\f,");
-		while (st.hasMoreTokens()) {
-			String token = st.nextToken();
-			if (!keywords.contains(token) && token.substring(0, 1).matches("[a-z,A-Z]")) {
-				rtn.add(token);
+	private Collection<String> getDeviceRuleSpecifications() {
+		Collection<String> rtn = new ArrayList<>();
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			Collection<EugeneDevice> devices = this.getDevicesMap().get(node);
+			int j = 0;
+			for (EugeneDevice d : devices) {
+				d.setIdx(j);
+				for (EugeneObject o : d.getComponents()) {
+					if (o instanceof EugeneTemplate) {
+						j++;
+					}
+				}
+			}
+			for (EugeneDevice d : devices) {
+				rtn.addAll(this.getDeviceRuleSpecifications(d, node));
 			}
 		}
 		return rtn;
 	}
-
-//	private Collection<String> getDeviceRules() {
-//		Collection<String> rtn = new ArrayList<>();
-//		Collection<String> rules = this.getRules().getPartRules();
-//		for (Devices devices : this.getDevicesMap().values()) {
-//			for (int i = 0; i < devices.getNumDevice(); i++) {
-//				Device device = devices.getDeviceAtIdx(i);
-//				// rule
-//				String str = "";
-//				str += String.format("Rule %s_rules ( ON %s:",device.getName(),device.getName());
-//				str += Utils.getNewLine();
-//				// Collection<String> parts = this.getPartNamesFromParts(device);
-//				Collection<String> parts = new ArrayList<>();
-//				for (int j = 0; j < device.getNumComponent(); j++) {
-//					Component component = device.getComponentAtIdx(j);
-//					if (component instanceof Part) {
-//						Part part = (Part)component;
-//						parts.add(component.getName());
-//						if (part.getPartType().equalsIgnoreCase(Eugene.S_PROMOTER)) {
-//							str += Utils.getTabCharacter();
-//							str += String.format("%s %s %s",Rules.S_CONTAINS,part.getName(),Rules.S_AND);
-//							str += Utils.getNewLine();
-//						}
-//					}
-//					for (String r : rules) {
-//						Collection<String> ruleParts = this.getNamesFromRule(r);
-//						if (parts.containsAll(ruleParts)) {
-//							if (!str.toLowerCase().contains(Rules.S_STARTSWITH.toLowerCase())) {
-//								str += Utils.getTabCharacter();
-//								str += String.format("%s %s",r,Rules.S_AND);
-//								str += Utils.getNewLine();
-//							} else {
-//								// TODO log something about duplicate startswith
-//							}
-//						}
-//					}
-//				}
-//				str += Utils.getTabCharacter();
-//				str += "ALL_FORWARD";
-//				str += Utils.getNewLine();
-//				str += ");";
-//				str += Utils.getNewLine();
-//				rtn.add(str);
-//			}
-//		}
-//		return rtn;
-//	}
 
 	private Collection<String> getProducts() {
 		Collection<String> rtn = new ArrayList<>();
-		for (Devices devices : this.getDevicesMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
-				String str = "";
-				str += String.format("%s_devices = product(%s);",device.getName(),device.getName());
-				rtn.add(str);
-			}
-		}
-		return rtn;
-	}
-
-	private Collection<String> getGateDeviceNames(Devices devices) {
-		Collection<String> rtn = new ArrayList<>();
-		for (int i = 0; i < devices.getNumDevice(); i++) {
-			Device device = devices.getDeviceAtIdx(i);
-			rtn.add(device.getName());
-		}
-		return rtn;
-	}
-
-	private Collection<String> getGateDefinitions() {
-		Collection<String> rtn = new ArrayList<>();
-		for (Devices devices : this.getDevicesMap().values()) {
-			Collection<String> names = this.getGateDeviceNames(devices);
-			for (String name : names) {
-				String str = "";
-				str += String.format("Device unit_%s();",name);
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
+				String str = String.format("%s_devices = product(%s);", d.getName(), d.getName());
 				rtn.add(str);
 			}
 		}
@@ -412,42 +307,35 @@ public class Eugene extends PLAlgorithm{
 
 	private String getCircuitDeclaration() {
 		String rtn = "";
-		for (Devices devices : this.getGroupsMap().values()) {
-			if (devices.getNumDevice() == 0)
-				continue;
-			rtn += String.format("Device %s();",devices.getName());
-			rtn += Utils.getNewLine();
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
+				rtn += String.format("Device %sDevice();", d.getName());
+				rtn += Utils.getNewLine();
+			}
 		}
 		rtn += Utils.getNewLine();
-		rtn += "Device groups();";
+		rtn += "Device circuit();";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
 		return rtn;
 	}
 
 	private String getCircuitInstantiation() {
 		String rtn = "";
-		for (Devices devices : this.getGroupsMap().values()) {
-			if (devices.getNumDevice() == 0)
-				continue;
-			rtn += String.format("Device %s(",devices.getName());
-			for (String str : this.getGateDeviceNames(devices)) {
+		rtn += "Device circuit(";
+		// TODO get markers
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
 				rtn += Utils.getNewLine();
 				rtn += Utils.getTabCharacter();
-				rtn += "unit_" + str;
+				rtn += String.format("%sDevice", d.getName());
 				rtn += ",";
 			}
-			rtn = rtn.substring(0, rtn.length() - 1);
-			rtn += Utils.getNewLine();
-			rtn += ");";
-			rtn += Utils.getNewLine();
 		}
-		rtn += "Device groups(";
-		for (Devices devices : this.getGroupsMap().values()) {
-			if (devices.getNumDevice() == 0)
-				continue;
+		for (int i = 1; i < this.getGeneticLocations().size(); i++) {
+			GeneticLocation l = this.getGeneticLocations().get(i);
 			rtn += Utils.getNewLine();
 			rtn += Utils.getTabCharacter();
-			rtn += String.format("%s",devices.getName());
+			rtn += String.format("%s", l.getName());
 			rtn += ",";
 		}
 		rtn = rtn.substring(0, rtn.length() - 1);
@@ -457,66 +345,37 @@ public class Eugene extends PLAlgorithm{
 		return rtn;
 	}
 
-//	private String getCircuitRules() {
-//		String rtn = "";
-//		for (Devices devices : this.getGroupsMap().values()) {
-//			if (devices.getNumDevice() == 0)
-//				continue;
-//			Collection<String> gates = this.getGateDeviceNames(devices);
-//			rtn += String.format("Rule allRules_%s( ON %s:",devices.getName(),devices.getName());
-//			for (String str : gates) {
-//				rtn += Utils.getNewLine();
-//				rtn += Utils.getTabCharacter();
-//				rtn += String.format("unit_%s %s 1 %s", str, Rules.S_EXACTLY, Rules.S_AND);
-//			}
-//			for (String str : this.getRules().getGateRules()) {
-//				Collection<String> names = getNamesFromRule(str);
-//				if (gates.containsAll(names)) {
-//					rtn += Utils.getNewLine();
-//					rtn += Utils.getTabCharacter();
-//					rtn += String.format("%s %s",str,Rules.S_AND);
-//				}
-//			}
-//			rtn = rtn.replaceAll(" " + Rules.S_AND + "$","");
-//			rtn += Utils.getNewLine();
-//			rtn += ");";
-//			rtn += Utils.getNewLine() + Utils.getNewLine();
-//		}
-//		return rtn;
-//	}
-
 	private String getResults() {
 		String rtn = "";
 		rtn += "Array allResults;";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
 		int j = 0;
-		for (Devices devices : this.getGroupsMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
+		final String fmt = "for(num i%d = 0; i%d < sizeof(%s_devices); i%d = i%d + 1) {";
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
 				j++;
-				rtn += String.format("for(num i%d = 0; i%d < sizeof(%s_devices); i%d = i%d + 1) {",j,j,device.getName(),j,j);
+				rtn += String.format(fmt, j, j, d.getName(), j, j);
 				rtn += Utils.getNewLine();
 			}
 		}
 		rtn += Utils.getNewLine();
 		j = 0;
-		for (Devices devices : this.getGroupsMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
-				Device device = devices.getDeviceAtIdx(i);
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
 				j++;
-				rtn += String.format("unit_%s = %s_devices[i%d];",device.getName(),device.getName(),j);
+				rtn += String.format("%sDevice = %s_devices[i%d];", d.getName(), d.getName(), j);
 				rtn += Utils.getNewLine();
 			}
 		}
 		rtn += Utils.getNewLine();
 		rtn += this.getCircuitInstantiation();
 		rtn += Utils.getNewLine() + Utils.getNewLine();
-		rtn += "result = permute(groups);";
+		rtn += "result = permute(circuit);";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
 		rtn += "allResults = allResults + result;";
 		rtn += Utils.getNewLine() + Utils.getNewLine();
-		for (Devices devices : this.getGroupsMap().values()) {
-			for (int i = 0; i < devices.getNumDevice(); i++) {
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (int i = 0; i < devices.size(); i++) {
 				rtn += "}";
 				rtn += Utils.getNewLine();
 			}
@@ -532,18 +391,28 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 *  Perform preprocessing
+	 * Perform preprocessing
 	 */
 	@Override
 	protected void preprocessing() {
 		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
-		this.setDevicesMap(new HashMap<NetlistNode,Devices>());
-		this.setGroups();
+		this.setDevicesMap(new HashMap<NetlistNode, Collection<EugeneDevice>>());
 
 		// devices
 		this.setDevices();
-		// groups
-		this.setGroups();
+
+		// device names
+		Collection<String> deviceNames = new ArrayList<>();
+		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
+			for (EugeneDevice d : devices) {
+				deviceNames.add(d.getName());
+			}
+		}
+		Collection<String> fenceposts = new ArrayList<>();
+		for (int i = 1; i < this.getGeneticLocations().size(); i++) {
+			GeneticLocation l = this.getGeneticLocations().get(i);
+			fenceposts.add(l.getName());
+		}
 
 		logInfo("building Eugene input script");
 
@@ -552,28 +421,28 @@ public class Eugene extends PLAlgorithm{
 		// part types
 		script += this.getBlock(this.getPartTypes());
 		// part sequences
-		script += this.getBlock(this.getPartSequences());
+		script += this.getBlock(this.getPartDefinitions());
+		// location specifications
+		script += this.getBlock(this.getLocationSpecifications());
 		// device definitions
 		script += this.getBlock(this.getDeviceDefinitions());
 		// device rules
-		// script += this.getBlock(this.getDeviceRules());
+		script += this.getBlock(this.getDeviceRuleSpecifications());
 		// products
 		script += this.getBlock(this.getProducts());
-		// gate definitions
-		script += this.getBlock(this.getGateDefinitions());
 		// circuit definition
 		script += this.getCircuitDeclaration();
 		// circuit rules
-		script += this.getRules().toString();
+		script += this.getCircuitRules().filter(deviceNames, fenceposts);
 		// results
 		script += this.getResults();
 
 		this.setEugeneScript(script);
-		Utils.writeToFile(script,this.getEugeneScriptFilename());
+		Utils.writeToFile(script, this.getEugeneScriptFilename());
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
 	 */
 	@Override
 	protected void run() {
@@ -581,26 +450,22 @@ public class Eugene extends PLAlgorithm{
 		try {
 			org.cidarlab.eugene.Eugene eugene = new org.cidarlab.eugene.Eugene();
 
-			File cruft = new File(Utils.getWorkingDirectory()
-			                      + Utils.getFileSeparator()
-			                      + "exports");
-			(new File(cruft.getPath()
-			          + Utils.getFileSeparator()
-			          + "pigeon")).delete();
+			File cruft = new File(Utils.getWorkingDirectory() + Utils.getFileSeparator() + "exports");
+			(new File(cruft.getPath() + Utils.getFileSeparator() + "pigeon")).delete();
 			cruft.delete();
 
 			EugeneCollection ec = eugene.executeScript(this.getEugeneScript());
 			this.setEugeneResults((EugeneArray) ec.get("allResults"));
-		} catch ( EugeneException e ) {
+		} catch (EugeneException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private NetlistNode getNetlistNodeByGateName(String name) {
 		NetlistNode rtn = null;
-		name = name.replaceAll("^unit_","");
-		name = name.replaceAll("__SPLIT_[0-9]+$","");
-		name = name.replaceAll("_device$","");
+		name = name.replaceAll("^unit_", "");
+		name = name.replaceAll("__SPLIT_[0-9]+$", "");
+		name = name.replaceAll("_device$", "");
 		for (NetlistNode node : this.getDevicesMap().keySet()) {
 			String gateType = node.getResultNetlistNodeData().getGateType();
 			if (gateType.contains(name)) {
@@ -612,7 +477,7 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
 	 */
 	@Override
 	protected void postprocessing() {
@@ -631,7 +496,7 @@ public class Eugene extends PLAlgorithm{
 			if (i >= this.getMaxPlacements())
 				break;
 
-			Placement placement = new Placement(true,false);
+			Placement placement = new Placement(true, false);
 			placements.addPlacement(placement);
 
 			NamedElement groupsElement = null;
@@ -647,7 +512,7 @@ public class Eugene extends PLAlgorithm{
 				List<NamedElement> groups = groupsDevice.getComponentList();
 				for (int j = 0; j < groups.size(); j++) {
 					NamedElement groupElement = groups.get(j);
-					PlacementGroup group = new PlacementGroup(true,false);
+					PlacementGroup group = new PlacementGroup(true, false);
 					group.setName(groupElement.getName());
 					placement.addPlacementGroup(group);
 					if (groupElement instanceof org.cidarlab.eugene.dom.Device) {
@@ -668,7 +533,7 @@ public class Eugene extends PLAlgorithm{
 								e.printStackTrace();
 							}
 
-							if (o.contains(Rules.S_REVERSE)) {
+							if (o.contains(EugeneRules.S_REVERSE)) {
 								placement.setDirection(false);
 								try {
 									org.cidarlab.eugene.dom.Device reverse = DeviceUtils.flipAndInvert(componentDevice);
@@ -682,10 +547,11 @@ public class Eugene extends PLAlgorithm{
 							for (NamedElement part : componentDevice.getComponentList()) {
 								parts.add(part.getName());
 							}
-							org.cellocad.cello2.results.placing.placement.Component component = new org.cellocad.cello2.results.placing.placement.Component(parts,true,false);
+							org.cellocad.cello2.results.placing.placement.Component component = new org.cellocad.cello2.results.placing.placement.Component(
+									parts, true, false);
 							component.setDirection(true);
 							component.setNode(node.getName());
-							component.setName(parts.get(parts.size()-1) + "_" + String.valueOf(k));
+							component.setName(parts.get(parts.size() - 1) + "_" + String.valueOf(k));
 							group.addComponent(component);
 						}
 					}
@@ -695,9 +561,9 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 *  Returns the Logger for the <i>Eugene</i> algorithm
+	 * Returns the Logger for the <i>Eugene</i> algorithm
 	 *
-	 *  @return the logger for the <i>Eugene</i> algorithm
+	 * @return the logger for the <i>Eugene</i> algorithm
 	 */
 	@Override
 	protected Logger getLogger() {
@@ -708,6 +574,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Getter for <i>maxPlacements</i>
+	 * 
 	 * @return value of <i>maxPlacements</i>
 	 */
 	protected Integer getMaxPlacements() {
@@ -716,6 +583,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>maxPlacements</i>
+	 * 
 	 * @param maxPlacements the value to set <i>maxPlacements</i>
 	 */
 	protected void setMaxPlacements(final Integer maxPlacements) {
@@ -723,39 +591,8 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 * Getter for <i>splitTandemPromoters</i>
-	 * @return value of <i>splitTandemPromoters</i>
-	 */
-	public Boolean getSplitTandemPromoters() {
-		return splitTandemPromoters;
-	}
-
-	/**
-	 * Setter for <i>splitTandemPromoters</i>
-	 * @param splitTandemPromoters the value to set <i>splitTandemPromoters</i>
-	 */
-	public void setSplitTandemPromoters(Boolean splitTandemPromoters) {
-		this.splitTandemPromoters = splitTandemPromoters;
-	}
-
-	/**
-	 * Getter for <i>overrideGateType</i>
-	 * @return value of <i>overrideGateType</i>
-	 */
-	public Boolean getOverrideGateType() {
-		return overrideGateType;
-	}
-
-	/**
-	 * Setter for <i>overrideGateType</i>
-	 * @param overrideGateType the value to set <i>overrideGateType</i>
-	 */
-	public void setOverrideGateType(Boolean overrideGateType) {
-		this.overrideGateType = overrideGateType;
-	}
-
-	/**
 	 * Getter for <i>eugeneResults</i>
+	 * 
 	 * @return value of <i>eugeneResults</i>
 	 */
 	protected EugeneArray getEugeneResults() {
@@ -764,6 +601,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>eugeneResults</i>
+	 * 
 	 * @param eugeneResults the value to set <i>eugeneResults</i>
 	 */
 	protected void setEugeneResults(final EugeneArray eugeneResults) {
@@ -772,6 +610,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Getter for <i>eugeneScript</i>
+	 * 
 	 * @return value of <i>eugeneScript</i>
 	 */
 	protected String getEugeneScript() {
@@ -780,6 +619,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>eugeneScript</i>
+	 * 
 	 * @param eugeneScript the value to set <i>eugeneScript</i>
 	 */
 	protected void setEugeneScript(final String eugeneScript) {
@@ -788,6 +628,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Getter for <i>eugeneScriptFilename</i>
+	 * 
 	 * @return value of <i>eugeneScriptFilename</i>
 	 */
 	protected String getEugeneScriptFilename() {
@@ -795,7 +636,26 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
+	 * Getter for <i>devicesMap</i>
+	 *
+	 * @return value of <i>devicesMap</i>
+	 */
+	public Map<NetlistNode, Collection<EugeneDevice>> getDevicesMap() {
+		return devicesMap;
+	}
+
+	/**
+	 * Setter for <i>devicesMap</i>
+	 *
+	 * @param devicesMap the value to set <i>devicesMap</i>
+	 */
+	public void setDevicesMap(Map<NetlistNode, Collection<EugeneDevice>> devicesMap) {
+		this.devicesMap = devicesMap;
+	}
+
+	/**
 	 * Setter for <i>eugeneScriptFilename</i>
+	 * 
 	 * @param eugeneScriptFilename the value to set <i>eugeneScriptFilename</i>
 	 */
 	protected void setEugeneScriptFilename(final String eugeneScriptFilename) {
@@ -803,21 +663,8 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 * @return the deviceMap
-	 */
-	public Map<NetlistNode,Devices> getDevicesMap() {
-		return devicesMap;
-	}
-
-	/**
-	 * @param deviceMap the deviceMap to set
-	 */
-	public void setDevicesMap(Map<NetlistNode,Devices> devicesMap) {
-		this.devicesMap = devicesMap;
-	}
-
-	/**
 	 * Getter for <i>groupsMap</i>
+	 * 
 	 * @return value of <i>groupsMap</i>
 	 */
 	public Map<ContainerSpecification, Devices> getGroupsMap() {
@@ -826,6 +673,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>groupsMap</i>
+	 * 
 	 * @param groupsMap the value to set <i>groupsMap</i>
 	 */
 	public void setGroupsMap(Map<ContainerSpecification, Devices> groupsMap) {
@@ -834,6 +682,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Getter for <i>gates</i>
+	 * 
 	 * @return value of <i>gates</i>
 	 */
 	protected CObjectCollection<Gate> getGates() {
@@ -842,6 +691,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>gates</i>
+	 * 
 	 * @param gates the value to set <i>gates</i>
 	 */
 	protected void setGates(final CObjectCollection<Gate> gates) {
@@ -850,6 +700,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Getter for <i>parts</i>
+	 * 
 	 * @return value of <i>parts</i>
 	 */
 	protected CObjectCollection<Part> getParts() {
@@ -858,6 +709,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>parts</i>
+	 * 
 	 * @param parts the value to set <i>parts</i>
 	 */
 	protected void setParts(final CObjectCollection<Part> parts) {
@@ -869,6 +721,7 @@ public class Eugene extends PLAlgorithm{
 	 */
 	/**
 	 * Getter for <i>sensors</i>
+	 * 
 	 * @return value of <i>sensors</i>
 	 */
 	public CObjectCollection<InputSensor> getInputSensors() {
@@ -877,6 +730,7 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>sensors</i>
+	 * 
 	 * @param sensors the value to set <i>sensors</i>
 	 */
 	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
@@ -884,39 +738,80 @@ public class Eugene extends PLAlgorithm{
 	}
 
 	/**
-	 * Getter for <i>reporters</i>
-	 * @return value of <i>reporters</i>
+	 * Getter for <i>devices</i>
+	 * 
+	 * @return value of <i>devices</i>
 	 */
-	public CObjectCollection<OutputReporter> getOutputReporters() {
-		return reporters;
+	public CObjectCollection<OutputDevice> getOutputDevices() {
+		return outputDevices;
 	}
 
 	/**
-	 * Setter for <i>reporters</i>
-	 * @param reporters the value to set <i>reporters</i>
+	 * Setter for <i>devices</i>
+	 * 
+	 * @param devices the value to set <i>devices</i>
 	 */
-	protected void setOutputReporters(final CObjectCollection<OutputReporter> reporters) {
-		this.reporters = reporters;
+	protected void setOutputDevices(final CObjectCollection<OutputDevice> devices) {
+		this.outputDevices = devices;
 	}
 
 	/**
-	 * Getter for <i>rules</i>
-	 * @return value of <i>rules</i>
+	 * Getter for <i>circuitRules</i>
+	 * 
+	 * @return value of <i>circuitRules</i>
 	 */
-	public Rules getRules() {
-		return rules;
+	public CircuitRules getCircuitRules() {
+		return circuitRules;
 	}
 
 	/**
-	 * Setter for <i>rules</i>
+	 * Setter for <i>circuitRules</i>
+	 * 
 	 * @param rules the value to set rules
 	 */
-	public void setRules(Rules rules) {
-		this.rules = rules;
+	public void setCircuitRules(CircuitRules circuitRules) {
+		this.circuitRules = circuitRules;
+	}
+
+	/**
+	 * Getter for <i>deviceRules</i>
+	 *
+	 * @return value of <i>deviceRules</i>
+	 */
+	public DeviceRules getDeviceRules() {
+		return deviceRules;
+	}
+
+	/**
+	 * Setter for <i>deviceRules</i>
+	 *
+	 * @param deviceRules the value to set <i>deviceRules</i>
+	 */
+	public void setDeviceRules(DeviceRules deviceRules) {
+		this.deviceRules = deviceRules;
+	}
+
+	/**
+	 * Getter for <i>geneticLocations</i>
+	 *
+	 * @return value of <i>geneticLocations</i>
+	 */
+	public CObjectCollection<GeneticLocation> getGeneticLocations() {
+		return geneticLocations;
+	}
+
+	/**
+	 * Setter for <i>geneticLocations</i>
+	 *
+	 * @param geneticLocations the value to set <i>geneticLocations</i>
+	 */
+	public void setGeneticLocations(CObjectCollection<GeneticLocation> geneticLocations) {
+		this.geneticLocations = geneticLocations;
 	}
 
 	/**
 	 * Getter for <i>containerSpecifications</i>
+	 * 
 	 * @return value of <i>containerSpecifications</i>
 	 */
 	public CObjectCollection<ContainerSpecification> getContainerSpecifications() {
@@ -925,26 +820,28 @@ public class Eugene extends PLAlgorithm{
 
 	/**
 	 * Setter for <i>containerSpecifications</i>
-	 * @param containerSpecifications the value to set <i>containerSpecifications</i>
+	 * 
+	 * @param containerSpecifications the value to set
+	 *                                <i>containerSpecifications</i>
 	 */
 	public void setContainerSpecifications(CObjectCollection<ContainerSpecification> containerSpecifications) {
 		this.containerSpecifications = containerSpecifications;
 	}
 
 	private Integer maxPlacements;
-	private Boolean splitTandemPromoters;
-	private Boolean overrideGateType;
 	private EugeneArray eugeneResults;
 	private String eugeneScript;
 	private String eugeneScriptFilename;
-	private Map<NetlistNode,Devices> devicesMap;
-	private Map<ContainerSpecification,Devices> groupsMap;
+	private Map<NetlistNode, Collection<EugeneDevice>> devicesMap;
+	private Map<ContainerSpecification, Devices> groupsMap;
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<Part> parts;
 	private CObjectCollection<InputSensor> sensors;
-	private CObjectCollection<OutputReporter> reporters;
-	private Rules rules;
+	private CObjectCollection<OutputDevice> outputDevices;
+	private CircuitRules circuitRules;
+	private DeviceRules deviceRules;
+	private CObjectCollection<GeneticLocation> geneticLocations;
 	private CObjectCollection<ContainerSpecification> containerSpecifications;
 
-	static private String S_PROMOTER = "promoter";
+	static private String S_FENCEPOST = "fencepost";
 }

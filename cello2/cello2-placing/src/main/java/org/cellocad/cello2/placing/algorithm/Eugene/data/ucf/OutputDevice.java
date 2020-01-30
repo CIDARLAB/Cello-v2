@@ -20,9 +20,7 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
 
-import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.profile.ProfileUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -33,10 +31,9 @@ import org.json.simple.JSONObject;
  * @date 2018-06-29
  *
  */
-public class OutputReporter extends Assignable{
+public class OutputDevice extends Assignable{
 	
 	private void init() {
-		parts = new CObjectCollection<Part>();
 	}
 
 	private void parseName(final JSONObject JObj){
@@ -44,23 +41,13 @@ public class OutputReporter extends Assignable{
 		this.setName(value);
 	}
 	
-	private void parseOutputReporter(final JSONObject jObj, final CObjectCollection<Part> parts) {
+	private void parseOutputReporter(final JSONObject jObj) {
 		this.parseName(jObj);
-		this.parseParts(jObj,parts);
 	}
 	
-	private void parseParts(final JSONObject jObj, CObjectCollection<Part> parts) {
-		JSONArray jArr = (JSONArray) jObj.get("parts");
-		for (int i = 0; i < jArr.size(); i++) {
-			String partName = (String) jArr.get(i);
-			Part part = parts.findCObjectByName(partName);
-			this.getParts().add(part);
-		}
-	}
-	
-	public OutputReporter(final JSONObject jObj, CObjectCollection<Part> parts) {
+	public OutputDevice(final JSONObject jObj) {
 		this.init();
-		this.parseOutputReporter(jObj,parts);
+		this.parseOutputReporter(jObj);
 	}
 	
 	@Override
@@ -70,29 +57,24 @@ public class OutputReporter extends Assignable{
 		return rtn;
 	}
 	
-	/*
-	 * Parts
+	/**
+	 * Getter for <i>outputDeviceStructure</i>
+	 *
+	 * @return value of <i>outputDeviceStructure</i>
 	 */
-	private CObjectCollection<Part> getParts(){
-		return this.parts;
+	public OutputDeviceStructure getOutputDeviceStructure() {
+		return outputDeviceStructure;
 	}
-	
-	public Part getPartAtIdx(final int index){
-		Part rtn = null;
-		if (
-				(0 <= index)
-				&&
-				(index < this.getNumParts())
-				) {
-			rtn = this.getParts().get(index);
-		}
-		return rtn;
+
+	/**
+	 * Setter for <i>outputDeviceStructure</i>
+	 *
+	 * @param outputDeviceStructure the value to set <i>outputDeviceStructure</i>
+	 */
+	public void setOutputDeviceStructure(final OutputDeviceStructure outputDeviceStructure) {
+		this.outputDeviceStructure = outputDeviceStructure;
 	}
-	
-	public int getNumParts(){
-		return this.getParts().size();
-	}
-	
-	private CObjectCollection<Part> parts;
+
+	private OutputDeviceStructure outputDeviceStructure;
 	
 }

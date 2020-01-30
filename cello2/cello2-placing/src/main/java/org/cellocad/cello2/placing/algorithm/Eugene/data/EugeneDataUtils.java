@@ -33,7 +33,8 @@ import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateStructure;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GeneticLocation;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.InputSensor;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputReporter;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputDevice;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputDeviceStructure;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ResponseFunction;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ResponseFunctionVariable;
@@ -146,12 +147,19 @@ public class EugeneDataUtils {
 		return rtn;
 	}
 	
-	static public CObjectCollection<OutputReporter> getOutputReporters(final TargetData td) {
-		CObjectCollection<OutputReporter> rtn = new CObjectCollection<OutputReporter>();
-		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTREPORTERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTREPORTERS, i);
-			OutputReporter reporter = new OutputReporter(jObj,getParts(td));
-			rtn.add(reporter);
+	static public CObjectCollection<OutputDevice> getOutputReporters(final TargetData td) {
+		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTDEVICES); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTDEVICES, i);
+			OutputDevice device = new OutputDevice(jObj);
+			rtn.add(device);
+		}
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTSTRUCTURE); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTSTRUCTURE, i);
+			OutputDeviceStructure structure = new OutputDeviceStructure(jObj);
+			OutputDevice device = rtn.findCObjectByName(structure.getGateName());
+			device.setOutputDeviceStructure(structure);
+			structure.setOutputDevice(device);
 		}
 		return rtn;
 	}
@@ -202,7 +210,8 @@ public class EugeneDataUtils {
 	private static String S_GATETOXICITY = "gate_toxicity";
 	private static String S_GATECYTOMETRY = "gate_cytometry";
 	private static String S_INPUTSENSORS = "input_sensors";
-	private static String S_OUTPUTREPORTERS = "output_reporters";
+	private static String S_OUTPUTDEVICES = "output_devices";
+	private static String S_OUTPUTSTRUCTURE = "output_structure";
 	private static String S_CIRCUITRULES = "circuit_rules";
 	private static String S_DEVICERULES = "device_rules";
 	private static String S_CONTAINERS = "containers";
