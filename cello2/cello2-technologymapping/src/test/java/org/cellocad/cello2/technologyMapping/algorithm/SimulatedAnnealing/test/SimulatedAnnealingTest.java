@@ -21,7 +21,11 @@
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import org.apache.commons.io.FileUtils;
 import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
@@ -47,15 +51,20 @@ import org.junit.Test;
  *
  */
 public class SimulatedAnnealingTest {
+
 	private static boolean initIsDone = false;
 
 	@Before
-	public void init() throws CelloException {
+	public void init() throws CelloException, IOException {
 		if (initIsDone)
 			return;
-		String[] args = { "-inputNetlist", Utils.getResource("and_netlist.json").getFile(), "-targetDataFile",
-				Utils.getResource("Eco1C1G1T1.UCF.json").getFile(), "-algoName", "SimulatedAnnealing", "-pythonEnv",
-				"python" };
+		Path dir = Files.createTempDirectory(SimulatedAnnealingTest.class.getClassLoader().toString());
+		this.output = dir.toFile();
+		String[] args = { "-" + TMArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
+				"-" + TMArgString.TARGETDATAFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
+				"-" + TMArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + TMArgString.PYTHONENV, "python",
+				"-" + TMArgString.OUTPUTDIR, dir.toString(), "-" + TMArgString.LOGFILENAME,
+				dir.toString() + Utils.getFileSeparator() + "log.log" };
 		TMRuntimeEnv runEnv = new TMRuntimeEnv(args);
 		runEnv.setName("placing");
 		// InputFile
@@ -95,10 +104,12 @@ public class SimulatedAnnealingTest {
 	}
 
 	@Test
-	public void test() throws CelloException {
+	public void test() throws CelloException, IOException {
 		this.TM.execute();
+		FileUtils.deleteDirectory(this.output);
 	}
 
 	private TMRuntimeObject TM;
+	private File output;
 
 }
