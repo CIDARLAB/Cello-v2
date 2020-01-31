@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,13 +22,19 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf;
 
+import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
- * The Gate is class representing a gate for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * The Gate is class representing a gate for the gate assignment in the
+ * <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
@@ -59,12 +67,23 @@ public class Gate extends Assignable{
 		this.setSystem(value);
 	}
 	
+	private void parseColor(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, "color_hexcode");
+		Pattern pattern = Pattern.compile("[0-9A-Fa-f]{6}");
+		Matcher matcher = pattern.matcher(value);
+		if (matcher.matches()) {
+			Color color = Color.decode("0x" + value);
+			this.setColor(color);
+		}
+	}
+
 	private void parseGate(final JSONObject jObj) {
 		this.parseRegulator(jObj);
 		this.parseGroupName(jObj);
 		this.parseGateName(jObj);
 		this.parseGateType(jObj);
 		this.parseSystem(jObj);
+		this.parseColor(jObj);
 	}
 	
 	public Gate(final JSONObject jObj) {
@@ -79,6 +98,7 @@ public class Gate extends Assignable{
 		rtn = rtn && (this.getGateName() != null);
 		rtn = rtn && (this.getGateType() != null);
 		rtn = rtn && (this.getSystem() != null);
+		rtn = rtn && (this.getColor() != null);
 		return rtn;
 	}
 	
@@ -145,6 +165,19 @@ public class Gate extends Assignable{
 	
 	private String system;
 	
+	/*
+	 * Color
+	 */
+	private void setColor(final Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return this.color;
+	}
+
+	private Color color;
+
 	/*
 	 * ResponseFunction
 	 */
