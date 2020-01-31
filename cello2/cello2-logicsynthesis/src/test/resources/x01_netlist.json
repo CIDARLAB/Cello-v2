@@ -1,0 +1,118 @@
+{
+	"name": "x01VirtualNetlistFO",
+	"inputFilename": "function.v",
+	"placements": 
+	[
+	],
+	"nodes": 
+	[
+		{
+			"name": "A",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "B",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "C",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$204",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$205",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$202",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$203",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$200",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$201",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "$new_n9__0",
+			"src": "$204",
+			"dst": "$205"
+		},
+		{
+			"name": "$new_n8__0",
+			"src": "$203",
+			"dst": "$204"
+		},
+		{
+			"name": "A_0",
+			"src": "A",
+			"dst": "$201"
+		},
+		{
+			"name": "$new_n7__0",
+			"src": "$202",
+			"dst": "$205"
+		},
+		{
+			"name": "B_0",
+			"src": "B",
+			"dst": "$200"
+		},
+		{
+			"name": "$new_n6__0",
+			"src": "$201",
+			"dst": "$203"
+		},
+		{
+			"name": "C_0",
+			"src": "C",
+			"dst": "$202"
+		},
+		{
+			"name": "$new_n5__0",
+			"src": "$200",
+			"dst": "$203"
+		},
+		{
+			"name": "out_0",
+			"src": "$205",
+			"dst": "out"
+		}
+	]
+}
