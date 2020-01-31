@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.logicSynthesis.test;
+package org.cellocad.cello2.logicSynthesis.algorithm.Yosys;
 
 import static org.junit.Assert.*;
 
