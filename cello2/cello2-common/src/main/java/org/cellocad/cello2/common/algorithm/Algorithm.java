@@ -207,8 +207,10 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Perform preprocessing
+	 * 
+	 * @throws CelloException
 	 */
-	abstract protected void preprocessing();
+	abstract protected void preprocessing() throws CelloException;
 
 	/**
 	 * Run the (core) algorithm

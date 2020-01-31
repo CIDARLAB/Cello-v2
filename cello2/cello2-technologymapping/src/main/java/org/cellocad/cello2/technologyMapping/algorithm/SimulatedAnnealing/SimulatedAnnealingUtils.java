@@ -20,6 +20,13 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import org.cellocad.cello2.results.netlist.Netlist;
+import org.cellocad.cello2.results.netlist.NetlistEdge;
+import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
+
 /**
  * 
  *
@@ -29,5 +36,44 @@ package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing;
  *
  */
 public class SimulatedAnnealingUtils {
+
+	/**
+	 * Returns the <i>SimulatedAnnealingNetlistNodeData</i> of the <i>node</i>
+	 *
+	 * @param node a node within the <i>netlist</i> of this instance
+	 * @return the <i>SimulatedAnnealingNetlistNodeData</i> instance if it exists,
+	 *         null otherwise
+	 */
+	public static SimulatedAnnealingNetlistNodeData getSimulatedAnnealingNetlistNodeData(NetlistNode node) {
+		SimulatedAnnealingNetlistNodeData rtn = null;
+		rtn = (SimulatedAnnealingNetlistNodeData) node.getNetlistNodeData();
+		return rtn;
+	}
+
+	/**
+	 * Returns the <i>SimulatedAnnealingNetlistEdgeData</i> of the <i>edge</i>
+	 *
+	 * @param edge an edge within the <i>netlist</i> of this instance
+	 * @return the <i>SimulatedAnnealingNetlistEdgeData</i> instance if it exists,
+	 *         null otherwise
+	 */
+	public static SimulatedAnnealingNetlistEdgeData getSimulatedAnnealingNetlistEdgeData(NetlistEdge edge) {
+		SimulatedAnnealingNetlistEdgeData rtn = null;
+		rtn = (SimulatedAnnealingNetlistEdgeData) edge.getNetlistEdgeData();
+		return rtn;
+	}
+
+	/**
+	 * Returns the <i>SimulatedAnnealingNetlistData</i> of the <i>netlist</i>
+	 *
+	 * @param netlist the netlist of this instance
+	 * @return the <i>SimulatedAnnealingNetlistData</i> instance if it exists, null
+	 *         otherwise
+	 */
+	public static SimulatedAnnealingNetlistData getSimulatedAnnealingNetlistData(Netlist netlist) {
+		SimulatedAnnealingNetlistData rtn = null;
+		rtn = (SimulatedAnnealingNetlistData) netlist.getNetlistData();
+		return rtn;
+	}
 
 }

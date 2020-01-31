@@ -31,13 +31,13 @@ import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
-import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
@@ -45,8 +45,6 @@ import org.cellocad.cello2.results.technologyMapping.activity.signal.SensorSigna
 import org.cellocad.cello2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.cello2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingDataUtils;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
@@ -56,8 +54,11 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputReporter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
+import org.cellocad.cello2.technologyMapping.runtime.environment.TMRuntimeEnv;
 import org.json.simple.JSONObject;
 
 /**
@@ -70,42 +71,6 @@ import org.json.simple.JSONObject;
  *
  */
 public class SimulatedAnnealing extends TMAlgorithm{
-
-	/**
-	 *  Returns the <i>SimulatedAnnealingNetlistNodeData</i> of the <i>node</i>
-	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>SimulatedAnnealingNetlistNodeData</i> instance if it exists, null otherwise
-	 */
-	protected SimulatedAnnealingNetlistNodeData getSimulatedAnnealingNetlistNodeData(NetlistNode node){
-		SimulatedAnnealingNetlistNodeData rtn = null;
-		rtn = (SimulatedAnnealingNetlistNodeData) node.getNetlistNodeData();
-		return rtn;
-	}
-
-	/**
-	 *  Returns the <i>SimulatedAnnealingNetlistEdgeData</i> of the <i>edge</i>
-	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>SimulatedAnnealingNetlistEdgeData</i> instance if it exists, null otherwise
-	 */
-	protected SimulatedAnnealingNetlistEdgeData getSimulatedAnnealingNetlistEdgeData(NetlistEdge edge){
-		SimulatedAnnealingNetlistEdgeData rtn = null;
-		rtn = (SimulatedAnnealingNetlistEdgeData) edge.getNetlistEdgeData();
-		return rtn;
-	}
-
-	/**
-	 *  Returns the <i>SimulatedAnnealingNetlistData</i> of the <i>netlist</i>
-	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>SimulatedAnnealingNetlistData</i> instance if it exists, null otherwise
-	 */
-	protected SimulatedAnnealingNetlistData getSimulatedAnnealingNetlistData(Netlist netlist){
-		SimulatedAnnealingNetlistData rtn = null;
-		rtn = (SimulatedAnnealingNetlistData) netlist.getNetlistData();
-		return rtn;
-	}
 
 	/**
 	 *  Gets the Constraint data from the NetlistConstraintFile
@@ -184,7 +149,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		Iterator<InputSensor> it = this.getInputSensors().iterator();
 		for (int i = 0; i < inputNodes.size(); i++) {
 			NetlistNode node = inputNodes.get(i);
-			SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
+			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough input sensors in the library to cover the netlist inputs.");
 			}
@@ -210,7 +175,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		Iterator<OutputReporter> it = this.getOutputReporters().iterator();
 		for (int i = 0; i < outputNodes.size(); i++) {
 			NetlistNode node = outputNodes.get(i);
-			SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
+			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough output reporters in the library to cover the netlist outputs.");
 			}
@@ -238,7 +203,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			if (LSResultsUtils.isPrimary(node) || LSResultsUtils.isInputOutput(node)) {
 				continue;
 			}
-			SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
+			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 			Gate gate = GM.getRandomGateFromUnassignedGroup();
 			if (gate == null) {
 				throw new RuntimeException("Gate assignment error!");
@@ -249,7 +214,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	@Override
-	protected void preprocessing() {
+	protected void preprocessing() throws CelloException {
 		this.random = new Random(L_SEED);
 		// GateManager
 		this.setGateManager(new GateManager(this.getGates()));
@@ -315,7 +280,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 					node = temp;
 				}
 			}
-			SimulatedAnnealingNetlistNodeData data = this.getSimulatedAnnealingNetlistNodeData(node);
+			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 
 			// get random gate
 			Gate original = (Gate)data.getGate();
@@ -383,7 +348,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void updateNetlist(final Netlist netlist) {
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
-			Assignable gate = this.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			Assignable gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
 				node.getResultNetlistNodeData().setGateType(gate.getName());
 			}
@@ -413,7 +378,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.logInfo(this.getTMActivityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
-			Assignable gate = this.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			Assignable gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
 				String str = "";
 				str += String.format("Node: %-5s", node.getName());
@@ -426,6 +391,10 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			}
 		}
 		logInfo(String.format("Score: %.2f", ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation())));
+		// plots
+		logInfo("generating plots");
+		TMRuntimeEnv runEnv = (TMRuntimeEnv) this.getRuntimeEnv();
+		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
 	}
 
 
@@ -582,16 +551,26 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>signals</i>
+	 * 
 	 * @param netlist the Netlist used to set <i>signals</i>
+	 * @throws CelloException
 	 */
-	protected void setSensorSignals(final Netlist netlist) {
+	protected void setSensorSignals(final Netlist netlist) throws CelloException {
 		List<NetlistNode> inputs = LSResultsUtils.getPrimaryInputNodes(netlist);
 		SensorSignals<NetlistNode> signals = new SensorSignals<NetlistNode>(inputs);
 		for (int i = 0; i < inputs.size(); i++) {
 			NetlistNode node = inputs.get(i);
-			InputSensor sensor = (InputSensor) this.getSimulatedAnnealingNetlistNodeData(node).getGate();
-			signals.setHighActivitySignal(node, sensor.getHighSignal());
-			signals.setLowActivitySignal(node, sensor.getLowSignal());
+			InputSensor sensor = (InputSensor) SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node)
+					.getGate();
+			Parameter hi = sensor.getParameterValueByName(InputSensor.S_HI);
+			Parameter lo = sensor.getParameterValueByName(InputSensor.S_LO);
+			String fmt = "Error with %s %s.";
+			if (hi == null || hi.getValue() == null)
+				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_HI));
+			if (lo == null || lo.getValue() == null)
+				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_LO));
+			signals.setHighActivitySignal(node, hi.getValue());
+			signals.setLowActivitySignal(node, lo.getValue());
 		}
 		this.signals = signals;
 	}
