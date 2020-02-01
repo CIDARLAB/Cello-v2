@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.test;
+package org.cellocad.cello2.export.algorithm.SBOL.test;
 
 import java.io.IOException;
 
