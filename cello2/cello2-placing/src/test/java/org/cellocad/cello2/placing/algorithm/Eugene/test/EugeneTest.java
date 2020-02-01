@@ -54,10 +54,11 @@ public class EugeneTest {
 	public void init() throws CelloException {
 		if (initIsDone)
 			return;
-		String[] args = { "-inputNetlist", Utils.getResource("and_netlist.json").getFile(), "-userConstraintsFile",
-				Utils.getResource("Eco2C1G3T1.UCF.json").getFile(), "-inputSensorFile",
-				Utils.getResource("Eco1C1G1T1.input.json").getFile(), "-outputDeviceFile",
-				Utils.getResource("Eco1C1G1T1.output.json").getFile(), "-algoName", "Eugene" };
+		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
+				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco2C1G3T1.UCF.json").getFile(),
+				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
+				"-" + PLArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
 		// InputFile
