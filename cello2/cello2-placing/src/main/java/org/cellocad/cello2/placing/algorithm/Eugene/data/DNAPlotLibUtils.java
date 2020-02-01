@@ -28,9 +28,8 @@ import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CasetteParts;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateParts;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateStructure;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
@@ -136,7 +135,7 @@ public class DNAPlotLibUtils {
 						String type = getPartType(part.getPartType());
 						String x = "";
 						String y = "";
-						if (type.equals(S_PROMOTER)) {
+						if (part.getPartType().equals("promoter")) {
 							for (int m = 0; m < node.getNumInEdge(); m++) {
 								NetlistEdge e = node.getInEdgeAtIdx(m);
 								NetlistNode src = e.getSrc();
@@ -144,7 +143,7 @@ public class DNAPlotLibUtils {
 									continue;
 								String gateType = src.getResultNetlistNodeData().getGateType();
 								Gate gate = gates.findCObjectByName(gateType);
-								if (!gate.getGateParts().getPromoter().equals(p))
+								if (!gate.getGateStructure().getOutput().equals(p))
 									continue;
 								Color color = gate.getColor();
 								rgb = getRGB(color);
@@ -177,33 +176,41 @@ public class DNAPlotLibUtils {
 		return rtn;
 	}
 
-	public static List<String> getRegulatoryInformation(Netlist netlist, CObjectCollection<Gate> gates) {
+	public static List<String> getRegulatoryInformation(Netlist netlist, CObjectCollection<Part> parts,
+			CObjectCollection<Gate> gates) {
 		List<String> rtn = new ArrayList<>();
 		rtn.add("from_partname,type,to_partname,arrowhead_length,linestyle,linewidth,color");
 		// TAG hardcoded
-		for (int i = 0; i < netlist.getNumVertex(); i++) {
-			NetlistNode node = netlist.getVertexAtIdx(i);
-			String gateType = node.getResultNetlistNodeData().getGateType();
-			if (LSResultsUtils.isAllInput(node)) {
-				continue;
-			} else if (!LSResultsUtils.isAllOutput(node)) {
-				Gate gate = gates.findCObjectByName(gateType);
-				GateParts parts = gate.getGateParts();
-				CasetteParts cassette = parts.getCasetteParts("x");
-				Color color = gate.getColor();
-				for (int j = 0; j < cassette.getNumParts(); j++) {
-					Part part = cassette.getPartAtIdx(j);
-					if (part.getPartType().equals("cds")) {
-						Collection<String> fields = new ArrayList<>();
-						fields.add(part.getName());
-						fields.add(S_REPRESSION);
-						fields.add(parts.getPromoter());
-						fields.add(String.valueOf(3));
-						fields.add("-");
-						fields.add("");
-						fields.add(getRGB(color));
-						String str = String.join(",", fields);
-						rtn.add(str);
+		Placements placements = netlist.getResultNetlistData().getPlacements();
+		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			Placement placement = placements.getPlacementAtIdx(i);
+			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
+				for (int k = 0; k < group.getNumComponent(); k++) {
+					org.cellocad.cello2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					String n = component.getNode();
+					NetlistNode node = netlist.getVertexByName(n);
+					if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node))
+						continue;
+					String gateType = node.getResultNetlistNodeData().getGateType();
+					Gate gate = gates.findCObjectByName(gateType);
+					GateStructure gs = gate.getGateStructure();
+					Color color = gate.getColor();
+					for (int l = 0; l < component.getNumPart(); l++) {
+						String p = component.getPartAtIdx(l);
+						Part part = parts.findCObjectByName(p);
+						if (part.getPartType().equals("cds")) {
+							Collection<String> fields = new ArrayList<>();
+							fields.add(part.getName());
+							fields.add(S_REPRESSION);
+							fields.add(gs.getOutput());
+							fields.add(String.valueOf(3));
+							fields.add("-");
+							fields.add("");
+							fields.add(getRGB(color));
+							String str = String.join(",", fields);
+							rtn.add(str);
+						}
 					}
 				}
 			}

@@ -20,21 +20,22 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.test;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.target.data.TargetData;
+import org.cellocad.cello2.common.target.data.TargetDataUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneDataUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
+import org.cellocad.cello2.placing.runtime.environment.PLArgString;
+import org.cellocad.cello2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.cello2.results.netlist.Netlist;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.cellocad.cello2.results.netlist.NetlistUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,44 +52,62 @@ public class DNAPlotLibUtilsTest {
 	private static boolean initIsDone = false;
 
 	@Before
-	public void init() throws IOException, ParseException {
+	public void init() throws CelloException {
 		if (initIsDone)
 			return;
-		String str = null;
-		JSONArray jArr = null;
-		JSONObject jObj = null;
-		JSONParser parser = new JSONParser();
-		str = Utils.getResourceAsString("and_netlist.json");
-		jObj = (JSONObject) parser.parse(str);
-		netlist = new Netlist(jObj);
-		str = Utils.getResourceAsString("Eco1C1G1T1.UCF.json");
-		jArr = (JSONArray) parser.parse(str);
-		targetData = new TargetData(jArr);
-		parts = EugeneDataUtils.getParts(targetData);
-		gates = EugeneDataUtils.getGates(targetData);
+		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_placed_netlist.json").getFile(),
+				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
+				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
+				"-" + PLArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
+		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
+		runEnv.setName("placing");
+		// InputFile
+		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
+		File inputFile = new File(inputFilePath);
+		if (!(inputFile.exists() && !inputFile.isDirectory())) {
+			throw new CelloException("Input file does not exist!");
+		}
+		// Read Netlist
+		netlist = NetlistUtils.getNetlist(runEnv, PLArgString.INPUTNETLIST);
+		if (!netlist.isValid()) {
+			throw new CelloException("Netlist is invalid!");
+		}
+		// get TargetData
+		td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.USERCONSTRAINTSFILE,
+				PLArgString.INPUTSENSORFILE, PLArgString.OUTPUTDEVICEFILE);
+		if (!td.isValid()) {
+			throw new CelloException("TargetData is invalid!");
+		}
+		parts = EugeneDataUtils.getParts(td);
+		gates = EugeneDataUtils.getGates(td);
 		initIsDone = true;
 	}
 
 	@Test
 	public void testGetDNADesigns() {
 		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist);
+		assert (designs.size() == 2);
 		// System.out.println(String.join(Utils.getNewLine(), designs));
 	}
 
 	@Test
 	public void testGetRegulatoryInformation() {
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, gates);
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, parts, gates);
+		assert (reg.size() == 4);
 		// System.out.println(String.join(Utils.getNewLine(), reg));
 	}
 
 	@Test
 	public void testPartInformation() {
 		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, parts, gates);
+		assert (part.size() == 20);
+		assert (part.get(2).equals("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,"));
 		// System.out.println(String.join(Utils.getNewLine(), part));
 	}
 
 	private static Netlist netlist;
-	private static TargetData targetData;
+	private static TargetData td;
 	private static CObjectCollection<Part> parts;
 	private static CObjectCollection<Gate> gates;
 

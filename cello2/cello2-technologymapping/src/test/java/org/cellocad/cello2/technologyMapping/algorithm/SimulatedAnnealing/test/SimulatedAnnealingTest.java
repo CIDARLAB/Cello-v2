@@ -61,12 +61,14 @@ public class SimulatedAnnealingTest {
 		Path dir = Files.createTempDirectory(SimulatedAnnealingTest.class.getClassLoader().toString());
 		this.output = dir.toFile();
 		String[] args = { "-" + TMArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + TMArgString.TARGETDATAFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
+				"-" + TMArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
+				"-" + TMArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
+				"-" + TMArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
 				"-" + TMArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + TMArgString.PYTHONENV, "python",
 				"-" + TMArgString.OUTPUTDIR, dir.toString(), "-" + TMArgString.LOGFILENAME,
 				dir.toString() + Utils.getFileSeparator() + "log.log" };
 		TMRuntimeEnv runEnv = new TMRuntimeEnv(args);
-		runEnv.setName("placing");
+		runEnv.setName("technologyMapping");
 		// InputFile
 		String inputFilePath = runEnv.getOptionValue(TMArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
@@ -86,7 +88,8 @@ public class SimulatedAnnealingTest {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, TMArgString.TARGETDATAFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, TMArgString.USERCONSTRAINTSFILE,
+				TMArgString.INPUTSENSORFILE, TMArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}

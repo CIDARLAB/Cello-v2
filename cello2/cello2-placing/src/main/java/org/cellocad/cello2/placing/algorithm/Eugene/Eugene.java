@@ -572,7 +572,8 @@ public class Eugene extends PLAlgorithm {
 		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
 		file = new File(partsFilename);
 		DNAPlotLibUtils.writeCSV(parts, file);
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getGates());
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getParts(),
+				this.getGates());
 		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
 		file = new File(regFilename);
 		DNAPlotLibUtils.writeCSV(reg, file);
