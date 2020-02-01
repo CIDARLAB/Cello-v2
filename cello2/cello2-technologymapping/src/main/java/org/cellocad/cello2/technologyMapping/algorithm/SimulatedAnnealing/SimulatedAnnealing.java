@@ -54,7 +54,7 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.t
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputReporter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
@@ -114,7 +114,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void getDataFromUCF() {
 		this.setGates(SimulatedAnnealingDataUtils.getGates(this.getTargetData()));
 		this.setInputSensors(SimulatedAnnealingDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputReporters(SimulatedAnnealingDataUtils.getOutputReporters(this.getTargetData()));
+		this.setOutputReporters(SimulatedAnnealingDataUtils.getOutputDevices(this.getTargetData()));
 		this.setUnitConversion(SimulatedAnnealingDataUtils.getUnitConversion(this.getTargetData()));
 	}
 
@@ -172,20 +172,20 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// assign output
 		CObjectCollection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
 		Map<String,String> outputMap = this.getOutputMap();
-		Iterator<OutputReporter> it = this.getOutputReporters().iterator();
+		Iterator<OutputDevice> it = this.getOutputReporters().iterator();
 		for (int i = 0; i < outputNodes.size(); i++) {
 			NetlistNode node = outputNodes.get(i);
 			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough output reporters in the library to cover the netlist outputs.");
 			}
-			OutputReporter reporter = null;
+			OutputDevice reporter = null;
 			if (outputMap.containsKey(node.getName())) {
 				String value = outputMap.get(node.getName());
 				reporter = this.getOutputReporters().findCObjectByName(value);
 			}
 			while (reporter == null) {
-				OutputReporter temp = it.next();
+				OutputDevice temp = it.next();
 				if (!outputMap.containsValue(temp.getName())) {
 					reporter = temp;
 				}
@@ -392,7 +392,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		}
 		logInfo(String.format("Score: %.2f", ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation())));
 		// plots
-		logInfo("generating plots");
+		logInfo("Generating plots");
 		RuntimeEnv runEnv = this.getRuntimeEnv();
 		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
 	}
@@ -449,7 +449,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 * Getter for <i>reporters</i>
 	 * @return value of <i>reporters</i>
 	 */
-	public CObjectCollection<OutputReporter> getOutputReporters() {
+	public CObjectCollection<OutputDevice> getOutputReporters() {
 		return reporters;
 	}
 
@@ -457,11 +457,11 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 * Setter for <i>reporters</i>
 	 * @param reporters the value to set <i>reporters</i>
 	 */
-	protected void setOutputReporters(final CObjectCollection<OutputReporter> reporters) {
+	protected void setOutputReporters(final CObjectCollection<OutputDevice> reporters) {
 		this.reporters = reporters;
 	}
 
-	private CObjectCollection<OutputReporter> reporters;
+	private CObjectCollection<OutputDevice> reporters;
 
 	/**
 	 * Getter for <i>inputMap</i>

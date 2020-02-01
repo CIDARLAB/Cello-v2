@@ -27,9 +27,9 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.CytometryData;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.GateParts;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.GeneticLocations;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputReporter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.LocationSequences;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Part;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionVariable;
@@ -124,26 +124,26 @@ public class SimulatedAnnealingDataUtils {
 		return rtn;
 	}
 	
-	static public CObjectCollection<OutputReporter> getOutputReporters(final TargetData td) {
-		CObjectCollection<OutputReporter> rtn = new CObjectCollection<OutputReporter>();
-		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_OUTPUTREPORTERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_OUTPUTREPORTERS, i);
-			OutputReporter reporter = new OutputReporter(jObj);
-			rtn.add(reporter);
+	static public CObjectCollection<OutputDevice> getOutputDevices(final TargetData td) {
+		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
+		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_OUTPUTDEVICES); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_OUTPUTDEVICES, i);
+			OutputDevice device = new OutputDevice(jObj);
+			rtn.add(device);
 		}
 		return rtn;
 	}
 	
-	static public GeneticLocations getGeneticLocations(TargetData td) {
-		GeneticLocations rtn = null;
-		JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_GENETICLOCATIONS, 0);
-		rtn = new GeneticLocations(jObj);
+	static public LocationSequences getLocationSequences(TargetData td) {
+		LocationSequences rtn = null;
+		JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_LOCATIONSEQUENCES, 0);
+		rtn = new LocationSequences(jObj);
 		return rtn;
 	}
 	
 	static public Double getUnitConversion(TargetData td) {
 		Double rtn = null;
-		GeneticLocations locations = getGeneticLocations(td);
+		LocationSequences locations = getLocationSequences(td);
 		rtn = locations.getOutputModuleLocations().get(0).getUnitConversion();
 		return rtn;
 	}
@@ -156,6 +156,6 @@ public class SimulatedAnnealingDataUtils {
 	private static String S_GATECYTOMETRY = "gate_cytometry";
 	
 	private static String S_INPUTSENSORS = "input_sensors";
-	private static String S_OUTPUTREPORTERS = "output_reporters";
-	private static String S_GENETICLOCATIONS = "genetic_locations";
+	private static String S_OUTPUTDEVICES = "output_devices";
+	private static String S_LOCATIONSEQUENCES = "location_sequences";
 }

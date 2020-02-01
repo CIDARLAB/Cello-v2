@@ -33,7 +33,7 @@ import org.json.simple.JSONObject;
  * @date 2018-08-06
  *
  */
-public class GeneticLocations extends CObject {
+public class LocationSequences extends CObject {
 	
 	private void parseOutputModuleLocation(final JSONObject jObj) {
 		JSONArray jArr = (JSONArray) jObj.get("output_module_location");
@@ -48,7 +48,7 @@ public class GeneticLocations extends CObject {
 		this.oml = new CObjectCollection<OutputModuleLocation>();
 	}
 	
-	public GeneticLocations(final JSONObject jobj) {
+	public LocationSequences(final JSONObject jobj) {
 		this.init();
 		this.parseOutputModuleLocation(jobj);
 	}

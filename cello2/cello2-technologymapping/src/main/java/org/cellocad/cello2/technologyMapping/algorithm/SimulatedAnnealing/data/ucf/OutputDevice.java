@@ -31,7 +31,7 @@ import org.json.simple.JSONObject;
  * @date 2018-06-29
  *
  */
-public class OutputReporter extends Assignable{
+public class OutputDevice extends Assignable{
 
 	private void parseName(final JSONObject JObj){
 		String value = ProfileUtils.getString(JObj, "name");
@@ -42,7 +42,7 @@ public class OutputReporter extends Assignable{
 		this.parseName(jObj);
 	}
 	
-	public OutputReporter(final JSONObject jObj) {
+	public OutputDevice(final JSONObject jObj) {
 		this.parseOutputReporter(jObj);
 	}
 	
