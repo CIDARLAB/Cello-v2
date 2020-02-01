@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.data;
+package org.cellocad.cello2.placing.algorithm.Eugene.data;
 
 import java.awt.Color;
 import java.io.File;
@@ -28,10 +28,10 @@ import java.util.List;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CasetteParts;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CasetteParts;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateParts;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;

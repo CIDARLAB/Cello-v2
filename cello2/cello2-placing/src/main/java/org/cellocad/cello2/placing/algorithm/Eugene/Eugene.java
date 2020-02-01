@@ -21,6 +21,7 @@
 package org.cellocad.cello2.placing.algorithm.Eugene;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,6 +39,7 @@ import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.graph.algorithm.SinkBFS;
 import org.cellocad.cello2.placing.algorithm.PLAlgorithm;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.Component;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.Device;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.Devices;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneDataUtils;
@@ -692,6 +694,36 @@ public class Eugene extends PLAlgorithm{
 				}
 			}
 		}
+		// DNAPlotLib
+		logInfo("generating dnaplotlib figures");
+		String outputDir = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDIR);
+		File file = null;
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(this.getNetlist());
+		String designsFilename = outputDir + Utils.getFileSeparator() + "dpl_dna_designs.csv";
+		file = new File(designsFilename);
+		DNAPlotLibUtils.writeCSV(designs, file);
+		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(), this.getParts(), this.getGates());
+		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
+		file = new File(partsFilename);
+		DNAPlotLibUtils.writeCSV(parts, file);
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getGates());
+		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
+		file = new File(regFilename);
+		DNAPlotLibUtils.writeCSV(reg, file);
+		String params;
+		try {
+			params = Utils.getResourceAsString("plot_parameters.csv");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String paramsFilename = outputDir + Utils.getFileSeparator() + "plot_parameters.csv";
+		Utils.writeToFile(params, paramsFilename);
+		String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
+		String output = outputDir + Utils.getFileSeparator() + this.getNetlist().getName() + "_dpl";
+		String cmd = String.format(fmt, PLArgString.PYTHONENV, "library_plot.py", partsFilename, designsFilename,
+				regFilename, output);
+		Utils.executeAndWaitForCommand(cmd + ".pdf");
+		Utils.executeAndWaitForCommand(cmd + ".png");
 	}
 
 	/**

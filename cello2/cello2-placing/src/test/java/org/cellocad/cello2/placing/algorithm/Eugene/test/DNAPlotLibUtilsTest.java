@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.export.algorithm.SBOL.test;
+package org.cellocad.cello2.placing.algorithm.Eugene.test;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,10 +26,10 @@ import java.util.List;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.target.data.TargetData;
-import org.cellocad.cello2.export.algorithm.SBOL.data.DNAPlotLibUtils;
-import org.cellocad.cello2.export.algorithm.SBOL.data.SBOLDataUtils;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.EugeneDataUtils;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -64,8 +64,8 @@ public class DNAPlotLibUtilsTest {
 		str = Utils.getResourceAsString("Eco1C1G1T1.UCF.json");
 		jArr = (JSONArray) parser.parse(str);
 		targetData = new TargetData(jArr);
-		parts = SBOLDataUtils.getParts(targetData);
-		gates = SBOLDataUtils.getGates(targetData);
+		parts = EugeneDataUtils.getParts(targetData);
+		gates = EugeneDataUtils.getGates(targetData);
 		initIsDone = true;
 	}
 

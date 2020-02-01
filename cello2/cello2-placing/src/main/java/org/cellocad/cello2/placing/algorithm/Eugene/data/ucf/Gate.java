@@ -20,6 +20,10 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
 
+import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.cellocad.cello2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
@@ -58,12 +62,23 @@ public class Gate extends Assignable{
 		this.setSystem(value);
 	}
 	
+	private void parseColor(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, "color_hexcode");
+		Pattern pattern = Pattern.compile("[0-9A-Fa-f]{6}");
+		Matcher matcher = pattern.matcher(value);
+		if (matcher.matches()) {
+			Color color = Color.decode("0x" + value);
+			this.setColor(color);
+		}
+	}
+
 	private void parseGate(final JSONObject jObj) {
 		this.parseRegulator(jObj);
 		this.parseGroupName(jObj);
 		this.parseGateName(jObj);
 		this.parseGateType(jObj);
 		this.parseSystem(jObj);
+		this.parseColor(jObj);
 	}
 	
 	public Gate(final JSONObject jObj) {
@@ -78,6 +93,7 @@ public class Gate extends Assignable{
 		rtn = rtn && (this.getGateName() != null);
 		rtn = rtn && (this.getGateType() != null);
 		rtn = rtn && (this.getSystem() != null);
+		rtn = rtn && (this.getColor() != null);
 		return rtn;
 	}
 	
@@ -143,6 +159,19 @@ public class Gate extends Assignable{
 	}
 	
 	private String system;
+
+	/*
+	 * Color
+	 */
+	private void setColor(final Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return this.color;
+	}
+
+	private Color color;
 	
 	/*
 	 * ResponseFunction
