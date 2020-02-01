@@ -58,7 +58,7 @@ public class SimulatedAnnealingTest {
 	public void init() throws CelloException, IOException {
 		if (initIsDone)
 			return;
-		Path dir = Files.createTempDirectory(SimulatedAnnealingTest.class.getClassLoader().toString());
+		Path dir = Files.createTempDirectory("Cello2_");
 		this.output = dir.toFile();
 		String[] args = { "-" + TMArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
 				"-" + TMArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
