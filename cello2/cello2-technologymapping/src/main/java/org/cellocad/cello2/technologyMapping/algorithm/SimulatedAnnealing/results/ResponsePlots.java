@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.logic.truthtable.State;
@@ -44,7 +45,6 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionParameter;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
-import org.cellocad.cello2.technologyMapping.runtime.environment.TMRuntimeEnv;
 
 /**
  *
@@ -213,7 +213,7 @@ public class ResponsePlots {
 		return rtn;
 	}
 
-	private static String getPlotCommand(final TMRuntimeEnv runEnv, final String file) {
+	private static String getPlotCommand(final RuntimeEnv runEnv, final String file) {
 		String rtn = null;
 		String python = runEnv.getOptionValue(TMArgString.PYTHONENV);
 		rtn = String.format("%s %s", python, file);
@@ -221,7 +221,7 @@ public class ResponsePlots {
 	}
 
 	private static void generatePlot(final NetlistNode node, final LSLogicEvaluation lsle,
-			final TMActivityEvaluation tmae, final TMRuntimeEnv runEnv) {
+			final TMActivityEvaluation tmae, final RuntimeEnv runEnv) {
 		String outDir = runEnv.getOptionValue(TMArgString.OUTPUTDIR);
 		// script
 		String script = getPlotScript(node, lsle, tmae, outDir);
@@ -233,7 +233,7 @@ public class ResponsePlots {
 	}
 
 	public ResponsePlots(final Netlist netlist, final LSLogicEvaluation lsle, final TMActivityEvaluation tmae,
-			final TMRuntimeEnv runEnv) {
+			final RuntimeEnv runEnv) {
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node))
