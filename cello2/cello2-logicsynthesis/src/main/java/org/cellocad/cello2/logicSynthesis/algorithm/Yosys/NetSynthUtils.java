@@ -193,7 +193,7 @@ public class NetSynthUtils {
 		return rtn;
 	}
 
-	public static String getGateType(Gate.GateType type) {
+	public static String getNodeType(Gate.GateType type) {
 		String rtn = "";
 		if (type.equals(Gate.GateType.AND)) {
 			rtn = LSResults.S_AND;
@@ -226,7 +226,8 @@ public class NetSynthUtils {
 		NetSynth n = new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
 		// verilog
 		String verilog = getVerilog(netlist);
-		String verilogFilePath = outputDir + Utils.getFileSeparator() + netlist.getInputFilename() + ".struct.v";
+		String verilogFilePath = outputDir + Utils.getFileSeparator() + Utils.getFilename(netlist.getInputFilename())
+				+ ".struct.v";
 		Utils.writeToFile(verilog, verilogFilePath);
 		// args
 		List<NetSynthSwitch> args = new ArrayList<>();
@@ -258,7 +259,7 @@ public class NetSynthUtils {
 			if (src == null) {
 				src = new NetlistNode();
 				src.setName(w.to.name);
-				src.getResultNetlistNodeData().setGateType(getGateType(w.to.type));
+				src.getResultNetlistNodeData().setNodeType(getNodeType(w.to.type));
 				nodeMap.put(w.to, src);
 				rtn.addVertex(src);
 			}
@@ -268,7 +269,7 @@ public class NetSynthUtils {
 			if (dst == null) {
 				dst = new NetlistNode();
 				dst.setName(w.from.name);
-				dst.getResultNetlistNodeData().setGateType(getGateType(w.from.type));
+				dst.getResultNetlistNodeData().setNodeType(getNodeType(w.from.type));
 				nodeMap.put(w.from, dst);
 				rtn.addVertex(dst);
 			}
