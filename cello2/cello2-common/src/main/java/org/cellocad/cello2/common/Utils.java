@@ -52,6 +52,12 @@ final public class Utils {
 		return rtn;
 	}
 
+	static public InputStream getResourceAsStream(String resource) {
+		InputStream rtn = null;
+		rtn = Utils.class.getClassLoader().getResourceAsStream(resource);
+		return rtn;
+	}
+
 	static public String getResourceAsString(String resource) throws IOException {
 		String rtn = "";
 		InputStream is = getResource(resource).openStream();

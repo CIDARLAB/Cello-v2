@@ -20,14 +20,36 @@
  */
 package org.cellocad.cello2.logicSynthesis.algorithm.Yosys;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.cellocad.BU.dom.DAGW;
+import org.cellocad.BU.netsynth.NetSynth;
+import org.cellocad.BU.netsynth.NetSynthSwitch;
+import org.cellocad.MIT.dnacompiler.Gate;
+import org.cellocad.MIT.dnacompiler.Wire;
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.graph.algorithm.SinkDFS;
+import org.cellocad.cello2.results.logicSynthesis.LSResults;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
+import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.results.netlist.data.ResultNetlistData;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
 
 /**
  *
@@ -38,6 +60,32 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
  *
  */
 public class NetSynthUtils {
+
+	private static class NodeNamer {
+
+		public String next() {
+			String rtn = null;
+			i++;
+			rtn = String.format("$%d", i);
+			return rtn;
+		}
+
+		private int i = 0;
+
+	}
+
+	private static class EdgeNamer {
+
+		public String next(NetlistNode n1, NetlistNode n2) {
+			String rtn = null;
+			i++;
+			rtn = String.format("e%d__%s_%s", i, n1.getName(), n2.getName());
+			return rtn;
+		}
+
+		private int i = 0;
+
+	}
 
 	public static String escapeSpecialCharacters(String str) {
 		String rtn = null;
@@ -71,8 +119,10 @@ public class NetSynthUtils {
 			rtn += Utils.getNewLine();
 		}
 		rtn += Utils.getNewLine();
-		for (int j = 0; j < netlist.getNumVertex(); j++) {
-			NetlistNode node = netlist.getVertexAtIdx(j);
+		LSResultNetlistUtils.setVertexTypeUsingLSResult(netlist);
+		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(netlist);
+		NetlistNode node = null;
+		while ((node = DFS.getNextVertex()) != null) {
 			if (LSResultsUtils.isPrimaryInput(node))
 				continue;
 			String nodeType = node.getResultNetlistNodeData().getNodeType().toLowerCase();
@@ -104,8 +154,131 @@ public class NetSynthUtils {
 		return rtn;
 	}
 
-	public static Netlist getNetSynthNetlist(Netlist netlist) {
+	private static org.json.JSONArray getMotifJSON(JSONArray motifs) throws JSONException {
+		org.json.JSONArray rtn = new org.json.JSONArray();
+		for (int i = 0; i < motifs.size(); ++i) {
+			String objString = motifs.get(i).toString();
+			rtn.put(new org.json.JSONObject(objString));
+		}
+		return rtn;
+	}
+
+	private static File copyResource(Path resource, Path directory) throws IOException {
+		File rtn = null;
+		rtn = new File(directory.toString(), resource.getFileName().toString());
+		InputStream is = Utils.getResourceAsStream(resource.toString());
+		FileUtils.copyInputStreamToFile(is, rtn);
+		return rtn;
+	}
+
+	private static Path initResources() throws IOException {
+		Path rtn = null;
+		rtn = Files.createTempDirectory("Cello2_");
+		String base = "netsynthResources";
+		Path p = null;
+		List<String> files = null;
+		if (Utils.isMac())
+			files = Arrays.asList(new String[] { "espresso.mac", "abc.mac", "script" });
+		if (Utils.isUnix())
+			files = Arrays.asList(new String[] { "espresso.linux", "abc", "script" });
+		if (Utils.isWin())
+			files = Arrays.asList(new String[] { "espresso.exe", "abc.exe", "script.cmd" });
+		for (String file : files) {
+			p = Paths.get(base, file);
+			File f = copyResource(p, rtn);
+			f.setExecutable(true);
+		}
+		p = Paths.get(base, "abc.rc");
+		copyResource(p, rtn);
+		return rtn;
+	}
+
+	public static String getGateType(Gate.GateType type) {
+		String rtn = "";
+		if (type.equals(Gate.GateType.AND)) {
+			rtn = LSResults.S_AND;
+		} else if (type.equals(Gate.GateType.NOR)) {
+			rtn = LSResults.S_NOR;
+		} else if (type.equals(Gate.GateType.NOT)) {
+			rtn = LSResults.S_NOT;
+		} else if (type.equals(Gate.GateType.NAND)) {
+			rtn = LSResults.S_NAND;
+		} else if (type.equals(Gate.GateType.XOR)) {
+			rtn = LSResults.S_XOR;
+		} else if (type.equals(Gate.GateType.XNOR)) {
+			rtn = LSResults.S_XNOR;
+		} else if (type.equals(Gate.GateType.OR)) {
+			rtn = LSResults.S_OR;
+		} else if (type.equals(Gate.GateType.OUTPUT)) {
+			rtn = LSResults.S_PRIMARYOUTPUT;
+		} else if (type.equals(Gate.GateType.INPUT)) {
+			rtn = LSResults.S_PRIMARYINPUT;
+		} else if (type.equals(Gate.GateType.OUTPUT_OR)) {
+			rtn = LSResults.S_PRIMARYOUTPUT;
+		}
+		return rtn;
+	}
+
+	public static Netlist getNetSynthNetlist(final Netlist netlist, final JSONArray motifs, final String outputDir)
+			throws JSONException, IOException {
 		Netlist rtn = null;
+		Path path = initResources();
+		NetSynth n = new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
+		// verilog
+		String verilog = getVerilog(netlist);
+		String verilogFilePath = outputDir + Utils.getFileSeparator() + netlist.getInputFilename() + ".struct.v";
+		Utils.writeToFile(verilog, verilogFilePath);
+		// args
+		List<NetSynthSwitch> args = new ArrayList<>();
+		args.add(NetSynthSwitch.output_or);
+		// motifs
+		org.json.JSONArray m = getMotifJSON(motifs);
+		// netsynth
+		DAGW dagw = n.runNetSynth(verilogFilePath, args, m);
+		// clean
+		n.cleanDirectory();
+		FileUtils.deleteDirectory(path.toFile());
+		// netlist
+		rtn = new Netlist();
+		rtn.setName(netlist.getName());
+		rtn.setType(netlist.getType());
+		rtn.setIdx(netlist.getIdx());
+		rtn.setInputFilename(netlist.getInputFilename());
+		rtn.setResultNetlistData(new ResultNetlistData(netlist.getResultNetlistData()));
+		Map<Gate,NetlistNode> nodeMap = new HashMap<>();
+		NodeNamer nNamer = new NodeNamer();
+		EdgeNamer eNamer = new EdgeNamer();
+		for (Wire w : dagw.Wires) {
+			NetlistEdge e = new NetlistEdge();
+			NetlistNode src = nodeMap.get(w.to);
+			if (w.to.equals(w.from))
+				continue;
+			if (w.to.name.isEmpty())
+				w.to.name = nNamer.next();
+			if (src == null) {
+				src = new NetlistNode();
+				src.setName(w.to.name);
+				src.getResultNetlistNodeData().setGateType(getGateType(w.to.type));
+				nodeMap.put(w.to, src);
+				rtn.addVertex(src);
+			}
+			NetlistNode dst = nodeMap.get(w.from);
+			if (w.from.name.isEmpty())
+				w.from.name = nNamer.next();
+			if (dst == null) {
+				dst = new NetlistNode();
+				dst.setName(w.from.name);
+				dst.getResultNetlistNodeData().setGateType(getGateType(w.from.type));
+				nodeMap.put(w.from, dst);
+				rtn.addVertex(dst);
+			}
+			e.setSrc(src);
+			e.setDst(dst);
+			e.setName(eNamer.next(src, dst));
+			dst.addInEdge(e);
+			src.addOutEdge(e);
+			rtn.addEdge(e);
+		}
 		return rtn;
 	}
 
