@@ -21,6 +21,9 @@
 package org.cellocad.cello2.placing.algorithm.Eugene.test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
@@ -51,14 +54,17 @@ public class EugeneTest {
 	private static boolean initIsDone = false;
 
 	@Before
-	public void init() throws CelloException {
+	public void init() throws CelloException, IOException {
 		if (initIsDone)
 			return;
+		Path dir = Files.createTempDirectory("Cello2_");
+		this.output = dir.toFile();
 		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco2C1G3T1.UCF.json").getFile(),
+				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
 				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
 				"-" + PLArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
-				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
+				"-" + PLArgString.ALGORITHMNAME, "Eugene",
+				"-" + PLArgString.OUTPUTDIR, dir.toString(), "-" + PLArgString.PYTHONENV, "python" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
 		// InputFile
@@ -99,10 +105,12 @@ public class EugeneTest {
 	}
 
 	@Test
-	public void test() throws CelloException {
+	public void test() throws CelloException, IOException {
 		this.PL.execute();
+		// FileUtils.deleteDirectory(this.output);
 	}
 
 	private PLRuntimeObject PL;
+	private File output;
 
 }

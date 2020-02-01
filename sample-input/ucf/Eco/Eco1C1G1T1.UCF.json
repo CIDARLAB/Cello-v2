@@ -129769,12 +129769,23 @@
 				"N1_LmrA BEFORE H1_HlyIIR",
 				"N1_LmrA BEFORE A1_AmtR",
 				"H1_HlyIIR BEFORE A1_AmtR",
+				"YFP_reporter NEXTTO L2",
+				"YFP_reporter AFTER L2",
+				"ENDSWITH YFP_reporter",
 				"ALL_FORWARD"
             ]
         }
     },
 	{
-		"collection": "genetic_locations",
+        "collection": "genetic_locations",
+        "symbol": "L1"
+    },
+    {
+        "collection": "genetic_locations",
+        "symbol": "L2"
+    },
+	{
+		"collection": "location_sequences",
 		"locations": [
 			{
 				"file": [

@@ -22,6 +22,8 @@ package org.cellocad.cello2.placing.algorithm.Eugene;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.graph.algorithm.SinkBFS;
 import org.cellocad.cello2.placing.algorithm.PLAlgorithm;
@@ -61,14 +64,15 @@ import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.results.placing.placement.Component;
 import org.cellocad.cello2.results.placing.placement.Placement;
 import org.cellocad.cello2.results.placing.placement.PlacementGroup;
 import org.cellocad.cello2.results.placing.placement.Placements;
+import org.cidarlab.eugene.dom.Device;
 import org.cidarlab.eugene.dom.NamedElement;
 import org.cidarlab.eugene.dom.imp.container.EugeneArray;
 import org.cidarlab.eugene.dom.imp.container.EugeneCollection;
 import org.cidarlab.eugene.exception.EugeneException;
-import org.cidarlab.eugene.util.DeviceUtils;
 
 /**
  * The Eugene class implements the <i>Eugene</i> algorithm in the <i>placing</i>
@@ -311,7 +315,7 @@ public class Eugene extends PLAlgorithm {
 		String rtn = "";
 		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
 			for (EugeneDevice d : devices) {
-				rtn += String.format("Device %sDevice();", d.getName());
+				rtn += String.format("Device %s();", EugeneUtils.getDeviceDeviceName(d.getName()));
 				rtn += Utils.getNewLine();
 			}
 		}
@@ -324,12 +328,11 @@ public class Eugene extends PLAlgorithm {
 	private String getCircuitInstantiation() {
 		String rtn = "";
 		rtn += "Device circuit(";
-		// TODO get markers
 		for (Collection<EugeneDevice> devices : this.getDevicesMap().values()) {
 			for (EugeneDevice d : devices) {
 				rtn += Utils.getNewLine();
 				rtn += Utils.getTabCharacter();
-				rtn += String.format("%sDevice", d.getName());
+				rtn += String.format("%s", EugeneUtils.getDeviceDeviceName(d.getName()));
 				rtn += ",";
 			}
 		}
@@ -480,9 +483,11 @@ public class Eugene extends PLAlgorithm {
 
 	/**
 	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void postprocessing() {
+	protected void postprocessing() throws CelloException {
 		logInfo("processing Eugene output");
 
 		Placements placements = new Placements();
@@ -491,7 +496,7 @@ public class Eugene extends PLAlgorithm {
 		EugeneArray results = this.getEugeneResults();
 
 		if (results == null) {
-			throw new RuntimeException("Eugene error!");
+			throw new CelloException("Error with Eugene results!");
 		}
 
 		for (int i = 0; i < results.getElements().size(); i++) {
@@ -501,61 +506,70 @@ public class Eugene extends PLAlgorithm {
 			Placement placement = new Placement(true, false);
 			placements.addPlacement(placement);
 
-			NamedElement groupsElement = null;
+			NamedElement placementElement = null;
 
+			// placement
 			try {
-				groupsElement = results.getElement(i);
+				placementElement = results.getElement(i);
 			} catch (EugeneException e) {
 				e.printStackTrace();
 			}
 
-			if (groupsElement instanceof org.cidarlab.eugene.dom.Device) {
-				org.cidarlab.eugene.dom.Device groupsDevice = (org.cidarlab.eugene.dom.Device) groupsElement;
-				List<NamedElement> groups = groupsDevice.getComponentList();
-				for (int j = 0; j < groups.size(); j++) {
-					NamedElement groupElement = groups.get(j);
+			// TODO Split according to locations
+
+			if (placementElement instanceof Device) {
+				Device placementDevice = (Device) placementElement;
+				List<List<Device>> deviceGroups = new ArrayList<>();
+				List<NamedElement> circuitElements = placementDevice.getComponentList();
+				List<Device> deviceGroup = null;
+				for (int j = 0; j < circuitElements.size(); j++) {
+					NamedElement circuitElement = circuitElements.get(j);
+					if (deviceGroup == null) {
+						deviceGroup = new ArrayList<>();
+						deviceGroups.add(deviceGroup);
+					}
+					if (circuitElement instanceof Device) {
+						Device device = (Device) circuitElement;
+						deviceGroup.add(device);
+					} else {
+						deviceGroup = null;
+					}
+				}
+				for (int j = 0; j < deviceGroups.size(); j++) {
 					PlacementGroup group = new PlacementGroup(true, false);
-					group.setName(groupElement.getName());
 					placement.addPlacementGroup(group);
-					if (groupElement instanceof org.cidarlab.eugene.dom.Device) {
-						org.cidarlab.eugene.dom.Device groupDevice = (org.cidarlab.eugene.dom.Device) groupElement;
-						List<NamedElement> components = groupDevice.getComponentList();
-						for (int k = 0; k < components.size(); k++) {
-							NamedElement componentElement = components.get(k);
-							org.cidarlab.eugene.dom.Device componentDevice = (org.cidarlab.eugene.dom.Device) componentElement;
-							String name = componentElement.getName();
-
-							NetlistNode node = this.getNetlistNodeByGateName(name);
-
-							String o = "";
-							try {
-								// FIXME: part orientations not respected
-								o = componentDevice.getOrientations(0).toString();
-							} catch (EugeneException e) {
-								e.printStackTrace();
-							}
-
-							if (o.contains(EugeneRules.S_REVERSE)) {
-								placement.setDirection(false);
-								try {
-									org.cidarlab.eugene.dom.Device reverse = DeviceUtils.flipAndInvert(componentDevice);
-									groupElement = reverse;
-								} catch (EugeneException e) {
-									e.printStackTrace();
-								}
-							}
-
-							List<String> parts = new ArrayList<>();
-							for (NamedElement part : componentDevice.getComponentList()) {
-								parts.add(part.getName());
-							}
-							org.cellocad.cello2.results.placing.placement.Component component = new org.cellocad.cello2.results.placing.placement.Component(
-									parts, true, false);
-							component.setDirection(true);
-							component.setNode(node.getName());
-							component.setName(parts.get(parts.size() - 1) + "_" + String.valueOf(k));
-							group.addComponent(component);
+					deviceGroup = deviceGroups.get(j);
+					for (int k = 0; k < deviceGroup.size(); k++) {
+						Device componentDevice = deviceGroup.get(k);
+						String name = componentDevice.getName();
+						name = EugeneUtils.getDeviceBaseName(name);
+						NetlistNode node = this.getNetlistNodeByGateName(name);
+//						String o = "";
+//						try {
+//							// FIXME: part orientations not respected
+//							o = componentDevice.getOrientations(0).toString();
+//						} catch (EugeneException e) {
+//							e.printStackTrace();
+//						}
+//
+//						if (o.contains(EugeneRules.S_REVERSE)) {
+//							placement.setDirection(false);
+//							try {
+//								Device reverse = DeviceUtils.flipAndInvert(componentDevice);
+//								groupElement = reverse;
+//							} catch (EugeneException e) {
+//								e.printStackTrace();
+//							}
+//						}
+						List<String> parts = new ArrayList<>();
+						for (NamedElement part : componentDevice.getComponentList()) {
+							parts.add(part.getName());
 						}
+						Component component = new Component(parts, true, false);
+						component.setDirection(true);
+						component.setNode(node.getName());
+						component.setName(String.format("Group%d_Device%d", j, k));
+						group.addComponent(component);
 					}
 				}
 			}
@@ -585,9 +599,24 @@ public class Eugene extends PLAlgorithm {
 		}
 		String paramsFilename = outputDir + Utils.getFileSeparator() + "plot_parameters.csv";
 		Utils.writeToFile(params, paramsFilename);
+		Path dir;
+		try {
+			dir = Files.createTempDirectory("Cello2_");
+		} catch (IOException e) {
+			throw new CelloException("Unable to create temporary directory.", e);
+		}
+		String libraryPlot;
+		try {
+			libraryPlot = Utils.getResourceAsString("library_plot.py");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String libraryPlotFilename = dir.toString() + Utils.getFileSeparator() + "library_plot.py";
+		Utils.writeToFile(libraryPlot, libraryPlotFilename);
 		String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
 		String output = outputDir + Utils.getFileSeparator() + this.getNetlist().getName() + "_dpl";
-		String cmd = String.format(fmt, PLArgString.PYTHONENV, "library_plot.py", partsFilename, designsFilename,
+		String python = this.getRuntimeEnv().getOptionValue(PLArgString.PYTHONENV);
+		String cmd = String.format(fmt, python, libraryPlotFilename, paramsFilename, partsFilename, designsFilename,
 				regFilename, output);
 		Utils.executeAndWaitForCommand(cmd + ".pdf");
 		Utils.executeAndWaitForCommand(cmd + ".png");

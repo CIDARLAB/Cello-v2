@@ -118,6 +118,7 @@ public class DNAPlotLibUtils {
 	public static List<String> getPartInformation(Netlist netlist, final CObjectCollection<Part> parts,
 			final CObjectCollection<Gate> gates) {
 		List<String> rtn = new ArrayList<>();
+		List<String> specified = new ArrayList<>();
 		rtn.add("part_name,type,x_extent,y_extent,start_pad,end_pad,color,hatch,arrowhead_height,arrowhead_length,linestyle,linewidth");
 		Placements placements = netlist.getResultNetlistData().getPlacements();
 		for (int i = 0; i < placements.getNumPlacement(); i++) {
@@ -130,6 +131,10 @@ public class DNAPlotLibUtils {
 					NetlistNode node = netlist.getVertexByName(n);
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String p = component.getPartAtIdx(l);
+						if (specified.contains(p))
+							continue;
+						else
+							specified.add(p);
 						Part part = parts.findCObjectByName(p);
 						String rgb = "0.0;0.0;0.0";
 						String type = getPartType(part.getPartType());
@@ -183,6 +188,8 @@ public class DNAPlotLibUtils {
 		// TAG hardcoded
 		Placements placements = netlist.getResultNetlistData().getPlacements();
 		for (int i = 0; i < placements.getNumPlacement(); i++) {
+			if (i == 1)
+				break;
 			Placement placement = placements.getPlacementAtIdx(i);
 			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
 				PlacementGroup group = placement.getPlacementGroupAtIdx(j);

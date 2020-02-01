@@ -48,6 +48,18 @@ import org.cellocad.cello2.results.netlist.NetlistNode;
  */
 public class EugeneUtils {
 
+	public static String getDeviceDeviceName(String name) {
+		String rtn = null;
+		rtn = name + "Device";
+		return rtn;
+	}
+
+	public static String getDeviceBaseName(String name) {
+		String rtn = null;
+		rtn = name.replaceAll("Device$", "");
+		return rtn;
+	}
+
 	public static Part getOutputPart(final EugeneDevice device, final CObjectCollection<Part> parts) {
 		Part rtn = null;
 		EugenePart p = device.getOutput();
