@@ -52,13 +52,6 @@ public class EugeneUtils {
 		return rtn;
 	}
 	
-	private static String getGateName(NetlistNode node, final CObjectCollection<Gate> gates) {
-		String rtn = "";
-		rtn += "unit_";
-		rtn += getGateBaseName(node, gates);
-		return rtn;
-	}
-	
 	private static String getGateBaseName(final NetlistNode node, final CObjectCollection<Gate> gates) {
 		String rtn = null;
 		String gateType = node.getResultNetlistNodeData().getGateType();
@@ -104,25 +97,6 @@ public class EugeneUtils {
 				promoter = gate.getGateParts().getPromoter();
 			}
 			Part part = parts.findCObjectByName(promoter);
-			rtn.add(part);
-		}
-		return rtn;
-	}
-
-	private static CObjectCollection<Part> getInputSensorParts(
-			final NetlistNode node,
-			final CObjectCollection<InputSensor> sensors) {
-		CObjectCollection<Part> rtn = new CObjectCollection<>();
-		String gateType = node.getResultNetlistNodeData().getGateType();
-		InputSensor sensor = sensors.findCObjectByName(gateType);
-		if (sensor == null) {
-			new RuntimeException("Unknown input sensor.");
-		}
-		for (int i = 0; i < sensor.getNumParts(); i++) {
-			Part part = sensor.getPartAtIdx(i);
-			if (part == null) {
-				throw new RuntimeException("Unknown part.");
-			}
 			rtn.add(part);
 		}
 		return rtn;
@@ -190,7 +164,6 @@ public class EugeneUtils {
 			Device device = new Device(components);
 			// cassette parts
 			CObjectCollection<Component> componentParts = new CObjectCollection<>();
-			componentParts.addAll(getInputSensorParts(node,sensors));
 			Device sensor = new Device(componentParts);
 			sensor.setName(node.getResultNetlistNodeData().getGateType());
 			components.add(sensor);
