@@ -21,9 +21,17 @@
 package org.cellocad.cello2.logicSynthesis.algorithm.Yosys;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import org.apache.commons.io.FileUtils;
 import org.cellocad.cello2.common.Utils;
+import org.cellocad.cello2.common.target.data.TargetData;
+import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysDataUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
+import org.cellocad.cello2.results.netlist.NetlistUtils;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -47,11 +55,15 @@ public class NetSynthUtilsTest {
 		if (initIsDone)
 			return;
 		String str = null;
+		JSONArray jArr = null;
 		JSONObject jObj = null;
 		JSONParser parser = new JSONParser();
-		str = Utils.getResourceAsString("x01_netlist.json");
+		str = Utils.getResourceAsString("xor_netlist.json");
 		jObj = (JSONObject) parser.parse(str);
 		netlist = new Netlist(jObj);
+		str = Utils.getResourceAsString("Eco1C1G1T1.UCF.json");
+		jArr = (JSONArray) parser.parse(str);
+		targetData = new TargetData(jArr);
 		initIsDone = true;
 	}
 
@@ -66,9 +78,19 @@ public class NetSynthUtilsTest {
 	public void testGetVerilog() {
 		String str = "";
 		str = NetSynthUtils.getVerilog(netlist);
-		System.out.println(str);
+	}
+
+	@Test
+	public void testGetNetSynthNetlist() throws JSONException, IOException {
+		JSONArray motifs = YosysDataUtils.getMotifLibrary(targetData);
+		Path dir = Files.createTempDirectory("Cello2_");
+		Netlist n = NetSynthUtils.getNetSynthNetlist(netlist, motifs, dir.toString());
+		String output = dir.toString() + Utils.getFileSeparator() + netlist.getInputFilename() + "_netSynth.json";
+		NetlistUtils.writeJSONForNetlist(n, output);
+		FileUtils.deleteDirectory(dir.toFile());
 	}
 
 	private static Netlist netlist;
+	private static TargetData targetData;
 
 }
