@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -32,9 +34,11 @@ import java.util.StringTokenizer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.ExecCommand;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.logicSynthesis.algorithm.LSAlgorithm;
+import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysDataUtils;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistEdgeData;
 import org.cellocad.cello2.logicSynthesis.algorithm.Yosys.data.YosysNetlistNodeData;
@@ -43,6 +47,8 @@ import org.cellocad.cello2.logicSynthesis.runtime.environment.LSArgString;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
 
 /**
  * The Yosys class implements the <i>Yosys</i> algorithm in the <i>logicSynthesis</i> stage.
@@ -115,6 +121,10 @@ public class Yosys extends LSAlgorithm{
 		present = this.getAlgorithmProfile().getStringParameter("Gates").getFirst();
 		if (present) {
 			this.setGates(this.getAlgorithmProfile().getStringParameter("Gates").getSecond());
+		}
+		present = this.getAlgorithmProfile().getBooleanParameter("NetSynth").getFirst();
+		if (present) {
+			this.setNetSynth(this.getAlgorithmProfile().getBooleanParameter("NetSynth").getSecond());
 		}
 	}
 
@@ -235,10 +245,12 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void postprocessing() {
+	protected void postprocessing() throws CelloException {
 		//YosysEdifUtils.convertEdifToNetlist(this, this.getYosysEdifFilename(), this.getNetlist());
 		YosysJSONUtils.getNetlistFromYosysJSONFile(this, this.getYosysJSONFilename(), this.getNetlist());
 		// delete
@@ -248,7 +260,27 @@ public class Yosys extends LSAlgorithm{
 			Utils.deleteFilename(this.getYosysJSONFilename());
 			Utils.deleteFilename(this.getYosysScriptFilename());
 		}
-		new OutputOrTransform(this.getNetlist());
+		if (this.getNetSynth()) {
+			String outputDir = this.getRuntimeEnv().getOptionValue(LSArgString.OUTPUTDIR);
+			JSONArray motifs = YosysDataUtils.getMotifLibrary(this.getTargetData());
+			Netlist n = null;
+			try {
+				n = NetSynthUtils.getNetSynthNetlist(this.getNetlist(), motifs, outputDir);
+			} catch (JSONException | IOException e) {
+				throw new CelloException(e);
+			}
+			this.getNetlist().clear();
+			for (int i = 0; i < n.getNumVertex(); i++) {
+				NetlistNode node = n.getVertexAtIdx(i);
+				this.getNetlist().addVertex(node);
+			}
+			for (int i = 0; i < n.getNumEdge(); i++) {
+				NetlistEdge node = n.getEdgeAtIdx(i);
+				this.getNetlist().addEdge(node);
+			}
+		} else {
+			new OutputOrTransform(this.getNetlist());
+		}
 	}
 
 	/**
@@ -268,6 +300,26 @@ public class Yosys extends LSAlgorithm{
 	}
 
 	private String Gates;
+
+	/**
+	 * Setter for <i>NetSynth</i>
+	 * 
+	 * @param value the value to set <i>NetSynth</i>
+	 */
+	protected void setNetSynth(final Boolean value) {
+		this.NetSynth = value;
+	}
+
+	/**
+	 * Getter for <i>NetSynth</i>
+	 * 
+	 * @return value of <i>NetSynth</i>
+	 */
+	protected Boolean getNetSynth() {
+		return this.NetSynth;
+	}
+
+	private Boolean NetSynth;
 
 
 	/**

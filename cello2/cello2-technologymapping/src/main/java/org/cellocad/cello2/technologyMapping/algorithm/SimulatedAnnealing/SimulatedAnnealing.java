@@ -34,6 +34,7 @@ import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
+import org.cellocad.cello2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -58,7 +59,6 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
-import org.cellocad.cello2.technologyMapping.runtime.environment.TMRuntimeEnv;
 import org.json.simple.JSONObject;
 
 /**
@@ -393,7 +393,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		logInfo(String.format("Score: %.2f", ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation())));
 		// plots
 		logInfo("generating plots");
-		TMRuntimeEnv runEnv = (TMRuntimeEnv) this.getRuntimeEnv();
+		RuntimeEnv runEnv = this.getRuntimeEnv();
 		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
 	}
 

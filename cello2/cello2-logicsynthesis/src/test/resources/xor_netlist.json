@@ -1,0 +1,106 @@
+{
+	"name": "myxorVirtualNetlistFO",
+	"inputFilename": "xor.v",
+	"placements": 
+	[
+	],
+	"nodes": 
+	[
+		{
+			"name": "a",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "b",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$48",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$49",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$50",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$51",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": ""
+		},
+		{
+			"name": "$52",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"gateType": ""
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "a_0",
+			"src": "a",
+			"dst": "$48"
+		},
+		{
+			"name": "a_1",
+			"src": "a",
+			"dst": "$50"
+		},
+		{
+			"name": "b_0",
+			"src": "b",
+			"dst": "$49"
+		},
+		{
+			"name": "b_1",
+			"src": "b",
+			"dst": "$50"
+		},
+		{
+			"name": "$new_n5__0",
+			"src": "$49",
+			"dst": "$51"
+		},
+		{
+			"name": "$new_n4__0",
+			"src": "$48",
+			"dst": "$51"
+		},
+		{
+			"name": "$new_n7__0",
+			"src": "$51",
+			"dst": "$52"
+		},
+		{
+			"name": "$new_n6__0",
+			"src": "$50",
+			"dst": "$52"
+		},
+		{
+			"name": "out_0",
+			"src": "$52",
+			"dst": "out"
+		}
+	]
+}
