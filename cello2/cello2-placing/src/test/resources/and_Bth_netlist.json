@@ -1,6 +1,6 @@
 {
-	"name": "and_gateVirtualNetlistFO",
-	"inputFilename": "and.v",
+	"name": "and_Bth",
+	"inputFilename": "../../sample-input/DNACompiler/primitives/and.v",
 	"placements": [],
 	"nodes": 
 	[
@@ -8,37 +8,37 @@
 			"name": "a",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "LacI_sensor"
+			"gateType": "BA_sensor"
 		},
 		{
 			"name": "b",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "TetR_sensor"
+			"gateType": "IPTG_sensor"
 		},
 		{
 			"name": "out",
 			"nodeType": "PRIMARY_OUTPUT",
 			"partitionID": -1,
-			"gateType": "YFP_reporter"
+			"gateType": "nanoluc_reporter"
 		},
 		{
 			"name": "$48",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "E1_BetI"
+			"gateType": "Gate1"
 		},
 		{
 			"name": "$49",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "A1_AmtR"
+			"gateType": "Gate2"
 		},
 		{
 			"name": "$50",
 			"nodeType": "NOR",
 			"partitionID": -1,
-			"gateType": "P1_PhlF"
+			"gateType": "Gate3"
 		}
 	],
 	"edges": 

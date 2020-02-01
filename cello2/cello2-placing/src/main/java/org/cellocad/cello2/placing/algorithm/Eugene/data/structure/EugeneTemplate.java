@@ -18,56 +18,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
-
-import org.cellocad.cello2.common.CObject;
-import org.cellocad.cello2.common.profile.ProfileUtils;
-import org.json.simple.JSONObject;
+package org.cellocad.cello2.placing.algorithm.Eugene.data.structure;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-30
+ * @date 2020-01-09
  *
  */
-public class Parameter extends CObject {
+public class EugeneTemplate extends EugeneObject {
 
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
+	public EugeneTemplate(final String template) {
+		if (!template.startsWith(S_PREFIX)) {
+			throw new RuntimeException("Not a template.");
+		}
+		String str = template.substring(1);
+		if (str.endsWith(S_SUFFIX)) {
+			this.input = true;
+			this.removeable = true;
+			str = str.substring(0, str.length() - 1);
+		}
+		this.name = str;
 	}
 
-	private void parseValue(final JSONObject JObj) {
-		Double value = ((Number) JObj.get("value")).doubleValue();
-		this.setValue(value);
-	}
-
-	private void parseParameter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseValue(jObj);
-	}
-
-	private void init() {
-	}
-
-	public Parameter(final JSONObject jobj) {
-		this.init();
-		this.parseParameter(jobj);
-	}
-
-	/*
-	 * Value
+	/**
+	 * Getter for <i>removeable</i>
+	 *
+	 * @return value of <i>removeable</i>
 	 */
-	private void setValue(final Double value){
-		this.value = value;
+	public Boolean isRemoveable() {
+		return removeable;
 	}
 
-	public Double getValue(){
-		return this.value;
+	/**
+	 * Getter for <i>input</i>
+	 *
+	 * @return value of <i>input</i>
+	 */
+	public Boolean isInput() {
+		return input;
 	}
 
-	private Double value;
+	private Boolean removeable;
+	private Boolean input;
+
+	public static final String S_PREFIX = "#";
+	private static final String S_SUFFIX = "?";
 
 }

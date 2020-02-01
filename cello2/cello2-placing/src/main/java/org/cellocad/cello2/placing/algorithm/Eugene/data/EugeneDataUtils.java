@@ -23,18 +23,21 @@ package org.cellocad.cello2.placing.algorithm.Eugene.data;
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.target.data.TargetData;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CircuitRules;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ContainerSpecificationFactory;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Cytometry;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.CytometryData;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.DeviceRules;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Gate;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateParts;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GateStructure;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.GeneticLocation;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.InputSensor;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputReporter;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputDevice;
+import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.OutputDeviceStructure;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Part;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ResponseFunction;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.ResponseFunctionVariable;
-import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Rules;
 import org.cellocad.cello2.placing.algorithm.Eugene.data.ucf.Toxicity;
 import org.json.simple.JSONObject;
 
@@ -77,21 +80,35 @@ public class EugeneDataUtils {
 			gate.setResponseFunction(rf);
 		}
 		// parts
-		CObjectCollection<Part> parts = getParts(td);
-		// gateParts
-		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_GATEPARTS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_GATEPARTS, i);
-			GateParts gatePart = new GateParts(jObj, parts);
-			// processing
-			Gate gate = rtn.findCObjectByName(gatePart.getName());
+		// CObjectCollection<Part> parts = getParts(td);
+//		// gateParts
+//		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_GATEPARTS); i++) {
+//			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_GATEPARTS, i);
+//			GateParts gatePart = new GateParts(jObj, parts);
+//			// processing
+//			Gate gate = rtn.findCObjectByName(gatePart.getName());
+//			Utils.isNullRuntimeException(gate, "gate");
+//			gatePart.setGate(gate);
+//			gate.setGateParts(gatePart);
+//			ResponseFunction rf = gate.getResponseFunction();
+//			for (int j = 0; j < rf.getNumVariable(); j++) {
+//				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
+//				rfVar.setCasetteParts(gatePart.getCasetteParts(rfVar.getName()));
+//				
+//			}
+//		}
+		// gate_structure
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_GATESTRUCTURE); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_GATESTRUCTURE, i);
+			GateStructure structure = new GateStructure(jObj);
+			Gate gate = rtn.findCObjectByName(structure.getGateName());
 			Utils.isNullRuntimeException(gate, "gate");
-			gatePart.setGate(gate);
-			gate.setGateParts(gatePart);
+			structure.setGate(gate);
+			gate.setGateStructure(structure);
 			ResponseFunction rf = gate.getResponseFunction();
 			for (int j = 0; j < rf.getNumVariable(); j++) {
 				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
-				rfVar.setCasetteParts(gatePart.getCasetteParts(rfVar.getName()));
-				
+				rfVar.setEugeneDevices(structure.getDevices(rfVar.getName()));
 			}
 		}
 		// toxicity
@@ -130,22 +147,41 @@ public class EugeneDataUtils {
 		return rtn;
 	}
 	
-	static public CObjectCollection<OutputReporter> getOutputReporters(final TargetData td) {
-		CObjectCollection<OutputReporter> rtn = new CObjectCollection<OutputReporter>();
-		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTREPORTERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTREPORTERS, i);
-			OutputReporter reporter = new OutputReporter(jObj,getParts(td));
-			rtn.add(reporter);
+	static public CObjectCollection<OutputDevice> getOutputReporters(final TargetData td) {
+		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTDEVICES); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTDEVICES, i);
+			OutputDevice device = new OutputDevice(jObj);
+			rtn.add(device);
+		}
+		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_OUTPUTSTRUCTURE); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_OUTPUTSTRUCTURE, i);
+			OutputDeviceStructure structure = new OutputDeviceStructure(jObj);
+			OutputDevice device = rtn.findCObjectByName(structure.getGateName());
+			device.setOutputDeviceStructure(structure);
+			structure.setOutputDevice(device);
 		}
 		return rtn;
 	}
 	
-	static public Rules getRules(final TargetData td){
-		JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_RULES, 0);
-		Rules rtn = new Rules(jObj);
+	static public CircuitRules getCircuitRules(final TargetData td){
+		CircuitRules rtn = null;
+		JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_CIRCUITRULES, 0);
+		rtn = new CircuitRules(jObj);
 		return rtn;
 	}
 	
+	/**
+	 * @param targetData
+	 * @return
+	 */
+	public static DeviceRules getDeviceRules(TargetData td) {
+		DeviceRules rtn = null;
+		JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_DEVICERULES, 0);
+		rtn = new DeviceRules(jObj);
+		return rtn;
+	}
+
 	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
 		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
 		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();
@@ -157,14 +193,28 @@ public class EugeneDataUtils {
 		return rtn;
 	}
 	
+	static public CObjectCollection<GeneticLocation> getGeneticLocations(final TargetData td) {
+		CObjectCollection<GeneticLocation> rtn = new CObjectCollection<>();
+		for (int i = 0; i < td.getNumJSONObject(S_GENETICLOCATIONS); i++) {
+			JSONObject jObj = td.getJSONObjectAtIdx(S_GENETICLOCATIONS, i);
+			GeneticLocation l = new GeneticLocation(jObj);
+			rtn.add(l);
+		}
+		return rtn;
+	}
+
 	private static String S_GATES = "gates";
 	private static String S_RESPONSEFUNCTION = "response_functions";
 	private static String S_PARTS = "parts";
-	private static String S_GATEPARTS = "gate_parts";
+	private static String S_GATESTRUCTURE = "gate_structure";
 	private static String S_GATETOXICITY = "gate_toxicity";
 	private static String S_GATECYTOMETRY = "gate_cytometry";
 	private static String S_INPUTSENSORS = "input_sensors";
-	private static String S_OUTPUTREPORTERS = "output_reporters";
-	private static String S_RULES = "eugene_rules";
+	private static String S_OUTPUTDEVICES = "output_devices";
+	private static String S_OUTPUTSTRUCTURE = "output_structure";
+	private static String S_CIRCUITRULES = "circuit_rules";
+	private static String S_DEVICERULES = "device_rules";
 	private static String S_CONTAINERS = "containers";
+	private static String S_GENETICLOCATIONS = "genetic_locations";
+
 }

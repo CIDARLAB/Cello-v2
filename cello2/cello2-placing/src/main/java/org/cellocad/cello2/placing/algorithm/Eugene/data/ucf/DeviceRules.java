@@ -20,8 +20,10 @@
  */
 package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
 
-import org.cellocad.cello2.common.CObject;
-import org.cellocad.cello2.common.profile.ProfileUtils;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -29,45 +31,52 @@ import org.json.simple.JSONObject;
  *
  * @author Timothy Jones
  *
- * @date 2020-01-30
+ * @date 2020-01-13
  *
  */
-public class Parameter extends CObject {
-
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
-	}
-
-	private void parseValue(final JSONObject JObj) {
-		Double value = ((Number) JObj.get("value")).doubleValue();
-		this.setValue(value);
-	}
-
-	private void parseParameter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseValue(jObj);
-	}
+public class DeviceRules {
 
 	private void init() {
+		this.rules = new ArrayList<>();
 	}
 
-	public Parameter(final JSONObject jobj) {
-		this.init();
-		this.parseParameter(jobj);
+	private void parseDeviceRules(JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get("rules");
+		for (Object o : jArr) {
+			String str = (String) o;
+			this.getRules().add(str);
+		}
 	}
 
-	/*
-	 * Value
+	public DeviceRules(JSONObject jObj) {
+		init();
+		this.parseDeviceRules(jObj);
+	}
+
+	public Collection<String> getRulesByObjectName(String name) {
+		Collection<String> rtn = new ArrayList<>();
+		for (String rule : this.getRules()) {
+			if (EugeneRules.GlobalOrientationRuleKeywords.contains(rule)) {
+				rtn.add(rule);
+			}
+			Collection<String> objects = EugeneRules.getObjects(rule);
+			for (String str : objects) {
+				if (str.equals(name))
+					rtn.add(rule);
+			}
+		}
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>rules</i>
+	 *
+	 * @return value of <i>rules</i>
 	 */
-	private void setValue(final Double value){
-		this.value = value;
+	private Collection<String> getRules() {
+		return rules;
 	}
 
-	public Double getValue(){
-		return this.value;
-	}
-
-	private Double value;
+	private Collection<String> rules;
 
 }

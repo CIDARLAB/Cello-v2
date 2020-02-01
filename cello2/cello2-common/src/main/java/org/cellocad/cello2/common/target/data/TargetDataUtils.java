@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -33,57 +35,81 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * The TargetDataUtils class is class with utility methods for <i>TargetData</i> instances.
+ * The TargetDataUtils class is class with utility methods for <i>TargetData</i>
+ * instances.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Nov 22, 2017
  *
  */
 final public class TargetDataUtils {
 
-	/**
-	 *  Initializes a newly created TargetData using the RuntimeEnv, <i>runEnv</i>, and,
-	 *  the string referencing command line argument for the TargetData file, <i>targetDataFile</i>.
-	 *  
-	 *  @param runEnv the RuntimeEnv to extract the TargetData file, <i>targetDataFile</i>
-	 *  @param targetDataFile the string referencing command line argument for the TargetData file
-	 *  @return the TargetData if created successfully, otherwise null
-	 *  @throws RuntimeException if: <br>
-	 *  Error accessing <i>targetDataFile</i><br>
-	 *  Error parsing <i>targetDataFile</i><br>
-	 */
-	static public TargetData getTargetTargetData(final RuntimeEnv runEnv, final String targetDataFile){
-		Utils.isNullRuntimeException(runEnv, "runEnv");
-		Utils.isNullRuntimeException(targetDataFile, "targetDataFile");
-		TargetData rtn = null;
-		// get Target File
-		String targetFilename = runEnv.getOptionValue(targetDataFile);
-	    File targetFile = new File(targetFilename);
-	    Reader targetReader = null;
-	    JSONArray jsonTop = null;
+	static private JSONArray getJsonArrayFromFile(final String file) {
+		JSONArray rtn = null;
+		// get File
+		File f = new File(file);
+		Reader reader = null;
 		// Create File Reader
 		try {
-			targetReader = new FileReader(targetFile);
+			reader = new FileReader(f);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Error with file: " + targetFilename);
+			throw new RuntimeException("Error with file: " + file);
 		}
 		// Create JSON object from File Reader
 		JSONParser parser = new JSONParser();
-        try{
-        	jsonTop = (JSONArray) parser.parse(targetReader);
-	    } catch (IOException e) {
-	        throw new RuntimeException("File IO Exception for: " + targetFilename + ".");
-	    } catch (ParseException e) {
-	        throw new RuntimeException("Parser Exception for: " + targetFilename + ".");
-	    }
-		// Create TargetInfo object
-	    rtn = new TargetData(jsonTop);
-	    try {
-			targetReader.close();
+		try {
+			rtn = (JSONArray) parser.parse(reader);
 		} catch (IOException e) {
-			throw new RuntimeException("Error with file: " + targetFilename);
+			throw new RuntimeException("File IO Exception for: " + file + ".");
+		} catch (ParseException e) {
+			throw new RuntimeException("Parser Exception for: " + file + ".");
 		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			throw new RuntimeException("Error with file: " + file);
+		}
+		return rtn;
+	}
+
+	/**
+	 * Initializes a newly created TargetData using the RuntimeEnv, <i>runEnv</i>,
+	 * and strings referencing command line arguments.
+	 * 
+	 * @param runEnv                    the RuntimeEnv
+	 * @param userConstraintsFileOption the string referencing command line argument
+	 *                                  for the User Constraints File
+	 * @param inputSensorFileOption     the string referencing command line argument
+	 *                                  for the Input Sensor file
+	 * @param outputDeviceFileOption    the string referencing command line argument
+	 *                                  for the Output Reporter file
+	 * @return the TargetData if created successfully, otherwise null
+	 */
+	@SuppressWarnings("unchecked")
+	static public TargetData getTargetTargetData(final RuntimeEnv runEnv, final String userConstraintsFileOption,
+			final String inputSensorFileOption, final String outputDeviceFileOption) {
+		Utils.isNullRuntimeException(runEnv, "runEnv");
+		Utils.isNullRuntimeException(userConstraintsFileOption, "userConstraintsFileOption");
+		TargetData rtn = null;
+		JSONArray jsonTop = null;
+		// get User Constraints File
+		String userConstraintsFileName = runEnv.getOptionValue(userConstraintsFileOption);
+		JSONArray userConstraintsJson = getJsonArrayFromFile(userConstraintsFileName);
+		// get Input Sensor File
+		String inputSensorFileName = runEnv.getOptionValue(inputSensorFileOption);
+		JSONArray inputSensorJson = getJsonArrayFromFile(inputSensorFileName);
+		// get Output Device File
+		String outputDeviceFileName = runEnv.getOptionValue(outputDeviceFileOption);
+		JSONArray outputDeviceJson = getJsonArrayFromFile(outputDeviceFileName);
+		// combine Json
+		jsonTop = new JSONArray();
+		jsonTop.addAll(userConstraintsJson);
+		jsonTop.addAll(inputSensorJson);
+		jsonTop.addAll(outputDeviceJson);
+		// Create TargetData object
+	    rtn = new TargetData(jsonTop);
 	    return rtn;
 	}	
 }

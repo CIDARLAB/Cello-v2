@@ -1,0 +1,20 @@
+{
+	"collection": "output_structure",
+	"gate_name": "YFP_reporter",
+	"devices": [
+		{
+			"name": "YFP_reporter_a",
+			"components": [
+				"#promoter?",
+				"YFP_cassette"
+			]
+		},
+		{
+			"name": "YFP_reporter_b",
+			"components": [
+				"#promoter?",
+				"YFP_cassette"
+			]
+		}
+	]
+}

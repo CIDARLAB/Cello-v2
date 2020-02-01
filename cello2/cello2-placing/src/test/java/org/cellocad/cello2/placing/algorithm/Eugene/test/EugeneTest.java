@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,12 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.placing.runtime;
+package org.cellocad.cello2.placing.algorithm.Eugene.test;
 
 import java.io.File;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.cellocad.cello2.common.CelloException;
 import org.cellocad.cello2.common.Utils;
 import org.cellocad.cello2.common.netlistConstraint.data.NetlistConstraint;
@@ -32,31 +30,37 @@ import org.cellocad.cello2.common.stage.Stage;
 import org.cellocad.cello2.common.stage.StageUtils;
 import org.cellocad.cello2.common.target.data.TargetData;
 import org.cellocad.cello2.common.target.data.TargetDataUtils;
+import org.cellocad.cello2.placing.runtime.PLRuntimeObject;
 import org.cellocad.cello2.placing.runtime.environment.PLArgString;
 import org.cellocad.cello2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * The Main class is the executable class for the <i>placing</i> stage.
- * 
- * @author Vincent Mirian
- * 
- * @date 2018-05-21
+ *
+ *
+ * @author Timothy Jones
+ *
+ * @date 2020-01-09
  *
  */
-public class Main {
+public class EugeneTest {
 
-	/**
-	 * The <i>main</i> method is the executable for the <i>placing</i> stage.
-	 * 
-	 * @param args command line argument(s)
-	 */
-	public static void main(String[] args) throws CelloException {
+	private static boolean initIsDone = false;
+
+	@Before
+	public void init() throws CelloException {
+		if (initIsDone)
+			return;
+		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
+				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco2C1G3T1.UCF.json").getFile(),
+				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
+				"-" + PLArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
-		// Setup Logger
-		Main.setupLogger(runEnv);
 		// InputFile
 		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
@@ -82,52 +86,23 @@ public class Main {
 			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
-		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv, PLArgString.NETLISTCONSTRAINTFILE);
+		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv,
+				PLArgString.NETLISTCONSTRAINTFILE);
 		if (netlistConstraint == null) {
 			netlistConstraint = new NetlistConstraint();
 		}
 		// Execute
 		PLRuntimeObject PL = new PLRuntimeObject(stage, td, netlistConstraint, netlist, runEnv);
 		PL.setName("placing");
-		PL.execute();
-		// Write Netlist
-		String outputFilename = runEnv.getOptionValue(PLArgString.OUTPUTNETLIST);
-		if (outputFilename == null)
-		{
-			outputFilename = "";
-			outputFilename += runEnv.getOptionValue(PLArgString.OUTPUTDIR);
-			outputFilename += Utils.getFileSeparator();
-			outputFilename += Utils.getFilename(inputFilePath);
-			outputFilename += "_outputNetlist";
-			outputFilename += ".json";
-		}
-		NetlistUtils.writeJSONForNetlist(netlist, outputFilename);
-	}
-	
-	/**
-	 *  Setup the logger using the PLRuntimeEnv defined by parameter <i>runEnv</i>
-	 *
-	 *  @param runEnv the PLRuntimeEnv
-	 */
-	protected static void setupLogger(PLRuntimeEnv runEnv) {
-		String logfile = runEnv.getOptionValue(PLArgString.LOGFILENAME);
-		if (logfile == null) {
-			logfile = "log.log";
-		}
-		logfile = runEnv.getOptionValue(PLArgString.OUTPUTDIR) + Utils.getFileSeparator() + logfile;
-		// the logger will write to the specified file
-		System.setProperty("logfile.name", logfile);
-		logger = LogManager.getLogger(Main.class);
+		this.PL = PL;
+		initIsDone = true;
 	}
 
-	/**
-	 *  Returns the Logger for the <i>Main</i> class
-	 *
-	 *  @return the logger for the <i>Main</i> class
-	 */
-	static protected Logger getLogger() {
-		return Main.logger;
+	@Test
+	public void test() throws CelloException {
+		this.PL.execute();
 	}
-	
-	private static Logger logger;
+
+	private PLRuntimeObject PL;
+
 }

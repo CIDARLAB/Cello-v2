@@ -18,56 +18,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.cello2.placing.algorithm.Eugene.data.ucf;
+package org.cellocad.cello2.placing.algorithm.Eugene.data.structure;
 
 import org.cellocad.cello2.common.CObject;
-import org.cellocad.cello2.common.profile.ProfileUtils;
-import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-30
+ * @date 2020-01-09
  *
  */
-public class Parameter extends CObject {
+public abstract class EugeneObject extends CObject {
 
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
+	public EugeneObject() {
+
 	}
 
-	private void parseValue(final JSONObject JObj) {
-		Double value = ((Number) JObj.get("value")).doubleValue();
-		this.setValue(value);
+	public EugeneObject(String name) {
+		this.name = name;
 	}
 
-	private void parseParameter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseValue(jObj);
-	}
-
-	private void init() {
-	}
-
-	public Parameter(final JSONObject jobj) {
-		this.init();
-		this.parseParameter(jobj);
-	}
-
-	/*
-	 * Value
+	/**
+	 * Getter for <i>name</i>
+	 *
+	 * @return value of <i>name</i>
 	 */
-	private void setValue(final Double value){
-		this.value = value;
+	public String getName() {
+		return name;
 	}
 
-	public Double getValue(){
-		return this.value;
-	}
-
-	private Double value;
+	protected String name;
 
 }

@@ -1,0 +1,65 @@
+[
+	{
+		"collection": "input_sensors",
+		"name": "BA_sensor",
+		"promoter": "P_BA",
+		"parameters": [
+			{
+				"name": "signal_low",
+				"value": 0.01346367
+			},
+			{
+				"name": "signal_high",
+				"value": 1.4801473
+			}
+		]
+	},
+	{
+		"collection": "input_sensors",
+		"name": "IPTG_sensor",
+		"promoter": "P_IPTG",
+		"parameters": [
+			{
+				"name": "signal_low",
+				"value": 0.02731338
+			},
+			{
+				"name": "signal_high",
+				"value": 4.29668167 
+			}
+		]
+	},
+	{
+		"collection": "input_sensors",
+		"name": "aTc_sensor",
+		"promoter": "P_aTc",
+		"parameters": [
+			{
+				"name": "signal_low",
+				"value": 0.02857148
+			},
+			{
+				"name": "signal_high",
+				"value": 6.44789857
+			}
+		]
+	},
+	{
+		"collection": "parts",
+		"type": "promoter",
+		"name": "P_BA",
+		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTAaatgtacacccgTTTGtttactttACTTTAGTTATGTACCTTTGTCGGCaatgtacacccgaaagtttacttt",
+	},
+	{
+		"collection": "parts",
+		"type": "promoter",
+		"name": "P_IPTG",
+		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTATTTGAATTGTGAGCGGATAACAATTACCTTTGTCGGCAATTGTGAGCGGATAACAATTAAATAAAGATATTCTCGTCAAACAAATATAAATAATATAAAC",
+	},
+	{
+		"collection": "parts",
+		"type": "promoter",
+		"name": "P_aTc",
+		"dnasequence": "ttttgcacccgctttccaagagaagaaagccttgttaaattgacttagtgtaaaagcgcagtactgcttgaccataagaacaaaaaaatctctatcactgatagggataaagtttggaagataaagctaaaagttcttatctttgcagtctccctatcagtgatagagacgca",
+	}
+]

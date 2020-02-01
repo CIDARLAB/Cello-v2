@@ -183,20 +183,30 @@ public class Gate extends Assignable{
 	public ResponseFunction getResponseFunction(){
 		return this.responseFunction;
 	}
-	
-	private ResponseFunction responseFunction;
 
+	private ResponseFunction responseFunction;
+	
 	/*
-	 * GateParts
+	 * GateStructure
 	 */
-	public void setGateParts(final GateParts gateParts){
-		this.gateParts = gateParts;
+	/**
+	 * Getter for <i>gateStructure</i>
+	 *
+	 * @return value of <i>gateStructure</i>
+	 */
+	public GateStructure getGateStructure() {
+		return gateStructure;
+	}
+
+	/**
+	 * Setter for <i>gateStructure</i>
+	 *
+	 * @param gateStructure the value to set <i>gateStructure</i>
+	 */
+	public void setGateStructure(final GateStructure gateStructure) {
+		this.gateStructure = gateStructure;
 	}
 	
-	public GateParts getGateParts(){
-		return this.gateParts;
-	}
-	
-	private GateParts gateParts;
-	
+	private GateStructure gateStructure;
+
 }

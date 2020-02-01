@@ -1,0 +1,32 @@
+[
+	{
+		"collection": "output_devices",
+		"name": "nanoluc_reporter",
+	},
+	{
+		"collection": "output_structure",
+		"gate_name": "nanoluc_reporter",
+		"devices": [
+			{
+				"name": "nanoluc_reporter_a",
+				"components": [
+					"#promoter?",
+					"nanoluc_cassette"
+				]
+			},
+			{
+				"name": "nanoluc_reporter_b",
+				"components": [
+					"#promoter?",
+					"nanoluc_cassette"
+				]
+			}
+		]
+	},
+	{
+		"collection": "parts",
+		"type": "cassette",
+		"name": "nanoluc_cassette",
+		"dnasequence": "ATGGTTTTTACTCTGGAAGATTTTGTTGGCGATTGGCGTCAGACCGCGGGTTATAATTTGGATCAAGTCCTGGAACAGGGTGGCGTAAGCTCTCTGTTCCAGAACCTGGGTGTGAGCGTGACGCCGATTCAGCGCATCGTTCTGTCCGGCGAGAACGGTCTGAAAATTGATATTCATGTGATCATCCCGTACGAAGGCCTGAGCGGTGACCAAATGGGTCAAATCGAGAAAATCTTTAAAGTCGTCTACCCAGTTGACGATCACCACTTCAAGGTTATCTTGCATTACGGTACGCTGGTGATTGATGGTGTGACCCCGAATATGATTGACTATTTCGGCCGTCCGTATGAAGGCATTGCCGTTTTTGACGGTAAAAAGATCACCGTCACCGGTACCCTGTGGAATGGCAATAAGATTATTGACGAGCGTCTGATTAACCCGGACGGCAGCCTGCTGTTCCGCGTGACCATCAACGGTGTCACGGGTTGGCGTCTGTGCGAGCGCATCCTGGCATAA"
+	}
+]

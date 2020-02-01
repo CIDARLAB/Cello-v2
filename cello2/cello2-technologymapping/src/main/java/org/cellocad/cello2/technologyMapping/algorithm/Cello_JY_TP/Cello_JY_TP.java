@@ -582,7 +582,8 @@ public class Cello_JY_TP extends TMAlgorithm{
 	@Override
 	protected void run() {
 		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR) + Utils.getFileSeparator();
-		String UCFFile = this.getRuntimeEnv().getOptionValue(TMArgString.TARGETDATAFILE) + Utils.getFileSeparator();
+		String UCFFile = this.getRuntimeEnv().getOptionValue(TMArgString.USERCONSTRAINTSFILE)
+				+ Utils.getFileSeparator();
 		String[] path = {"algorithms", "Cello_JY_TP", "files", "default_histogram.txt"};
 		String [] optList;
 		String file = "";

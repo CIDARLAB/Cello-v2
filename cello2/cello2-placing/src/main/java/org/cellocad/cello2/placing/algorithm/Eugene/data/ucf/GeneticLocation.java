@@ -29,45 +29,59 @@ import org.json.simple.JSONObject;
  *
  * @author Timothy Jones
  *
- * @date 2020-01-30
+ * @date 2020-01-13
  *
  */
-public class Parameter extends CObject {
-
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
-	}
-
-	private void parseValue(final JSONObject JObj) {
-		Double value = ((Number) JObj.get("value")).doubleValue();
-		this.setValue(value);
-	}
-
-	private void parseParameter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseValue(jObj);
-	}
+public class GeneticLocation extends CObject {
 
 	private void init() {
 	}
 
-	public Parameter(final JSONObject jobj) {
+	private void parseSymbol(JSONObject jObj) {
+		String str = ProfileUtils.getString(jObj, "symbol");
+		this.setName(str);
+	}
+
+	private void parseLocus(JSONObject jObj) {
+		Integer z = ProfileUtils.getInteger(jObj, "locus");
+		this.locus = z;
+	}
+
+	private void parseSequence(JSONObject jObj) {
+		String str = ProfileUtils.getString(jObj, "sequence");
+		this.sequence = str;
+	}
+
+	private void parseLocation(JSONObject jObj) {
+		this.parseSymbol(jObj);
+		this.parseLocus(jObj);
+		this.parseSequence(jObj);
+	}
+
+	public GeneticLocation(JSONObject jObj) {
 		this.init();
-		this.parseParameter(jobj);
+		this.parseLocation(jObj);
 	}
-
-	/*
-	 * Value
+	
+	/**
+	 * Getter for <i>locus</i>
+	 *
+	 * @return value of <i>locus</i>
 	 */
-	private void setValue(final Double value){
-		this.value = value;
+	public Integer getLocus() {
+		return locus;
 	}
 
-	public Double getValue(){
-		return this.value;
+	/**
+	 * Getter for <i>sequence</i>
+	 *
+	 * @return value of <i>sequence</i>
+	 */
+	public String getSequence() {
+		return sequence;
 	}
 
-	private Double value;
+	private Integer locus;
+	private String sequence;
 
 }
