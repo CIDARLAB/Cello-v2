@@ -48,18 +48,18 @@
 		"collection": "parts",
 		"type": "promoter",
 		"name": "P_BA",
-		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTAaatgtacacccgTTTGtttactttACTTTAGTTATGTACCTTTGTCGGCaatgtacacccgaaagtttacttt",
+		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTAaatgtacacccgTTTGtttactttACTTTAGTTATGTACCTTTGTCGGCaatgtacacccgaaagtttacttt"
 	},
 	{
 		"collection": "parts",
 		"type": "promoter",
 		"name": "P_IPTG",
-		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTATTTGAATTGTGAGCGGATAACAATTACCTTTGTCGGCAATTGTGAGCGGATAACAATTAAATAAAGATATTCTCGTCAAACAAATATAAATAATATAAAC",
+		"dnasequence": "﻿TTACAAAGAAAATTCGACAAACTGTTATTTTTCTATCTATTTATTTGAATTGTGAGCGGATAACAATTACCTTTGTCGGCAATTGTGAGCGGATAACAATTAAATAAAGATATTCTCGTCAAACAAATATAAATAATATAAAC"
 	},
 	{
 		"collection": "parts",
 		"type": "promoter",
 		"name": "P_aTc",
-		"dnasequence": "ttttgcacccgctttccaagagaagaaagccttgttaaattgacttagtgtaaaagcgcagtactgcttgaccataagaacaaaaaaatctctatcactgatagggataaagtttggaagataaagctaaaagttcttatctttgcagtctccctatcagtgatagagacgca",
+		"dnasequence": "ttttgcacccgctttccaagagaagaaagccttgttaaattgacttagtgtaaaagcgcagtactgcttgaccataagaacaaaaaaatctctatcactgatagggataaagtttggaagataaagctaaaagttcttatctttgcagtctccctatcagtgatagagacgca"
 	}
 ]
