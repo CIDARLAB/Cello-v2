@@ -59,14 +59,14 @@ public class ResponsePlots {
 	public static String getPlotFilename(final NetlistNode node) {
 		String rtn = null;
 		String gateType = node.getResultNetlistNodeData().getGateType();
-		rtn = String.format("%s_%s.png", node.getName(), gateType);
+		rtn = String.format(S_PREFIX + "%s_%s.png", node.getName(), gateType);
 		return rtn;
 	}
 
 	private static String getPlotScriptFilename(final NetlistNode node) {
 		String rtn = null;
 		String gateType = node.getResultNetlistNodeData().getGateType();
-		rtn = String.format("%s_%s.py", node.getName(), gateType);
+		rtn = String.format(S_PREFIX + "%s_%s.py", node.getName(), gateType);
 		return rtn;
 	}
 
@@ -247,7 +247,9 @@ public class ResponsePlots {
 	private static Double D_YMIN = 1e-3;
 	private static Double D_YMAX = 1e2;
 	private static Integer I_NUM = 100;
-	
+
+	private static String S_PREFIX = "response_plot_";
+
 	private static String S_NONCE = "##NONCE##21##";
 	private static String S_XMIN = S_NONCE + "XMIN" + S_NONCE;
 	private static String S_XMAX = S_NONCE + "XMAX" + S_NONCE;
