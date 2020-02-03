@@ -37,7 +37,8 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.json.simple.JSONObject;
 
 /**
- * The SimulatedAnnealingDataUtils is class with utility methods for the data used in the <i>SimulatedAnnealing</i> algorithm.
+ * The SimulatedAnnealingDataUtils is class with utility methods for the data
+ * used in the <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
  * @author Timothy Jones
@@ -47,7 +48,7 @@ import org.json.simple.JSONObject;
  */
 public class SimulatedAnnealingDataUtils {
 
-	static public CObjectCollection<Gate> getGates(final TargetData td){
+	static public CObjectCollection<Gate> getGates(final TargetData td) {
 		CObjectCollection<Gate> rtn = new CObjectCollection<Gate>();
 		// gates
 		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_GATES); i++) {
@@ -85,7 +86,7 @@ public class SimulatedAnnealingDataUtils {
 			for (int j = 0; j < rf.getNumVariable(); j++) {
 				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
 				rfVar.setCasetteParts(gatePart.getCasetteParts(rfVar.getName()));
-				
+
 			}
 		}
 		// toxicity
@@ -113,7 +114,7 @@ public class SimulatedAnnealingDataUtils {
 		}
 		return rtn;
 	}
-	
+
 	static public CObjectCollection<InputSensor> getInputSensors(final TargetData td) {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_INPUTSENSORS); i++) {
@@ -123,7 +124,7 @@ public class SimulatedAnnealingDataUtils {
 		}
 		return rtn;
 	}
-	
+
 	static public CObjectCollection<OutputDevice> getOutputDevices(final TargetData td) {
 		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
 		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_OUTPUTDEVICES); i++) {
@@ -133,28 +134,32 @@ public class SimulatedAnnealingDataUtils {
 		}
 		return rtn;
 	}
-	
+
 	static public LocationSequences getLocationSequences(TargetData td) {
 		LocationSequences rtn = null;
 		JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_LOCATIONSEQUENCES, 0);
 		rtn = new LocationSequences(jObj);
 		return rtn;
 	}
-	
+
 	static public Double getUnitConversion(TargetData td) {
 		Double rtn = null;
-		LocationSequences locations = getLocationSequences(td);
-		rtn = locations.getOutputModuleLocations().get(0).getUnitConversion();
+		try {
+			LocationSequences locations = getLocationSequences(td);
+			rtn = locations.getOutputModuleLocations().get(0).getUnitConversion();
+		} catch (Exception e) {
+			rtn = 1.0;
+		}
 		return rtn;
 	}
-	
+
 	private static String S_GATES = "gates";
 	private static String S_RESPONSEFUNCTION = "response_functions";
 	private static String S_PARTS = "parts";
 	private static String S_GATEPARTS = "gate_parts";
 	private static String S_GATETOXICITY = "gate_toxicity";
 	private static String S_GATECYTOMETRY = "gate_cytometry";
-	
+
 	private static String S_INPUTSENSORS = "input_sensors";
 	private static String S_OUTPUTDEVICES = "output_devices";
 	private static String S_LOCATIONSEQUENCES = "location_sequences";
