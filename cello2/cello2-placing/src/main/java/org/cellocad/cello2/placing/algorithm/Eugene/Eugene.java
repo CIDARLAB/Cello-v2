@@ -64,6 +64,7 @@ import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
+import org.cellocad.cello2.results.netlist.NetlistUtils;
 import org.cellocad.cello2.results.placing.placement.Component;
 import org.cellocad.cello2.results.placing.placement.Placement;
 import org.cellocad.cello2.results.placing.placement.PlacementGroup;
@@ -214,7 +215,8 @@ public class Eugene extends PLAlgorithm {
 		}
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
-			CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(), this.getParts());
+			CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(),
+					this.getParts());
 			for (Part p : inputs) {
 				rtn.add(EugeneUtils.getPartDefinition(p));
 			}
@@ -481,6 +483,95 @@ public class Eugene extends PLAlgorithm {
 		return rtn;
 	}
 
+	private void generateRNASeqPlots() throws CelloException {
+		String python = this.getRuntimeEnv().getOptionValue(PLArgString.PYTHONENV);
+		String inputFilePath = this.getRuntimeEnv().getOptionValue(PLArgString.INPUTNETLIST);
+		String netlistFile = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTNETLIST);
+		if (netlistFile == null) {
+			netlistFile = "";
+			netlistFile += this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDIR);
+			netlistFile += Utils.getFileSeparator();
+			netlistFile += Utils.getFilename(inputFilePath);
+			netlistFile += "_outputNetlist_placing";
+			netlistFile += ".json";
+		}
+		NetlistUtils.writeJSONForNetlist(this.getNetlist(), netlistFile);
+		String fmt = "%s %s -u %s -a %s -l %s -n %s -i %s -x %s -o %s";
+		Path dir;
+		try {
+			dir = Files.createTempDirectory("Cello2_");
+		} catch (IOException e) {
+			throw new CelloException("Unable to create temporary directory.", e);
+		}
+		String rnaseq;
+		try {
+			rnaseq = Utils.getResourceAsString("rnaseq.py");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String rnaseqFilename = dir.toString() + Utils.getFileSeparator() + "rnaseq.py";
+		Utils.writeToFile(rnaseq, rnaseqFilename);
+		String userConstraintsFile = this.getRuntimeEnv().getOptionValue(PLArgString.USERCONSTRAINTSFILE);
+		String inputSensorFile = this.getRuntimeEnv().getOptionValue(PLArgString.INPUTSENSORFILE);
+		String outputDeviceFile = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDEVICEFILE);
+		String outputDir = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDIR);
+		String inputFilename = this.getNetlist().getInputFilename();
+		String filename = Utils.getFilename(inputFilename);
+		String activityFile = outputDir + Utils.getFileSeparator() + filename + "_activity.csv";
+		String logicFile = outputDir + Utils.getFileSeparator() + filename + "_logic.csv";
+		String cmd = String.format(fmt, python, rnaseqFilename, userConstraintsFile, activityFile, logicFile,
+				netlistFile, inputSensorFile, outputDeviceFile,
+				outputDir + Utils.getFileSeparator() + "rnaseq_" + filename);
+		Utils.executeAndWaitForCommand(cmd);
+	}
+
+	private void generateDNAPlotLibPlots() throws CelloException {
+		String outputDir = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDIR);
+		File file = null;
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(this.getNetlist());
+		String designsFilename = outputDir + Utils.getFileSeparator() + "dpl_dna_designs.csv";
+		file = new File(designsFilename);
+		DNAPlotLibUtils.writeCSV(designs, file);
+		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(), this.getParts(), this.getGates());
+		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
+		file = new File(partsFilename);
+		DNAPlotLibUtils.writeCSV(parts, file);
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getParts(),
+				this.getGates());
+		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
+		file = new File(regFilename);
+		DNAPlotLibUtils.writeCSV(reg, file);
+		String params;
+		try {
+			params = Utils.getResourceAsString("plot_parameters.csv");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String paramsFilename = outputDir + Utils.getFileSeparator() + "plot_parameters.csv";
+		Utils.writeToFile(params, paramsFilename);
+		Path dir;
+		try {
+			dir = Files.createTempDirectory("Cello2_");
+		} catch (IOException e) {
+			throw new CelloException("Unable to create temporary directory.", e);
+		}
+		String libraryPlot;
+		try {
+			libraryPlot = Utils.getResourceAsString("library_plot.py");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String libraryPlotFilename = dir.toString() + Utils.getFileSeparator() + "library_plot.py";
+		Utils.writeToFile(libraryPlot, libraryPlotFilename);
+		String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
+		String output = outputDir + Utils.getFileSeparator() + this.getNetlist().getName() + "_dpl";
+		String python = this.getRuntimeEnv().getOptionValue(PLArgString.PYTHONENV);
+		String cmd = String.format(fmt, python, libraryPlotFilename, paramsFilename, partsFilename, designsFilename,
+				regFilename, output);
+		Utils.executeAndWaitForCommand(cmd + ".pdf");
+		Utils.executeAndWaitForCommand(cmd + ".png");
+	}
+
 	/**
 	 * Perform postprocessing
 	 * 
@@ -514,8 +605,6 @@ public class Eugene extends PLAlgorithm {
 			} catch (EugeneException e) {
 				e.printStackTrace();
 			}
-
-			// TODO Split according to locations
 
 			if (placementElement instanceof Device) {
 				Device placementDevice = (Device) placementElement;
@@ -576,50 +665,8 @@ public class Eugene extends PLAlgorithm {
 		}
 		// DNAPlotLib
 		logInfo("generating dnaplotlib figures");
-		String outputDir = this.getRuntimeEnv().getOptionValue(PLArgString.OUTPUTDIR);
-		File file = null;
-		List<String> designs = DNAPlotLibUtils.getDNADesigns(this.getNetlist());
-		String designsFilename = outputDir + Utils.getFileSeparator() + "dpl_dna_designs.csv";
-		file = new File(designsFilename);
-		DNAPlotLibUtils.writeCSV(designs, file);
-		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(), this.getParts(), this.getGates());
-		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
-		file = new File(partsFilename);
-		DNAPlotLibUtils.writeCSV(parts, file);
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getParts(),
-				this.getGates());
-		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
-		file = new File(regFilename);
-		DNAPlotLibUtils.writeCSV(reg, file);
-		String params;
-		try {
-			params = Utils.getResourceAsString("plot_parameters.csv");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		String paramsFilename = outputDir + Utils.getFileSeparator() + "plot_parameters.csv";
-		Utils.writeToFile(params, paramsFilename);
-		Path dir;
-		try {
-			dir = Files.createTempDirectory("Cello2_");
-		} catch (IOException e) {
-			throw new CelloException("Unable to create temporary directory.", e);
-		}
-		String libraryPlot;
-		try {
-			libraryPlot = Utils.getResourceAsString("library_plot.py");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		String libraryPlotFilename = dir.toString() + Utils.getFileSeparator() + "library_plot.py";
-		Utils.writeToFile(libraryPlot, libraryPlotFilename);
-		String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
-		String output = outputDir + Utils.getFileSeparator() + this.getNetlist().getName() + "_dpl";
-		String python = this.getRuntimeEnv().getOptionValue(PLArgString.PYTHONENV);
-		String cmd = String.format(fmt, python, libraryPlotFilename, paramsFilename, partsFilename, designsFilename,
-				regFilename, output);
-		Utils.executeAndWaitForCommand(cmd + ".pdf");
-		Utils.executeAndWaitForCommand(cmd + ".png");
+		this.generateDNAPlotLibPlots();
+		this.generateRNASeqPlots();
 	}
 
 	/**
