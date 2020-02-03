@@ -41,13 +41,13 @@ public class OutputDevice extends Assignable{
 		this.setName(value);
 	}
 	
-	private void parseOutputReporter(final JSONObject jObj) {
+	private void parseOutputDevice(final JSONObject jObj) {
 		this.parseName(jObj);
 	}
 	
 	public OutputDevice(final JSONObject jObj) {
 		this.init();
-		this.parseOutputReporter(jObj);
+		this.parseOutputDevice(jObj);
 	}
 	
 	@Override

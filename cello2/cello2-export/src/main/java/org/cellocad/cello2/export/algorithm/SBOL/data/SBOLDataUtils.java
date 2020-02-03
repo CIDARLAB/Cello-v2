@@ -33,7 +33,7 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.CytometryData;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.GateParts;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.InputSensor;
-import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputReporter;
+import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.OutputDevice;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunction;
 import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
@@ -41,7 +41,8 @@ import org.cellocad.cello2.export.algorithm.SBOL.data.ucf.Toxicity;
 import org.json.simple.JSONObject;
 
 /**
- * The SimulatedAnnealingDataUtils is class with utility methods for the data used in the <i>SimulatedAnnealing</i> algorithm.
+ * The SimulatedAnnealingDataUtils is class with utility methods for the data
+ * used in the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Vincent Mirian
  *
@@ -50,7 +51,7 @@ import org.json.simple.JSONObject;
  */
 public class SBOLDataUtils {
 
-	static public CObjectCollection<Part> getParts(final TargetData td){
+	static public CObjectCollection<Part> getParts(final TargetData td) {
 		CObjectCollection<Part> rtn = new CObjectCollection<Part>();
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_PARTS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_PARTS, i);
@@ -60,7 +61,7 @@ public class SBOLDataUtils {
 		return rtn;
 	}
 
-	static public CObjectCollection<Gate> getGates(final TargetData td){
+	static public CObjectCollection<Gate> getGates(final TargetData td) {
 		CObjectCollection<Gate> rtn = new CObjectCollection<Gate>();
 		// gates
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATES); i++) {
@@ -129,17 +130,17 @@ public class SBOLDataUtils {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_INPUTSENSORS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_INPUTSENSORS, i);
-			InputSensor sensor = new InputSensor(jObj,getParts(td));
+			InputSensor sensor = new InputSensor(jObj, getParts(td));
 			rtn.add(sensor);
 		}
 		return rtn;
 	}
 
-	static public CObjectCollection<OutputReporter> getOutputReporters(final TargetData td) {
-		CObjectCollection<OutputReporter> rtn = new CObjectCollection<OutputReporter>();
+	static public CObjectCollection<OutputDevice> getOutputReporters(final TargetData td) {
+		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_OUTPUTREPORTERS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_OUTPUTREPORTERS, i);
-			OutputReporter reporter = new OutputReporter(jObj,getParts(td));
+			OutputDevice reporter = new OutputDevice(jObj, getParts(td));
 			rtn.add(reporter);
 		}
 		return rtn;
@@ -148,19 +149,19 @@ public class SBOLDataUtils {
 	static public String getDNASequence(final Component component) {
 		String rtn = "";
 		if (component instanceof Part) {
-			Part part = (Part)component;
+			Part part = (Part) component;
 			rtn = part.getDNASequence();
 		}
 		if (component instanceof Gate) {
-			Gate gate = (Gate)component;
+			Gate gate = (Gate) component;
 			rtn = getDNASequence(gate);
 		}
 		if (component instanceof InputSensor) {
-			InputSensor sensor = (InputSensor)component;
+			InputSensor sensor = (InputSensor) component;
 			rtn = getDNASequence(sensor);
 		}
-		if (component instanceof OutputReporter) {
-			OutputReporter reporter = (OutputReporter)component;
+		if (component instanceof OutputDevice) {
+			OutputDevice reporter = (OutputDevice) component;
 			rtn = getDNASequence(reporter);
 		}
 		return rtn;
@@ -181,24 +182,6 @@ public class SBOLDataUtils {
 		return rtn;
 	}
 
-	static public String getDNASequence(final OutputReporter reporter) {
-		String rtn = "";
-		for (int i = 0; i < reporter.getNumParts(); i++) {
-			Part part = reporter.getPartAtIdx(i);
-			rtn += part.getDNASequence();
-		}
-		return rtn;
-	}
-
-	static public String getDNASequence(final InputSensor sensor) {
-		String rtn = "";
-		for (int i = 0; i < sensor.getNumParts(); i++) {
-			Part part = sensor.getPartAtIdx(i);
-			rtn += part.getDNASequence();
-		}
-		return rtn;
-	}
-	
 	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
 		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
 		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();

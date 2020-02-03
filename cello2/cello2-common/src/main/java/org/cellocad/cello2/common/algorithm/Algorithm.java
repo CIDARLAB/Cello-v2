@@ -192,8 +192,10 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Gets the data from the UCF
+	 * 
+	 * @throws CelloException
 	 */
-	abstract protected void getDataFromUCF();
+	abstract protected void getDataFromUCF() throws CelloException;
 
 	/**
 	 * Set parameter(s) value(s) of the algorithm
@@ -214,8 +216,10 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Run the (core) algorithm
+	 * 
+	 * @throws CelloException
 	 */
-	abstract protected void run();
+	abstract protected void run() throws CelloException;
 
 	/**
 	 * Perform postprocessing

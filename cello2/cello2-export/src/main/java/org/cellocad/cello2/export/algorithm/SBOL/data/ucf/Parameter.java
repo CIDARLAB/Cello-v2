@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston University (BU)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,50 +20,54 @@
  */
 package org.cellocad.cello2.export.algorithm.SBOL.data.ucf;
 
-import org.cellocad.cello2.common.CObjectCollection;
+import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.common.profile.ProfileUtils;
-import org.cellocad.cello2.export.algorithm.SBOL.data.Device;
 import org.json.simple.JSONObject;
 
 /**
- * The OutputReporter is class representing an output reporter for the gate
- * assignment in the <i>SimulatedAnnealing</i> algorithm.
+ *
  *
  * @author Timothy Jones
  *
- * @date 2018-06-29
+ * @date 2020-01-30
  *
  */
-public class OutputDevice extends Device {
-
-	private void init() {
-	}
+public class Parameter extends CObject {
 
 	private void parseName(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, "name");
 		this.setName(value);
 	}
 
-	private void parseUri(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "uri");
-		this.setUri(value);
+	private void parseValue(final JSONObject JObj) {
+		Double value = ((Number) JObj.get("value")).doubleValue();
+		this.setValue(value);
 	}
 
-	private void parseOutputReporter(final JSONObject jObj, CObjectCollection<Part> parts) {
+	private void parseParameter(final JSONObject jObj) {
 		this.parseName(jObj);
-		this.parseUri(jObj);
+		this.parseValue(jObj);
 	}
 
-	public OutputDevice(final JSONObject jObj, CObjectCollection<Part> parts) {
+	private void init() {
+	}
+
+	public Parameter(final JSONObject jobj) {
 		this.init();
-		this.parseOutputReporter(jObj, parts);
+		this.parseParameter(jobj);
 	}
 
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		return rtn;
+	/*
+	 * Value
+	 */
+	private void setValue(final Double value){
+		this.value = value;
 	}
+
+	public Double getValue(){
+		return this.value;
+	}
+
+	private Double value;
 
 }

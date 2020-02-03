@@ -27,81 +27,71 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * The InputSensor is class representing an input sensor for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * The InputSensor is class representing an input sensor for the gate assignment
+ * in the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
  *
  * @date 2018-05-23
  *
  */
-public class InputSensor extends Device{
+public class InputSensor extends Device {
 
 	private void init() {
-		parts = new CObjectCollection<Part>();
+		this.parameters = new CObjectCollection<>();
 	}
 
-	private void parseName(final JSONObject JObj){
+	private void parseName(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, "name");
 		this.setName(value);
 	}
 
-	private void parseUri(final JSONObject JObj){
+	private void parseUri(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, "uri");
 		this.setUri(value);
 	}
 
-	private void parsePromoter(final JSONObject JObj){
+	private void parsePromoter(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, "promoter");
 		this.setPromoter(value);
 	}
-	
-	private void parseLowSignal(final JSONObject JObj){
-		Double value = ((Number)JObj.get("signal_low")).doubleValue();
-		this.setLowSignal(value);
-	}
-	
-	private void parseHighSignal(final JSONObject JObj){
-		Double value = ((Number)JObj.get("signal_high")).doubleValue();
-		this.setHighSignal(value);
-	}
-	
-	private void parseParts(final JSONObject jObj, CObjectCollection<Part> parts) {
-		JSONArray jArr = (JSONArray) jObj.get("parts");
+
+	private void parseParameters(final JSONObject JObj) {
+		CObjectCollection<Parameter> parameters = this.getParameters();
+		JSONArray jArr = (JSONArray) JObj.get("parameters");
 		for (int i = 0; i < jArr.size(); i++) {
-			String partName = (String) jArr.get(i);
-			Part part = parts.findCObjectByName(partName);
-			this.getParts().add(part);
+			JSONObject jObj = (JSONObject) jArr.get(i);
+			Parameter parameter = new Parameter(jObj);
+			parameters.add(parameter);
 		}
 	}
-	
+
 	private void parseInputSensor(final JSONObject jObj, CObjectCollection<Part> parts) {
 		this.parseName(jObj);
 		this.parseUri(jObj);
 		this.parsePromoter(jObj);
-		this.parseLowSignal(jObj);
-		this.parseHighSignal(jObj);
-		this.parseParts(jObj,parts);
+		this.parseParameters(jObj);
 	}
-	
+
 	public InputSensor(final JSONObject jObj, CObjectCollection<Part> parts) {
 		this.init();
-		this.parseInputSensor(jObj,parts);
+		this.parseInputSensor(jObj, parts);
 	}
-	
+
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getPromoter() != null);
-		rtn = rtn && (this.getLowSignal() != null);
-		rtn = rtn && (this.getHighSignal() != null);
+		rtn = rtn && (this.getParameters() != null);
 		return rtn;
 	}
-	
+
 	/*
 	 * Promoter
 	 */
 	/**
 	 * Getter for <i>promoter</i>
+	 * 
 	 * @return the promoter
 	 */
 	public String getPromoter() {
@@ -110,6 +100,7 @@ public class InputSensor extends Device{
 
 	/**
 	 * Setter for <i>promoter</i>
+	 * 
 	 * @param promoter the promoter to set
 	 */
 	private void setPromoter(final String promoter) {
@@ -117,72 +108,33 @@ public class InputSensor extends Device{
 	}
 
 	private String promoter;
-	
+
 	/*
-	 * Low Signal
+	 * Parameter
 	 */
-	/**
-	 * Getter for <i>lowSignal</i>
-	 * @return the lowSignal
-	 */
-	public Double getLowSignal() {
-		return lowSignal;
+	public Parameter getParameterValueByName(final String name) {
+		return this.getParameters().findCObjectByName(name);
 	}
 
-	/**
-	 * Setter for <i>lowSignal</i>
-	 * @param promoter the promoter to set
-	 */
-	private void setLowSignal(final Double lowSignal) {
-		this.lowSignal = lowSignal;
-	}
-
-	private Double lowSignal;
-	
-	/*
-	 * High Signal
-	 */
-	/**
-	 * Getter for <i>highSignal</i>
-	 * @return the highSignal
-	 */
-	public Double getHighSignal() {
-		return highSignal;
-	}
-
-	/**
-	 * Setter for <i>highSignal</i>
-	 * @param promoter the promoter to set
-	 */
-	private void setHighSignal(final Double highSignal) {
-		this.highSignal = highSignal;
-	}
-
-	private Double highSignal;
-	
-	/*
-	 * Parts
-	 */
-	private CObjectCollection<Part> getParts(){
-		return this.parts;
-	}
-	
-	public Part getPartAtIdx(final int index){
-		Part rtn = null;
-		if (
-				(0 <= index)
-				&&
-				(index < this.getNumParts())
-				) {
-			rtn = this.getParts().get(index);
+	public Parameter getParameterAtIdx(final int index) {
+		Parameter rtn = null;
+		if ((0 <= index) && (index < this.getNumParameter())) {
+			rtn = this.getParameters().get(index);
 		}
 		return rtn;
 	}
-	
-	public int getNumParts(){
-		return this.getParts().size();
+
+	public int getNumParameter() {
+		return this.getParameters().size();
 	}
-	
-	private CObjectCollection<Part> parts;
-	
+
+	private CObjectCollection<Parameter> getParameters() {
+		return this.parameters;
+	}
+
+	private CObjectCollection<Parameter> parameters;
+
+	public static String S_HI = "signal_high";
+	public static String S_LO = "signal_low";
+
 }
