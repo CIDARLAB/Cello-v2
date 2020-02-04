@@ -5395,9 +5395,15 @@
                     "function": "AND",
                     "rules": [
 						"ENDSWITH L2",
-						"nanoluc_reporter_b NEXTTO L2",
 						"nanoluc_reporter_a NEXTTO nanoluc_reporter_b",
                         "ALL_FORWARD"
+                    ]
+                },
+                {
+                    "function": "OR",
+                    "rules": [
+						"nanoluc_reporter_b NEXTTO L2",
+						"nanoluc_reporter_a NEXTTO L2"
                     ]
                 }
             ]
