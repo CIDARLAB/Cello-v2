@@ -182,6 +182,9 @@ public class Eugene extends PLAlgorithm {
 		while (node != null) {
 			Collection<EugeneDevice> devices = EugeneUtils.getDevices(node, this.getGates(), this.getOutputDevices());
 			this.getDevicesMap().put(node, devices);
+			for (EugeneDevice d : devices) {
+				this.getDeviceNameNetlistNodeMap().put(d.getName(), node);
+			}
 			node = BFS.getNextVertex();
 		}
 	}
@@ -404,6 +407,7 @@ public class Eugene extends PLAlgorithm {
 	protected void preprocessing() {
 		LSResultNetlistUtils.setVertexTypeUsingLSResult(this.getNetlist());
 		this.setDevicesMap(new HashMap<NetlistNode, Collection<EugeneDevice>>());
+		this.setDeviceNameNetlistNodeMap(new HashMap<String, NetlistNode>());
 
 		// devices
 		this.setDevices();
@@ -630,9 +634,8 @@ public class Eugene extends PLAlgorithm {
 					deviceGroup = deviceGroups.get(j);
 					for (int k = 0; k < deviceGroup.size(); k++) {
 						Device componentDevice = deviceGroup.get(k);
-						String name = componentDevice.getName();
-						name = EugeneUtils.getDeviceBaseName(name);
-						NetlistNode node = this.getNetlistNodeByGateName(name);
+						String name = EugeneUtils.getDeviceBaseName(componentDevice.getName());
+						NetlistNode node = this.getDeviceNameNetlistNodeMap().get(name);
 //						String o = "";
 //						try {
 //							// FIXME: part orientations not respected
@@ -760,6 +763,20 @@ public class Eugene extends PLAlgorithm {
 	 */
 	public void setDevicesMap(Map<NetlistNode, Collection<EugeneDevice>> devicesMap) {
 		this.devicesMap = devicesMap;
+	}
+
+	/**
+	 * @return the deviceNameNetlistNodeMap
+	 */
+	public Map<String, NetlistNode> getDeviceNameNetlistNodeMap() {
+		return deviceNameNetlistNodeMap;
+	}
+
+	/**
+	 * @param deviceNameNetlistNodeMap the deviceNameNetlistNodeMap to set
+	 */
+	public void setDeviceNameNetlistNodeMap(Map<String, NetlistNode> deviceNameNetlistNodeMap) {
+		this.deviceNameNetlistNodeMap = deviceNameNetlistNodeMap;
 	}
 
 	/**
@@ -942,6 +959,7 @@ public class Eugene extends PLAlgorithm {
 	private String eugeneScript;
 	private String eugeneScriptFilename;
 	private Map<NetlistNode, Collection<EugeneDevice>> devicesMap;
+	private Map<String, NetlistNode> deviceNameNetlistNodeMap;
 	private Map<ContainerSpecification, Devices> groupsMap;
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<Part> parts;
