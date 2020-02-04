@@ -1,258 +1,258 @@
 [
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mGarnet2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "CyPet_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagCFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagYFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "SYFP2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "iRFP720_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mCyRFP1_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mOrange_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "iFP2.0_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagBFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mOrange2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mScarlet_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagRFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mPlum_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Cerulean_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mTangerine_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "ECFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mRuby2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "LSS-mKate1_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "LSS-mKate2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Monomeric Kusabira-Orange_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Emerald_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TurboGFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Clover_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mRuby_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Monomeric Azami Green_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mRuby3_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "NowGFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mTurquoise_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mApple_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "iFP1.4_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "HcRed-Tandem_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mCerulean3_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mTFP1_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagRFP675_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Aquamarine_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "FusionRed_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mScarlet-I_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mUKG_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mWasabi_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "EYFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Sandercyanin_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Sapphire_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mStrawberry_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "LSSmOrange_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mNeonGreen_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "lanRFP-&Delta;S83_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "tdTomato_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagRFP-T_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Sirius_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "NirFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "Ypet_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "monomeric Midoriishi-Cyan_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mNeptune_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mKate2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mClover3_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mTagBFP2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TagGFP2_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mBeRFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "miRFP670_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mMaroon1_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mPapaya1_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "mIFP_reporter"
     },
     {
-        "collection": "output_reporters",
+        "collection": "output_devices",
         "name": "TDsmURFP_reporter"
     },
     {
