@@ -9272,7 +9272,7 @@
         "gate_name": "Q1_QacR",
         "gate_type": "NOR",
         "system": "TetR",
-        "color_hexcode": "6FCDE1"
+        "color_hexcode": "66BC46"
     },
     {
         "collection": "gates",
@@ -9308,7 +9308,7 @@
         "gate_name": "E1_BetI",
         "gate_type": "NOR",
         "system": "TetR",
-        "color_hexcode": "6FCDE1"
+        "color_hexcode": "5455A4"
     },
     {
         "collection": "gate_structure",
