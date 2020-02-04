@@ -4,4 +4,4 @@ y_scale,1
 show_title,N
 backbone_pad_left,3
 backbone_pad_right,3
-axis_y,32
+axis_y,48
