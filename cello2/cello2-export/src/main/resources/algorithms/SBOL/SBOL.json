@@ -15,7 +15,7 @@
 		{
 			"name" : "AddInteractions",
 			"type" : "boolean",
-			"value": true
+			"value": false
 		},
 		{
 			"name" : "AddDesignModules",
