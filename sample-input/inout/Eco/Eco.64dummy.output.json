@@ -1,0 +1,1538 @@
+[
+    {
+        "collection": "output_reporters",
+        "name": "mGarnet2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "CyPet_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagCFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagYFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "SYFP2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "iRFP720_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mCyRFP1_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mOrange_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "iFP2.0_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagBFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mOrange2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mScarlet_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagRFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mPlum_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Cerulean_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mTangerine_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "ECFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mRuby2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "LSS-mKate1_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "LSS-mKate2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Monomeric Kusabira-Orange_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Emerald_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TurboGFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Clover_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mRuby_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Monomeric Azami Green_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mRuby3_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "NowGFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mTurquoise_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mApple_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "iFP1.4_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "HcRed-Tandem_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mCerulean3_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mTFP1_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagRFP675_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Aquamarine_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "FusionRed_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mScarlet-I_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mUKG_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mWasabi_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "EYFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Sandercyanin_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Sapphire_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mStrawberry_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "LSSmOrange_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mNeonGreen_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "lanRFP-&Delta;S83_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "tdTomato_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagRFP-T_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Sirius_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "NirFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "Ypet_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "monomeric Midoriishi-Cyan_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mNeptune_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mKate2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mClover3_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mTagBFP2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TagGFP2_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mBeRFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "miRFP670_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mMaroon1_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mPapaya1_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "mIFP_reporter"
+    },
+    {
+        "collection": "output_reporters",
+        "name": "TDsmURFP_reporter"
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mGarnet2_reporter",
+        "devices": [
+            {
+                "name": "mGarnet2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mGarnet2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "CyPet_reporter",
+        "devices": [
+            {
+                "name": "CyPet_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "CyPet_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagCFP_reporter",
+        "devices": [
+            {
+                "name": "TagCFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagCFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagYFP_reporter",
+        "devices": [
+            {
+                "name": "TagYFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagYFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "SYFP2_reporter",
+        "devices": [
+            {
+                "name": "SYFP2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "SYFP2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "iRFP720_reporter",
+        "devices": [
+            {
+                "name": "iRFP720_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "iRFP720_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mCyRFP1_reporter",
+        "devices": [
+            {
+                "name": "mCyRFP1_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mCyRFP1_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mOrange_reporter",
+        "devices": [
+            {
+                "name": "mOrange_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mOrange_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "iFP2.0_reporter",
+        "devices": [
+            {
+                "name": "iFP2.0_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "iFP2.0_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagBFP_reporter",
+        "devices": [
+            {
+                "name": "TagBFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagBFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mOrange2_reporter",
+        "devices": [
+            {
+                "name": "mOrange2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mOrange2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mScarlet_reporter",
+        "devices": [
+            {
+                "name": "mScarlet_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mScarlet_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagRFP_reporter",
+        "devices": [
+            {
+                "name": "TagRFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagRFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mPlum_reporter",
+        "devices": [
+            {
+                "name": "mPlum_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mPlum_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Cerulean_reporter",
+        "devices": [
+            {
+                "name": "Cerulean_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Cerulean_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mTangerine_reporter",
+        "devices": [
+            {
+                "name": "mTangerine_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mTangerine_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "ECFP_reporter",
+        "devices": [
+            {
+                "name": "ECFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "ECFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mRuby2_reporter",
+        "devices": [
+            {
+                "name": "mRuby2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mRuby2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "LSS-mKate1_reporter",
+        "devices": [
+            {
+                "name": "LSS-mKate1_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "LSS-mKate1_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "LSS-mKate2_reporter",
+        "devices": [
+            {
+                "name": "LSS-mKate2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "LSS-mKate2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Monomeric Kusabira-Orange_reporter",
+        "devices": [
+            {
+                "name": "Monomeric Kusabira-Orange_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Monomeric Kusabira-Orange_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Emerald_reporter",
+        "devices": [
+            {
+                "name": "Emerald_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Emerald_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TurboGFP_reporter",
+        "devices": [
+            {
+                "name": "TurboGFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TurboGFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Clover_reporter",
+        "devices": [
+            {
+                "name": "Clover_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Clover_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mRuby_reporter",
+        "devices": [
+            {
+                "name": "mRuby_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mRuby_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Monomeric Azami Green_reporter",
+        "devices": [
+            {
+                "name": "Monomeric Azami Green_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Monomeric Azami Green_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mRuby3_reporter",
+        "devices": [
+            {
+                "name": "mRuby3_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mRuby3_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "NowGFP_reporter",
+        "devices": [
+            {
+                "name": "NowGFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "NowGFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mTurquoise_reporter",
+        "devices": [
+            {
+                "name": "mTurquoise_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mTurquoise_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mApple_reporter",
+        "devices": [
+            {
+                "name": "mApple_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mApple_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "iFP1.4_reporter",
+        "devices": [
+            {
+                "name": "iFP1.4_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "iFP1.4_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "HcRed-Tandem_reporter",
+        "devices": [
+            {
+                "name": "HcRed-Tandem_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "HcRed-Tandem_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mCerulean3_reporter",
+        "devices": [
+            {
+                "name": "mCerulean3_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mCerulean3_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mTFP1_reporter",
+        "devices": [
+            {
+                "name": "mTFP1_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mTFP1_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagRFP675_reporter",
+        "devices": [
+            {
+                "name": "TagRFP675_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagRFP675_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Aquamarine_reporter",
+        "devices": [
+            {
+                "name": "Aquamarine_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Aquamarine_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "FusionRed_reporter",
+        "devices": [
+            {
+                "name": "FusionRed_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "FusionRed_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mScarlet-I_reporter",
+        "devices": [
+            {
+                "name": "mScarlet-I_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mScarlet-I_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mUKG_reporter",
+        "devices": [
+            {
+                "name": "mUKG_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mUKG_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mWasabi_reporter",
+        "devices": [
+            {
+                "name": "mWasabi_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mWasabi_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "EYFP_reporter",
+        "devices": [
+            {
+                "name": "EYFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "EYFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Sandercyanin_reporter",
+        "devices": [
+            {
+                "name": "Sandercyanin_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Sandercyanin_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Sapphire_reporter",
+        "devices": [
+            {
+                "name": "Sapphire_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Sapphire_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mStrawberry_reporter",
+        "devices": [
+            {
+                "name": "mStrawberry_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mStrawberry_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "LSSmOrange_reporter",
+        "devices": [
+            {
+                "name": "LSSmOrange_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "LSSmOrange_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mNeonGreen_reporter",
+        "devices": [
+            {
+                "name": "mNeonGreen_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mNeonGreen_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "lanRFP-&Delta;S83_reporter",
+        "devices": [
+            {
+                "name": "lanRFP-&Delta;S83_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "lanRFP-&Delta;S83_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "tdTomato_reporter",
+        "devices": [
+            {
+                "name": "tdTomato_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "tdTomato_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagRFP-T_reporter",
+        "devices": [
+            {
+                "name": "TagRFP-T_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagRFP-T_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Sirius_reporter",
+        "devices": [
+            {
+                "name": "Sirius_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Sirius_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "NirFP_reporter",
+        "devices": [
+            {
+                "name": "NirFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "NirFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "Ypet_reporter",
+        "devices": [
+            {
+                "name": "Ypet_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "Ypet_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "monomeric Midoriishi-Cyan_reporter",
+        "devices": [
+            {
+                "name": "monomeric Midoriishi-Cyan_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "monomeric Midoriishi-Cyan_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mNeptune_reporter",
+        "devices": [
+            {
+                "name": "mNeptune_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mNeptune_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mKate2_reporter",
+        "devices": [
+            {
+                "name": "mKate2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mKate2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mClover3_reporter",
+        "devices": [
+            {
+                "name": "mClover3_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mClover3_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mTagBFP2_reporter",
+        "devices": [
+            {
+                "name": "mTagBFP2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mTagBFP2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TagGFP2_reporter",
+        "devices": [
+            {
+                "name": "TagGFP2_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TagGFP2_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mBeRFP_reporter",
+        "devices": [
+            {
+                "name": "mBeRFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mBeRFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "miRFP670_reporter",
+        "devices": [
+            {
+                "name": "miRFP670_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "miRFP670_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mMaroon1_reporter",
+        "devices": [
+            {
+                "name": "mMaroon1_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mMaroon1_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mPapaya1_reporter",
+        "devices": [
+            {
+                "name": "mPapaya1_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mPapaya1_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "mIFP_reporter",
+        "devices": [
+            {
+                "name": "mIFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "mIFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "output_structure",
+        "gate_name": "TDsmURFP_reporter",
+        "devices": [
+            {
+                "name": "TDsmURFP_reporter",
+                "components": [
+                    "#promoter?",
+                    "#promoter?",
+                    "TDsmURFP_cassette"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mGarnet2_cassette",
+        "dnasequence": "CATGAAGACAAGACTTCTGCGCTGTTCGAATTGATAACGCGGATCGACAAAATCCCCCCTCTTA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "CyPet_cassette",
+        "dnasequence": "CAATTGGTCCAAGCGGCAGTTACAGTGGGAAATGTTGGACGATGTGGCCGACCTACGGCCGCTC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagCFP_cassette",
+        "dnasequence": "GCTCGAATGTTCATATTAACCGGACGGTGCTTGCGTTTAATGATTCCCGCTACACACCCGCCTG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagYFP_cassette",
+        "dnasequence": "GGACAGCGAAGGTTACAGCTCAGTCATCACAAGGTACGACGCCGTCGACATCAGTCATCTCCCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "SYFP2_cassette",
+        "dnasequence": "ACGATTGTCTTACTAACTCGATTGGCGAGGTCTTGTTTGTACTTCACATGGCTGGTTATGATCG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "iRFP720_cassette",
+        "dnasequence": "GGACACGGGCTCCTACTGTCCTCTGATGAGTGTGGAGCTGCGTATGAGCTTTTCTAACCTTCCT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mCyRFP1_cassette",
+        "dnasequence": "CGCGGACCGGACGCTGTCCAAGTCCCACTGGATAAAGTCCTTGCTTTAATGGGGGACCCAACTC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mOrange_cassette",
+        "dnasequence": "ATATTAGAGATTCGTGAATACACTCGGACGGTGCTTAATAAATTGGCGACCCGGAGAATTGCTG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "iFP2.0_cassette",
+        "dnasequence": "ACCGTATGAGACGGTGGCGCTCCGCACGACCGAGGCGGGGACGGTACAGTATAAAGGATTCCGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagBFP_cassette",
+        "dnasequence": "ACCGTCCCACTAACAATTCATTCTCCCTGCCCAGATGGCAGACGTCTTCGAACCGATGATTATC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mOrange2_cassette",
+        "dnasequence": "GATAAGTCTTGGAGTTGCCCGAGTCGGCCTTAAGGTTCGGTACCGTTACAGGTGCGGTAGCCTA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mScarlet_cassette",
+        "dnasequence": "ACATCTGCTCGTACTGCAAATTGGGAGTAGATCTGTATTACGGCGATGTCTATCAGGAAAAAGG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagRFP_cassette",
+        "dnasequence": "TCACGTTCGACCCCTCGATGAAGGGCGGCGTCGTAGATGTTAAACATCCCACAAAACACGACTT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mPlum_cassette",
+        "dnasequence": "ATGATATCCTATGAGATCTTGCCATTGCCCACCCTATCCGACCAAAGGTACATACTCGTTTGGC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Cerulean_cassette",
+        "dnasequence": "TTCTTAGTATCGACGTTGTGGTCCGGTTACAGACTCTTGGTCAGGTACCGGTAAGATACTTTGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mTangerine_cassette",
+        "dnasequence": "TCCCCGGTCGCGAGCCTAATTGTCAGATTACTATGATTGGATATAAACTCGGGGGAGCGAAAGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "ECFP_cassette",
+        "dnasequence": "TTACTATTTTAGCAGAGAAACCCAGCGCGGATGTTGCGTAATGATCCGATGGTAGTGTATTCTA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mRuby2_cassette",
+        "dnasequence": "CTGAAAGTAGACTGTAGCATTTGGCCTTGATCTATCGGAAAGCACCTTGCATCTTACAGATGCC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "LSS-mKate1_cassette",
+        "dnasequence": "TGACTCGGTGGCATCAGACCGGTCGAAAACTTCGTTAGGATACATATTCGCTTGTAACTGCCCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "LSS-mKate2_cassette",
+        "dnasequence": "CACGGCATTGTGGGTCGCGTTCTGCAATGGAAGGAATGAGCCACCTGCATTAAGTGAGGAAAGT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Monomeric Kusabira-Orange_cassette",
+        "dnasequence": "TATCCACCTTATCTTGCGTGAACCTTCTTGACGGCTTGTCTTGAGCACGAATGAATGGTACGAC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Emerald_cassette",
+        "dnasequence": "TTGACTCGAGCCTCGCAGATGCACTCGATAGCCGTTGAGGAAACACGCAAACTTCGGCGTGTAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TurboGFP_cassette",
+        "dnasequence": "CACGTAGTACGTCCTAAAACGCCTGCGCACTATGGGCACCGCTTCACGCGACAGCACAAAGGGT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Clover_cassette",
+        "dnasequence": "GTCGTCGTTTTCGCGGAGCATGGCGCGATGCTGTATTGCATATAACGGCATCAAAGATTGCTGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mRuby_cassette",
+        "dnasequence": "CATGGCACTATTCGCGGGCATTGTGAGCATCTTTTCTCTTGACTCGTCCGGCTCGGAAGAACGC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Monomeric Azami Green_cassette",
+        "dnasequence": "GTGAATAATTTTCTATTCGCTTTCTGCACCTTGGCTTCAACCATACCGAGCGAGGCAGAAGGCC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mRuby3_cassette",
+        "dnasequence": "ACTCGGTCGGTTACAAGCGAACTCGTAGCTCTTTTTGTTAATGTCTTGCTTAAAAATCTGTGGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "NowGFP_cassette",
+        "dnasequence": "CGCAAGACCCAGCATCGGCAAATGCGCTCATTTGTTCCTCATAGCGAGAGCGGTTATAAACCGG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mTurquoise_cassette",
+        "dnasequence": "CACACCGACTACGAATGAATACGACATCAGTTTAAGGAGCGATTCTATCCTTCGCCATCGAGCC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mApple_cassette",
+        "dnasequence": "CTATAAGGCCTGCCCTAGTGGAACTCTGCTAGCCTCCAATAAGATTCTCTGGTGCGATCTAAGG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "iFP1.4_cassette",
+        "dnasequence": "GGCCGTGCCAATCCGGATGAAGTGGGCCGCATGTATGCGGTCTCAGACCCTATCGTCGTGGTAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "HcRed-Tandem_cassette",
+        "dnasequence": "GATATGCGTTTTCTTAGAGACGATCCCCCCACGCCCCCTGAACGGGTTGGATGAGATTTGGGAC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mCerulean3_cassette",
+        "dnasequence": "TTGAGTGCAACAGAAACCTCCGCTCATCAGCGTGTTCTCGACCAATAGTGATGCAATCTCAAAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mTFP1_cassette",
+        "dnasequence": "CAAGTTTAAACTGGTGACAAAAGAACTCGCTAAACATACAACGCCGATACCCTTCCCTTGCCAG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagRFP675_cassette",
+        "dnasequence": "ATACTGCGCACCATAGCTGGGGAGAGATAAGAGAGGTCGCGTTAGATCTATATCAGGTCCCGAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Aquamarine_cassette",
+        "dnasequence": "GCAATTGCGATCTGTCACTGCCATGTGAAGAGGGGTGTTCCCGAGCTGGTGGAGGTATTAGTAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "FusionRed_cassette",
+        "dnasequence": "TTAAGAGTCTTGTATCCCAGAGGTAGTATTCAAGTCTTCGCCGAGTATGGCCAATCATTAACGG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mScarlet-I_cassette",
+        "dnasequence": "CTAACGATCAGGTAACGCTTATGAGAACTTCTGCTAAGAGTCCCGGACTCTTTACGCTATAATC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mUKG_cassette",
+        "dnasequence": "GTTCTACAACCGCCACTGACCGAACTCTGGTGTGAGTACGAACCCAGATGAGATTCGGGATTAC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mWasabi_cassette",
+        "dnasequence": "TCCCTATCGTGACTTACCTTTTTTACCGCCCGTGTGCTACACAGACTGACCCAGGGAGGGGGAG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "EYFP_cassette",
+        "dnasequence": "TGTCCTCCCCAACGCGGAGCAGCCGCTCTCTCTCTTCCGCCGGGCGGCGTACCCGTCCCTTCCT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Sandercyanin_cassette",
+        "dnasequence": "ACTTCGCCCTGCTCCCTGGTGATTCTCATTTTCAAAACATAGTTCGTCAAGCTTGAGGGGTTCG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Sapphire_cassette",
+        "dnasequence": "TGGACTATCCGAGAACCATGCGCCGTTGGGCCGAGCCCACTAGCCCGGACGGTTTCATGCGTCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mStrawberry_cassette",
+        "dnasequence": "CTAAAGCCACCTAGTCACCAAGCATCTCCTAGCCAACTACGTGTTTTCCTCTGTTCTCCCACCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "LSSmOrange_cassette",
+        "dnasequence": "TATCTTCAACTGCCGTAATCCATTATTGATCTCGAATATTATATATACCACGCCACGAATCTCC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mNeonGreen_cassette",
+        "dnasequence": "GGTGTCAGTCGGGTCATAAAACCAGCTTCAGTAAAGTAATGTCTTTCTAATACCAGTATTCAGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "lanRFP-&Delta;S83_cassette",
+        "dnasequence": "TGTGTTCATCGGTTGTATGCCCTTTTAGAAGGTGTGTCGCGGAATCATCGGTCTGGAGAGGTTA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "tdTomato_cassette",
+        "dnasequence": "TCCGAGTCGTTGCGACGAAGGTTCCGAATAACGTCCGGCGTTGTAACGCCCTATGGCTACAAGT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagRFP-T_cassette",
+        "dnasequence": "AAATTTGACTCTATACACGCGCTTTGCTCTTAAATAACGAGCTCAGGACTGCGTTCGCCAATCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Sirius_cassette",
+        "dnasequence": "GTGTGCAGATGGGACCACAGCGTTCGCGTCCAATCAGGGCGACAGTGAAAGCGTTGTGGAACAA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "NirFP_cassette",
+        "dnasequence": "ATTAGGCTACCTGGAACCGTCAGAATATCATGATTCAGTCTTATGAGACTTTTGATTTACCAAA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "Ypet_cassette",
+        "dnasequence": "GTTACAAGATATTATCACCTACAGTCTTCAATATTGTCTGATGCCGTTGCTCAGATGAGGGCTG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "monomeric Midoriishi-Cyan_cassette",
+        "dnasequence": "TAGCCAAACCTCTAGATAGAGTTAGGGTCATGCATTACACGCGGCGAGATTTAGGTGGTGGATG"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mNeptune_cassette",
+        "dnasequence": "GGTCGACAAAAAAGAGCTGCCGCCATAAGCAAGACCTAACCAGCTCCAAGGCCCTAGACGACCA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mKate2_cassette",
+        "dnasequence": "ATAGTCAAACTGGCCAGAGCCACACGCAAGTGATTGCGTCCGTGACAGCAGACCATCATCAATA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mClover3_cassette",
+        "dnasequence": "GTTGGAAGGGCACCTTCTTAAGTTCCGTTCTCCCAGTGGTACACTGGGCAACTCCCTTAGCCGA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mTagBFP2_cassette",
+        "dnasequence": "GGGTGCAGAAGAGGTGCTCCGGAAGGTCAGTAGACTATACTACAGGCAAATCCCGTGGGGATAT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TagGFP2_cassette",
+        "dnasequence": "ACGTCGACGCTAGCGCTGCTACGATTATTGGTAGTCCCCAAATCAATTCCGCGGTACTGGAAGT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mBeRFP_cassette",
+        "dnasequence": "ATGTCACATTAATCTAATTATAACCATACTTTGCCCGTTGCTATCAATATAACCAGTCCTCAAC"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "miRFP670_cassette",
+        "dnasequence": "GGGATCGGGGTCTAGGGTTTGTAATCTTTTTTCACGAGCGATACAAATAGGTCCTTGACTTCGT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mMaroon1_cassette",
+        "dnasequence": "TGGGCTGGTGGAAAATTGACGTACTTTTGATCTGTTCTTGGTACATCATGAGGATACCTTTGTA"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mPapaya1_cassette",
+        "dnasequence": "AAATTTGTATCCTCCATAGGCCCCAACCACACCCTAGCATAGTAGCTCTAGCCCACGCAAAATT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "mIFP_cassette",
+        "dnasequence": "TTCGGGACGCTGCGCTAGTAACATCCATTTCTAAGACTAAGTCAATCCCGGGAGACTAGTCCTT"
+    },
+    {
+        "collection": "parts",
+        "type": "cassette",
+        "name": "TDsmURFP_cassette",
+        "dnasequence": "CTCAAGCGATAACAGAGAGAGTCTTTCCCGTTCCACTACCTCTAACCCCTACCGCTAGAGTACT"
+    }
+]
