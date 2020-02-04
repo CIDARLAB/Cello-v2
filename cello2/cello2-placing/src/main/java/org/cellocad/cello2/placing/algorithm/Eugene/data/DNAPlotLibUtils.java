@@ -24,7 +24,9 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.cellocad.cello2.common.CObjectCollection;
 import org.cellocad.cello2.common.Utils;
@@ -67,17 +69,13 @@ public class DNAPlotLibUtils {
 		String rtn = null;
 		if (type.equalsIgnoreCase("promoter")) {
 			rtn = S_PROMOTER;
-		}
-		else if (type.equalsIgnoreCase("ribozyme")) {
+		} else if (type.equalsIgnoreCase("ribozyme")) {
 			rtn = S_RIBOZYME;
-		}
-		else if (type.equalsIgnoreCase("rbs")) {
+		} else if (type.equalsIgnoreCase("rbs")) {
 			rtn = S_RBS;
-		}
-		else if (type.equalsIgnoreCase("cds")) {
+		} else if (type.equalsIgnoreCase("cds")) {
 			rtn = S_CDS;
-		}
-		else if (type.equalsIgnoreCase("terminator")) {
+		} else if (type.equalsIgnoreCase("terminator")) {
 			rtn = S_TERMINATOR;
 		}
 		return rtn;
@@ -153,8 +151,7 @@ public class DNAPlotLibUtils {
 								Color color = gate.getColor();
 								rgb = getRGB(color);
 							}
-						}
-						else {
+						} else {
 							String gateType = node.getResultNetlistNodeData().getGateType();
 							Gate gate = gates.findCObjectByName(gateType);
 							if (gate != null) {
@@ -184,6 +181,7 @@ public class DNAPlotLibUtils {
 	public static List<String> getRegulatoryInformation(Netlist netlist, CObjectCollection<Part> parts,
 			CObjectCollection<Gate> gates) {
 		List<String> rtn = new ArrayList<>();
+		Set<String> specified = new HashSet<>();
 		rtn.add("from_partname,type,to_partname,arrowhead_length,linestyle,linewidth,color");
 		// TAG hardcoded
 		Placements placements = netlist.getResultNetlistData().getPlacements();
@@ -216,12 +214,13 @@ public class DNAPlotLibUtils {
 							fields.add("");
 							fields.add(getRGB(color));
 							String str = String.join(",", fields);
-							rtn.add(str);
+							specified.add(str);
 						}
 					}
 				}
 			}
 		}
+		rtn.addAll(specified);
 		return rtn;
 	}
 
