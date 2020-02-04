@@ -158,9 +158,6 @@ public class Eugene extends PLAlgorithm {
 		this.setEugeneScriptFilename(filename);
 
 		this.setMaxPlacements(this.getAlgorithmProfile().getIntParameter("MaxPlacements").getSecond());
-		this.setSplitTandemPromoters(
-				this.getAlgorithmProfile().getBooleanParameter("SplitTandemPromoters").getSecond());
-		this.setOverrideGateType(this.getAlgorithmProfile().getBooleanParameter("OverrideGateType").getSecond());
 	}
 
 	/**
@@ -743,6 +740,15 @@ public class Eugene extends PLAlgorithm {
 	 */
 	protected String getEugeneScriptFilename() {
 		return eugeneScriptFilename;
+	}
+
+	/**
+	 * Setter for <i>eugeneScriptFilename</i>
+	 * 
+	 * @param eugeneScriptFilename the value to set <i>eugeneScriptFilename</i>
+	 */
+	protected void setEugeneScriptFilename(final String eugeneScriptFilename) {
+		this.eugeneScriptFilename = eugeneScriptFilename;
 	}
 
 	/**

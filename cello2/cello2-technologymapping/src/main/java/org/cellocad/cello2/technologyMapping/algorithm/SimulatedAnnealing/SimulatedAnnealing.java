@@ -41,6 +41,7 @@ import org.cellocad.cello2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.cello2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.cello2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.cello2.results.netlist.Netlist;
+import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 import org.cellocad.cello2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.cello2.results.technologyMapping.activity.TMActivityEvaluation;
@@ -60,6 +61,7 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.u
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionVariable;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
@@ -468,7 +470,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
 				Collection<String> parts = new ArrayList<>();
 				for (NetlistEdge e : SimulatedAnnealingUtils.getInEdgeSortedByIdx(node)) {
 					NetlistNode src = e.getSrc();
-					Assignable g = this.getSimulatedAnnealingNetlistNodeData(src).getGate();
+					Assignable g = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(src).getGate();
 					if (g instanceof Gate) {
 						parts.add(((Gate) g).getGateParts().getPromoter());
 					}

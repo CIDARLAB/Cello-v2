@@ -20,6 +20,10 @@
  */
 package org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.cellocad.cello2.common.CObject;
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 import org.cellocad.cello2.results.netlist.NetlistNode;

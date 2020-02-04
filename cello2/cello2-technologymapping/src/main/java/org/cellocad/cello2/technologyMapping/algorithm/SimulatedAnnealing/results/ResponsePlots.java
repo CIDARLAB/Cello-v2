@@ -42,8 +42,8 @@ import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.S
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.MathEval;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
+import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
 import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.cello2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionParameter;
 import org.cellocad.cello2.technologyMapping.runtime.environment.TMArgString;
 
 /**
@@ -94,7 +94,7 @@ public class ResponsePlots {
 		String equation = rf.getEquation();
 		MathEval eval = new MathEval();
 		for (int i = 0; i < rf.getNumParameter(); i++) {
-			ResponseFunctionParameter param = rf.getParameterAtIdx(i);
+			Parameter param = rf.getParameterAtIdx(i);
 			eval.setConstant(param.getName(), param.getValue());
 		}
 		for (int i = 0; i < x.size(); i++) {
