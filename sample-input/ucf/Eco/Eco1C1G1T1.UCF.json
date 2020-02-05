@@ -129788,6 +129788,7 @@
 				"R1_PsrA BEFORE L2",
 				"N1_LmrA BEFORE L2",
 				"H1_HlyIIR BEFORE L2",
+				"A1_AmtR BEFORE L2",
 				"YFP_reporter NEXTTO L2",
 				"YFP_reporter AFTER L2",
 				"ENDSWITH YFP_reporter",
