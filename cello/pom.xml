@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>org.cellocad.v2</groupId>
+  <artifactId>cello-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <developers>
+    <developer>
+      <id>jonests</id>
+      <name>Timothy Jones</name>
+      <email>jonests@bu.edu</email>
+      <organization>Boston University</organization>
+    </developer>
+    <developer>
+      <id>vmirian</id>
+      <name>Vincent Mirian</name>
+      <email>vmirian@mit.edu</email>
+      <organization>Massachussetts Institute of Technology</organization>
+    </developer>
+    <developer>
+      <id>jaip</id>
+      <name>Jai Padmakumar</name>
+      <email>jaip@mit.edu</email>
+      <organization>Massachussetts Institute of Technology</organization>
+    </developer>
+  </developers>
+  <modules>
+    <module>cello-common</module>
+    <module>cello-logicsynthesis</module>
+    <module>cello-logicoptimization</module>
+    <module>cello-clustering</module>
+    <module>cello-partitioning</module>
+    <module>cello-technologymapping</module>
+    <module>cello-placing</module>
+    <module>cello-export</module>
+    <module>cello-dnacompiler</module>
+  </modules>
+</project>
