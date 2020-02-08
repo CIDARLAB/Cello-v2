@@ -206,6 +206,9 @@ public class Yosys extends LSAlgorithm{
 		// hierarchy
 		script += "hierarchy -auto-top";
 		script += Utils.getNewLine();
+		// opt_clean
+		script += "opt_clean -purge";
+		script += Utils.getNewLine();
 		// show
 		script += "show -format pdf -prefix ";
 		script += outputDir;
