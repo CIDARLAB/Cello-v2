@@ -41,7 +41,6 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkBFS;
 import org.cellocad.v2.placing.algorithm.PLAlgorithm;
 import org.cellocad.v2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.Devices;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneDataUtils;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistData;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
@@ -51,7 +50,6 @@ import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneObject;
 import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugenePart;
 import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneTemplate;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.CircuitRules;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.DeviceRules;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.EugeneRules;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Gate;
@@ -144,7 +142,6 @@ public class Eugene extends PLAlgorithm {
 		this.setCircuitRules(EugeneDataUtils.getCircuitRules(this.getTargetData()));
 		this.setDeviceRules(EugeneDataUtils.getDeviceRules(this.getTargetData()));
 		this.setGeneticLocations(EugeneDataUtils.getGeneticLocations(this.getTargetData()));
-		this.setContainerSpecifications(EugeneDataUtils.getContainerSpecifications(this.getTargetData()));
 	}
 
 	/**
@@ -472,21 +469,6 @@ public class Eugene extends PLAlgorithm {
 		}
 	}
 
-	private NetlistNode getNetlistNodeByGateName(String name) {
-		NetlistNode rtn = null;
-		name = name.replaceAll("^unit_", "");
-		name = name.replaceAll("__SPLIT_[0-9]+$", "");
-		name = name.replaceAll("_device$", "");
-		for (NetlistNode node : this.getDevicesMap().keySet()) {
-			String gateType = node.getResultNetlistNodeData().getGateType();
-			if (gateType.contains(name)) {
-				rtn = node;
-				break;
-			}
-		}
-		return rtn;
-	}
-
 	private void generateRNASeqPlots() throws CelloException {
 		String python = this.getRuntimeEnv().getOptionValue(PLArgString.PYTHONENV);
 		String inputFilePath = this.getRuntimeEnv().getOptionValue(PLArgString.INPUTNETLIST);
@@ -789,24 +771,6 @@ public class Eugene extends PLAlgorithm {
 	}
 
 	/**
-	 * Getter for <i>groupsMap</i>
-	 * 
-	 * @return value of <i>groupsMap</i>
-	 */
-	public Map<ContainerSpecification, Devices> getGroupsMap() {
-		return groupsMap;
-	}
-
-	/**
-	 * Setter for <i>groupsMap</i>
-	 * 
-	 * @param groupsMap the value to set <i>groupsMap</i>
-	 */
-	public void setGroupsMap(Map<ContainerSpecification, Devices> groupsMap) {
-		this.groupsMap = groupsMap;
-	}
-
-	/**
 	 * Getter for <i>gates</i>
 	 * 
 	 * @return value of <i>gates</i>
@@ -935,32 +899,12 @@ public class Eugene extends PLAlgorithm {
 		this.geneticLocations = geneticLocations;
 	}
 
-	/**
-	 * Getter for <i>containerSpecifications</i>
-	 * 
-	 * @return value of <i>containerSpecifications</i>
-	 */
-	public CObjectCollection<ContainerSpecification> getContainerSpecifications() {
-		return containerSpecifications;
-	}
-
-	/**
-	 * Setter for <i>containerSpecifications</i>
-	 * 
-	 * @param containerSpecifications the value to set
-	 *                                <i>containerSpecifications</i>
-	 */
-	public void setContainerSpecifications(CObjectCollection<ContainerSpecification> containerSpecifications) {
-		this.containerSpecifications = containerSpecifications;
-	}
-
 	private Integer maxPlacements;
 	private EugeneArray eugeneResults;
 	private String eugeneScript;
 	private String eugeneScriptFilename;
 	private Map<NetlistNode, Collection<EugeneDevice>> devicesMap;
 	private Map<String, NetlistNode> deviceNameNetlistNodeMap;
-	private Map<ContainerSpecification, Devices> groupsMap;
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<Part> parts;
 	private CObjectCollection<InputSensor> sensors;
@@ -968,7 +912,6 @@ public class Eugene extends PLAlgorithm {
 	private CircuitRules circuitRules;
 	private DeviceRules deviceRules;
 	private CObjectCollection<GeneticLocation> geneticLocations;
-	private CObjectCollection<ContainerSpecification> containerSpecifications;
 
 	static private String S_FENCEPOST = "fencepost";
 }

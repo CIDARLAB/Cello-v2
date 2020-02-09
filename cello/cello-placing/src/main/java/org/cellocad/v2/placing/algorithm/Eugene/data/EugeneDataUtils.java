@@ -24,8 +24,6 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.CircuitRules;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.ContainerSpecification;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.ContainerSpecificationFactory;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Cytometry;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.CytometryData;
 import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.DeviceRules;
@@ -181,17 +179,6 @@ public class EugeneDataUtils {
 		rtn = new DeviceRules(jObj);
 		return rtn;
 	}
-
-	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
-		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
-		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();
-		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_CONTAINERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_CONTAINERS, i);
-			ContainerSpecification spec = factory.getContainerSpecification(jObj);
-			rtn.add(spec);
-		}
-		return rtn;
-	}
 	
 	static public CObjectCollection<GeneticLocation> getGeneticLocations(final TargetData td) {
 		CObjectCollection<GeneticLocation> rtn = new CObjectCollection<>();
@@ -214,7 +201,6 @@ public class EugeneDataUtils {
 	private static String S_OUTPUTSTRUCTURE = "output_structure";
 	private static String S_CIRCUITRULES = "circuit_rules";
 	private static String S_DEVICERULES = "device_rules";
-	private static String S_CONTAINERS = "containers";
 	private static String S_GENETICLOCATIONS = "genetic_locations";
 
 }
