@@ -1,3 +1,4 @@
+${sys:logfile.name}
 log.log
 .settings/org.eclipse.jdt.ui.prefs
 bin/
