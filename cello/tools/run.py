@@ -104,7 +104,7 @@ def main(arguments):
 	cmd += " -classpath "
 	cmd += classpath
 	cmd += " "
-	cmd += "org.cellocad.cello2."
+	cmd += "org.cellocad.cello.v2."
 	cmd += executable
 	cmd += ".runtime.Main "
 	if (exec_args != None):
