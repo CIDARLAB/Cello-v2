@@ -7,4 +7,6 @@ language: java
 jdk:
   - oraclejdk8
 before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install graphviz yosys; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:saltmakrell/ppa -y; sudo apt-get update; sudo apt-get -y install graphviz yosys; fi
   - cd cello/
