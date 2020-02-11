@@ -25,9 +25,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.apache.commons.io.FileUtils;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.logicSynthesis.algorithm.Yosys.NetSynthUtils;
 import org.cellocad.v2.logicSynthesis.algorithm.Yosys.data.YosysDataUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
@@ -82,7 +82,7 @@ public class NetSynthUtilsTest {
 	}
 
 	@Test
-	public void testGetNetSynthNetlist() throws JSONException, IOException {
+	public void testGetNetSynthNetlist() throws JSONException, IOException, CelloException {
 		JSONArray motifs = YosysDataUtils.getMotifLibrary(targetData);
 		Path dir = Files.createTempDirectory("cello_");
 		Netlist n = NetSynthUtils.getNetSynthNetlist(netlist, motifs, dir.toString());

@@ -39,6 +39,7 @@ import org.cellocad.BU.netsynth.NetSynth;
 import org.cellocad.BU.netsynth.NetSynthSwitch;
 import org.cellocad.MIT.dnacompiler.Gate;
 import org.cellocad.MIT.dnacompiler.Wire;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
@@ -171,7 +172,7 @@ public class NetSynthUtils {
 		return rtn;
 	}
 
-	private static Path initResources() throws IOException {
+	private static Path initResources() throws IOException, CelloException {
 		Path rtn = null;
 		rtn = Files.createTempDirectory("cello_");
 		String base = "netsynthResources";
@@ -186,7 +187,10 @@ public class NetSynthUtils {
 		for (String file : files) {
 			p = Paths.get(base, file);
 			File f = copyResource(p, rtn);
-			f.setExecutable(true);
+			Boolean b = f.setExecutable(true);
+			if (!b) {
+				throw new CelloException("Unable to set executable permissions on file " + f.toString());
+			}
 		}
 		p = Paths.get(base, "abc.rc");
 		copyResource(p, rtn);
@@ -220,7 +224,7 @@ public class NetSynthUtils {
 	}
 
 	public static Netlist getNetSynthNetlist(final Netlist netlist, final JSONArray motifs, final String outputDir)
-			throws JSONException, IOException {
+			throws JSONException, IOException, CelloException {
 		Netlist rtn = null;
 		Path path = initResources();
 		NetSynth n = new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
