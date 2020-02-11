@@ -94,19 +94,6 @@ public class ResponseFunctionVariable extends CObject{
 	private double onThreshold;
 
 	/*
-	 * CasetteParts
-	 */
-	public void setCasetteParts(final CasetteParts casetteParts){
-		this.casetteParts = casetteParts;
-	}
-	
-	public CasetteParts getCasetteParts(){
-		return this.casetteParts;
-	}
-	
-	private CasetteParts casetteParts;
-	
-	/*
 	 * Toxicity
 	 */
 	public void setToxicity(final Toxicity toxicity){

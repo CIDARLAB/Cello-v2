@@ -25,18 +25,13 @@ package org.cellocad.v2.export.algorithm.SBOL.data;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.CasetteParts;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ContainerSpecification;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ContainerSpecificationFactory;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Cytometry;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.CytometryData;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Gate;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.GateParts;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.InputSensor;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.OutputDevice;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ResponseFunction;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ResponseFunctionVariable;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Toxicity;
 import org.json.simple.JSONObject;
 
@@ -81,22 +76,6 @@ public class SBOLDataUtils {
 		}
 		// parts
 		CObjectCollection<Part> parts = getParts(td);
-		// gateParts
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATEPARTS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATEPARTS, i);
-			GateParts gatePart = new GateParts(jObj, parts);
-			// processing
-			Gate gate = rtn.findCObjectByName(gatePart.getName());
-			Utils.isNullRuntimeException(gate, "gate");
-			gatePart.setGate(gate);
-			gate.setGateParts(gatePart);
-			ResponseFunction rf = gate.getResponseFunction();
-			for (int j = 0; j < rf.getNumVariable(); j++) {
-				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
-				rfVar.setCasetteParts(gatePart.getCasetteParts(rfVar.getName()));
-
-			}
-		}
 		// toxicity
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATETOXICITY); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATETOXICITY, i);
@@ -167,32 +146,6 @@ public class SBOLDataUtils {
 		return rtn;
 	}
 
-	static public String getDNASequence(final Gate gate) {
-		String rtn = "";
-		ResponseFunction rf = gate.getResponseFunction();
-		GateParts gateParts = gate.getGateParts();
-		for (int i = 0; i < rf.getNumVariable(); i++) {
-			ResponseFunctionVariable var = rf.getVariableAtIdx(i);
-			CasetteParts casetteParts = gateParts.getCasetteParts(var.getName());
-			for (int j = 0; j < casetteParts.getNumParts(); j++) {
-				Part part = casetteParts.getPartAtIdx(j);
-				rtn += part.getDNASequence();
-			}
-		}
-		return rtn;
-	}
-
-	static public CObjectCollection<ContainerSpecification> getContainerSpecifications(final TargetData td) {
-		CObjectCollection<ContainerSpecification> rtn = new CObjectCollection<>();
-		ContainerSpecificationFactory factory = new ContainerSpecificationFactory();
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_CONTAINERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_CONTAINERS, i);
-			ContainerSpecification spec = factory.getContainerSpecification(jObj);
-			rtn.add(spec);
-		}
-		return rtn;
-	}
-
 	private static String S_GATES = "gates";
 	private static String S_INPUTSENSORS = "input_sensors";
 	private static String S_OUTPUTREPORTERS = "output_reporters";
@@ -201,5 +154,5 @@ public class SBOLDataUtils {
 	private static String S_GATEPARTS = "gate_parts";
 	private static String S_GATETOXICITY = "gate_toxicity";
 	private static String S_GATECYTOMETRY = "gate_cytometry";
-	private static String S_CONTAINERS = "containers";
+
 }

@@ -42,7 +42,6 @@ import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ContainerSpecification;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Gate;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.InputSensor;
 import org.cellocad.v2.export.algorithm.SBOL.data.ucf.OutputDevice;
@@ -140,7 +139,6 @@ public class SBOL extends EXAlgorithm {
 			this.setGates(SBOLDataUtils.getGates(this.getTargetData()));
 			this.setInputSensors(SBOLDataUtils.getInputSensors(this.getTargetData()));
 			this.setOutputReporters(SBOLDataUtils.getOutputReporters(this.getTargetData()));
-			this.setContainerSpecifications(SBOLDataUtils.getContainerSpecifications(this.getTargetData()));
 		} catch (Exception e) {
 			throw new CelloException(String.format("Error reading %s.", TargetData.class.getName()), e);
 		}
@@ -756,25 +754,6 @@ public class SBOL extends EXAlgorithm {
 	}
 
 	/**
-	 * Getter for <i>containerSpecifications</i>
-	 * 
-	 * @return value of <i>containerSpecifications</i>
-	 */
-	public CObjectCollection<ContainerSpecification> getContainerSpecifications() {
-		return containerSpecifications;
-	}
-
-	/**
-	 * Setter for <i>containerSpecifications</i>
-	 * 
-	 * @param containerSpecifications the value to set
-	 *                                <i>containerSpecifications</i>
-	 */
-	public void setContainerSpecifications(CObjectCollection<ContainerSpecification> containerSpecifications) {
-		this.containerSpecifications = containerSpecifications;
-	}
-
-	/**
 	 * Returns the Logger for the <i>SBOL</i> algorithm
 	 *
 	 * @return the logger for the <i>SBOL</i> algorithm
@@ -795,7 +774,6 @@ public class SBOL extends EXAlgorithm {
 	private CObjectCollection<Gate> gates;
 	private CObjectCollection<InputSensor> sensors;
 	private CObjectCollection<OutputDevice> reporters;
-	private CObjectCollection<ContainerSpecification> containerSpecifications;
 	private static final Logger logger = LogManager.getLogger(SBOL.class);
 
 }

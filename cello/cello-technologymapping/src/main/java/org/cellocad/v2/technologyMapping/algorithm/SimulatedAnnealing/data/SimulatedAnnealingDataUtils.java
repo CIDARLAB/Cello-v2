@@ -26,13 +26,11 @@ import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Cytometry;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.CytometryData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.GateParts;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.LocationSequences;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Part;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionVariable;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Toxicity;
 import org.json.simple.JSONObject;
 
@@ -72,22 +70,6 @@ public class SimulatedAnnealingDataUtils {
 			JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_PARTS, i);
 			Part part = new Part(jObj);
 			parts.add(part);
-		}
-		// gateParts
-		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_GATEPARTS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_GATEPARTS, i);
-			GateParts gatePart = new GateParts(jObj, parts);
-			// processing
-			Gate gate = rtn.findCObjectByName(gatePart.getName());
-			Utils.isNullRuntimeException(gate, "gate");
-			gatePart.setGate(gate);
-			gate.setGateParts(gatePart);
-			ResponseFunction rf = gate.getResponseFunction();
-			for (int j = 0; j < rf.getNumVariable(); j++) {
-				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
-				rfVar.setCasetteParts(gatePart.getCasetteParts(rfVar.getName()));
-
-			}
 		}
 		// toxicity
 		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_GATETOXICITY); i++) {

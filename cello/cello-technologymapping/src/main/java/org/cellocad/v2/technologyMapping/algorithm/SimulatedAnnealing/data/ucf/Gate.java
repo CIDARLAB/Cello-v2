@@ -190,18 +190,5 @@ public class Gate extends Assignable{
 	}
 	
 	private ResponseFunction responseFunction;
-
-	/*
-	 * GateParts
-	 */
-	public void setGateParts(final GateParts gateParts){
-		this.gateParts = gateParts;
-	}
-	
-	public GateParts getGateParts(){
-		return this.gateParts;
-	}
-	
-	private GateParts gateParts;
 	
 }
