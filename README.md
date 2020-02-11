@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CIDARLAB/Cello2.svg?branch=develop)](https://travis-ci.org/CIDARLAB/Cello2)
+
 # Requirements
 
   + Java JDK 8 (Oracle, OpenJDK)
