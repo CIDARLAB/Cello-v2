@@ -20,18 +20,6 @@
       <email>jonests@bu.edu</email>
       <organization>Boston University</organization>
     </developer>
-    <developer>
-      <id>vmirian</id>
-      <name>Vincent Mirian</name>
-      <email>vmirian@mit.edu</email>
-      <organization>Massachussetts Institute of Technology</organization>
-    </developer>
-    <developer>
-      <id>jaip</id>
-      <name>Jai Padmakumar</name>
-      <email>jaip@mit.edu</email>
-      <organization>Massachussetts Institute of Technology</organization>
-    </developer>
   </developers>
   <modules>
     <module>cello-common</module>
@@ -44,4 +32,31 @@
     <module>cello-export</module>
     <module>cello-dnacompiler</module>
   </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.cellocad.v2.${stage.name}.runtime.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

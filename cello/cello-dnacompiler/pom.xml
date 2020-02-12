@@ -64,131 +64,24 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>1.4.9</version>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+		<extensions>true</extensions>
+        <version>0.33.0</version>
         <configuration>
-          <repository>${docker.image.prefix}/${project.artifactId}</repository>
-          <buildArgs>
-            <JAR_FILE>${project.build.finalName}-jar-with-dependencies.jar</JAR_FILE>
-          </buildArgs>
+		  <images>
+			<image>
+			  <name>${docker.image.prefix}/${project.artifactId}:%l</name>
+			  <build>
+				<args>
+				  <JAR_FILE>${project.build.finalName}-jar-with-dependencies.jar</JAR_FILE>
+				</args>
+				<dockerFile>src${file.separator}main${file.separator}docker${file.separator}Dockerfile</dockerFile>
+				<contextDir>${project.basedir}</contextDir>
+			  </build>
+			</image>
+		  </images>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.cellocad.v2.${stage.name}.runtime.Main</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <id>copy-artifact</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                  <type>${project.packaging}</type>
-                  <classifier>jar-with-dependencies</classifier>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>..${file.separator}target</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <!--     <plugin> -->
-      <!--       <artifactId>maven-assembly-plugin</artifactId> -->
-      <!--       <configuration> -->
-      <!--         <archive> -->
-      <!--           <manifest> -->
-      <!--             <mainClass>org.cellocad.dnacompiler.runtime.Main</mainClass> -->
-      <!--           </manifest> -->
-      <!--         </archive> -->
-      <!--         <descriptorRefs> -->
-      <!--           <descriptorRef>jar</descriptorRef> -->
-      <!--         </descriptorRefs> -->
-      <!--       </configuration> -->
-      <!--       <executions> -->
-      <!--         <execution> -->
-      <!--           <id>make-assembly</id> <!-\- this is used for inheritance merges -\-> -->
-      <!--           <phase>package</phase> <!-\- bind to the packaging phase -\-> -->
-      <!--           <goals> -->
-      <!--             <goal>single</goal> -->
-      <!--           </goals> -->
-      <!--         </execution> -->
-      <!--       </executions> -->
-      <!--     </plugin> -->
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>copy-resources-2</id>
-            <phase>install</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>..${file.separator}target</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>..${file.separator}tools${file.separator}</directory>
-                  <includes>
-                    <include>
-                      run.py
-                    </include>
-                  </includes>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-          <execution>
-            <id>set-executable-permissions</id>
-            <phase>install</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <chmod file="..${file.separator}target${file.separator}run.py" perm="755" />
-              </target>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
