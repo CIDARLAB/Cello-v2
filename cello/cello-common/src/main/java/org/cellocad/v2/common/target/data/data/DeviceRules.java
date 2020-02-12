@@ -18,33 +18,65 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-01-13
  *
  */
-public class RulesTest {
+public class DeviceRules {
 
-	@Test
-	public void test() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
+		this.rules = new ArrayList<>();
 	}
+
+	private void parseDeviceRules(JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get("rules");
+		for (Object o : jArr) {
+			String str = (String) o;
+			this.getRules().add(str);
+		}
+	}
+
+	public DeviceRules(JSONObject jObj) {
+		init();
+		this.parseDeviceRules(jObj);
+	}
+
+	public Collection<String> getRulesByObjectName(String name) {
+		Collection<String> rtn = new ArrayList<>();
+		for (String rule : this.getRules()) {
+			if (EugeneRules.GlobalOrientationRuleKeywords.contains(rule)) {
+				rtn.add(rule);
+			}
+			Collection<String> objects = EugeneRules.getObjects(rule);
+			for (String str : objects) {
+				if (str.equals(name))
+					rtn.add(rule);
+			}
+		}
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>rules</i>
+	 *
+	 * @return value of <i>rules</i>
+	 */
+	private Collection<String> getRules() {
+		return rules;
+	}
+
+	private Collection<String> rules;
 
 }

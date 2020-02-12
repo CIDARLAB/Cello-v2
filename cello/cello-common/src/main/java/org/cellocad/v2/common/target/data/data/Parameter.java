@@ -18,33 +18,56 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-01-30
  *
  */
-public class RulesTest {
+public class Parameter extends CObject {
 
-	@Test
-	public void test() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, "name");
+		this.setName(value);
 	}
+
+	private void parseValue(final JSONObject JObj) {
+		Double value = ((Number) JObj.get("value")).doubleValue();
+		this.setValue(value);
+	}
+
+	private void parseParameter(final JSONObject jObj) {
+		this.parseName(jObj);
+		this.parseValue(jObj);
+	}
+
+	private void init() {
+	}
+
+	public Parameter(final JSONObject jobj) {
+		this.init();
+		this.parseParameter(jobj);
+	}
+
+	/*
+	 * Value
+	 */
+	private void setValue(final Double value){
+		this.value = value;
+	}
+
+	public Double getValue(){
+		return this.value;
+	}
+
+	private Double value;
 
 }

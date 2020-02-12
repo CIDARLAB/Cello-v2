@@ -27,6 +27,10 @@ import java.util.List;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
@@ -40,10 +44,6 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealingUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.MathEval;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionParameter;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 
 /**
@@ -94,7 +94,7 @@ public class ResponsePlots {
 		String equation = rf.getEquation();
 		MathEval eval = new MathEval();
 		for (int i = 0; i < rf.getNumParameter(); i++) {
-			ResponseFunctionParameter param = rf.getParameterAtIdx(i);
+			Parameter param = rf.getParameterAtIdx(i);
 			eval.setConstant(param.getName(), param.getValue());
 		}
 		for (int i = 0; i < x.size(); i++) {
@@ -184,7 +184,7 @@ public class ResponsePlots {
 		}
 		// gate
 		SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
-		Assignable a = data.getGate();
+		AssignableDevice a = data.getGate();
 		if (!(a instanceof Gate))
 			throw new RuntimeException("Not a gate.");
 		Gate gate = (Gate) a;

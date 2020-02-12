@@ -23,9 +23,9 @@ package org.cellocad.v2.export.algorithm.SBOL;
 import java.net.URI;
 import java.util.Set;
 
-import org.cellocad.v2.export.algorithm.SBOL.data.Device;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.Part;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Part;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SBOLValidationException;
@@ -58,14 +58,13 @@ public class SBOLUtils {
 	public static ComponentDefinition addPartDefinition(Part part, SBOLDocument document, SynBioHubFrontend sbh)
 			throws SynBioHubException, SBOLValidationException {
 		ComponentDefinition rtn = null;
-		String uri = part.getUri();
-
+		URI uri = part.getUri();
 		if (uri != null) {
-			rtn = document.getComponentDefinition(URI.create(uri));
+			rtn = document.getComponentDefinition(uri);
 			if (rtn != null)
 				return rtn;
 			if (sbh != null) {
-				URI temp = URI.create(uri);
+				URI temp = uri;
 				SBOLDocument sbol = sbh.getSBOL(temp);
 				rtn = sbol.getComponentDefinition(temp);
 			}
@@ -82,7 +81,7 @@ public class SBOLUtils {
 			}
 		} else {
 			rtn = document.createComponentDefinition(part.getName(), "1", ComponentDefinition.DNA_REGION);
-			part.setUri(rtn.getIdentity().toString());
+			part.setUri(rtn.getIdentity());
 			Sequence sequence = document.createSequence(part.getName() + "_sequence",
 					SBOLDataUtils.getDNASequence(part), Sequence.IUPAC_DNA);
 			rtn.addSequence(sequence);
@@ -113,17 +112,18 @@ public class SBOLUtils {
 	 *                                 <i>device</i>
 	 * @throws SBOLValidationException unable to create component definition
 	 */
-	public static ComponentDefinition addDeviceDefinition(Device device, SBOLDocument document, SynBioHubFrontend sbh)
+	public static ComponentDefinition addDeviceDefinition(AssignableDevice device, SBOLDocument document,
+			SynBioHubFrontend sbh)
 			throws SynBioHubException, SBOLValidationException {
-		String uri = device.getUri();
+		URI uri = device.getUri();
 		ComponentDefinition rtn = null;
 
 		if (uri != null) {
-			rtn = document.getComponentDefinition(URI.create(uri));
+			rtn = document.getComponentDefinition(uri);
 			if (rtn != null)
 				return rtn;
 			if (sbh != null) {
-				URI temp = URI.create(uri);
+				URI temp = uri;
 				SBOLDocument sbol = sbh.getSBOL(temp);
 				rtn = sbol.getComponentDefinition(temp);
 			}
@@ -140,7 +140,7 @@ public class SBOLUtils {
 			}
 		} else {
 			rtn = document.createComponentDefinition(device.getName(), "1", ComponentDefinition.DNA_REGION);
-			device.setUri(rtn.getIdentity().toString());
+			device.setUri(rtn.getIdentity());
 			Sequence sequence = document.createSequence(device.getName() + "_sequence",
 					SBOLDataUtils.getDNASequence(device), Sequence.IUPAC_DNA);
 			rtn.addSequence(sequence);

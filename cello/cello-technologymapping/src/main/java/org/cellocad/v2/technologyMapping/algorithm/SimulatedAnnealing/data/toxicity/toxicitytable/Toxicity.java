@@ -29,7 +29,7 @@ import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Pair;
 
 /**
- * The Toxicity class contains the toxicity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
+ * The GateToxicity class contains the toxicity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
  * @param T type index
  *
  * @author Timothy Jones
@@ -48,7 +48,7 @@ public class Toxicity<T> extends CObject{
 	}
 
 	/**
-	 * Initializes a newly created Toxicity with the list of types defined by parameter <i>nodes</i>
+	 * Initializes a newly created GateToxicity with the list of types defined by parameter <i>nodes</i>
 	 * and value defined by parameter <i>value</i>.
 	 *
 	 * @param nodes the List of types
@@ -66,7 +66,7 @@ public class Toxicity<T> extends CObject{
 	}
 
 	/*
-	 * Toxicity
+	 * GateToxicity
 	 */
 	/**
 	 * Getter for <i>toxicityEntry</i>

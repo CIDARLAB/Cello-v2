@@ -23,15 +23,15 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Cytometry;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.CytometryData;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.LocationSequences;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Part;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Toxicity;
+import org.cellocad.v2.common.target.data.data.Cytometry;
+import org.cellocad.v2.common.target.data.data.CytometryData;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.LocationSequences;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.data.GateToxicity;
 import org.json.simple.JSONObject;
 
 /**
@@ -74,7 +74,7 @@ public class SimulatedAnnealingDataUtils {
 		// toxicity
 		for (int i = 0; i < td.getNumJSONObject(SimulatedAnnealingDataUtils.S_GATETOXICITY); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SimulatedAnnealingDataUtils.S_GATETOXICITY, i);
-			Toxicity toxicity = new Toxicity(jObj);
+			GateToxicity toxicity = new GateToxicity(jObj);
 			// processing
 			Gate gate = rtn.findCObjectByName(toxicity.getGateName());
 			Utils.isNullRuntimeException(gate, "gate");

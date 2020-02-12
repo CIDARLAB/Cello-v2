@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Boston University (BU)
+ * Copyright (C) 2018 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,33 +18,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
- *
+ * 
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2018-05-22
  *
  */
-public class RulesTest {
+public class MeasurementStandard {
+	
 
-	@Test
-	public void test() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void parseSignalCarriertUnits(final JSONObject jobj) {
+		String value = ProfileUtils.getString(jobj, "signal_carrier_units");
+		this.setSignalCarrierUnits(value);
 	}
+	
+	private void init() {
+		this.signalCarrierUnits = ""; 
+	}
+	
+	public MeasurementStandard(final JSONObject jobj) {
+		this.init();
+		this.parseSignalCarriertUnits(jobj);
+	}
+
+	private final void setSignalCarrierUnits(String signalCarrierUnits) {
+		this.signalCarrierUnits = signalCarrierUnits;
+	}
+
+	public String getSignalCarrierUnits() {
+		return signalCarrierUnits;
+	}
+	
+	private String signalCarrierUnits;
 
 }

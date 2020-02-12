@@ -25,6 +25,9 @@ import java.util.List;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -33,9 +36,6 @@ import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.ActivityTable;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionParameter;
 
 /**
  * The Evaluator class evaluates the activity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -151,7 +151,7 @@ public class Evaluator {
 			
 			MathEval eval = new MathEval();
 			for (int i = 0; i < function.getNumParameter(); i++) {
-				ResponseFunctionParameter param = function.getParameterAtIdx(i);
+				Parameter param = function.getParameterAtIdx(i);
 				eval.setConstant(param.getName(), param.getValue());
 			}
 			eval.setVariable(function.getVariableByName("x").getName(), value);

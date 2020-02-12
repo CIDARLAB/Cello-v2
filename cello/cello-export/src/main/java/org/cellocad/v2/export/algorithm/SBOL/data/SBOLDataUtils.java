@@ -25,14 +25,15 @@ package org.cellocad.v2.export.algorithm.SBOL.data;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Cytometry;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.CytometryData;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Gate;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.InputSensor;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.OutputDevice;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Part;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.ResponseFunction;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Toxicity;
+import org.cellocad.v2.common.target.data.data.Cytometry;
+import org.cellocad.v2.common.target.data.data.CytometryData;
+import org.cellocad.v2.common.target.data.data.DNAComponent;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.data.GateToxicity;
 import org.json.simple.JSONObject;
 
 /**
@@ -79,7 +80,7 @@ public class SBOLDataUtils {
 		// toxicity
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATETOXICITY); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATETOXICITY, i);
-			Toxicity toxicity = new Toxicity(jObj);
+			GateToxicity toxicity = new GateToxicity(jObj);
 			// processing
 			Gate gate = rtn.findCObjectByName(toxicity.getGateName());
 			Utils.isNullRuntimeException(gate, "gate");
@@ -109,7 +110,7 @@ public class SBOLDataUtils {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_INPUTSENSORS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_INPUTSENSORS, i);
-			InputSensor sensor = new InputSensor(jObj, getParts(td));
+			InputSensor sensor = new InputSensor(jObj);
 			rtn.add(sensor);
 		}
 		return rtn;
@@ -119,13 +120,13 @@ public class SBOLDataUtils {
 		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
 		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_OUTPUTREPORTERS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_OUTPUTREPORTERS, i);
-			OutputDevice reporter = new OutputDevice(jObj, getParts(td));
+			OutputDevice reporter = new OutputDevice(jObj);
 			rtn.add(reporter);
 		}
 		return rtn;
 	}
 
-	static public String getDNASequence(final Component component) {
+	static public String getDNASequence(final DNAComponent component) {
 		String rtn = "";
 		if (component instanceof Part) {
 			Part part = (Part) component;

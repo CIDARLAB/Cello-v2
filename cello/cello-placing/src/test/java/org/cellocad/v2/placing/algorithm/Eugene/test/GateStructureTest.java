@@ -23,8 +23,9 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.GateStructure;
+import org.cellocad.v2.common.target.data.data.GateStructure;
+import org.cellocad.v2.common.target.data.data.StructureDevice;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -46,9 +47,17 @@ public class GateStructureTest {
 		JSONParser parser = new JSONParser();
 		JSONObject obj = (JSONObject) parser.parse(str);
 		GateStructure structure = new GateStructure(obj);
-		for (EugeneDevice d : structure.getDevices()) {
-			System.out.println(d.getDevice());
+		str = "";
+		for (StructureDevice d : structure.getDevices()) {
+			EugeneDevice e = new EugeneDevice(d);
+			str += e.toString();
 		}
+		assert (str.equals(S_REF));
 	}
+
+	private static String S_REF = "Device P1_PhlF_a(\n" + "    promoter,\n" + "    P1_PhlF_a_cassette\n" + ");\n"
+			+ "Device P1_PhlF_a_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_a,\n" + "    DT5\n" + ");\n"
+			+ "Device P1_PhlF_b(\n" + "    promoter,\n" + "    P1_PhlF_b_cassette\n" + ");\n"
+			+ "Device P1_PhlF_b_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_b,\n" + "    DT5\n" + ");\n";
 
 }

@@ -23,9 +23,10 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.OutputDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.OutputDeviceStructure;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.OutputDeviceStructure;
+import org.cellocad.v2.common.target.data.data.StructureDevice;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -52,9 +53,15 @@ public class OutputDeviceTest {
 		OutputDevice device = new OutputDevice(deviceJson);
 		device.setOutputDeviceStructure(structure);
 		structure.setOutputDevice(device);
-		for (EugeneDevice d : structure.getDevices()) {
-			System.out.println(d.getDevice());
+		String str = "";
+		for (StructureDevice d : structure.getDevices()) {
+			EugeneDevice e = new EugeneDevice(d);
+			str += e.toString();
 		}
+		assert (str.equals(S_REF));
 	}
+
+	private static String S_REF = "Device YFP_reporter_a(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n"
+			+ "Device YFP_reporter_b(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n";
 
 }

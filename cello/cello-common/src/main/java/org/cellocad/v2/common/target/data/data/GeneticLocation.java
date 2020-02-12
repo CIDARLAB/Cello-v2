@@ -18,33 +18,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-01-13
  *
  */
-public class RulesTest {
+public class GeneticLocation extends CObject {
 
-	@Test
-	public void test() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
 	}
+
+	private void parseSymbol(JSONObject jObj) {
+		String str = ProfileUtils.getString(jObj, "symbol");
+		this.setName(str);
+	}
+
+	private void parseLocus(JSONObject jObj) {
+		Integer z = ProfileUtils.getInteger(jObj, "locus");
+		this.locus = z;
+	}
+
+	private void parseSequence(JSONObject jObj) {
+		String str = ProfileUtils.getString(jObj, "sequence");
+		this.sequence = str;
+	}
+
+	private void parseLocation(JSONObject jObj) {
+		this.parseSymbol(jObj);
+		this.parseLocus(jObj);
+		this.parseSequence(jObj);
+	}
+
+	public GeneticLocation(JSONObject jObj) {
+		this.init();
+		this.parseLocation(jObj);
+	}
+	
+	/**
+	 * Getter for <i>locus</i>
+	 *
+	 * @return value of <i>locus</i>
+	 */
+	public Integer getLocus() {
+		return locus;
+	}
+
+	/**
+	 * Getter for <i>sequence</i>
+	 *
+	 * @return value of <i>sequence</i>
+	 */
+	public String getSequence() {
+		return sequence;
+	}
+
+	private Integer locus;
+	private String sequence;
 
 }

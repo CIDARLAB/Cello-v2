@@ -35,17 +35,17 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.DNAComponent;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
 import org.cellocad.v2.export.algorithm.EXAlgorithm;
-import org.cellocad.v2.export.algorithm.SBOL.data.Component;
-import org.cellocad.v2.export.algorithm.SBOL.data.Device;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Gate;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.InputSensor;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.OutputDevice;
-import org.cellocad.v2.export.algorithm.SBOL.data.ucf.Part;
 import org.cellocad.v2.export.runtime.environment.EXArgString;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -235,7 +235,7 @@ public class SBOL extends EXAlgorithm {
 							SBOLUtils.addPartDefinition(part, document, this.getSbhFrontend());
 							continue;
 						}
-						Device device = null;
+						AssignableDevice device = null;
 						if (gate != null)
 							device = gate;
 						if (sensor != null)
@@ -277,11 +277,11 @@ public class SBOL extends EXAlgorithm {
 					String sequence = "";
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String componentName = component.getPartAtIdx(l);
-						Component comp = this.getComponentByName(componentName);
+						DNAComponent comp = this.getDNAComponentByName(componentName);
 						// Component
 						String cDisplayId = componentName + "_Component";
 						AccessType cAccess = AccessType.PUBLIC;
-						URI cDefinitionURI = URI.create(comp.getUri());
+						URI cDefinitionURI = comp.getUri();
 						org.sbolstandard.core2.Component c = cd.createComponent(cDisplayId, cAccess, cDefinitionURI);
 
 						// SequenceAnnotation
@@ -363,8 +363,8 @@ public class SBOL extends EXAlgorithm {
 		return document;
 	}
 
-	protected Component getComponentByName(String name) {
-		Component rtn = null;
+	protected DNAComponent getDNAComponentByName(String name) {
+		DNAComponent rtn = null;
 		Part part = this.getParts().findCObjectByName(name);
 		Gate gate = this.getGates().findCObjectByName(name);
 		InputSensor sensor = this.getInputSensors().findCObjectByName(name);
@@ -412,7 +412,7 @@ public class SBOL extends EXAlgorithm {
 					String seq = "";
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String name = component.getPartAtIdx(l);
-						Component c = this.getComponentByName(name);
+						DNAComponent c = this.getDNAComponentByName(name);
 						seq += SBOLDataUtils.getDNASequence(c);
 					}
 

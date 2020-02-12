@@ -23,7 +23,7 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.technologyMapping.algorithm.data.TMNetlistNodeData;
 
 /**
@@ -60,13 +60,13 @@ public class SimulatedAnnealingNetlistNodeData extends TMNetlistNodeData{
 	/*
 	 * Gate
 	 */
-	public void setGate(final Assignable gate) {
+	public void setGate(final AssignableDevice gate) {
 		this.gate = gate;
 	}
 	
-	public Assignable getGate() {
+	public AssignableDevice getGate() {
 		return this.gate;
 	}
 	
-	private Assignable gate;
+	private AssignableDevice gate;
 }

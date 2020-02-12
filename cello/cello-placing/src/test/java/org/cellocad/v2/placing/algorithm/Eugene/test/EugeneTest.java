@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.apache.commons.io.FileUtils;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
@@ -107,7 +108,7 @@ public class EugeneTest {
 	@Test
 	public void test() throws CelloException, IOException {
 		this.PL.execute();
-		// FileUtils.deleteDirectory(this.output);
+		FileUtils.deleteDirectory(this.output);
 	}
 
 	private PLRuntimeObject PL;

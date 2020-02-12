@@ -23,20 +23,20 @@ package org.cellocad.v2.placing.algorithm.Eugene.data;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.CircuitRules;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Cytometry;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.CytometryData;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.DeviceRules;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Gate;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.GateStructure;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.GeneticLocation;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.InputSensor;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.OutputDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.OutputDeviceStructure;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Part;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.ResponseFunction;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.ResponseFunctionVariable;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Toxicity;
+import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.target.data.data.Cytometry;
+import org.cellocad.v2.common.target.data.data.CytometryData;
+import org.cellocad.v2.common.target.data.data.DeviceRules;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.GateStructure;
+import org.cellocad.v2.common.target.data.data.GeneticLocation;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.OutputDeviceStructure;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.data.ResponseFunctionVariable;
+import org.cellocad.v2.common.target.data.data.GateToxicity;
 import org.json.simple.JSONObject;
 
 /**
@@ -106,13 +106,13 @@ public class EugeneDataUtils {
 			ResponseFunction rf = gate.getResponseFunction();
 			for (int j = 0; j < rf.getNumVariable(); j++) {
 				ResponseFunctionVariable rfVar = rf.getVariableAtIdx(j);
-				rfVar.setEugeneDevices(structure.getDevices(rfVar.getName()));
+				rfVar.setMappedDevices(structure.getDevices(rfVar.getName()));
 			}
 		}
 		// toxicity
 		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_GATETOXICITY); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_GATETOXICITY, i);
-			Toxicity toxicity = new Toxicity(jObj);
+			GateToxicity toxicity = new GateToxicity(jObj);
 			// processing
 			Gate gate = rtn.findCObjectByName(toxicity.getGateName());
 			Utils.isNullRuntimeException(gate, "gate");
@@ -139,7 +139,7 @@ public class EugeneDataUtils {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(EugeneDataUtils.S_INPUTSENSORS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(EugeneDataUtils.S_INPUTSENSORS, i);
-			InputSensor sensor = new InputSensor(jObj,getParts(td));
+			InputSensor sensor = new InputSensor(jObj);
 			rtn.add(sensor);
 		}
 		return rtn;

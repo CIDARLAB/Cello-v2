@@ -26,14 +26,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneObject;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugenePart;
-import org.cellocad.v2.placing.algorithm.Eugene.data.structure.EugeneTemplate;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Gate;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.InputSensor;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.OutputDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.data.ucf.Part;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.StructureDevice;
+import org.cellocad.v2.common.target.data.data.StructureObject;
+import org.cellocad.v2.common.target.data.data.StructurePart;
+import org.cellocad.v2.common.target.data.data.StructureTemplate;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -60,41 +60,28 @@ public class EugeneUtils {
 		return rtn;
 	}
 
-	public static Part getOutputPart(final EugeneDevice device, final CObjectCollection<Part> parts) {
-		Part rtn = null;
-		EugenePart p = device.getOutput();
-		if (p != null) {
-			Part part = parts.findCObjectByName(p.getName());
-			rtn = part;
-		}
-		return rtn;
-	}
-
 	public static String getPartTypeDefinition(final String type) {
 		String rtn = "";
 		rtn = String.format("PartType %s;", type);
 		return rtn;
 	}
 
-	public static Set<String> getPartTypes(final EugeneDevice device, final CObjectCollection<Part> parts) {
+	public static Set<String> getPartTypes(final StructureDevice device, final CObjectCollection<Part> parts) {
 		Set<String> rtn = new HashSet<String>();
-		for (EugeneObject o : device.getComponents()) {
-			if (o instanceof EugenePart) {
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructurePart) {
 				Part p = parts.findCObjectByName(o.getName());
 				if (p != null)
 					rtn.add(p.getPartType());
 			}
-			if (o instanceof EugeneTemplate) {
+			if (o instanceof StructureTemplate) {
 				rtn.add(o.getName());
 			}
-			if (o instanceof EugeneDevice) {
-				EugeneDevice d = (EugeneDevice) o;
+			if (o instanceof StructureDevice) {
+				StructureDevice d = (StructureDevice) o;
 				rtn.addAll(getPartTypes(d, parts));
 			}
 		}
-		Part p = getOutputPart(device, parts);
-		if (p != null)
-			rtn.add(p.getPartType());
 		return rtn;
 	}
 
@@ -107,17 +94,17 @@ public class EugeneUtils {
 		return rtn;
 	}
 
-	public static Set<String> getPartDefinitions(final EugeneDevice device, final CObjectCollection<Part> parts) {
+	public static Set<String> getPartDefinitions(final StructureDevice device, final CObjectCollection<Part> parts) {
 		Set<String> rtn = new HashSet<String>();
-		for (EugeneObject o : device.getComponents()) {
-			if (o instanceof EugenePart) {
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructurePart) {
 				Part p = parts.findCObjectByName(o.getName());
 				if (p != null) {
 					rtn.add(getPartDefinition(p));
 				}
 			}
-			if (o instanceof EugeneDevice) {
-				EugeneDevice d = (EugeneDevice) o;
+			if (o instanceof StructureDevice) {
+				StructureDevice d = (StructureDevice) o;
 				rtn.addAll(getPartDefinitions(d, parts));
 			}
 		}
@@ -150,44 +137,45 @@ public class EugeneUtils {
 	}
 
 	/**
-	 * Obtain the EugeneDevice objects associated with a given node. If more device
-	 * objects are specified in a gate than there are inputs to the node, the extra
-	 * devices will be discarded.
+	 * Obtain the StructureDevice objects associated with a given node. If more
+	 * device objects are specified in a gate than there are inputs to the node, the
+	 * extra devices will be discarded.
 	 * 
 	 * @param node      the NetlistNode
 	 * @param gates     the Gate objects
 	 * @param sensors   the InputSensor objects
 	 * @param reporters the OutputReporter objects
-	 * @return a collection of EugeneDevice objects associated with the NetlistNode
+	 * @return a collection of StructureDevice objects associated with the
+	 *         NetlistNode
 	 */
-	static Collection<EugeneDevice> getDevices(final NetlistNode node, final CObjectCollection<Gate> gates,
+	static Collection<StructureDevice> getDevices(final NetlistNode node, final CObjectCollection<Gate> gates,
 			final CObjectCollection<OutputDevice> reporters) {
-		Collection<EugeneDevice> rtn = new ArrayList<>();
+		Collection<StructureDevice> rtn = new ArrayList<>();
 		String gateType = node.getResultNetlistNodeData().getGateType();
 		Integer num = node.getNumInEdge();
 		Gate gate = gates.findCObjectByName(gateType);
 		OutputDevice reporter = reporters.findCObjectByName(gateType);
 		if (reporter != null) {
-			Collection<EugeneDevice> devices = reporter.getOutputDeviceStructure().getDevices();
+			Collection<StructureDevice> devices = reporter.getOutputDeviceStructure().getDevices();
 			Integer i = 0;
-			for (EugeneDevice d : devices) {
-				EugeneDevice e = new EugeneDevice(d);
-				Collection<EugeneTemplate> inputs = new ArrayList<>();
-				for (EugeneObject o : e.getComponents()) {
-					if (o instanceof EugeneTemplate) {
+			for (StructureDevice d : devices) {
+				StructureDevice e = new StructureDevice(d);
+				Collection<StructureTemplate> inputs = new ArrayList<>();
+				for (StructureObject o : e.getComponents()) {
+					if (o instanceof StructureTemplate) {
 						i++;
-						EugeneTemplate t = (EugeneTemplate) o;
+						StructureTemplate t = (StructureTemplate) o;
 						if (i <= num) {
 							continue;
 						}
 						inputs.add(t);
 					}
 				}
-				for (EugeneTemplate t : inputs) {
+				for (StructureTemplate t : inputs) {
 					e.getComponents().remove(t);
 				}
-				for (EugeneObject o : e.getComponents()) {
-					if (o instanceof EugeneTemplate) {
+				for (StructureObject o : e.getComponents()) {
+					if (o instanceof StructureTemplate) {
 						rtn.add(e);
 						break;
 					}
@@ -195,26 +183,26 @@ public class EugeneUtils {
 			}
 		}
 		if (gate != null) {
-			Collection<EugeneDevice> devices = gate.getGateStructure().getDevices();
+			Collection<StructureDevice> devices = gate.getGateStructure().getDevices();
 			Integer i = 0;
-			for (EugeneDevice d : devices) {
-				EugeneDevice e = new EugeneDevice(d);
-				Collection<EugeneTemplate> inputs = new ArrayList<>();
-				for (EugeneObject o : e.getComponents()) {
-					if (o instanceof EugeneTemplate) {
+			for (StructureDevice d : devices) {
+				StructureDevice e = new StructureDevice(d);
+				Collection<StructureTemplate> inputs = new ArrayList<>();
+				for (StructureObject o : e.getComponents()) {
+					if (o instanceof StructureTemplate) {
 						i++;
-						EugeneTemplate t = (EugeneTemplate) o;
+						StructureTemplate t = (StructureTemplate) o;
 						if (i <= num) {
 							continue;
 						}
 						inputs.add(t);
 					}
 				}
-				for (EugeneTemplate t : inputs) {
+				for (StructureTemplate t : inputs) {
 					e.getComponents().remove(t);
 				}
-				for (EugeneObject o : e.getComponents()) {
-					if (o instanceof EugeneTemplate) {
+				for (StructureObject o : e.getComponents()) {
+					if (o instanceof StructureTemplate) {
 						rtn.add(e);
 						break;
 					}

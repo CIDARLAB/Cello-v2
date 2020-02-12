@@ -35,6 +35,11 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Parameter;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -51,11 +56,6 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assig
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Assignable;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.InputSensor;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.OutputDevice;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Parameter;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
@@ -348,7 +348,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void updateNetlist(final Netlist netlist) {
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
-			Assignable gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
 				node.getResultNetlistNodeData().setGateType(gate.getName());
 			}
@@ -378,7 +378,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.logInfo(this.getTMActivityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
-			Assignable gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
 				String str = "";
 				str += String.format("Node: %-5s", node.getName());

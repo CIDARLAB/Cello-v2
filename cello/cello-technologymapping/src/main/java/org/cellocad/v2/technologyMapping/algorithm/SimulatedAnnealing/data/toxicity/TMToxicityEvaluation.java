@@ -30,6 +30,10 @@ import java.util.Map;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.GateToxicity;
+import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.data.ResponseFunctionVariable;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -41,9 +45,6 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.Toxicity;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.ToxicityTable;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Gate;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunction;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.ResponseFunctionVariable;
 
 /**
  * The TMToxicityEvaluation class evaluates the toxicity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -102,7 +103,7 @@ public class TMToxicityEvaluation extends CObject{
 		Gate gate = (Gate) data.getGate();
 		ResponseFunction rf = gate.getResponseFunction();
 		ResponseFunctionVariable var = rf.getVariableAtIdx(0);
-		org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.ucf.Toxicity toxicity = var.getToxicity();
+		GateToxicity toxicity = var.getToxicity();
 		int a = 0;
 		int b = toxicity.getNumInput() - 1;
 		for (int i = 0; i < toxicity.getNumInput(); i++) {
@@ -136,7 +137,8 @@ public class TMToxicityEvaluation extends CObject{
 		ToxicityTable<NetlistNode,NetlistNode> toxicityTable = this.getToxicityTables().get(node);
 		for (int i = 0; i < toxicityTable.getNumActivities(); i++) {
 			Activity<NetlistNode> inputActivity = toxicityTable.getActivityAtIdx(i);
-			Toxicity<NetlistNode> outputToxicity = toxicityTable.getToxicityOutput(inputActivity);
+			Toxicity<NetlistNode> outputToxicity = toxicityTable
+					.getToxicityOutput(inputActivity);
 			double input = 0.0;
 			for (int j = 0; j < node.getNumInEdge(); j++) {
 				NetlistEdge edge = node.getInEdgeAtIdx(j);
@@ -191,7 +193,7 @@ public class TMToxicityEvaluation extends CObject{
 	// 		ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
 	// 		for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
 	// 			Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
-	// 			Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
+	// 			GateToxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
 	// 			rtn = Math.min(rtn,output.getToxicity(node));
 	// 		}
 	// 	}
