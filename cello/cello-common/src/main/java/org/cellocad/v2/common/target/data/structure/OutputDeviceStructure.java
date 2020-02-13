@@ -32,10 +32,10 @@ import org.json.simple.JSONObject;
  */
 public class OutputDeviceStructure extends Structure {
 
-	private void parseOutputDeviceStructure(final JSONObject JObj) {
+	private void init() {
 	}
 
-	private void init() {
+	private void parseOutputDeviceStructure(final JSONObject JObj) {
 	}
 
 	public OutputDeviceStructure(final JSONObject jObj) {

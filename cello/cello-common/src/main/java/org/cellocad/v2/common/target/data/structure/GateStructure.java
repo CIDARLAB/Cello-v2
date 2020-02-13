@@ -20,7 +20,11 @@
  */
 package org.cellocad.v2.common.target.data.structure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -34,15 +38,20 @@ import org.json.simple.JSONObject;
 public class GateStructure extends Structure {
 
 	private void init() {
+		this.outputs = new ArrayList<>();
 	}
 
-	private void parseOutput(final JSONObject jObj) {
-		String value = ProfileUtils.getString(jObj, S_OUTPUT);
-		this.output = value;
+	private void parseOutputs(final JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get(S_OUTPUTS);
+		for (int i = 0; i < jArr.size(); i++) {
+			JSONObject o = (JSONObject) jArr.get(i);
+			String value = ProfileUtils.getString(o);
+			this.getOutputs().add(value);
+		}
 	}
 
 	private void parseGateStructure(final JSONObject jObj) {
-		this.parseOutput(jObj);
+		this.parseOutputs(jObj);
 	}
 
 	public GateStructure(final JSONObject jObj) {
@@ -52,16 +61,16 @@ public class GateStructure extends Structure {
 	}
 
 	/**
-	 * Getter for <i>output</i>.
+	 * Getter for <i>outputs</i>.
 	 *
-	 * @return value of output
+	 * @return value of outputs
 	 */
-	public String getOutput() {
-		return output;
+	public List<String> getOutputs() {
+		return outputs;
 	}
 
-	private String output;
+	private List<String> outputs;
 
-	private static final String S_OUTPUT = "output";
+	private static final String S_OUTPUTS = "outputs";
 
 }
