@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,16 +26,19 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 
 /**
- * The StageNetlistNodeData class is the base class for all StageNetlistNodeData classes using the Poros framework.
+ * The StageNetlistNodeData class is the base class for all StageNetlistNodeData
+ * classes using the Poros framework.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Dec 10, 2017
  *
  */
-public abstract class StageNetlistNodeData extends CObject{
+public abstract class StageNetlistNodeData extends CObject {
 
 	/**
 	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
@@ -42,4 +47,25 @@ public abstract class StageNetlistNodeData extends CObject{
 	 *  @throws IOException If an I/O error occurs
 	 */
 	public abstract void writeJSON(int indent, Writer os) throws IOException;
+
+	/**
+	 * Getter for <i>device</i>.
+	 *
+	 * @return value of device
+	 */
+	public AssignableDevice getDevice() {
+		return device;
+	}
+
+	/**
+	 * Setter for <i>device</i>.
+	 *
+	 * @param device the device to set
+	 */
+	public void setDevice(final AssignableDevice device) {
+		this.device = device;
+	}
+
+	private AssignableDevice device;
+
 }

@@ -350,7 +350,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (gate != null) {
-				node.getResultNetlistNodeData().setGateType(gate.getName());
+				node.getResultNetlistNodeData().setDevice(gate.getName());
 			}
 		}
 	}

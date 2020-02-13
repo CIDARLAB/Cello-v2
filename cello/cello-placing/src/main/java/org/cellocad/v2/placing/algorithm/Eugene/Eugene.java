@@ -203,7 +203,7 @@ public class Eugene extends PLAlgorithm {
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
 			ResultNetlistNodeData data = node.getResultNetlistNodeData();
-			String gateType = data.getGateType();
+			String gateType = data.getDevice();
 			Part p = null;
 			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
 				Gate gate = this.getGates().findCObjectByName(gateType);

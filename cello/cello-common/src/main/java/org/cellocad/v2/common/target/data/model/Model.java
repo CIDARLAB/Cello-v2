@@ -86,7 +86,7 @@ public class Model extends CObject {
 	 * @param name name of the Function to return
 	 * @return the element with name equivalent to parameter <i>name</i>
 	 */
-	public Function getFunctionByName(final String name) {
+	public Function getFunction(final String name) {
 		return this.getFunctions().get(name);
 	}
 
@@ -95,7 +95,7 @@ public class Model extends CObject {
 	 *
 	 * @return value of functions
 	 */
-	public Map<String, Function> getFunctions() {
+	private Map<String, Function> getFunctions() {
 		return functions;
 	}
 

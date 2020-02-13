@@ -119,7 +119,7 @@ public class EugeneUtils {
 			NetlistEdge e = node.getInEdgeAtIdx(i);
 			NetlistNode src = e.getSrc();
 			String input = "";
-			String gateType = src.getResultNetlistNodeData().getGateType();
+			String gateType = src.getResultNetlistNodeData().getDevice();
 			if (LSResultsUtils.isAllInput(src)) {
 				InputSensor sensor = sensors.findCObjectByName(gateType);
 				input = sensor.getOutput();
@@ -151,7 +151,7 @@ public class EugeneUtils {
 	static Collection<StructureDevice> getDevices(final NetlistNode node, final CObjectCollection<Gate> gates,
 			final CObjectCollection<OutputDevice> reporters) {
 		Collection<StructureDevice> rtn = new ArrayList<>();
-		String gateType = node.getResultNetlistNodeData().getGateType();
+		String gateType = node.getResultNetlistNodeData().getDevice();
 		Integer num = node.getNumInEdge();
 		Gate gate = gates.findCObjectByName(gateType);
 		OutputDevice reporter = reporters.findCObjectByName(gateType);

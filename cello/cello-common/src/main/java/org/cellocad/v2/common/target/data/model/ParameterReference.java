@@ -52,7 +52,7 @@ public class ParameterReference extends Parameter {
 	}
 
 	@Override
-	public Number evaluate(ContextEvaluator ce) {
+	public Number evaluate(EvaluationContext ce) {
 		return null;
 	}
 

@@ -58,14 +58,14 @@ public class ResponsePlots {
 
 	public static String getPlotFilename(final NetlistNode node) {
 		String rtn = null;
-		String gateType = node.getResultNetlistNodeData().getGateType();
+		String gateType = node.getResultNetlistNodeData().getDevice();
 		rtn = String.format(S_PREFIX + "%s_%s.png", node.getName(), gateType);
 		return rtn;
 	}
 
 	private static String getPlotScriptFilename(final NetlistNode node) {
 		String rtn = null;
-		String gateType = node.getResultNetlistNodeData().getGateType();
+		String gateType = node.getResultNetlistNodeData().getDevice();
 		rtn = String.format(S_PREFIX + "%s_%s.py", node.getName(), gateType);
 		return rtn;
 	}

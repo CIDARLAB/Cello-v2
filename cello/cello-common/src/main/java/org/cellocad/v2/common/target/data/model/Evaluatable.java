@@ -32,6 +32,6 @@ import org.cellocad.v2.common.CObject;
  */
 public abstract class Evaluatable extends CObject {
 
-	public abstract Number evaluate(ContextEvaluator ce);
+	public abstract Number evaluate(EvaluationContext ce);
 
 }

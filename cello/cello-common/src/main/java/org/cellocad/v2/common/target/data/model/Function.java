@@ -20,7 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
-import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
@@ -34,7 +33,7 @@ import org.json.simple.JSONObject;
  * @date 2020-02-11
  *
  */
-public class Function extends CObject {
+public class Function extends Evaluatable {
 
 	private void init() {
 		this.variables = new CObjectCollection<>();
@@ -95,6 +94,12 @@ public class Function extends CObject {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getName() != null);
 		rtn = rtn && (this.getEquation() != null);
+		return rtn;
+	}
+
+	@Override
+	public Number evaluate(EvaluationContext ce) {
+		Double rtn = null;
 		return rtn;
 	}
 

@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -51,7 +53,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setNodeType(LSResults.S_DEFAULT);
 		this.setPartitionID(PTResults.S_DEFAULT);
 		this.setClusterID(CLResults.S_DEFAULT);
-		this.setGateType(TMResults.S_DEFAULT);
+		this.setDevice(TMResults.S_DEFAULT);
 	}
 
 	/**
@@ -72,7 +74,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setDefault();
 		this.setNodeType(other.getNodeType());
 		this.setPartitionID(other.getPartitionID());
-		this.setGateType(other.getGateType());
+		this.setDevice(other.getDevice());
 	}
 
 	/**
@@ -99,8 +101,8 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		rtn += JSONUtils.getEntryToString("nodeType", this.getNodeType());
 		// partitionID
 		rtn += JSONUtils.getEntryToString("partitionID", this.getPartitionID());
-		// gateType
-		rtn += JSONUtils.getEntryToString("gateType", this.getGateType());
+		// device
+		rtn += JSONUtils.getEntryToString("device", this.getDevice());
 		return rtn;
 	}
 	
@@ -131,10 +133,11 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		int value = ProfileUtils.getInteger(JObj, "partitionID");
 		this.setPartitionID(value);
 	}
-	private void parseGateType(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gateType");
+
+	private void parseDevice(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, "device");
 		if (value != null) {
-			this.setGateType(value);
+			this.setDevice(value);
 		}
 	}
 	/**
@@ -145,7 +148,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	public void parse(final JSONObject JObj){
     	this.parseNodeType(JObj);
     	this.parsePartitionID(JObj);
-    	this.parseGateType(JObj);
+		this.parseDevice(JObj);
 	}
 
 	/*
@@ -215,22 +218,24 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	 * GateType
 	 */
 	/**
-	 *  Setter for <i>gateType</i>
-	 *  @param gateType the value to set <i>gateType</i>
+	 * Setter for <i>device</i>
+	 * 
+	 * @param device the value to set <i>device</i>
 	 */
-	public void setGateType(String gateType) {
-		this.gateType = gateType;
+	public void setDevice(String device) {
+		this.device = device;
 	}
 
 	/**
-	 *  Getter for <i>gateType</i>
-	 *  @return the gateType of this instance
+	 * Getter for <i>device</i>
+	 * 
+	 * @return the device of this instance
 	 */
-	public String getGateType() {
-		return this.gateType;
+	public String getDevice() {
+		return this.device;
 	}
 	
-	private String gateType;
+	private String device;
 	
 	/**
 	 *  Returns a string representation of the object.
@@ -248,7 +253,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 			rtn += data;
 		}
 		// GateType
-		data = this.getGateType();
+		data = this.getDevice();
 		if (!data.isEmpty()) {
 			// modify
 			rtn += Utils.getNewLine();

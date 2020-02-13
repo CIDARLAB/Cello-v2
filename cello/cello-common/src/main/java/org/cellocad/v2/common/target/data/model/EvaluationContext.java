@@ -30,11 +30,30 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * @date 2020-02-12
  *
  */
-public class ContextEvaluator {
+public class EvaluationContext {
 
-	public ContextEvaluator(NetlistNode node) {
-
+	public EvaluationContext() {
 	}
+
+	/**
+	 * Getter for <i>node</i>.
+	 *
+	 * @return value of node
+	 */
+	public NetlistNode getNode() {
+		return node;
+	}
+
+	/**
+	 * Setter for <i>node</i>.
+	 *
+	 * @param node the node to set
+	 */
+	public void setNode(NetlistNode node) {
+		this.node = node;
+	}
+
+	private NetlistNode node;
 
 	private static final String S_REFCHAR = "#/";
 
