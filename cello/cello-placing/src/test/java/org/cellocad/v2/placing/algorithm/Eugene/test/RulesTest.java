@@ -23,7 +23,7 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.target.data.placing.CircuitRules;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

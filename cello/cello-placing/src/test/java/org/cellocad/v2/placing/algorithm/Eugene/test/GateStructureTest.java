@@ -23,8 +23,8 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.GateStructure;
-import org.cellocad.v2.common.target.data.data.StructureDevice;
+import org.cellocad.v2.common.target.data.structure.GateStructure;
+import org.cellocad.v2.common.target.data.structure.StructureDevice;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

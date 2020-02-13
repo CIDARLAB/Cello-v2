@@ -18,8 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.component;
 
+import org.cellocad.v2.common.target.data.model.OutputDeviceModel;
+import org.cellocad.v2.common.target.data.structure.OutputDeviceStructure;
 import org.json.simple.JSONObject;
 
 /**

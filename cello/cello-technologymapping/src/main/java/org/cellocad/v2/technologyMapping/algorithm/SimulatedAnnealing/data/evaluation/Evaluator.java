@@ -25,9 +25,9 @@ import java.util.List;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.FixedParameter;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.model.FixedParameter;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;

@@ -18,9 +18,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import org.json.simple.JSONObject;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 
 /**
  *
@@ -30,15 +30,10 @@ import org.json.simple.JSONObject;
  * @date 2020-02-12
  *
  */
-public class Variable extends Evaluatable {
+public class ContextEvaluator {
 
-	public Variable(JSONObject jObj) {
-	}
+	public ContextEvaluator(AssignableDevice d) {
 
-	@Override
-	public Number evaluate(ContextEvaluator ce) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

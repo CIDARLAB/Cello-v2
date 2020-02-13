@@ -18,16 +18,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.structure;
+
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-12
+ * @date 2020-01-09
  *
  */
-public class StructurePart extends StructureObject {
+public class GateStructure extends Structure {
+
+	private void init() {
+	}
+
+	private void parseOutput(final JSONObject jObj) {
+		String value = ProfileUtils.getString(jObj, S_OUTPUT);
+		this.output = value;
+	}
+
+	private void parseGateStructure(final JSONObject jObj) {
+		this.parseOutput(jObj);
+	}
+
+	public GateStructure(final JSONObject jObj) {
+		super(jObj);
+		this.init();
+		this.parseGateStructure(jObj);
+	}
+
+	/**
+	 * Getter for <i>output</i>.
+	 *
+	 * @return value of output
+	 */
+	public String getOutput() {
+		return output;
+	}
+
+	private String output;
+
+	private static final String S_OUTPUT = "output";
 
 }

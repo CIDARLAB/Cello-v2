@@ -23,7 +23,7 @@ package org.cellocad.v2.export.algorithm.SBOL.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

@@ -18,11 +18,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import java.net.URI;
-
-import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
@@ -31,51 +28,46 @@ import org.json.simple.JSONObject;
  *
  * @author Timothy Jones
  *
- * @date 2020-02-11
+ * @date 2020-02-12
  *
  */
-public abstract class DNAComponent extends CObject {
+public class ParameterReference extends Parameter {
 
 	private void init() {
 	}
 
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_NAME);
-		this.setName(value);
+	private void parseMap(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
+		this.map = value;
 	}
 
-	private void parseDNAComponent(final JSONObject JObj) {
-		this.init();
+	private void parseParameterReference(final JSONObject JObj) {
 		this.parseName(JObj);
+		this.parseMap(JObj);
 	}
 
-	public DNAComponent(final JSONObject jObj) {
-		this.parseDNAComponent(jObj);
+	public ParameterReference(final JSONObject jObj) {
+		this.init();
+		this.parseParameterReference(jObj);
+	}
+
+	@Override
+	public Number evaluate(ContextEvaluator ce) {
+		return null;
 	}
 
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getMap() != null);
 		return rtn;
 	}
 
-	/**
-	 * @return the uri
-	 */
-	public URI getUri() {
-		return uri;
+	private String getMap() {
+		return map;
 	}
 
-	/**
-	 * @param uri the uri to set
-	 */
-	public void setUri(final URI uri) {
-		this.uri = uri;
-	}
-
-	private URI uri;
-
-	private static final String S_NAME = "name";
+	private String map;
 
 }

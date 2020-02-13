@@ -18,9 +18,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
@@ -31,13 +30,15 @@ import org.json.simple.JSONObject;
  * @date 2020-02-12
  *
  */
-public abstract class Parameter extends Evaluatable {
+public class Variable extends Evaluatable {
 
-	protected final void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_NAME);
-		this.setName(value);
+	public Variable(JSONObject jObj) {
 	}
 
-	private static final String S_NAME = "name";
+	@Override
+	public Number evaluate(ContextEvaluator ce) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -18,7 +18,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.structure;
+
+import org.cellocad.v2.common.CObject;
 
 /**
  *
@@ -28,43 +30,14 @@ package org.cellocad.v2.common.target.data.data;
  * @date 2020-02-12
  *
  */
-public class StructureTemplate extends StructureObject {
+public class StructureObject extends CObject {
 
-	public StructureTemplate(final String template) {
-		if (!template.startsWith(S_PREFIX)) {
-			throw new RuntimeException("Not a template.");
-		}
-		String str = template.substring(1);
-		if (str.endsWith(S_SUFFIX)) {
-			this.input = true;
-			this.removeable = true;
-			str = str.substring(0, str.length() - 1);
-		}
-		this.setName(str);
+	public StructureObject() {
+		super();
 	}
 
-	/**
-	 * Getter for <i>removeable</i>
-	 *
-	 * @return value of <i>removeable</i>
-	 */
-	public Boolean isRemoveable() {
-		return removeable;
+	public StructureObject(StructureObject obj) {
+		super(obj);
 	}
-
-	/**
-	 * Getter for <i>input</i>
-	 *
-	 * @return value of <i>input</i>
-	 */
-	public Boolean isInput() {
-		return input;
-	}
-
-	private Boolean removeable;
-	private Boolean input;
-
-	public static final String S_PREFIX = "#";
-	private static final String S_SUFFIX = "?";
 
 }

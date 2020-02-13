@@ -27,10 +27,10 @@ import java.util.List;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
-import org.cellocad.v2.common.target.data.data.AssignableDevice;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.FixedParameter;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.data.ResponseFunction;
+import org.cellocad.v2.common.target.data.model.FixedParameter;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;

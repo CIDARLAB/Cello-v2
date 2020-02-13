@@ -18,9 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
-
-import org.cellocad.v2.common.CObject;
+package org.cellocad.v2.common.target.data.model;
 
 /**
  *
@@ -30,14 +28,8 @@ import org.cellocad.v2.common.CObject;
  * @date 2020-02-12
  *
  */
-public class StructureObject extends CObject {
+public final class Reference {
 
-	public StructureObject() {
-		super();
-	}
-
-	public StructureObject(StructureObject obj) {
-		super(obj);
-	}
+	public static final String S_MAP = "map";
 
 }

@@ -18,30 +18,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import org.json.simple.JSONObject;
+import org.cellocad.v2.common.CObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-29
+ * @date 2020-02-12
  *
  */
-public class OutputDeviceStructure extends Structure {
+public abstract class Evaluatable extends CObject {
 
-	private void parseOutputDeviceStructure(final JSONObject JObj) {
-	}
-
-	private void init() {
-	}
-
-	public OutputDeviceStructure(final JSONObject jObj) {
-		super(jObj);
-		this.init();
-		this.parseOutputDeviceStructure(jObj);
-	}
+	public abstract Number evaluate(ContextEvaluator ce);
 
 }

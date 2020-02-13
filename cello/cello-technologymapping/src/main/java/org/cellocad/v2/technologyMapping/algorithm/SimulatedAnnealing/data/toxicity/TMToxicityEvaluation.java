@@ -30,7 +30,7 @@ import java.util.Map;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
-import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.data.GateToxicity;
 import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.common.target.data.data.ResponseFunctionVariable;

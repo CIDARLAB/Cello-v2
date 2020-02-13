@@ -18,20 +18,58 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-12
+ * @date 2020-01-30
  *
  */
-public abstract class Evaluatable extends CObject {
+public class FixedParameter extends Parameter {
 
-	public abstract Number evaluate(ContextEvaluator ce);
+	private void init() {
+	}
+
+	private void parseValue(final JSONObject JObj) {
+		Double value = ProfileUtils.getDouble(JObj, S_VALUE);
+		this.value = value;
+	}
+
+	private void parseFixedParameter(final JSONObject jObj) {
+		this.parseName(jObj);
+		this.parseValue(jObj);
+	}
+
+	public FixedParameter(final JSONObject jobj) {
+		this.init();
+		this.parseFixedParameter(jobj);
+	}
+
+	@Override
+	public Number evaluate(ContextEvaluator ce) {
+		return this.getValue();
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getValue() != null);
+		return rtn;
+	}
+
+	private Double getValue() {
+		return value;
+	}
+
+	private Double value;
+
+	private static final String S_VALUE = "value";
 
 }

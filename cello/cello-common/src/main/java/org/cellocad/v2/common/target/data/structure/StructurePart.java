@@ -18,64 +18,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
-
-import org.json.simple.JSONObject;
+package org.cellocad.v2.common.target.data.structure;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-11
+ * @date 2020-02-12
  *
  */
-public class InputSensorModel extends Model {
-	
-	private void init() {
-	}
-
-	private void parseInputSensorModel(final JSONObject jObj) {
-		this.init();
-	}
-
-	public InputSensorModel(final JSONObject jObj) {
-		super(jObj);
-		this.parseInputSensorModel(jObj);
-	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getResponseFunction() != null);
-		return rtn;
-	}
-
-	/*
-	 * ResponseFunction
-	 */
-
-	/**
-	 * Getter for <i>responseFunction</i>.
-	 *
-	 * @return value of responseFunction
-	 */
-	public Function getResponseFunction() {
-		return responseFunction;
-	}
-
-	/**
-	 * Setter for <i>responseFunction</i>.
-	 *
-	 * @param responseFunction the responseFunction to set
-	 */
-	public void setResponseFunction(final Function responseFunction) {
-		this.responseFunction = responseFunction;
-	}
-
-	private Function responseFunction;
-
-	public static final String S_RESPONSEFUNCTION = "response_function";
+public class StructurePart extends StructureObject {
 
 }

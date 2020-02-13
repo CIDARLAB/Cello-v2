@@ -30,9 +30,9 @@ import java.util.Set;
 
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.GateStructure;
-import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.component.Gate;
+import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.structure.GateStructure;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;

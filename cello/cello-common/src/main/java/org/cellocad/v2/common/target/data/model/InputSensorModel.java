@@ -18,12 +18,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -31,54 +27,55 @@ import org.json.simple.JSONObject;
  *
  * @author Timothy Jones
  *
- * @date 2020-01-13
+ * @date 2020-02-11
  *
  */
-public class DeviceRules {
-
+public class InputSensorModel extends Model {
+	
 	private void init() {
-		this.rules = new ArrayList<>();
 	}
 
-	private void parseDeviceRules(JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get(S_RULES);
-		for (Object o : jArr) {
-			String str = (String) o;
-			this.getRules().add(str);
-		}
+	private void parseInputSensorModel(final JSONObject jObj) {
+		this.init();
 	}
 
-	public DeviceRules(JSONObject jObj) {
-		init();
-		this.parseDeviceRules(jObj);
+	public InputSensorModel(final JSONObject jObj) {
+		super(jObj);
+		this.parseInputSensorModel(jObj);
 	}
 
-	public Collection<String> getRulesByObjectName(String name) {
-		Collection<String> rtn = new ArrayList<>();
-		for (String rule : this.getRules()) {
-			if (EugeneRules.GlobalOrientationRuleKeywords.contains(rule)) {
-				rtn.add(rule);
-			}
-			Collection<String> objects = EugeneRules.getObjects(rule);
-			for (String str : objects) {
-				if (str.equals(name))
-					rtn.add(rule);
-			}
-		}
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getResponseFunction() != null);
 		return rtn;
 	}
 
-	/**
-	 * Getter for <i>rules</i>
-	 *
-	 * @return value of <i>rules</i>
+	/*
+	 * ResponseFunction
 	 */
-	private Collection<String> getRules() {
-		return rules;
+
+	/**
+	 * Getter for <i>responseFunction</i>.
+	 *
+	 * @return value of responseFunction
+	 */
+	public Function getResponseFunction() {
+		return responseFunction;
 	}
 
-	private Collection<String> rules;
+	/**
+	 * Setter for <i>responseFunction</i>.
+	 *
+	 * @param responseFunction the responseFunction to set
+	 */
+	public void setResponseFunction(final Function responseFunction) {
+		this.responseFunction = responseFunction;
+	}
 
-	private static final String S_RULES = "rules";
+	private Function responseFunction;
+
+	public static final String S_RESPONSEFUNCTION = "response_function";
 
 }

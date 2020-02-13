@@ -37,6 +37,7 @@ import java.util.List;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Pair;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

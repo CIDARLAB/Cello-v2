@@ -18,20 +18,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
+
+import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-12
+ * @date 2020-02-11
  *
  */
-public class ContextEvaluator {
-
-	public ContextEvaluator(AssignableDevice d) {
-
+public class GateModel extends Model {
+	
+	private void init() {
 	}
+
+	private void parseGateModel(final JSONObject jObj) {
+		this.init();
+	}
+
+	public GateModel(final JSONObject jObj) {
+		super(jObj);
+		this.parseGateModel(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getResponseFunction() != null);
+		return rtn;
+	}
+
+	/*
+	 * ResponseFunction
+	 */
+
+	/**
+	 * Getter for <i>responseFunction</i>.
+	 *
+	 * @return value of responseFunction
+	 */
+	public Function getResponseFunction() {
+		return responseFunction;
+	}
+
+	/**
+	 * Setter for <i>responseFunction</i>.
+	 *
+	 * @param responseFunction the responseFunction to set
+	 */
+	public void setResponseFunction(final Function responseFunction) {
+		this.responseFunction = responseFunction;
+	}
+
+	private Function responseFunction;
+
+	public static final String S_RESPONSEFUNCTION = "response_function";
 
 }

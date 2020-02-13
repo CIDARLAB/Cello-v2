@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
@@ -31,43 +31,13 @@ import org.json.simple.JSONObject;
  * @date 2020-02-12
  *
  */
-public class ParameterReference extends Parameter {
+public abstract class Parameter extends Evaluatable {
 
-	private void init() {
+	protected final void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_NAME);
+		this.setName(value);
 	}
 
-	private void parseMap(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
-		this.map = value;
-	}
-
-	private void parseParameterReference(final JSONObject JObj) {
-		this.parseName(JObj);
-		this.parseMap(JObj);
-	}
-
-	public ParameterReference(final JSONObject jObj) {
-		this.init();
-		this.parseParameterReference(jObj);
-	}
-
-	@Override
-	public Number evaluate(ContextEvaluator ce) {
-		return null;
-	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getMap() != null);
-		return rtn;
-	}
-
-	private String getMap() {
-		return map;
-	}
-
-	private String map;
+	private static final String S_NAME = "name";
 
 }

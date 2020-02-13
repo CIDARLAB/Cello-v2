@@ -18,58 +18,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
-
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.json.simple.JSONObject;
+package org.cellocad.v2.common.target.data.structure;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-30
+ * @date 2020-02-12
  *
  */
-public class FixedParameter extends Parameter {
+public class StructureTemplate extends StructureObject {
 
-	private void init() {
+	public StructureTemplate(final String template) {
+		if (!template.startsWith(S_PREFIX)) {
+			throw new RuntimeException("Not a template.");
+		}
+		String str = template.substring(1);
+		if (str.endsWith(S_SUFFIX)) {
+			this.input = true;
+			this.removeable = true;
+			str = str.substring(0, str.length() - 1);
+		}
+		this.setName(str);
 	}
 
-	private void parseValue(final JSONObject JObj) {
-		Double value = ProfileUtils.getDouble(JObj, S_VALUE);
-		this.value = value;
+	/**
+	 * Getter for <i>removeable</i>
+	 *
+	 * @return value of <i>removeable</i>
+	 */
+	public Boolean isRemoveable() {
+		return removeable;
 	}
 
-	private void parseFixedParameter(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parseValue(jObj);
+	/**
+	 * Getter for <i>input</i>
+	 *
+	 * @return value of <i>input</i>
+	 */
+	public Boolean isInput() {
+		return input;
 	}
 
-	public FixedParameter(final JSONObject jobj) {
-		this.init();
-		this.parseFixedParameter(jobj);
-	}
+	private Boolean removeable;
+	private Boolean input;
 
-	@Override
-	public Number evaluate(ContextEvaluator ce) {
-		return this.getValue();
-	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getValue() != null);
-		return rtn;
-	}
-
-	private Double getValue() {
-		return value;
-	}
-
-	private Double value;
-
-	private static final String S_VALUE = "value";
+	public static final String S_PREFIX = "#";
+	private static final String S_SUFFIX = "?";
 
 }

@@ -23,7 +23,7 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.technologyMapping.algorithm.data.TMNetlistNodeData;
 
 /**

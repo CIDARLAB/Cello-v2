@@ -18,18 +18,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.structure;
+
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-12
+ * @date 2020-02-11
  *
  */
-public final class Reference {
+public class Input extends CObject {
 
-	public static final String S_MAP = "map";
+	private void init() {
+	}
+
+	private void parseName(final JSONObject jObj) {
+		String value = ProfileUtils.getString(jObj, S_NAME);
+		this.setName(value);
+	}
+
+	private void parsePartType(final JSONObject jObj) {
+		String value = ProfileUtils.getString(jObj, S_PARTTYPE);
+		this.partType = value;
+	}
+
+	private void parseInput(final JSONObject JObj) {
+		this.parseName(JObj);
+		this.parsePartType(JObj);
+	}
+
+	public Input(final JSONObject jObj) {
+		this.init();
+		this.parseInput(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>partType</i>.
+	 *
+	 * @return value of partType
+	 */
+	public String getPartType() {
+		return partType;
+	}
+
+	private String partType;
+
+	private static final String S_NAME = "name";
+	private static final String S_PARTTYPE = "part_type";
 
 }

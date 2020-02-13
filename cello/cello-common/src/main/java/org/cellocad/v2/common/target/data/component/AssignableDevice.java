@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Boston University (BU)
+ * Copyright (C) 2018 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,64 +18,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.data;
+package org.cellocad.v2.common.target.data.component;
 
-import org.cellocad.v2.common.CObject;
-import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
- *
+ * 
  *
  * @author Timothy Jones
  *
- * @date 2020-02-11
+ * @date 2018-06-29
  *
  */
-public class Input extends CObject {
+public abstract class AssignableDevice extends DNAComponent {
 
-	private void init() {
+	public AssignableDevice(final JSONObject jObj) {
+		super(jObj);
 	}
-
-	private void parseName(final JSONObject jObj) {
-		String value = ProfileUtils.getString(jObj, S_NAME);
-		this.setName(value);
-	}
-
-	private void parsePartType(final JSONObject jObj) {
-		String value = ProfileUtils.getString(jObj, S_PARTTYPE);
-		this.partType = value;
-	}
-
-	private void parseInput(final JSONObject JObj) {
-		this.parseName(JObj);
-		this.parsePartType(JObj);
-	}
-
-	public Input(final JSONObject jObj) {
-		this.init();
-		this.parseInput(jObj);
-	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		return rtn;
-	}
-
-	/**
-	 * Getter for <i>partType</i>.
-	 *
-	 * @return value of partType
-	 */
-	public String getPartType() {
-		return partType;
-	}
-
-	private String partType;
-
-	private static final String S_NAME = "name";
-	private static final String S_PARTTYPE = "part_type";
 
 }
