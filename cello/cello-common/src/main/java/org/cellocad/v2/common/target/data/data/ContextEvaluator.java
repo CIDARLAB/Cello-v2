@@ -30,7 +30,7 @@ package org.cellocad.v2.common.target.data.data;
  */
 public class ContextEvaluator {
 
-	public ContextEvaluator(Gate gate) {
+	public ContextEvaluator(AssignableDevice d) {
 
 	}
 
