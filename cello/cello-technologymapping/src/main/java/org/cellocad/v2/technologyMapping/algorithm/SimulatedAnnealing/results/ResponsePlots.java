@@ -29,7 +29,7 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.data.FixedParameter;
 import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
@@ -94,7 +94,7 @@ public class ResponsePlots {
 		String equation = rf.getEquation();
 		MathEval eval = new MathEval();
 		for (int i = 0; i < rf.getNumParameter(); i++) {
-			Parameter param = rf.getParameterAtIdx(i);
+			FixedParameter param = rf.getParameterAtIdx(i);
 			eval.setConstant(param.getName(), param.getValue());
 		}
 		for (int i = 0; i < x.size(); i++) {

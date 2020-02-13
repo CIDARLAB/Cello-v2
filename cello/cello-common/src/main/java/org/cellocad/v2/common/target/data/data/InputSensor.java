@@ -20,9 +20,7 @@
  */
 package org.cellocad.v2.common.target.data.data;
 
-import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.profile.ProfileUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -33,39 +31,22 @@ import org.json.simple.JSONObject;
  * @date 2018-05-23
  *
  */
-public class InputSensor extends AssignableDevice{
+public class InputSensor extends AssignableDevice {
 	
 	private void init() {
-		this.parameters = new CObjectCollection<>();
 	}
 	
-	private void parseName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
-	}
-	
-	private void parsePromoter(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "promoter");
-		this.setPromoter(value);
-	}
-	
-	private void parseParameters(final JSONObject JObj) {
-		CObjectCollection<Parameter> parameters = this.getParameters();
-		JSONArray jArr = (JSONArray) JObj.get("parameters");
-		for (int i = 0; i < jArr.size(); i++) {
-			JSONObject jObj = (JSONObject) jArr.get(i);
-			Parameter parameter = new Parameter(jObj);
-			parameters.add(parameter);
-		}
+	private void parseOutput(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_OUTPUT);
+		this.setOutput(value);
 	}
 	
 	private void parseInputSensor(final JSONObject jObj) {
-		this.parseName(jObj);
-		this.parsePromoter(jObj);
-		this.parseParameters(jObj);
+		this.parseOutput(jObj);
 	}
 	
 	public InputSensor(final JSONObject jObj) {
+		super(jObj);
 		this.init();
 		this.parseInputSensor(jObj);
 	}
@@ -73,59 +54,59 @@ public class InputSensor extends AssignableDevice{
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getPromoter() != null);
-		rtn = rtn && (this.getParameters() != null);
+		rtn = rtn && (this.getOutput() != null);
 		return rtn;
 	}
 	
 	/*
-	 * Promoter
+	 * Output
 	 */
+
 	/**
-	 * Getter for <i>promoter</i>
-	 * @return the promoter
+	 * Getter for <i>output</i>.
+	 * 
+	 * @return the output
 	 */
-	public String getPromoter() {
-		return promoter;
+	public String getOutput() {
+		return output;
 	}
 
 	/**
-	 * Setter for <i>promoter</i>
-	 * @param promoter the promoter to set
+	 * Setter for <i>output</i>.
+	 * 
+	 * @param output the output to set
 	 */
-	private void setPromoter(final String promoter) {
-		this.promoter = promoter;
+	private void setOutput(final String output) {
+		this.output = output;
 	}
 
-	private String promoter;
-	
+	private String output;
+
 	/*
-	 * Parameter
+	 * InputSensorModel
 	 */
-	public Parameter getParameterValueByName(final String name) {
-		return this.getParameters().findCObjectByName(name);
+
+	/**
+	 * Getter for <i>inputSensorModel</i>.
+	 *
+	 * @return value of inputSensorModel
+	 */
+	public InputSensorModel getInputSensorModel() {
+		return inputSensorModel;
 	}
 
-	public Parameter getParameterAtIdx(final int index) {
-		Parameter rtn = null;
-		if ((0 <= index) && (index < this.getNumParameter())) {
-			rtn = this.getParameters().get(index);
-		}
-		return rtn;
-	}
-	
-	public int getNumParameter() {
-		return this.getParameters().size();
+	/**
+	 * Setter for <i>inputSensorModel</i>.
+	 *
+	 * @param inputSensorModel the inputSensorModel to set
+	 */
+	public void setInputSensorModel(InputSensorModel inputSensorModel) {
+		this.inputSensorModel = inputSensorModel;
 	}
 
-	private CObjectCollection<Parameter> getParameters() {
-		return this.parameters;
-	}
+	private InputSensorModel inputSensorModel;
 
-	private CObjectCollection<Parameter> parameters;
-
-	public static String S_HI = "signal_high";
-	public static String S_LO = "signal_low";
+	private static final String S_OUTPUT = "output";
+	public static final String S_MODEL = "model";
 
 }

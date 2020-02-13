@@ -61,7 +61,7 @@ public class GateManager extends CObject{
 		CObjectCollection<Gate> list = null;
 		for (int i = 0; i < gates.size(); i ++) {
 			Gate gate = gates.get(i);
-			String name = gate.getGroupName();
+			String name = gate.getGroup();
 			list = map.get(name);
 			if (list == null) {
 				list = new CObjectCollection<Gate>();
@@ -74,7 +74,7 @@ public class GateManager extends CObject{
 		Integer value = 0;
 		for (int i = 0; i < gates.size(); i ++) {
 			Gate gate = gates.get(i);
-			String name = gate.getGroupName();
+			String name = gate.getGroup();
 			value = map.get(name);
 			if (value == null) {
 				value = new Integer(GateManager.I_ZERO);
@@ -87,7 +87,7 @@ public class GateManager extends CObject{
 		CObjectCollection<Gate> list = null;
 		for (int i = 0; i < gates.size(); i ++) {
 			Gate gate = gates.get(i);
-			String name = gate.getGroupName();
+			String name = gate.getGroup();
 			list = map.get(name);
 			if (list == null) {
 				throw new RuntimeException("Group name does not exist!");
@@ -100,7 +100,7 @@ public class GateManager extends CObject{
 		Integer value = null;
 		for (int i = 0; i < gates.size(); i ++) {
 			Gate gate = gates.get(i);
-			String name = gate.getGroupName();
+			String name = gate.getGroup();
 			value = map.get(name);
 			map.put(name, value + 1);
 		}
@@ -164,7 +164,7 @@ public class GateManager extends CObject{
 	
 	private boolean contains(final Map<String, CObjectCollection<Gate>> gates, final Gate gate) {
 		boolean rtn = false;
-		CObjectCollection<Gate> list = gates.get(gate.getGroupName());
+		CObjectCollection<Gate> list = gates.get(gate.getGroup());
 		rtn = this.contains(list, gate);
 		return rtn;
 	}
@@ -177,7 +177,7 @@ public class GateManager extends CObject{
 	
 	private boolean remove(final Map<String, CObjectCollection<Gate>> gates, final Gate gate) {
 		boolean rtn = false;
-		CObjectCollection<Gate> list = gates.get(gate.getGroupName());
+		CObjectCollection<Gate> list = gates.get(gate.getGroup());
 		rtn = this.remove(list, gate);
 		return rtn;
 	}
@@ -190,13 +190,13 @@ public class GateManager extends CObject{
 	
 	private boolean add(final Map<String, CObjectCollection<Gate>> gates, final Gate gate) {
 		boolean rtn = false;
-		CObjectCollection<Gate> list = gates.get(gate.getGroupName());
+		CObjectCollection<Gate> list = gates.get(gate.getGroup());
 		rtn = this.add(list, gate);
 		return rtn;
 	}
 
 	private void inc(final Map<String, Integer> gates, final Gate gate) {
-		String name = gate.getGroupName();
+		String name = gate.getGroup();
 		Integer value = gates.get(name);
 		if (value == Integer.MAX_VALUE) {
 			throw new RuntimeException("MAX_VALUE!");
@@ -205,7 +205,7 @@ public class GateManager extends CObject{
 	}
 	
 	private void dec(final Map<String, Integer> gates, final Gate gate) {
-		String name = gate.getGroupName();
+		String name = gate.getGroup();
 		Integer value = gates.get(name);
 		if (value == GateManager.I_ZERO) {
 			throw new RuntimeException("IS ZERO!");

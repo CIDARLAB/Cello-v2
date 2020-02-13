@@ -1,0 +1,139 @@
+/**
+ * Copyright (C) 2020 Boston University (BU)
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package org.cellocad.v2.common.target.data.data;
+
+import java.util.Iterator;
+
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+/**
+ *
+ *
+ * @author Timothy Jones
+ *
+ * @date 2020-02-13
+ *
+ */
+public class Structure extends CObject {
+
+	private void init() {
+		this.devices = new CObjectCollection<StructureDevice>();
+	}
+
+	private void parseName(final JSONObject jObj) {
+		String value = ProfileUtils.getString(jObj, S_NAME);
+		this.setName(value);
+	}
+
+	private void parseInputs(final JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get(S_INPUTS);
+		for (int i = 0; i < jArr.size(); i++) {
+			JSONObject o = (JSONObject) jArr.get(i);
+			Input input = new Input(o);
+			this.getInputs().add(input);
+		}
+	}
+
+	private static CObjectCollection<StructureDevice> nestDevices(CObjectCollection<StructureDevice> devices) {
+		CObjectCollection<StructureDevice> rtn = new CObjectCollection<>();
+		rtn.addAll(devices);
+		Iterator<StructureDevice> it = devices.iterator();
+		while (it.hasNext()) {
+			StructureDevice d = it.next();
+			for (int i = 0; i < d.getComponents().size(); i++) {
+				StructureObject o = d.getComponents().get(i);
+				if (o instanceof StructureTemplate)
+					continue;
+				Iterator<StructureDevice> jt = devices.iterator();
+				while (jt.hasNext()) {
+					StructureDevice e = jt.next();
+					if (e.equals(d))
+						continue;
+					if (e.getName().equals(o.getName())) {
+						d.getComponents().set(i, e);
+						rtn.remove(e);
+						break;
+					}
+				}
+			}
+		}
+		return rtn;
+	}
+
+	private void parseDevices(final JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get(S_DEVICES);
+		for (int i = 0; i < jArr.size(); i++) {
+			JSONObject o = (JSONObject) jArr.get(i);
+			StructureDevice d = new StructureDevice(o);
+			this.getDevices().add(d);
+		}
+		this.devices = nestDevices(this.getDevices());
+	}
+
+	private void parseStructure(final JSONObject jObj) {
+		this.parseName(jObj);
+		this.parseInputs(jObj);
+		this.parseDevices(jObj);
+	}
+
+	public Structure(final JSONObject jObj) {
+		this.init();
+		this.parseStructure(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>inputs</i>.
+	 *
+	 * @return value of inputs
+	 */
+	public CObjectCollection<Input> getInputs() {
+		return inputs;
+	}
+
+	private CObjectCollection<Input> inputs;
+
+	/**
+	 * Getter for <i>devices</i>.
+	 *
+	 * @return value of <i>devices</i>
+	 */
+	public CObjectCollection<StructureDevice> getDevices() {
+		return devices;
+	}
+
+	private CObjectCollection<StructureDevice> devices;
+
+	private static final String S_NAME = "name";
+	private static final String S_INPUTS = "inputs";
+	private static final String S_DEVICES = "devices";
+
+}

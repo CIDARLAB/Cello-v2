@@ -20,7 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.data;
 
-import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
@@ -31,34 +30,42 @@ import org.json.simple.JSONObject;
  * @date 2018-06-29
  *
  */
-public class OutputDevice extends AssignableDevice{
+public class OutputDevice extends AssignableDevice {
 	
 	private void init() {
 	}
-
-	private void parseName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
-	}
 	
 	private void parseOutputDevice(final JSONObject jObj) {
-		this.parseName(jObj);
 	}
 	
 	public OutputDevice(final JSONObject jObj) {
+		super(jObj);
 		this.init();
 		this.parseOutputDevice(jObj);
 	}
 	
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		return rtn;
-	}
-	
 	/**
-	 * Getter for <i>outputDeviceStructure</i>
+	 * Getter for <i>outputDeviceModel</i>.
+	 *
+	 * @return value of outputDeviceModel
+	 */
+	public OutputDeviceModel getOutputDeviceModel() {
+		return outputDeviceModel;
+	}
+
+	/**
+	 * Setter for <i>outputDeviceModel</i>.
+	 *
+	 * @param outputDeviceModel the outputDeviceModel to set
+	 */
+	public void setOutputDeviceModel(OutputDeviceModel outputDeviceModel) {
+		this.outputDeviceModel = outputDeviceModel;
+	}
+
+	private OutputDeviceModel outputDeviceModel;
+
+	/**
+	 * Getter for <i>outputDeviceStructure</i>.
 	 *
 	 * @return value of <i>outputDeviceStructure</i>
 	 */
@@ -67,7 +74,7 @@ public class OutputDevice extends AssignableDevice{
 	}
 
 	/**
-	 * Setter for <i>outputDeviceStructure</i>
+	 * Setter for <i>outputDeviceStructure</i>.
 	 *
 	 * @param outputDeviceStructure the value to set <i>outputDeviceStructure</i>
 	 */

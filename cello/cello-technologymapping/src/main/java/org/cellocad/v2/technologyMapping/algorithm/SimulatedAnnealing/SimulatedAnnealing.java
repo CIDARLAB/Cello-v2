@@ -39,7 +39,7 @@ import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.OutputDevice;
-import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.data.FixedParameter;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -562,8 +562,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			NetlistNode node = inputs.get(i);
 			InputSensor sensor = (InputSensor) SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node)
 					.getGate();
-			Parameter hi = sensor.getParameterValueByName(InputSensor.S_HI);
-			Parameter lo = sensor.getParameterValueByName(InputSensor.S_LO);
+			FixedParameter hi = sensor.getParameterValueByName(InputSensor.S_HI);
+			FixedParameter lo = sensor.getParameterValueByName(InputSensor.S_LO);
 			String fmt = "Error with %s %s.";
 			if (hi == null || hi.getValue() == null)
 				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_HI));

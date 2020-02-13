@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,42 +30,42 @@ import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
- * The Gate is class representing a gate for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * The Gate is class representing a gate for the gate assignment in the
+ * <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
  */
 public class Gate extends AssignableDevice {
 
+	private void init() {
+	}
+
 	private void parseRegulator(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "regulator");
+		String value = ProfileUtils.getString(JObj, S_REGULATOR);
 		this.setRegulator(value);
 	}
 
-	private void parseGroupName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "group_name");
-		this.setGroupName(value);
+	private void parseGroup(final JSONObject JObj){
+		String value = ProfileUtils.getString(JObj, S_GROUP);
+		this.setGroup(value);
 	}
 
-	private void parseGateName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gate_name");
-		this.setGateName(value);
-	}
-	
 	private void parseGateType(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gate_type");
+		String value = ProfileUtils.getString(JObj, S_GATETYPE);
 		this.setGateType(value);
 	}
 	
 	private void parseSystem(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "system");
+		String value = ProfileUtils.getString(JObj, S_SYSTEM);
 		this.setSystem(value);
 	}
 	
 	private void parseColor(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, "color_hexcode");
+		String value = ProfileUtils.getString(JObj, S_COLOR);
 		Pattern pattern = Pattern.compile("[0-9A-Fa-f]{6}");
 		Matcher matcher = pattern.matcher(value);
 		if (matcher.matches()) {
@@ -74,14 +76,15 @@ public class Gate extends AssignableDevice {
 
 	private void parseGate(final JSONObject jObj) {
 		this.parseRegulator(jObj);
-		this.parseGroupName(jObj);
-		this.parseGateName(jObj);
+		this.parseGroup(jObj);
 		this.parseGateType(jObj);
 		this.parseSystem(jObj);
 		this.parseColor(jObj);
 	}
 	
 	public Gate(final JSONObject jObj) {
+		super(jObj);
+		this.init();
 		this.parseGate(jObj);
 	}
 	
@@ -89,11 +92,12 @@ public class Gate extends AssignableDevice {
 	public boolean isValid() {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getRegulator() != null);
-		rtn = rtn && (this.getGroupName() != null);
-		rtn = rtn && (this.getGateName() != null);
+		rtn = rtn && (this.getGroup() != null);
 		rtn = rtn && (this.getGateType() != null);
 		rtn = rtn && (this.getSystem() != null);
 		rtn = rtn && (this.getColor() != null);
+		rtn = rtn && (this.getModel() != null);
+		rtn = rtn && (this.getGateStructure() != null);
 		return rtn;
 	}
 	
@@ -111,28 +115,17 @@ public class Gate extends AssignableDevice {
 	private String regulator;
 
 	/*
-	 * GroupName
+	 * Group
 	 */
-	private void setGroupName(final String groupName){
-		this.groupName = groupName;
+	private void setGroup(final String group) {
+		this.group = group;
 	}
 	
-	public String getGroupName(){
-		return this.groupName;
+	public String getGroup() {
+		return this.group;
 	}
 	
-	private String groupName;
-	
-	/*
-	 * GateName
-	 */
-	private void setGateName(final String gateName){
-		this.setName(gateName);
-	}
-	
-	public String getGateName(){
-		return this.getName();
-	}
+	private String group;
 	
 	/*
 	 * GateType
@@ -146,7 +139,7 @@ public class Gate extends AssignableDevice {
 	}
 	
 	private String gateType;
-	
+
 	/*
 	 * System
 	 */
@@ -174,23 +167,35 @@ public class Gate extends AssignableDevice {
 	private Color color;
 	
 	/*
-	 * ResponseFunction
+	 * GateModel
 	 */
-	public void setResponseFunction(final ResponseFunction responseFunction){
-		this.responseFunction = responseFunction;
-	}
-	
-	public ResponseFunction getResponseFunction(){
-		return this.responseFunction;
+
+	/**
+	 * Getter for <i>gateModel</i>.
+	 *
+	 * @return value of gateModel
+	 */
+	public GateModel getModel() {
+		return gateModel;
 	}
 
-	private ResponseFunction responseFunction;
-	
+	/**
+	 * Setter for <i>gateModel</i>.
+	 *
+	 * @param gateModel the gateModel to set
+	 */
+	public void setModel(GateModel gateModel) {
+		this.gateModel = gateModel;
+	}
+
+	private GateModel gateModel;
+
 	/*
 	 * GateStructure
 	 */
+
 	/**
-	 * Getter for <i>gateStructure</i>
+	 * Getter for <i>gateStructure</i>.
 	 *
 	 * @return value of <i>gateStructure</i>
 	 */
@@ -199,7 +204,7 @@ public class Gate extends AssignableDevice {
 	}
 
 	/**
-	 * Setter for <i>gateStructure</i>
+	 * Setter for <i>gateStructure</i>.
 	 *
 	 * @param gateStructure the value to set <i>gateStructure</i>
 	 */
@@ -208,5 +213,13 @@ public class Gate extends AssignableDevice {
 	}
 	
 	private GateStructure gateStructure;
+
+	public static final String S_REGULATOR = "regulator";
+	public static final String S_GROUP = "group";
+	public static final String S_GATETYPE = "gate_type";
+	public static final String S_SYSTEM = "system";
+	public static final String S_COLOR = "color";
+	public static final String S_MODEL = "model";
+	public static final String S_STRUCTURE = "structure";
 
 }

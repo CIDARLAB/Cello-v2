@@ -122,7 +122,7 @@ public class EugeneUtils {
 			String gateType = src.getResultNetlistNodeData().getGateType();
 			if (LSResultsUtils.isAllInput(src)) {
 				InputSensor sensor = sensors.findCObjectByName(gateType);
-				input = sensor.getPromoter();
+				input = sensor.getOutput();
 			} else {
 				Gate gate = gates.findCObjectByName(gateType);
 				if (gate == null) {

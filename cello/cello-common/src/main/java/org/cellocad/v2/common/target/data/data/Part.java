@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,18 +26,18 @@ import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
- * The Part is class representing a genetic part for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.
+ * The Part is class representing a genetic part for the gate assignment in the
+ * <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
  */
 public class Part extends DNAComponent {
 
-	private void parseName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "name");
-		this.setName(value);
+	private void init() {
 	}
 	
 	private void parsePartType(final JSONObject JObj){
@@ -49,12 +51,13 @@ public class Part extends DNAComponent {
 	}
 	
 	private void parsePart(final JSONObject jObj) {
-		this.parseName(jObj);
 		this.parsePartType(jObj);
 		this.parseDNASequence(jObj);
     }
 	
 	public Part(final JSONObject jObj) {
+		super(jObj);
+		this.init();
 		this.parsePart(jObj);
 	}
 	

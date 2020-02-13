@@ -188,13 +188,13 @@ public class YosysEdifUtils {
 	 *  Assigns the NetlistNode with its name defined by parameter <i>Name</i>
 	 *  with result for the <i>logicSynthesis</i> stage defined by parameter <i>type</i>.
 	 *  If the NetlistNode with its name defined by parameter <i>Name</i> is not present in the
-	 *  translation bookeeper defined by parameter <i>map</i>, then initialize a new NetlistNode and
+	 *  translation bookeeper defined by parameter <i>S_MAP</i>, then initialize a new NetlistNode and
 	 *  insert it into the Netlist defined by parameter <i>netlist</i>.
 	 *  Returns the assigned or initialized NetlistNode.
 	 *  
 	 *  @param Name the name of the NetlistNode
 	 *  @param type the result for the <i>logicSynthesis</i> stage
-	 *  @param map the translation bookeeper
+	 *  @param S_MAP the translation bookeeper
 	 *  @param netlist the Netlist
 	 *  @return the assigned or initialized NetlistNode
 	 */

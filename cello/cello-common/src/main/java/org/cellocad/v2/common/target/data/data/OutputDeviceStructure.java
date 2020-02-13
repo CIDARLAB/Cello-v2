@@ -20,11 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -35,74 +30,18 @@ import org.json.simple.JSONObject;
  * @date 2020-01-29
  *
  */
-public class OutputDeviceStructure {
+public class OutputDeviceStructure extends Structure {
 
-	private void parseGateName(final JSONObject jObj) {
-		String value = ProfileUtils.getString(jObj, "gate_name");
-		this.gateName = value;
-	}
-
-	private void parseDevices(final JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get("devices");
-		for (int i = 0; i < jArr.size(); i++) {
-			JSONObject o = (JSONObject) jArr.get(i);
-			StructureDevice d = new StructureDevice(o);
-			this.getDevices().add(d);
-		}
-	}
-
-	private void parseOutputDeviceStructure(final JSONObject jObj) {
-		this.parseGateName(jObj);
-		this.parseDevices(jObj);
+	private void parseOutputDeviceStructure(final JSONObject JObj) {
 	}
 
 	private void init() {
-		this.devices = new ArrayList<StructureDevice>();
 	}
 
 	public OutputDeviceStructure(final JSONObject jObj) {
+		super(jObj);
 		this.init();
 		this.parseOutputDeviceStructure(jObj);
 	}
-
-	/**
-	 * Getter for <i>devices</i>
-	 *
-	 * @return value of <i>devices</i>
-	 */
-	public Collection<StructureDevice> getDevices() {
-		return devices;
-	}
-
-	/**
-	 * Getter for <i>gateName</i>
-	 *
-	 * @return value of <i>gateName</i>
-	 */
-	public String getGateName() {
-		return gateName;
-	}
-
-	/**
-	 * Getter for <i>outputDevice</i>
-	 *
-	 * @return value of <i>outputDevice</i>
-	 */
-	public OutputDevice getOutputDevice() {
-		return outputDevice;
-	}
-
-	/**
-	 * Setter for <i>outputDevice</i>
-	 *
-	 * @param outputDevice the value to set <i>outputDevice</i>
-	 */
-	public void setOutputDevice(final OutputDevice outputDevice) {
-		this.outputDevice = outputDevice;
-	}
-
-	private Collection<StructureDevice> devices;
-	private String gateName;
-	private OutputDevice outputDevice;
 
 }

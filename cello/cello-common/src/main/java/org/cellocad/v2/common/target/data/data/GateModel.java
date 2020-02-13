@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2019 Boston University (BU)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,31 +18,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.logicSynthesis.algorithm.Yosys;
+package org.cellocad.v2.common.target.data.data;
 
-import org.cellocad.v2.logicSynthesis.netlist.OutputOrTransform;
-import org.cellocad.v2.results.netlist.Netlist;
-import org.junit.Test;
+import org.json.simple.JSONObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2019-05-08
+ * @date 2020-02-11
  *
  */
-public class OutputOrTest {
+public class GateModel extends Model {
 	
-	private Netlist netlist() {
-		Netlist rtn = new Netlist();
+	private void init() {
+	}
+
+	private void parseGateModel(final JSONObject jObj) {
+		this.init();
+	}
+
+	public GateModel(final JSONObject jObj) {
+		super(jObj);
+		this.parseGateModel(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getResponseFunction() != null);
 		return rtn;
 	}
 
-	@Test
-	public void test() {
-		Netlist netlist = this.netlist();
-		new OutputOrTransform(netlist);
+	/*
+	 * ResponseFunction
+	 */
+
+	/**
+	 * Getter for <i>responseFunction</i>.
+	 *
+	 * @return value of responseFunction
+	 */
+	public Function getResponseFunction() {
+		return responseFunction;
 	}
+
+	/**
+	 * Setter for <i>responseFunction</i>.
+	 *
+	 * @param responseFunction the responseFunction to set
+	 */
+	public void setResponseFunction(final Function responseFunction) {
+		this.responseFunction = responseFunction;
+	}
+
+	private Function responseFunction;
+
+	public static final String S_RESPONSEFUNCTION = "response_function";
 
 }

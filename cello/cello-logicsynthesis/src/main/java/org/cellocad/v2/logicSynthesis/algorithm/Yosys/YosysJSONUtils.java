@@ -127,13 +127,13 @@ public class YosysJSONUtils {
 	
 	/**
 	 *  Creates NetlistNode instances for the port(s) from the top module defined in parameter <i>jsonValue</i>.<br>
-	 *  Updates the map of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
-	 *  Updates the map of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
 	 *  Updates the Netlist defined by parameter <i>netlist</i>.<br>
 	 *  
 	 *  @param jsonValue the JSONObject
-	 *  @param inputNetlistNode the map of integer to input netlistNode
-	 *  @param outputNetlistNode the map of integer to output netlistNode
+	 *  @param inputNetlistNode the S_MAP of integer to input netlistNode
+	 *  @param outputNetlistNode the S_MAP of integer to output netlistNode
 	 *  @param netlist the netlist
 	 */
 	static protected void parseModule(JSONObject jsonValue,
@@ -200,13 +200,13 @@ public class YosysJSONUtils {
 
 	/**
 	 *  Creates NetlistNode instances for the cell(s) from the top module defined in parameter <i>jsonValue</i>.<br>
-	 *  Updates the map of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
-	 *  Updates the map of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
 	 *  Updates the Netlist defined by parameter <i>netlist</i>.<br>
 	 *  
 	 *  @param jsonValue the JSONObject
-	 *  @param inputNetlistNode the map of integer to input netlistNode
-	 *  @param outputNetlistNode the map of integer to output netlistNode
+	 *  @param inputNetlistNode the S_MAP of integer to input netlistNode
+	 *  @param outputNetlistNode the S_MAP of integer to output netlistNode
 	 *  @param netlist the netlist
 	 */
 	static protected void parseCells(JSONObject jsonValue,
@@ -268,13 +268,13 @@ public class YosysJSONUtils {
 
 	/**
 	 *  Creates NetlistEdge instances for the net(s) from the top module defined in parameter <i>jsonValue</i>.<br>
-	 *  Updates the map of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
-	 *  Updates the map of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to input netlistNode defined by parameter <i>inputNetlistNode</i>.<br>
+	 *  Updates the S_MAP of integer to output netlistNode defined by parameter <i>outputNetlistNode</i>.<br>
 	 *  Updates the Netlist defined by parameter <i>netlist</i>.<br>
 	 *  
 	 *  @param jsonValue the JSONObject
-	 *  @param inputNetlistNode the map of integer to input netlistNode
-	 *  @param outputNetlistNode the map of integer to output netlistNode
+	 *  @param inputNetlistNode the S_MAP of integer to input netlistNode
+	 *  @param outputNetlistNode the S_MAP of integer to output netlistNode
 	 *  @param netlist the netlist
 	 */
 	static protected void parseNets(JSONObject jsonValue,

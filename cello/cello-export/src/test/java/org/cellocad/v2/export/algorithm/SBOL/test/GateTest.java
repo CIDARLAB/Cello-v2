@@ -48,7 +48,7 @@ public class GateTest {
 		Gate gate = new Gate(jsonTop);
 		assert (gate.isValid());
 		assert (gate.getRegulator().equals("AmeR"));
-		assert (gate.getGroupName().equals("AmeR"));
+		assert (gate.getGroup().equals("AmeR"));
 		assert (gate.getName().equals("F1_AmeR"));
 		assert (gate.getGateType().equals("NOR"));
 		assert (gate.getSystem().equals("TetR"));

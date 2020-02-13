@@ -191,7 +191,7 @@ public class Netlister extends CObject {
 	
 	private Netlist netlist;
 	private PTNetlist ptNetlist;
-	// map for conversion
+	// S_MAP for conversion
 	Map<String, NetlistNode> NetlistNodeMap;
 	Map<String, NetlistEdge> NetlistEdgeMap;
 	Map<String, PTNetlistNode> PTNetlistNodeMap;

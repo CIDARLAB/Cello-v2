@@ -26,7 +26,7 @@ import java.util.List;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
 import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.data.FixedParameter;
 import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.netlist.Netlist;
@@ -151,7 +151,7 @@ public class Evaluator {
 			
 			MathEval eval = new MathEval();
 			for (int i = 0; i < function.getNumParameter(); i++) {
-				Parameter param = function.getParameterAtIdx(i);
+				FixedParameter param = function.getParameterAtIdx(i);
 				eval.setConstant(param.getName(), param.getValue());
 			}
 			eval.setVariable(function.getVariableByName("x").getName(), value);

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Boston University (BU)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,13 +21,17 @@
 package org.cellocad.v2.common.target.data.data;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
- * @date 2018-07-05
+ * @date 2020-02-12
  *
  */
-public class PartTemplate {
+public class GateContextEvaluator {
+
+	public GateContextEvaluator(Gate gate) {
+
+	}
 
 }

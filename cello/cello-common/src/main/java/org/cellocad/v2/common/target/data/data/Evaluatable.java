@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2019 Boston University (BU)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,31 +18,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.logicSynthesis.algorithm.Yosys;
+package org.cellocad.v2.common.target.data.data;
 
-import org.cellocad.v2.logicSynthesis.netlist.OutputOrTransform;
-import org.cellocad.v2.results.netlist.Netlist;
-import org.junit.Test;
+import org.cellocad.v2.common.CObject;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2019-05-08
+ * @date 2020-02-12
  *
  */
-public class OutputOrTest {
-	
-	private Netlist netlist() {
-		Netlist rtn = new Netlist();
-		return rtn;
-	}
+public abstract class Evaluatable extends CObject {
 
-	@Test
-	public void test() {
-		Netlist netlist = this.netlist();
-		new OutputOrTransform(netlist);
-	}
+	public abstract Number evaluate(GateContextEvaluator ce);
 
 }

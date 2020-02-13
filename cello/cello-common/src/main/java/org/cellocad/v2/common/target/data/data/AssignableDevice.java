@@ -20,6 +20,8 @@
  */
 package org.cellocad.v2.common.target.data.data;
 
+import org.json.simple.JSONObject;
+
 /**
  * 
  *
@@ -29,5 +31,9 @@ package org.cellocad.v2.common.target.data.data;
  *
  */
 public abstract class AssignableDevice extends DNAComponent {
+
+	public AssignableDevice(final JSONObject jObj) {
+		super(jObj);
+	}
 
 }

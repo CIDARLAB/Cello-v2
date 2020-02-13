@@ -23,6 +23,8 @@ package org.cellocad.v2.common.target.data.data;
 import java.net.URI;
 
 import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -34,7 +36,29 @@ import org.cellocad.v2.common.CObject;
  */
 public abstract class DNAComponent extends CObject {
 
-	private URI uri;
+	private void init() {
+	}
+
+	private void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_NAME);
+		this.setName(value);
+	}
+
+	private void parseDNAComponent(final JSONObject JObj) {
+		this.init();
+		this.parseName(JObj);
+	}
+
+	public DNAComponent(final JSONObject jObj) {
+		this.parseDNAComponent(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
 
 	/**
 	 * @return the uri
@@ -49,5 +73,9 @@ public abstract class DNAComponent extends CObject {
 	public void setUri(final URI uri) {
 		this.uri = uri;
 	}
+
+	private URI uri;
+
+	private static final String S_NAME = "name";
 
 }
