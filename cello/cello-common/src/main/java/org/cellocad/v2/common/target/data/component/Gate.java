@@ -27,8 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.common.target.data.model.GateModel;
-import org.cellocad.v2.common.target.data.structure.GateStructure;
 import org.json.simple.JSONObject;
 
 /**
@@ -98,8 +96,6 @@ public class Gate extends AssignableDevice {
 		rtn = rtn && (this.getGateType() != null);
 		rtn = rtn && (this.getSystem() != null);
 		rtn = rtn && (this.getColor() != null);
-		rtn = rtn && (this.getModel() != null);
-		rtn = rtn && (this.getGateStructure() != null);
 		return rtn;
 	}
 	
@@ -167,54 +163,6 @@ public class Gate extends AssignableDevice {
 	}
 
 	private Color color;
-	
-	/*
-	 * GateModel
-	 */
-
-	/**
-	 * Getter for <i>gateModel</i>.
-	 *
-	 * @return value of gateModel
-	 */
-	public GateModel getModel() {
-		return gateModel;
-	}
-
-	/**
-	 * Setter for <i>gateModel</i>.
-	 *
-	 * @param gateModel the gateModel to set
-	 */
-	public void setModel(GateModel gateModel) {
-		this.gateModel = gateModel;
-	}
-
-	private GateModel gateModel;
-
-	/*
-	 * GateStructure
-	 */
-
-	/**
-	 * Getter for <i>gateStructure</i>.
-	 *
-	 * @return value of <i>gateStructure</i>
-	 */
-	public GateStructure getGateStructure() {
-		return gateStructure;
-	}
-
-	/**
-	 * Setter for <i>gateStructure</i>.
-	 *
-	 * @param gateStructure the value to set <i>gateStructure</i>
-	 */
-	public void setGateStructure(final GateStructure gateStructure) {
-		this.gateStructure = gateStructure;
-	}
-	
-	private GateStructure gateStructure;
 
 	public static final String S_REGULATOR = "regulator";
 	public static final String S_GROUP = "group";

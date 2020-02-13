@@ -20,8 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.component;
 
-import org.cellocad.v2.common.target.data.model.OutputDeviceModel;
-import org.cellocad.v2.common.target.data.structure.OutputDeviceStructure;
 import org.json.simple.JSONObject;
 
 /**
@@ -45,45 +43,5 @@ public class OutputDevice extends AssignableDevice {
 		this.init();
 		this.parseOutputDevice(jObj);
 	}
-	
-	/**
-	 * Getter for <i>outputDeviceModel</i>.
-	 *
-	 * @return value of outputDeviceModel
-	 */
-	public OutputDeviceModel getOutputDeviceModel() {
-		return outputDeviceModel;
-	}
-
-	/**
-	 * Setter for <i>outputDeviceModel</i>.
-	 *
-	 * @param outputDeviceModel the outputDeviceModel to set
-	 */
-	public void setOutputDeviceModel(OutputDeviceModel outputDeviceModel) {
-		this.outputDeviceModel = outputDeviceModel;
-	}
-
-	private OutputDeviceModel outputDeviceModel;
-
-	/**
-	 * Getter for <i>outputDeviceStructure</i>.
-	 *
-	 * @return value of <i>outputDeviceStructure</i>
-	 */
-	public OutputDeviceStructure getOutputDeviceStructure() {
-		return outputDeviceStructure;
-	}
-
-	/**
-	 * Setter for <i>outputDeviceStructure</i>.
-	 *
-	 * @param outputDeviceStructure the value to set <i>outputDeviceStructure</i>
-	 */
-	public void setOutputDeviceStructure(final OutputDeviceStructure outputDeviceStructure) {
-		this.outputDeviceStructure = outputDeviceStructure;
-	}
-
-	private OutputDeviceStructure outputDeviceStructure;
 	
 }

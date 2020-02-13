@@ -20,8 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.component;
 
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.common.target.data.model.InputSensorModel;
 import org.json.simple.JSONObject;
 
 /**
@@ -37,13 +35,7 @@ public class InputSensor extends AssignableDevice {
 	private void init() {
 	}
 	
-	private void parseOutput(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_OUTPUT);
-		this.setOutput(value);
-	}
-	
-	private void parseInputSensor(final JSONObject jObj) {
-		this.parseOutput(jObj);
+	private void parseInputSensor(final JSONObject JObj) {
 	}
 	
 	public InputSensor(final JSONObject jObj) {
@@ -51,63 +43,5 @@ public class InputSensor extends AssignableDevice {
 		this.init();
 		this.parseInputSensor(jObj);
 	}
-	
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getOutput() != null);
-		return rtn;
-	}
-	
-	/*
-	 * Output
-	 */
-
-	/**
-	 * Getter for <i>output</i>.
-	 * 
-	 * @return the output
-	 */
-	public String getOutput() {
-		return output;
-	}
-
-	/**
-	 * Setter for <i>output</i>.
-	 * 
-	 * @param output the output to set
-	 */
-	private void setOutput(final String output) {
-		this.output = output;
-	}
-
-	private String output;
-
-	/*
-	 * InputSensorModel
-	 */
-
-	/**
-	 * Getter for <i>inputSensorModel</i>.
-	 *
-	 * @return value of inputSensorModel
-	 */
-	public InputSensorModel getInputSensorModel() {
-		return inputSensorModel;
-	}
-
-	/**
-	 * Setter for <i>inputSensorModel</i>.
-	 *
-	 * @param inputSensorModel the inputSensorModel to set
-	 */
-	public void setInputSensorModel(InputSensorModel inputSensorModel) {
-		this.inputSensorModel = inputSensorModel;
-	}
-
-	private InputSensorModel inputSensorModel;
-
-	private static final String S_OUTPUT = "output";
-	public static final String S_MODEL = "model";
 
 }

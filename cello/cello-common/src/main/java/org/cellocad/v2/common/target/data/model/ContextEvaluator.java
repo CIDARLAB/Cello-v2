@@ -20,7 +20,7 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
-import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
  *
@@ -32,8 +32,10 @@ import org.cellocad.v2.common.target.data.component.AssignableDevice;
  */
 public class ContextEvaluator {
 
-	public ContextEvaluator(AssignableDevice d) {
+	public ContextEvaluator(NetlistNode node) {
 
 	}
+
+	private static final String S_REFCHAR = "#/";
 
 }

@@ -20,6 +20,8 @@
  */
 package org.cellocad.v2.common.target.data.component;
 
+import org.cellocad.v2.common.target.data.model.Model;
+import org.cellocad.v2.common.target.data.structure.Structure;
 import org.json.simple.JSONObject;
 
 /**
@@ -35,5 +37,56 @@ public abstract class AssignableDevice extends DNAComponent {
 	public AssignableDevice(final JSONObject jObj) {
 		super(jObj);
 	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getModel() != null);
+		rtn = rtn && (this.getStructure() != null);
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>model</i>.
+	 *
+	 * @return value of model
+	 */
+	public Model getModel() {
+		return model;
+	}
+
+	/**
+	 * Setter for <i>model</i>.
+	 *
+	 * @param model the model to set
+	 */
+	public void setModel(final Model model) {
+		this.model = model;
+	}
+
+	private Model model;
+
+	/**
+	 * Getter for <i>structure</i>.
+	 *
+	 * @return value of structure
+	 */
+	public Structure getStructure() {
+		return structure;
+	}
+
+	/**
+	 * Setter for <i>structure</i>.
+	 *
+	 * @param structure the structure to set
+	 */
+	public void setStructure(Structure structure) {
+		this.structure = structure;
+	}
+
+	private Structure structure;
+
+	public static final String S_MODEL = "model";
+	public static final String S_STRUCTURE = "structure";
 
 }

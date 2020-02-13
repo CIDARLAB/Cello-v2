@@ -40,7 +40,7 @@ import org.json.simple.JSONObject;
 public class Model extends CObject {
 
 	private void init() {
-		this.auxiliaryFunctions = new HashMap<>();
+		this.functions = new HashMap<>();
 		this.parameters = new CObjectCollection<>();
 	}
 
@@ -77,7 +77,7 @@ public class Model extends CObject {
 	}
 
 	/*
-	 * AuxiliaryFunction
+	 * Function
 	 */
 
 	/**
@@ -86,20 +86,20 @@ public class Model extends CObject {
 	 * @param name name of the Function to return
 	 * @return the element with name equivalent to parameter <i>name</i>
 	 */
-	public Function getAuxiliaryFunctionByName(final String name) {
-		return this.getAuxiliaryFunctions().get(name);
+	public Function getFunctionByName(final String name) {
+		return this.getFunctions().get(name);
 	}
 
 	/**
-	 * Getter for <i>auxiliaryFunctions</i>.
+	 * Getter for <i>functions</i>.
 	 *
-	 * @return value of auxiliaryFunctions
+	 * @return value of functions
 	 */
-	public Map<String, Function> getAuxiliaryFunctions() {
-		return auxiliaryFunctions;
+	public Map<String, Function> getFunctions() {
+		return functions;
 	}
 
-	private Map<String, Function> auxiliaryFunctions;
+	private Map<String, Function> functions;
 
 	/*
 	 * FixedParameter
@@ -138,7 +138,7 @@ public class Model extends CObject {
 	private CObjectCollection<FixedParameter> parameters;
 
 	public static final String S_NAME = "name";
-	public static final String S_AUXILIARYFUNCTIONS = "auxiliary_functions";
+	public static final String S_FUNCTIONS = "functions";
 	public static final String S_PARAMETERS = "parameters";
 
 }

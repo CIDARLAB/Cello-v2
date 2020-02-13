@@ -22,6 +22,7 @@ package org.cellocad.v2.common.target.data.structure;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.json.simple.JSONObject;
 
 /**
@@ -74,6 +75,26 @@ public class Input extends CObject {
 	}
 
 	private String partType;
+
+	/**
+	 * Getter for <i>device</i>.
+	 *
+	 * @return value of device
+	 */
+	public AssignableDevice getDevice() {
+		return device;
+	}
+
+	/**
+	 * Setter for <i>device</i>.
+	 *
+	 * @param device the device to set
+	 */
+	public void setDevice(AssignableDevice device) {
+		this.device = device;
+	}
+
+	private AssignableDevice device;
 
 	private static final String S_NAME = "name";
 	private static final String S_PARTTYPE = "part_type";

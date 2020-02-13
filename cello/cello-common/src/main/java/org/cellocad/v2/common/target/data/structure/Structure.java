@@ -21,6 +21,7 @@
 package org.cellocad.v2.common.target.data.structure;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
@@ -53,6 +54,15 @@ public class Structure extends CObject {
 			JSONObject o = (JSONObject) jArr.get(i);
 			Input input = new Input(o);
 			this.getInputs().add(input);
+		}
+	}
+
+	private void parseOutputs(final JSONObject jObj) {
+		JSONArray jArr = (JSONArray) jObj.get(S_OUTPUTS);
+		for (int i = 0; i < jArr.size(); i++) {
+			JSONObject o = (JSONObject) jArr.get(i);
+			String value = ProfileUtils.getString(o);
+			this.getOutputs().add(value);
 		}
 	}
 
@@ -95,6 +105,7 @@ public class Structure extends CObject {
 	private void parseStructure(final JSONObject jObj) {
 		this.parseName(jObj);
 		this.parseInputs(jObj);
+		this.parseOutputs(jObj);
 		this.parseDevices(jObj);
 	}
 
@@ -122,6 +133,17 @@ public class Structure extends CObject {
 	private CObjectCollection<Input> inputs;
 
 	/**
+	 * Getter for <i>outputs</i>.
+	 *
+	 * @return value of outputs
+	 */
+	public List<String> getOutputs() {
+		return outputs;
+	}
+
+	private List<String> outputs;
+
+	/**
 	 * Getter for <i>devices</i>.
 	 *
 	 * @return value of <i>devices</i>
@@ -134,6 +156,7 @@ public class Structure extends CObject {
 
 	private static final String S_NAME = "name";
 	private static final String S_INPUTS = "inputs";
+	private static final String S_OUTPUTS = "outputs";
 	private static final String S_DEVICES = "devices";
 
 }
