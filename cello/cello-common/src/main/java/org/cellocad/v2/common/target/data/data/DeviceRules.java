@@ -41,7 +41,7 @@ public class DeviceRules {
 	}
 
 	private void parseDeviceRules(JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get("rules");
+		JSONArray jArr = (JSONArray) jObj.get(S_RULES);
 		for (Object o : jArr) {
 			String str = (String) o;
 			this.getRules().add(str);
@@ -78,5 +78,7 @@ public class DeviceRules {
 	}
 
 	private Collection<String> rules;
+
+	private static final String S_RULES = "rules";
 
 }

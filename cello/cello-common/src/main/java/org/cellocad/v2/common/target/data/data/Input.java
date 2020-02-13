@@ -75,7 +75,7 @@ public class Input extends CObject {
 
 	private String partType;
 
-	private static final String S_PARTTYPE = "part_type";
 	private static final String S_NAME = "name";
+	private static final String S_PARTTYPE = "part_type";
 
 }

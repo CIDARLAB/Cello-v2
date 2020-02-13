@@ -36,7 +36,7 @@ public class Variable extends Evaluatable {
 	}
 
 	@Override
-	public Number evaluate(GateContextEvaluator ce) {
+	public Number evaluate(ContextEvaluator ce) {
 		// TODO Auto-generated method stub
 		return null;
 	}

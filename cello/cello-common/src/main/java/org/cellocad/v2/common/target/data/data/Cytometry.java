@@ -39,12 +39,12 @@ import org.json.simple.JSONObject;
 public class Cytometry extends CObject{
 
 	private void parseGateName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gate_name");
+		String value = ProfileUtils.getString(JObj, S_GATENAME);
 		this.setGateName(value);
 	}
 	
 	private void parseCytometryData(final JSONObject JObj){
-		JSONArray JArr = (JSONArray) JObj.get("cytometry_data");
+		JSONArray JArr = (JSONArray) JObj.get(S_CYTOMETRYDATA);
 		for (int i = 0; i < JArr.size(); i++) {
 			this.getCytometryData().add(new CytometryData((JSONObject) JArr.get(i)));
 		}
@@ -99,4 +99,7 @@ public class Cytometry extends CObject{
 	}
 	
 	private List<CytometryData> cytometryData;
+
+	private static final String S_GATENAME = "gate_name";
+	private static final String S_CYTOMETRYDATA = "cytometry_data";
 }

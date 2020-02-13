@@ -52,7 +52,7 @@ public class FixedParameter extends Parameter {
 	}
 
 	@Override
-	public Number evaluate(GateContextEvaluator ce) {
+	public Number evaluate(ContextEvaluator ce) {
 		return this.getValue();
 	}
 

@@ -122,8 +122,8 @@ public class CircuitRules {
 	private void parseBlock(final JSONObject obj, final Collection<String> devices, final Collection<String> fenceposts,
 			StringBuilder builder,
 			Namer namer) {
-		JSONArray rules = (JSONArray) obj.get("rules");
-		String op = this.getOperator((String) obj.get("function"));
+		JSONArray rules = (JSONArray) obj.get(S_RULES);
+		String op = this.getOperator((String) obj.get(S_FUNCTION));
 		builder.append("(");
 		Collection<String> accepted = new ArrayList<>();
 		accepted.addAll(devices);
@@ -180,7 +180,7 @@ public class CircuitRules {
 
 	private void parseRules(final JSONObject jObj, final Collection<String> devices,
 			final Collection<String> fenceposts) {
-		JSONObject jArr = (JSONObject) jObj.get("rules");
+		JSONObject jArr = (JSONObject) jObj.get(S_RULES);
 		StringBuilder builder = new StringBuilder();
 		Namer namer = new Namer();
 		parseBlock(jArr, devices, fenceposts, builder, namer);
@@ -242,5 +242,8 @@ public class CircuitRules {
 	}
 
 	private JSONObject json;
+
+	private static final String S_RULES = "rules";
+	private static final String S_FUNCTION = "function";
 
 }

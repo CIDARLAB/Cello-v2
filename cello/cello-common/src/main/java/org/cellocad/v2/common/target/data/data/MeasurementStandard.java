@@ -35,7 +35,7 @@ public class MeasurementStandard {
 	
 
 	private void parseSignalCarriertUnits(final JSONObject jobj) {
-		String value = ProfileUtils.getString(jobj, "signal_carrier_units");
+		String value = ProfileUtils.getString(jobj, S_SIGNALCARRIERUNITS);
 		this.setSignalCarrierUnits(value);
 	}
 	
@@ -57,5 +57,7 @@ public class MeasurementStandard {
 	}
 	
 	private String signalCarrierUnits;
+
+	private static final String S_SIGNALCARRIERUNITS = "signal_carrier_units";
 
 }

@@ -38,24 +38,18 @@ public class GeneticLocation extends CObject {
 	}
 
 	private void parseSymbol(JSONObject jObj) {
-		String str = ProfileUtils.getString(jObj, "symbol");
+		String str = ProfileUtils.getString(jObj, S_SYMBOL);
 		this.setName(str);
 	}
 
 	private void parseLocus(JSONObject jObj) {
-		Integer z = ProfileUtils.getInteger(jObj, "locus");
+		Integer z = ProfileUtils.getInteger(jObj, S_LOCUS);
 		this.locus = z;
-	}
-
-	private void parseSequence(JSONObject jObj) {
-		String str = ProfileUtils.getString(jObj, "sequence");
-		this.sequence = str;
 	}
 
 	private void parseLocation(JSONObject jObj) {
 		this.parseSymbol(jObj);
 		this.parseLocus(jObj);
-		this.parseSequence(jObj);
 	}
 
 	public GeneticLocation(JSONObject jObj) {
@@ -72,16 +66,9 @@ public class GeneticLocation extends CObject {
 		return locus;
 	}
 
-	/**
-	 * Getter for <i>sequence</i>
-	 *
-	 * @return value of <i>sequence</i>
-	 */
-	public String getSequence() {
-		return sequence;
-	}
-
 	private Integer locus;
-	private String sequence;
+
+	private static final String S_SYMBOL = "symbol";
+	private static final String S_LOCUS = "locus";
 
 }

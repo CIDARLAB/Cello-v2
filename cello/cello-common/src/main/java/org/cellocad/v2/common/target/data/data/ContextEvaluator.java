@@ -28,9 +28,9 @@ package org.cellocad.v2.common.target.data.data;
  * @date 2020-02-12
  *
  */
-public class GateContextEvaluator {
+public class ContextEvaluator {
 
-	public GateContextEvaluator(Gate gate) {
+	public ContextEvaluator(Gate gate) {
 
 	}
 

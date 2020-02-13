@@ -41,12 +41,12 @@ public class Part extends DNAComponent {
 	}
 	
 	private void parsePartType(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "type");
+		String value = ProfileUtils.getString(JObj, S_TYPE);
 		this.setPartType(value);
 	}
 	
 	private void parseDNASequence(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "dnasequence");
+		String value = ProfileUtils.getString(JObj, S_DNASEQUENCE);
 		this.setDNASequence(value);
 	}
 	
@@ -86,5 +86,8 @@ public class Part extends DNAComponent {
 	}
 	
 	private String dnaSequence;
+
+	private static final String S_TYPE = "type";
+	private static final String S_DNASEQUENCE = "dnasequence";
 
 }

@@ -37,7 +37,7 @@ public class ParameterReference extends Parameter {
 	}
 
 	private void parseMap(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_MAP);
+		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
 		this.map = value;
 	}
 
@@ -52,7 +52,7 @@ public class ParameterReference extends Parameter {
 	}
 
 	@Override
-	public Number evaluate(GateContextEvaluator ce) {
+	public Number evaluate(ContextEvaluator ce) {
 		return null;
 	}
 
@@ -69,7 +69,5 @@ public class ParameterReference extends Parameter {
 	}
 
 	private String map;
-
-	private static final String S_MAP = "map";
 
 }
