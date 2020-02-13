@@ -47,7 +47,6 @@ public class GateModel extends Model {
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
 		rtn = rtn && (this.getResponseFunction() != null);
 		return rtn;
 	}

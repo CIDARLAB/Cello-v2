@@ -36,18 +36,17 @@ public class InputSensorModel extends Model {
 	}
 
 	private void parseInputSensorModel(final JSONObject jObj) {
-		this.init();
 	}
 
 	public InputSensorModel(final JSONObject jObj) {
 		super(jObj);
+		this.init();
 		this.parseInputSensorModel(jObj);
 	}
 
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
 		rtn = rtn && (this.getResponseFunction() != null);
 		return rtn;
 	}
