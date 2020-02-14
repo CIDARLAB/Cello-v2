@@ -25,15 +25,12 @@ package org.cellocad.v2.common.target.data.model;
  *
  * @author Timothy Jones
  *
- * @date 2020-02-13
+ * @date 2020-02-14
  *
  */
-public enum FunctionType {
+public class FunctionType {
 
-	ResponseFunction("response_function"),
-	InputComposition("input_composition");
-
-	FunctionType(String str) {
-	}
+	public static final String S_RESPONSEFUNCTION = "response_function";
+	public static final String S_INPUTCOMPOSITION = "input_composition";
 
 }

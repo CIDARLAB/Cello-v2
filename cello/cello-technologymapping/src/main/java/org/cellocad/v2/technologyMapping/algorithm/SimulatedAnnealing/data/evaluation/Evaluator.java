@@ -23,11 +23,13 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.eval
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
-import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.data.ResponseFunction;
-import org.cellocad.v2.common.target.data.model.FixedParameter;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.model.EvaluationContext;
+import org.cellocad.v2.common.target.data.model.Function;
+import org.cellocad.v2.common.target.data.model.FunctionType;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -128,44 +130,38 @@ public class Evaluator {
 	}
 	
 	/**
-	 *  Returns the activity evaluation for a NetlistNode defined by parameter <i>node</i>
-	 *  at the state defined by parameter <i>state</i>
-	 *  
-	 *  @param node the NetlistNode
-	 *  @param state the state
-	 *  @return the evaluation for an XNOR NodeType for NetlistNode defined by parameter <i>node</i>
-	 *  at the state defined by parameter <i>state</i>
+	 * Returns the activity evaluation for a NetlistNode defined by parameter
+	 * <i>node</i> at the state defined by parameter <i>state</i>
+	 * 
+	 * @param node  the NetlistNode
+	 * @param state the state
+	 * @return the evaluation for an XNOR NodeType for NetlistNode defined by
+	 *         parameter <i>node</i> at the state defined by parameter <i>state</i>
+	 * @throws CelloException
 	 */	
-	private Double computeActivity(final NetlistNode node, final Activity<NetlistNode> activity) {
+	private Double computeActivity(final NetlistNode node, final Activity<NetlistNode> activity) throws CelloException {
 		Double rtn = null;
 		List<Double> inputList = this.getTMActivityEvaluation().getInputActivity(node, activity);
 		if (inputList.size() >= 1) {
 			SimulatedAnnealingNetlistNodeData data = (SimulatedAnnealingNetlistNodeData) node.getNetlistNodeData();
-			Gate gate = (Gate) data.getGate();
-			ResponseFunction function = gate.getResponseFunction();
-			Double value = 0.0;
-			for (int i = 0; i < inputList.size(); i++) {
-				value += inputList.get(i);
-			}
-			String equation = function.getEquation();
-			
-			MathEval eval = new MathEval();
-			for (int i = 0; i < function.getNumParameter(); i++) {
-				FixedParameter param = function.getParameterAtIdx(i);
-				eval.setConstant(param.getName(), param.getValue());
-			}
-			eval.setVariable(function.getVariableByName("x").getName(), value);
-			rtn = eval.evaluate(equation);
+			AssignableDevice d = data.getGate();
+			Function function = d.getModel().getFunctionByName(FunctionType.S_RESPONSEFUNCTION);
+			EvaluationContext ec = new EvaluationContext();
+			ec.setNode(node);
+			rtn = function.evaluate(ec).doubleValue();
 		}
 		return rtn;
 	}
 	
 	/**
-	 *  Evaluates the truth table for the NetlistNode defined by parameter <i>node</i>
-	 *  
-	 *  @param node the NetlistNode
+	 * Evaluates the truth table for the NetlistNode defined by parameter
+	 * <i>node</i>
+	 * 
+	 * @param node the NetlistNode
+	 * @throws CelloException
 	 */
-	private void evaluateActivityTable(final NetlistNode node, final ActivityTable<NetlistNode,NetlistNode> activityTable) {
+	private void evaluateActivityTable(final NetlistNode node,
+			final ActivityTable<NetlistNode, NetlistNode> activityTable) throws CelloException {
 		Double result = null;
 		final String nodeType = node.getResultNetlistNodeData().getNodeType();
 		for (int i = 0; i < activityTable.getNumActivities(); i ++) {
@@ -196,12 +192,14 @@ public class Evaluator {
 	}
 	
 	/**
-	 *  Evaluates the Netlist defined by parameter <i>netlist</i> and stores the result in the TMActivityEvaluation defined by parameter <i>tmae</i>
-	 *  
-	 *  @param netlist the Netlist
-	 *  @param tmae the TMActivityEvaluation
+	 * Evaluates the Netlist defined by parameter <i>netlist</i> and stores the
+	 * result in the TMActivityEvaluation defined by parameter <i>tmae</i>
+	 * 
+	 * @param netlist the Netlist
+	 * @param tmae    the TMActivityEvaluation
+	 * @throws CelloException
 	 */
-	public void evaluate() {
+	public void evaluate() throws CelloException {
 		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(this.getNetlist());
 		NetlistNode node = null;
 		node = DFS.getNextVertex();

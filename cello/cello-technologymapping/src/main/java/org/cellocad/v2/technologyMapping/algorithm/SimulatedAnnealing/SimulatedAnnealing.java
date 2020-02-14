@@ -231,10 +231,12 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void run() {
+	protected void run() throws CelloException {
 
 		Double MAXTEMP = 100.0;
 		Double MINTEMP = 0.001;

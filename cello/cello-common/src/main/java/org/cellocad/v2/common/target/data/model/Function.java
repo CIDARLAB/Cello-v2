@@ -36,7 +36,7 @@ import org.mariuszgromada.math.mxparser.Expression;
  * @date 2020-02-11
  *
  */
-public class Function extends Evaluatable {
+public final class Function extends Evaluatable {
 
 	private void init() {
 		this.variables = new CObjectCollection<>();
@@ -121,12 +121,7 @@ public class Function extends Evaluatable {
 		return rtn;
 	}
 
-	/**
-	 * Getter for <i>equation</i>.
-	 *
-	 * @return value of equation
-	 */
-	public String getEquation() {
+	private String getEquation() {
 		return equation;
 	}
 
@@ -139,12 +134,7 @@ public class Function extends Evaluatable {
 		return variables;
 	}
 
-	/**
-	 * Getter for <i>parameters</i>.
-	 *
-	 * @return value of parameters
-	 */
-	public CObjectCollection<Parameter> getParameters() {
+	private CObjectCollection<Parameter> getParameters() {
 		return parameters;
 	}
 
