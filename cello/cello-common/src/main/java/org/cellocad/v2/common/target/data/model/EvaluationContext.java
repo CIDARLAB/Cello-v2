@@ -23,7 +23,9 @@ package org.cellocad.v2.common.target.data.model;
 import java.util.StringTokenizer;
 
 import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.netlist.data.StageNetlistEdgeData;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
@@ -68,11 +70,22 @@ public class EvaluationContext {
 	private static Evaluatable dereferenceInput(StringTokenizer st, String map, NetlistNode node, Input input)
 			throws CelloException {
 		Evaluatable rtn = null;
-		// TODO get upstream node via input
-		throw new CelloException("Input dereference not implemented.");
-		// NetlistNode src = null;
-		// dereferenceRoot(st, map, src);
-		// return rtn;
+		NetlistNode src = null;
+		for (int i = 0; i < node.getNumInEdge(); i++) {
+			NetlistEdge edge = node.getInEdgeAtIdx(i);
+			StageNetlistEdgeData data = edge.getStageNetlistEdgeData();
+			Input in = data.getInput();
+			if (in.equals(input)) {
+				src = edge.getSrc();
+				break;
+			}
+		}
+		if (src == null) {
+			String fmt = "Nothing wired to input '%s'.";
+			throw new RuntimeException(String.format(fmt, input.getName()));
+		}
+		dereferenceRoot(st, map, src);
+		return rtn;
 	}
 
 	private static Evaluatable dereferenceStructure(StringTokenizer st, String map, NetlistNode node,

@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,16 +26,19 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.target.data.model.Input;
 
 /**
- * The StageNetlistEdgeData class is the base class for all StageNetlistEdgeData classes using the Poros framework.
+ * The StageNetlistEdgeData class is the base class for all StageNetlistEdgeData
+ * classes using the Poros framework.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Dec 10, 2017
  *
  */
-public abstract class StageNetlistEdgeData extends CObject{
+public abstract class StageNetlistEdgeData extends CObject {
 
 	/**
 	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
@@ -42,4 +47,25 @@ public abstract class StageNetlistEdgeData extends CObject{
 	 *  @throws IOException If an I/O error occurs
 	 */
 	public abstract void writeJSON(int indent, Writer os) throws IOException;
+
+	/**
+	 * Getter for <i>input</i>.
+	 *
+	 * @return value of input
+	 */
+	public Input getInput() {
+		return input;
+	}
+
+	/**
+	 * Setter for <i>input</i>.
+	 *
+	 * @param input the input to set
+	 */
+	public void setInput(final Input input) {
+		this.input = input;
+	}
+
+	private Input input;
+
 }
