@@ -20,6 +20,8 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.cellocad.v2.common.CelloException;
@@ -38,7 +40,12 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  */
 public class EvaluationContext {
 
+	private void init() {
+		this.cache = new HashMap<>();
+	}
+
 	public EvaluationContext() {
+		this.init();
 	}
 
 	/**
@@ -50,24 +57,25 @@ public class EvaluationContext {
 		return node;
 	}
 
-	private static void isTooShortException(StringTokenizer st, String map) throws CelloException {
+	private static void isTooShortException(final StringTokenizer st, final String map) throws CelloException {
 		if (!st.hasMoreTokens()) {
 			String fmt = "%s: '%s' is missing elements.";
 			throw new CelloException(String.format(fmt, S_INVALID, map));
 		}
 	}
 
-	private static void isInvalidTokenException(String map, String token) throws CelloException {
+	private static void isInvalidTokenException(final String map, final String token) throws CelloException {
 		String fmt = "%s: '%s', error with '%s'.";
 		throw new CelloException(String.format(fmt, S_INVALID, map, token));
 	}
 
-	private static void isUnsupportedTokenException(String map, String token) throws CelloException {
+	private static void isUnsupportedTokenException(final String map, final String token) throws CelloException {
 		String fmt = "%s: '%s', error with '%s'.";
 		throw new CelloException(String.format(fmt, S_UNSUPPORTED, map, token));
 	}
 
-	private static Evaluatable dereferenceInput(StringTokenizer st, String map, NetlistNode node, Input input)
+	private static Evaluatable dereferenceInput(final StringTokenizer st, final String map, final NetlistNode node,
+			final Input input)
 			throws CelloException {
 		Evaluatable rtn = null;
 		NetlistNode src = null;
@@ -88,8 +96,8 @@ public class EvaluationContext {
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceStructure(StringTokenizer st, String map, NetlistNode node,
-			Structure structure)
+	private static Evaluatable dereferenceStructure(final StringTokenizer st, final String map, final NetlistNode node,
+			final Structure structure)
 			throws CelloException {
 		Evaluatable rtn = null;
 		isTooShortException(st, map);
@@ -114,7 +122,8 @@ public class EvaluationContext {
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceModel(StringTokenizer st, String map, NetlistNode node, Model model)
+	private static Evaluatable dereferenceModel(final StringTokenizer st, final String map, final NetlistNode node,
+			final Model model)
 			throws CelloException {
 		Evaluatable rtn = null;
 		isTooShortException(st, map);
@@ -137,8 +146,10 @@ public class EvaluationContext {
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceRoot(StringTokenizer st, String map, NetlistNode node) throws CelloException {
+	private static Evaluatable dereferenceRoot(final StringTokenizer st, final String map, final NetlistNode node)
+			throws CelloException {
 		Evaluatable rtn = null;
+		// TODO check cache or originate entry
 		isTooShortException(st, map);
 		String token = st.nextToken();
 		AssignableDevice d = node.getStageNetlistNodeData().getDevice();
@@ -179,6 +190,10 @@ public class EvaluationContext {
 		return rtn;
 	}
 
+	/*
+	 * NetlistNode
+	 */
+
 	/**
 	 * Setter for <i>node</i>.
 	 *
@@ -189,6 +204,21 @@ public class EvaluationContext {
 	}
 
 	private NetlistNode node;
+
+	/*
+	 * Cache
+	 */
+
+	/**
+	 * Getter for <i>cache</i>.
+	 *
+	 * @return value of cache
+	 */
+	public Map<String, Number> getCache() {
+		return cache;
+	}
+
+	private Map<String, Number> cache;
 
 	private static final String S_INVALID = "Invalid reference string";
 	private static final String S_UNSUPPORTED = "Unsupported reference string";
