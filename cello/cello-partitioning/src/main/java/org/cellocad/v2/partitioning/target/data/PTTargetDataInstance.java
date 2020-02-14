@@ -18,10 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.clustering.target.data;
+package org.cellocad.v2.partitioning.target.data;
 
 import org.cellocad.v2.common.target.data.TargetData;
-import org.json.simple.JSONArray;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
 
 /**
  *
@@ -31,10 +31,10 @@ import org.json.simple.JSONArray;
  * @date 2020-02-14
  *
  */
-public class CLTargetData extends TargetData {
+public class PTTargetDataInstance extends TargetDataInstance {
 
-	public CLTargetData(JSONArray JArray) {
-		super(JArray);
+	public PTTargetDataInstance(TargetData td) {
+		super(td);
 	}
 
 }

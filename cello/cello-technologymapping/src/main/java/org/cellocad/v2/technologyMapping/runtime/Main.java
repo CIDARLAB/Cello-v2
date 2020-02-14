@@ -30,12 +30,12 @@ import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
+import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMRuntimeEnv;
-import org.cellocad.v2.technologyMapping.target.data.TMTargetData;
-import org.cellocad.v2.technologyMapping.target.data.TMTargetDataUtils;
 
 /**
  * The Main class is the executable class for the <i>technologyMapping</i> stage.
@@ -76,7 +76,7 @@ public class Main {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TMTargetData td = (TMTargetData) TMTargetDataUtils.getTargetTargetData(runEnv, TMArgString.USERCONSTRAINTSFILE,
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, TMArgString.USERCONSTRAINTSFILE,
 				TMArgString.INPUTSENSORFILE, TMArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");

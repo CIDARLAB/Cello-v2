@@ -41,7 +41,7 @@ import org.json.simple.JSONObject;
  * @date Nov 21, 2017
  *
  */
-public class TargetData extends CObject {
+public final class TargetData extends CObject {
 
 	private void init() {
 		collectionTypeData = new HashMap< String, List<JSONObject> >();

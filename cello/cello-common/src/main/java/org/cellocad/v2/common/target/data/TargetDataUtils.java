@@ -58,7 +58,7 @@ import org.json.simple.parser.ParseException;
  */
 public class TargetDataUtils {
 
-	public static CObjectCollection<Part> getParts(final TargetData td) {
+	public static final CObjectCollection<Part> getParts(final TargetData td) {
 		CObjectCollection<Part> rtn = new CObjectCollection<Part>();
 		for (int i = 0; i < td.getNumJSONObject(S_PARTS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_PARTS, i);
@@ -68,7 +68,7 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static CObjectCollection<Function> getFunctions(final TargetData td) {
+	public static final CObjectCollection<Function> getFunctions(final TargetData td) {
 		CObjectCollection<Function> rtn = new CObjectCollection<Function>();
 		for (int i = 0; i < td.getNumJSONObject(S_FUNCTIONS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_FUNCTIONS, i);
@@ -89,7 +89,8 @@ public class TargetDataUtils {
 		}
 	}
 
-	public static CObjectCollection<Model> getModels(final TargetData td, final CObjectCollection<Function> functions) {
+	public static final CObjectCollection<Model> getModels(final TargetData td,
+			final CObjectCollection<Function> functions) {
 		CObjectCollection<Model> rtn = new CObjectCollection<Model>();
 		for (int i = 0; i < td.getNumJSONObject(S_MODELS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_MODELS, i);
@@ -100,7 +101,7 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static CObjectCollection<Structure> getStructures(final TargetData td) {
+	public static final CObjectCollection<Structure> getStructures(final TargetData td) {
 		CObjectCollection<Structure> rtn = new CObjectCollection<Structure>();
 		for (int i = 0; i < td.getNumJSONObject(S_STRUCTURES); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_STRUCTURES, i);
@@ -124,7 +125,7 @@ public class TargetDataUtils {
 		d.setStructure(structure);
 	}
 
-	public static CObjectCollection<Gate> getGates(final TargetData td, final CObjectCollection<Model> models,
+	public static final CObjectCollection<Gate> getGates(final TargetData td, final CObjectCollection<Model> models,
 			final CObjectCollection<Structure> structures) {
 		CObjectCollection<Gate> rtn = new CObjectCollection<Gate>();
 		for (int i = 0; i < td.getNumJSONObject(S_GATES); i++) {
@@ -139,7 +140,7 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static CObjectCollection<InputSensor> getInputSensors(final TargetData td,
+	public static final CObjectCollection<InputSensor> getInputSensors(final TargetData td,
 			final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(S_INPUTSENSORS); i++) {
@@ -154,7 +155,7 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static CObjectCollection<OutputDevice> getOutputDevices(final TargetData td,
+	public static final CObjectCollection<OutputDevice> getOutputDevices(final TargetData td,
 			final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
 		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
 		for (int i = 0; i < td.getNumJSONObject(S_OUTPUTDEVICES); i++) {

@@ -18,10 +18,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.technologyMapping.target.data;
+package org.cellocad.v2.logicSynthesis.target.data;
 
 import org.cellocad.v2.common.target.data.TargetData;
-import org.json.simple.JSONArray;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
 
 /**
  *
@@ -31,10 +31,10 @@ import org.json.simple.JSONArray;
  * @date 2020-02-14
  *
  */
-public class TMTargetData extends TargetData {
+public class LSTargetDataInstance extends TargetDataInstance {
 
-	public TMTargetData(JSONArray JArray) {
-		super(JArray);
+	public LSTargetDataInstance(TargetData td) {
+		super(td);
 	}
 
 }
