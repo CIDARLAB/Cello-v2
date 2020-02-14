@@ -1,3 +1,7 @@
+branches:
+  only:
+    - develop
+    - master
 os:
   - linux
   - osx
