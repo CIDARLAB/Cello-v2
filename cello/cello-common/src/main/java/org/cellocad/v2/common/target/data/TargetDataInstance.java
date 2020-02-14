@@ -24,6 +24,7 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.common.target.data.model.Function;
 import org.cellocad.v2.common.target.data.model.Model;
 import org.cellocad.v2.common.target.data.model.Structure;
@@ -42,10 +43,22 @@ public class TargetDataInstance {
 		CObjectCollection<Function> functions = TargetDataUtils.getFunctions(td);
 		CObjectCollection<Model> models = TargetDataUtils.getModels(td, functions);
 		CObjectCollection<Structure> structures = TargetDataUtils.getStructures(td);
+		this.parts = TargetDataUtils.getParts(td);
 		this.gates = TargetDataUtils.getGates(td, models, structures);
 		this.inputSensors = TargetDataUtils.getInputSensors(td, models, structures);
 		this.outputDevices = TargetDataUtils.getOutputDevices(td, models, structures);
 	}
+
+	/**
+	 * Getter for <i>parts</i>.
+	 *
+	 * @return value of parts
+	 */
+	public CObjectCollection<Part> getParts() {
+		return parts;
+	}
+
+	private CObjectCollection<Part> parts;
 
 	/**
 	 * Getter for <i>gates</i>.
