@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.structure;
+package org.cellocad.v2.common.target.data.model;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +26,6 @@ import java.util.List;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.common.target.data.model.Input;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -177,9 +176,9 @@ public class Structure extends CObject {
 
 	private CObjectCollection<StructureDevice> devices;
 
-	public static final String S_NAME = "name";
-	public static final String S_INPUTS = "inputs";
-	public static final String S_OUTPUTS = "outputs";
-	public static final String S_DEVICES = "devices";
+	static final String S_NAME = "name";
+	static final String S_INPUTS = "inputs";
+	static final String S_OUTPUTS = "outputs";
+	static final String S_DEVICES = "devices";
 
 }

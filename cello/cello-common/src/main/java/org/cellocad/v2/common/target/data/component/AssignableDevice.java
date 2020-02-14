@@ -21,7 +21,7 @@
 package org.cellocad.v2.common.target.data.component;
 
 import org.cellocad.v2.common.target.data.model.Model;
-import org.cellocad.v2.common.target.data.structure.Structure;
+import org.cellocad.v2.common.target.data.model.Structure;
 import org.json.simple.JSONObject;
 
 /**

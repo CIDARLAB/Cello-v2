@@ -18,7 +18,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.structure;
+package org.cellocad.v2.common.target.data.model;
+
+import org.cellocad.v2.common.CObject;
 
 /**
  *
@@ -28,6 +30,14 @@ package org.cellocad.v2.common.target.data.structure;
  * @date 2020-02-12
  *
  */
-public class StructurePart extends StructureObject {
+public class StructureObject extends CObject {
+
+	public StructureObject() {
+		super();
+	}
+
+	public StructureObject(StructureObject obj) {
+		super(obj);
+	}
 
 }

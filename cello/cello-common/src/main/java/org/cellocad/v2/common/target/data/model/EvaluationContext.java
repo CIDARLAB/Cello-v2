@@ -24,7 +24,6 @@ import java.util.StringTokenizer;
 
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
-import org.cellocad.v2.common.target.data.structure.Structure;
 import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
