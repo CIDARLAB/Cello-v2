@@ -21,9 +21,12 @@
 package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.mariuszgromada.math.mxparser.Argument;
+import org.mariuszgromada.math.mxparser.Expression;
 
 /**
  *
@@ -97,9 +100,24 @@ public class Function extends Evaluatable {
 		return rtn;
 	}
 
+	private static void addArgument(Expression expr, EvaluationContext ec, Evaluatable e) throws CelloException {
+		Double d = e.evaluate(ec).doubleValue();
+		String str = String.format("%s = %f", e.getName(), d);
+		Argument a = new Argument(str);
+		expr.addArguments(a);
+	}
+
 	@Override
-	public Number evaluate(EvaluationContext ce) {
+	public Number evaluate(EvaluationContext ec) throws CelloException {
 		Double rtn = null;
+		Expression expr = new Expression(this.getEquation());
+		for (Parameter p : this.getParameters()) {
+			addArgument(expr, ec, p);
+		}
+		for (Variable v : this.getVariables()) {
+			addArgument(expr, ec, v);
+		}
+		rtn = expr.calculate();
 		return rtn;
 	}
 

@@ -26,6 +26,7 @@ import java.util.List;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.common.target.data.model.Input;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -121,16 +122,34 @@ public class Structure extends CObject {
 		return rtn;
 	}
 
+	/*
+	 * Input
+	 */
+
+	/**
+	 * Returns the Input with name equivalent to parameter <i>name</i>.
+	 * 
+	 * @param name name of the Input to return
+	 * @return the element with name equivalent to parameter <i>name</i>
+	 */
+	public Input getInputByName(final String name) {
+		return this.getInputs().findCObjectByName(name);
+	}
+
 	/**
 	 * Getter for <i>inputs</i>.
 	 *
 	 * @return value of inputs
 	 */
-	public CObjectCollection<Input> getInputs() {
+	private CObjectCollection<Input> getInputs() {
 		return inputs;
 	}
 
 	private CObjectCollection<Input> inputs;
+
+	/*
+	 * Output
+	 */
 
 	/**
 	 * Getter for <i>outputs</i>.
@@ -143,6 +162,10 @@ public class Structure extends CObject {
 
 	private List<String> outputs;
 
+	/*
+	 * Device
+	 */
+
 	/**
 	 * Getter for <i>devices</i>.
 	 *
@@ -154,9 +177,9 @@ public class Structure extends CObject {
 
 	private CObjectCollection<StructureDevice> devices;
 
-	private static final String S_NAME = "name";
-	private static final String S_INPUTS = "inputs";
-	private static final String S_OUTPUTS = "outputs";
-	private static final String S_DEVICES = "devices";
+	public static final String S_NAME = "name";
+	public static final String S_INPUTS = "inputs";
+	public static final String S_OUTPUTS = "outputs";
+	public static final String S_DEVICES = "devices";
 
 }

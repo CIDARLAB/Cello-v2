@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
@@ -52,8 +53,11 @@ public class ParameterReference extends Parameter {
 	}
 
 	@Override
-	public Number evaluate(EvaluationContext ce) {
-		return null;
+	public Number evaluate(EvaluationContext ce) throws CelloException {
+		Number rtn = null;
+		Evaluatable e = ce.dereference(this.getMap());
+		e.evaluate(ce);
+		return rtn;
 	}
 
 	@Override

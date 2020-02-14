@@ -28,8 +28,10 @@ package org.cellocad.v2.common.target.data.model;
  * @date 2020-02-12
  *
  */
-public final class Reference {
+final class Reference {
 
-	public static final String S_MAP = "map";
+	static final String S_MAP = "map";
+	static final String S_DELIM = "/";
+	static final String S_REFCHAR = "#/";
 
 }

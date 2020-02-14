@@ -20,6 +20,11 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import java.util.StringTokenizer;
+
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.structure.Structure;
 import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
@@ -44,6 +49,124 @@ public class EvaluationContext {
 		return node;
 	}
 
+	private static void isTooShortException(StringTokenizer st, String map) throws CelloException {
+		if (!st.hasMoreTokens()) {
+			String fmt = "%s: '%s' is missing elements.";
+			throw new CelloException(String.format(fmt, S_INVALID, map));
+		}
+	}
+
+	private static void isInvalidTokenException(String map, String token) throws CelloException {
+		String fmt = "%s: '%s', error with '%s'.";
+		throw new CelloException(String.format(fmt, S_INVALID, map, token));
+	}
+
+	private static void isUnsupportedTokenException(String map, String token) throws CelloException {
+		String fmt = "%s: '%s', error with '%s'.";
+		throw new CelloException(String.format(fmt, S_UNSUPPORTED, map, token));
+	}
+
+	private static Evaluatable dereferenceInput(StringTokenizer st, String map, NetlistNode node, Input input)
+			throws CelloException {
+		Evaluatable rtn = null;
+		// TODO get upstream node via input
+		throw new CelloException("Input dereference not implemented.");
+		// NetlistNode src = null;
+		// dereferenceRoot(st, map, src);
+		// return rtn;
+	}
+
+	private static Evaluatable dereferenceStructure(StringTokenizer st, String map, NetlistNode node,
+			Structure structure)
+			throws CelloException {
+		Evaluatable rtn = null;
+		isTooShortException(st, map);
+		String token = st.nextToken();
+		String name = null;
+		switch (token) {
+		case Structure.S_INPUTS:
+			isTooShortException(st, map);
+			name = st.nextToken();
+			Input input = structure.getInputByName(name);
+			rtn = dereferenceInput(st, map, node, input);
+			break;
+		case Structure.S_OUTPUTS:
+			isUnsupportedTokenException(map, token);
+			break;
+		case Structure.S_DEVICES:
+			isUnsupportedTokenException(map, token);
+			break;
+		default:
+			isInvalidTokenException(map, token);
+		}
+		return rtn;
+	}
+
+	private static Evaluatable dereferenceModel(StringTokenizer st, String map, NetlistNode node, Model model)
+			throws CelloException {
+		Evaluatable rtn = null;
+		isTooShortException(st, map);
+		String token = st.nextToken();
+		String name = null;
+		switch (token) {
+		case Model.S_PARAMETERS:
+			isTooShortException(st, map);
+			name = st.nextToken();
+			rtn = model.getParameterByName(name);
+			break;
+		case Model.S_FUNCTIONS:
+			isTooShortException(st, map);
+			name = st.nextToken();
+			rtn = model.getFunctionByName(name);
+			break;
+		default:
+			isInvalidTokenException(map, token);
+		}
+		return rtn;
+	}
+
+	private static Evaluatable dereferenceRoot(StringTokenizer st, String map, NetlistNode node) throws CelloException {
+		Evaluatable rtn = null;
+		isTooShortException(st, map);
+		String token = st.nextToken();
+		AssignableDevice d = node.getStageNetlistNodeData().getDevice();
+		switch (token) {
+		case AssignableDevice.S_MODEL:
+			Model m = d.getModel();
+			rtn = dereferenceModel(st, map, node, m);
+			break;
+		case AssignableDevice.S_STRUCTURE:
+			Structure s = d.getStructure();
+			rtn = dereferenceStructure(st, map, node, s);
+			break;
+		default:
+			isInvalidTokenException(map, token);
+		}
+		return rtn;
+	}
+
+	public Evaluatable dereference(final String map) throws CelloException {
+		Evaluatable rtn = null;
+		String str = map;
+		if (!str.startsWith(Reference.S_REFCHAR)) {
+			String fmt = "%s: '%s' must begin with '%s'.";
+			throw new CelloException(String.format(fmt, S_INVALID, str, Reference.S_REFCHAR));
+		}
+		str = str.substring(Reference.S_REFCHAR.length());
+		Boolean root = false;
+		if (str.startsWith(Reference.S_DELIM)) {
+			root = true;
+		}
+		StringTokenizer st = new StringTokenizer(str, Reference.S_DELIM);
+		if (root) {
+			rtn = dereferenceRoot(st, map, this.getNode());
+		} else {
+			String fmt = "%s: '%s'.";
+			throw new CelloException(String.format(fmt, S_UNSUPPORTED, str));
+		}
+		return rtn;
+	}
+
 	/**
 	 * Setter for <i>node</i>.
 	 *
@@ -55,6 +178,7 @@ public class EvaluationContext {
 
 	private NetlistNode node;
 
-	private static final String S_REFCHAR = "#/";
+	private static final String S_INVALID = "Invalid reference string";
+	private static final String S_UNSUPPORTED = "Unsupported reference string";
 
 }

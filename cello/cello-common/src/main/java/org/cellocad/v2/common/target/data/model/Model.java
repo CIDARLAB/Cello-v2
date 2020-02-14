@@ -86,7 +86,7 @@ public class Model extends CObject {
 	 * @param name name of the Function to return
 	 * @return the element with name equivalent to parameter <i>name</i>
 	 */
-	public Function getFunction(final String name) {
+	public Function getFunctionByName(final String name) {
 		return this.getFunctions().get(name);
 	}
 
@@ -137,8 +137,8 @@ public class Model extends CObject {
 
 	private CObjectCollection<FixedParameter> parameters;
 
-	public static final String S_NAME = "name";
-	public static final String S_FUNCTIONS = "functions";
-	public static final String S_PARAMETERS = "parameters";
+	static final String S_NAME = "name";
+	static final String S_FUNCTIONS = "functions";
+	static final String S_PARAMETERS = "parameters";
 
 }

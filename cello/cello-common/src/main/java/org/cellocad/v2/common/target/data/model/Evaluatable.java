@@ -21,6 +21,7 @@
 package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.CelloException;
 
 /**
  *
@@ -32,6 +33,6 @@ import org.cellocad.v2.common.CObject;
  */
 public abstract class Evaluatable extends CObject {
 
-	public abstract Number evaluate(EvaluationContext ce);
+	public abstract Number evaluate(EvaluationContext ce) throws CelloException;
 
 }
