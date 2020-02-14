@@ -26,14 +26,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.clustering.runtime.environment.CLArgString;
 import org.cellocad.v2.clustering.runtime.environment.CLRuntimeEnv;
+import org.cellocad.v2.clustering.target.data.CLTargetData;
+import org.cellocad.v2.clustering.target.data.CLTargetDataUtils;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
-import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 
@@ -76,7 +76,7 @@ public class Main {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, CLArgString.USERCONSTRAINTSFILE,
+		CLTargetData td = (CLTargetData) CLTargetDataUtils.getTargetTargetData(runEnv, CLArgString.USERCONSTRAINTSFILE,
 				CLArgString.INPUTSENSORFILE, CLArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");

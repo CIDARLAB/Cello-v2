@@ -53,10 +53,10 @@ import org.cellocad.v2.common.target.data.placing.DeviceRules;
 import org.cellocad.v2.common.target.data.placing.EugeneRules;
 import org.cellocad.v2.placing.algorithm.PLAlgorithm;
 import org.cellocad.v2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneDataUtils;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistData;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
 import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistNodeData;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.EugeneTargetDataUtils;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.cellocad.v2.placing.runtime.environment.PLArgString;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
@@ -138,13 +138,13 @@ public class Eugene extends PLAlgorithm {
 	 */
 	@Override
 	protected void getDataFromUCF() {
-		this.setGates(EugeneDataUtils.getGates(this.getTargetData()));
-		this.setParts(EugeneDataUtils.getParts(this.getTargetData()));
-		this.setInputSensors(EugeneDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputDevices(EugeneDataUtils.getOutputReporters(this.getTargetData()));
-		this.setCircuitRules(EugeneDataUtils.getCircuitRules(this.getTargetData()));
-		this.setDeviceRules(EugeneDataUtils.getDeviceRules(this.getTargetData()));
-		this.setGeneticLocations(EugeneDataUtils.getGeneticLocations(this.getTargetData()));
+		this.setGates(EugeneTargetDataUtils.getGates(this.getTargetData()));
+		this.setParts(EugeneTargetDataUtils.getParts(this.getTargetData()));
+		this.setInputSensors(EugeneTargetDataUtils.getInputSensors(this.getTargetData()));
+		this.setOutputDevices(EugeneTargetDataUtils.getOutputReporters(this.getTargetData()));
+		this.setCircuitRules(EugeneTargetDataUtils.getCircuitRules(this.getTargetData()));
+		this.setDeviceRules(EugeneTargetDataUtils.getDeviceRules(this.getTargetData()));
+		this.setGeneticLocations(EugeneTargetDataUtils.getGeneticLocations(this.getTargetData()));
 	}
 
 	/**

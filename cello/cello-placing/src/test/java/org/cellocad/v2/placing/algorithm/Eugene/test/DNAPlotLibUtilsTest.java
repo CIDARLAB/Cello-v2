@@ -31,7 +31,7 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneDataUtils;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.EugeneTargetDataUtils;
 import org.cellocad.v2.placing.runtime.environment.PLArgString;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.v2.results.netlist.Netlist;
@@ -79,8 +79,8 @@ public class DNAPlotLibUtilsTest {
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
-		parts = EugeneDataUtils.getParts(td);
-		gates = EugeneDataUtils.getGates(td);
+		parts = EugeneTargetDataUtils.getParts(td);
+		gates = EugeneTargetDataUtils.getGates(td);
 		initIsDone = true;
 	}
 

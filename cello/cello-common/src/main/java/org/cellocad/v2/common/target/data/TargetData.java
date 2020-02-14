@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -34,11 +36,12 @@ import org.json.simple.JSONObject;
  * The TargetData class is a class for managing and accessing the target data.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Nov 21, 2017
  *
  */
-final public class TargetData extends CObject{
+public class TargetData extends CObject {
 
 	private void init() {
 		collectionTypeData = new HashMap< String, List<JSONObject> >();
@@ -75,7 +78,7 @@ final public class TargetData extends CObject{
 	 *  @param index index of the JSONObject to return
 	 *  @return the JSONObject if it exists, otherwise null
 	 */
-	public JSONObject getJSONObjectAtIdx(String type, int index) {
+	public final JSONObject getJSONObjectAtIdx(String type, int index) {
 		JSONObject rtn = null;
 		List<JSONObject> temp = this.getCollectionTypeData().get(type);
 		if (temp != null) {
@@ -90,7 +93,7 @@ final public class TargetData extends CObject{
 	 *  @param type the type of target data
 	 *  @return the number of JSONObject of type, <i>type</i>
 	 */
-	public int getNumJSONObject(String type) {
+	public final int getNumJSONObject(String type) {
 		int rtn = 0;
 		List<JSONObject> temp = this.getCollectionTypeData().get(type);
 		if (temp != null) {

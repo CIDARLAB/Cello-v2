@@ -34,6 +34,8 @@ import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.export.runtime.environment.EXArgString;
 import org.cellocad.v2.export.runtime.environment.EXRuntimeEnv;
+import org.cellocad.v2.export.target.data.EXTargetData;
+import org.cellocad.v2.export.target.data.EXTargetDataUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 
@@ -76,7 +78,7 @@ public class Main {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, EXArgString.USERCONSTRAINTSFILE,
+		EXTargetData td = (EXTargetData) EXTargetDataUtils.getTargetTargetData(runEnv, EXArgString.USERCONSTRAINTSFILE,
 				EXArgString.INPUTSENSORFILE, EXArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");

@@ -80,6 +80,10 @@ public class Model extends CObject {
 	 * Function
 	 */
 
+	public void addFunction(String name, Function function) {
+		this.getFunctions().put(name, function);
+	}
+
 	/**
 	 * Returns the Function with name equivalent to parameter <i>name</i>.
 	 * 
@@ -138,7 +142,7 @@ public class Model extends CObject {
 	private CObjectCollection<FixedParameter> parameters;
 
 	static final String S_NAME = "name";
-	static final String S_FUNCTIONS = "functions";
+	public static final String S_FUNCTIONS = "functions";
 	static final String S_PARAMETERS = "parameters";
 
 }

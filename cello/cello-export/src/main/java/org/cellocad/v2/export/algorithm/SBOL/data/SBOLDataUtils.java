@@ -22,19 +22,11 @@
  */
 package org.cellocad.v2.export.algorithm.SBOL.data;
 
-import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.component.DNAComponent;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.component.Part;
-import org.cellocad.v2.common.target.data.data.Cytometry;
-import org.cellocad.v2.common.target.data.data.CytometryData;
-import org.cellocad.v2.common.target.data.data.ResponseFunction;
-import org.cellocad.v2.common.target.data.data.GateToxicity;
-import org.json.simple.JSONObject;
 
 /**
  * The SimulatedAnnealingDataUtils is class with utility methods for the data
@@ -46,85 +38,6 @@ import org.json.simple.JSONObject;
  *
  */
 public class SBOLDataUtils {
-
-	static public CObjectCollection<Part> getParts(final TargetData td) {
-		CObjectCollection<Part> rtn = new CObjectCollection<Part>();
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_PARTS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_PARTS, i);
-			Part part = new Part(jObj);
-			rtn.add(part);
-		}
-		return rtn;
-	}
-
-	static public CObjectCollection<Gate> getGates(final TargetData td) {
-		CObjectCollection<Gate> rtn = new CObjectCollection<Gate>();
-		// gates
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATES); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATES, i);
-			Gate gate = new Gate(jObj);
-			rtn.add(gate);
-		}
-		// response function
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_RESPONSEFUNCTION); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_RESPONSEFUNCTION, i);
-			ResponseFunction rf = new ResponseFunction(jObj);
-			// processing
-			Gate gate = rtn.findCObjectByName(rf.getName());
-			Utils.isNullRuntimeException(gate, "gate");
-			rf.setGate(gate);
-			gate.setResponseFunction(rf);
-		}
-		// parts
-		CObjectCollection<Part> parts = getParts(td);
-		// toxicity
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATETOXICITY); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATETOXICITY, i);
-			GateToxicity toxicity = new GateToxicity(jObj);
-			// processing
-			Gate gate = rtn.findCObjectByName(toxicity.getGateName());
-			Utils.isNullRuntimeException(gate, "gate");
-			toxicity.setGate(gate);
-			ResponseFunction rf = gate.getResponseFunction();
-			if (rf != null) {
-				gate.getResponseFunction().getVariableByName(toxicity.getMapVariable()).setToxicity(toxicity);
-			}
-		}
-		// gate cytometry
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_GATECYTOMETRY); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_GATECYTOMETRY, i);
-			Cytometry cytometry = new Cytometry(jObj);
-			// processing
-			Gate gate = rtn.findCObjectByName(cytometry.getGateName());
-			Utils.isNullRuntimeException(gate, "gate");
-			ResponseFunction rf = gate.getResponseFunction();
-			for (int j = 0; j < cytometry.getNumCytometryData(); j++) {
-				CytometryData cd = cytometry.getCytometryDataAtIdx(j);
-				rf.getVariableByName(cd.getMapVariable()).addCytometryData(cd);
-			}
-		}
-		return rtn;
-	}
-
-	static public CObjectCollection<InputSensor> getInputSensors(final TargetData td) {
-		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_INPUTSENSORS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_INPUTSENSORS, i);
-			InputSensor sensor = new InputSensor(jObj);
-			rtn.add(sensor);
-		}
-		return rtn;
-	}
-
-	static public CObjectCollection<OutputDevice> getOutputReporters(final TargetData td) {
-		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
-		for (int i = 0; i < td.getNumJSONObject(SBOLDataUtils.S_OUTPUTREPORTERS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(SBOLDataUtils.S_OUTPUTREPORTERS, i);
-			OutputDevice reporter = new OutputDevice(jObj);
-			rtn.add(reporter);
-		}
-		return rtn;
-	}
 
 	static public String getDNASequence(final DNAComponent component) {
 		String rtn = "";
@@ -146,14 +59,5 @@ public class SBOLDataUtils {
 		}
 		return rtn;
 	}
-
-	private static String S_GATES = "gates";
-	private static String S_INPUTSENSORS = "input_sensors";
-	private static String S_OUTPUTREPORTERS = "output_reporters";
-	private static String S_RESPONSEFUNCTION = "response_functions";
-	private static String S_PARTS = "parts";
-	private static String S_GATEPARTS = "gate_parts";
-	private static String S_GATETOXICITY = "gate_toxicity";
-	private static String S_GATECYTOMETRY = "gate_cytometry";
 
 }
