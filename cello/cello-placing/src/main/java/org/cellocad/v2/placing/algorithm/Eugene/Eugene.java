@@ -41,7 +41,6 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkBFS;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
-import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.common.target.data.data.GeneticLocation;
 import org.cellocad.v2.common.target.data.model.StructureDevice;
@@ -59,6 +58,7 @@ import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistNodeData;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.EugeneTargetDataUtils;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.cellocad.v2.placing.runtime.environment.PLArgString;
+import org.cellocad.v2.placing.target.data.PLTargetDataInstance;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.v2.results.netlist.Netlist;
@@ -138,10 +138,7 @@ public class Eugene extends PLAlgorithm {
 	 */
 	@Override
 	protected void getDataFromUCF() {
-		this.setGates(EugeneTargetDataUtils.getGates(this.getTargetData()));
-		this.setParts(EugeneTargetDataUtils.getParts(this.getTargetData()));
-		this.setInputSensors(EugeneTargetDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputDevices(EugeneTargetDataUtils.getOutputReporters(this.getTargetData()));
+		this.setTargetDataInstance(new PLTargetDataInstance(this.getTargetData()));
 		this.setCircuitRules(EugeneTargetDataUtils.getCircuitRules(this.getTargetData()));
 		this.setDeviceRules(EugeneTargetDataUtils.getDeviceRules(this.getTargetData()));
 		this.setGeneticLocations(EugeneTargetDataUtils.getGeneticLocations(this.getTargetData()));
@@ -180,8 +177,8 @@ public class Eugene extends PLAlgorithm {
 		NetlistNode node = null;
 		node = BFS.getNextVertex();
 		while (node != null) {
-			Collection<StructureDevice> devices = EugeneUtils.getDevices(node, this.getGates(),
-					this.getOutputDevices());
+			Collection<StructureDevice> devices = EugeneUtils.getDevices(node, this.getTargetDataInstance().getGates(),
+					this.getTargetDataInstance().getOutputDevices());
 			this.getDevicesMap().put(node, devices);
 			for (StructureDevice d : devices) {
 				this.getDeviceNameNetlistNodeMap().put(d.getName(), node);
@@ -197,7 +194,7 @@ public class Eugene extends PLAlgorithm {
 			Iterator<StructureDevice> it = devices.iterator();
 			while (it.hasNext()) {
 				StructureDevice d = it.next();
-				temp.addAll(EugeneUtils.getPartTypes(d, this.getParts()));
+				temp.addAll(EugeneUtils.getPartTypes(d, this.getTargetDataInstance().getParts()));
 			}
 		}
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
@@ -206,12 +203,12 @@ public class Eugene extends PLAlgorithm {
 			String gateType = data.getDevice();
 			Part p = null;
 			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
-				Gate gate = this.getGates().findCObjectByName(gateType);
-				String output = gate.getGateStructure().getOutput();
-				p = this.getParts().findCObjectByName(output);
+				Gate gate = this.getTargetDataInstance().getGates().findCObjectByName(gateType);
+				String output = gate.getStructure().getOutput();
+				p = this.getTargetDataInstance().getParts().findCObjectByName(output);
 			}
 			if (LSResultsUtils.isAllInput(node)) {
-				InputSensor sensor = this.getInputSensors().findCObjectByName(gateType);
+				InputSensor sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(gateType);
 				p = this.getParts().findCObjectByName(sensor.getOutput());
 			}
 			if (p != null)
@@ -231,13 +228,13 @@ public class Eugene extends PLAlgorithm {
 			Iterator<StructureDevice> it = devices.iterator();
 			while (it.hasNext()) {
 				StructureDevice d = it.next();
-				rtn.addAll(EugeneUtils.getPartDefinitions(d, this.getParts()));
+				rtn.addAll(EugeneUtils.getPartDefinitions(d, this.getTargetDataInstance().getParts()));
 			}
 		}
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
-			CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(),
-					this.getParts());
+			CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getTargetDataInstance().getInputSensors(),
+					this.getTargetDataInstance().getGates(), this.getTargetDataInstance().getParts());
 			for (Part p : inputs) {
 				rtn.add(EugeneUtils.getPartDefinition(p));
 			}
@@ -275,8 +272,9 @@ public class Eugene extends PLAlgorithm {
 		str += String.format("Rule %sRules ( ON %s:", device.getName(), device.getName());
 		str += Utils.getNewLine();
 		Collection<String> rules = new HashSet<>();
-		CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getInputSensors(), this.getGates(),
-				this.getParts());
+		CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, this.getTargetDataInstance().getInputSensors(),
+				this.getTargetDataInstance().getGates(),
+				this.getTargetDataInstance().getParts());
 		int i = device.getIdx();
 		for (StructureObject o : device.getComponents()) {
 			if (o instanceof StructurePart) {
@@ -542,12 +540,14 @@ public class Eugene extends PLAlgorithm {
 		String designsFilename = outputDir + Utils.getFileSeparator() + "dpl_dna_designs.csv";
 		file = new File(designsFilename);
 		DNAPlotLibUtils.writeCSV(designs, file);
-		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(), this.getParts(), this.getGates());
+		List<String> parts = DNAPlotLibUtils.getPartInformation(this.getNetlist(),
+				this.getTargetDataInstance().getParts(), this.getTargetDataInstance().getGates());
 		String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
 		file = new File(partsFilename);
 		DNAPlotLibUtils.writeCSV(parts, file);
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(), this.getParts(),
-				this.getGates());
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(this.getNetlist(),
+				this.getTargetDataInstance().getParts(),
+				this.getTargetDataInstance().getGates());
 		String regFilename = outputDir + Utils.getFileSeparator() + "dpl_regulatory_information.csv";
 		file = new File(regFilename);
 		DNAPlotLibUtils.writeCSV(reg, file);
@@ -795,79 +795,24 @@ public class Eugene extends PLAlgorithm {
 	}
 
 	/**
-	 * Getter for <i>gates</i>
-	 * 
-	 * @return value of <i>gates</i>
+	 * Getter for <i>targetDataInstance</i>.
+	 *
+	 * @return value of targetDataInstance
 	 */
-	protected CObjectCollection<Gate> getGates() {
-		return gates;
+	protected PLTargetDataInstance getTargetDataInstance() {
+		return targetDataInstance;
 	}
 
 	/**
-	 * Setter for <i>gates</i>
-	 * 
-	 * @param gates the value to set <i>gates</i>
+	 * Setter for <i>targetDataInstance</i>.
+	 *
+	 * @param targetDataInstance the targetDataInstance to set
 	 */
-	protected void setGates(final CObjectCollection<Gate> gates) {
-		this.gates = gates;
+	protected void setTargetDataInstance(PLTargetDataInstance targetDataInstance) {
+		this.targetDataInstance = targetDataInstance;
 	}
 
-	/**
-	 * Getter for <i>parts</i>
-	 * 
-	 * @return value of <i>parts</i>
-	 */
-	protected CObjectCollection<Part> getParts() {
-		return parts;
-	}
-
-	/**
-	 * Setter for <i>parts</i>
-	 * 
-	 * @param parts the value to set <i>parts</i>
-	 */
-	protected void setParts(final CObjectCollection<Part> parts) {
-		this.parts = parts;
-	}
-
-	/*
-	 * InputSensors
-	 */
-	/**
-	 * Getter for <i>sensors</i>
-	 * 
-	 * @return value of <i>sensors</i>
-	 */
-	public CObjectCollection<InputSensor> getInputSensors() {
-		return sensors;
-	}
-
-	/**
-	 * Setter for <i>sensors</i>
-	 * 
-	 * @param sensors the value to set <i>sensors</i>
-	 */
-	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
-		this.sensors = sensors;
-	}
-
-	/**
-	 * Getter for <i>devices</i>
-	 * 
-	 * @return value of <i>devices</i>
-	 */
-	public CObjectCollection<OutputDevice> getOutputDevices() {
-		return outputDevices;
-	}
-
-	/**
-	 * Setter for <i>devices</i>
-	 * 
-	 * @param devices the value to set <i>devices</i>
-	 */
-	protected void setOutputDevices(final CObjectCollection<OutputDevice> devices) {
-		this.outputDevices = devices;
-	}
+	private PLTargetDataInstance targetDataInstance;
 
 	/**
 	 * Getter for <i>circuitRules</i>
@@ -929,10 +874,6 @@ public class Eugene extends PLAlgorithm {
 	private String eugeneScriptFilename;
 	private Map<NetlistNode, Collection<StructureDevice>> devicesMap;
 	private Map<String, NetlistNode> deviceNameNetlistNodeMap;
-	private CObjectCollection<Gate> gates;
-	private CObjectCollection<Part> parts;
-	private CObjectCollection<InputSensor> sensors;
-	private CObjectCollection<OutputDevice> outputDevices;
 	private CircuitRules circuitRules;
 	private DeviceRules deviceRules;
 	private CObjectCollection<GeneticLocation> geneticLocations;

@@ -50,7 +50,6 @@ import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingDataUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
@@ -59,6 +58,7 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxic
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
+import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 
 /**
@@ -112,10 +112,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	@Override
 	protected void getDataFromUCF() {
-		this.setGates(SimulatedAnnealingDataUtils.getGates(this.getTargetData()));
-		this.setInputSensors(SimulatedAnnealingDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputReporters(SimulatedAnnealingDataUtils.getOutputDevices(this.getTargetData()));
-		this.setUnitConversion(SimulatedAnnealingDataUtils.getUnitConversion(this.getTargetData()));
+		TMTargetDataInstance tdi = new TMTargetDataInstance(this.getTargetData());
+		this.setTargetDataInstance(tdi);
 	}
 
 	/**
@@ -146,7 +144,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// assign input
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(this.getNetlist());
 		Map<String,String> inputMap = this.getInputMap();
-		Iterator<InputSensor> it = this.getInputSensors().iterator();
+		Iterator<InputSensor> it = this.getTargetDataInstance().getInputSensors().iterator();
 		for (int i = 0; i < inputNodes.size(); i++) {
 			NetlistNode node = inputNodes.get(i);
 			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
@@ -156,7 +154,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			InputSensor sensor = null;
 			if (inputMap.containsKey(node.getName())) {
 				String value = inputMap.get(node.getName());
-				sensor = this.getInputSensors().findCObjectByName(value);
+				sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(value);
 			}
 			while (sensor == null) {
 				InputSensor temp = it.next();
@@ -172,7 +170,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// assign output
 		CObjectCollection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
 		Map<String,String> outputMap = this.getOutputMap();
-		Iterator<OutputDevice> it = this.getOutputReporters().iterator();
+		Iterator<OutputDevice> it = this.getTargetDataInstance().getOutputDevices().iterator();
 		for (int i = 0; i < outputNodes.size(); i++) {
 			NetlistNode node = outputNodes.get(i);
 			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
@@ -182,7 +180,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			OutputDevice reporter = null;
 			if (outputMap.containsKey(node.getName())) {
 				String value = outputMap.get(node.getName());
-				reporter = this.getOutputReporters().findCObjectByName(value);
+				reporter = this.getTargetDataInstance().getOutputDevices().findCObjectByName(value);
 			}
 			while (reporter == null) {
 				OutputDevice temp = it.next();
@@ -217,7 +215,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void preprocessing() throws CelloException {
 		this.random = new Random(L_SEED);
 		// GateManager
-		this.setGateManager(new GateManager(this.getGates()));
+		this.setGateManager(new GateManager(this.getTargetDataInstance().getGates()));
 		// truth table
 		this.setTruthTable();
 		// input node assignment
@@ -410,58 +408,25 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class);
 
-	/*
-	 * Gate
-	 */
-	protected void setGates(final CObjectCollection<Gate> gates) {
-		this.gates = gates;
-	}
-
-	public CObjectCollection<Gate> getGates() {
-		return this.gates;
-	}
-
-
-	private CObjectCollection<Gate> gates;
-
-	/*
-	 * InputSensors
-	 */
 	/**
-	 * Getter for <i>sensors</i>
-	 * @return value of <i>sensors</i>
+	 * Getter for <i>targetDataInstance</i>.
+	 *
+	 * @return value of targetDataInstance
 	 */
-	public CObjectCollection<InputSensor> getInputSensors() {
-		return sensors;
+	protected TMTargetDataInstance getTargetDataInstance() {
+		return targetDataInstance;
 	}
 
 	/**
-	 * Setter for <i>sensors</i>
-	 * @param sensors the value to set <i>sensors</i>
+	 * Setter for <i>targetDataInstance</i>.
+	 *
+	 * @param targetDataInstance the targetDataInstance to set
 	 */
-	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
-		this.sensors = sensors;
+	protected void setTargetDataInstance(TMTargetDataInstance targetDataInstance) {
+		this.targetDataInstance = targetDataInstance;
 	}
 
-	private CObjectCollection<InputSensor> sensors;
-
-	/**
-	 * Getter for <i>reporters</i>
-	 * @return value of <i>reporters</i>
-	 */
-	public CObjectCollection<OutputDevice> getOutputReporters() {
-		return reporters;
-	}
-
-	/**
-	 * Setter for <i>reporters</i>
-	 * @param reporters the value to set <i>reporters</i>
-	 */
-	protected void setOutputReporters(final CObjectCollection<OutputDevice> reporters) {
-		this.reporters = reporters;
-	}
-
-	private CObjectCollection<OutputDevice> reporters;
+	private TMTargetDataInstance targetDataInstance;
 
 	/**
 	 * Getter for <i>inputMap</i>
