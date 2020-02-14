@@ -32,7 +32,7 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.Part;
-import org.cellocad.v2.common.target.data.structure.GateStructure;
+import org.cellocad.v2.common.target.data.model.Structure;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -146,7 +146,7 @@ public class DNAPlotLibUtils {
 									continue;
 								String gateType = src.getResultNetlistNodeData().getDevice();
 								Gate gate = gates.findCObjectByName(gateType);
-								if (!gate.getGateStructure().getOutput().equals(p))
+								if (!gate.getStructure().getOutput().equals(p))
 									continue;
 								Color color = gate.getColor();
 								rgb = getRGB(color);
@@ -199,7 +199,7 @@ public class DNAPlotLibUtils {
 						continue;
 					String gateType = node.getResultNetlistNodeData().getDevice();
 					Gate gate = gates.findCObjectByName(gateType);
-					GateStructure gs = gate.getGateStructure();
+					Structure gs = gate.getStructure();
 					Color color = gate.getColor();
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String p = component.getPartAtIdx(l);

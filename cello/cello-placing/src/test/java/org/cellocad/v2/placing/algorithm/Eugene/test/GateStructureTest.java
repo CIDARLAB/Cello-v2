@@ -23,8 +23,8 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.target.data.model.Structure;
 import org.cellocad.v2.common.target.data.model.StructureDevice;
-import org.cellocad.v2.common.target.data.structure.GateStructure;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -46,7 +46,7 @@ public class GateStructureTest {
 		String str = Utils.getResourceAsString("structure.json");
 		JSONParser parser = new JSONParser();
 		JSONObject obj = (JSONObject) parser.parse(str);
-		GateStructure structure = new GateStructure(obj);
+		Structure structure = new Structure(obj);
 		str = "";
 		for (StructureDevice d : structure.getDevices()) {
 			EugeneDevice e = new EugeneDevice(d);

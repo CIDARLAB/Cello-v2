@@ -128,7 +128,7 @@ public class EugeneUtils {
 				if (gate == null) {
 					new RuntimeException("Unknown gate.");
 				}
-				input = gate.getGateStructure().getOutput();
+				input = gate.getStructure().getOutput();
 			}
 			Part part = parts.findCObjectByName(input);
 			rtn.add(part);
@@ -156,7 +156,7 @@ public class EugeneUtils {
 		Gate gate = gates.findCObjectByName(gateType);
 		OutputDevice reporter = reporters.findCObjectByName(gateType);
 		if (reporter != null) {
-			Collection<StructureDevice> devices = reporter.getOutputDeviceStructure().getDevices();
+			Collection<StructureDevice> devices = reporter.getStructure().getDevices();
 			Integer i = 0;
 			for (StructureDevice d : devices) {
 				StructureDevice e = new StructureDevice(d);
@@ -183,7 +183,7 @@ public class EugeneUtils {
 			}
 		}
 		if (gate != null) {
-			Collection<StructureDevice> devices = gate.getGateStructure().getDevices();
+			Collection<StructureDevice> devices = gate.getStructure().getDevices();
 			Integer i = 0;
 			for (StructureDevice d : devices) {
 				StructureDevice e = new StructureDevice(d);

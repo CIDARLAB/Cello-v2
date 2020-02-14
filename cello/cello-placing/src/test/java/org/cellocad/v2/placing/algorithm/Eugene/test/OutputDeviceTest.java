@@ -24,8 +24,8 @@ import java.io.IOException;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.model.Structure;
 import org.cellocad.v2.common.target.data.model.StructureDevice;
-import org.cellocad.v2.common.target.data.structure.OutputDeviceStructure;
 import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -49,10 +49,9 @@ public class OutputDeviceTest {
 		JSONParser parser = new JSONParser();
 		JSONObject deviceJson = (JSONObject) parser.parse(deviceString);
 		JSONObject structureJson = (JSONObject) parser.parse(structureString);
-		OutputDeviceStructure structure = new OutputDeviceStructure(structureJson);
+		Structure structure = new Structure(structureJson);
 		OutputDevice device = new OutputDevice(deviceJson);
-		device.setOutputDeviceStructure(structure);
-		structure.setOutputDevice(device);
+		device.setStructure(structure);
 		String str = "";
 		for (StructureDevice d : structure.getDevices()) {
 			EugeneDevice e = new EugeneDevice(d);
