@@ -27,6 +27,7 @@ import java.util.StringTokenizer;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.netlist.data.StageNetlistEdgeData;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 
@@ -46,15 +47,6 @@ public class EvaluationContext {
 
 	public EvaluationContext() {
 		this.init();
-	}
-
-	/**
-	 * Getter for <i>node</i>.
-	 *
-	 * @return value of node
-	 */
-	public NetlistNode getNode() {
-		return node;
 	}
 
 	private static void isTooShortException(final StringTokenizer st, final String map) throws CelloException {
@@ -195,6 +187,15 @@ public class EvaluationContext {
 	 */
 
 	/**
+	 * Getter for <i>node</i>.
+	 *
+	 * @return value of node
+	 */
+	public NetlistNode getNode() {
+		return node;
+	}
+
+	/**
 	 * Setter for <i>node</i>.
 	 *
 	 * @param node the node to set
@@ -204,6 +205,30 @@ public class EvaluationContext {
 	}
 
 	private NetlistNode node;
+
+	/*
+	 * State
+	 */
+
+	/**
+	 * Getter for <i>state</i>.
+	 *
+	 * @return value of state
+	 */
+	protected State<NetlistNode> getState() {
+		return state;
+	}
+
+	/**
+	 * Setter for <i>state</i>.
+	 *
+	 * @param state the state to set
+	 */
+	protected void setState(State<NetlistNode> state) {
+		this.state = state;
+	}
+
+	private State<NetlistNode> state;
 
 	/*
 	 * Cache
