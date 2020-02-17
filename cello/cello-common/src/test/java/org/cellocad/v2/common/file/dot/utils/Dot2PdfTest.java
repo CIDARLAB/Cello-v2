@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.test;
+package org.cellocad.v2.common.file.dot.utils;
 
 import java.io.File;
 import java.io.IOException;
