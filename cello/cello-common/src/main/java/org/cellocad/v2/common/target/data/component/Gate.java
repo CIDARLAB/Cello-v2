@@ -44,22 +44,22 @@ public class Gate extends AssignableDevice {
 	private void init() {
 	}
 
-	private void parseRegulator(final JSONObject JObj){
+	private void parseRegulator(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, S_REGULATOR);
 		this.setRegulator(value);
 	}
 
-	private void parseGroup(final JSONObject JObj){
+	private void parseGroup(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, S_GROUP);
 		this.setGroup(value);
 	}
 
-	private void parseGateType(final JSONObject JObj){
+	private void parseGateType(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, S_GATETYPE);
 		this.setGateType(value);
 	}
 	
-	private void parseSystem(final JSONObject JObj){
+	private void parseSystem(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, S_SYSTEM);
 		this.setSystem(value);
 	}
@@ -102,11 +102,11 @@ public class Gate extends AssignableDevice {
 	/*
 	 * Regulator
 	 */
-	private void setRegulator(final String regulator){
+	private void setRegulator(final String regulator) {
 		this.regulator = regulator;
 	}
 	
-	public String getRegulator(){
+	public String getRegulator() {
 		return this.regulator;
 	}
 	
@@ -128,7 +128,7 @@ public class Gate extends AssignableDevice {
 	/*
 	 * GateType
 	 */
-	private void setGateType(final String gateType){
+	private void setGateType(final String gateType) {
 		this.gateType = gateType;
 	}
 	
@@ -141,7 +141,7 @@ public class Gate extends AssignableDevice {
 	/*
 	 * System
 	 */
-	private void setSystem(final String system){
+	private void setSystem(final String system) {
 		this.system = system;
 	}
 	
