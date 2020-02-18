@@ -23,9 +23,10 @@ package org.cellocad.v2.common.target.data.model;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
+import org.cellocad.v2.results.netlist.NetlistNode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.mariuszgromada.math.mxparser.Argument;
 import org.mariuszgromada.math.mxparser.Expression;
 
 /**
@@ -100,23 +101,20 @@ public final class Function extends Evaluatable {
 		return rtn;
 	}
 
-	private static void addArgument(Expression expr, EvaluationContext ec, Evaluatable e) throws CelloException {
-		Double d = e.evaluate(ec).doubleValue();
-		String str = String.format("%s = %f", e.getName(), d);
-		Argument a = new Argument(str);
-		expr.addArguments(a);
-	}
-
 	@Override
 	public Number evaluate(EvaluationContext ec) throws CelloException {
 		Double rtn = null;
-		Expression expr = new Expression(this.getEquation());
+		Expression expr = new Expression(this.getEquation().replace("$", "_"));
 		for (Parameter p : this.getParameters()) {
-			addArgument(expr, ec, p);
+			expr.defineArgument(p.getName(), p.evaluate(ec).doubleValue());
 		}
 		for (Variable v : this.getVariables()) {
-			addArgument(expr, ec, v);
+			expr.defineArgument(v.getName(), v.evaluate(ec).doubleValue());
 		}
+		NetlistNode node = ec.getNode();
+		State<NetlistNode> state = ec.getState();
+		Double q = state.getState(node).equals(state.getOne()) ? 1.0 : 0.0;
+		expr.defineArgument(S_STATE, q);
 		rtn = expr.calculate();
 		return rtn;
 	}
@@ -146,5 +144,6 @@ public final class Function extends Evaluatable {
 	public static final String S_EQUATION = "equation";
 	public static final String S_VARIABLES = "variables";
 	public static final String S_PARAMETERS = "parameters";
+	private static final String S_STATE = "_STATE";
 
 }
