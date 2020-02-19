@@ -53,6 +53,8 @@ public class Structure extends CObject {
 
 	private void parseInputs(final JSONObject jObj) {
 		JSONArray jArr = (JSONArray) jObj.get(S_INPUTS);
+		if (jArr == null)
+			return;
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject o = (JSONObject) jArr.get(i);
 			Input input = new Input(o);
@@ -62,6 +64,8 @@ public class Structure extends CObject {
 
 	private void parseOutputs(final JSONObject jObj) {
 		JSONArray jArr = (JSONArray) jObj.get(S_OUTPUTS);
+		if (jArr == null)
+			return;
 		for (int i = 0; i < jArr.size(); i++) {
 			String value = (String) jArr.get(i);
 			this.getOutputs().add(value);
@@ -96,6 +100,8 @@ public class Structure extends CObject {
 
 	private void parseDevices(final JSONObject jObj) {
 		JSONArray jArr = (JSONArray) jObj.get(S_DEVICES);
+		if (jArr == null)
+			return;
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject o = (JSONObject) jArr.get(i);
 			StructureDevice d = new StructureDevice(o);
