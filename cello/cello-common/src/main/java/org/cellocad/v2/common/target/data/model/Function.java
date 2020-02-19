@@ -57,6 +57,8 @@ public final class Function extends Evaluatable {
 	private void parseVariables(final JSONObject JObj) {
 		CObjectCollection<Variable> variables = this.getVariables();
 		JSONArray jArr = (JSONArray) JObj.get(S_VARIABLES);
+		if (jArr == null)
+			return;
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject jObj = (JSONObject) jArr.get(i);
 			Variable variable = new Variable(jObj);
@@ -68,6 +70,8 @@ public final class Function extends Evaluatable {
 	private void parseParameters(final JSONObject JObj) {
 		CObjectCollection<Parameter> parameters = this.getParameters();
 		JSONArray jArr = (JSONArray) JObj.get(S_PARAMETERS);
+		if (jArr == null)
+			return;
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject jObj = (JSONObject) jArr.get(i);
 			Parameter e = null;
