@@ -81,7 +81,7 @@ public final class TargetData extends CObject {
 	public final JSONObject getJSONObjectAtIdx(String type, int index) {
 		JSONObject rtn = null;
 		List<JSONObject> temp = this.getCollectionTypeData().get(type);
-		if (temp != null) {
+		if ((temp != null) && (index >= 0) && (index < this.getNumJSONObject(type))) {
 			rtn = temp.get(index);
 		}
 		return rtn;
