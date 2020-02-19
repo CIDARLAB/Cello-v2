@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,9 @@ import org.json.simple.JSONObject;
 public class Structure extends CObject {
 
 	private void init() {
-		this.devices = new CObjectCollection<StructureDevice>();
+		this.inputs = new CObjectCollection<>();
+		this.outputs = new ArrayList<>();
+		this.devices = new CObjectCollection<>();
 	}
 
 	private void parseName(final JSONObject jObj) {
@@ -60,8 +63,7 @@ public class Structure extends CObject {
 	private void parseOutputs(final JSONObject jObj) {
 		JSONArray jArr = (JSONArray) jObj.get(S_OUTPUTS);
 		for (int i = 0; i < jArr.size(); i++) {
-			JSONObject o = (JSONObject) jArr.get(i);
-			String value = ProfileUtils.getString(o);
+			String value = (String) jArr.get(i);
 			this.getOutputs().add(value);
 		}
 	}
