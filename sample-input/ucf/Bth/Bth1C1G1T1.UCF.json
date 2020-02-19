@@ -17,14 +17,11 @@
     },
     {
         "collection": "genetic_locations",
-        "symbol": "L1",
-        "locus": 3448657,
-        "sequence": "NCBI NC_004663.1"
-    },
-    {
-        "collection": "genetic_locations",
         "symbol": "L2",
-        "locus": [6217227, 6138320],
+        "locus": [
+            6217227,
+            6138320
+        ],
         "sequence": "NCBI NC_004663.1"
     },
     {
@@ -5115,274 +5112,661 @@
     },
     {
         "collection": "gates",
+        "name": "Gate1",
+        "system": "CRISPRi",
+        "group": "M1",
         "regulator": "M1",
-        "group_name": "M1",
-        "gate_name": "Gate1",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "3BA9E0"
+        "color": "3BA9E0",
+        "model": "Gate1_model",
+        "structure": "Gate1_structure"
     },
     {
         "collection": "gates",
+        "name": "Gate2",
+        "system": "CRISPRi",
+        "group": "M2",
         "regulator": "M2",
-        "group_name": "M2",
-        "gate_name": "Gate2",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "EE2F2B"
+        "color": "EE2F2B",
+        "model": "Gate2_model",
+        "structure": "Gate2_structure"
     },
     {
         "collection": "gates",
+        "name": "Gate3",
+        "system": "CRISPRi",
+        "group": "M3",
         "regulator": "M3",
-        "group_name": "M3",
-        "gate_name": "Gate3",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "8FC73E"
+        "color": "8FC73E",
+        "model": "Gate3_model",
+        "structure": "Gate3_structure"
     },
     {
         "collection": "gates",
+        "name": "Gate4",
+        "system": "CRISPRi",
+        "group": "M4",
         "regulator": "M4",
-        "group_name": "M4",
-        "gate_name": "Gate4",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "E83C96"
+        "color": "E83C96",
+        "model": "Gate4_model",
+        "structure": "Gate4_structure"
     },
     {
         "collection": "gates",
+        "name": "Gate5",
+        "system": "CRISPRi",
+        "group": "M5",
         "regulator": "M5",
-        "group_name": "M5",
-        "gate_name": "Gate5",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "5455A4"
+        "color": "5455A4",
+        "model": "Gate5_model",
+        "structure": "Gate5_structure"
     },
     {
         "collection": "gates",
+        "name": "Gate6",
+        "system": "CRISPRi",
+        "group": "M6",
         "regulator": "M6",
-        "group_name": "M6",
-        "gate_name": "Gate6",
         "gate_type": "NOR",
-        "system": "CRISPRi",
-        "color_hexcode": "6FCDE1"
+        "color": "6FCDE1",
+        "model": "Gate6_model",
+        "structure": "Gate6_structure"
     },
     {
         "collection": "gates",
-        "regulator": "M7",
-        "group_name": "M7",
-        "gate_name": "Gate7",
-        "gate_type": "NOR",
+        "name": "Gate7",
         "system": "CRISPRi",
-        "color_hexcode": "8FC73E"
+        "group": "M7",
+        "regulator": "M7",
+        "gate_type": "NOR",
+        "color": "8FC73E",
+        "model": "Gate7_model",
+        "structure": "Gate7_structure"
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate1",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.192935111,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate1_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.7046
+                "value": 0.7046,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.1925
+                "value": 0.1925,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.259
+                "value": 1.259,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate2",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.116448318,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate2_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.08645
+                "value": 0.08645,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.1143
+                "value": 0.1143,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.257
+                "value": 1.257,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate3",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.133261654,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate3_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.3622
+                "value": 0.3622,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.1327
+                "value": 0.1327,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.311
+                "value": 1.311,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate4",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.082964352,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate4_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.1504
+                "value": 0.1504,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.082
+                "value": 0.082,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.145
+                "value": 1.145,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate5",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.096973,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate5_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.3382
+                "value": 0.3382,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.09913
+                "value": 0.09913,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.254
+                "value": 1.254,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate6",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
-        "variables": [
-            {
-                "name": "x",
-                "off_threshold": 0.092929,
-                "on_threshold": 0.2
-            }
-        ],
+        "collection": "models",
+        "name": "Gate6_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.1291
+                "value": 0.1291,
+                "description": "Maximal transcription"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "value": 0.001,
+                "description": "Minimal transcription"
             },
             {
                 "name": "K",
-                "value": 0.09522
+                "value": 0.09522,
+                "description": "Dissociation equilibrium constant"
             },
             {
                 "name": "n",
-                "value": 1.207
+                "value": 1.207,
+                "description": "Cooperativety"
             }
         ]
     },
     {
-        "collection": "response_functions",
-        "gate_name": "Gate7",
-        "equation": "ymin+(ymax-ymin)/(1.0+(x/K)^n)",
+        "collection": "models",
+        "name": "Gate7_model",
+        "functions": {
+            "response_function": "Hill_response",
+            "input_composition": "linear_input_composition"
+        },
+        "parameters": [
+            {
+                "name": "ymax",
+                "value": 0.1553,
+                "description": "Maximal transcription"
+            },
+            {
+                "name": "ymin",
+                "value": 0.001,
+                "description": "Minimal transcription"
+            },
+            {
+                "name": "K",
+                "value": 0.2858,
+                "description": "Dissociation equilibrium constant"
+            },
+            {
+                "name": "n",
+                "value": 1.164,
+                "description": "Cooperativety"
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate1_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM1"
+        ],
+        "devices": [
+            {
+                "name": "Gate1_a",
+                "components": [
+                    "#in1",
+                    "Gate1_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate1_a_cassette",
+                "components": [
+                    "M1",
+                    "L3S3P41"
+                ]
+            },
+            {
+                "name": "Gate1_b",
+                "components": [
+                    "#in2",
+                    "Gate1_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate1_b_cassette",
+                "components": [
+                    "M1",
+                    "L3S3P41"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate2_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM2"
+        ],
+        "devices": [
+            {
+                "name": "Gate2_a",
+                "components": [
+                    "#in1",
+                    "Gate2_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate2_a_cassette",
+                "components": [
+                    "M2",
+                    "ECK120029600"
+                ]
+            },
+            {
+                "name": "Gate2_b",
+                "components": [
+                    "#in2",
+                    "Gate2_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate2_b_cassette",
+                "components": [
+                    "M2",
+                    "ECK120029600"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate3_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM3"
+        ],
+        "devices": [
+            {
+                "name": "Gate3_a",
+                "components": [
+                    "#in1",
+                    "Gate3_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate3_a_cassette",
+                "components": [
+                    "M3",
+                    "ECK120034435"
+                ]
+            },
+            {
+                "name": "Gate3_b",
+                "components": [
+                    "#in2",
+                    "Gate3_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate3_b_cassette",
+                "components": [
+                    "M3",
+                    "ECK120034435"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate4_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM4"
+        ],
+        "devices": [
+            {
+                "name": "Gate4_a",
+                "components": [
+                    "#in1",
+                    "Gate4_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate4_a_cassette",
+                "components": [
+                    "M4",
+                    "ECK120033736"
+                ]
+            },
+            {
+                "name": "Gate4_b",
+                "components": [
+                    "#in2",
+                    "Gate4_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate4_b_cassette",
+                "components": [
+                    "M4",
+                    "ECK120033736"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate5_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM5"
+        ],
+        "devices": [
+            {
+                "name": "Gate5_a",
+                "components": [
+                    "#in1",
+                    "Gate5_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate5_a_cassette",
+                "components": [
+                    "M5",
+                    "ECK125109870"
+                ]
+            },
+            {
+                "name": "Gate5_b",
+                "components": [
+                    "#in2",
+                    "Gate5_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate5_b_cassette",
+                "components": [
+                    "M5",
+                    "ECK125109870"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate6_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM6"
+        ],
+        "devices": [
+            {
+                "name": "Gate6_a",
+                "components": [
+                    "#in1",
+                    "Gate6_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate6_a_cassette",
+                "components": [
+                    "M6",
+                    "L3S3P31"
+                ]
+            },
+            {
+                "name": "Gate6_b",
+                "components": [
+                    "#in2",
+                    "Gate6_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate6_b_cassette",
+                "components": [
+                    "M6",
+                    "L3S3P31"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "structures",
+        "name": "Gate7_structure",
+        "inputs": [
+            {
+                "name": "in1",
+                "part_type": "promoter"
+            },
+            {
+                "name": "in2",
+                "part_type": "promoter"
+            }
+        ],
+        "outputs": [
+            "PM7"
+        ],
+        "devices": [
+            {
+                "name": "Gate7_a",
+                "components": [
+                    "#in1",
+                    "Gate7_a_cassette"
+                ]
+            },
+            {
+                "name": "Gate7_a_cassette",
+                "components": [
+                    "M7",
+                    "pheA_1"
+                ]
+            },
+            {
+                "name": "Gate7_b",
+                "components": [
+                    "#in2",
+                    "Gate7_b_cassette"
+                ]
+            },
+            {
+                "name": "Gate7_b_cassette",
+                "components": [
+                    "M7",
+                    "pheA_1"
+                ]
+            }
+        ]
+    },
+    {
+        "collection": "functions",
+        "name": "Hill_response",
+        "equation": "ymin + (ymax - ymin) / (1.0 + (x / K)^n)",
         "variables": [
             {
                 "name": "x",
-                "off_threshold": 0.269493,
-                "on_threshold": 0.2
+                "map": "#//model/functions/input_composition"
             }
         ],
         "parameters": [
             {
                 "name": "ymax",
-                "value": 0.1553
+                "map": "#//model/parameters/ymax"
             },
             {
                 "name": "ymin",
-                "value": 0.001
+                "map": "#//model/parameters/ymin"
             },
             {
                 "name": "K",
-                "value": 0.2858
+                "map": "#//model/parameters/K"
             },
             {
                 "name": "n",
-                "value": 1.164
+                "map": "#//model/parameters/n"
+            }
+        ]
+    },
+    {
+        "collection": "functions",
+        "name": "linear_input_composition",
+        "equation": "x2 + x1",
+        "variables": [
+            {
+                "name": "x1",
+                "map": "#//structure/inputs/in1/model/response_function"
+            },
+            {
+                "name": "x2",
+                "map": "#//structure/inputs/in2/model/response_function"
             }
         ]
     },
@@ -5394,16 +5778,16 @@
                 {
                     "function": "AND",
                     "rules": [
-						"ENDSWITH L2",
-						"nanoluc_reporter_a NEXTTO nanoluc_reporter_b",
+                        "ENDSWITH L2",
+                        "nanoluc_reporter_a NEXTTO nanoluc_reporter_b",
                         "ALL_FORWARD"
                     ]
                 },
                 {
                     "function": "OR",
                     "rules": [
-						"nanoluc_reporter_b NEXTTO L2",
-						"nanoluc_reporter_a NEXTTO L2"
+                        "nanoluc_reporter_b NEXTTO L2",
+                        "nanoluc_reporter_a NEXTTO L2"
                     ]
                 }
             ]
@@ -5863,178 +6247,9 @@
         ]
     },
     {
-        "collection": "gate_structure",
-        "gate_name": "Gate1",
-        "output": "PM1",
-        "devices": [
-            {
-                "name": "Gate1_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M1",
-                    "L3S3P41"
-                ]
-            },
-            {
-                "name": "Gate1_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M1",
-                    "L3S3P41"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate2",
-        "output": "PM2",
-        "devices": [
-            {
-                "name": "Gate2_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M2",
-                    "ECK120029600"
-                ]
-            },
-            {
-                "name": "Gate2_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M2",
-                    "ECK120029600"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate3",
-        "output": "PM3",
-        "devices": [
-            {
-                "name": "Gate3_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M3",
-                    "ECK120034435"
-                ]
-            },
-            {
-                "name": "Gate3_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M3",
-                    "ECK120034435"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate4",
-        "output": "PM4",
-        "devices": [
-            {
-                "name": "Gate4_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M4",
-                    "ECK120033736"
-                ]
-            },
-            {
-                "name": "Gate4_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M4",
-                    "ECK120033736"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate5",
-        "output": "PM5",
-        "devices": [
-            {
-                "name": "Gate5_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M5",
-                    "ECK125109870"
-                ]
-            },
-            {
-                "name": "Gate5_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M5",
-                    "ECK125109870"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate6",
-        "output": "PM6",
-        "devices": [
-            {
-                "name": "Gate6_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M6",
-                    "L3S3P31"
-                ]
-            },
-            {
-                "name": "Gate6_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M6",
-                    "L3S3P31"
-                ]
-            }
-        ]
-    },
-    {
-        "collection": "gate_structure",
-        "gate_name": "Gate7",
-        "output": "PM7",
-        "devices": [
-            {
-                "name": "Gate7_a",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M7",
-                    "pheA_1"
-                ]
-            },
-            {
-                "name": "Gate7_b",
-                "maps_to_variable": "x",
-                "components": [
-                    "#promoter?",
-                    "M7",
-                    "pheA_1"
-                ]
-            }
-        ]
+        "collection": "genetic_locations",
+        "symbol": "L1",
+        "locus": 3448657,
+        "sequence": "NCBI NC_004663.1"
     }
 ]

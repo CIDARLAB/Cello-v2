@@ -2,22 +2,34 @@
 	{
 		"collection": "output_devices",
 		"name": "nanoluc_reporter",
+		"model": "nanoluc_reporter_model",
+		"structure": "nanoluc_reporter_structure"
 	},
 	{
 		"collection": "output_structure",
-		"gate_name": "nanoluc_reporter",
+		"name": "nanoluc_reporter",
+		"inputs": [
+			{
+				"name": "in1",
+				"part_type": "promoter",
+			},
+			{
+				"name": "in2",
+				"part_type": "promoter"
+			}
+		],
 		"devices": [
 			{
 				"name": "nanoluc_reporter_a",
 				"components": [
-					"#promoter?",
+					"#in1",
 					"nanoluc_cassette"
 				]
 			},
 			{
 				"name": "nanoluc_reporter_b",
 				"components": [
-					"#promoter?",
+					"#in2",
 					"nanoluc_cassette"
 				]
 			}
