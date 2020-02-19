@@ -215,7 +215,7 @@ public class EvaluationContext {
 	 *
 	 * @return value of state
 	 */
-	protected State<NetlistNode> getState() {
+	public State<NetlistNode> getState() {
 		return state;
 	}
 
@@ -224,7 +224,7 @@ public class EvaluationContext {
 	 *
 	 * @param state the state to set
 	 */
-	protected void setState(State<NetlistNode> state) {
+	public void setState(State<NetlistNode> state) {
 		this.state = state;
 	}
 
