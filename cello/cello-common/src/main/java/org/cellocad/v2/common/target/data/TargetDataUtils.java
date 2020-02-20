@@ -84,7 +84,8 @@ public class TargetDataUtils {
 		Iterator<?> it = obj.keySet().iterator();
 		while (it.hasNext()) {
 			String name = (String) it.next();
-			Function function = functions.findCObjectByName(name);
+			String value = ProfileUtils.getString(obj, name);
+			Function function = functions.findCObjectByName(value);
 			model.addFunction(name, function);
 		}
 	}
