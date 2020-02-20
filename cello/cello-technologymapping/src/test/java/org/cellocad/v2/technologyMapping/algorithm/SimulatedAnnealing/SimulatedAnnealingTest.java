@@ -61,9 +61,9 @@ public class SimulatedAnnealingTest {
 		Path dir = Files.createTempDirectory("cello_");
 		this.output = dir.toFile();
 		String[] args = { "-" + TMArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + TMArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
-				"-" + TMArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
-				"-" + TMArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + TMArgString.USERCONSTRAINTSFILE, Utils.getResource("Bth1C1G1T1.UCF.json").getFile(),
+				"-" + TMArgString.INPUTSENSORFILE, Utils.getResource("Bth1C1G1T1.input.json").getFile(),
+				"-" + TMArgString.OUTPUTDEVICEFILE, Utils.getResource("Bth1C1G1T1.output.json").getFile(),
 				"-" + TMArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + TMArgString.PYTHONENV, "python",
 				"-" + TMArgString.OUTPUTDIR, dir.toString(), "-" + TMArgString.LOGFILENAME,
 				dir.toString() + Utils.getFileSeparator() + "log.log" };
