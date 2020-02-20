@@ -25,11 +25,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cellocad.MIT.dnacompiler.MathEval;
+import org.cellocad.MIT.dnacompiler.ResponseFunction;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.data.ResponseFunction;
 import org.cellocad.v2.common.target.data.model.FixedParameter;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
@@ -43,7 +44,6 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.ActivityTable;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealingUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.MathEval;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 
 /**
@@ -150,7 +150,7 @@ public class ResponsePlots {
 				NetlistEdge e = node.getInEdgeAtIdx(j);
 				NetlistNode src = e.getSrc();
 				ActivityTable<NetlistNode, NetlistNode> at = tmae.getActivityTable(src);
-				Activity<NetlistNode> input = at.getStateAtIdx(i);
+				State<NetlistNode> input = at.getStateAtIdx(i);
 				Activity<NetlistNode> output = at.getActivityOutput(input);
 				Double a = output.getActivity(src);
 				d += a;
@@ -165,7 +165,7 @@ public class ResponsePlots {
 		List<Double> rtn = new ArrayList<>();
 		ActivityTable<NetlistNode, NetlistNode> at = tmae.getActivityTable(node);
 		for (int i : idx) {
-			Activity<NetlistNode> input = at.getStateAtIdx(i);
+			State<NetlistNode> input = at.getStateAtIdx(i);
 			Activity<NetlistNode> output = at.getActivityOutput(input);
 			Double a = output.getActivity(node);
 			rtn.add(a);
