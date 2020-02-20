@@ -21,7 +21,7 @@
 	},
 	{
 		"collection": "structures",
-		"name": "nanoluc_reporter",
+		"name": "nanoluc_reporter_structure",
 		"inputs": [
 			{
 				"name": "in1",
