@@ -43,7 +43,7 @@ import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
 public class ActivityTable<Input, Output> {
 
 	/**
-	 *  Initialize class members
+	 * Initialize class members
 	 */
 	private void init() {
 		activityTableMap = new HashMap<State<Input>, Activity<Output>>();
@@ -51,11 +51,12 @@ public class ActivityTable<Input, Output> {
 	}
 
 	/**
-	 *  Initializes a newly created ActivityTable with the list of inputs defined by parameter <i>inputs</i>
-	 *  a list of outputs defined by parameter <i>outputs</i>.
-	 *  
-	 *  @param inputs the List of inputs
-	 *  @param outputs the List of outputs
+	 * Initializes a newly created ActivityTable with the list of inputs defined by
+	 * parameter <i>inputs</i> a list of outputs defined by parameter
+	 * <i>outputs</i>.
+	 * 
+	 * @param inputs  the List of inputs
+	 * @param outputs the List of outputs
 	 */
 	public ActivityTable(final List<State<Input>> inputs, final List<Output> outputs) {
 		init();
@@ -89,8 +90,9 @@ public class ActivityTable<Input, Output> {
 	 * ActivityMap
 	 */
 	/**
-	 *  Getter for <i>activityTableMap</i>
-	 *  @return the activityTableMap of this instance
+	 * Getter for <i>activityTableMap</i>
+	 * 
+	 * @return the activityTableMap of this instance
 	 */
 	protected Map<State<Input>, Activity<Output>> getActivityTableMap() {
 		return activityTableMap;

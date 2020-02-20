@@ -50,16 +50,17 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
 public class TMActivityEvaluation {
 	
 	/**
-	 *  Initialize class members
+	 * Initialize class members
 	 */
 	private void init() {
 		this.activitytables = new HashMap<NetlistNode, ActivityTable<NetlistNode, NetlistNode>>();
 	}
 	
 	/**
-	 *  Initializes a newly created LSLogicEvaluation using the Netlist defined by parameter <i>netlist</i>
-	 *  
-	 *  @param netlist the Netlist
+	 * Initializes a newly created LSLogicEvaluation using the Netlist defined by
+	 * parameter <i>netlist</i>
+	 * 
+	 * @param netlist the Netlist
 	 */
 	public TMActivityEvaluation(Netlist netlist, LSLogicEvaluation lsle) {
 		this.init();
@@ -80,13 +81,15 @@ public class TMActivityEvaluation {
 	}
 	
 	/**
-	 *  Returns a List of Double representation of the input values for NetlistNode defined by parameter <i>node</i>
-	 *  at the state defined by parameter <i>state</i>
-	 *  
-	 *  @param node the NetlistNode
-	 *  @param activity the activity
-	 *  @return a List of Double representation of the input values for NetlistNode defined by parameter <i>node</i>
-	 *  at the activity defined by parameter <i>activity</i>
+	 * Returns a List of Double representation of the input values for NetlistNode
+	 * defined by parameter <i>node</i> at the state defined by parameter
+	 * <i>state</i>
+	 * 
+	 * @param node     the NetlistNode
+	 * @param activity the activity
+	 * @return a List of Double representation of the input values for NetlistNode
+	 *         defined by parameter <i>node</i> at the activity defined by parameter
+	 *         <i>activity</i>
 	 */
 	public List<Double> getInputActivity(final NetlistNode node, final State<NetlistNode> activity) {
 		List<Double> rtn = new ArrayList<Double>();
@@ -137,7 +140,7 @@ public class TMActivityEvaluation {
 		}
 	}
 
-	protected Map<NetlistNode,ActivityTable<NetlistNode,NetlistNode>> getActivityTables(){
+	protected Map<NetlistNode, ActivityTable<NetlistNode, NetlistNode>> getActivityTables() {
 		return this.activitytables;
 	}
 
@@ -160,10 +163,10 @@ public class TMActivityEvaluation {
 	}
 	
 	/**
-	 *  Returns the truthTable of NetlistNode defined by parameter <i>node</i>
-	 *  
-	 *  @param node the NetlistNode
-	 *  @return the truthTable of NetlistNode defined by parameter <i>node</i>
+	 * Returns the truthTable of NetlistNode defined by parameter <i>node</i>
+	 * 
+	 * @param node the NetlistNode
+	 * @return the truthTable of NetlistNode defined by parameter <i>node</i>
 	 */
 	public ActivityTable<NetlistNode, NetlistNode> getActivityTable(final NetlistNode node){
 		ActivityTable<NetlistNode, NetlistNode> rtn = null;
@@ -192,10 +195,12 @@ public class TMActivityEvaluation {
 	}
 
 	/**
-	 *  Writes this instance in CSV format to the writer defined by parameter <i>os</i> with the delimiter equivalent to the parameter <i>delimiter</i>
-	 *  @param delimiter the delimiter
-	 *  @param os the writer
-	 *  @throws IOException If an I/O error occurs
+	 * Writes this instance in CSV format to the writer defined by parameter
+	 * <i>os</i> with the delimiter equivalent to the parameter <i>delimiter</i>
+	 * 
+	 * @param delimiter the delimiter
+	 * @param os        the writer
+	 * @throws IOException If an I/O error occurs
 	 */
 	public void writeCSV(String delimiter, Writer os) throws IOException {
 		String str = "";
@@ -215,7 +220,7 @@ public class TMActivityEvaluation {
 
 	private static final String S_HEADER = "--------------------------------------------";
 
-
 	private Map<NetlistNode, ActivityTable<NetlistNode, NetlistNode>> activitytables;
 	private States<NetlistNode> states;
+
 }
