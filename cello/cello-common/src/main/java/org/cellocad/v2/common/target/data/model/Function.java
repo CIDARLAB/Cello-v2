@@ -44,11 +44,6 @@ public final class Function extends Evaluatable {
 		this.parameters = new CObjectCollection<>();
 	}
 
-	private void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_NAME);
-		this.setName(value);
-	}
-
 	private void parseEquation(final JSONObject JObj) {
 		String value = ProfileUtils.getString(JObj, S_EQUATION);
 		this.equation = value;
@@ -86,14 +81,14 @@ public final class Function extends Evaluatable {
 	}
 
 	private void parseFunction(JSONObject jObj) {
-		this.init();
-		this.parseName(jObj);
 		this.parseEquation(jObj);
 		this.parseParameters(jObj);
 		this.parseVariables(jObj);
 	}
 
 	public Function(JSONObject jObj) {
+		super(jObj);
+		this.init();
 		this.parseFunction(jObj);
 	}
 

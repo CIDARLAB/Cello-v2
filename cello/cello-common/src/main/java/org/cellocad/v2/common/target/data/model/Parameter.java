@@ -20,7 +20,6 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
-import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
@@ -33,11 +32,8 @@ import org.json.simple.JSONObject;
  */
 public abstract class Parameter extends Evaluatable {
 
-	protected final void parseName(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_NAME);
-		this.setName(value);
+	public Parameter(JSONObject jObj) {
+		super(jObj);
 	}
-
-	private static final String S_NAME = "name";
 
 }

@@ -20,6 +20,8 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 
 /**
@@ -32,13 +34,45 @@ import org.json.simple.JSONObject;
  */
 public class Variable extends Evaluatable {
 
+	private void init() {
+	}
+
+	private void parseMap(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
+		this.map = value;
+	}
+
+	private void parseVariable(final JSONObject JObj) {
+		this.parseName(JObj);
+		this.parseMap(JObj);
+	}
+
 	public Variable(JSONObject jObj) {
+		super(jObj);
+		this.init();
+		this.parseVariable(jObj);
 	}
 
 	@Override
-	public Number evaluate(EvaluationContext ce) {
-		// TODO Auto-generated method stub
-		return null;
+	public Number evaluate(EvaluationContext ce) throws CelloException {
+		Number rtn = null;
+		Evaluatable e = ce.dereference(this.getMap());
+		rtn = e.evaluate(ce);
+		return rtn;
 	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getMap() != null);
+		return rtn;
+	}
+
+	private String getMap() {
+		return map;
+	}
+
+	private String map;
 
 }

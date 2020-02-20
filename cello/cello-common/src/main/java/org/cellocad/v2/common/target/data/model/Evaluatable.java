@@ -22,6 +22,8 @@ package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -33,6 +35,17 @@ import org.cellocad.v2.common.CelloException;
  */
 public abstract class Evaluatable extends CObject {
 
+	protected final void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_NAME);
+		this.setName(value);
+	}
+
+	public Evaluatable(final JSONObject jObj) {
+		this.parseName(jObj);
+	}
+
 	public abstract Number evaluate(EvaluationContext ce) throws CelloException;
+
+	protected static final String S_NAME = "name";
 
 }
