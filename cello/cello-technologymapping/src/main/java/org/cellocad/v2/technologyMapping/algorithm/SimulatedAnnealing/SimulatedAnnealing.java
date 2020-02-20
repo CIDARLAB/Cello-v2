@@ -214,14 +214,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.setGateManager(new GateManager(this.getTargetDataInstance().getGates()));
 		// truth table
 		this.setTruthTable();
-		// input node assignment
-		this.assignInputNodes();
-		// output node assignment
-		this.assignOutputNodes();
-		// logic node assignment
-		// this.assignNodes();
-		// activity evaluation
-		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation()));
 	}
 
 	/**
@@ -244,7 +236,13 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 		Integer T0_STEPS = 100;
 
+		// input node assignment
+		this.assignInputNodes();
+		// output node assignment
+		this.assignOutputNodes();
+		// logic node assignment
 		this.assignNodes();
+		this.updateNetlist();
 
 		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation()));
 		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
@@ -334,12 +332,13 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	/**
 	 * Copy the gate assignements to the netlist
 	 */
-	protected void updateNetlist(final Netlist netlist) {
-		for(int i = 0; i < netlist.getNumVertex(); i++) {
-			NetlistNode node = netlist.getVertexAtIdx(i);
-			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
-			if (gate != null) {
-				node.getResultNetlistNodeData().setDevice(gate.getName());
+	protected void updateNetlist() {
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			AssignableDevice device = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			if (device != null) {
+				node.getStageNetlistNodeData().setDevice(device);
+				node.getResultNetlistNodeData().setDevice(device.getName());
 			}
 		}
 	}
@@ -349,7 +348,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	@Override
 	protected void postprocessing() {
-		updateNetlist(this.getNetlist());
+		updateNetlist();
 		String inputFilename = this.getNetlist().getInputFilename();
 		String filename = Utils.getFilename(inputFilename);
 		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR);
@@ -528,17 +527,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	protected void setTMActivityEvaluation(final TMActivityEvaluation tmae) {
 		this.tmae = tmae;
-	}
-
-	/**
-	 * Setter for <i>tmae</i>
-	 * 
-	 * @param tmte the value to set <i>tmae</i>
-	 * @throws CelloException
-	 */
-	protected void setTMActivityEvaluation(final Netlist netlist, final LSLogicEvaluation lsle) throws CelloException {
-		updateNetlist(netlist);
-		tmae = new TMActivityEvaluation(netlist, lsle);
 	}
 
 	/**
