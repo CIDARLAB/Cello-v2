@@ -56,7 +56,7 @@ public class ParameterReference extends Parameter {
 	public Number evaluate(EvaluationContext ce) throws CelloException {
 		Number rtn = null;
 		Evaluatable e = ce.dereference(this.getMap());
-		e.evaluate(ce);
+		rtn = e.evaluate(ce);
 		return rtn;
 	}
 
