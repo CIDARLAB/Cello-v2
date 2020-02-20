@@ -27,9 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
 import org.cellocad.v2.common.target.data.model.EvaluationContext;
+import org.cellocad.v2.common.target.data.model.FunctionType;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
@@ -61,8 +63,9 @@ public class TMActivityEvaluation {
 	 * parameter <i>netlist</i>
 	 * 
 	 * @param netlist the Netlist
+	 * @throws CelloException
 	 */
-	public TMActivityEvaluation(Netlist netlist, LSLogicEvaluation lsle) {
+	public TMActivityEvaluation(Netlist netlist, LSLogicEvaluation lsle) throws CelloException {
 		this.init();
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");
@@ -106,14 +109,15 @@ public class TMActivityEvaluation {
 		return rtn;
 	}
 
-	private void evaluateActivityTable(final NetlistNode node, final EvaluationContext ec) {
-		Double result = null;
+	private void evaluateActivityTable(final NetlistNode node, final EvaluationContext ec) throws CelloException {
 		ec.setNode(node);
-		// ec.setState(state);
 		ActivityTable<NetlistNode, NetlistNode> activityTable = this.getActivityTables().get(node);
 		for (int i = 0; i < activityTable.getNumStates(); i++) {
-			State<NetlistNode> inputActivity = activityTable.getStateAtIdx(i);
-			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
+			State<NetlistNode> inputState = activityTable.getStateAtIdx(i);
+			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputState);
+			ec.setState(inputState);
+			Double result = node.getStageNetlistNodeData().getDevice().getModel()
+					.getFunctionByName(FunctionType.S_RESPONSEFUNCTION).evaluate(ec).doubleValue();
 			if (outputActivity.getNumActivityPosition() != 1) {
 				throw new RuntimeException("Invalid number of output(s)!");
 			}
@@ -128,8 +132,9 @@ public class TMActivityEvaluation {
 	 * Evaluates the Netlist defined by parameter <i>netlist</i>
 	 * 
 	 * @param netlist the Netlist
+	 * @throws CelloException
 	 */
-	protected void evaluate(Netlist netlist) {
+	protected void evaluate(Netlist netlist) throws CelloException {
 		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(netlist);
 		NetlistNode node = null;
 		EvaluationContext ec = new EvaluationContext();

@@ -532,9 +532,11 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	/**
 	 * Setter for <i>tmae</i>
+	 * 
 	 * @param tmte the value to set <i>tmae</i>
+	 * @throws CelloException
 	 */
-	protected void setTMActivityEvaluation(final Netlist netlist, final LSLogicEvaluation lsle) {
+	protected void setTMActivityEvaluation(final Netlist netlist, final LSLogicEvaluation lsle) throws CelloException {
 		updateNetlist(netlist);
 		tmae = new TMActivityEvaluation(netlist, lsle);
 	}
