@@ -24,7 +24,6 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -39,7 +38,6 @@ import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
-import org.cellocad.v2.common.target.data.model.FixedParameter;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -47,7 +45,6 @@ import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
@@ -224,10 +221,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		this.assignOutputNodes();
 		// logic node assignment
 		// this.assignNodes();
-		// sensor signals
-		this.setSensorSignals(this.getNetlist());
 		// activity evaluation
-		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(),this.getSensorSignals(),this.getLSLogicEvaluation()));
+		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation()));
 	}
 
 	/**
@@ -295,8 +290,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 			// evaluate
 			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
-			                                                     this.getSensorSignals(),
-			                                                     this.getLSLogicEvaluation());
+					this.getLSLogicEvaluation());
 			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
 			eval.evaluate();
 			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
@@ -508,50 +502,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	private LSLogicEvaluation lsle;
 
-	/**
-	 * Getter for <i>signals</i>
-	 * @return value of <i>signals</i>
-	 */
-	protected SensorSignals<NetlistNode> getSensorSignals() {
-		return signals;
-	}
-
-	/**
-	 * Setter for <i>signals</i>
-	 * 
-	 * @param netlist the Netlist used to set <i>signals</i>
-	 * @throws CelloException
-	 */
-	protected void setSensorSignals(final Netlist netlist) throws CelloException {
-		List<NetlistNode> inputs = LSResultsUtils.getPrimaryInputNodes(netlist);
-		SensorSignals<NetlistNode> signals = new SensorSignals<NetlistNode>(inputs);
-		for (int i = 0; i < inputs.size(); i++) {
-			NetlistNode node = inputs.get(i);
-			InputSensor sensor = (InputSensor) SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node)
-					.getGate();
-			FixedParameter hi = sensor.getParameterValueByName(InputSensor.S_HI);
-			FixedParameter lo = sensor.getParameterValueByName(InputSensor.S_LO);
-			String fmt = "Error with %s %s.";
-			if (hi == null || hi.getValue() == null)
-				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_HI));
-			if (lo == null || lo.getValue() == null)
-				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_LO));
-			signals.setHighActivitySignal(node, hi.getValue());
-			signals.setLowActivitySignal(node, lo.getValue());
-		}
-		this.signals = signals;
-	}
-
-	/**
-	 * Setter for <i>signals</i>
-	 * @param signals the value to set <i>signals</i>
-	 */
-	protected void setSensorSignals(final SensorSignals<NetlistNode> signals) {
-		this.signals = signals;
-	}
-
-	private SensorSignals<NetlistNode> signals;
-
 	/*
 	 * TMActivityEvaluation
 	 */
@@ -589,9 +539,9 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 * Setter for <i>tmae</i>
 	 * @param tmte the value to set <i>tmae</i>
 	 */
-	protected void setTMActivityEvaluation(final Netlist netlist, final SensorSignals<NetlistNode> signals, final LSLogicEvaluation lsle) {
+	protected void setTMActivityEvaluation(final Netlist netlist, final LSLogicEvaluation lsle) {
 		updateNetlist(netlist);
-		tmae = new TMActivityEvaluation(netlist,signals,lsle);
+		tmae = new TMActivityEvaluation(netlist, lsle);
 	}
 
 	/**

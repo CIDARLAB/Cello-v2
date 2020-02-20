@@ -150,7 +150,7 @@ public class ResponsePlots {
 				NetlistEdge e = node.getInEdgeAtIdx(j);
 				NetlistNode src = e.getSrc();
 				ActivityTable<NetlistNode, NetlistNode> at = tmae.getActivityTable(src);
-				Activity<NetlistNode> input = at.getActivityAtIdx(i);
+				Activity<NetlistNode> input = at.getStateAtIdx(i);
 				Activity<NetlistNode> output = at.getActivityOutput(input);
 				Double a = output.getActivity(src);
 				d += a;
@@ -165,7 +165,7 @@ public class ResponsePlots {
 		List<Double> rtn = new ArrayList<>();
 		ActivityTable<NetlistNode, NetlistNode> at = tmae.getActivityTable(node);
 		for (int i : idx) {
-			Activity<NetlistNode> input = at.getActivityAtIdx(i);
+			Activity<NetlistNode> input = at.getStateAtIdx(i);
 			Activity<NetlistNode> output = at.getActivityOutput(input);
 			Double a = output.getActivity(node);
 			rtn.add(a);

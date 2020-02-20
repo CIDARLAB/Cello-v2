@@ -72,7 +72,7 @@ public class ScoreUtils {
 		for (int i = 0; i < truthTable.getNumStates(); i++) {
 			State<NetlistNode> inputState = truthTable.getStateAtIdx(i);
 			State<NetlistNode> outputState = truthTable.getStateOutput(inputState);
-			Activity<NetlistNode> inputActivity = activityTable.getActivityAtIdx(i);
+			Activity<NetlistNode> inputActivity = activityTable.getStateAtIdx(i);
 			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
 			Boolean l = outputState.getState(node);
 			Double a = outputActivity.getActivity(node);

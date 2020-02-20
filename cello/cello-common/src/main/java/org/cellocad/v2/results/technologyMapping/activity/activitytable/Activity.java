@@ -27,8 +27,6 @@ import java.util.Map;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Pair;
-import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 
 /**
  * The Activity class contains the activity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -57,7 +55,7 @@ public class Activity <T> extends CObject{
 	 *  @param value the value
 	 */
 	public Activity(final List<T> nodes, final double value) {
-		init();
+		this.init();
 		for (int i = 0; i < nodes.size(); i++) {
 			T node = nodes.get(i);
 			Pair<T,Double> pair = new Pair<T,Double>(node, value);
@@ -73,27 +71,6 @@ public class Activity <T> extends CObject{
 	 */
 	public Activity(final List<T> nodes) {
 		this(nodes, 0.0);
-	}
-	
-	public Activity(final List<T> inputs, final State<T> state, final SensorSignals<T> signals) {
-		init();
-		for (int i = 0; i < inputs.size(); i++) {
-			T node = inputs.get(i);
-			Boolean logic = state.getState(node);
-			Double value = null;
-			if (logic == state.getZero()) {
-				value = signals.getLowActivitySignal(node);
-			}
-			else if (logic == state.getOne()) {
-				value = signals.getHighActivitySignal(node);
-			}
-			else {
-				throw new RuntimeException("Error with State.");
-			}
-			Pair<T,Double> pair = new Pair<T,Double>(node, value);
-			this.getActivity().add(0, pair);
-			this.getActivityMap().put(node, value);
-		}
 	}
 	
 	/*

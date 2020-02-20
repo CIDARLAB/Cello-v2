@@ -29,14 +29,16 @@ import java.util.Map;
 
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.graph.algorithm.SinkDFS;
+import org.cellocad.v2.common.target.data.model.EvaluationContext;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.netlist.Netlist;
+import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activities;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.ActivityTable;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 
 /**
  * 
@@ -60,13 +62,13 @@ public class TMActivityEvaluation {
 	 *  
 	 *  @param netlist the Netlist
 	 */
-	public TMActivityEvaluation (Netlist netlist, SensorSignals<NetlistNode> sensorSignals, LSLogicEvaluation lsle) {
+	public TMActivityEvaluation(Netlist netlist, LSLogicEvaluation lsle) {
 		this.init();
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");
 		}
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(netlist);
-		Activities<NetlistNode> activities = new Activities<NetlistNode>(inputNodes, lsle.getStates(), sensorSignals);
+		Activities<NetlistNode> activities = new Activities<NetlistNode>(inputNodes, lsle.getStates());
 		this.setActivities(activities);
 		List<NetlistNode> outputNodes = new ArrayList<NetlistNode>();
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
@@ -76,6 +78,7 @@ public class TMActivityEvaluation {
 			ActivityTable<NetlistNode, NetlistNode> activityTable = new ActivityTable<NetlistNode, NetlistNode>(activities, outputNodes);
 			this.getActivityTables().put(node, activityTable);
 		}
+		this.evaluate(netlist);
 	}
 	
 	/**
@@ -102,6 +105,40 @@ public class TMActivityEvaluation {
 		return rtn;
 	}
 
+	private void evaluateActivityTable(final NetlistNode node, final EvaluationContext ec) {
+		Double result = null;
+		ec.setNode(node);
+		// ec.setState(state);
+		ActivityTable<NetlistNode, NetlistNode> activityTable = this.getActivityTables().get(node);
+		for (int i = 0; i < activityTable.getNumActivities(); i++) {
+			Activity<NetlistNode> inputActivity = activityTable.getStateAtIdx(i);
+			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
+			if (outputActivity.getNumActivityPosition() != 1) {
+				throw new RuntimeException("Invalid number of output(s)!");
+			}
+			Utils.isNullRuntimeException(result, "result");
+			if (!outputActivity.setActivity(node, result)) {
+				throw new RuntimeException("Node does not exist");
+			}
+		}
+	}
+
+	/**
+	 * Evaluates the Netlist defined by parameter <i>netlist</i>
+	 * 
+	 * @param netlist the Netlist
+	 */
+	protected void evaluate(Netlist netlist) {
+		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(netlist);
+		NetlistNode node = null;
+		EvaluationContext ec = new EvaluationContext();
+		node = DFS.getNextVertex();
+		while (node != null) {
+			evaluateActivityTable(node, ec);
+			node = DFS.getNextVertex();
+		}
+	}
+
 	protected Map<NetlistNode,ActivityTable<NetlistNode,NetlistNode>> getActivityTables(){
 		return this.activitytables;
 	}
@@ -111,7 +148,7 @@ public class TMActivityEvaluation {
 	}
 	
 	/**
-	 *  Getter for <i>activities</i>
+	 *  Getter for <i>states</i>
 	 *  @return the states of this instance
 	 */
 	public Activities<NetlistNode> getActivities(){
@@ -140,7 +177,7 @@ public class TMActivityEvaluation {
 			rtn += String.format("%-15s",node.getName()) + Utils.getTabCharacter();
 			ActivityTable<NetlistNode,NetlistNode> activitytable = this.getActivityTables().get(node);
 			for (int i = 0; i < activitytable.getNumActivities(); i++) {
-				Activity<NetlistNode> input = activitytable.getActivityAtIdx(i);
+				Activity<NetlistNode> input = activitytable.getStateAtIdx(i);
 				Activity<NetlistNode> output = activitytable.getActivityOutput(input);
 				rtn += String.format("%.4f", output.getActivity(node)) + Utils.getTabCharacter();
 			}
@@ -162,7 +199,7 @@ public class TMActivityEvaluation {
 			str += node.getName();
 			ActivityTable<NetlistNode,NetlistNode> activitytable = this.getActivityTable(node);
 			for (int i = 0; i < activitytable.getNumActivities(); i++) {
-				Activity<NetlistNode> input = activitytable.getActivityAtIdx(i);
+				Activity<NetlistNode> input = activitytable.getStateAtIdx(i);
 				Activity<NetlistNode> output = activitytable.getActivityOutput(input);
 				str += delimiter;
 				str += String.format("%1.5e",output.getActivity(node));

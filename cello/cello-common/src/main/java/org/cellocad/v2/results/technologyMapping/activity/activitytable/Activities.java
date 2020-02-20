@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 
 /**
  * The Activity class contains all the state of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -35,7 +34,7 @@ import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
  * @date 2018-05-23
  *
  */
-public class Activities <T>{
+public class Activities<T> {
 
 	/**
 	 *  Initialize class members
@@ -44,17 +43,17 @@ public class Activities <T>{
 		activities = new ArrayList<Activity<T>>();
 	}
 
-	public Activities(final List<T> inputs, final States<T> states, final SensorSignals<T> signals) {
+	public Activities(final List<T> inputs, final States<T> states) {
 		init();
 		for (int i = 0; i < states.getNumStates(); i++) {
 			State<T> state = states.getStateAtIdx(i);
-			Activity<T> activity = new Activity<T>(inputs, state, signals);
+			Activity<T> activity = new Activity<T>(inputs, state);
 			this.getActivities().add(activity);
 		}
 	}
 
 	/**
-	 *  Getter for <i>activities</i>
+	 *  Getter for <i>states</i>
 	 *  @return the states of this instance
 	 */
 	protected List<Activity<T>> getActivities() {

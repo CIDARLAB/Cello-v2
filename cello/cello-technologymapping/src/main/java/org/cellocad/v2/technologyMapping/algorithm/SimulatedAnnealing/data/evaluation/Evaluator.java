@@ -165,7 +165,7 @@ public class Evaluator {
 		Double result = null;
 		final String nodeType = node.getResultNetlistNodeData().getNodeType();
 		for (int i = 0; i < activityTable.getNumActivities(); i ++) {
-			Activity<NetlistNode> inputActivity = activityTable.getActivityAtIdx(i);
+			Activity<NetlistNode> inputActivity = activityTable.getStateAtIdx(i);
 			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputActivity);
 			if (outputActivity.getNumActivityPosition() != 1) {
 				throw new RuntimeException("Invalid number of output(s)!");

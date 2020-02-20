@@ -27,7 +27,7 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activiti
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
 
 /**
- * The ToxicityTable class represents table of activities within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
+ * The ToxicityTable class represents table of states within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
  * @param Input input type index
  * @param Output output type index
  *
@@ -64,10 +64,10 @@ public class ToxicityTable<Input,Output> {
 	}
 
 	/**
-	 * Initializes a newly created ToxicityTable with the list of activities defined by parameter <i>activities</i>
+	 * Initializes a newly created ToxicityTable with the list of states defined by parameter <i>states</i>
 	 * a list of outputs defined by parameter <i>outputs</i>.
 	 *
-	 * @param activities the List of activities
+	 * @param states the List of states
 	 * @param outputs the List of outputs
 	 */
 	public ToxicityTable(final Activities<Input> activities, final List<Output> outputs) {
@@ -92,8 +92,8 @@ public class ToxicityTable<Input,Output> {
 	}
 
 	/**
-	 * Getter for <i>activities</i>
-	 * @return the activities of this instance
+	 * Getter for <i>states</i>
+	 * @return the states of this instance
 	 */
 	protected List<Activity<Input>> getActivities() {
 		return activities;
@@ -130,9 +130,9 @@ public class ToxicityTable<Input,Output> {
 	}
 
 	/**
-	 * Returns the number of activities in this instance.
+	 * Returns the number of states in this instance.
 	 *
-	 * @return the number of activities in this instance.
+	 * @return the number of states in this instance.
 	 */
 	public int getNumActivities() {
 		return this.getActivities().size();
