@@ -48,6 +48,7 @@ public class ParameterReference extends Parameter {
 	}
 
 	public ParameterReference(final JSONObject jObj) {
+		super(jObj);
 		this.init();
 		this.parseParameterReference(jObj);
 	}

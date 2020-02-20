@@ -46,9 +46,10 @@ public class FixedParameter extends Parameter {
 		this.parseValue(jObj);
 	}
 
-	public FixedParameter(final JSONObject jobj) {
+	public FixedParameter(final JSONObject jObj) {
+		super(jObj);
 		this.init();
-		this.parseFixedParameter(jobj);
+		this.parseFixedParameter(jObj);
 	}
 
 	@Override
