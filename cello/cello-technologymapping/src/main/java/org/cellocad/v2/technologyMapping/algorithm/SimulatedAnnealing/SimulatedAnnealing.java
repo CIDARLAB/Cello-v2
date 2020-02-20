@@ -49,7 +49,6 @@ import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
@@ -247,6 +246,9 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 		this.assignNodes();
 
+		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation()));
+		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
+
 		// evaluate
 		for (int j = 0; j < STEPS + T0_STEPS; ++j) {
 			Double LOGTEMP = LOGMAX - j * LOGINC;
@@ -256,12 +258,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 				TEMP = 0.0;
 			}
 
-			Evaluator eval = null;
-			eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
-			eval.evaluate();
-			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
-
-			Double before = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation());
+			Double before = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(),
+					this.getTMActivityEvaluation());
 
 			GateManager GM = this.getGateManager();
 			Netlist netlist = this.getNetlist();
@@ -289,18 +287,15 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			GM.setAssignedGate(candidate);
 
 			// evaluate
-			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
-					this.getLSLogicEvaluation());
-			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
-			eval.evaluate();
-			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
+			TMActivityEvaluation tmae = new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation());
+			Double after = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(), tmae);
 
 			// toxicity
-			TMToxicityEvaluation tempToxicity = new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation());
+			TMToxicityEvaluation tmte = new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation());
 			if (this.getTMToxicityEvaluation().getMinimumGrowth() < D_GROWTH_THRESHOLD) {
-				if (tempToxicity.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
+				if (tmte.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
 					this.setTMToxicityEvaluation(tmte);
-					this.setTMActivityEvaluation(tempActivity);
+					this.setTMActivityEvaluation(tmae);
 					continue;
 				}
 				else {
@@ -311,7 +306,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 					continue;
 				}
 			}
-			else if (tempToxicity.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
+			else if (tmte.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
 				// undo
 				GM.setUnassignedGate(candidate);
 				data.setGate(original);
@@ -324,7 +319,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			Double ep = Math.random();
 
 			if (ep < probability) {
-				this.setTMActivityEvaluation(tempActivity);
+				this.setTMActivityEvaluation(tmae);
 			} else {
 				// undo
 				GM.setUnassignedGate(candidate);
