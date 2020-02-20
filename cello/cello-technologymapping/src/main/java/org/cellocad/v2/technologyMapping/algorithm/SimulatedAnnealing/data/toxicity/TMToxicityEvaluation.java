@@ -74,7 +74,7 @@ public class TMToxicityEvaluation extends CObject{
 			throw new RuntimeException("netlist is not valid!");
 		}
 		this.setTMActivityEvaluation(tmae);
-		Activities<NetlistNode> activities = tmae.getActivities();
+		Activities<NetlistNode> activities = tmae.getStates();
 		List<NetlistNode> outputNodes = new ArrayList<NetlistNode>();
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
@@ -202,7 +202,7 @@ public class TMToxicityEvaluation extends CObject{
 
 	public Double getMinimumGrowth() {
 		Double rtn = D_MAXGROWTH;
-		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getActivities();
+		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getStates();
 		for (int i = 0; i < activities.getNumActivities(); i++) {
 			Activity<NetlistNode> activity = activities.getActivityAtIdx(i);
 			rtn = Math.min(rtn,this.getGrowth(activity));
@@ -260,7 +260,7 @@ public class TMToxicityEvaluation extends CObject{
 		}
 		rtn += S_HEADER + Utils.getNewLine();
 		rtn += String.format("%-15s","") + Utils.getTabCharacter();
-		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getActivities();
+		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getStates();
 		for (int i = 0; i < activities.getNumActivities(); i++) {
 			Activity<NetlistNode> activity = activities.getActivityAtIdx(i);
 			rtn += String.format("%.2f",this.getGrowth(activity)) + Utils.getTabCharacter();
