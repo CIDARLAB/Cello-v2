@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.common.target.data;
 
+import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
@@ -37,7 +38,7 @@ import org.cellocad.v2.common.target.data.model.Structure;
  * @date 2020-02-14
  *
  */
-public class TargetDataInstance {
+public class TargetDataInstance extends CObject {
 
 	public TargetDataInstance(final TargetData td) {
 		CObjectCollection<Function> functions = TargetDataUtils.getFunctions(td);
@@ -47,6 +48,16 @@ public class TargetDataInstance {
 		this.gates = TargetDataUtils.getGates(td, models, structures);
 		this.inputSensors = TargetDataUtils.getInputSensors(td, models, structures);
 		this.outputDevices = TargetDataUtils.getOutputDevices(td, models, structures);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getParts() != null && this.getParts().isValid());
+		rtn = rtn && (this.getGates() != null && this.getGates().isValid());
+		rtn = rtn && (this.getInputSensors() != null && this.getInputSensors().isValid());
+		rtn = rtn && (this.getOutputDevices() != null && this.getOutputDevices().isValid());
+		return rtn;
 	}
 
 	/**
