@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018
+ * Copyright (C) 2017-2020
  * Massachusetts Institute of Technology (MIT)
  * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,10 +38,12 @@ import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.model.Input;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.v2.results.netlist.Netlist;
+import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
@@ -339,6 +341,14 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			if (device != null) {
 				node.getStageNetlistNodeData().setDevice(device);
 				node.getResultNetlistNodeData().setDevice(device.getName());
+			}
+			int num = node.getNumInEdge();
+			if (node.getNumInEdge() > device.getStructure().getInputs().size())
+				throw new RuntimeException("Device structure does not have enough inputs.");
+			for (int j = 0; j < num; j++) {
+				NetlistEdge e = node.getInEdgeAtIdx(j);
+				Input input = device.getStructure().getInputs().get(j);
+				e.getStageNetlistEdgeData().setInput(input);
 			}
 		}
 	}

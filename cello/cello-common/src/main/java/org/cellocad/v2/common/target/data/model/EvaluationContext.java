@@ -99,7 +99,7 @@ public class EvaluationContext {
 		case Structure.S_INPUTS:
 			isTooShortException(st, map);
 			name = st.nextToken();
-			Input input = structure.getInputByName(name);
+			Input input = structure.getInputs().findCObjectByName(name);
 			rtn = dereferenceInput(st, map, node, input);
 			break;
 		case Structure.S_OUTPUTS:

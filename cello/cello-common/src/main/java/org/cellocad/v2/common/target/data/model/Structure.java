@@ -134,21 +134,11 @@ public class Structure extends CObject {
 	 */
 
 	/**
-	 * Returns the Input with name equivalent to parameter <i>name</i>.
-	 * 
-	 * @param name name of the Input to return
-	 * @return the element with name equivalent to parameter <i>name</i>
-	 */
-	public Input getInputByName(final String name) {
-		return this.getInputs().findCObjectByName(name);
-	}
-
-	/**
 	 * Getter for <i>inputs</i>.
 	 *
 	 * @return value of inputs
 	 */
-	private CObjectCollection<Input> getInputs() {
+	public CObjectCollection<Input> getInputs() {
 		return inputs;
 	}
 
