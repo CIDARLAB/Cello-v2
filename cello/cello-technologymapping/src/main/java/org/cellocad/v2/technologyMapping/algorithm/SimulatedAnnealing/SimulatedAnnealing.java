@@ -356,10 +356,12 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void postprocessing() {
+	protected void postprocessing() throws CelloException {
 		updateNetlist();
 		String inputFilename = this.getNetlist().getInputFilename();
 		String filename = Utils.getFilename(inputFilename);
