@@ -111,9 +111,11 @@ public final class Function extends Evaluatable {
 			expr.defineArgument(v.getName(), v.evaluate(ec).doubleValue());
 		}
 		NetlistNode node = ec.getNode();
-		State<NetlistNode> state = ec.getState();
-		Double q = state.getState(node).equals(state.getOne()) ? 1.0 : 0.0;
-		expr.defineArgument(S_STATE, q);
+		if (expr.getExpressionString().contains(S_STATE)) {
+			State<NetlistNode> state = ec.getState();
+			Double q = state.getState(node).equals(state.getOne()) ? 1.0 : 0.0;
+			expr.defineArgument(S_STATE, q);
+		}
 		rtn = expr.calculate();
 		return rtn;
 	}
