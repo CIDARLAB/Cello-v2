@@ -44,6 +44,9 @@ public abstract class Evaluatable extends CObject {
 		this.parseName(jObj);
 	}
 
+	public Evaluatable() {
+	}
+
 	public abstract Number evaluate(EvaluationContext ce) throws CelloException;
 
 	protected static final String S_NAME = "name";

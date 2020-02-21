@@ -21,8 +21,6 @@
 package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.CelloException;
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.results.netlist.NetlistNode;
 import org.json.simple.JSONObject;
 
 /**
@@ -30,54 +28,21 @@ import org.json.simple.JSONObject;
  *
  * @author Timothy Jones
  *
- * @date 2020-02-12
+ * @date 2020-02-21
  *
  */
-public class Variable extends Evaluatable {
+public class NullEvaluatable extends Evaluatable {
 
-	private void init() {
-	}
-
-	private void parseMap(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
-		this.map = value;
-	}
-
-	private void parseVariable(final JSONObject JObj) {
-		this.parseName(JObj);
-		this.parseMap(JObj);
-	}
-
-	public Variable(JSONObject jObj) {
+	public NullEvaluatable(JSONObject jObj) {
 		super(jObj);
-		this.init();
-		this.parseVariable(jObj);
+	}
+
+	public NullEvaluatable() {
 	}
 
 	@Override
-	public Number evaluate(EvaluationContext ec) throws CelloException {
-		Number rtn = null;
-		NetlistNode node = ec.getNode();
-		Evaluatable e = ec.dereference(this.getMap());
-		if (e == null)
-			throw new RuntimeException("Dereference failed.");
-		rtn = e.evaluate(ec);
-		ec.setNode(node);
-		return rtn;
+	public Number evaluate(EvaluationContext ce) throws CelloException {
+		return new Double(0.0);
 	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getMap() != null);
-		return rtn;
-	}
-
-	private String getMap() {
-		return map;
-	}
-
-	private String map;
 
 }

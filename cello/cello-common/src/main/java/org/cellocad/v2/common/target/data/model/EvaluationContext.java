@@ -66,7 +66,7 @@ public class EvaluationContext {
 		throw new CelloException(String.format(fmt, S_UNSUPPORTED, map, token));
 	}
 
-	private static Evaluatable dereferenceInput(final StringTokenizer st, final String map, final NetlistNode node,
+	private Evaluatable dereferenceInput(final StringTokenizer st, final String map, final NetlistNode node,
 			final Input input)
 			throws CelloException {
 		Evaluatable rtn = null;
@@ -77,18 +77,18 @@ public class EvaluationContext {
 			Input in = data.getInput();
 			if (in.equals(input)) {
 				src = edge.getSrc();
+				this.setNode(src);
 				break;
 			}
 		}
-		if (src == null) {
-			String fmt = "Nothing wired to input '%s'.";
-			throw new RuntimeException(String.format(fmt, input.getName()));
-		}
-		rtn = dereferenceRoot(st, map, src);
+		if (src == null)
+			rtn = new NullEvaluatable();
+		else
+			rtn = dereferenceRoot(st, map, src);
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceStructure(final StringTokenizer st, final String map, final NetlistNode node,
+	private Evaluatable dereferenceStructure(final StringTokenizer st, final String map, final NetlistNode node,
 			final Structure structure)
 			throws CelloException {
 		Evaluatable rtn = null;
@@ -114,7 +114,7 @@ public class EvaluationContext {
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceModel(final StringTokenizer st, final String map, final NetlistNode node,
+	private Evaluatable dereferenceModel(final StringTokenizer st, final String map, final NetlistNode node,
 			final Model model)
 			throws CelloException {
 		Evaluatable rtn = null;
@@ -138,7 +138,7 @@ public class EvaluationContext {
 		return rtn;
 	}
 
-	private static Evaluatable dereferenceRoot(final StringTokenizer st, final String map, final NetlistNode node)
+	private Evaluatable dereferenceRoot(final StringTokenizer st, final String map, final NetlistNode node)
 			throws CelloException {
 		Evaluatable rtn = null;
 		// TODO check cache or originate entry

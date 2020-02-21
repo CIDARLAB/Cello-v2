@@ -113,7 +113,10 @@ public final class Function extends Evaluatable {
 		NetlistNode node = ec.getNode();
 		if (expr.getExpressionString().contains(S_STATE)) {
 			State<NetlistNode> state = ec.getState();
-			Double q = state.getState(node).equals(state.getOne()) ? 1.0 : 0.0;
+			Boolean nodeState = state.getState(node);
+			if (nodeState == null)
+				throw new CelloException("Node state undefined.");
+			Double q = nodeState.equals(state.getOne()) ? 1.0 : 0.0;
 			expr.defineArgument(S_STATE, q);
 		}
 		rtn = expr.calculate();
