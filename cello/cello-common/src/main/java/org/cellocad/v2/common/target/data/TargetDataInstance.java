@@ -22,6 +22,7 @@ package org.cellocad.v2.common.target.data;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
@@ -40,7 +41,7 @@ import org.cellocad.v2.common.target.data.model.Structure;
  */
 public class TargetDataInstance extends CObject {
 
-	public TargetDataInstance(final TargetData td) {
+	public TargetDataInstance(final TargetData td) throws CelloException {
 		CObjectCollection<Function> functions = TargetDataUtils.getFunctions(td);
 		CObjectCollection<Model> models = TargetDataUtils.getModels(td, functions);
 		CObjectCollection<Structure> structures = TargetDataUtils.getStructures(td);

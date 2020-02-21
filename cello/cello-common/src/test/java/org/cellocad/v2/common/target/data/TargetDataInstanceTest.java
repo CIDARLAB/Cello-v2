@@ -23,6 +23,7 @@ package org.cellocad.v2.common.target.data;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -42,7 +43,7 @@ public class TargetDataInstanceTest {
 
 	@SuppressWarnings("unchecked")
 	@BeforeClass
-	public static void getJsonTargetData() throws IOException, ParseException {
+	public static void getJsonTargetData() throws IOException, ParseException, CelloException {
 		JSONParser parser = new JSONParser();
 		String str;
 		JSONArray jsonTop = new JSONArray();

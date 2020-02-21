@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.logicSynthesis.target.data;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 
@@ -33,7 +34,7 @@ import org.cellocad.v2.common.target.data.TargetDataInstance;
  */
 public class LSTargetDataInstance extends TargetDataInstance {
 
-	public LSTargetDataInstance(TargetData td) {
+	public LSTargetDataInstance(TargetData td) throws CelloException {
 		super(td);
 	}
 

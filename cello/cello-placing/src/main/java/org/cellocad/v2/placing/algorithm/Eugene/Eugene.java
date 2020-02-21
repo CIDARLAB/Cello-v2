@@ -135,9 +135,11 @@ public class Eugene extends PLAlgorithm {
 
 	/**
 	 * Gets the data from the UCF
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void getDataFromUCF() {
+	protected void getDataFromUCF() throws CelloException {
 		this.setTargetDataInstance(new PLTargetDataInstance(this.getTargetData()));
 		this.setCircuitRules(EugeneTargetDataUtils.getCircuitRules(this.getTargetData()));
 		this.setDeviceRules(EugeneTargetDataUtils.getDeviceRules(this.getTargetData()));

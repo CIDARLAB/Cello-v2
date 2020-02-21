@@ -106,10 +106,12 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void getDataFromUCF() {
+	protected void getDataFromUCF() throws CelloException {
 		TMTargetDataInstance tdi = new TMTargetDataInstance(this.getTargetData());
 		this.setTargetDataInstance(tdi);
 	}

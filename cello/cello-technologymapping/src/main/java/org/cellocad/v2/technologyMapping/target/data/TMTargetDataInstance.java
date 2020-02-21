@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.technologyMapping.target.data;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 
@@ -33,7 +34,7 @@ import org.cellocad.v2.common.target.data.TargetDataInstance;
  */
 public class TMTargetDataInstance extends TargetDataInstance {
 
-	public TMTargetDataInstance(TargetData td) {
+	public TMTargetDataInstance(TargetData td) throws CelloException {
 		super(td);
 	}
 

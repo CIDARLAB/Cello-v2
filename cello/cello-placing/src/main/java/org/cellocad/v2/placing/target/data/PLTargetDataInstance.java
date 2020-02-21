@@ -20,6 +20,7 @@
  */
 package org.cellocad.v2.placing.target.data;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 
@@ -33,7 +34,7 @@ import org.cellocad.v2.common.target.data.TargetDataInstance;
  */
 public class PLTargetDataInstance extends TargetDataInstance {
 
-	public PLTargetDataInstance(TargetData td) {
+	public PLTargetDataInstance(TargetData td) throws CelloException {
 		super(td);
 	}
 
