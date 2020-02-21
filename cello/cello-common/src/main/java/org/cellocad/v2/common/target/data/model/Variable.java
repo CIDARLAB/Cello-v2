@@ -57,6 +57,8 @@ public class Variable extends Evaluatable {
 	public Number evaluate(EvaluationContext ce) throws CelloException {
 		Number rtn = null;
 		Evaluatable e = ce.dereference(this.getMap());
+		if (e == null)
+			throw new RuntimeException("Dereference failed.");
 		rtn = e.evaluate(ce);
 		return rtn;
 	}
