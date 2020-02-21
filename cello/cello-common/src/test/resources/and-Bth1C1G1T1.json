@@ -1,0 +1,72 @@
+{
+	"name": "and",
+	"inputFilename": "and.v",
+	"placements": [],
+	"nodes": 
+	[
+		{
+			"name": "$48",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"deviceName": "Gate1"
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"deviceName": "nanoluc_reporter"
+		},
+		{
+			"name": "$49",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "Gate2"
+		},
+		{
+			"name": "$50",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "Gate3"
+		},
+		{
+			"name": "b",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "BA_sensor"
+		},
+		{
+			"name": "a",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "IPTG_sensor"
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "e1__$48_out",
+			"src": "$48",
+			"dst": "out"
+		},
+		{
+			"name": "e2__$49_$48",
+			"src": "$49",
+			"dst": "$48"
+		},
+		{
+			"name": "e3__$50_$48",
+			"src": "$50",
+			"dst": "$48"
+		},
+		{
+			"name": "e4__b_$50",
+			"src": "b",
+			"dst": "$50"
+		},
+		{
+			"name": "e5__a_$49",
+			"src": "a",
+			"dst": "$49"
+		}
+	]
+}
