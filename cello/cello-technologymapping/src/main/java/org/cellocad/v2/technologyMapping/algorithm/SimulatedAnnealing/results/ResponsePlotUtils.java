@@ -54,7 +54,7 @@ import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
  * @date 2020-01-30
  *
  */
-public class ResponsePlots {
+public class ResponsePlotUtils {
 
 	public static String getPlotFilename(final NetlistNode node) {
 		String rtn = null;
@@ -232,7 +232,8 @@ public class ResponsePlots {
 		Utils.executeAndWaitForCommand(cmd);
 	}
 
-	public ResponsePlots(final Netlist netlist, final LSLogicEvaluation lsle, final TMActivityEvaluation tmae,
+	public static void generatePlots(final Netlist netlist, final LSLogicEvaluation lsle,
+			final TMActivityEvaluation tmae,
 			final RuntimeEnv runEnv) {
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);

@@ -33,7 +33,6 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
-import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
@@ -53,7 +52,7 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.Simul
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlotUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
@@ -395,8 +394,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		logInfo(String.format("Score: %.2f", ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation())));
 		// plots
 		logInfo("Generating plots");
-		RuntimeEnv runEnv = this.getRuntimeEnv();
-		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
+		ResponsePlotUtils.generatePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(),
+				this.getRuntimeEnv());
 	}
 
 
