@@ -23,15 +23,21 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.cellocad.MIT.dnacompiler.MathEval;
-import org.cellocad.MIT.dnacompiler.ResponseFunction;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.model.FixedParameter;
+import org.cellocad.v2.common.target.data.model.AnalyticFunction;
+import org.cellocad.v2.common.target.data.model.EvaluationContext;
+import org.cellocad.v2.common.target.data.model.Function;
+import org.cellocad.v2.common.target.data.model.FunctionType;
+import org.cellocad.v2.common.target.data.model.Model;
+import org.cellocad.v2.common.target.data.model.Variable;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
@@ -89,18 +95,21 @@ public class ResponsePlotUtils {
 		return rtn;
 	}
 
-	private static List<Double> getYData(final ResponseFunction rf, List<Double> x) {
+	private static List<Double> getYData(final NetlistNode node, List<Double> x) throws CelloException {
 		List<Double> rtn = new ArrayList<Double>();
-		String equation = rf.getEquation();
-		MathEval eval = new MathEval();
-		for (int i = 0; i < rf.getNumParameter(); i++) {
-			FixedParameter param = rf.getParameterAtIdx(i);
-			eval.setConstant(param.getName(), param.getValue());
-		}
+		Model m = node.getResultNetlistNodeData().getDevice().getModel();
+		Function f = m.getFunctionByName(FunctionType.S_RESPONSEFUNCTION);
+		// FIXME generalize to LookupTableFunction
+		AnalyticFunction a = (AnalyticFunction) f;
+		EvaluationContext ec = new EvaluationContext();
+		ec.setNode(node);
+		Map<Variable, Double> value = new HashMap<>();
+		if (f.getVariables().size() > 1)
+			throw new RuntimeException("Function is not univariate.");
 		for (int i = 0; i < x.size(); i++) {
 			Double xi = x.get(i);
-			eval.setVariable(rf.getVariableByName("x").getName(), xi);
-			rtn.add(eval.evaluate(equation));
+			value.put(a.getVariables().get(0), xi);
+			rtn.add(a.evaluate(ec, value).doubleValue());
 		}
 		return rtn;
 	}
@@ -174,7 +183,7 @@ public class ResponsePlotUtils {
 	}
 
 	private static String getPlotScript(final NetlistNode node, final LSLogicEvaluation lsle,
-			final TMActivityEvaluation tmae, final String dir) {
+			final TMActivityEvaluation tmae, final String dir) throws CelloException {
 		String rtn = null;
 		// template
 		try {
@@ -188,10 +197,9 @@ public class ResponsePlotUtils {
 		if (!(a instanceof Gate))
 			throw new RuntimeException("Not a gate.");
 		Gate gate = (Gate) a;
-		ResponseFunction rf = gate.getResponseFunction();
 		// data
 		List<Double> x = getXData();
-		List<Double> y = getYData(rf, x);
+		List<Double> y = getYData(node, x);
 		// hi & lo
 		List<Integer> hi = getHiIdx(node, lsle);
 		List<Integer> lo = getLoIdx(node, lsle);
@@ -221,7 +229,7 @@ public class ResponsePlotUtils {
 	}
 
 	private static void generatePlot(final NetlistNode node, final LSLogicEvaluation lsle,
-			final TMActivityEvaluation tmae, final RuntimeEnv runEnv) {
+			final TMActivityEvaluation tmae, final RuntimeEnv runEnv) throws CelloException {
 		String outDir = runEnv.getOptionValue(TMArgString.OUTPUTDIR);
 		// script
 		String script = getPlotScript(node, lsle, tmae, outDir);
@@ -234,7 +242,7 @@ public class ResponsePlotUtils {
 
 	public static void generatePlots(final Netlist netlist, final LSLogicEvaluation lsle,
 			final TMActivityEvaluation tmae,
-			final RuntimeEnv runEnv) {
+			final RuntimeEnv runEnv) throws CelloException {
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node))

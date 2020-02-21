@@ -20,6 +20,8 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
+import java.util.Map;
+
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
@@ -85,7 +87,7 @@ public final class AnalyticFunction extends Function {
 	}
 
 	@Override
-	public Number evaluate(EvaluationContext ec) throws CelloException {
+	public Number evaluate(final EvaluationContext ec) throws CelloException {
 		Double rtn = null;
 		Expression expr = new Expression(this.getEquation().replace("$", "_"));
 		for (Parameter p : this.getParameters()) {
@@ -93,6 +95,28 @@ public final class AnalyticFunction extends Function {
 		}
 		for (Variable v : this.getVariables()) {
 			expr.defineArgument(v.getName(), v.evaluate(ec).doubleValue());
+		}
+		NetlistNode node = ec.getNode();
+		if (expr.getExpressionString().contains(S_STATE)) {
+			State<NetlistNode> state = ec.getState();
+			Boolean nodeState = state.getState(node);
+			if (nodeState == null)
+				throw new CelloException("Node state undefined.");
+			Double q = nodeState.equals(state.getOne()) ? 1.0 : 0.0;
+			expr.defineArgument(S_STATE, q);
+		}
+		rtn = expr.calculate();
+		return rtn;
+	}
+
+	public Number evaluate(final EvaluationContext ec, final Map<Variable, Double> value) throws CelloException {
+		Double rtn = null;
+		Expression expr = new Expression(this.getEquation().replace("$", "_"));
+		for (Parameter p : this.getParameters()) {
+			expr.defineArgument(p.getName(), p.evaluate(ec).doubleValue());
+		}
+		for (Variable v : value.keySet()) {
+			expr.defineArgument(v.getName(), value.get(v));
 		}
 		NetlistNode node = ec.getNode();
 		if (expr.getExpressionString().contains(S_STATE)) {
