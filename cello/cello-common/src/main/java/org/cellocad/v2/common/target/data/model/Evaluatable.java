@@ -47,7 +47,14 @@ public abstract class Evaluatable extends CObject {
 	public Evaluatable() {
 	}
 
-	public abstract Number evaluate(EvaluationContext ce) throws CelloException;
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	public abstract Number evaluate(EvaluationContext ec) throws CelloException;
 
 	protected static final String S_NAME = "name";
 

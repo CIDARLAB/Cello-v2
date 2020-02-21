@@ -30,6 +30,7 @@ import java.io.Reader;
 import java.util.Iterator;
 
 import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
@@ -38,7 +39,9 @@ import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.model.AnalyticFunction;
 import org.cellocad.v2.common.target.data.model.Function;
+import org.cellocad.v2.common.target.data.model.LookupTableFunction;
 import org.cellocad.v2.common.target.data.model.Model;
 import org.cellocad.v2.common.target.data.model.Structure;
 import org.json.simple.JSONArray;
@@ -68,11 +71,19 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static final CObjectCollection<Function> getFunctions(final TargetData td) {
+	public static final CObjectCollection<Function> getFunctions(final TargetData td) throws CelloException {
 		CObjectCollection<Function> rtn = new CObjectCollection<Function>();
 		for (int i = 0; i < td.getNumJSONObject(S_FUNCTIONS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_FUNCTIONS, i);
-			Function function = new Function(jObj);
+			Function function;
+			if (jObj.containsKey(AnalyticFunction.S_EQUATION))
+				function = new AnalyticFunction(jObj);
+			else if (jObj.containsKey(LookupTableFunction.S_TABLE))
+				function = new LookupTableFunction(jObj);
+			else {
+				String fmt = "Invalid %s specification: %s";
+				throw new CelloException(String.format(fmt, Function.class.getName(), jObj.toString()));
+			}
 			rtn.add(function);
 		}
 		return rtn;

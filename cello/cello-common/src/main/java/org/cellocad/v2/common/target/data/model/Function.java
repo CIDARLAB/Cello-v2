@@ -21,13 +21,8 @@
 package org.cellocad.v2.common.target.data.model;
 
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.CelloException;
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
-import org.cellocad.v2.results.netlist.NetlistNode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.mariuszgromada.math.mxparser.Expression;
 
 /**
  *
@@ -37,16 +32,10 @@ import org.mariuszgromada.math.mxparser.Expression;
  * @date 2020-02-11
  *
  */
-public final class Function extends Evaluatable {
+public abstract class Function extends Evaluatable {
 
 	private void init() {
 		this.variables = new CObjectCollection<>();
-		this.parameters = new CObjectCollection<>();
-	}
-
-	private void parseEquation(final JSONObject JObj) {
-		String value = ProfileUtils.getString(JObj, S_EQUATION);
-		this.equation = value;
 	}
 
 	private void parseVariables(final JSONObject JObj) {
@@ -58,31 +47,11 @@ public final class Function extends Evaluatable {
 			JSONObject jObj = (JSONObject) jArr.get(i);
 			Variable variable = new Variable(jObj);
 			if (variable.isValid())
-			variables.add(variable);
-		}
-	}
-
-	private void parseParameters(final JSONObject JObj) {
-		CObjectCollection<Parameter> parameters = this.getParameters();
-		JSONArray jArr = (JSONArray) JObj.get(S_PARAMETERS);
-		if (jArr == null)
-			return;
-		for (int i = 0; i < jArr.size(); i++) {
-			JSONObject jObj = (JSONObject) jArr.get(i);
-			Parameter e = null;
-			if (jObj.containsKey(Reference.S_MAP)) {
-				e = new ParameterReference(jObj);
-			} else {
-				e = new FixedParameter(jObj);
-			}
-			if (e != null && e.isValid())
-				parameters.add(e);
+				variables.add(variable);
 		}
 	}
 
 	private void parseFunction(JSONObject jObj) {
-		this.parseEquation(jObj);
-		this.parseParameters(jObj);
 		this.parseVariables(jObj);
 	}
 
@@ -90,41 +59,6 @@ public final class Function extends Evaluatable {
 		super(jObj);
 		this.init();
 		this.parseFunction(jObj);
-	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getEquation() != null);
-		return rtn;
-	}
-
-	@Override
-	public Number evaluate(EvaluationContext ec) throws CelloException {
-		Double rtn = null;
-		Expression expr = new Expression(this.getEquation().replace("$", "_"));
-		for (Parameter p : this.getParameters()) {
-			expr.defineArgument(p.getName(), p.evaluate(ec).doubleValue());
-		}
-		for (Variable v : this.getVariables()) {
-			expr.defineArgument(v.getName(), v.evaluate(ec).doubleValue());
-		}
-		NetlistNode node = ec.getNode();
-		if (expr.getExpressionString().contains(S_STATE)) {
-			State<NetlistNode> state = ec.getState();
-			Boolean nodeState = state.getState(node);
-			if (nodeState == null)
-				throw new CelloException("Node state undefined.");
-			Double q = nodeState.equals(state.getOne()) ? 1.0 : 0.0;
-			expr.defineArgument(S_STATE, q);
-		}
-		rtn = expr.calculate();
-		return rtn;
-	}
-
-	private String getEquation() {
-		return equation;
 	}
 
 	/**
@@ -136,18 +70,8 @@ public final class Function extends Evaluatable {
 		return variables;
 	}
 
-	private CObjectCollection<Parameter> getParameters() {
-		return parameters;
-	}
-
-	private String equation;
 	private CObjectCollection<Variable> variables;
-	private CObjectCollection<Parameter> parameters;
 
-	public static final String S_NAME = "name";
-	public static final String S_EQUATION = "equation";
 	public static final String S_VARIABLES = "variables";
-	public static final String S_PARAMETERS = "parameters";
-	private static final String S_STATE = "_STATE";
 
 }
