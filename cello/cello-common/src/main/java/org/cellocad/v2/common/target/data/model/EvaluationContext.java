@@ -84,7 +84,7 @@ public class EvaluationContext {
 			String fmt = "Nothing wired to input '%s'.";
 			throw new RuntimeException(String.format(fmt, input.getName()));
 		}
-		dereferenceRoot(st, map, src);
+		rtn = dereferenceRoot(st, map, src);
 		return rtn;
 	}
 
