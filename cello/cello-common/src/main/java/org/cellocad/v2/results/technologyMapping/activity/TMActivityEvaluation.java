@@ -116,7 +116,7 @@ public class TMActivityEvaluation {
 			State<NetlistNode> inputState = activityTable.getStateAtIdx(i);
 			Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputState);
 			ec.setState(inputState);
-			Double result = node.getStageNetlistNodeData().getDevice().getModel()
+			Double result = node.getResultNetlistNodeData().getDevice().getModel()
 					.getFunctionByName(FunctionType.S_RESPONSEFUNCTION).evaluate(ec).doubleValue();
 			if (outputActivity.getNumActivityPosition() != 1) {
 				throw new RuntimeException("Invalid number of output(s)!");

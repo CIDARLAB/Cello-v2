@@ -144,7 +144,7 @@ public class DNAPlotLibUtils {
 								NetlistNode src = e.getSrc();
 								if (LSResultsUtils.isAllInput(src))
 									continue;
-								String gateType = src.getResultNetlistNodeData().getDevice();
+								String gateType = src.getResultNetlistNodeData().getDeviceName();
 								Gate gate = gates.findCObjectByName(gateType);
 								if (!gate.getStructure().getOutput().equals(p))
 									continue;
@@ -152,7 +152,7 @@ public class DNAPlotLibUtils {
 								rgb = getRGB(color);
 							}
 						} else {
-							String gateType = node.getResultNetlistNodeData().getDevice();
+							String gateType = node.getResultNetlistNodeData().getDeviceName();
 							Gate gate = gates.findCObjectByName(gateType);
 							if (gate != null) {
 								Color color = gate.getColor();
@@ -197,7 +197,7 @@ public class DNAPlotLibUtils {
 					NetlistNode node = netlist.getVertexByName(n);
 					if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node))
 						continue;
-					String gateType = node.getResultNetlistNodeData().getDevice();
+					String gateType = node.getResultNetlistNodeData().getDeviceName();
 					Gate gate = gates.findCObjectByName(gateType);
 					Structure gs = gate.getStructure();
 					Color color = gate.getColor();

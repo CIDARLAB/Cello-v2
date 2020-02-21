@@ -339,8 +339,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
 			AssignableDevice device = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
 			if (device != null) {
-				node.getStageNetlistNodeData().setDevice(device);
-				node.getResultNetlistNodeData().setDevice(device.getName());
+				node.getResultNetlistNodeData().setDevice(device);
+				node.getResultNetlistNodeData().setDeviceName(device.getName());
 			}
 			int num = node.getNumInEdge();
 			if (node.getNumInEdge() > device.getStructure().getInputs().size())
