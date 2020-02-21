@@ -98,7 +98,7 @@
 	{
 		"collection": "functions",
 		"name": "sensor_response",
-		"equation": "(1 - $STATE) * (ymax - ymin) + ymin",
+		"equation": "$STATE * (ymax - ymin) + ymin",
 		"parameters": [
 			{
 				"name": "ymax",
