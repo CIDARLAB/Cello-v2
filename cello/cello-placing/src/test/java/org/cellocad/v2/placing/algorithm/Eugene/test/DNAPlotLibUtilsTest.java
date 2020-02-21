@@ -20,7 +20,6 @@
  */
 package org.cellocad.v2.placing.algorithm.Eugene.test;
 
-import java.io.File;
 import java.util.List;
 
 import org.cellocad.v2.common.CelloException;
@@ -55,9 +54,6 @@ public class DNAPlotLibUtilsTest {
 				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
-		// InputFile
-		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
-		File inputFile = new File(inputFilePath);
 		// Read Netlist
 		netlist = NetlistUtils.getNetlist(runEnv, PLArgString.INPUTNETLIST);
 		// get TargetData
