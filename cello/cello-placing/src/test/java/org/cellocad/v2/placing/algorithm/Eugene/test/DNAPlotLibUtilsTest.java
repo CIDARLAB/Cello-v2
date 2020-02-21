@@ -23,20 +23,17 @@ package org.cellocad.v2.placing.algorithm.Eugene.test;
 import java.io.File;
 import java.util.List;
 
-import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
-import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
-import org.cellocad.v2.placing.algorithm.Eugene.target.data.EugeneTargetDataUtils;
 import org.cellocad.v2.placing.runtime.environment.PLArgString;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -49,12 +46,8 @@ import org.junit.Test;
  */
 public class DNAPlotLibUtilsTest {
 
-	private static boolean initIsDone = false;
-
-	@Before
-	public void init() throws CelloException {
-		if (initIsDone)
-			return;
+	@BeforeClass
+	public static void init() throws CelloException {
 		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_placed_netlist.json").getFile(),
 				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
 				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
@@ -65,50 +58,53 @@ public class DNAPlotLibUtilsTest {
 		// InputFile
 		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
-		if (!(inputFile.exists() && !inputFile.isDirectory())) {
-			throw new CelloException("Input file does not exist!");
-		}
 		// Read Netlist
 		netlist = NetlistUtils.getNetlist(runEnv, PLArgString.INPUTNETLIST);
-		if (!netlist.isValid()) {
-			throw new CelloException("Netlist is invalid!");
-		}
 		// get TargetData
 		td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.USERCONSTRAINTSFILE,
 				PLArgString.INPUTSENSORFILE, PLArgString.OUTPUTDEVICEFILE);
-		if (!td.isValid()) {
-			throw new CelloException("TargetData is invalid!");
-		}
-		parts = EugeneTargetDataUtils.getParts(td);
-		gates = EugeneTargetDataUtils.getGates(td);
-		initIsDone = true;
+		tdi = new TargetDataInstance(td);
 	}
 
 	@Test
-	public void testGetDNADesigns() {
+	public void getDNADesigns_MockNetlist_ShouldReturnTwoDesigns() {
 		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist);
 		assert (designs.size() == 2);
-		// System.out.println(String.join(Utils.getNewLine(), designs));
 	}
 
 	@Test
-	public void testGetRegulatoryInformation() {
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, parts, gates);
+	public void getDNADesigns_MockNetlist_ShouldReturnExactMatch() {
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist);
+		assert (designs.get(1).equals(
+				"and_placed0,pPhlF,YFP_cassette,_NONCE_PAD0,pTet,RiboJ10,S2,SrpR,ECK120029600,pSrpR,pAmtR,RiboJ53,P3,PhlF,ECK120033737,pTac,BydvJ,A1,AmtR,L3S2P55"));
+	}
+
+	@Test
+	public void getRegulatoryInformation_MockNetlist_ShouldReturnFourInteractions() {
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi.getParts(), tdi.getGates());
 		assert (reg.size() == 4);
-		// System.out.println(String.join(Utils.getNewLine(), reg));
 	}
 
 	@Test
-	public void testPartInformation() {
-		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, parts, gates);
-		assert (part.size() == 20);
-		assert (part.get(2).equals("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,"));
-		// System.out.println(String.join(Utils.getNewLine(), part));
+	public void getRegulatoryInformation_MockNetlist_ShouldReturnExactMatch() {
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi.getParts(), tdi.getGates());
+		assert (reg.get(2).equals("AmtR,Repression,pAmtR,3,-,,0.23;0.66;0.88"));
 	}
 
+	@Test
+	public void getartInformation_MockNetlist_ShouldReturn20Parts() {
+		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi.getParts(), tdi.getGates());
+		assert (part.size() == 20);
+	}
+
+	@Test
+	public void getartInformation_MockNetlist_ShouldReturnExactMatch() {
+		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi.getParts(), tdi.getGates());
+		assert (part.get(2).equals("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,"));
+	}
+
+	private static TargetDataInstance tdi;
 	private static Netlist netlist;
 	private static TargetData td;
-	private static CObjectCollection<Part> parts;
-	private static CObjectCollection<Gate> gates;
 
 }

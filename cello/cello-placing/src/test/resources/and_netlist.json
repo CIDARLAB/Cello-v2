@@ -1,5 +1,5 @@
 {
-	"name": "and_gateVirtualNetlistFO",
+	"name": "and",
 	"inputFilename": "and.v",
 	"placements": [],
 	"nodes": 
@@ -8,37 +8,37 @@
 			"name": "a",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "LacI_sensor"
+			"deviceName": "LacI_sensor"
 		},
 		{
 			"name": "b",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "TetR_sensor"
+			"deviceName": "TetR_sensor"
 		},
 		{
 			"name": "out",
 			"nodeType": "PRIMARY_OUTPUT",
 			"partitionID": -1,
-			"gateType": "YFP_reporter"
+			"deviceName": "YFP_reporter"
 		},
 		{
 			"name": "$48",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "E1_BetI"
+			"deviceName": "E1_BetI"
 		},
 		{
 			"name": "$49",
 			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "A1_AmtR"
+			"deviceName": "A1_AmtR"
 		},
 		{
 			"name": "$50",
 			"nodeType": "NOR",
 			"partitionID": -1,
-			"gateType": "P1_PhlF"
+			"deviceName": "P1_PhlF"
 		}
 	],
 	"edges": 
