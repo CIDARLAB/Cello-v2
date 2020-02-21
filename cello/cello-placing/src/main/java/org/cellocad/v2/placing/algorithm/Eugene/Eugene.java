@@ -206,12 +206,13 @@ public class Eugene extends PLAlgorithm {
 			Part p = null;
 			if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
 				Gate gate = this.getTargetDataInstance().getGates().findCObjectByName(gateType);
-				String output = gate.getStructure().getOutput();
+				String output = gate.getStructure().getOutputs().get(0);
 				p = this.getTargetDataInstance().getParts().findCObjectByName(output);
 			}
 			if (LSResultsUtils.isAllInput(node)) {
 				InputSensor sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(gateType);
-				p = this.getTargetDataInstance().getParts().findCObjectByName(sensor.getOutput());
+				String name = sensor.getStructure().getOutputs().get(0);
+				p = this.getTargetDataInstance().getParts().findCObjectByName(name);
 			}
 			if (p != null)
 				temp.add(p.getPartType());

@@ -146,7 +146,7 @@ public class DNAPlotLibUtils {
 									continue;
 								String gateType = src.getResultNetlistNodeData().getDeviceName();
 								Gate gate = gates.findCObjectByName(gateType);
-								if (!gate.getStructure().getOutput().equals(p))
+								if (!gate.getStructure().getOutputs().get(0).equals(p))
 									continue;
 								Color color = gate.getColor();
 								rgb = getRGB(color);
@@ -208,7 +208,7 @@ public class DNAPlotLibUtils {
 							Collection<String> fields = new ArrayList<>();
 							fields.add(part.getName());
 							fields.add(S_REPRESSION);
-							fields.add(gs.getOutput());
+							fields.add(gs.getOutputs().get(0));
 							fields.add(String.valueOf(3));
 							fields.add("-");
 							fields.add("");

@@ -122,13 +122,13 @@ public class EugeneUtils {
 			String gateType = src.getResultNetlistNodeData().getDeviceName();
 			if (LSResultsUtils.isAllInput(src)) {
 				InputSensor sensor = sensors.findCObjectByName(gateType);
-				input = sensor.getOutput();
+				input = sensor.getStructure().getOutputs().get(0);
 			} else {
 				Gate gate = gates.findCObjectByName(gateType);
 				if (gate == null) {
 					new RuntimeException("Unknown gate.");
 				}
-				input = gate.getStructure().getOutput();
+				input = gate.getStructure().getOutputs().get(0);
 			}
 			Part part = parts.findCObjectByName(input);
 			rtn.add(part);
