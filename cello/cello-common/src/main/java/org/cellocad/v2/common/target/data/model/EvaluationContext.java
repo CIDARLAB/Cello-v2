@@ -25,11 +25,11 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.cellocad.v2.common.CelloException;
-import org.cellocad.v2.common.netlist.data.StageNetlistEdgeData;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
+import org.cellocad.v2.results.netlist.data.ResultNetlistEdgeData;
 
 /**
  *
@@ -73,7 +73,7 @@ public class EvaluationContext {
 		NetlistNode src = null;
 		for (int i = 0; i < node.getNumInEdge(); i++) {
 			NetlistEdge edge = node.getInEdgeAtIdx(i);
-			StageNetlistEdgeData data = edge.getStageNetlistEdgeData();
+			ResultNetlistEdgeData data = edge.getResultNetlistEdgeData();
 			Input in = data.getInput();
 			if (in.equals(input)) {
 				src = edge.getSrc();
@@ -144,7 +144,7 @@ public class EvaluationContext {
 		// TODO check cache or originate entry
 		isTooShortException(st, map);
 		String token = st.nextToken();
-		AssignableDevice d = node.getStageNetlistNodeData().getDevice();
+		AssignableDevice d = node.getResultNetlistNodeData().getDevice();
 		switch (token) {
 		case AssignableDevice.S_MODEL:
 			Model m = d.getModel();

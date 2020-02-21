@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.v2.common.CObject;
-import org.cellocad.v2.common.target.data.model.Input;
 
 /**
  * The StageNetlistEdgeData class is the base class for all StageNetlistEdgeData
@@ -47,25 +46,5 @@ public abstract class StageNetlistEdgeData extends CObject {
 	 *  @throws IOException If an I/O error occurs
 	 */
 	public abstract void writeJSON(int indent, Writer os) throws IOException;
-
-	/**
-	 * Getter for <i>input</i>.
-	 *
-	 * @return value of input
-	 */
-	public Input getInput() {
-		return input;
-	}
-
-	/**
-	 * Setter for <i>input</i>.
-	 *
-	 * @param input the input to set
-	 */
-	public void setInput(final Input input) {
-		this.input = input;
-	}
-
-	private Input input;
 
 }

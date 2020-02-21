@@ -350,7 +350,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			for (int j = 0; j < num; j++) {
 				NetlistEdge e = node.getInEdgeAtIdx(j);
 				Input input = device.getStructure().getInputs().get(j);
-				e.getStageNetlistEdgeData().setInput(input);
+				e.getResultNetlistEdgeData().setInput(input);
 			}
 		}
 	}

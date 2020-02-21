@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.v2.common.application.data.ApplicationNetlistEdgeData;
+import org.cellocad.v2.common.target.data.model.Input;
 import org.json.simple.JSONObject;
 
 /**
@@ -84,5 +85,25 @@ public class ResultNetlistEdgeData extends ApplicationNetlistEdgeData{
 	 */
 	public void parse(final JSONObject JObj){
 	}
+
+	/**
+	 * Getter for <i>input</i>.
+	 *
+	 * @return value of input
+	 */
+	public Input getInput() {
+		return input;
+	}
+
+	/**
+	 * Setter for <i>input</i>.
+	 *
+	 * @param input the input to set
+	 */
+	public void setInput(final Input input) {
+		this.input = input;
+	}
+
+	private Input input;
 
 }
