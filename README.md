@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CIDARLAB/Cello2.svg?branch=develop)](https://travis-ci.org/CIDARLAB/Cello2)
+[![Build Status](https://travis-ci.org/CIDARLAB/Cello-v2.svg?branch=develop)](https://travis-ci.org/CIDARLAB/Cello-v2)
 
 # Requirements
 
@@ -32,11 +32,11 @@
 
 Clone the repository.
 
-    git clone https://github.com/CIDARLAB/Cello2.git
+    git clone https://github.com/CIDARLAB/Cello-v2.git
 
 Build.
 
-    cd Cello2/cello
+    cd Cello-v2/cello
     mvn clean package
 
 Test.
