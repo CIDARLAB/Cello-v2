@@ -32,21 +32,21 @@
 
 Clone the repository.
 
-    git clone https://github.com/CIDARLAB/Cello2.git
+    git clone https://github.com/CIDARLAB/Cello-v2.git
 
 Build.
 
-    cd Cello2/cello
+    cd Cello-v2/cello
     mvn clean package
 
 Test.
 
     cd target
-	java -jar cello-dnacompiler-2.0.0-SNAPSHOT-jar-with-dependencies.jar
-    -userConstraintsFile ../../sample-input/ucf/Eco/Eco1C1G1T1.UCF.json \
-	-inputSensorFile ../../sample-input/inout/Eco/Eco1C1G1T1.input.json \
-	-outputDeviceFile ../../sample-input/inout/Eco/Eco1C1G1T1.output.json \
+    java -jar cello-dnacompiler-2.0.0-SNAPSHOT-jar-with-dependencies.jar
+    -userConstraintsFile ../../sample-input/ucf/files/v2/ucf/Eco/Eco1C1G1T1.UCF.json \
+    -inputSensorFile ../../sample-input/ucf/files/v2/input/Eco/Eco1C1G1T1.input.json \
+    -outputDeviceFile ../../sample-input/files/v2/output/Eco/Eco1C1G1T1.output.json \
     -inputNetlist ../../sample-input/DNACompiler/primitives/and.v \
     -options ../../sample-input/DNACompiler/primitives/options.csv \
     -outputDir /path/to/output/dir \
-	-pythonEnv /path/to/python
+    -pythonEnv /path/to/python
