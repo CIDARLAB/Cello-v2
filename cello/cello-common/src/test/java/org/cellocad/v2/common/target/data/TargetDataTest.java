@@ -54,8 +54,8 @@ public class TargetDataTest {
 	}
 
 	@Test
-	public void getNumJSONObject_Functions_ShouldReturn2() {
-		assert (td.getNumJSONObject("functions") == 2);
+	public void getNumJSONObject_Functions_ShouldReturn9() {
+		assert (td.getNumJSONObject("functions") == 9);
 	}
 
 	@Test
