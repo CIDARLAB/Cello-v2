@@ -1,0 +1,3 @@
+[submodule "sample-input/Cello-UCF"]
+	path = sample-input/ucf
+	url = https://github.com/CIDARLAB/Cello-UCF.git
