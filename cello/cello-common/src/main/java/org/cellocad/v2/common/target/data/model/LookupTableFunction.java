@@ -20,115 +20,21 @@
  */
 package org.cellocad.v2.common.target.data.model;
 
-import org.apache.commons.math3.ml.distance.EuclideanDistance;
-import org.cellocad.v2.common.CelloException;
-import org.cellocad.v2.common.profile.ProfileUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import com.google.common.collect.ImmutableTable;
-import com.google.common.collect.ImmutableTable.Builder;
-import com.google.common.collect.Table;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-02-21
+ * @date 2020-02-25
  *
  */
-public class LookupTableFunction extends Function {
+public abstract class LookupTableFunction extends Function {
 
-	private void init() {
-	}
-
-	private void parseTable(JSONObject JObj) throws CelloException {
-		Builder<Integer, String, Double> builder = ImmutableTable.builder();
-		JSONObject jObj = (JSONObject) JObj.get(S_TABLE);
-		if (jObj == null) {
-			String fmt = "Invalid %s specification: %s.";
-			throw new CelloException(String.format(fmt, LookupTableFunction.class.getName(), JObj.toString()));
-		}
-		for (Object key : jObj.keySet()) {
-			String name = ProfileUtils.getString(key);
-			if (this.getVariables().findCObjectByName(name) == null && !name.equals(S_OUTPUT)) {
-				String fmt = "Invalid table key: %s.";
-				throw new CelloException(String.format(fmt, name));
-			}
-			JSONArray jArr = (JSONArray) jObj.get(key);
-			for (int i = 0; i < jArr.size(); i++) {
-				Double value = (Double) jArr.get(i);
-				builder.put(i, name, value);
-			}
-		}
-		this.table = builder.build();
-	}
-
-	private void parseLookupTableFunction(JSONObject JObj) throws CelloException {
-		this.parseTable(JObj);
-	}
-
-	public LookupTableFunction(JSONObject jObj) throws CelloException {
+	public LookupTableFunction(JSONObject jObj) {
 		super(jObj);
-		this.init();
-		this.parseLookupTableFunction(jObj);
 	}
-
-	@Override
-	public boolean isValid() {
-		boolean rtn = super.isValid();
-		rtn = rtn && (this.getTable() != null);
-		return rtn;
-	}
-
-	@Override
-	public Number evaluate(EvaluationContext ec) throws CelloException {
-		Double rtn = null;
-		double input[] = new double[this.getVariables().size()];
-		for (int i = 0; i < this.getVariables().size(); i++) {
-			Variable v = this.getVariables().get(i);
-			String name = v.getName();
-			Double value = v.evaluate(ec).doubleValue();
-			if (!this.getTable().containsColumn(name))
-				throw new RuntimeException(String.format("Missing column %s.", name));
-			input[i] = value;
-		}
-		// stupid two-point average interpolation
-		Integer argMinA = -1;
-		Double minA = Double.MAX_VALUE;
-		Integer argMinB = -1;
-		Double minB = Double.MAX_VALUE;
-		for (Integer row : this.getTable().rowKeySet()) {
-			double record[] = new double[this.getVariables().size()];
-			for (int i = 0; i < this.getVariables().size(); i++) {
-				Variable v = this.getVariables().get(i);
-				Double d = this.getTable().get(row, v.getName());
-				record[i] = d;
-			}
-			EuclideanDistance eu = new EuclideanDistance();
-			Double distance = eu.compute(input, record);
-			if (distance < minA) {
-				argMinB = argMinA;
-				minB = minA;
-				argMinA = row;
-				minA = distance;
-			} else if (distance < minB) {
-				argMinB = row;
-				minB = distance;
-			}
-		}
-		Double valueA = this.getTable().get(argMinA, S_OUTPUT);
-		Double valueB = this.getTable().get(argMinB, S_OUTPUT);
-		rtn = (valueA * minA + valueB * minB) / (minA + minB);
-		return rtn;
-	}
-
-	private Table<Integer, String, Double> getTable() {
-		return table;
-	}
-
-	private Table<Integer, String, Double> table;
 
 	public static final String S_TABLE = "table";
 	public static final String S_OUTPUT = "output";

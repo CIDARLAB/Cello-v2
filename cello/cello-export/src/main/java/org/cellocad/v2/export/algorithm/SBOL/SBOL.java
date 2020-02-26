@@ -33,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.DNAComponent;
 import org.cellocad.v2.common.target.data.component.Gate;
@@ -134,11 +133,7 @@ public class SBOL extends EXAlgorithm {
 	 */
 	@Override
 	protected void getDataFromUCF() throws CelloException {
-		try {
-			this.setTargetDataInstance(new EXTargetDataInstance(this.getTargetData()));
-		} catch (Exception e) {
-			throw new CelloException(String.format("Error reading %s.", TargetData.class.getName()), e);
-		}
+		this.setTargetDataInstance(new EXTargetDataInstance(this.getTargetData()));
 	}
 
 	/**

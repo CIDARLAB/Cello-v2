@@ -70,7 +70,6 @@ public class Variable extends Evaluatable {
 	public boolean isValid() {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getName() != null);
-		rtn = rtn && (this.getMap() != null);
 		return rtn;
 	}
 

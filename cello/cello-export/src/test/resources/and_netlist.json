@@ -1,0 +1,138 @@
+{
+	"name": "and_placed",
+	"inputFilename": "and.v",
+	"placements":
+	[
+		[
+			{
+				"name": "output",
+				"components": 
+				[
+					{
+						"name": "YFP_reporter_0",
+						"node": "out",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF",
+							"YFP_cassette"
+						]
+					}
+				]
+			},
+			{
+				"name": "circuit",
+				"components": 
+				[
+					{
+						"name": "S2_SrpR_0",
+						"node": "$1",
+						"direction": 1,
+						"parts": 
+						[
+							"pTet",
+							"RiboJ10",
+							"S2",
+							"SrpR",
+							"ECK120029600"
+						]
+					},
+					{
+						"name": "P3_PhlF_1",
+						"node": "$3",
+						"direction": 1,
+						"parts": 
+						[
+							"pSrpR",
+							"pAmtR",
+							"RiboJ53",
+							"P3",
+							"PhlF",
+							"ECK120033737"
+						]
+					},
+					{
+						"name": "A1_AmtR_2",
+						"node": "$2",
+						"direction": 1,
+						"parts": 
+						[
+							"pTac",
+							"BydvJ",
+							"A1",
+							"AmtR",
+							"L3S2P55"
+						]
+					}
+				]
+			}
+		]
+	],
+	"nodes": 
+	[
+		{
+			"name": "$1",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"deviceName": "S2_SrpR"
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"deviceName": "YFP_reporter"
+		},
+		{
+			"name": "$2",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "A1_AmtR"
+		},
+		{
+			"name": "$3",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "P3_PhlF"
+		},
+		{
+			"name": "b",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "TetR_sensor"
+		},
+		{
+			"name": "a",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "LacI_sensor"
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "e1__$1_out",
+			"src": "$1",
+			"dst": "out"
+		},
+		{
+			"name": "e2__$2_$1",
+			"src": "$2",
+			"dst": "$1"
+		},
+		{
+			"name": "e3__$3_$1",
+			"src": "$3",
+			"dst": "$1"
+		},
+		{
+			"name": "e4__b_$3",
+			"src": "b",
+			"dst": "$3"
+		},
+		{
+			"name": "e5__a_$2",
+			"src": "a",
+			"dst": "$2"
+		}
+	]
+}

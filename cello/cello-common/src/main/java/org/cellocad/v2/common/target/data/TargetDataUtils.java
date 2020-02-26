@@ -40,10 +40,12 @@ import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.common.target.data.model.AnalyticFunction;
+import org.cellocad.v2.common.target.data.model.BivariateLookupTableFunction;
 import org.cellocad.v2.common.target.data.model.Function;
 import org.cellocad.v2.common.target.data.model.LookupTableFunction;
 import org.cellocad.v2.common.target.data.model.Model;
 import org.cellocad.v2.common.target.data.model.Structure;
+import org.cellocad.v2.common.target.data.model.UnivariateLookupTableFunction;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -78,9 +80,17 @@ public class TargetDataUtils {
 			Function function;
 			if (jObj.containsKey(AnalyticFunction.S_EQUATION))
 				function = new AnalyticFunction(jObj);
-			else if (jObj.containsKey(LookupTableFunction.S_TABLE))
-				function = new LookupTableFunction(jObj);
-			else {
+			else if (jObj.containsKey(LookupTableFunction.S_TABLE)) {
+				JSONArray variables = (JSONArray) jObj.get(Function.S_VARIABLES);
+				if (variables.size() == 1)
+					function = new UnivariateLookupTableFunction(jObj);
+				else if (variables.size() == 2)
+					function = new BivariateLookupTableFunction(jObj);
+				else {
+					String fmt = "Bad variable count: %s.";
+					throw new CelloException(String.format(fmt, jObj.toString()));
+				}
+			} else {
 				String fmt = "Invalid %s specification: %s";
 				throw new CelloException(String.format(fmt, Function.class.getName(), jObj.toString()));
 			}

@@ -99,7 +99,7 @@ public class ResponsePlotUtils {
 		List<Double> rtn = new ArrayList<Double>();
 		Model m = node.getResultNetlistNodeData().getDevice().getModel();
 		Function f = m.getFunctionByName(FunctionType.S_RESPONSEFUNCTION);
-		// FIXME generalize to LookupTableFunction
+		// FIXME generalize to UnivariateLookupTableFunction
 		AnalyticFunction a = (AnalyticFunction) f;
 		EvaluationContext ec = new EvaluationContext();
 		ec.setNode(node);
