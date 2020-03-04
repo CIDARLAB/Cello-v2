@@ -22,7 +22,7 @@
       * add path to dot.exe, e.g. `C:\Program Files (x86)\Graphvix2.38\bin`, to `%Path%`
   + [dnaplotlib](https://github.com/VoigtLab/dnaplotlib)
     - `pip install dnaplotlib`
-  + (Optional) [pycello2](https://github.com/CIDARLAB/pycello2)
+  + (Optional) [pycello-v2](https://github.com/CIDARLAB/pycello-v2)
     - To support experimental feature: RNAseq profile generation.
     - `pip install git+https://github.com/CIDARLAB/pycello2`
 
