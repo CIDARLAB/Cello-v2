@@ -22,7 +22,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:saltmakrell/ppa -y; sudo apt-get update; sudo apt-get -y install graphviz yosys; sudo dpkg --add-architecture i386; sudo apt-get update; sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386; fi
   - cd cello/
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dgpg.skip=True
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -Dgpg.skip=true
 after_success:
   - cd cello-dnacompiler/
-  - if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$DOCKER_USERNAME" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then mvn docker:build && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && mvn docker:push; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$DOCKER_USERNAME" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then mvn docker:build -Ddocker.showLogs=false && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && mvn docker:push -Ddocker.showLogs=false; fi
