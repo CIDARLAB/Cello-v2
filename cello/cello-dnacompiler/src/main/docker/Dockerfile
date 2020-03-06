@@ -19,7 +19,7 @@ RUN	update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 RUN apt-get install -y --no-install-recommends python3-pip python3-setuptools git && \
 	pip3 install wheel matplotlib numpy sympy && \
 	pip3 install dnaplotlib && \
-	pip3 install git+https://github.com/tim-tx/pycello2
+	pip3 install git+https://github.com/CIDARLAB/pycello-v2
 
 RUN apt-get autoremove -y
 

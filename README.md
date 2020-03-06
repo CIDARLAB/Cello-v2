@@ -22,26 +22,26 @@
       * add path to dot.exe, e.g. `C:\Program Files (x86)\Graphvix2.38\bin`, to `%Path%`
   + [dnaplotlib](https://github.com/VoigtLab/dnaplotlib)
     - `pip install dnaplotlib`
-  + (Optional) [pycello2](https://github.com/CIDARLAB/pycello2)
+  + (Optional) [pycello-v2](https://github.com/CIDARLAB/pycello-v2)
     - To support experimental feature: RNAseq profile generation.
-    - `pip install git+https://github.com/CIDARLAB/pycello2`
+    - `pip install git+https://github.com/CIDARLAB/pycello-v2`
 
 # Installation
 
 ## Manual
 
-Clone the repository.
+1. Clone the repository.
 
-    git clone https://github.com/CIDARLAB/Cello-v2.git
+    git clone --recurse-submodules https://github.com/CIDARLAB/Cello-v2.git
 
-Build.
+2. Build.
 
     cd Cello-v2/cello
-    mvn clean package
+    mvn clean install -Dgpg.skip=true
 
-Test.
+# Example execution
 
-    cd target
+    cd cello-dnacompiler/target
     java -jar cello-dnacompiler-2.0.0-SNAPSHOT-jar-with-dependencies.jar
     -userConstraintsFile ../../sample-input/ucf/files/v2/ucf/Eco/Eco1C1G1T1.UCF.json \
     -inputSensorFile ../../sample-input/ucf/files/v2/input/Eco/Eco1C1G1T1.input.json \
