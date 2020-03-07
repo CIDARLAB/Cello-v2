@@ -45,11 +45,10 @@ import org.cellocad.v2.results.logicSynthesis.logic.truthtable.TruthTable;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
+import org.cellocad.v2.results.netlist.data.ResultNetlistNodeData;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
 import org.cellocad.v2.results.technologyMapping.activity.activitytable.ActivityTable;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealingUtils;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 
 /**
@@ -192,8 +191,8 @@ public class ResponsePlotUtils {
 			throw new RuntimeException(e);
 		}
 		// gate
-		SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
-		AssignableDevice a = data.getGate();
+		ResultNetlistNodeData data = node.getResultNetlistNodeData();
+		AssignableDevice a = data.getDevice();
 		if (!(a instanceof Gate))
 			throw new RuntimeException("Not a gate.");
 		Gate gate = (Gate) a;
