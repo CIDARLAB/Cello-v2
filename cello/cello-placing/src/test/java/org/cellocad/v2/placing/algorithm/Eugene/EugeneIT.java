@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.placing.algorithm.Eugene;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +50,7 @@ import org.junit.Test;
  * @date 2020-01-09
  *
  */
-public class EugeneTest {
+public class EugeneIT {
 
 	private static boolean initIsDone = false;
 

@@ -18,7 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.placing.algorithm.Eugene.test;
+package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.io.IOException;
 
@@ -26,7 +26,6 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.model.Structure;
 import org.cellocad.v2.common.target.data.model.StructureDevice;
-import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -37,13 +36,29 @@ import org.junit.Test;
  *
  * @author Timothy Jones
  *
- * @date 2020-01-29
+ * @date 2020-01-09
  *
  */
-public class OutputDeviceTest {
+public class EugeneDeviceIT {
 
 	@Test
-	public void test() throws IOException, ParseException {
+	public void EugeneDevice_MockStructure_ShouldReturnExpectedString() throws IOException, ParseException {
+		String str = Utils.getResourceAsString("structure.json");
+		JSONParser parser = new JSONParser();
+		JSONObject obj = (JSONObject) parser.parse(str);
+		Structure structure = new Structure(obj);
+		str = "";
+		for (StructureDevice d : structure.getDevices()) {
+			EugeneDevice e = new EugeneDevice(d);
+			str += e.toString();
+		}
+		String S_REF = "Device YFP_reporter_a(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n"
+				+ "Device YFP_reporter_b(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n";
+		assert (str.equals(S_REF));
+	}
+
+	@Test
+	public void EugeneDevice_MockOutputDevice_ShouldReturnExpectedString() throws IOException, ParseException {
 		String deviceString = Utils.getResourceAsString("output_device.json");
 		String structureString = Utils.getResourceAsString("output_device_structure.json");
 		JSONParser parser = new JSONParser();
@@ -57,10 +72,11 @@ public class OutputDeviceTest {
 			EugeneDevice e = new EugeneDevice(d);
 			str += e.toString();
 		}
+		String S_REF = "Device P1_PhlF_a(\n" + "    promoter,\n" + "    P1_PhlF_a_cassette\n" + ");\n"
+				+ "Device P1_PhlF_a_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_a,\n" + "    DT5\n" + ");\n"
+				+ "Device P1_PhlF_b(\n" + "    promoter,\n" + "    P1_PhlF_b_cassette\n" + ");\n"
+				+ "Device P1_PhlF_b_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_b,\n" + "    DT5\n" + ");\n";
 		assert (str.equals(S_REF));
 	}
-
-	private static String S_REF = "Device YFP_reporter_a(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n"
-			+ "Device YFP_reporter_b(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n";
 
 }
