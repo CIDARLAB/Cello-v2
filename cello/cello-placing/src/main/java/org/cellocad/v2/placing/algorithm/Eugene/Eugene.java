@@ -678,7 +678,7 @@ public class Eugene extends PLAlgorithm {
 		// DNAPlotLib
 		logInfo("generating dnaplotlib figures");
 		this.generateDNAPlotLibPlots();
-		this.generateRNASeqPlots();
+		// this.generateRNASeqPlots();
 	}
 
 	/**
