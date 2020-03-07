@@ -48,9 +48,10 @@ public class DNAPlotLibUtilsTest {
 	@BeforeClass
 	public static void init() throws CelloException {
 		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_placed_netlist.json").getFile(),
-				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
-				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
-				"-" + PLArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+				"-" + PLArgString.OUTPUTDEVICEFILE,
+				Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
 				"-" + PLArgString.ALGORITHMNAME, "Eugene" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");

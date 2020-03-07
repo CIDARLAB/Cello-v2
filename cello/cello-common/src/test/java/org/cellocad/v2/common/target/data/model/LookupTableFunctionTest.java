@@ -58,11 +58,11 @@ public class LookupTableFunctionTest {
 		JSONParser parser = new JSONParser();
 		String str;
 		JSONArray jsonTop = new JSONArray();
-		str = Utils.getResourceAsString("Bth1C1G1T1.UCF.json");
+		str = Utils.getResourceAsString("lib/ucf/Bth/Bth1C1G1T1.UCF.json");
 		jsonTop.addAll((Collection<Object>) parser.parse(str));
-		str = Utils.getResourceAsString("Bth1C1G1T1.input.json");
+		str = Utils.getResourceAsString("lib/input/Bth/Bth1C1G1T1.input.json");
 		jsonTop.addAll((Collection<Object>) parser.parse(str));
-		str = Utils.getResourceAsString("Bth1C1G1T1.output.json");
+		str = Utils.getResourceAsString("lib/output/Bth/Bth1C1G1T1.output.json");
 		jsonTop.addAll((Collection<Object>) parser.parse(str));
 		TargetData td = new TargetData(jsonTop);
 		tdi = new TargetDataInstance(td);

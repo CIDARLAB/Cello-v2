@@ -42,7 +42,7 @@ public class TargetDataTest {
 
 	@BeforeClass
 	public static void getJsonTargetData() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("Bth1C1G1T1.UCF.json");
+		String str = Utils.getResourceAsString("lib/ucf/Bth/Bth1C1G1T1.UCF.json");
 		JSONParser parser = new JSONParser();
 		JSONArray jsonTop = (JSONArray) parser.parse(str);
 		td = new TargetData(jsonTop);

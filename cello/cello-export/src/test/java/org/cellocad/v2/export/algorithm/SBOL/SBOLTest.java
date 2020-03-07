@@ -57,9 +57,10 @@ public class SBOLTest {
 		Path dir = Files.createTempDirectory("cello_");
 		output = dir.toFile();
 		String[] args = { "-" + EXArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + EXArgString.USERCONSTRAINTSFILE, Utils.getResource("Eco1C1G1T1.UCF.json").getFile(),
-				"-" + EXArgString.INPUTSENSORFILE, Utils.getResource("Eco1C1G1T1.input.json").getFile(),
-				"-" + EXArgString.OUTPUTDEVICEFILE, Utils.getResource("Eco1C1G1T1.output.json").getFile(),
+				"-" + EXArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+				"-" + EXArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+				"-" + EXArgString.OUTPUTDEVICEFILE,
+				Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
 				"-" + EXArgString.ALGORITHMNAME, "SBOL", "-" + EXArgString.OUTPUTDIR, dir.toString(),
 				"-" + EXArgString.PYTHONENV, "python" };
 		EXRuntimeEnv runEnv = new EXRuntimeEnv(args);
