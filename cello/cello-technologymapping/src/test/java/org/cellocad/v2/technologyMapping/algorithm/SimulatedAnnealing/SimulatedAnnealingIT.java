@@ -50,7 +50,7 @@ import org.junit.Test;
  * @date 2020-01-30
  *
  */
-public class SimulatedAnnealingTest {
+public class SimulatedAnnealingIT {
 
 	private static boolean initIsDone = false;
 
