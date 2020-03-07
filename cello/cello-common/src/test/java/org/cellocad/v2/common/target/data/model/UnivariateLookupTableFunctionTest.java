@@ -66,7 +66,7 @@ public class UnivariateLookupTableFunctionTest {
 		jsonTop.addAll((Collection<Object>) parser.parse(str));
 		TargetData td = new TargetData(jsonTop);
 		tdi = new TargetDataInstance(td);
-		str = Utils.getResourceAsString("and-Bth1C1G1T1.json");
+		str = Utils.getResourceAsString("and_GateAssignmentUsingBth1C1G1T1.json");
 		JSONObject jObj = (JSONObject) parser.parse(str);
 		netlist = new Netlist(jObj);
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
