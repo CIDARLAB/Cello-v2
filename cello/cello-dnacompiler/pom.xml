@@ -83,6 +83,66 @@
 		  </images>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <includes>algorithms/**/*.json</includes>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-logicsynthesis</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/logicSynthesis</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-logicoptimization</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/logicOptimization</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-clustering</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/clustering</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-partitioning</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/partitioning</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-technologymapping</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/technologyMapping</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-placing</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/placing</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>cello-export</artifactId>
+                  <version>${project.version}</version>
+                  <outputDirectory>${project.build.directory}/classes/algorithms/export</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
