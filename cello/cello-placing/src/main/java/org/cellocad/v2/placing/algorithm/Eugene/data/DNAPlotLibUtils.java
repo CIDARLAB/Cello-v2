@@ -28,15 +28,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.common.target.data.model.Structure;
+import org.cellocad.v2.common.target.data.model.StructureDevice;
+import org.cellocad.v2.common.target.data.model.StructureObject;
+import org.cellocad.v2.common.target.data.model.StructurePart;
+import org.cellocad.v2.common.target.data.model.StructureTemplate;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
+import org.cellocad.v2.results.placing.placement.Component;
 import org.cellocad.v2.results.placing.placement.Placement;
 import org.cellocad.v2.results.placing.placement.PlacementGroup;
 import org.cellocad.v2.results.placing.placement.Placements;
@@ -81,7 +88,40 @@ public class DNAPlotLibUtils {
 		return rtn;
 	}
 
-	public static List<String> getDNADesigns(final Netlist netlist) {
+	private static Collection<String> getFlattenedPartList(StructureDevice device) throws CelloException {
+		Collection<String> rtn = new ArrayList<>();
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructureTemplate) {
+				throw new CelloException("Cannot flatten with unreferenced input parts.");
+			}
+			if (o instanceof StructurePart) {
+				rtn.add(o.getName());
+			}
+			if (o instanceof StructureDevice) {
+				rtn.addAll(getFlattenedPartList((StructureDevice) o));
+			}
+		}
+		return rtn;
+	}
+
+	private static Collection<String> unNestDevice(final String object, final Component component,
+			final Netlist netlist, final TargetDataInstance tdi) throws CelloException {
+		Collection<String> rtn = new ArrayList<>();
+		NetlistNode node = netlist.getVertexByName(component.getNode());
+		String deviceName = node.getResultNetlistNodeData().getDeviceName();
+		AssignableDevice device = tdi.getAssignableDeviceByName(deviceName);
+		Structure structure = device.getStructure();
+		StructureDevice sd = structure.getDeviceByName(object);
+		if (sd != null) {
+			rtn.addAll(getFlattenedPartList(sd));
+		} else {
+			rtn.add(object);
+		}
+		return rtn;
+	}
+
+	public static List<String> getDNADesigns(final Netlist netlist, final TargetDataInstance tdi)
+			throws CelloException {
 		List<String> rtn = new ArrayList<>();
 		rtn.add("design_name,parts,");
 		Placements placements = netlist.getResultNetlistData().getPlacements();
@@ -96,10 +136,15 @@ public class DNAPlotLibUtils {
 			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
 				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
 				for (int k = 0; k < group.getNumComponent(); k++) {
-					org.cellocad.v2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					Component component = group.getComponentAtIdx(k);
 					for (int l = 0; l < component.getNumPart(); l++) {
-						String part = component.getPartAtIdx(l);
-						design.add(part);
+						String obj = component.getPartAtIdx(l);
+						Collection<String> parts = unNestDevice(obj, component, netlist, tdi);
+						if (parts.size() == 0) {
+							design.add(obj);
+						} else {
+							design.addAll(parts);
+						}
 					}
 				}
 				if ((j + 1) < placement.getNumPlacementGroup()) {
@@ -113,8 +158,7 @@ public class DNAPlotLibUtils {
 		return rtn;
 	}
 
-	public static List<String> getPartInformation(Netlist netlist, final CObjectCollection<Part> parts,
-			final CObjectCollection<Gate> gates) {
+	public static List<String> getPartInformation(Netlist netlist, final TargetDataInstance tdi) throws CelloException {
 		List<String> rtn = new ArrayList<>();
 		List<String> specified = new ArrayList<>();
 		rtn.add("part_name,type,x_extent,y_extent,start_pad,end_pad,color,hatch,arrowhead_height,arrowhead_length,linestyle,linewidth");
@@ -124,48 +168,54 @@ public class DNAPlotLibUtils {
 			for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
 				PlacementGroup group = placement.getPlacementGroupAtIdx(j);
 				for (int k = 0; k < group.getNumComponent(); k++) {
-					org.cellocad.v2.results.placing.placement.Component component = group.getComponentAtIdx(k);
+					Component component = group.getComponentAtIdx(k);
 					String n = component.getNode();
 					NetlistNode node = netlist.getVertexByName(n);
 					for (int l = 0; l < component.getNumPart(); l++) {
-						String p = component.getPartAtIdx(l);
-						if (specified.contains(p))
-							continue;
-						else
-							specified.add(p);
-						Part part = parts.findCObjectByName(p);
-						String rgb = "0.0;0.0;0.0";
-						String type = getPartType(part.getPartType());
-						String x = "";
-						String y = "";
-						if (part.getPartType().equals("promoter")) {
-							for (int m = 0; m < node.getNumInEdge(); m++) {
-								NetlistEdge e = node.getInEdgeAtIdx(m);
-								NetlistNode src = e.getSrc();
-								if (LSResultsUtils.isAllInput(src))
-									continue;
-								String gateType = src.getResultNetlistNodeData().getDeviceName();
-								Gate gate = gates.findCObjectByName(gateType);
-								if (!gate.getStructure().getOutputs().get(0).equals(p))
-									continue;
-								Color color = gate.getColor();
-								rgb = getRGB(color);
-							}
-						} else {
-							String gateType = node.getResultNetlistNodeData().getDeviceName();
-							Gate gate = gates.findCObjectByName(gateType);
-							if (gate != null) {
-								Color color = gate.getColor();
-								rgb = getRGB(color);
-							}
-							if (LSResultsUtils.isPrimaryOutput(node)) {
-								type = S_USERDEFINED;
-								rgb = getRGB(Color.BLACK);
-								x = String.valueOf(25);
-								y = String.valueOf(5);
-							}
+						String obj = component.getPartAtIdx(l);
+						Collection<String> deviceParts = unNestDevice(obj, component, netlist, tdi);
+						if (deviceParts.size() == 0) {
+							deviceParts.add(obj);
 						}
-						rtn.add(String.format("%s,%s,%s,%s,,,%s,,,,,", p, type, x, y, rgb));
+						for (String p : deviceParts) {
+							if (specified.contains(p))
+								continue;
+							else
+								specified.add(p);
+							Part part = tdi.getParts().findCObjectByName(p);
+							String rgb = "0.0;0.0;0.0";
+							String type = getPartType(part.getPartType());
+							String x = "";
+							String y = "";
+							if (part.getPartType().equals("promoter")) {
+								for (int m = 0; m < node.getNumInEdge(); m++) {
+									NetlistEdge e = node.getInEdgeAtIdx(m);
+									NetlistNode src = e.getSrc();
+									if (LSResultsUtils.isAllInput(src))
+										continue;
+									String gateType = src.getResultNetlistNodeData().getDeviceName();
+									Gate gate = tdi.getGates().findCObjectByName(gateType);
+									if (!gate.getStructure().getOutputs().get(0).equals(p))
+										continue;
+									Color color = gate.getColor();
+									rgb = getRGB(color);
+								}
+							} else {
+								String gateType = node.getResultNetlistNodeData().getDeviceName();
+								Gate gate = tdi.getGates().findCObjectByName(gateType);
+								if (gate != null) {
+									Color color = gate.getColor();
+									rgb = getRGB(color);
+								}
+								if (LSResultsUtils.isPrimaryOutput(node)) {
+									type = S_USERDEFINED;
+									rgb = getRGB(Color.BLACK);
+									x = String.valueOf(25);
+									y = String.valueOf(5);
+								}
+							}
+							rtn.add(String.format("%s,%s,%s,%s,,,%s,,,,,", p, type, x, y, rgb));
+						}
 					}
 				}
 				if ((j + 1) < placement.getNumPlacementGroup()) {
@@ -178,8 +228,8 @@ public class DNAPlotLibUtils {
 		return rtn;
 	}
 
-	public static List<String> getRegulatoryInformation(Netlist netlist, CObjectCollection<Part> parts,
-			CObjectCollection<Gate> gates) {
+	public static List<String> getRegulatoryInformation(final Netlist netlist, final TargetDataInstance tdi)
+			throws CelloException {
 		List<String> rtn = new ArrayList<>();
 		Set<String> specified = new HashSet<>();
 		rtn.add("from_partname,type,to_partname,arrowhead_length,linestyle,linewidth,color");
@@ -198,23 +248,29 @@ public class DNAPlotLibUtils {
 					if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node))
 						continue;
 					String gateType = node.getResultNetlistNodeData().getDeviceName();
-					Gate gate = gates.findCObjectByName(gateType);
+					Gate gate = tdi.getGates().findCObjectByName(gateType);
 					Structure gs = gate.getStructure();
 					Color color = gate.getColor();
 					for (int l = 0; l < component.getNumPart(); l++) {
-						String p = component.getPartAtIdx(l);
-						Part part = parts.findCObjectByName(p);
-						if (part.getPartType().equals("cds")) {
-							Collection<String> fields = new ArrayList<>();
-							fields.add(part.getName());
-							fields.add(S_REPRESSION);
-							fields.add(gs.getOutputs().get(0));
-							fields.add(String.valueOf(3));
-							fields.add("-");
-							fields.add("");
-							fields.add(getRGB(color));
-							String str = String.join(",", fields);
-							specified.add(str);
+						String obj = component.getPartAtIdx(l);
+						Collection<String> deviceParts = unNestDevice(obj, component, netlist, tdi);
+						if (deviceParts.size() == 0) {
+							deviceParts.add(obj);
+						}
+						for (String p : deviceParts) {
+							Part part = tdi.getParts().findCObjectByName(p);
+							if (part.getPartType().equals("cds")) {
+								Collection<String> fields = new ArrayList<>();
+								fields.add(part.getName());
+								fields.add(S_REPRESSION);
+								fields.add(gs.getOutputs().get(0));
+								fields.add(String.valueOf(3));
+								fields.add("-");
+								fields.add("");
+								fields.add(getRGB(color));
+								String str = String.join(",", fields);
+								specified.add(str);
+							}
 						}
 					}
 				}

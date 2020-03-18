@@ -1,18 +1,22 @@
 {
-	"collection": "output_structure",
-	"gate_name": "YFP_reporter",
-	"devices": [
+	"collection": "structures",
+	"name": "YFP_reporter_structure",
+	"inputs": [
 		{
-			"name": "YFP_reporter_a",
-			"components": [
-				"#promoter?",
-				"YFP_cassette"
-			]
+			"name": "in1",
+			"part_type": "promoter"
 		},
 		{
-			"name": "YFP_reporter_b",
+			"name": "in2",
+			"part_type": "promoter"
+		}
+	],
+	"devices": [
+		{
+			"name": "YFP_reporter",
 			"components": [
-				"#promoter?",
+				"#in2",
+				"#in1",
 				"YFP_cassette"
 			]
 		}

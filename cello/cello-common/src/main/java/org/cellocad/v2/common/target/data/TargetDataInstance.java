@@ -23,6 +23,7 @@ package org.cellocad.v2.common.target.data;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
@@ -32,7 +33,10 @@ import org.cellocad.v2.common.target.data.model.Model;
 import org.cellocad.v2.common.target.data.model.Structure;
 
 /**
- *
+ * The {@code TargetDataInstance} class is a represetation of the target data in
+ * which all objects have been instantiated and linked, e.g. each gate is
+ * accessible as a {@link Gate} object and the model to which the gate refers is
+ * accessible as a {@link Model} object.
  *
  * @author Timothy Jones
  *
@@ -59,6 +63,19 @@ public class TargetDataInstance extends CObject {
 		rtn = rtn && (this.getInputSensors() != null && this.getInputSensors().isValid());
 		rtn = rtn && (this.getOutputDevices() != null && this.getOutputDevices().isValid());
 		return rtn;
+	}
+
+	public AssignableDevice getAssignableDeviceByName(final String name) {
+		Gate g = this.getGates().findCObjectByName(name);
+		if (g != null)
+			return g;
+		InputSensor s = this.getInputSensors().findCObjectByName(name);
+		if (s != null)
+			return s;
+		OutputDevice o = this.getOutputDevices().findCObjectByName(name);
+		if (o != null)
+			return o;
+		return null;
 	}
 
 	/**

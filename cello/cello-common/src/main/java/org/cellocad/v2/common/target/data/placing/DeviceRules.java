@@ -22,9 +22,23 @@ package org.cellocad.v2.common.target.data.placing;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
+import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.model.StructureDevice;
+import org.cellocad.v2.common.target.data.model.StructureObject;
+import org.cellocad.v2.common.target.data.model.StructurePart;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.logicng.formulas.Formula;
+import org.logicng.formulas.FormulaFactory;
+import org.logicng.io.parsers.ParserException;
+import org.logicng.io.parsers.PropositionalParser;
+import org.logicng.transformations.dnf.DNFFactorization;
 
 /**
  *
@@ -34,51 +48,147 @@ import org.json.simple.JSONObject;
  * @date 2020-01-13
  *
  */
-public class DeviceRules {
+public class DeviceRules extends AbstractRules {
 
-	private void init() {
-		this.rules = new ArrayList<>();
-	}
-
-	private void parseDeviceRules(JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get(S_RULES);
-		for (Object o : jArr) {
-			String str = (String) o;
-			this.getRules().add(str);
+	private void parseBlock(final JSONObject obj, final StructureDevice device, final CObjectCollection<Part> inputs,
+			StringBuilder builder, Namer namer) {
+        JSONArray rules = (JSONArray) obj.get(S_RULES);
+        String op = this.getOperator((String) obj.get(S_FUNCTION));
+        builder.append("(");
+        Collection<String> accepted = new ArrayList<>();
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructurePart) {
+				accepted.add(o.getName());
+			}
 		}
-	}
+		for (Part p : inputs) {
+			accepted.add(p.getName());
+		}
+        for (int i = 0; i < rules.size(); i++) {
+            Object o = rules.get(i);
+            if (o instanceof JSONObject) {
+                JSONObject j = (JSONObject) o;
+				parseBlock(j, device, inputs, builder, namer);
+            } else if (o instanceof String) {
+                String str = (String) o;
+                Collection<String> stuff = EugeneRules.getObjects(str);
+                if (!accepted.containsAll(stuff) && !EugeneRules.GlobalOrientationRuleKeywords.contains(str))
+                    continue;
+                String name = namer.next();
+                String rule = str;
+                this.getNames().put(name, rule);
+                builder.append(name);
+            }
+            builder.append(op);
+        }
+        this.trim(builder);
+        builder.append(")");
+        this.trim(builder);
+    }
 
-	public DeviceRules(JSONObject jObj) {
-		init();
-		this.parseDeviceRules(jObj);
-	}
+    /**
+     * Build an individual (Eugene) <code>Rule</code> block.
+     *
+     * @param st    A <code>{@link java.util.StringTokenizer StringTokenizer}</code>
+     *              instantiated with the DNF rule set.
+     * @param names A map from an object name in a rule to the desired name.
+     * @param num   A numeral for the rule used in naming.
+     * @return A string representation of the Rule block.
+     */
+	protected String buildRule(StringTokenizer st, final String name, final int num) {
+        String rtn = "";
+		String fmt = "Rule %sRule%d( ON %s:";
+		rtn += String.format(fmt, name, num, name) + Utils.getNewLine();
+        while (st.hasMoreTokens()) {
+            String t = st.nextToken();
+            if (t.equals("|"))
+                break;
+            if (t.equals("&")) {
+                rtn += " " + EugeneRules.S_AND + Utils.getNewLine();
+                continue;
+            }
+            String rule = this.getNames().get(t);
+            rtn += Utils.getTabCharacter() + rule;
+        }
+        rtn += Utils.getNewLine() + ");" + Utils.getNewLine();
+        return rtn;
+    }
 
-	public Collection<String> getRulesByObjectName(String name) {
+	private Collection<String> buildRules(StringTokenizer st, String name) {
 		Collection<String> rtn = new ArrayList<>();
-		for (String rule : this.getRules()) {
-			if (EugeneRules.GlobalOrientationRuleKeywords.contains(rule)) {
-				rtn.add(rule);
-			}
-			Collection<String> objects = EugeneRules.getObjects(rule);
-			for (String str : objects) {
-				if (str.equals(name))
-					rtn.add(rule);
-			}
-		}
+        int i = 0;
+        while (st.hasMoreTokens()) {
+			rtn.add(buildRule(st, name, i));
+            i++;
+        }
 		return rtn;
-	}
+    }
 
-	/**
-	 * Getter for <i>rules</i>
-	 *
-	 * @return value of <i>rules</i>
-	 */
-	private Collection<String> getRules() {
-		return rules;
-	}
+	private Collection<String> parseDeviceRules(final JSONObject jObj, final StructureDevice device,
+			final CObjectCollection<Part> inputs) {
+		Collection<String> rtn = null;
+        JSONObject jArr = (JSONObject) jObj.get(S_RULES);
+        StringBuilder builder = new StringBuilder();
+        Namer namer = new Namer();
+		// inject CONTAINS rules
+		for (Part p : inputs) {
+			String rule = String.format("%s %s", EugeneRules.S_CONTAINS, p.getName());
+			String name = namer.next();
+			this.getNames().put(name, rule);
+			builder.append(name);
+			builder.append(this.getOperator("AND"));
+		}
+		parseBlock(jArr, device, inputs, builder, namer);
+        String expr = builder.toString();
+        final FormulaFactory f = new FormulaFactory();
+        final PropositionalParser p = new PropositionalParser(f);
+        Formula formula;
+        try {
+            formula = p.parse(expr);
+        } catch (ParserException e) {
+            throw new RuntimeException(e);
+        }
+        final DNFFactorization d = new DNFFactorization();
+        final Formula r = d.apply(formula, false);
+        StringTokenizer st = new StringTokenizer(r.toString());
+		rtn = buildRules(st, device.getName());
+		return rtn;
+    }
 
-	private Collection<String> rules;
+    private void init() {
+		this.names = new HashMap<>();
+    }
 
-	private static final String S_RULES = "rules";
+    public DeviceRules(final JSONObject jObj) {
+        init();
+        this.json = jObj;
+    }
+
+	public String filter(final StructureDevice device, final CObjectCollection<Part> inputs) {
+		Collection<String> rules = this.parseDeviceRules(this.getJson(), device, inputs);
+		return String.join(Utils.getNewLine(), rules);
+    }
+
+    /**
+     * Getter for <code>names</code>.
+     *
+     * @return The value of <code>names</code>.
+     */
+    private Map<String, String> getNames() {
+        return this.names;
+    }
+
+    private Map<String, String> names;
+
+    /**
+     * Getter for <code>json</code>.
+     *
+     * @return The value of <code>json</code>.
+     */
+    private JSONObject getJson() {
+        return json;
+    }
+
+    private JSONObject json;
 
 }

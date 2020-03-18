@@ -1,6 +1,6 @@
 {
-	"name": "xor_Bth",
-	"inputFilename": "../../sample-input/DNACompiler/primitives/xor.v",
+	"name": "and_Eco1C1G1T1",
+	"inputFilename": "and.v",
 	"placements": [],
 	"nodes": 
 	[
@@ -8,79 +8,64 @@
 			"name": "a",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "BA_sensor"
+			"deviceName": "LacI_sensor"
 		},
 		{
 			"name": "b",
 			"nodeType": "PRIMARY_INPUT",
 			"partitionID": -1,
-			"gateType": "aTc_sensor"
+			"deviceName": "TetR_sensor"
 		},
 		{
 			"name": "out",
 			"nodeType": "PRIMARY_OUTPUT",
 			"partitionID": -1,
-			"gateType": "nanoluc_reporter"
+			"deviceName": "YFP_reporter"
 		},
 		{
 			"name": "$48",
-			"nodeType": "NOR",
+			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "Gate1"
+			"deviceName": "E1_BetI"
 		},
 		{
 			"name": "$49",
-			"nodeType": "NOR",
+			"nodeType": "NOT",
 			"partitionID": -1,
-			"gateType": "Gate4"
+			"deviceName": "A1_AmtR"
 		},
 		{
 			"name": "$50",
 			"nodeType": "NOR",
 			"partitionID": -1,
-			"gateType": "Gate2"
+			"deviceName": "P1_PhlF"
 		}
 	],
 	"edges": 
 	[
+		{
+			"name": "$n5_0",
+			"src": "$49",
+			"dst": "$50"
+		},
 		{
 			"name": "a_0",
 			"src": "a",
 			"dst": "$48"
 		},
 		{
-			"name": "a_1",
-			"src": "a",
-			"dst": "$49"
-		},
-		{
 			"name": "b_0",
 			"src": "b",
-			"dst": "$48"
-		},
-		{
-			"name": "b_1",
-			"src": "b",
-			"dst": "$50"
-		},
-		{
-			"name": "$n1",
-			"src": "$48",
 			"dst": "$49"
 		},
 		{
-			"name": "$n2",
+			"name": "$n4_0",
 			"src": "$48",
 			"dst": "$50"
 		},
 		{
 			"name": "out_0",
 			"src": "$50",
-			"dst": "out"
-		},
-		{
-			"name": "out_1",
-			"src": "$49",
 			"dst": "out"
 		}
 	]

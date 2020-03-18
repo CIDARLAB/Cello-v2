@@ -21,11 +21,12 @@
 package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.model.StructureDevice;
 import org.cellocad.v2.common.target.data.model.StructureObject;
+import org.cellocad.v2.common.target.data.model.StructureTemplate;
 import org.json.simple.JSONObject;
 
 /**
@@ -38,35 +39,46 @@ import org.json.simple.JSONObject;
  */
 public class EugeneDevice extends StructureDevice {
 
-	public EugeneDevice(final JSONObject jObj) {
-		super(jObj);
-	}
+    public EugeneDevice(final JSONObject jObj) {
+        super(jObj);
+    }
 
-	public EugeneDevice(final StructureDevice device) {
-		super(device);
-	}
-	
-	@Override
-	public String toString() {
-		String rtn = "";
-		Collection<StructureDevice> devices = new ArrayList<>();
-		rtn += "Device " + this.getName() + "(" + Utils.getNewLine();
-		for (int i = 0; i < this.getComponents().size(); i++) {
-			StructureObject o = this.getComponents().get(i);
-			if (o instanceof StructureDevice)
-				devices.add((StructureDevice) o);
-			rtn += "    " + o.getName();
-			if (i < this.getComponents().size() - 1)
-				rtn += ",";
+    public EugeneDevice(final StructureDevice device) {
+        super(device);
+    }
+
+    @Override
+    public String toString() {
+        String rtn = "";
+        String root = "";
+        List<StructureDevice> devices = new ArrayList<>();
+        root += "Device " + this.getName() + "(" + Utils.getNewLine();
+        for (int i = 0; i < this.getComponents().size(); i++) {
+            StructureObject o = this.getComponents().get(i);
+            if (o instanceof StructureDevice)
+                devices.add((StructureDevice) o);
+			if (o instanceof StructureTemplate) {
+				StructureTemplate t = (StructureTemplate) o;
+				root += "    " + t.getInput().getPartType();
+			} else {
+				root += "    " + o.getName();
+			}
+            if (i < this.getComponents().size() - 1)
+                root += ",";
+            root += Utils.getNewLine();
+        }
+        root.substring(0, root.length() - 2);
+        root += ");" + Utils.getNewLine();
+        for (int i = devices.size() - 1; i >= 0; i--) {
+            StructureDevice d = devices.get(i);
+            EugeneDevice e = new EugeneDevice(d);
+			// rtn += e.toString();
+			// FIXME should not be hardcoded
+			rtn += "cassette " + e.getName() + "();";
 			rtn += Utils.getNewLine();
-		}
-		rtn.substring(0, rtn.length() - 2);
-		rtn += ");" + Utils.getNewLine();
-		for (StructureDevice d : devices) {
-			EugeneDevice e = new EugeneDevice(d);
-			rtn += e.toString();
-		}
-		return rtn;
-	}
+        }
+        rtn += root;
+        return rtn;
+    }
 
 }

@@ -50,7 +50,7 @@ import org.junit.Test;
  * @date 2020-01-09
  *
  */
-public class EugeneIT {
+public class EugeneEco1C1G1T1IT {
 
 	private static boolean initIsDone = false;
 
@@ -60,7 +60,7 @@ public class EugeneIT {
 			return;
 		Path dir = Files.createTempDirectory("cello_");
 		this.output = dir.toFile();
-		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
+		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("and_Eco1C1G1T1_TM.netlist.json").getFile(),
 				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
 				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
 				"-" + PLArgString.OUTPUTDEVICEFILE,
@@ -107,7 +107,7 @@ public class EugeneIT {
 	}
 
 	@Test
-	public void test() throws CelloException, IOException {
+	public void Eugene_Eco1C1G1T1_ShouldReturn() throws CelloException, IOException {
 		this.PL.execute();
 		FileUtils.deleteDirectory(this.output);
 	}

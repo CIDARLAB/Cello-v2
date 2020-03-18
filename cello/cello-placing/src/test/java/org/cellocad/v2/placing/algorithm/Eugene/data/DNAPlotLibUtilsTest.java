@@ -27,7 +27,6 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
-import org.cellocad.v2.placing.algorithm.Eugene.data.DNAPlotLibUtils;
 import org.cellocad.v2.placing.runtime.environment.PLArgString;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.v2.results.netlist.Netlist;
@@ -64,39 +63,39 @@ public class DNAPlotLibUtilsTest {
 	}
 
 	@Test
-	public void getDNADesigns_MockNetlist_ShouldReturnTwoDesigns() {
-		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist);
+	public void getDNADesigns_MockNetlist_ShouldReturnTwoDesigns() throws CelloException {
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist, tdi);
 		assert (designs.size() == 2);
 	}
 
 	@Test
-	public void getDNADesigns_MockNetlist_ShouldReturnExactMatch() {
-		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist);
+	public void getDNADesigns_MockNetlist_ShouldReturnExactMatch() throws CelloException {
+		List<String> designs = DNAPlotLibUtils.getDNADesigns(netlist, tdi);
 		assert (designs.get(1).equals(
 				"and_placed0,pPhlF,YFP_cassette,_NONCE_PAD0,pTet,RiboJ10,S2,SrpR,ECK120029600,pSrpR,pAmtR,RiboJ53,P3,PhlF,ECK120033737,pTac,BydvJ,A1,AmtR,L3S2P55"));
 	}
 
 	@Test
-	public void getRegulatoryInformation_MockNetlist_ShouldReturnFourInteractions() {
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi.getParts(), tdi.getGates());
+	public void getRegulatoryInformation_MockNetlist_ShouldReturnFourInteractions() throws CelloException {
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi);
 		assert (reg.size() == 4);
 	}
 
 	@Test
-	public void getRegulatoryInformation_MockNetlist_ShouldReturnExactMatch() {
-		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi.getParts(), tdi.getGates());
+	public void getRegulatoryInformation_MockNetlist_ShouldReturnExactMatch() throws CelloException {
+		List<String> reg = DNAPlotLibUtils.getRegulatoryInformation(netlist, tdi);
 		assert (reg.get(2).equals("AmtR,Repression,pAmtR,3,-,,0.23;0.66;0.88"));
 	}
 
 	@Test
-	public void getartInformation_MockNetlist_ShouldReturn20Parts() {
-		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi.getParts(), tdi.getGates());
+	public void getartInformation_MockNetlist_ShouldReturn20Parts() throws CelloException {
+		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi);
 		assert (part.size() == 20);
 	}
 
 	@Test
-	public void getartInformation_MockNetlist_ShouldReturnExactMatch() {
-		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi.getParts(), tdi.getGates());
+	public void getartInformation_MockNetlist_ShouldReturnExactMatch() throws CelloException {
+		List<String> part = DNAPlotLibUtils.getPartInformation(netlist, tdi);
 		assert (part.get(2).equals("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,"));
 	}
 

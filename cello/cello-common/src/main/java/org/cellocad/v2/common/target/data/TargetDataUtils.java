@@ -123,7 +123,7 @@ public class TargetDataUtils {
 		return rtn;
 	}
 
-	public static final CObjectCollection<Structure> getStructures(final TargetData td) {
+	public static final CObjectCollection<Structure> getStructures(final TargetData td) throws CelloException {
 		CObjectCollection<Structure> rtn = new CObjectCollection<Structure>();
 		for (int i = 0; i < td.getNumJSONObject(S_STRUCTURES); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_STRUCTURES, i);

@@ -35,36 +35,29 @@ public class StructureTemplate extends StructureObject {
 			throw new RuntimeException("Not a template.");
 		}
 		String str = template.substring(1);
-		if (str.endsWith(S_SUFFIX)) {
-			this.input = true;
-			this.removeable = true;
-			str = str.substring(0, str.length() - 1);
-		}
 		this.setName(str);
 	}
 
 	/**
-	 * Getter for <i>removeable</i>
+	 * Getter for <code>input</code>.
 	 *
-	 * @return value of <i>removeable</i>
+	 * @return The value of <code>input</code>.
 	 */
-	public Boolean isRemoveable() {
-		return removeable;
-	}
-
-	/**
-	 * Getter for <i>input</i>
-	 *
-	 * @return value of <i>input</i>
-	 */
-	public Boolean isInput() {
+	public Input getInput() {
 		return input;
 	}
 
-	private Boolean removeable;
-	private Boolean input;
+	/**
+	 * Setter for <code>input</code>.
+	 *
+	 * @param input The value to set <code>input</code>.
+	 */
+	public void setInput(Input input) {
+		this.input = input;
+	}
+
+	private Input input;
 
 	public static final String S_PREFIX = "#";
-	private static final String S_SUFFIX = "?";
 
 }

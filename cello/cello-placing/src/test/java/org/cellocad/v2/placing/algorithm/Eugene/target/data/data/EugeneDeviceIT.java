@@ -22,6 +22,7 @@ package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.io.IOException;
 
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.model.Structure;
@@ -42,7 +43,8 @@ import org.junit.Test;
 public class EugeneDeviceIT {
 
 	@Test
-	public void EugeneDevice_MockStructure_ShouldReturnExpectedString() throws IOException, ParseException {
+	public void EugeneDevice_MockStructure_ShouldReturnExpectedString()
+			throws IOException, ParseException, CelloException {
 		String str = Utils.getResourceAsString("structure.json");
 		JSONParser parser = new JSONParser();
 		JSONObject obj = (JSONObject) parser.parse(str);
@@ -52,13 +54,20 @@ public class EugeneDeviceIT {
 			EugeneDevice e = new EugeneDevice(d);
 			str += e.toString();
 		}
-		String S_REF = "Device YFP_reporter_a(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n"
-				+ "Device YFP_reporter_b(\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n";
+		String S_REF = "cassette P1_PhlF_a_cassette();\n" + 
+				"Device P1_PhlF_a(\n" + 
+				"    promoter,\n" + "    P1_PhlF_a_cassette\n" +
+				");\n" + 
+				"cassette P1_PhlF_b_cassette();\n" + 
+				"Device P1_PhlF_b(\n" + 
+				"    promoter,\n" + "    P1_PhlF_b_cassette\n" + 
+				");\n";
 		assert (str.equals(S_REF));
 	}
 
 	@Test
-	public void EugeneDevice_MockOutputDevice_ShouldReturnExpectedString() throws IOException, ParseException {
+	public void EugeneDevice_MockOutputDevice_ShouldReturnExpectedString()
+			throws IOException, ParseException, CelloException {
 		String deviceString = Utils.getResourceAsString("output_device.json");
 		String structureString = Utils.getResourceAsString("output_device_structure.json");
 		JSONParser parser = new JSONParser();
@@ -72,10 +81,7 @@ public class EugeneDeviceIT {
 			EugeneDevice e = new EugeneDevice(d);
 			str += e.toString();
 		}
-		String S_REF = "Device P1_PhlF_a(\n" + "    promoter,\n" + "    P1_PhlF_a_cassette\n" + ");\n"
-				+ "Device P1_PhlF_a_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_a,\n" + "    DT5\n" + ");\n"
-				+ "Device P1_PhlF_b(\n" + "    promoter,\n" + "    P1_PhlF_b_cassette\n" + ");\n"
-				+ "Device P1_PhlF_b_cassette(\n" + "    RiboJ53,\n" + "    P1,\n" + "    PhlF_b,\n" + "    DT5\n" + ");\n";
+		String S_REF = "Device YFP_reporter(\n" + "    promoter,\n" + "    promoter,\n" + "    YFP_cassette\n" + ");\n";
 		assert (str.equals(S_REF));
 	}
 

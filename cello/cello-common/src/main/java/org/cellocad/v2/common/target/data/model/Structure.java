@@ -26,12 +26,13 @@ import java.util.List;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- *
+ * The {@code Structure} class represents a gate's structure.
  *
  * @author Timothy Jones
  *
@@ -72,6 +73,7 @@ public class Structure extends CObject {
 		}
 	}
 
+	// TODO not static
 	private static CObjectCollection<StructureDevice> nestDevices(CObjectCollection<StructureDevice> devices) {
 		CObjectCollection<StructureDevice> rtn = new CObjectCollection<>();
 		rtn.addAll(devices);
@@ -98,7 +100,28 @@ public class Structure extends CObject {
 		return rtn;
 	}
 
-	private void parseDevices(final JSONObject jObj) {
+	private void linkTemplatesToInputs() throws CelloException {
+		Iterator<StructureDevice> it = this.getDevices().iterator();
+		while (it.hasNext()) {
+			StructureDevice d = it.next();
+			for (int i = 0; i < d.getComponents().size(); i++) {
+				StructureObject o = d.getComponents().get(i);
+				if (o instanceof StructureTemplate) {
+					StructureTemplate t = (StructureTemplate) o;
+					Input input = this.getInputs().findCObjectByName(t.getName());
+					if (input == null) {
+						String fmt = "Input %s not found in device %s.";
+						throw new CelloException(String.format(fmt, t.getName(), d.getName()));
+					}
+					t.setInput(input);
+				} else {
+					continue;
+				}
+			}
+		}
+	}
+
+	private void parseDevices(final JSONObject jObj) throws CelloException {
 		JSONArray jArr = (JSONArray) jObj.get(S_DEVICES);
 		if (jArr == null)
 			return;
@@ -107,17 +130,18 @@ public class Structure extends CObject {
 			StructureDevice d = new StructureDevice(o);
 			this.getDevices().add(d);
 		}
+		this.linkTemplatesToInputs();
 		this.devices = nestDevices(this.getDevices());
 	}
 
-	private void parseStructure(final JSONObject jObj) {
+	private void parseStructure(final JSONObject jObj) throws CelloException {
 		this.parseName(jObj);
 		this.parseInputs(jObj);
 		this.parseOutputs(jObj);
 		this.parseDevices(jObj);
 	}
 
-	public Structure(final JSONObject jObj) {
+	public Structure(final JSONObject jObj) throws CelloException {
 		this.init();
 		this.parseStructure(jObj);
 	}
@@ -126,6 +150,31 @@ public class Structure extends CObject {
 	public boolean isValid() {
 		boolean rtn = super.isValid();
 		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	private StructureDevice getStructureDeviceByName(final String name, final StructureDevice device) {
+		StructureDevice rtn = null;
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructureDevice) {
+				if (o.getName().equals(name)) {
+					rtn = (StructureDevice) o;
+					break;
+				}
+				rtn = getStructureDeviceByName(name, (StructureDevice) o);
+			}
+		}
+		return rtn;
+	}
+
+	public StructureDevice getDeviceByName(final String name) {
+		StructureDevice rtn = null;
+		for (StructureDevice device : this.getDevices()) {
+			rtn = getStructureDeviceByName(name, device);
+			if (rtn != null) {
+				break;
+			}
+		}
 		return rtn;
 	}
 
