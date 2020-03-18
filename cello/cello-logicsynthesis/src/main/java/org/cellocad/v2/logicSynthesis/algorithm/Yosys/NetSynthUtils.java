@@ -175,7 +175,9 @@ public class NetSynthUtils {
 	private static Path initResources() throws IOException, CelloException {
 		Path rtn = null;
 		rtn = Files.createTempDirectory("cello_");
-		String base = "netsynthResources";
+		String sourceBase = "netsynthResources";
+		String targetBase = "resources" + Utils.getFileSeparator() + "netsynthResources";
+		Path targetPath = Files.createDirectories(Paths.get(rtn.toString(), targetBase));
 		Path p = null;
 		List<String> files = null;
 		if (Utils.isMac())
@@ -185,14 +187,20 @@ public class NetSynthUtils {
 		if (Utils.isWin())
 			files = Arrays.asList(new String[] { "espresso.exe", "abc.exe", "script.cmd" });
 		for (String file : files) {
-			p = Paths.get(base, file);
-			File f = copyResource(p, rtn);
-			Boolean b = f.setExecutable(true);
-			if (!b) {
+			p = Paths.get(sourceBase, file);
+			File f = null;
+			Boolean a = false;
+			Boolean b = false;
+			f = copyResource(p, targetPath);
+			a = f.setExecutable(true);
+			f = copyResource(p, rtn);
+			b = f.setExecutable(true);
+			if (!(a && b)) {
 				throw new CelloException("Unable to set executable permissions on file " + f.toString());
 			}
 		}
-		p = Paths.get(base, "abc.rc");
+		p = Paths.get(sourceBase, "abc.rc");
+		copyResource(p, targetPath);
 		copyResource(p, rtn);
 		return rtn;
 	}
@@ -227,6 +235,7 @@ public class NetSynthUtils {
 			throws JSONException, IOException, CelloException {
 		Netlist rtn = null;
 		Path path = initResources();
+		System.out.println(path);
 		NetSynth n = new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
 		// verilog
 		String verilog = getVerilog(netlist);
