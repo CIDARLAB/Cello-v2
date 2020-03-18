@@ -20,8 +20,6 @@
  */
 package org.cellocad.v2.logicSynthesis.algorithm.Yosys;
 
-import static org.junit.Assert.*;
-
 import org.cellocad.v2.logicSynthesis.netlist.OutputOrTransform;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.junit.Test;

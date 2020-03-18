@@ -42,4 +42,5 @@ public abstract class StageNetlistData extends CObject{
 	 *  @throws IOException If an I/O error occurs
 	 */
 	public abstract void writeJSON(int indent, Writer os) throws IOException;
+
 }

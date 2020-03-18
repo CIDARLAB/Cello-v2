@@ -36,7 +36,7 @@ import org.json.simple.JSONObject;
 public class LocationSequences extends CObject {
 	
 	private void parseOutputModuleLocation(final JSONObject jObj) {
-		JSONArray jArr = (JSONArray) jObj.get("output_module_location");
+		JSONArray jArr = (JSONArray) jObj.get(S_OUTPUTMODULELOCATION);
 		for (int i = 0; i < jArr.size(); i++) {
 			JSONObject obj = (JSONObject) jArr.get(i);
 			OutputModuleLocation location = new OutputModuleLocation(obj);
@@ -61,5 +61,7 @@ public class LocationSequences extends CObject {
 	}
 
 	private CObjectCollection<OutputModuleLocation> oml;
+
+	private static final String S_OUTPUTMODULELOCATION = "output_module_location";
 
 }

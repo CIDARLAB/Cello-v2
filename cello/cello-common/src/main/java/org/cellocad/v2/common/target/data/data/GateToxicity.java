@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,6 +27,7 @@ import java.util.ArrayList;
  * The GateParts is class representing the parts description for a gate in the gate assignment of the <i>SimulatedAnnealing</i> algorithm.
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date 2018-05-21
  *
@@ -34,23 +37,24 @@ import java.util.List;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Pair;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.common.target.data.component.Gate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class GateToxicity extends CObject{
 
 	private void parseName(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gate_name");
+		String value = ProfileUtils.getString(JObj, S_GATENAME);
 		this.setGateName(value);
 	}
 	
 	private void parseMapVariable(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "maps_to_variable");
+		String value = ProfileUtils.getString(JObj, S_MAPSTOVARIABLE);
 		this.setMapVariable(value);
 	}
 
 	private void parseInput(final JSONObject JObj){
-		JSONArray jArr = (JSONArray) JObj.get("input");
+		JSONArray jArr = (JSONArray) JObj.get(S_INPUT);
 		for (int i = 0; i < jArr.size(); i++) {
 			Double input = ((Number)jArr.get(i)).doubleValue();
 			this.getInput().add(input);
@@ -58,7 +62,7 @@ public class GateToxicity extends CObject{
 	}
 
 	private void parseGrowth(final JSONObject JObj){
-		JSONArray jArr = (JSONArray) JObj.get("growth");
+		JSONArray jArr = (JSONArray) JObj.get(S_GROWTH);
 		for (int i = 0; i < jArr.size(); i++) {
 			Double growth = ((Number)jArr.get(i)).doubleValue();
 			this.getGrowth().add(growth);
@@ -209,4 +213,9 @@ public class GateToxicity extends CObject{
 	
 	private List<Pair<Double,Double>> inputGrowthPairs;
 	
+	private static final String S_GATENAME = "gate_name";
+	private static final String S_MAPSTOVARIABLE = "maps_to_variable";
+	private static final String S_INPUT = "input";
+	private static final String S_GROWTH = "growth";
+
 }

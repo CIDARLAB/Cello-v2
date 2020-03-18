@@ -1,0 +1,72 @@
+{
+	"name": "and_Eco1C1G1T1",
+	"inputFilename": "and.v",
+	"placements": [],
+	"nodes": 
+	[
+		{
+			"name": "a",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "LacI_sensor"
+		},
+		{
+			"name": "b",
+			"nodeType": "PRIMARY_INPUT",
+			"partitionID": -1,
+			"deviceName": "TetR_sensor"
+		},
+		{
+			"name": "out",
+			"nodeType": "PRIMARY_OUTPUT",
+			"partitionID": -1,
+			"deviceName": "YFP_reporter"
+		},
+		{
+			"name": "$48",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "E1_BetI"
+		},
+		{
+			"name": "$49",
+			"nodeType": "NOT",
+			"partitionID": -1,
+			"deviceName": "A1_AmtR"
+		},
+		{
+			"name": "$50",
+			"nodeType": "NOR",
+			"partitionID": -1,
+			"deviceName": "P1_PhlF"
+		}
+	],
+	"edges": 
+	[
+		{
+			"name": "$n5_0",
+			"src": "$49",
+			"dst": "$50"
+		},
+		{
+			"name": "a_0",
+			"src": "a",
+			"dst": "$48"
+		},
+		{
+			"name": "b_0",
+			"src": "b",
+			"dst": "$49"
+		},
+		{
+			"name": "$n4_0",
+			"src": "$48",
+			"dst": "$50"
+		},
+		{
+			"name": "out_0",
+			"src": "$50",
+			"dst": "out"
+		}
+	]
+}

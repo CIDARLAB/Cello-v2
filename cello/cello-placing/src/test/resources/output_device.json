@@ -1,4 +1,6 @@
 {
 	"collection": "output_devices",
-	"name": "YFP_reporter"
+	"name": "YFP_reporter",
+	"model": "YFP_reporter_model",
+	"structure": "YFP_reporter_structure"
 }

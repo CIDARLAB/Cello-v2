@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -27,6 +29,7 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.JSON.JSONUtils;
 import org.cellocad.v2.common.application.data.ApplicationNetlistNodeData;
 import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
 import org.cellocad.v2.results.clustering.CLResults;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.partitioning.PTResults;
@@ -51,7 +54,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setNodeType(LSResults.S_DEFAULT);
 		this.setPartitionID(PTResults.S_DEFAULT);
 		this.setClusterID(CLResults.S_DEFAULT);
-		this.setGateType(TMResults.S_DEFAULT);
+		this.setDeviceName(TMResults.S_DEFAULT);
 	}
 
 	/**
@@ -72,7 +75,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		this.setDefault();
 		this.setNodeType(other.getNodeType());
 		this.setPartitionID(other.getPartitionID());
-		this.setGateType(other.getGateType());
+		this.setDeviceName(other.getDeviceName());
 	}
 
 	/**
@@ -99,8 +102,8 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		rtn += JSONUtils.getEntryToString("nodeType", this.getNodeType());
 		// partitionID
 		rtn += JSONUtils.getEntryToString("partitionID", this.getPartitionID());
-		// gateType
-		rtn += JSONUtils.getEntryToString("gateType", this.getGateType());
+		// deviceName
+		rtn += JSONUtils.getEntryToString("deviceName", this.getDeviceName());
 		return rtn;
 	}
 	
@@ -131,10 +134,11 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 		int value = ProfileUtils.getInteger(JObj, "partitionID");
 		this.setPartitionID(value);
 	}
-	private void parseGateType(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "gateType");
+
+	private void parseDevice(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, "deviceName");
 		if (value != null) {
-			this.setGateType(value);
+			this.setDeviceName(value);
 		}
 	}
 	/**
@@ -145,7 +149,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	public void parse(final JSONObject JObj){
     	this.parseNodeType(JObj);
     	this.parsePartitionID(JObj);
-    	this.parseGateType(JObj);
+		this.parseDevice(JObj);
 	}
 
 	/*
@@ -215,23 +219,45 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 	 * GateType
 	 */
 	/**
-	 *  Setter for <i>gateType</i>
-	 *  @param gateType the value to set <i>gateType</i>
+	 * Setter for <i>deviceName</i>
+	 * 
+	 * @param deviceName the value to set <i>deviceName</i>
 	 */
-	public void setGateType(String gateType) {
-		this.gateType = gateType;
+	public void setDeviceName(String device) {
+		this.deviceName = device;
 	}
 
 	/**
-	 *  Getter for <i>gateType</i>
-	 *  @return the gateType of this instance
+	 * Getter for <i>deviceName</i>
+	 * 
+	 * @return the deviceName of this instance
 	 */
-	public String getGateType() {
-		return this.gateType;
+	public String getDeviceName() {
+		return this.deviceName;
 	}
 	
-	private String gateType;
+	private String deviceName;
 	
+	/**
+	 * Getter for <i>device</i>.
+	 *
+	 * @return value of device
+	 */
+	public AssignableDevice getDevice() {
+		return device;
+	}
+
+	/**
+	 * Setter for <i>device</i>.
+	 *
+	 * @param device the device to set
+	 */
+	public void setDevice(AssignableDevice device) {
+		this.device = device;
+	}
+
+	private AssignableDevice device;
+
 	/**
 	 *  Returns a string representation of the object.
 	 *  @return a string representation of the object.
@@ -248,7 +274,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData{
 			rtn += data;
 		}
 		// GateType
-		data = this.getGateType();
+		data = this.getDeviceName();
 		if (!data.isEmpty()) {
 			// modify
 			rtn += Utils.getNewLine();

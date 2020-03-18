@@ -31,22 +31,21 @@ import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.TargetData;
-import org.cellocad.v2.common.target.data.data.AssignableDevice;
-import org.cellocad.v2.common.target.data.data.DNAComponent;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.InputSensor;
-import org.cellocad.v2.common.target.data.data.OutputDevice;
-import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.component.DNAComponent;
+import org.cellocad.v2.common.target.data.component.Gate;
+import org.cellocad.v2.common.target.data.component.InputSensor;
+import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.component.Part;
 import org.cellocad.v2.export.algorithm.EXAlgorithm;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
 import org.cellocad.v2.export.runtime.environment.EXArgString;
+import org.cellocad.v2.export.target.data.EXTargetDataInstance;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -134,14 +133,7 @@ public class SBOL extends EXAlgorithm {
 	 */
 	@Override
 	protected void getDataFromUCF() throws CelloException {
-		try {
-			this.setParts(SBOLDataUtils.getParts(this.getTargetData()));
-			this.setGates(SBOLDataUtils.getGates(this.getTargetData()));
-			this.setInputSensors(SBOLDataUtils.getInputSensors(this.getTargetData()));
-			this.setOutputReporters(SBOLDataUtils.getOutputReporters(this.getTargetData()));
-		} catch (Exception e) {
-			throw new CelloException(String.format("Error reading %s.", TargetData.class.getName()), e);
-		}
+		this.setTargetDataInstance(new EXTargetDataInstance(this.getTargetData()));
 	}
 
 	/**
@@ -227,10 +219,11 @@ public class SBOL extends EXAlgorithm {
 					org.cellocad.v2.results.placing.placement.Component component = group.getComponentAtIdx(k);
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String str = component.getPartAtIdx(l);
-						Part part = this.getParts().findCObjectByName(str);
-						Gate gate = this.getGates().findCObjectByName(str);
-						InputSensor sensor = this.getInputSensors().findCObjectByName(str);
-						OutputDevice reporter = this.getOutputReporters().findCObjectByName(str);
+						Part part = this.getTargetDataInstance().getParts().findCObjectByName(str);
+						Gate gate = this.getTargetDataInstance().getGates().findCObjectByName(str);
+						InputSensor sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(str);
+						OutputDevice reporter = this.getTargetDataInstance().getOutputDevices()
+								.findCObjectByName(str);
 						if (part != null) {
 							SBOLUtils.addPartDefinition(part, document, this.getSbhFrontend());
 							continue;
@@ -365,10 +358,10 @@ public class SBOL extends EXAlgorithm {
 
 	protected DNAComponent getDNAComponentByName(String name) {
 		DNAComponent rtn = null;
-		Part part = this.getParts().findCObjectByName(name);
-		Gate gate = this.getGates().findCObjectByName(name);
-		InputSensor sensor = this.getInputSensors().findCObjectByName(name);
-		OutputDevice reporter = this.getOutputReporters().findCObjectByName(name);
+		Part part = this.getTargetDataInstance().getParts().findCObjectByName(name);
+		Gate gate = this.getTargetDataInstance().getGates().findCObjectByName(name);
+		InputSensor sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(name);
+		OutputDevice reporter = this.getTargetDataInstance().getOutputDevices().findCObjectByName(name);
 		if (part != null)
 			rtn = part;
 		if (gate != null)
@@ -682,76 +675,24 @@ public class SBOL extends EXAlgorithm {
 	}
 
 	/**
-	 * Getter for <i>parts</i>
-	 * 
-	 * @return value of <i>parts</i>
+	 * Getter for <i>targetDataInstance</i>.
+	 *
+	 * @return value of targetDataInstance
 	 */
-	protected CObjectCollection<Part> getParts() {
-		return parts;
+	protected EXTargetDataInstance getTargetDataInstance() {
+		return targetDataInstance;
 	}
 
 	/**
-	 * Setter for <i>parts</i>
-	 * 
-	 * @param parts the value to set <i>parts</i>
+	 * Setter for <i>targetDataInstance</i>.
+	 *
+	 * @param targetDataInstance the targetDataInstance to set
 	 */
-	protected void setParts(final CObjectCollection<Part> parts) {
-		this.parts = parts;
+	protected void setTargetDataInstance(EXTargetDataInstance targetDataInstance) {
+		this.targetDataInstance = targetDataInstance;
 	}
 
-	/**
-	 * Getter for <i>gates</i>
-	 * 
-	 * @return value of <i>gates</i>
-	 */
-	protected CObjectCollection<Gate> getGates() {
-		return gates;
-	}
-
-	/**
-	 * Setter for <i>gates</i>
-	 * 
-	 * @param gates the value to set <i>gates</i>
-	 */
-	protected void setGates(CObjectCollection<Gate> gates) {
-		this.gates = gates;
-	}
-
-	/**
-	 * Getter for <i>sensors</i>
-	 * 
-	 * @return value of <i>sensors</i>
-	 */
-	public CObjectCollection<InputSensor> getInputSensors() {
-		return sensors;
-	}
-
-	/**
-	 * Setter for <i>sensors</i>
-	 * 
-	 * @param sensors the value to set <i>sensors</i>
-	 */
-	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
-		this.sensors = sensors;
-	}
-
-	/**
-	 * Getter for <i>reporters</i>
-	 * 
-	 * @return value of <i>reporters</i>
-	 */
-	public CObjectCollection<OutputDevice> getOutputReporters() {
-		return reporters;
-	}
-
-	/**
-	 * Setter for <i>reporters</i>
-	 * 
-	 * @param reporters the value to set <i>reporters</i>
-	 */
-	protected void setOutputReporters(final CObjectCollection<OutputDevice> reporters) {
-		this.reporters = reporters;
-	}
+	private EXTargetDataInstance targetDataInstance;
 
 	/**
 	 * Returns the Logger for the <i>SBOL</i> algorithm
@@ -770,10 +711,6 @@ public class SBOL extends EXAlgorithm {
 	private SynBioHubFrontend sbhFrontend;
 	private SBOLDocument sbolDocument;
 	private String sbolFilename;
-	private CObjectCollection<Part> parts;
-	private CObjectCollection<Gate> gates;
-	private CObjectCollection<InputSensor> sensors;
-	private CObjectCollection<OutputDevice> reporters;
 	private static final Logger logger = LogManager.getLogger(SBOL.class);
 
 }

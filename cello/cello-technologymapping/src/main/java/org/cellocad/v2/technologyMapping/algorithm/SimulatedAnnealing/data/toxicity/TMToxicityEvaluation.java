@@ -28,21 +28,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.GateToxicity;
-import org.cellocad.v2.common.target.data.data.ResponseFunction;
-import org.cellocad.v2.common.target.data.data.ResponseFunctionVariable;
+import org.cellocad.v2.common.target.data.model.EvaluationContext;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
-import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activities;
-import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
-import org.cellocad.v2.results.technologyMapping.activity.activitytable.ActivityTable;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.Toxicity;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.ToxicityTable;
 
@@ -64,17 +60,19 @@ public class TMToxicityEvaluation extends CObject{
 	}
 
 	/**
-	 * Initializes a newly created TMToxicityEvaluation using the Netlist defined by parameter <i>netlist</i>
+	 * Initializes a newly created TMToxicityEvaluation using the Netlist defined by
+	 * parameter <i>netlist</i>
 	 *
 	 * @param netlist the Netlist
+	 * @throws CelloException
 	 */
-	public TMToxicityEvaluation(final Netlist netlist, final TMActivityEvaluation tmae) {
+	public TMToxicityEvaluation(final Netlist netlist, final TMActivityEvaluation tmae) throws CelloException {
 		this.init();
 		if (!netlist.isValid()) {
 			throw new RuntimeException("netlist is not valid!");
 		}
 		this.setTMActivityEvaluation(tmae);
-		Activities<NetlistNode> activities = tmae.getActivities();
+		States<NetlistNode> states = tmae.getStates();
 		List<NetlistNode> outputNodes = new ArrayList<NetlistNode>();
 		for(int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
@@ -85,74 +83,33 @@ public class TMToxicityEvaluation extends CObject{
 			}
 			outputNodes.clear();
 			outputNodes.add(node);
-			ToxicityTable<NetlistNode, NetlistNode> toxicityTable = new ToxicityTable<NetlistNode, NetlistNode>(activities, outputNodes);
+			ToxicityTable<NetlistNode, NetlistNode> toxicityTable = new ToxicityTable<NetlistNode, NetlistNode>(states, outputNodes);
 			this.getToxicityTables().put(node, toxicityTable);
 		}
 		this.evaluate(netlist);
 	}
 
 	/**
-	 * Interpolates the toxicity for the NetlistNode defined by parameter <i>node</i> at input <i>input</i>
+	 * Evaluates the toxicity table for the NetlistNode defined by parameter
+	 * <i>node</i>
 	 *
 	 * @param node the NetlistNode
-	 * @param input the input
+	 * @throws CelloException
 	 */
-	private Double interpolateToxicity(final NetlistNode node, final Double input) {
-		Double rtn = null;
-		SimulatedAnnealingNetlistNodeData data = (SimulatedAnnealingNetlistNodeData) node.getNetlistNodeData();
-		Gate gate = (Gate) data.getGate();
-		ResponseFunction rf = gate.getResponseFunction();
-		ResponseFunctionVariable var = rf.getVariableAtIdx(0);
-		GateToxicity toxicity = var.getToxicity();
-		int a = 0;
-		int b = toxicity.getNumInput() - 1;
-		for (int i = 0; i < toxicity.getNumInput(); i++) {
-			if ((toxicity.getInputAtIdx(i) < input)
-			    &&
-			    (Math.abs(toxicity.getInputAtIdx(i) - input) < Math.abs(toxicity.getInputAtIdx(a) - input))) {
-				a = i;
-			}
-			else if ((toxicity.getInputAtIdx(i) > input)
-			         &&
-			         (Math.abs(toxicity.getInputAtIdx(i) - input) < Math.abs(toxicity.getInputAtIdx(b) - input))) {
-				b = i;
-			}
-		}
-		if (a == b) {
-			rtn = toxicity.getGrowthAtIdx(a);
-		}
-		else {
-			double r = (input - toxicity.getInputAtIdx(a)) / (toxicity.getInputAtIdx(b) - toxicity.getInputAtIdx(a));
-			rtn = toxicity.getGrowthAtIdx(a) + r*(toxicity.getGrowthAtIdx(b) - toxicity.getGrowthAtIdx(a));
-		}
-		return rtn;
-	}
-
-	/**
-	 * Evaluates the toxicity table for the NetlistNode defined by parameter <i>node</i>
-	 *
-	 * @param node the NetlistNode
-	 */
-	private void evaluateToxicityTable(final NetlistNode node) {
+	private void evaluateToxicityTable(final NetlistNode node, EvaluationContext ec) throws CelloException {
+		ec.setNode(node);
 		ToxicityTable<NetlistNode,NetlistNode> toxicityTable = this.getToxicityTables().get(node);
-		for (int i = 0; i < toxicityTable.getNumActivities(); i++) {
-			Activity<NetlistNode> inputActivity = toxicityTable.getActivityAtIdx(i);
-			Toxicity<NetlistNode> outputToxicity = toxicityTable
-					.getToxicityOutput(inputActivity);
-			double input = 0.0;
-			for (int j = 0; j < node.getNumInEdge(); j++) {
-				NetlistEdge edge = node.getInEdgeAtIdx(j);
-				NetlistNode src = edge.getSrc();
-				ActivityTable<NetlistNode,NetlistNode> table = this.getTMActivityEvaluation().getActivityTable(src);
-				Double value = table.getActivityOutput(inputActivity).getActivity(src);
-				input += value;
-			}
-			Double toxicity = this.interpolateToxicity(node,input);
-			if (toxicity > D_MAXGROWTH)
-				toxicity = D_MAXGROWTH;
-			if (toxicity < D_MINGROWTH)
-				toxicity = D_MINGROWTH;
-			outputToxicity.setToxicity(node,toxicity);
+		for (int i = 0; i < toxicityTable.getNumStates(); i++) {
+			State<NetlistNode> inputState = toxicityTable.getStateAtIdx(i);
+			Toxicity<NetlistNode> outputToxicity = toxicityTable.getToxicityOutput(inputState);
+			ec.setState(inputState);
+			Double result = node.getResultNetlistNodeData().getDevice().getModel()
+					.getFunctionByName("toxicity").evaluate(ec).doubleValue();
+			if (result > D_MAXGROWTH)
+				result = D_MAXGROWTH;
+			if (result < D_MINGROWTH)
+				result = D_MINGROWTH;
+			outputToxicity.setToxicity(node,result);
 		}
 	}
 
@@ -160,25 +117,27 @@ public class TMToxicityEvaluation extends CObject{
 	 * Evaluates the Netlist defined by parameter <i>netlist</i>
 	 *
 	 * @param netlist the Netlist
+	 * @throws CelloException
 	 */
-	protected void evaluate(final Netlist netlist){
+	protected void evaluate(final Netlist netlist) throws CelloException {
 		SinkDFS<NetlistNode, NetlistEdge, Netlist> DFS = new SinkDFS<NetlistNode, NetlistEdge, Netlist>(netlist);
 		NetlistNode node = null;
+		EvaluationContext ec = new EvaluationContext();
 		while ((node = DFS.getNextVertex()) != null) {
 			if (LSResultsUtils.isPrimaryInput(node)
 			    ||
 			    LSResultsUtils.isPrimaryOutput(node)) {
 				continue;
 			}
-			evaluateToxicityTable(node);
+			evaluateToxicityTable(node, ec);
 		}
 	}
 
-	public Double getGrowth(final Activity<NetlistNode> activity) {
+	public Double getGrowth(final State<NetlistNode> state) {
 		Double rtn = D_MAXGROWTH;
 		for(NetlistNode node : this.getToxicityTables().keySet()) {
 			ToxicityTable<NetlistNode,NetlistNode> table = this.getToxicityTables().get(node);
-			Toxicity<NetlistNode> toxicity = table.getToxicityOutput(activity);
+			Toxicity<NetlistNode> toxicity = table.getToxicityOutput(state);
 			Double value = toxicity.getToxicity(node);
 			rtn *= value;
 		}
@@ -202,10 +161,10 @@ public class TMToxicityEvaluation extends CObject{
 
 	public Double getMinimumGrowth() {
 		Double rtn = D_MAXGROWTH;
-		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getActivities();
-		for (int i = 0; i < activities.getNumActivities(); i++) {
-			Activity<NetlistNode> activity = activities.getActivityAtIdx(i);
-			rtn = Math.min(rtn,this.getGrowth(activity));
+		States<NetlistNode> states = this.getTMActivityEvaluation().getStates();
+		for (int i = 0; i < states.getNumStates(); i++) {
+			State<NetlistNode> state = states.getStateAtIdx(i);
+			rtn = Math.min(rtn, this.getGrowth(state));
 		}
 		return rtn;
 	}
@@ -250,20 +209,20 @@ public class TMToxicityEvaluation extends CObject{
 		rtn += S_HEADER + Utils.getNewLine();
 		for (NetlistNode node : this.getToxicityTables().keySet()) {
 			rtn += String.format("%-15s",node.getName()) + Utils.getTabCharacter();
-			ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
-			for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
-				Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
-				Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
+			ToxicityTable<NetlistNode,NetlistNode> toxicityTable = this.getToxicityTable(node);
+			for (int i = 0; i < toxicityTable.getNumStates(); i++) {
+				State<NetlistNode> input = toxicityTable.getStateAtIdx(i);
+				Toxicity<NetlistNode> output = toxicityTable.getToxicityOutput(input);
 				rtn += String.format("%.2f",output.getToxicity(node)) + Utils.getTabCharacter();
 			}
 			rtn += Utils.getNewLine();
 		}
 		rtn += S_HEADER + Utils.getNewLine();
 		rtn += String.format("%-15s","") + Utils.getTabCharacter();
-		Activities<NetlistNode> activities = this.getTMActivityEvaluation().getActivities();
-		for (int i = 0; i < activities.getNumActivities(); i++) {
-			Activity<NetlistNode> activity = activities.getActivityAtIdx(i);
-			rtn += String.format("%.2f",this.getGrowth(activity)) + Utils.getTabCharacter();
+		States<NetlistNode> states = this.getTMActivityEvaluation().getStates();
+		for (int i = 0; i < states.getNumStates(); i++) {
+			State<NetlistNode> state = states.getStateAtIdx(i);
+			rtn += String.format("%.2f", this.getGrowth(state)) + Utils.getTabCharacter();
 		}
 		rtn += Utils.getNewLine();
 		rtn += S_HEADER + Utils.getNewLine();
@@ -280,10 +239,10 @@ public class TMToxicityEvaluation extends CObject{
 		String str = "";
 		for (NetlistNode node : this.getToxicityTables().keySet()) {
 			str += node.getName();
-			ToxicityTable<NetlistNode,NetlistNode> toxicitytable = this.getToxicityTable(node);
-			for (int i = 0; i < toxicitytable.getNumActivities(); i++) {
-				Activity<NetlistNode> input = toxicitytable.getActivityAtIdx(i);
-				Toxicity<NetlistNode> output = toxicitytable.getToxicityOutput(input);
+			ToxicityTable<NetlistNode,NetlistNode> toxicityTable = this.getToxicityTable(node);
+			for (int i = 0; i < toxicityTable.getNumStates(); i++) {
+				State<NetlistNode> input = toxicityTable.getStateAtIdx(i);
+				Toxicity<NetlistNode> output = toxicityTable.getToxicityOutput(input);
 				str += delimiter;
 				str += String.format("%.2f",output.getToxicity(node));
 			}

@@ -27,8 +27,6 @@ import java.util.Map;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.Pair;
-import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 
 /**
  * The Activity class contains the activity of a netlist used within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
@@ -39,71 +37,52 @@ import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
  * @date 2018-05-22
  *
  */
-public class Activity <T> extends CObject{
+public class Activity<T> extends CObject {
 
 	/**
-	 *  Initialize class members
+	 * Initialize class members
 	 */
 	private void init() {
-		activityEntry = new ArrayList<Pair<T,Double>>();
-		activityEntryMap = new HashMap<T,Double>();
+		activityEntry = new ArrayList<Pair<T, Double>>();
+		activityEntryMap = new HashMap<T, Double>();
 	}
 	
 	/**
-	 *  Initializes a newly created Activity with the list of types defined by parameter <i>nodes</i>
-	 *  and value defined by parameter <i>value</i>.
-	 *  
-	 *  @param nodes the List of types
-	 *  @param value the value
+	 * Initializes a newly created Activity with the list of types defined by
+	 * parameter <i>nodes</i> and value defined by parameter <i>value</i>.
+	 * 
+	 * @param nodes the List of types
+	 * @param value the value
 	 */
 	public Activity(final List<T> nodes, final double value) {
-		init();
+		this.init();
 		for (int i = 0; i < nodes.size(); i++) {
 			T node = nodes.get(i);
-			Pair<T,Double> pair = new Pair<T,Double>(node, value);
+			Pair<T, Double> pair = new Pair<T, Double>(node, value);
 			this.getActivity().add(pair);
 			this.getActivityMap().put(node, value);
 		}
 	}
 
 	/**
-	 *  Initializes a newly created Activity with the list of types defined by parameter <i>nodes</i>
-	 *  
-	 *  @param nodes the List of types
+	 * Initializes a newly created Activity with the list of types defined by
+	 * parameter <i>nodes</i>
+	 * 
+	 * @param nodes the List of types
 	 */
 	public Activity(final List<T> nodes) {
 		this(nodes, 0.0);
-	}
-	
-	public Activity(final List<T> inputs, final State<T> state, final SensorSignals<T> signals) {
-		init();
-		for (int i = 0; i < inputs.size(); i++) {
-			T node = inputs.get(i);
-			Boolean logic = state.getState(node);
-			Double value = null;
-			if (logic == state.getZero()) {
-				value = signals.getLowActivitySignal(node);
-			}
-			else if (logic == state.getOne()) {
-				value = signals.getHighActivitySignal(node);
-			}
-			else {
-				throw new RuntimeException("Error with State.");
-			}
-			Pair<T,Double> pair = new Pair<T,Double>(node, value);
-			this.getActivity().add(0, pair);
-			this.getActivityMap().put(node, value);
-		}
 	}
 	
 	/*
 	 * Activity
 	 */
 	/**
-	 *  Getter for <i>activityEntry</i>
-	 *  @return the activityEntry of this instance
+	 * Getter for <i>activityEntry</i>
+	 * 
+	 * @return the activityEntry of this instance
 	 */
-	protected List<Pair<T,Double>> getActivity() {
+	protected List<Pair<T, Double>> getActivity() {
 		return activityEntry;
 	}
 	
@@ -113,7 +92,7 @@ public class Activity <T> extends CObject{
 	 * @param index index of the Pair<T,Double> to return
 	 * @return if the index is within the bounds (0 <= bounds < this.getNumActivityPosition()), returns the Pair<T,Boolean> at the specified position in this instance, otherwise null
 	 */
-	protected Pair<T,Double> getActivityPositionAtIdx(final int index){
+	protected Pair<T, Double> getActivityPositionAtIdx(final int index) {
 		Pair<T,Double> rtn = null;
 		if (
 				(0 <= index)
@@ -138,16 +117,18 @@ public class Activity <T> extends CObject{
 	 * ActivityMap
 	 */
 	/**
-	 *  Getter for <i>activityEntryMap</i>
-	 *  @return the activityEntryMap of this instance
+	 * Getter for <i>activityEntryMap</i>
+	 * 
+	 * @return the activityEntryMap of this instance
 	 */
-	protected Map<T,Double> getActivityMap() {
+	protected Map<T, Double> getActivityMap() {
 		return activityEntryMap;
 	}
 
 	/**
-	 *  Returns the activity of <i>node</i>
-	 *  @return the activity of <i>node</i> if the node exists, null otherwise
+	 * Returns the activity of <i>node</i>
+	 * 
+	 * @return the activity of <i>node</i> if the node exists, null otherwise
 	 */
 	public Double getActivity(final T node){
 		Double rtn = null;
@@ -156,11 +137,12 @@ public class Activity <T> extends CObject{
 	}
 
 	/**
-	 *  Returns true if the <i>node</i> exists in this instance, then assigns the Double <i>value</i> to the <i>node</i>
-	 *  
-	 *  @param node the node
-	 *  @param value the value
-	 *  @return true if the node exists in this instance, false otherwise
+	 * Returns true if the <i>node</i> exists in this instance, then assigns the
+	 * Double <i>value</i> to the <i>node</i>
+	 * 
+	 * @param node  the node
+	 * @param value the value
+	 * @return true if the node exists in this instance, false otherwise
 	 */
 	public boolean setActivity(final T node, final Double value){
 		boolean rtn = false;
@@ -175,7 +157,7 @@ public class Activity <T> extends CObject{
 		return rtn;
 	}
 
-	private List<Pair<T,Double>> activityEntry;
-	private Map<T,Double> activityEntryMap;
-	
+	private List<Pair<T, Double>> activityEntry;
+	private Map<T, Double> activityEntryMap;
+
 }

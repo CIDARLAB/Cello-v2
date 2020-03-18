@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activities;
-import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
 
 /**
- * The ToxicityTable class represents table of activities within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
+ * The ToxicityTable class represents table of states within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
  * @param Input input type index
  * @param Output output type index
  *
@@ -42,8 +42,8 @@ public class ToxicityTable<Input,Output> {
 	 * Initialize class members
 	 */
 	private void init() {
-		toxicityTableMap = new HashMap<Activity<Input>, Toxicity<Output>>();
-		activities = new ArrayList<Activity<Input>>();
+		toxicityTableMap = new HashMap<State<Input>, Toxicity<Output>>();
+		states = new ArrayList<State<Input>>();
 	}
 
 	/**
@@ -53,30 +53,30 @@ public class ToxicityTable<Input,Output> {
 	 * @param inputs the List of inputs
 	 * @param outputs the List of outputs
 	 */
-	public ToxicityTable(final List<Activity<Input>> inputs, final List<Output> outputs) {
-		init();
+	public ToxicityTable(final List<State<Input>> inputs, final List<Output> outputs) {
+		this.init();
 		for (int i = 0; i < inputs.size(); i ++) {
-			Activity<Input> InputActivity = inputs.get(i);
+			State<Input> InputState = inputs.get(i);
 			Toxicity<Output> OutputToxicity = new Toxicity<Output>(outputs);
-			this.getToxicityTableMap().put(InputActivity, OutputToxicity);
-			this.getActivities().add(InputActivity);
+			this.getToxicityTableMap().put(InputState, OutputToxicity);
+			this.getStates().add(InputState);
 		}
 	}
 
 	/**
-	 * Initializes a newly created ToxicityTable with the list of activities defined by parameter <i>activities</i>
+	 * Initializes a newly created ToxicityTable with the list of states defined by parameter <i>states</i>
 	 * a list of outputs defined by parameter <i>outputs</i>.
 	 *
-	 * @param activities the List of activities
+	 * @param states the List of states
 	 * @param outputs the List of outputs
 	 */
-	public ToxicityTable(final Activities<Input> activities, final List<Output> outputs) {
+	public ToxicityTable(final States<Input> states, final List<Output> outputs) {
 		init();
-		for (int i = 0; i < activities.getNumActivities(); i ++) {
-			Activity<Input> InputActivity = activities.getActivityAtIdx(i);
+		for (int i = 0; i < states.getNumStates(); i++) {
+			State<Input> InputState = states.getStateAtIdx(i);
 			Toxicity<Output> OutputToxicity = new Toxicity<Output>(outputs);
-			this.getToxicityTableMap().put(InputActivity, OutputToxicity);
-			this.getActivities().add(InputActivity);
+			this.getToxicityTableMap().put(InputState, OutputToxicity);
+			this.getStates().add(InputState);
 		}
 	}
 
@@ -87,27 +87,27 @@ public class ToxicityTable<Input,Output> {
 	 * Getter for <i>toxicityTableMap</i>
 	 * @return the toxicityTableMap of this instance
 	 */
-	protected Map<Activity<Input>, Toxicity<Output>> getToxicityTableMap() {
+	protected Map<State<Input>, Toxicity<Output>> getToxicityTableMap() {
 		return toxicityTableMap;
 	}
 
 	/**
-	 * Getter for <i>activities</i>
-	 * @return the activities of this instance
+	 * Getter for <i>states</i>
+	 * @return the states of this instance
 	 */
-	protected List<Activity<Input>> getActivities() {
-		return activities;
+	protected List<State<Input>> getStates() {
+		return states;
 	}
 
 	/**
 	 * Returns the output toxicity for the activity defined by parameter <i>activity</i>
 	 *
-	 * @param activity the input activity
+	 * @param state the input activity
 	 * @return the output toxicity for the activity defined by parameter <i>activity</i>, otherwise null
 	 */
-	public Toxicity<Output> getToxicityOutput(final Activity<Input> activity){
+	public Toxicity<Output> getToxicityOutput(final State<Input> state){
 		Toxicity<Output> rtn = null;
-		rtn = this.getToxicityTableMap().get(activity);
+		rtn = this.getToxicityTableMap().get(state);
 		return rtn;
 	}
 
@@ -117,27 +117,27 @@ public class ToxicityTable<Input,Output> {
 	 * @param index index of the Activity<Input> to return
 	 * @return if the index is within the bounds (0 <= bounds < this.getNumActivities()), returns the Activity<Input> at the specified position in this instance, otherwise null
 	 */
-	public Activity<Input> getActivityAtIdx(final int index){
-		Activity<Input> rtn = null;
+	public State<Input> getStateAtIdx(final int index){
+		State<Input> rtn = null;
 		if (
 				(0 <= index)
 				&&
-				(index < this.getNumActivities())
+				(index < this.getNumStates())
 				) {
-			rtn = this.getActivities().get(index);
+			rtn = this.getStates().get(index);
 		}
 		return rtn;
 	}
 
 	/**
-	 * Returns the number of activities in this instance.
+	 * Returns the number of states in this instance.
 	 *
-	 * @return the number of activities in this instance.
+	 * @return the number of states in this instance.
 	 */
-	public int getNumActivities() {
-		return this.getActivities().size();
+	public int getNumStates() {
+		return this.getStates().size();
 	}
 
-	List<Activity<Input>> activities;
-	Map<Activity<Input>, Toxicity<Output>> toxicityTableMap;
+	List<State<Input>> states;
+	Map<State<Input>, Toxicity<Output>> toxicityTableMap;
 }

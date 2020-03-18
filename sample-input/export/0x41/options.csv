@@ -1,5 +1,0 @@
-logicSynthesis.Gates,"NOR"
-technologyMapping,SimulatedAnnealing
-partitioning,GPCC_SUGARM_BASE
-export.AddInteractions,true
-export.RepositoryUrl,https://synbiohub.programmingbiology.org

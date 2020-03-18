@@ -26,14 +26,15 @@ import java.io.Writer;
 import org.cellocad.v2.common.CObject;
 
 /**
- * The StageNetlistNodeData class is the base class for all StageNetlistNodeData classes using the Poros framework.
+ * The StageNetlistNodeData class is the base class for all StageNetlistNodeData
+ * classes using the Poros framework.
  * 
  * @author Vincent Mirian
  * 
  * @date Dec 10, 2017
  *
  */
-public abstract class StageNetlistNodeData extends CObject{
+public abstract class StageNetlistNodeData extends CObject {
 
 	/**
 	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
@@ -42,4 +43,5 @@ public abstract class StageNetlistNodeData extends CObject{
 	 *  @throws IOException If an I/O error occurs
 	 */
 	public abstract void writeJSON(int indent, Writer os) throws IOException;
+
 }

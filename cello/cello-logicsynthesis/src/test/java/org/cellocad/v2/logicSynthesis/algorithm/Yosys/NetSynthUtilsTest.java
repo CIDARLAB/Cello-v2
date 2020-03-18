@@ -62,7 +62,7 @@ public class NetSynthUtilsTest {
 		str = Utils.getResourceAsString("xor_netlist.json");
 		jObj = (JSONObject) parser.parse(str);
 		netlist = new Netlist(jObj);
-		str = Utils.getResourceAsString("Eco1C1G1T1.UCF.json");
+		str = Utils.getResourceAsString("lib/ucf/Eco/Eco1C1G1T1.UCF.json");
 		jArr = (JSONArray) parser.parse(str);
 		targetData = new TargetData(jArr);
 		initIsDone = true;

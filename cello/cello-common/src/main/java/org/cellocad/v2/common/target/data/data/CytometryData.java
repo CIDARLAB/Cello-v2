@@ -39,25 +39,25 @@ import org.json.simple.JSONObject;
 public class CytometryData extends CObject{
 
 	private void parseMapVariable(final JSONObject JObj){
-		String value = ProfileUtils.getString(JObj, "maps_to_variable");
+		String value = ProfileUtils.getString(JObj, S_MAPSTOVARIABLE);
 		this.setName(value);
 		this.setMapVariable(value);
 	}
-	
+
 	private void parseInput(final JSONObject JObj){
-		Double value = ProfileUtils.getDouble(JObj, "input");
+		Double value = ProfileUtils.getDouble(JObj, S_INPUT);
 		this.setInput(value);
 	}
 
 	private void parseOutputBins(final JSONObject JObj){
-		JSONArray JArr = (JSONArray) JObj.get("output_bins");
+		JSONArray JArr = (JSONArray) JObj.get(S_OUTPUTBINS);
 		for (int i = 0; i < JArr.size(); i++) {
 			this.getOutputBins().add(((Number)JArr.get(i)).doubleValue());
 		}
 	}
 
 	private void parseOutputCounts(final JSONObject JObj){
-		JSONArray JArr = (JSONArray) JObj.get("output_counts");
+		JSONArray JArr = (JSONArray) JObj.get(S_OUTPUTCOUNTS);
 		for (int i = 0; i < JArr.size(); i++) {
 			this.getOutputBins().add(((Number)JArr.get(i)).doubleValue());
 		}
@@ -70,12 +70,12 @@ public class CytometryData extends CObject{
 		this.parseOutputBins(jObj);
 		this.parseOutputCounts(jObj);
     }
-	
+
 	private void init() {
 		outputBins = new ArrayList<Double>();
 		outputCounts = new ArrayList<Double>();
 	}
-	
+
 	public CytometryData(final JSONObject jobj) {
 		this.init();
 		this.parseCytometryData(jobj);
@@ -87,11 +87,11 @@ public class CytometryData extends CObject{
 	private void setMapVariable(final String mapVariable){
 		this.mapVariable = mapVariable;
 	}
-	
+
 	public String getMapVariable(){
 		return this.mapVariable;
 	}
-	
+
 	private String mapVariable;
 	
 	/*
@@ -100,11 +100,11 @@ public class CytometryData extends CObject{
 	private void setInput(final Double input){
 		this.input = input;
 	}
-	
+
 	public Double getInput(){
 		return this.input;
 	}
-	
+
 	private Double input;
 	
 	/*
@@ -113,7 +113,7 @@ public class CytometryData extends CObject{
 	private List<Double> getOutputBins(){
 		return this.outputBins;
 	}
-	
+
 	public Double getOutputBinsAtIdx(final int index){
 		Double rtn = null;
 		if (
@@ -125,20 +125,20 @@ public class CytometryData extends CObject{
 		}
 		return rtn;
 	}
-	
+
 	public int getNumOutputBins(){
 		return this.getOutputBins().size();
 	}
-	
+
 	private List<Double> outputBins;
-	
+
 	/*
 	 * OutputCounts
 	 */
 	private List<Double> getOutputCounts(){
 		return this.outputCounts;
 	}
-	
+
 	public Double getOutputCountsAtIdx(final int index){
 		Double rtn = null;
 		if (
@@ -150,10 +150,16 @@ public class CytometryData extends CObject{
 		}
 		return rtn;
 	}
-	
+
 	public int getNumOutputCounts(){
 		return this.getOutputCounts().size();
 	}
-	
+
 	private List<Double> outputCounts;
+
+	private static final String S_MAPSTOVARIABLE = "maps_to_variable";
+	private static final String S_INPUT = "input";
+	private static final String S_OUTPUTBINS = "output_bins";
+	private static final String S_OUTPUTCOUNTS = "output_counts";
+
 }

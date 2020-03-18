@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Inpstitute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Inpstitute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -30,9 +32,11 @@ import java.util.RandomAccess;
 
 /**
  * Collection for CObject Object's.
+ * 
  * @param <T> the type of elements in this collection
  * 
  * @author Vincent Mirian
+ * @author Timothy Jones
  * 
  * @date Oct 27, 2017
  *
@@ -371,6 +375,23 @@ This implementation iterates over the specified collection, checking each elemen
 	@Override
 	public <Type> Type[] toArray(Type[] a) {
 		return collection.toArray(a);
+	}
+
+	/*
+	 * is valid?
+	 */
+	/**
+	 * Returns a boolean flag signifying the validity of every CObject in this
+	 * instance.
+	 * 
+	 * @return true if the instance is valid; false otherwise.
+	 */
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		for (int i = 0; i < this.size(); i++) {
+			rtn = rtn && this.get(i).isValid();
+		}
+		return rtn;
 	}
 
 	/*

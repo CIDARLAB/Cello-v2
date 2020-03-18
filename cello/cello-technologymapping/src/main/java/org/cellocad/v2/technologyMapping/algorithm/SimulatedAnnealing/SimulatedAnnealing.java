@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017-2018
+ * Copyright (C) 2017-2020
  * Massachusetts Institute of Technology (MIT)
  * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,7 +24,6 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -34,31 +33,29 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
-import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
-import org.cellocad.v2.common.target.data.data.AssignableDevice;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.InputSensor;
-import org.cellocad.v2.common.target.data.data.OutputDevice;
-import org.cellocad.v2.common.target.data.data.Parameter;
+import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.component.Gate;
+import org.cellocad.v2.common.target.data.component.InputSensor;
+import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.model.Input;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.v2.results.netlist.Netlist;
+import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
+import org.cellocad.v2.results.netlist.data.ResultNetlistNodeData;
 import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
-import org.cellocad.v2.results.technologyMapping.activity.signal.SensorSignals;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingDataUtils;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.evaluation.Evaluator;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlots;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlotUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
+import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 
 /**
@@ -108,14 +105,14 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 * Gets the data from the UCF
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void getDataFromUCF() {
-		this.setGates(SimulatedAnnealingDataUtils.getGates(this.getTargetData()));
-		this.setInputSensors(SimulatedAnnealingDataUtils.getInputSensors(this.getTargetData()));
-		this.setOutputReporters(SimulatedAnnealingDataUtils.getOutputDevices(this.getTargetData()));
-		this.setUnitConversion(SimulatedAnnealingDataUtils.getUnitConversion(this.getTargetData()));
+	protected void getDataFromUCF() throws CelloException {
+		TMTargetDataInstance tdi = new TMTargetDataInstance(this.getTargetData());
+		this.setTargetDataInstance(tdi);
 	}
 
 	/**
@@ -146,17 +143,17 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// assign input
 		CObjectCollection<NetlistNode> inputNodes = LSResultsUtils.getPrimaryInputNodes(this.getNetlist());
 		Map<String,String> inputMap = this.getInputMap();
-		Iterator<InputSensor> it = this.getInputSensors().iterator();
+		Iterator<InputSensor> it = this.getTargetDataInstance().getInputSensors().iterator();
 		for (int i = 0; i < inputNodes.size(); i++) {
 			NetlistNode node = inputNodes.get(i);
-			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
+			ResultNetlistNodeData data = node.getResultNetlistNodeData();
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough input sensors in the library to cover the netlist inputs.");
 			}
 			InputSensor sensor = null;
 			if (inputMap.containsKey(node.getName())) {
 				String value = inputMap.get(node.getName());
-				sensor = this.getInputSensors().findCObjectByName(value);
+				sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(value);
 			}
 			while (sensor == null) {
 				InputSensor temp = it.next();
@@ -164,7 +161,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 					sensor = temp;
 				}
 			}
-			data.setGate(sensor);
+			data.setDevice(sensor);
 		}
 	}
 
@@ -172,17 +169,17 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// assign output
 		CObjectCollection<NetlistNode> outputNodes = LSResultsUtils.getPrimaryOutputNodes(this.getNetlist());
 		Map<String,String> outputMap = this.getOutputMap();
-		Iterator<OutputDevice> it = this.getOutputReporters().iterator();
+		Iterator<OutputDevice> it = this.getTargetDataInstance().getOutputDevices().iterator();
 		for (int i = 0; i < outputNodes.size(); i++) {
 			NetlistNode node = outputNodes.get(i);
-			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
+			ResultNetlistNodeData data = node.getResultNetlistNodeData();
 			if (!it.hasNext()) {
 				throw new RuntimeException("Not enough output reporters in the library to cover the netlist outputs.");
 			}
 			OutputDevice reporter = null;
 			if (outputMap.containsKey(node.getName())) {
 				String value = outputMap.get(node.getName());
-				reporter = this.getOutputReporters().findCObjectByName(value);
+				reporter = this.getTargetDataInstance().getOutputDevices().findCObjectByName(value);
 			}
 			while (reporter == null) {
 				OutputDevice temp = it.next();
@@ -190,7 +187,7 @@ public class SimulatedAnnealing extends TMAlgorithm{
 					reporter = temp;
 				}
 			}
-			data.setGate(reporter);
+			data.setDevice(reporter);
 		}
 	}
 
@@ -203,12 +200,12 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			if (LSResultsUtils.isPrimary(node) || LSResultsUtils.isInputOutput(node)) {
 				continue;
 			}
-			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
+			ResultNetlistNodeData data = node.getResultNetlistNodeData();
 			Gate gate = GM.getRandomGateFromUnassignedGroup();
 			if (gate == null) {
 				throw new RuntimeException("Gate assignment error!");
 			}
-			data.setGate(gate);
+			data.setDevice(gate);
 			GM.setAssignedGate(gate);
 		}
 	}
@@ -217,26 +214,19 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	protected void preprocessing() throws CelloException {
 		this.random = new Random(L_SEED);
 		// GateManager
-		this.setGateManager(new GateManager(this.getGates()));
+		this.setGateManager(new GateManager(this.getTargetDataInstance().getGates()));
 		// truth table
 		this.setTruthTable();
-		// input node assignment
-		this.assignInputNodes();
-		// output node assignment
-		this.assignOutputNodes();
-		// logic node assignment
-		// this.assignNodes();
-		// sensor signals
-		this.setSensorSignals(this.getNetlist());
-		// activity evaluation
-		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(),this.getSensorSignals(),this.getLSLogicEvaluation()));
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 * Run the (core) algorithm
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void run() {
+	protected void run() throws CelloException {
+		this.logDebug("Running the (core) algorithm.");
 
 		Double MAXTEMP = 100.0;
 		Double MINTEMP = 0.001;
@@ -250,7 +240,16 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 		Integer T0_STEPS = 100;
 
+		// input node assignment
+		this.assignInputNodes();
+		// output node assignment
+		this.assignOutputNodes();
+		// logic node assignment
 		this.assignNodes();
+		this.updateNetlist();
+
+		this.setTMActivityEvaluation(new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation()));
+		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
 
 		// evaluate
 		for (int j = 0; j < STEPS + T0_STEPS; ++j) {
@@ -261,12 +260,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 				TEMP = 0.0;
 			}
 
-			Evaluator eval = null;
-			eval = new Evaluator(this.getNetlist(),this.getTMActivityEvaluation(),this.getUnitConversion());
-			eval.evaluate();
-			this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
-
-			Double before = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation());
+			Double before = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(),
+					this.getTMActivityEvaluation());
 
 			GateManager GM = this.getGateManager();
 			Netlist netlist = this.getNetlist();
@@ -280,47 +275,40 @@ public class SimulatedAnnealing extends TMAlgorithm{
 					node = temp;
 				}
 			}
-			SimulatedAnnealingNetlistNodeData data = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node);
-
+			ResultNetlistNodeData data = node.getResultNetlistNodeData();
 			// get random gate
-			Gate original = (Gate)data.getGate();
+			Gate original = (Gate) data.getDevice();
 			Gate candidate = GM.getRandomGateFromUnassignedGroup();
 			if (candidate == null) {
 				throw new RuntimeException("Gate assignment error!");
 			}
 			// set gate
 			GM.setUnassignedGate(original);
-			data.setGate(candidate);
+			data.setDevice(candidate);
 			GM.setAssignedGate(candidate);
 
 			// evaluate
-			TMActivityEvaluation tempActivity = new TMActivityEvaluation(this.getNetlist(),
-			                                                     this.getSensorSignals(),
-			                                                     this.getLSLogicEvaluation());
-			eval = new Evaluator(this.getNetlist(),tempActivity,this.getUnitConversion());
-			eval.evaluate();
-			Double after = ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),tempActivity);
+			TMActivityEvaluation tmae = new TMActivityEvaluation(this.getNetlist(), this.getLSLogicEvaluation());
+			Double after = ScoreUtils.score(this.getNetlist(), this.getLSLogicEvaluation(), tmae);
 
 			// toxicity
-			TMToxicityEvaluation tempToxicity = new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation());
+			TMToxicityEvaluation tmte = new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation());
 			if (this.getTMToxicityEvaluation().getMinimumGrowth() < D_GROWTH_THRESHOLD) {
-				if (tempToxicity.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
+				if (tmte.getMinimumGrowth() > this.getTMToxicityEvaluation().getMinimumGrowth()) {
 					this.setTMToxicityEvaluation(tmte);
-					this.setTMActivityEvaluation(tempActivity);
+					this.setTMActivityEvaluation(tmae);
 					continue;
-				}
-				else {
+				} else {
 					// undo
 					GM.setUnassignedGate(candidate);
-					data.setGate(original);
+					data.setDevice(original);
 					GM.setAssignedGate(original);
 					continue;
 				}
-			}
-			else if (tempToxicity.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
+			} else if (tmte.getMinimumGrowth() < D_GROWTH_THRESHOLD) {
 				// undo
 				GM.setUnassignedGate(candidate);
-				data.setGate(original);
+				data.setDevice(original);
 				GM.setAssignedGate(original);
 				continue;
 			}
@@ -330,11 +318,13 @@ public class SimulatedAnnealing extends TMAlgorithm{
 			Double ep = Math.random();
 
 			if (ep < probability) {
-				this.setTMActivityEvaluation(tempActivity);
+				// accept
+				this.setTMToxicityEvaluation(tmte);
+				this.setTMActivityEvaluation(tmae);
 			} else {
 				// undo
 				GM.setUnassignedGate(candidate);
-				data.setGate(original);
+				data.setDevice(original);
 				GM.setAssignedGate(original);
 			}
 
@@ -345,22 +335,32 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	/**
 	 * Copy the gate assignements to the netlist
 	 */
-	protected void updateNetlist(final Netlist netlist) {
-		for(int i = 0; i < netlist.getNumVertex(); i++) {
-			NetlistNode node = netlist.getVertexAtIdx(i);
-			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
-			if (gate != null) {
-				node.getResultNetlistNodeData().setGateType(gate.getName());
+	protected void updateNetlist() {
+		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
+			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
+			AssignableDevice device = node.getResultNetlistNodeData().getDevice();
+			if (device != null) {
+				node.getResultNetlistNodeData().setDeviceName(device.getName());
+			}
+			int num = node.getNumInEdge();
+			if (node.getNumInEdge() > device.getStructure().getInputs().size())
+				throw new RuntimeException("Device structure does not have enough inputs.");
+			for (int j = 0; j < num; j++) {
+				NetlistEdge e = node.getInEdgeAtIdx(j);
+				Input input = device.getStructure().getInputs().get(j);
+				e.getResultNetlistEdgeData().setInput(input);
 			}
 		}
 	}
 
 	/**
-	 *  Perform postprocessing
+	 * Perform postprocessing
+	 * 
+	 * @throws CelloException
 	 */
 	@Override
-	protected void postprocessing() {
-		updateNetlist(this.getNetlist());
+	protected void postprocessing() throws CelloException {
+		updateNetlist();
 		String inputFilename = this.getNetlist().getInputFilename();
 		String filename = Utils.getFilename(inputFilename);
 		String outputDir = this.getRuntimeEnv().getOptionValue(TMArgString.OUTPUTDIR);
@@ -370,15 +370,16 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		// cytometry
 		this.setTMCytometryEvaluation(new TMCytometryEvaluation());
 		//toxicity
-		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(),this.getTMActivityEvaluation()));
-		SimulatedAnnealingResultsUtils.writeCSVForTMToxicityEvaluation(this.getTMToxicityEvaluation(),outputFile + "_toxicity.csv");
+		this.setTMToxicityEvaluation(new TMToxicityEvaluation(this.getNetlist(), this.getTMActivityEvaluation()));
+		SimulatedAnnealingResultsUtils.writeCSVForTMToxicityEvaluation(this.getTMToxicityEvaluation(),
+				outputFile + "_toxicity.csv");
 		this.logInfo(this.getTMToxicityEvaluation().toString());
 		//activity
 		TMResultsUtils.writeCSVForTMActivityEvaluation(this.getTMActivityEvaluation(),outputFile + "_activity.csv");
 		this.logInfo(this.getTMActivityEvaluation().toString());
 		for (int i = 0; i < this.getNetlist().getNumVertex(); i++) {
 			NetlistNode node = this.getNetlist().getVertexAtIdx(i);
-			AssignableDevice gate = SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node).getGate();
+			AssignableDevice gate = node.getResultNetlistNodeData().getDevice();
 			if (gate != null) {
 				String str = "";
 				str += String.format("Node: %-5s", node.getName());
@@ -393,8 +394,8 @@ public class SimulatedAnnealing extends TMAlgorithm{
 		logInfo(String.format("Score: %.2f", ScoreUtils.score(this.getNetlist(),this.getLSLogicEvaluation(),this.getTMActivityEvaluation())));
 		// plots
 		logInfo("Generating plots");
-		RuntimeEnv runEnv = this.getRuntimeEnv();
-		new ResponsePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(), runEnv);
+		ResponsePlotUtils.generatePlots(this.getNetlist(), this.getLSLogicEvaluation(), this.getTMActivityEvaluation(),
+				this.getRuntimeEnv());
 	}
 
 
@@ -410,58 +411,25 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	private static final Logger logger = LogManager.getLogger(SimulatedAnnealing.class);
 
-	/*
-	 * Gate
-	 */
-	protected void setGates(final CObjectCollection<Gate> gates) {
-		this.gates = gates;
-	}
-
-	public CObjectCollection<Gate> getGates() {
-		return this.gates;
-	}
-
-
-	private CObjectCollection<Gate> gates;
-
-	/*
-	 * InputSensors
-	 */
 	/**
-	 * Getter for <i>sensors</i>
-	 * @return value of <i>sensors</i>
+	 * Getter for <i>targetDataInstance</i>.
+	 *
+	 * @return value of targetDataInstance
 	 */
-	public CObjectCollection<InputSensor> getInputSensors() {
-		return sensors;
+	protected TMTargetDataInstance getTargetDataInstance() {
+		return targetDataInstance;
 	}
 
 	/**
-	 * Setter for <i>sensors</i>
-	 * @param sensors the value to set <i>sensors</i>
+	 * Setter for <i>targetDataInstance</i>.
+	 *
+	 * @param targetDataInstance the targetDataInstance to set
 	 */
-	protected void setInputSensors(final CObjectCollection<InputSensor> sensors) {
-		this.sensors = sensors;
+	protected void setTargetDataInstance(TMTargetDataInstance targetDataInstance) {
+		this.targetDataInstance = targetDataInstance;
 	}
 
-	private CObjectCollection<InputSensor> sensors;
-
-	/**
-	 * Getter for <i>reporters</i>
-	 * @return value of <i>reporters</i>
-	 */
-	public CObjectCollection<OutputDevice> getOutputReporters() {
-		return reporters;
-	}
-
-	/**
-	 * Setter for <i>reporters</i>
-	 * @param reporters the value to set <i>reporters</i>
-	 */
-	protected void setOutputReporters(final CObjectCollection<OutputDevice> reporters) {
-		this.reporters = reporters;
-	}
-
-	private CObjectCollection<OutputDevice> reporters;
+	private TMTargetDataInstance targetDataInstance;
 
 	/**
 	 * Getter for <i>inputMap</i>
@@ -541,50 +509,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 
 	private LSLogicEvaluation lsle;
 
-	/**
-	 * Getter for <i>signals</i>
-	 * @return value of <i>signals</i>
-	 */
-	protected SensorSignals<NetlistNode> getSensorSignals() {
-		return signals;
-	}
-
-	/**
-	 * Setter for <i>signals</i>
-	 * 
-	 * @param netlist the Netlist used to set <i>signals</i>
-	 * @throws CelloException
-	 */
-	protected void setSensorSignals(final Netlist netlist) throws CelloException {
-		List<NetlistNode> inputs = LSResultsUtils.getPrimaryInputNodes(netlist);
-		SensorSignals<NetlistNode> signals = new SensorSignals<NetlistNode>(inputs);
-		for (int i = 0; i < inputs.size(); i++) {
-			NetlistNode node = inputs.get(i);
-			InputSensor sensor = (InputSensor) SimulatedAnnealingUtils.getSimulatedAnnealingNetlistNodeData(node)
-					.getGate();
-			Parameter hi = sensor.getParameterValueByName(InputSensor.S_HI);
-			Parameter lo = sensor.getParameterValueByName(InputSensor.S_LO);
-			String fmt = "Error with %s %s.";
-			if (hi == null || hi.getValue() == null)
-				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_HI));
-			if (lo == null || lo.getValue() == null)
-				throw new CelloException(String.format(fmt, InputSensor.class.getName(), InputSensor.S_LO));
-			signals.setHighActivitySignal(node, hi.getValue());
-			signals.setLowActivitySignal(node, lo.getValue());
-		}
-		this.signals = signals;
-	}
-
-	/**
-	 * Setter for <i>signals</i>
-	 * @param signals the value to set <i>signals</i>
-	 */
-	protected void setSensorSignals(final SensorSignals<NetlistNode> signals) {
-		this.signals = signals;
-	}
-
-	private SensorSignals<NetlistNode> signals;
-
 	/*
 	 * TMActivityEvaluation
 	 */
@@ -616,15 +540,6 @@ public class SimulatedAnnealing extends TMAlgorithm{
 	 */
 	protected void setTMActivityEvaluation(final TMActivityEvaluation tmae) {
 		this.tmae = tmae;
-	}
-
-	/**
-	 * Setter for <i>tmae</i>
-	 * @param tmte the value to set <i>tmae</i>
-	 */
-	protected void setTMActivityEvaluation(final Netlist netlist, final SensorSignals<NetlistNode> signals, final LSLogicEvaluation lsle) {
-		updateNetlist(netlist);
-		tmae = new TMActivityEvaluation(netlist,signals,lsle);
 	}
 
 	/**

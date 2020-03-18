@@ -203,7 +203,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 			NetlistNode node = this.getAssignedNodes().findCObjectByName(nodes.get(i).getName());
 			if (node != null) {
 				// inducer is assigned
-				String outputName = node.getResultNetlistNodeData().getGateType();
+				String outputName = node.getResultNetlistNodeData().getDeviceName();
 				// get inducer
 				Output output = outputs.findCObjectByName(outputName);
 				// remove from temp
@@ -257,7 +257,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 			Output qOutput = quorum.getOutput();
 			rtn += getOutputString(qOutput);
 			// assign
-			node.getResultNetlistNodeData().setGateType(qOutput.getName());
+			node.getResultNetlistNodeData().setDeviceName(qOutput.getName());
 			// get all output nodes from this gate
 			nodesNetlist.remove(node);
 			index++;			
@@ -313,7 +313,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 			NetlistNode node = this.getAssignedNodes().findCObjectByName(nodes.get(i).getName());
 			if (node != null) {
 				// inducer is assigned
-				String inducerName = node.getResultNetlistNodeData().getGateType();
+				String inducerName = node.getResultNetlistNodeData().getDeviceName();
 				// get inducer
 				Input inducer = inducers.findCObjectByName(inducerName);
 				// remove from temp
@@ -347,7 +347,7 @@ public class Cello_JY_TP extends TMAlgorithm{
 		for (int i = 0; i < nodes.size(); i++) {
 			NetlistNode node = nodes.get(i);
 			// inducer is assigned
-			String quorumName = this.getNetlist().getVertexByName(node.getName()).getResultNetlistNodeData().getGateType();
+			String quorumName = this.getNetlist().getVertexByName(node.getName()).getResultNetlistNodeData().getDeviceName();
 			// get quorum
 			QuorumPair quorum = this.getQuorum().findCObjectByName(QuorumPair.getQuorumPairName(quorumName));
 			// remove from quorum
@@ -436,15 +436,15 @@ public class Cello_JY_TP extends TMAlgorithm{
 				String nodeName = node.getName();
 				NetlistNode nodeRef = assignedNodes.findCObjectByName(nodeName);
 				if (nodeRef != null) {
-					name += NONCE_ASSIGN + nodeRef.getResultNetlistNodeData().getGateType();
+					name += NONCE_ASSIGN + nodeRef.getResultNetlistNodeData().getDeviceName();
 				}
 			}
 			// non-primary
 			else if (LSResultsUtils.isInputOutput(node)) {
 				String nodeName = node.getName();
 				NetlistNode nodeRef = this.getNetlist().getVertexByName(nodeName);
-				if (!nodeRef.getResultNetlistNodeData().getGateType().isEmpty()) {
-					name += NONCE_ASSIGN + nodeRef.getResultNetlistNodeData().getGateType();
+				if (!nodeRef.getResultNetlistNodeData().getDeviceName().isEmpty()) {
+					name += NONCE_ASSIGN + nodeRef.getResultNetlistNodeData().getDeviceName();
 				}
 				else {
 					throw new RuntimeException("Error!");
@@ -512,11 +512,11 @@ public class Cello_JY_TP extends TMAlgorithm{
 			if (LSResultsUtils.isOutput(node)) {
 				String matchingName = PTBlockNetlist.getMatchingVIONodeName(node.getName());
 				NetlistNode matchingNode = this.getNetlist().getVertexByName(matchingName);
-				String gateName = QuorumPair.getMatchingName(node.getResultNetlistNodeData().getGateType());
-				matchingNode.getResultNetlistNodeData().setGateType(gateName);
+				String gateName = QuorumPair.getMatchingName(node.getResultNetlistNodeData().getDeviceName());
+				matchingNode.getResultNetlistNodeData().setDeviceName(gateName);
 				this.getAssignedNodes().add(matchingNode);
 			}
-			node.getResultNetlistNodeData().setGateType(gate + Promoter);
+			node.getResultNetlistNodeData().setDeviceName(gate + Promoter);
 			this.getAssignedNodes().add(node);
 		}
 		// TODO: for debugging

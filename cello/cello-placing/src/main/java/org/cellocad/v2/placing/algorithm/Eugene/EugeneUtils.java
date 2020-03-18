@@ -26,20 +26,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.target.data.data.Gate;
-import org.cellocad.v2.common.target.data.data.InputSensor;
-import org.cellocad.v2.common.target.data.data.OutputDevice;
-import org.cellocad.v2.common.target.data.data.Part;
-import org.cellocad.v2.common.target.data.data.StructureDevice;
-import org.cellocad.v2.common.target.data.data.StructureObject;
-import org.cellocad.v2.common.target.data.data.StructurePart;
-import org.cellocad.v2.common.target.data.data.StructureTemplate;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
+import org.cellocad.v2.common.target.data.component.Gate;
+import org.cellocad.v2.common.target.data.component.InputSensor;
+import org.cellocad.v2.common.target.data.component.OutputDevice;
+import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.model.StructureDevice;
+import org.cellocad.v2.common.target.data.model.StructureObject;
+import org.cellocad.v2.common.target.data.model.StructurePart;
+import org.cellocad.v2.common.target.data.model.StructureTemplate;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
- * 
+ *
  *
  * @author Timothy Jones
  *
@@ -48,168 +49,168 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  */
 public class EugeneUtils {
 
-	public static String getDeviceDeviceName(String name) {
-		String rtn = null;
-		rtn = name + "Device";
-		return rtn;
-	}
+    public static String getDeviceDeviceName(String name) {
+        String rtn = null;
+        rtn = name + "Device";
+        return rtn;
+    }
 
-	public static String getDeviceBaseName(String name) {
-		String rtn = null;
-		rtn = name.replaceAll("Device$", "");
-		return rtn;
-	}
+    public static String getDeviceBaseName(String name) {
+        String rtn = null;
+        rtn = name.replaceAll("Device$", "");
+        return rtn;
+    }
 
-	public static String getPartTypeDefinition(final String type) {
-		String rtn = "";
-		rtn = String.format("PartType %s;", type);
-		return rtn;
-	}
+    public static String getPartTypeDefinition(final String type) {
+        String rtn = "";
+        rtn = String.format("PartType %s;", type);
+        return rtn;
+    }
 
-	public static Set<String> getPartTypes(final StructureDevice device, final CObjectCollection<Part> parts) {
-		Set<String> rtn = new HashSet<String>();
-		for (StructureObject o : device.getComponents()) {
-			if (o instanceof StructurePart) {
-				Part p = parts.findCObjectByName(o.getName());
-				if (p != null)
-					rtn.add(p.getPartType());
-			}
-			if (o instanceof StructureTemplate) {
-				rtn.add(o.getName());
-			}
-			if (o instanceof StructureDevice) {
-				StructureDevice d = (StructureDevice) o;
-				rtn.addAll(getPartTypes(d, parts));
-			}
-		}
-		return rtn;
-	}
+    public static Set<String> getPartTypes(final StructureDevice device, final CObjectCollection<Part> parts) {
+        Set<String> rtn = new HashSet<String>();
+        for (StructureObject o : device.getComponents()) {
+            if (o instanceof StructurePart) {
+                Part p = parts.findCObjectByName(o.getName());
+                if (p != null)
+                    rtn.add(p.getPartType());
+            }
+            if (o instanceof StructureTemplate) {
+				StructureTemplate t = (StructureTemplate) o;
+				rtn.add(t.getInput().getPartType());
+            }
+            if (o instanceof StructureDevice) {
+                StructureDevice d = (StructureDevice) o;
+                rtn.addAll(getPartTypes(d, parts));
+            }
+        }
+        return rtn;
+    }
 
-	public static String getPartDefinition(final Part part) {
-		String rtn = "";
-		String type = part.getPartType();
-		String name = part.getName();
-		String seq = part.getDNASequence();
-		rtn = String.format("%s %s(.SEQUENCE(\"%s\"));", type, name, seq);
-		return rtn;
-	}
+    public static String getPartDefinition(final Part part) {
+        String rtn = "";
+        String type = part.getPartType();
+        String name = part.getName();
+        String seq = part.getDNASequence();
+        rtn = String.format("%s %s(.SEQUENCE(\"%s\"));", type, name, seq);
+        return rtn;
+    }
 
-	public static Set<String> getPartDefinitions(final StructureDevice device, final CObjectCollection<Part> parts) {
-		Set<String> rtn = new HashSet<String>();
-		for (StructureObject o : device.getComponents()) {
-			if (o instanceof StructurePart) {
-				Part p = parts.findCObjectByName(o.getName());
-				if (p != null) {
-					rtn.add(getPartDefinition(p));
-				}
-			}
-			if (o instanceof StructureDevice) {
-				StructureDevice d = (StructureDevice) o;
-				rtn.addAll(getPartDefinitions(d, parts));
-			}
-		}
-		return rtn;
-	}
+    public static Set<String> getPartDefinitions(final StructureDevice device, final CObjectCollection<Part> parts) {
+        Set<String> rtn = new HashSet<String>();
+        for (StructureObject o : device.getComponents()) {
+            if (o instanceof StructurePart) {
+                Part p = parts.findCObjectByName(o.getName());
+                if (p != null) {
+                    rtn.add(getPartDefinition(p));
+                }
+            }
+            if (o instanceof StructureDevice) {
+                StructureDevice d = (StructureDevice) o;
+                rtn.addAll(getPartDefinitions(d, parts));
+            }
+        }
+        return rtn;
+    }
 
-	public static CObjectCollection<Part> getInputs(final NetlistNode node,
-			final CObjectCollection<InputSensor> sensors, final CObjectCollection<Gate> gates,
-			final CObjectCollection<Part> parts) {
-		CObjectCollection<Part> rtn = new CObjectCollection<>();
-		for (int i = 0; i < node.getNumInEdge(); i++) {
-			NetlistEdge e = node.getInEdgeAtIdx(i);
-			NetlistNode src = e.getSrc();
-			String input = "";
-			String gateType = src.getResultNetlistNodeData().getGateType();
-			if (LSResultsUtils.isAllInput(src)) {
-				InputSensor sensor = sensors.findCObjectByName(gateType);
-				input = sensor.getPromoter();
-			} else {
-				Gate gate = gates.findCObjectByName(gateType);
-				if (gate == null) {
-					new RuntimeException("Unknown gate.");
-				}
-				input = gate.getGateStructure().getOutput();
-			}
-			Part part = parts.findCObjectByName(input);
-			rtn.add(part);
-		}
-		return rtn;
-	}
+    public static CObjectCollection<Part> getInputs(final NetlistNode node,
+			final TargetDataInstance tdi) {
+        CObjectCollection<Part> rtn = new CObjectCollection<>();
+        for (int i = 0; i < node.getNumInEdge(); i++) {
+            NetlistEdge e = node.getInEdgeAtIdx(i);
+            NetlistNode src = e.getSrc();
+            String input = "";
+            String gateType = src.getResultNetlistNodeData().getDeviceName();
+            if (LSResultsUtils.isAllInput(src)) {
+				InputSensor sensor = tdi.getInputSensors().findCObjectByName(gateType);
+                input = sensor.getStructure().getOutputs().get(0);
+            } else {
+				Gate gate = tdi.getGates().findCObjectByName(gateType);
+                if (gate == null) {
+                    new RuntimeException("Unknown gate.");
+                }
+                input = gate.getStructure().getOutputs().get(0);
+            }
+			Part part = tdi.getParts().findCObjectByName(input);
+            rtn.add(part);
+        }
+        return rtn;
+    }
 
-	/**
-	 * Obtain the StructureDevice objects associated with a given node. If more
-	 * device objects are specified in a gate than there are inputs to the node, the
-	 * extra devices will be discarded.
-	 * 
-	 * @param node      the NetlistNode
-	 * @param gates     the Gate objects
-	 * @param sensors   the InputSensor objects
-	 * @param reporters the OutputReporter objects
-	 * @return a collection of StructureDevice objects associated with the
-	 *         NetlistNode
-	 */
-	static Collection<StructureDevice> getDevices(final NetlistNode node, final CObjectCollection<Gate> gates,
-			final CObjectCollection<OutputDevice> reporters) {
-		Collection<StructureDevice> rtn = new ArrayList<>();
-		String gateType = node.getResultNetlistNodeData().getGateType();
-		Integer num = node.getNumInEdge();
-		Gate gate = gates.findCObjectByName(gateType);
-		OutputDevice reporter = reporters.findCObjectByName(gateType);
-		if (reporter != null) {
-			Collection<StructureDevice> devices = reporter.getOutputDeviceStructure().getDevices();
-			Integer i = 0;
-			for (StructureDevice d : devices) {
-				StructureDevice e = new StructureDevice(d);
-				Collection<StructureTemplate> inputs = new ArrayList<>();
-				for (StructureObject o : e.getComponents()) {
-					if (o instanceof StructureTemplate) {
-						i++;
-						StructureTemplate t = (StructureTemplate) o;
-						if (i <= num) {
-							continue;
-						}
-						inputs.add(t);
-					}
-				}
-				for (StructureTemplate t : inputs) {
-					e.getComponents().remove(t);
-				}
-				for (StructureObject o : e.getComponents()) {
-					if (o instanceof StructureTemplate) {
-						rtn.add(e);
-						break;
-					}
-				}
-			}
-		}
-		if (gate != null) {
-			Collection<StructureDevice> devices = gate.getGateStructure().getDevices();
-			Integer i = 0;
-			for (StructureDevice d : devices) {
-				StructureDevice e = new StructureDevice(d);
-				Collection<StructureTemplate> inputs = new ArrayList<>();
-				for (StructureObject o : e.getComponents()) {
-					if (o instanceof StructureTemplate) {
-						i++;
-						StructureTemplate t = (StructureTemplate) o;
-						if (i <= num) {
-							continue;
-						}
-						inputs.add(t);
-					}
-				}
-				for (StructureTemplate t : inputs) {
-					e.getComponents().remove(t);
-				}
-				for (StructureObject o : e.getComponents()) {
-					if (o instanceof StructureTemplate) {
-						rtn.add(e);
-						break;
-					}
-				}
-			}
-		}
-		return rtn;
-	}
+    /**
+     * Obtain the StructureDevice objects associated with a given node. If more
+     * device objects are specified in a gate than there are inputs to the node, the
+     * extra devices will be discarded.
+     * 
+     * @param node      the NetlistNode
+     * @param gates     the Gate objects
+     * @param sensors   the InputSensor objects
+     * @param reporters the OutputReporter objects
+     * @return a collection of StructureDevice objects associated with the
+     *         NetlistNode
+     */
+    static Collection<StructureDevice> getDevices(final NetlistNode node, final CObjectCollection<Gate> gates,
+            final CObjectCollection<OutputDevice> reporters) {
+        Collection<StructureDevice> rtn = new ArrayList<>();
+        String gateType = node.getResultNetlistNodeData().getDeviceName();
+        Integer num = node.getNumInEdge();
+        Gate gate = gates.findCObjectByName(gateType);
+        OutputDevice reporter = reporters.findCObjectByName(gateType);
+        if (reporter != null) {
+            Collection<StructureDevice> devices = reporter.getStructure().getDevices();
+            Integer i = 0;
+            for (StructureDevice d : devices) {
+                StructureDevice e = new StructureDevice(d);
+                Collection<StructureTemplate> inputs = new ArrayList<>();
+                for (StructureObject o : e.getComponents()) {
+                    if (o instanceof StructureTemplate) {
+                        i++;
+                        StructureTemplate t = (StructureTemplate) o;
+                        if (i <= num) {
+                            continue;
+                        }
+                        inputs.add(t);
+                    }
+                }
+                for (StructureTemplate t : inputs) {
+                    e.getComponents().remove(t);
+                }
+                for (StructureObject o : e.getComponents()) {
+                    if (o instanceof StructureTemplate) {
+                        rtn.add(e);
+                        break;
+                    }
+                }
+            }
+        }
+        if (gate != null) {
+            Collection<StructureDevice> devices = gate.getStructure().getDevices();
+            Integer i = 0;
+            for (StructureDevice d : devices) {
+                StructureDevice e = new StructureDevice(d);
+                Collection<StructureTemplate> inputs = new ArrayList<>();
+                for (StructureObject o : e.getComponents()) {
+                    if (o instanceof StructureTemplate) {
+                        i++;
+                        StructureTemplate t = (StructureTemplate) o;
+                        if (i <= num) {
+                            continue;
+                        }
+                        inputs.add(t);
+                    }
+                }
+                for (StructureTemplate t : inputs) {
+                    e.getComponents().remove(t);
+                }
+                for (StructureObject o : e.getComponents()) {
+                    if (o instanceof StructureTemplate) {
+                        rtn.add(e);
+                        break;
+                    }
+                }
+            }
+        }
+        return rtn;
+    }
 
 }

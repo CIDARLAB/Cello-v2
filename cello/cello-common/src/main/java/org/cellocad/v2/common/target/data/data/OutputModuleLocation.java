@@ -35,22 +35,22 @@ import org.json.simple.JSONObject;
 public class OutputModuleLocation extends CObject {
 
 	private void parseLocationName(final JSONObject jobj) {
-		String value = ProfileUtils.getString(jobj, "location_name");
+		String value = ProfileUtils.getString(jobj, S_LOCATIONNAME);
 		this.setLocationName(value);
 	}
 	
 	private void parseStart(final JSONObject jobj) {
-		Integer value = ProfileUtils.getInteger(jobj, "bp_start");
+		Integer value = ProfileUtils.getInteger(jobj, S_BPSTART);
 		this.setStart(value);
 	}
 	
 	private void parseEnd(final JSONObject jobj) {
-		Integer value = ProfileUtils.getInteger(jobj, "bp_end");
+		Integer value = ProfileUtils.getInteger(jobj, S_BPEND);
 		this.setEnd(value);
 	}
 	
 	private void parseUnitConversion(final JSONObject jobj) {
-		Double value = ProfileUtils.getDouble(jobj, "unit_conversion");
+		Double value = ProfileUtils.getDouble(jobj, S_UNITCONVERSION);
 		this.setUnitConversion(value);
 	}
 	
@@ -132,5 +132,10 @@ public class OutputModuleLocation extends CObject {
 	}
 	
 	private Double unitConversion;
+
+	private static final String S_LOCATIONNAME = "location_name";
+	private static final String S_BPSTART = "bp_start";
+	private static final String S_BPEND = "bp_end";
+	private static final String S_UNITCONVERSION = "unit_conversion";
 
 }

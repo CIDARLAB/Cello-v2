@@ -25,9 +25,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
+import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
+
 /**
- * The ActivityTable class represents table of activities within the <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
- * @param Input input type index
+ * The ActivityTable class represents a mapping between node state and node
+ * activity.
+ * 
+ * @param Input  input type index
  * @param Output output type index
  *
  * @author Timothy Jones
@@ -35,47 +40,49 @@ import java.util.Map;
  * @date 2018-05-24
  *
  */
-public class ActivityTable<Input,Output> {
+public class ActivityTable<Input, Output> {
 
 	/**
-	 *  Initialize class members
+	 * Initialize class members
 	 */
 	private void init() {
-		activityTableMap = new HashMap<Activity<Input>, Activity<Output>>();
-		activities = new ArrayList<Activity<Input>>();
+		activityTableMap = new HashMap<State<Input>, Activity<Output>>();
+		states = new ArrayList<State<Input>>();
 	}
 
 	/**
-	 *  Initializes a newly created ActivityTable with the list of inputs defined by parameter <i>inputs</i>
-	 *  a list of outputs defined by parameter <i>outputs</i>.
-	 *  
-	 *  @param inputs the List of inputs
-	 *  @param outputs the List of outputs
+	 * Initializes a newly created ActivityTable with the list of inputs defined by
+	 * parameter <i>inputs</i> a list of outputs defined by parameter
+	 * <i>outputs</i>.
+	 * 
+	 * @param inputs  the List of inputs
+	 * @param outputs the List of outputs
 	 */
-	public ActivityTable(final List<Activity<Input>> inputs, final List<Output> outputs) {
+	public ActivityTable(final List<State<Input>> inputs, final List<Output> outputs) {
 		init();
 		for (int i = 0; i < inputs.size(); i ++) {
-			Activity<Input> InputActivity = inputs.get(i);
+			State<Input> InputActivity = inputs.get(i);
 			Activity<Output> OutputActivity = new Activity<Output>(outputs);
 			this.getActivityTableMap().put(InputActivity, OutputActivity);
-			this.getActivities().add(InputActivity);
+			this.getStates().add(InputActivity);
 		}
 	}
 
 	/**
-	 *  Initializes a newly created ActivityTable with the list of activities defined by parameter <i>activities</i>
-	 *  a list of outputs defined by parameter <i>outputs</i>.
-	 *  
-	 *  @param activities the List of activities
-	 *  @param outputs the List of outputs
+	 * Initializes a newly created ActivityTable with the list of states defined by
+	 * parameter <i>states</i> a list of outputs defined by parameter
+	 * <i>outputs</i>.
+	 * 
+	 * @param states  the List of states
+	 * @param outputs the List of outputs
 	 */
-	public ActivityTable(final Activities<Input> activities, final List<Output> outputs) {
+	public ActivityTable(final States<Input> states, final List<Output> outputs) {
 		init();
-		for (int i = 0; i < activities.getNumActivities(); i ++) {
-			Activity<Input> InputActivity = activities.getActivityAtIdx(i);
+		for (int i = 0; i < states.getNumStates(); i++) {
+			State<Input> InputState = states.getStateAtIdx(i);
 			Activity<Output> OutputActivity = new Activity<Output>(outputs);
-			this.getActivityTableMap().put(InputActivity, OutputActivity);
-			this.getActivities().add(InputActivity);
+			this.getActivityTableMap().put(InputState, OutputActivity);
+			this.getStates().add(InputState);
 		}
 	}
 
@@ -83,19 +90,21 @@ public class ActivityTable<Input,Output> {
 	 * ActivityMap
 	 */
 	/**
-	 *  Getter for <i>activityTableMap</i>
-	 *  @return the activityTableMap of this instance
+	 * Getter for <i>activityTableMap</i>
+	 * 
+	 * @return the activityTableMap of this instance
 	 */
-	protected Map<Activity<Input>, Activity<Output>> getActivityTableMap() {
+	protected Map<State<Input>, Activity<Output>> getActivityTableMap() {
 		return activityTableMap;
 	}
 
 	/**
-	 *  Getter for <i>activities</i>
-	 *  @return the activities of this instance
+	 * Getter for <i>states</i>
+	 * 
+	 * @return the states of this instance
 	 */
-	protected List<Activity<Input>> getActivities() {
-		return activities;
+	protected List<State<Input>> getStates() {
+		return states;
 	}
 
 	/**
@@ -104,39 +113,41 @@ public class ActivityTable<Input,Output> {
 	 * @param activity the input activity
 	 * @return the output activity for the activity defined by parameter <i>activity</i>, otherwise null
 	 */
-	public Activity<Output> getActivityOutput(final Activity<Input> activity){
+	public Activity<Output> getActivityOutput(final State<Input> state) {
 		Activity<Output> rtn = null;
-		rtn = this.getActivityTableMap().get(activity);
+		rtn = this.getActivityTableMap().get(state);
 		return rtn;
 	}
 
 	/**
-	 * Returns the Activity<Input> at the specified position in this instance.
+	 * Returns the State<Input> at the specified position in this instance.
 	 * 
-	 * @param index index of the Activity<Input> to return
-	 * @return if the index is within the bounds (0 <= bounds < this.getNumActivitys()), returns the Activity<Input> at the specified position in this instance, otherwise null
+	 * @param index index of the State<Input> to return
+	 * @return if the index is within the bounds (0 <= bounds <
+	 *         this.getNumStates()), returns the State<Input> at the specified
+	 *         position in this instance, otherwise null
 	 */
-	public Activity<Input> getActivityAtIdx(final int index){
-		Activity<Input> rtn = null;
+	public State<Input> getStateAtIdx(final int index) {
+		State<Input> rtn = null;
 		if (
 				(0 <= index)
 				&&
-				(index < this.getNumActivities())
+				(index < this.getNumStates())
 				) {
-			rtn = this.getActivities().get(index);
+			rtn = this.getStates().get(index);
 		}
 		return rtn;
 	}
 
 	/**
-	 * Returns the number of activities in this instance.
+	 * Returns the number of states in this instance.
 	 * 
-	 * @return the number of activities in this instance.
+	 * @return the number of states in this instance.
 	 */
-	public int getNumActivities() {
-		return this.getActivities().size();
+	public int getNumStates() {
+		return this.getStates().size();
 	}
 
-	List<Activity<Input>> activities;
-	Map<Activity<Input>, Activity<Output>> activityTableMap;
+	List<State<Input>> states;
+	Map<State<Input>, Activity<Output>> activityTableMap;
 }
