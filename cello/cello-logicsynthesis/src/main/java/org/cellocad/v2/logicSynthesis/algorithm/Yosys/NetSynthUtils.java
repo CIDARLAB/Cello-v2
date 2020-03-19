@@ -199,9 +199,13 @@ public class NetSynthUtils {
 				throw new CelloException("Unable to set executable permissions on file " + f.toString());
 			}
 		}
-		p = Paths.get(sourceBase, "abc.rc");
-		copyResource(p, targetPath);
-		copyResource(p, rtn);
+		files = Arrays
+				.asList(new String[] { "abc.rc", "netlist_in3out1.json", "netlist_in3out1_OR.json", "tempVerilog.v" });
+		for (String file : files) {
+			p = Paths.get(sourceBase, file);
+			copyResource(p, targetPath);
+			copyResource(p, rtn);
+		}
 		return rtn;
 	}
 
@@ -235,7 +239,6 @@ public class NetSynthUtils {
 			throws JSONException, IOException, CelloException {
 		Netlist rtn = null;
 		Path path = initResources();
-		System.out.println(path);
 		NetSynth n = new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
 		// verilog
 		String verilog = getVerilog(netlist);
