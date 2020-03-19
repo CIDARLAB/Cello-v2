@@ -107,11 +107,11 @@ See the `sample-input` directory in this repository for example Verilog files, U
   + Java JDK 8 (Oracle, OpenJDK)
   + *All other dependencies from [(Option 2)](#option-2-prepackaged-jar-file) above.*
 
-1. Clone the repository.
+1. Clone the repository:
 
         git clone --recurse-submodules https://github.com/CIDARLAB/Cello-v2.git
 
-2. Build.
+2. Build & package:
 
         cd Cello-v2/cello
         mvn clean package
