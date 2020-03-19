@@ -158,12 +158,13 @@ public class Main {
 		Stage currentStage = null;
 		String outputDir = runEnv.getOptionValue(DNACompilerArgString.OUTPUTDIR) + Utils.getFileSeparator();
 		/*
-		 * Add Stages below
+		 * logicSynthesis
 		 */
-		// logicSynthesis
 		currentStage = appCfg.getStageByName("logicSynthesis");
 		LSRuntimeObject LS = new LSRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		LS.execute();
+		// Write netlist
+		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
 		File lsDotFile = new File(outputDir + netlist.getName() + "_logicSynthesis" + ".dot");
 		NetlistUtils.writeDotFileForGraph(netlist, lsDotFile.getAbsolutePath());
 		Dot2Pdf.dot2pdf(lsDotFile);
@@ -191,25 +192,33 @@ public class Main {
 		Main.printPartitioningGraphs(runEnv, netlist);
 		Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
 		netlist = new PTBlockNetlist(netlist).getVirtualLargeNetlistFO();
+		// Write netlist
 		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
-		// technologyMapping
+		/*
+		 * technologyMapping
+		 */
 		currentStage = appCfg.getStageByName("technologyMapping");
 		TMRuntimeObject TM = new TMRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		TM.execute();
+		// Write netlist
+		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
 		File tmDotFile = new File(outputDir + netlist.getName() + "_technologyMapping" + ".dot");
 		NetlistUtils.writeDotFileForGraph(netlist, tmDotFile.getAbsolutePath());
 		Dot2Pdf.dot2pdf(tmDotFile);
-		// placing
+		/*
+		 * placing
+		 */
 		currentStage = appCfg.getStageByName("placing");
 		PLRuntimeObject PL = new PLRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		PL.execute();
-		// export
+		// Write netlist
+		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
+		/*
+		 * export
+		 */
 		currentStage = appCfg.getStageByName("export");
 		EXRuntimeObject EX = new EXRuntimeObject(currentStage, td, netlistConstraint, netlist, runEnv);
 		EX.execute();
-		/*
-		 * Add Stages above
-		 */
 		// Write netlist
 		Main.writeJSONForNetlist(runEnv, netlist, inputFilePath);
 	}
