@@ -50,17 +50,17 @@ import org.junit.Test;
  * @date 2020-02-25
  *
  */
-public class SBOLTest {
+public class SBOLIT {
 
 	@BeforeClass
 	public static void init() throws IOException, CelloException {
 		Path dir = Files.createTempDirectory("cello_");
 		output = dir.toFile();
-		String[] args = { "-" + EXArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + EXArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-				"-" + EXArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+		String[] args = { "-" + EXArgString.INPUTNETLIST, Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
+				"-" + EXArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
+				"-" + EXArgString.INPUTSENSORFILE, Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
 				"-" + EXArgString.OUTPUTDEVICEFILE,
-				Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
+				Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
 				"-" + EXArgString.ALGORITHMNAME, "SBOL", "-" + EXArgString.OUTPUTDIR, dir.toString(),
 				"-" + EXArgString.PYTHONENV, "python" };
 		EXRuntimeEnv runEnv = new EXRuntimeEnv(args);

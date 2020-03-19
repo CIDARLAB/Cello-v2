@@ -26,11 +26,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.target.data.component.AssignableDevice;
@@ -39,6 +41,11 @@ import org.cellocad.v2.common.target.data.component.Gate;
 import org.cellocad.v2.common.target.data.component.InputSensor;
 import org.cellocad.v2.common.target.data.component.OutputDevice;
 import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.model.Structure;
+import org.cellocad.v2.common.target.data.model.StructureDevice;
+import org.cellocad.v2.common.target.data.model.StructureObject;
+import org.cellocad.v2.common.target.data.model.StructurePart;
+import org.cellocad.v2.common.target.data.model.StructureTemplate;
 import org.cellocad.v2.export.algorithm.EXAlgorithm;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
@@ -207,8 +214,10 @@ public class SBOL extends EXAlgorithm {
 	 * @param document the <i>SBOLDocument</i> to which to add the definitions
 	 * @throws SynBioHubException      unable to fetch part SBOL from SynBioHub
 	 * @throws SBOLValidationException unable to create component definition
+	 * @throws CelloException
 	 */
-	protected void addComponentDefinitions(SBOLDocument document) throws SynBioHubException, SBOLValidationException {
+	protected void addComponentDefinitions(SBOLDocument document)
+			throws SynBioHubException, SBOLValidationException, CelloException {
 		Netlist netlist = this.getNetlist();
 		Placements placements = netlist.getResultNetlistData().getPlacements();
 		for (int i = 0; i < placements.getNumPlacement(); i++) {
@@ -220,27 +229,46 @@ public class SBOL extends EXAlgorithm {
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String str = component.getPartAtIdx(l);
 						Part part = this.getTargetDataInstance().getParts().findCObjectByName(str);
-						Gate gate = this.getTargetDataInstance().getGates().findCObjectByName(str);
-						InputSensor sensor = this.getTargetDataInstance().getInputSensors().findCObjectByName(str);
-						OutputDevice reporter = this.getTargetDataInstance().getOutputDevices()
-								.findCObjectByName(str);
+						AssignableDevice ad = this.getTargetDataInstance().getAssignableDeviceByName(str);
 						if (part != null) {
 							SBOLUtils.addPartDefinition(part, document, this.getSbhFrontend());
 							continue;
 						}
-						AssignableDevice device = null;
-						if (gate != null)
-							device = gate;
-						if (sensor != null)
-							device = sensor;
-						if (reporter != null)
-							device = reporter;
-						if (device != null)
-							SBOLUtils.addDeviceDefinition(device, document, this.getSbhFrontend());
+						if (ad != null) {
+							SBOLUtils.addDeviceDefinition(ad, document, this.getSbhFrontend());
+							continue;
+						}
+						String nodeName = component.getNode();
+						NetlistNode node = this.getNetlist().getVertexByName(nodeName);
+						String deviceName = node.getResultNetlistNodeData().getDeviceName();
+						ad = this.getTargetDataInstance().getAssignableDeviceByName(deviceName);
+						Structure s = ad.getStructure();
+						StructureDevice sd = s.getDeviceByName(str);
+						Collection<String> parts = getFlattenedPartList(sd);
+						for (String partName : parts) {
+							Part c = (Part) this.getDNAComponentByName(partName);
+							SBOLUtils.addPartDefinition(c, document, this.getSbhFrontend());
+						}
 					}
 				}
 			}
 		}
+	}
+
+	private static Collection<String> getFlattenedPartList(StructureDevice device) throws CelloException {
+		Collection<String> rtn = new ArrayList<>();
+		for (StructureObject o : device.getComponents()) {
+			if (o instanceof StructureTemplate) {
+				throw new CelloException("Cannot flatten with unreferenced input parts.");
+			}
+			if (o instanceof StructurePart) {
+				rtn.add(o.getName());
+			}
+			if (o instanceof StructureDevice) {
+				rtn.addAll(getFlattenedPartList((StructureDevice) o));
+			}
+		}
+		return rtn;
 	}
 
 	/**
@@ -248,8 +276,10 @@ public class SBOL extends EXAlgorithm {
 	 * 
 	 * @param document the SBOLDocument
 	 * @throws SBOLValidationException unable to add transcriptional unit
+	 * @throws CelloException          Unable to get parts from nested device.
 	 */
-	protected void addTranscriptionalUnitDefinitions(SBOLDocument document) throws SBOLValidationException {
+	protected void addTranscriptionalUnitDefinitions(SBOLDocument document)
+			throws SBOLValidationException, CelloException {
 		Netlist netlist = this.getNetlist();
 		Placements placements = netlist.getResultNetlistData().getPlacements();
 		for (int i = 0; i < placements.getNumPlacement(); i++) {
@@ -268,17 +298,36 @@ public class SBOL extends EXAlgorithm {
 
 					// parts
 					String sequence = "";
+					CObjectCollection<DNAComponent> components = new CObjectCollection<>();
 					for (int l = 0; l < component.getNumPart(); l++) {
 						String componentName = component.getPartAtIdx(l);
 						DNAComponent comp = this.getDNAComponentByName(componentName);
+						if (comp == null) {
+							String nodeName = component.getNode();
+							NetlistNode node = this.getNetlist().getVertexByName(nodeName);
+							String deviceName = node.getResultNetlistNodeData().getDeviceName();
+							AssignableDevice ad = this.getTargetDataInstance().getAssignableDeviceByName(deviceName);
+							Structure s = ad.getStructure();
+							StructureDevice sd = s.getDeviceByName(componentName);
+							Collection<String> parts = getFlattenedPartList(sd);
+							for (String str : parts) {
+								DNAComponent c = this.getDNAComponentByName(str);
+								components.add(c);
+							}
+						} else {
+							components.add(comp);
+						}
+					}
+					for (int l = 0; l < components.size(); l++) {
+						DNAComponent co = components.get(l);
 						// Component
-						String cDisplayId = componentName + "_Component";
+						String cDisplayId = co.getName() + "_Component";
 						AccessType cAccess = AccessType.PUBLIC;
-						URI cDefinitionURI = comp.getUri();
+						URI cDefinitionURI = co.getUri();
 						org.sbolstandard.core2.Component c = cd.createComponent(cDisplayId, cAccess, cDefinitionURI);
 
 						// SequenceAnnotation
-						String s = SBOLDataUtils.getDNASequence(comp);
+						String s = SBOLDataUtils.getDNASequence(co);
 						String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
 						String saLocationId = saDisplayId + "_Range";
 						int start = sequence.length() + 1;
@@ -291,9 +340,9 @@ public class SBOL extends EXAlgorithm {
 						if (l != 0) {
 							String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), l);
 							RestrictionType scRestriction = RestrictionType.PRECEDES;
-							URI scSubjectId = cd.getComponent(component.getPartAtIdx(l - 1) + "_Component")
+							URI scSubjectId = cd.getComponent(components.get(l - 1).getName() + "_Component")
 									.getIdentity();
-							URI scObjectId = cd.getComponent(componentName + "_Component").getIdentity();
+							URI scObjectId = cd.getComponent(co.getName() + "_Component").getIdentity();
 							cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
 						}
 					}
@@ -313,8 +362,9 @@ public class SBOL extends EXAlgorithm {
 	 *                                 part.
 	 * @throws SBOLValidationException - Unable to create Component or
 	 *                                 ComponentDefinition.
+	 * @throws CelloException
 	 */
-	protected SBOLDocument createSBOLDocument() throws SynBioHubException, SBOLValidationException {
+	protected SBOLDocument createSBOLDocument() throws SynBioHubException, SBOLValidationException, CelloException {
 		SBOLDocument document = new SBOLDocument();
 		document.setDefaultURIprefix("http://cellocad.org/v2");
 
