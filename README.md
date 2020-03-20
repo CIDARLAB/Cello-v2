@@ -12,6 +12,8 @@ You have a few options to utilize Cello:
 
 The procedure for each option is described in the sections below.
 
+In the future, Cello will be hosted with a GUI on [cellocad.org](http://cellocad.org). For now, [the original version of Cello](https://github.com/CIDARLAB/cello) remains hosted there. The webapp for Cello-v2 is [in development](https://github.com/CIDARLAB/Cello-v2-webapp).
+
 ## (Option 1) Docker
 
 Download and install Docker.
@@ -36,6 +38,7 @@ Run the image, replacing fields surrounded by `<>` with files or directories app
     -userConstraintsFile /root/input/<UCF_IN_INPUT_DIRECTORY> \
     -inputSensorFile /root/input/<INPUT_SENSOR_FILE_IN_INPUT_DIRECTORY> \
     -outputDeviceFile /root/input/<OUTPUT_DEVICE_FILE_IN_INPUT_DIRECTORY> \
+    -pythonEnv python \
     -outputDir /root/output
 
 See the `sample-input` directory in this repository for example Verilog files, UCFs, and option files. An example invocation with all fields completed (omitting the options switch, thus using defaults) might be:
@@ -49,6 +52,7 @@ See the `sample-input` directory in this repository for example Verilog files, U
     -userConstraintsFile /root/input/Eco1C1G1T1.UCF.json \
     -inputSensorFile /root/input/Eco1C1G1T1.input.json \
     -outputDeviceFile /root/input/Eco1C1G1T1.output.json \
+    -pythonEnv python \
     -outputDir /root/output
 
 After execution, check the output directory for generated files.
@@ -89,6 +93,7 @@ Replace fields surrounded by `<>` with files or directories appropriate for your
     -userConstraintsFile <PATH_TO_UCF> \
     -inputSensorFile <PATH_TO_INPUT_SENSOR_FILE> \
     -outputDeviceFile <PATH_TO_OUTPUT_DEVICE_FILE> \
+    -pythonEnv <ABSOLUTE_PATH_TO_PYTHON_OR_NAME_OF_EXECUTABLE_IN_ENVIRONMENT_PATH> \
     -outputDir <PATH_TO_OUTPUT_DIRECTORY>
 
 See the `sample-input` directory in this repository for example Verilog files, UCFs, and option files. An example invocation with all fields completed (omitting the options switch, thus using defaults) might be:
@@ -98,6 +103,7 @@ See the `sample-input` directory in this repository for example Verilog files, U
     -userConstraintsFile Eco1C1G1T1.UCF.json \
     -inputSensorFile Eco1C1G1T1.input.json \
     -outputDeviceFile Eco1C1G1T1.output.json \
+    -pythonEnv python \
     -outputDir /home/cello_user/output
 
 ## (Option 3) Building from source
