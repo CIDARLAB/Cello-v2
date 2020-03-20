@@ -25,6 +25,7 @@ import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.data.GeneticLocation;
 import org.cellocad.v2.common.target.data.placing.CircuitRules;
 import org.cellocad.v2.common.target.data.placing.DeviceRules;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -57,9 +58,11 @@ public class EugeneTargetDataUtils {
 	
 	static public CObjectCollection<GeneticLocation> getGeneticLocations(final TargetData td) {
 		CObjectCollection<GeneticLocation> rtn = new CObjectCollection<>();
-		for (int i = 0; i < td.getNumJSONObject(S_GENETICLOCATIONS); i++) {
-			JSONObject jObj = td.getJSONObjectAtIdx(S_GENETICLOCATIONS, i);
-			GeneticLocation l = new GeneticLocation(jObj);
+		JSONObject obj = td.getJSONObjectAtIdx(S_GENETICLOCATIONS, 0);
+		JSONArray locations = (JSONArray) obj.get("locations"); 
+		for (int i = 0; i < locations.size(); i++) {
+			JSONObject location = (JSONObject) locations.get(i);
+			GeneticLocation l = new GeneticLocation(location);
 			rtn.add(l);
 		}
 		return rtn;
