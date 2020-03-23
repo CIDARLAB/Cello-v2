@@ -89,7 +89,7 @@
         <executions>
           <execution>
             <id>unpack</id>
-            <phase>package</phase>
+            <phase>generate-sources</phase>
             <goals>
               <goal>unpack</goal>
             </goals>
