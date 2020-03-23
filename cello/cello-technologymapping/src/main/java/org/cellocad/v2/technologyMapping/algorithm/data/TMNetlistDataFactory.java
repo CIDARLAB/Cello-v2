@@ -21,14 +21,13 @@
 package org.cellocad.v2.technologyMapping.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistDataFactory;
-import org.cellocad.v2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
 
 /**
  * The TMNetlistDataFactory class is a NetlistData factory for the <i>technologyMapping</i> stage.
- * 
+ *
  * @author Vincent Mirian
- * 
+ *
  * @date 2018-05-21
  *
  */
@@ -36,20 +35,17 @@ public class TMNetlistDataFactory extends NetlistDataFactory<TMNetlistData>{
 
 	/**
 	 *  Returns the TMNetlistData that has the same name as the parameter <i>name</i> within the TMNetlistDataFactory
-	 *  
+	 *
 	 *  @param name string used for searching this instance
 	 *  @return the TMNetlistData instance if the TMNetlistData exists within the TMNetlistDataFactory, otherwise null
 	 */
 	@Override
 	protected TMNetlistData getNetlistData(final String name) {
 		TMNetlistData rtn = null;
-		if (name.equals("Cello_JY_TP")){
-			rtn = new Cello_JY_TPNetlistData();
-		}
 		if (name.equals("SimulatedAnnealing")){
 			rtn = new SimulatedAnnealingNetlistData();
 		}
 		return rtn;
 	}
-	
+
 }

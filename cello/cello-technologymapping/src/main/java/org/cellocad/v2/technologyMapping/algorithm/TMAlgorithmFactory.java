@@ -21,14 +21,13 @@
 package org.cellocad.v2.technologyMapping.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.technologyMapping.algorithm.Cello_JY_TP.Cello_JY_TP;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealing;
 
 /**
- * The TMAlgorithmFactory is an algorithm factory for the <i>technologyMapping</i> stage. 
- * 
+ * The TMAlgorithmFactory is an algorithm factory for the <i>technologyMapping</i> stage.
+ *
  * @author Vincent Mirian
- * 
+ *
  * @date 2018-05-21
  *
  */
@@ -36,20 +35,17 @@ public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm>{
 
 	/**
 	 *  Returns the TMAlgorithm that has the same name as the parameter <i>name</i> within this instance
-	 *  
+	 *
 	 *  @param name string used for searching the TMAlgorithmFactory
 	 *  @return TMAlgorithm instance if the TMAlgorithm exists within the TMAlgorithmFactory, otherwise null
 	 */
 	@Override
 	protected TMAlgorithm getAlgorithm(final String name) {
 		TMAlgorithm rtn = null;
-		if (name.equals("Cello_JY_TP")){
-			rtn = new Cello_JY_TP();
-		}
 		if (name.equals("SimulatedAnnealing")){
 			rtn = new SimulatedAnnealing();
 		}
 		return rtn;
 	}
-	
+
 }

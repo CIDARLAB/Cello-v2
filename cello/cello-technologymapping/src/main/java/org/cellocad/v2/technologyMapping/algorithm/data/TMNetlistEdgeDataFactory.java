@@ -21,7 +21,6 @@
 package org.cellocad.v2.technologyMapping.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistEdgeDataFactory;
-import org.cellocad.v2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistEdgeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
 
 /**
@@ -43,13 +42,10 @@ public class TMNetlistEdgeDataFactory extends NetlistEdgeDataFactory<TMNetlistEd
 	@Override
 	protected TMNetlistEdgeData getNetlistEdgeData(final String name) {
 		TMNetlistEdgeData rtn = null;
-		if (name.equals("Cello_JY_TP")){
-			rtn = new Cello_JY_TPNetlistEdgeData();
-		}
 		if (name.equals("SimulatedAnnealing")){
 			rtn = new SimulatedAnnealingNetlistEdgeData();
 		}
 		return rtn;
 	}
-	
+
 }

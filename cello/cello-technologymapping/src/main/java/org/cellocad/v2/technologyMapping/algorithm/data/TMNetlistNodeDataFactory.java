@@ -21,7 +21,6 @@
 package org.cellocad.v2.technologyMapping.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
-import org.cellocad.v2.technologyMapping.algorithm.Cello_JY_TP.data.Cello_JY_TPNetlistNodeData;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 
 /**
@@ -43,13 +42,10 @@ public class TMNetlistNodeDataFactory extends NetlistNodeDataFactory<TMNetlistNo
 	@Override
 	protected TMNetlistNodeData getNetlistNodeData(final String name) {
 		TMNetlistNodeData rtn = null;
-		if (name.equals("Cello_JY_TP")){
-			rtn = new Cello_JY_TPNetlistNodeData();
-		}
 		if (name.equals("SimulatedAnnealing")){
 			rtn = new SimulatedAnnealingNetlistNodeData();
 		}
 		return rtn;
 	}
-	
+
 }
