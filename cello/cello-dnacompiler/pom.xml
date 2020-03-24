@@ -62,8 +62,18 @@
     </dependency>
   </dependencies>
   <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>${project.build.directory}/generated-resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
+        <!-- http://dmp.fabric8.io/ -->
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
 		<extensions>true</extensions>
@@ -88,57 +98,17 @@
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <id>unpack</id>
-            <phase>package</phase>
+            <!-- https://blog.sonatype.com/2008/04/how-to-share-resources-across-projects-in-maven/ -->
+            <id>unpack-shared-resources</id>
+            <phase>generate-resources</phase>
             <goals>
-              <goal>unpack</goal>
+              <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
               <includes>algorithms/**/*.json</includes>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-logicsynthesis</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/logicSynthesis</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-logicoptimization</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/logicOptimization</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-clustering</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/clustering</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-partitioning</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/partitioning</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-technologymapping</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/technologyMapping</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-placing</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/placing</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>cello-export</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>${project.build.directory}/classes/algorithms/export</outputDirectory>
-                </artifactItem>
-              </artifactItems>
+              <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
+              <excludeTransitive>true</excludeTransitive>
+              <includeGroupIds>${project.groupId}</includeGroupIds>
             </configuration>
           </execution>
         </executions>
