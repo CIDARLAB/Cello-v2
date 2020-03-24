@@ -41,9 +41,9 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 /**
  * The RuntimeObject class is a base class for all stage RuntimeObject classes
  * within the Poros framework.
- * 
+ *
  * @author Vincent Mirian
- * 
+ *
  * @date Nov 17, 2017
  *
  */
@@ -55,7 +55,7 @@ abstract public class RuntimeObject extends CObject {
 	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
 	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
 	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 * 
+	 *
 	 * @param stage             Stage used during execution
 	 * @param targetData        TargetData used during execution
 	 * @param netlistConstraint NetlistConstraint used during execution
@@ -64,7 +64,7 @@ abstract public class RuntimeObject extends CObject {
 	 * @throws RuntimeException if any of the parameters are null
 	 */
 	public RuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
-			final Netlist netlist, final RuntimeEnv runEnv) {
+	        final Netlist netlist, final RuntimeEnv runEnv) {
 		super();
 		Utils.isNullRuntimeException(stage, "stage");
 		Utils.isNullRuntimeException(targetData, "targetData");
@@ -81,7 +81,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>AProfile</i>
-	 * 
+	 *
 	 * @return the AlgorithmProfile of this instance
 	 */
 	protected AlgorithmProfile getAlgorithmProfile() {
@@ -94,7 +94,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>stage</i>
-	 * 
+	 *
 	 * @return the Stage of this instance
 	 */
 	protected Stage getStage() {
@@ -103,7 +103,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>targetData</i>
-	 * 
+	 *
 	 * @return the TargetData of this instance
 	 */
 	protected TargetData getTargetData() {
@@ -112,7 +112,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>netlistConstraint</i>
-	 * 
+	 *
 	 * @return the NetlistConstraint of this instance
 	 */
 	protected NetlistConstraint getNetlistConstraint() {
@@ -121,7 +121,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>netlist</i>
-	 * 
+	 *
 	 * @return the Netlist of this instance
 	 */
 	protected Netlist getNetlist() {
@@ -130,7 +130,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Getter for <i>runtimeEnv</i>
-	 * 
+	 *
 	 * @return the RuntimeEnv of this instance
 	 */
 	protected RuntimeEnv getRuntimeEnv() {
@@ -139,7 +139,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Trace level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logTrace(String str) {
@@ -148,7 +148,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Debug level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logDebug(String str) {
@@ -157,7 +157,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Info level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logInfo(String str) {
@@ -166,7 +166,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Warn level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logWarn(String str) {
@@ -175,7 +175,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Error level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logError(String str) {
@@ -184,7 +184,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Fatal level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logFatal(String str) {
@@ -193,7 +193,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Returns the Logger instance for the class
-	 * 
+	 *
 	 * @return the Logger instance for the class
 	 */
 	protected Logger getLogger() {
@@ -208,7 +208,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Executes the Algorithm for the stage.
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	protected abstract void runAlgo() throws CelloException;
@@ -216,7 +216,7 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Sets the StageNetlistData for the stage in parameter <i>netlist</i> <b>Note:
 	 * this method will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	protected abstract void setStageNetlistData(Netlist netlist);
@@ -224,7 +224,7 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Sets the StageNetlistNodeData for the stage in parameter <i>node</i> <b>Note:
 	 * this method will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	protected abstract void setStageNetlistNodeData(NetlistNode node);
@@ -232,14 +232,14 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Sets the StageNetlistEdgeData for the stage in parameter <i>edge</i> <b>Note:
 	 * method this will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	protected abstract void setStageNetlistEdgeData(NetlistEdge edge);
 
 	/**
 	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 * 
+	 *
 	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	protected abstract void setNetlistData(Netlist netlist);
@@ -247,7 +247,7 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
 	 * <i>node</i>
-	 * 
+	 *
 	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	protected abstract void setNetlistNodeData(NetlistNode node);
@@ -255,21 +255,21 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
 	 * <i>edge</i>
-	 * 
+	 *
 	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	protected abstract void setNetlistEdgeData(NetlistEdge edge);
 
 	/**
 	 * Returns a string representing the OPTIONS command line argument for the stage
-	 * 
+	 *
 	 * @return a string representing the OPTIONS command line argument for the stage
 	 */
 	protected abstract String getOptionsString();
 
 	/**
 	 * Returns an AlgorithmProfile of the stage
-	 * 
+	 *
 	 * @return an AlgorithmProfile if a valid algorithm exists, otherwise null
 	 */
 	// Prepare AlgorithmProfile
@@ -278,12 +278,14 @@ abstract public class RuntimeObject extends CObject {
 		if (!this.getStage().getAlgorithmName().isEmpty()) {
 			String path = "";
 			path += "algorithms";
-			path += "/";
+			path += Utils.getFileSeparator();
+			path += this.getStage().getName();
+			path += Utils.getFileSeparator();
 			path += this.getStage().getAlgorithmName();
-			path += "/";
+			path += Utils.getFileSeparator();
 			path += this.getStage().getAlgorithmName();
 			path += ".json";
-			Options options = OptionsUtils.getOptions(getRuntimeEnv(), this.getOptionsString());
+			Options options = OptionsUtils.getOptions(this.getRuntimeEnv(), this.getOptionsString());
 			rtn = AlgorithmProfileUtils.getAlgorithmProfile(path);
 			rtn.setStageName(this.getStage().getName());
 			AlgorithmProfileUtils.OverrideWithOptions(rtn, options);
@@ -355,7 +357,7 @@ abstract public class RuntimeObject extends CObject {
 
 	/**
 	 * Executes Algorithm <i>algo</i>
-	 * 
+	 *
 	 * @param algo the Algorithm to execute
 	 * @throws CelloException
 	 * @throws RuntimeException if <i>algo</i> is invalid
@@ -365,8 +367,8 @@ abstract public class RuntimeObject extends CObject {
 			throw new RuntimeException("Algorithm not found!");
 		} else if (algo != null) {
 			this.getLogger().info("Executing Algorithm: " + algo.getName());
-			algo.execute(this.getNetlist(), this.getTargetData(), this.getNetlistConstraint(), AProfile,
-					this.getRuntimeEnv());
+			algo.execute(this.getNetlist(), this.getTargetData(), this.getNetlistConstraint(), this.AProfile,
+			        this.getRuntimeEnv());
 		} else {
 			this.getLogger().info("No Algorithm Executing!");
 		}
@@ -384,7 +386,7 @@ abstract public class RuntimeObject extends CObject {
 	 * {@link #preprocessing()}<br>
 	 * {@link #runAlgo()}<br>
 	 * {@link #postprocessing()}<br>
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	public void execute() throws CelloException {
