@@ -31,7 +31,7 @@ Run the image, replacing fields surrounded by `<>` with files or directories app
     docker run --rm -i \
     -v <ABSOLUTE_PATH_TO_LOCAL_INPUT_DIRECTORY>:/root/input \
     -v <ABSOLUTE_PATH_TO_LOCAL_OUTPUT_DIRECTORY>:/root/output \
-    -t cidarlab/cello2-dnacompiler:latest \
+    -t cidarlab/cello-dnacompiler:latest \
     java -classpath /root/app.jar org.cellocad.v2.DNACompiler.runtime.Main \
     -inputNetlist /root/input/<VERILOG_FILE_IN_INPUT_DIRECTORY> \
     -options /root/input/<OPTIONS_FILE_IN_INPUT_DIRECTORY> \
@@ -46,7 +46,7 @@ See the `sample-input` directory in this repository for example Verilog files, U
     docker run --rm -i \
     -v /home/foobar/input:/root/input \
     -v /home/foobar/output:/root/output \
-    -t cidarlab/cello2-dnacompiler:latest \
+    -t cidarlab/cello-dnacompiler:latest \
     java -classpath /root/app.jar org.cellocad.v2.DNACompiler.runtime.Main \
     -inputNetlist /root/input/and.v \
     -userConstraintsFile /root/input/Eco1C1G1T1.UCF.json \
