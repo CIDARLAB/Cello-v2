@@ -6,7 +6,7 @@ ARG JAR_FILE
 
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends curl python3
+RUN apt-get install -y --no-install-recommends curl python3 gcc-multilib
 RUN apt-get install -y --no-install-recommends -t buster-backports yosys
 
 RUN cd /root && \
