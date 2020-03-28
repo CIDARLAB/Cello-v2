@@ -5,6 +5,14 @@
             "name": "logicSynthesis"
         },
         {
+            "algorithm_name": "maxFanout",
+            "name": "logicOptimization"
+        },
+        {
+            "algorithm_name": "CL_RC",
+            "name": "clustering"
+        },
+        {
             "algorithm_name": "HMetis",
             "name": "partitioning"
         },
@@ -15,14 +23,6 @@
         {
             "algorithm_name": "Eugene",
             "name": "placing"
-        },
-        {
-            "algorithm_name": "maxFanout",
-            "name": "logicOptimization"
-        },
-        {
-            "algorithm_name": "CL_RC",
-            "name": "clustering"
         },
         {
             "name": "export",
