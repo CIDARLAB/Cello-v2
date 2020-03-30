@@ -30,13 +30,15 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
+import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
+import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.export.runtime.EXRuntimeObject;
-import org.cellocad.v2.export.runtime.environment.EXArgString;
 import org.cellocad.v2.export.runtime.environment.EXRuntimeEnv;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 import org.junit.BeforeClass;
@@ -56,35 +58,38 @@ public class SBOLIT {
 	public static void init() throws IOException, CelloException {
 		Path dir = Files.createTempDirectory("cello_");
 		output = dir.toFile();
-		String[] args = { "-" + EXArgString.INPUTNETLIST, Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
-				"-" + EXArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
-				"-" + EXArgString.INPUTSENSORFILE, Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
-				"-" + EXArgString.OUTPUTDEVICEFILE,
-				Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
-				"-" + EXArgString.ALGORITHMNAME, "SBOL", "-" + EXArgString.OUTPUTDIR, dir.toString(),
-				"-" + EXArgString.PYTHONENV, "python" };
+		String[] args = { "-" + ArgString.INPUTNETLIST, Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
+		        "-" + ArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
+		        "-" + ArgString.INPUTSENSORFILE, Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
+		        "-" + ArgString.OUTPUTDEVICEFILE,
+		        Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
+		        "-" + StageArgString.ALGORITHMNAME, "SBOL", "-" + ArgString.OUTPUTDIR, dir.toString(),
+		        "-" + ArgString.PYTHONENV, "python" };
 		EXRuntimeEnv runEnv = new EXRuntimeEnv(args);
 		runEnv.setName("export");
 		// Read Netlist
-		Netlist netlist = NetlistUtils.getNetlist(runEnv, EXArgString.INPUTNETLIST);
+		Netlist netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
 		// get Stage
-		Stage stage = StageUtils.getStage(runEnv, EXArgString.ALGORITHMNAME);
+		Stage stage = StageUtils.getStage(runEnv, StageArgString.ALGORITHMNAME);
 		stage.setName("export");
-		String stageName = runEnv.getOptionValue(EXArgString.STAGENAME);
+		String stageName = runEnv.getOptionValue(StageArgString.STAGENAME);
 		if (stageName != null) {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, EXArgString.USERCONSTRAINTSFILE,
-				EXArgString.INPUTSENSORFILE, EXArgString.OUTPUTDEVICEFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
+		        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv,
-				EXArgString.NETLISTCONSTRAINTFILE);
+		        ArgString.NETLISTCONSTRAINTFILE);
 		if (netlistConstraint == null) {
 			netlistConstraint = new NetlistConstraint();
 		}
+		// Results
+		File outputDir = new File(runEnv.getOptionValue(ArgString.OUTPUTDIR));
+		Results results = new Results(outputDir);
 		// Execute
-		EX = new EXRuntimeObject(stage, td, netlistConstraint, netlist, runEnv);
+		EX = new EXRuntimeObject(stage, td, netlistConstraint, netlist, results, runEnv);
 		EX.setName("export");
 	}
 

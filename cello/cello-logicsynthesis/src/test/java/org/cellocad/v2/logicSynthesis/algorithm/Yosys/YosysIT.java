@@ -30,19 +30,21 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
+import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
+import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.logicSynthesis.runtime.LSRuntimeObject;
-import org.cellocad.v2.logicSynthesis.runtime.environment.LSArgString;
 import org.cellocad.v2.logicSynthesis.runtime.environment.LSRuntimeEnv;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * Integration test for the {@link Yosys} algorithm.
  *
  * @author Timothy Jones
  *
@@ -59,17 +61,17 @@ public class YosysIT {
 			return;
 		Path dir = Files.createTempDirectory("cello_");
 		this.output = dir.toFile();
-		String[] args = { "-" + LSArgString.INPUTNETLIST, Utils.getResource("and.v").getFile(),
-				"-" + LSArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Bth/Bth1C1G1T1.UCF.json").getFile(),
-				"-" + LSArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Bth/Bth1C1G1T1.input.json").getFile(),
-				"-" + LSArgString.OUTPUTDEVICEFILE,
-				Utils.getResource("lib/output/Bth/Bth1C1G1T1.output.json").getFile(),
-				"-" + LSArgString.ALGORITHMNAME, "Yosys", "-" + LSArgString.OUTPUTDIR, dir.toString(),
-				"-" + LSArgString.PYTHONENV, "python" };
+		String[] args = { "-" + ArgString.INPUTNETLIST, Utils.getResource("and.v").getFile(),
+		        "-" + ArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Bth/Bth1C1G1T1.UCF.json").getFile(),
+		        "-" + ArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Bth/Bth1C1G1T1.input.json").getFile(),
+		        "-" + ArgString.OUTPUTDEVICEFILE,
+		        Utils.getResource("lib/output/Bth/Bth1C1G1T1.output.json").getFile(),
+		        "-" + StageArgString.ALGORITHMNAME, "Yosys", "-" + ArgString.OUTPUTDIR, dir.toString(),
+		        "-" + ArgString.PYTHONENV, "python" };
 		LSRuntimeEnv runEnv = new LSRuntimeEnv(args);
 		runEnv.setName("logicSynthesis");
 		// InputFile
-		String inputFilePath = runEnv.getOptionValue(LSArgString.INPUTNETLIST);
+		String inputFilePath = runEnv.getOptionValue(ArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
 			throw new CelloException("Input file does not exist!");
@@ -79,26 +81,29 @@ public class YosysIT {
 		// Input from User
 		netlist.setInputFilename(inputFilePath);
 		// get Stage
-		Stage stage = StageUtils.getStage(runEnv, LSArgString.ALGORITHMNAME);
+		Stage stage = StageUtils.getStage(runEnv, StageArgString.ALGORITHMNAME);
 		stage.setName("logicSynthesis");
-		String stageName = runEnv.getOptionValue(LSArgString.STAGENAME);
+		String stageName = runEnv.getOptionValue(StageArgString.STAGENAME);
 		if (stageName != null) {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, LSArgString.USERCONSTRAINTSFILE,
-				LSArgString.INPUTSENSORFILE, LSArgString.OUTPUTDEVICEFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
+		        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv,
-				LSArgString.NETLISTCONSTRAINTFILE);
+		        ArgString.NETLISTCONSTRAINTFILE);
 		if (netlistConstraint == null) {
 			netlistConstraint = new NetlistConstraint();
 		}
+		// Results
+		File outputDir = new File(runEnv.getOptionValue(ArgString.OUTPUTDIR));
+		Results results = new Results(outputDir);
 		// Execute
-		LSRuntimeObject LS = new LSRuntimeObject(stage, td, netlistConstraint, netlist, runEnv);
+		LSRuntimeObject LS = new LSRuntimeObject(stage, td, netlistConstraint, netlist, results, runEnv);
 		LS.setName("logicSynthesis");
 		this.LS = LS;
 		initIsDone = true;

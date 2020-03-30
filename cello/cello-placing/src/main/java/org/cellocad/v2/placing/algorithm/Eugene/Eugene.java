@@ -388,7 +388,7 @@ public class Eugene extends PLAlgorithm {
         return rtn;
     }
 
-    private String getResults() {
+    private String getResultsDefinition() {
         String rtn = "";
         rtn += "Array allResults;";
         rtn += Utils.getNewLine() + Utils.getNewLine();
@@ -479,7 +479,7 @@ public class Eugene extends PLAlgorithm {
         // circuit rules
         script += this.getCircuitRules().filter(deviceNames, fenceposts);
         // results
-        script += this.getResults();
+        script += this.getResultsDefinition();
 
         this.setEugeneScript(script);
         Utils.writeToFile(script, this.getEugeneScriptFilename());

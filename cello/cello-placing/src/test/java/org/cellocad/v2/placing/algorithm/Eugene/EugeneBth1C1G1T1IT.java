@@ -30,20 +30,23 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
+import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
+import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.placing.runtime.PLRuntimeObject;
-import org.cellocad.v2.placing.runtime.environment.PLArgString;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * Integration test for the {@link Eugene} algorithm using the Bth1C1G1T1
+ * library.
  *
  * @author Timothy Jones
  *
@@ -60,47 +63,50 @@ public class EugeneBth1C1G1T1IT {
 			return;
 		Path dir = Files.createTempDirectory("cello_");
 		this.output = dir.toFile();
-		String[] args = { "-" + PLArgString.INPUTNETLIST, Utils.getResource("xor_Bth1C1G1T1_TM.netlist.json").getFile(),
-				"-" + PLArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Bth/Bth1C1G1T1.UCF.json").getFile(),
-				"-" + PLArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Bth/Bth1C1G1T1.input.json").getFile(),
-				"-" + PLArgString.OUTPUTDEVICEFILE,
-				Utils.getResource("lib/output/Bth/Bth1C1G1T1.output.json").getFile(),
-				"-" + PLArgString.ALGORITHMNAME, "Eugene",
-				"-" + PLArgString.OUTPUTDIR, dir.toString(), "-" + PLArgString.PYTHONENV, "python" };
+		String[] args = { "-" + ArgString.INPUTNETLIST, Utils.getResource("xor_Bth1C1G1T1_TM.netlist.json").getFile(),
+		        "-" + ArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Bth/Bth1C1G1T1.UCF.json").getFile(),
+		        "-" + ArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Bth/Bth1C1G1T1.input.json").getFile(),
+		        "-" + ArgString.OUTPUTDEVICEFILE,
+		        Utils.getResource("lib/output/Bth/Bth1C1G1T1.output.json").getFile(),
+		        "-" + StageArgString.ALGORITHMNAME, "Eugene",
+		        "-" + ArgString.OUTPUTDIR, dir.toString(), "-" + ArgString.PYTHONENV, "python" };
 		PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
 		runEnv.setName("placing");
 		// InputFile
-		String inputFilePath = runEnv.getOptionValue(PLArgString.INPUTNETLIST);
+		String inputFilePath = runEnv.getOptionValue(ArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
 			throw new CelloException("Input file does not exist!");
 		}
 		// Read Netlist
-		Netlist netlist = NetlistUtils.getNetlist(runEnv, PLArgString.INPUTNETLIST);
+		Netlist netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
 		if (!netlist.isValid()) {
 			throw new CelloException("Netlist is invalid!");
 		}
 		// get Stage
-		Stage stage = StageUtils.getStage(runEnv, PLArgString.ALGORITHMNAME);
+		Stage stage = StageUtils.getStage(runEnv, StageArgString.ALGORITHMNAME);
 		stage.setName("placing");
-		String stageName = runEnv.getOptionValue(PLArgString.STAGENAME);
+		String stageName = runEnv.getOptionValue(StageArgString.STAGENAME);
 		if (stageName != null) {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, PLArgString.USERCONSTRAINTSFILE,
-				PLArgString.INPUTSENSORFILE, PLArgString.OUTPUTDEVICEFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
+		        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv,
-				PLArgString.NETLISTCONSTRAINTFILE);
+		        ArgString.NETLISTCONSTRAINTFILE);
 		if (netlistConstraint == null) {
 			netlistConstraint = new NetlistConstraint();
 		}
+		// Results
+		File outputDir = new File(runEnv.getOptionValue(ArgString.OUTPUTDIR));
+		Results results = new Results(outputDir);
 		// Execute
-		PLRuntimeObject PL = new PLRuntimeObject(stage, td, netlistConstraint, netlist, runEnv);
+		PLRuntimeObject PL = new PLRuntimeObject(stage, td, netlistConstraint, netlist, results, runEnv);
 		PL.setName("placing");
 		this.PL = PL;
 		initIsDone = true;

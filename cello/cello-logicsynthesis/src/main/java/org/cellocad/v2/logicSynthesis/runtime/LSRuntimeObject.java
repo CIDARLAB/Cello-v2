@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.runtime.RuntimeObject;
+import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.target.data.TargetData;
@@ -39,7 +42,7 @@ import org.cellocad.v2.logicSynthesis.algorithm.data.LSNetlistNodeDataFactory;
 import org.cellocad.v2.logicSynthesis.netlist.data.LSStageNetlistData;
 import org.cellocad.v2.logicSynthesis.netlist.data.LSStageNetlistEdgeData;
 import org.cellocad.v2.logicSynthesis.netlist.data.LSStageNetlistNodeData;
-import org.cellocad.v2.logicSynthesis.runtime.environment.LSArgString;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -47,9 +50,10 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 /**
  * The LSRuntimeObject class is the RuntimeObject class for the
  * <i>logicSynthesis</i> stage.
- * 
+ *
  * @author Vincent Mirian
- * 
+ * @author Timothy Jones
+ *
  * @date 2018-05-21
  *
  */
@@ -58,19 +62,21 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Initializes a newly created LSRuntimeObject with its <i>stage</i> set to
 	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
-	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
-	 * 
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, its
+	 * <i>results</i> set to parameter <i>results</i>, and, its <i>runEnv</i> set to
+	 * parameter <i>runEnv</i>.
+	 *
 	 * @param stage             Stage used during execution
 	 * @param targetData        TargetData used during execution
 	 * @param netlistConstraint NetlistConstraint used during execution
 	 * @param netlist           Netlist used during execution
+	 * @param results           Results used during execution
 	 * @param runEnv            RuntimeEnv used during execution
 	 * @throws RuntimeException if any of the parameters are null
 	 */
 	public LSRuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
-			final Netlist netlist, final RuntimeEnv runEnv) {
-		super(stage, targetData, netlistConstraint, netlist, runEnv);
+	        final Netlist netlist, final Results results, final RuntimeEnv runEnv) {
+		super(stage, targetData, netlistConstraint, netlist, results, runEnv);
 	}
 
 	/**
@@ -87,7 +93,7 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Sets the LSStageNetlistData for the logicSynthesis stage in parameter
 	 * <i>netlist</i> <b>Note: this method will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -98,7 +104,7 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Sets the LSStageNetlistNodeData for the logicSynthesis stage in parameter
 	 * <i>node</i> <b>Note: this method will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -109,7 +115,7 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Sets the LSStageNetlistEdgeData for the logicSynthesis stage in parameter
 	 * <i>edge</i> <b>Note: method this will be deprecated in the future.</b>
-	 * 
+	 *
 	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -119,7 +125,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 * 
+	 *
 	 * @param netlist the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -131,7 +137,7 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Sets the NetlistNodeData of the appropriate algorithm in parameter
 	 * <i>node</i>
-	 * 
+	 *
 	 * @param node a node within the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -143,7 +149,7 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Sets the NetlistEdgeData of the appropriate algorithm in parameter
 	 * <i>edge</i>
-	 * 
+	 *
 	 * @param edge an edge within the <i>netlist</i> of this instance
 	 */
 	@Override
@@ -155,18 +161,18 @@ public class LSRuntimeObject extends RuntimeObject {
 	/**
 	 * Returns a string representing the OPTIONS command line argument for the
 	 * logicSynthesis stage
-	 * 
+	 *
 	 * @return a string representing the OPTIONS command line argument for the
 	 *         logicSynthesis stage
 	 */
 	@Override
 	protected String getOptionsString() {
-		return LSArgString.OPTIONS;
+		return ArgString.OPTIONS;
 	}
 
 	/**
 	 * Executes the algorithm of the logicSynthesis stage.
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	@Override
@@ -180,7 +186,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Getter for the LSNetlistDataFactory
-	 * 
+	 *
 	 * @return the LSNetlistDataFactory
 	 */
 	protected LSNetlistDataFactory getNetlistDataFactory() {
@@ -189,7 +195,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Setter for the LSNetlistDataFactory
-	 * 
+	 *
 	 * @param netlistDataFactory the LSNetlistDataFactory
 	 */
 	private void setNetlistDataFactory(final LSNetlistDataFactory netlistDataFactory) {
@@ -198,7 +204,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Getter for the LSNetlistNodeDataFactory
-	 * 
+	 *
 	 * @return the LSNetlistNodeDataFactory
 	 */
 	protected LSNetlistNodeDataFactory getNetlistNodeDataFactory() {
@@ -207,7 +213,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Setter for the LSNetlistNodeDataFactory
-	 * 
+	 *
 	 * @param netlistNodeDataFactory the LSNetlistNodeDataFactory
 	 */
 	private void setNetlistNodeDataFactory(final LSNetlistNodeDataFactory netlistNodeDataFactory) {
@@ -216,7 +222,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Getter for the LSNetlistEdgeDataFactory
-	 * 
+	 *
 	 * @return the LSNetlistEdgeDataFactory
 	 */
 	protected LSNetlistEdgeDataFactory getNetlistEdgeDataFactory() {
@@ -225,7 +231,7 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Setter for the LSNetlistEdgeDataFactor
-	 * 
+	 *
 	 * @param netlistEdgeDataFactory the LSNetlistEdgeDataFactor
 	 */
 	private void setNetlistEdgeDataFactory(final LSNetlistEdgeDataFactory netlistEdgeDataFactory) {
@@ -238,9 +244,10 @@ public class LSRuntimeObject extends RuntimeObject {
 
 	/**
 	 * Returns the Logger instance for the <i>logicSynthesis</i> stage.
-	 * 
+	 *
 	 * @return the Logger instance for the <i>logicSynthesis</i> stage.
 	 */
+	@Override
 	protected Logger getLogger() {
 		return LSRuntimeObject.logger;
 	}

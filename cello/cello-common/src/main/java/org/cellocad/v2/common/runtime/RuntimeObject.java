@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -34,6 +36,7 @@ import org.cellocad.v2.common.profile.AlgorithmProfileUtils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -43,6 +46,7 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * within the Poros framework.
  *
  * @author Vincent Mirian
+ * @author Timothy Jones
  *
  * @date Nov 17, 2017
  *
@@ -53,28 +57,32 @@ abstract public class RuntimeObject extends CObject {
 	/**
 	 * Initializes a newly created RuntimeObject with its <i>stage</i> set to
 	 * parameter <i>stage</i>, its <i>targetData</i> set to parameter
-	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 * its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 * <i>targetData</i>, its <i>netlist</i> set to parameter <i>netlist</i>, its
+	 * <i>results</i> set to parameter <i>results</i>, and, its <i>runEnv</i> set to
+	 * parameter <i>runEnv</i>.
 	 *
 	 * @param stage             Stage used during execution
 	 * @param targetData        TargetData used during execution
 	 * @param netlistConstraint NetlistConstraint used during execution
 	 * @param netlist           Netlist used during execution
+	 * @param results           Results used during execution
 	 * @param runEnv            RuntimeEnv used during execution
 	 * @throws RuntimeException if any of the parameters are null
 	 */
 	public RuntimeObject(final Stage stage, final TargetData targetData, final NetlistConstraint netlistConstraint,
-	        final Netlist netlist, final RuntimeEnv runEnv) {
+	        final Netlist netlist, final Results results, final RuntimeEnv runEnv) {
 		super();
 		Utils.isNullRuntimeException(stage, "stage");
 		Utils.isNullRuntimeException(targetData, "targetData");
 		Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
 		Utils.isNullRuntimeException(netlist, "netlist");
+		Utils.isNullRuntimeException(results, "results");
 		Utils.isNullRuntimeException(runEnv, "runEnv");
 		this.stage = stage;
 		this.targetData = targetData;
 		this.netlistConstraint = netlistConstraint;
 		this.netlist = netlist;
+		this.results = results;
 		this.runEnv = runEnv;
 		this.setName(stage.getName());
 	}
@@ -126,6 +134,15 @@ abstract public class RuntimeObject extends CObject {
 	 */
 	protected Netlist getNetlist() {
 		return this.netlist;
+	}
+
+	/**
+	 * Getter for {@code results}.
+	 *
+	 * @return The value of {@code results}.
+	 */
+	protected Results getResults() {
+		return this.results;
 	}
 
 	/**
@@ -367,8 +384,8 @@ abstract public class RuntimeObject extends CObject {
 			throw new RuntimeException("Algorithm not found!");
 		} else if (algo != null) {
 			this.getLogger().info("Executing Algorithm: " + algo.getName());
-			algo.execute(this.getNetlist(), this.getTargetData(), this.getNetlistConstraint(), this.AProfile,
-			        this.getRuntimeEnv());
+			algo.execute(this.getNetlist(), this.getTargetData(), this.getNetlistConstraint(), this.getResults(),
+			        this.AProfile, this.getRuntimeEnv());
 		} else {
 			this.getLogger().info("No Algorithm Executing!");
 		}
@@ -403,6 +420,7 @@ abstract public class RuntimeObject extends CObject {
 	private final TargetData targetData;
 	private final Netlist netlist;
 	private final NetlistConstraint netlistConstraint;
+	private final Results results;
 	private final RuntimeEnv runEnv;
 	private static final Logger logger = LogManager.getLogger(RuntimeObject.class);
 }

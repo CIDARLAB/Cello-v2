@@ -30,20 +30,22 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraintUtils;
+import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.Stage;
 import org.cellocad.v2.common.stage.StageUtils;
+import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 import org.cellocad.v2.technologyMapping.runtime.TMRuntimeObject;
-import org.cellocad.v2.technologyMapping.runtime.environment.TMArgString;
 import org.cellocad.v2.technologyMapping.runtime.environment.TMRuntimeEnv;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * Integration test for the {@link SimulatedAnnealing} algorithm.
  *
  * @author Timothy Jones
  *
@@ -60,48 +62,51 @@ public class SimulatedAnnealingIT {
 			return;
 		Path dir = Files.createTempDirectory("cello_");
 		this.output = dir.toFile();
-		String[] args = { "-" + TMArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
-				"-" + TMArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-				"-" + TMArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
-				"-" + TMArgString.OUTPUTDEVICEFILE,
-				Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
-				"-" + TMArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + TMArgString.PYTHONENV, "python",
-				"-" + TMArgString.OUTPUTDIR, dir.toString(), "-" + TMArgString.LOGFILENAME,
-				dir.toString() + Utils.getFileSeparator() + "log.log" };
+		String[] args = { "-" + ArgString.INPUTNETLIST, Utils.getResource("and_netlist.json").getFile(),
+		        "-" + ArgString.USERCONSTRAINTSFILE, Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+		        "-" + ArgString.INPUTSENSORFILE, Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+		        "-" + ArgString.OUTPUTDEVICEFILE,
+		        Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
+		        "-" + StageArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + ArgString.PYTHONENV, "python",
+		        "-" + ArgString.OUTPUTDIR, dir.toString(), "-" + ArgString.LOGFILENAME,
+		        dir.toString() + Utils.getFileSeparator() + "log.log" };
 		TMRuntimeEnv runEnv = new TMRuntimeEnv(args);
 		runEnv.setName("technologyMapping");
 		// InputFile
-		String inputFilePath = runEnv.getOptionValue(TMArgString.INPUTNETLIST);
+		String inputFilePath = runEnv.getOptionValue(ArgString.INPUTNETLIST);
 		File inputFile = new File(inputFilePath);
 		if (!(inputFile.exists() && !inputFile.isDirectory())) {
 			throw new CelloException("Input file does not exist!");
 		}
 		// Read Netlist
-		Netlist netlist = NetlistUtils.getNetlist(runEnv, TMArgString.INPUTNETLIST);
+		Netlist netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
 		if (!netlist.isValid()) {
 			throw new CelloException("Netlist is invalid!");
 		}
 		// get Stage
-		Stage stage = StageUtils.getStage(runEnv, TMArgString.ALGORITHMNAME);
+		Stage stage = StageUtils.getStage(runEnv, StageArgString.ALGORITHMNAME);
 		stage.setName("technologyMapping");
-		String stageName = runEnv.getOptionValue(TMArgString.STAGENAME);
+		String stageName = runEnv.getOptionValue(StageArgString.STAGENAME);
 		if (stageName != null) {
 			stage.setName(stageName);
 		}
 		// get TargetData
-		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, TMArgString.USERCONSTRAINTSFILE,
-				TMArgString.INPUTSENSORFILE, TMArgString.OUTPUTDEVICEFILE);
+		TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
+		        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
 		if (!td.isValid()) {
 			throw new CelloException("TargetData is invalid!");
 		}
 		// NetlistConstraint
 		NetlistConstraint netlistConstraint = NetlistConstraintUtils.getNetlistConstraintData(runEnv,
-				TMArgString.NETLISTCONSTRAINTFILE);
+		        ArgString.NETLISTCONSTRAINTFILE);
 		if (netlistConstraint == null) {
 			netlistConstraint = new NetlistConstraint();
 		}
+		// Results
+		File outputDir = new File(runEnv.getOptionValue(ArgString.OUTPUTDIR));
+		Results results = new Results(outputDir);
 		// Execute
-		TMRuntimeObject TM = new TMRuntimeObject(stage, td, netlistConstraint, netlist, runEnv);
+		TMRuntimeObject TM = new TMRuntimeObject(stage, td, netlistConstraint, netlist, results, runEnv);
 		TM.setName("technologyMapiing");
 		this.TM = TM;
 		initIsDone = true;

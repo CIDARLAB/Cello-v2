@@ -1,5 +1,7 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2017-2020
+ * Massachusetts Institute of Technology (MIT)
+ * Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -29,14 +31,16 @@ import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.profile.AlgorithmProfile;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
 import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 
 /**
  * Algorithm class is the base class for all algorithms using the Poros
  * framework.
- * 
+ *
  * @author Vincent Mirian
- * 
+ * @author Timothy Jones
+ *
  * @date Nov 17, 2017
  *
  */
@@ -52,26 +56,29 @@ public abstract class Algorithm extends CObject {
 	 * {@link #preprocessing()}<br>
 	 * {@link #run()}<br>
 	 * {@link #postprocessing()}<br>
-	 * 
+	 *
 	 * @param netlist           Netlist used during execution
 	 * @param targetData        TargetData used during execution
 	 * @param netlistConstraint NetlistConstraint used during execution
+	 * @param results           Results used during execution
 	 * @param AProfile          AlgorithmProfile used during execution
 	 * @param runtimeEnv        RuntimeEnv used during execution
 	 * @throws CelloException
 	 * @throws RuntimeException if any of the parameters are null
 	 */
 	public void execute(final Netlist netlist, final TargetData targetData, final NetlistConstraint netlistConstraint,
-			final AlgorithmProfile AProfile, final RuntimeEnv runtimeEnv) throws CelloException {
+	        final Results results, final AlgorithmProfile AProfile, final RuntimeEnv runtimeEnv) throws CelloException {
 		Utils.isNullRuntimeException(netlist, "netlist");
 		Utils.isNullRuntimeException(targetData, "targetData");
 		Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
+		Utils.isNullRuntimeException(results, "results");
 		Utils.isNullRuntimeException(AProfile, "AProfile");
 		Utils.isNullRuntimeException(runtimeEnv, "runtimeEnv");
 		// init
 		this.setNetlist(netlist);
 		this.setTargetData(targetData);
 		this.setNetlistConstraint(netlistConstraint);
+		this.setResults(results);
 		this.setAlgorithmProfile(AProfile);
 		this.setRuntimeEnv(runtimeEnv);
 		// execute
@@ -90,7 +97,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Setter for <i>netlist</i>
-	 * 
+	 *
 	 * @param netlist the Netlist to set <i>netlist</i>
 	 */
 	private void setNetlist(final Netlist netlist) {
@@ -99,7 +106,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Getter for <i>netlist</i>
-	 * 
+	 *
 	 * @return the Netlist of this instance
 	 */
 	protected Netlist getNetlist() {
@@ -108,7 +115,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Setter for <i>targetData</i>
-	 * 
+	 *
 	 * @param targetData the TargetData to set <i>targetData</i>
 	 */
 	private void setTargetData(final TargetData targetData) {
@@ -117,7 +124,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Getter for <i>targetData</i>
-	 * 
+	 *
 	 * @return the TargetData of this instance
 	 */
 	protected TargetData getTargetData() {
@@ -126,7 +133,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Setter for <i>netlistConstraint</i>
-	 * 
+	 *
 	 * @param netlistConstraint the NetlistConstraint to set
 	 *                          <i>netlistConstraint</i>
 	 */
@@ -136,7 +143,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Getter for <i>netlistConstraint</i>
-	 * 
+	 *
 	 * @return the NetlistConstraint of this instance
 	 */
 	protected NetlistConstraint getNetlistConstraint() {
@@ -144,8 +151,26 @@ public abstract class Algorithm extends CObject {
 	}
 
 	/**
+	 * Getter for {@code results}.
+	 *
+	 * @return The value of {@code results}.
+	 */
+	protected Results getResults() {
+		return this.results;
+	}
+
+	/**
+	 * Setter for {@code results}.
+	 *
+	 * @param results The value to set {@code results}.
+	 */
+	private void setResults(Results results) {
+		this.results = results;
+	}
+
+	/**
 	 * Setter for <i>AProfile</i>
-	 * 
+	 *
 	 * @param AProfile the AlgorithmProfile to set <i>AProfile</i>
 	 */
 	private void setAlgorithmProfile(final AlgorithmProfile AProfile) {
@@ -154,7 +179,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Getter for <i>AProfile</i>
-	 * 
+	 *
 	 * @return the AlgorithmProfile of this instance
 	 */
 	protected AlgorithmProfile getAlgorithmProfile() {
@@ -163,7 +188,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Setter for <i>runtimeEnv</i>
-	 * 
+	 *
 	 * @param runtimeEnv the RuntimeEnv to set <i>runtimeEnv</i>
 	 */
 	private void setRuntimeEnv(final RuntimeEnv runtimeEnv) {
@@ -172,7 +197,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Getter for <i>runtimeEnv</i>
-	 * 
+	 *
 	 * @return the RuntimeEnv of this instance
 	 */
 	protected RuntimeEnv getRuntimeEnv() {
@@ -182,6 +207,7 @@ public abstract class Algorithm extends CObject {
 	private Netlist netlist;
 	private TargetData targetData;
 	private NetlistConstraint netlistConstraint;
+	private Results results;
 	private AlgorithmProfile AProfile;
 	private RuntimeEnv runtimeEnv;
 
@@ -192,7 +218,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Gets the data from the UCF
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	abstract protected void getDataFromUCF() throws CelloException;
@@ -209,28 +235,28 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Perform preprocessing
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	abstract protected void preprocessing() throws CelloException;
 
 	/**
 	 * Run the (core) algorithm
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	abstract protected void run() throws CelloException;
 
 	/**
 	 * Perform postprocessing
-	 * 
+	 *
 	 * @throws CelloException
 	 */
 	abstract protected void postprocessing() throws CelloException;
 
 	/**
 	 * Log parameter <i>str</i> at the Trace level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logTrace(String str) {
@@ -239,7 +265,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Debug level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logDebug(String str) {
@@ -248,7 +274,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Info level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logInfo(String str) {
@@ -257,7 +283,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Warn level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logWarn(String str) {
@@ -266,7 +292,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Error level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logError(String str) {
@@ -275,7 +301,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Log parameter <i>str</i> at the Fatal level
-	 * 
+	 *
 	 * @param str string to log
 	 */
 	protected void logFatal(String str) {
@@ -284,7 +310,7 @@ public abstract class Algorithm extends CObject {
 
 	/**
 	 * Returns the Logger instance for the class
-	 * 
+	 *
 	 * @return the Logger instance for the class
 	 */
 	protected Logger getLogger() {
