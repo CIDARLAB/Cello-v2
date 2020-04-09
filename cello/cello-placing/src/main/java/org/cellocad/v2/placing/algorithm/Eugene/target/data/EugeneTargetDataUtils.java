@@ -22,9 +22,9 @@ package org.cellocad.v2.placing.algorithm.Eugene.target.data;
 
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.target.data.TargetData;
+import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.target.data.data.DeviceRules;
 import org.cellocad.v2.common.target.data.data.GeneticLocation;
-import org.cellocad.v2.common.target.data.placing.CircuitRules;
-import org.cellocad.v2.common.target.data.placing.DeviceRules;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

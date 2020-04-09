@@ -22,11 +22,11 @@
  */
 package org.cellocad.v2.export.algorithm.SBOL.data;
 
-import org.cellocad.v2.common.target.data.component.DNAComponent;
-import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.component.InputSensor;
-import org.cellocad.v2.common.target.data.component.OutputDevice;
-import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.data.DNAComponent;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
 
 /**
  * The SimulatedAnnealingDataUtils is class with utility methods for the data

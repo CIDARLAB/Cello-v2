@@ -18,33 +18,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-01-30
  *
  */
-public class CircuitRulesTest {
+public class FixedParameter extends Parameter {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
 	}
+
+	private void parseValue(final JSONObject JObj) {
+		Double value = ProfileUtils.getDouble(JObj, S_VALUE);
+		this.value = value;
+	}
+
+	private void parseFixedParameter(final JSONObject jObj) {
+		this.parseName(jObj);
+		this.parseValue(jObj);
+	}
+
+	public FixedParameter(final JSONObject jObj) {
+		super(jObj);
+		this.init();
+		this.parseFixedParameter(jObj);
+	}
+
+	@Override
+	public Number evaluate(EvaluationContext ce) {
+		return this.getValue();
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getValue() != null);
+		return rtn;
+	}
+
+	private Double getValue() {
+		return value;
+	}
+
+	private Double value;
+
+	private static final String S_VALUE = "value";
 
 }

@@ -18,33 +18,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-12
  *
  */
-public class CircuitRulesTest {
+public abstract class Evaluatable extends CObject {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	protected final void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_NAME);
+		this.setName(value);
 	}
+
+	public Evaluatable(final JSONObject jObj) {
+		this.parseName(jObj);
+	}
+
+	public Evaluatable() {
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	public abstract Number evaluate(EvaluationContext ec) throws CelloException;
+
+	protected static final String S_NAME = "name";
 
 }

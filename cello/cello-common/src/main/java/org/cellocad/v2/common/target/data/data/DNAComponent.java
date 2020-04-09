@@ -18,33 +18,64 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
+import java.net.URI;
 
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CObject;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-11
  *
  */
-public class CircuitRulesTest {
+public abstract class DNAComponent extends CObject {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
 	}
+
+	private void parseName(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, S_NAME);
+		this.setName(value);
+	}
+
+	private void parseDNAComponent(final JSONObject JObj) {
+		this.init();
+		this.parseName(JObj);
+	}
+
+	public DNAComponent(final JSONObject jObj) {
+		this.parseDNAComponent(jObj);
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	/**
+	 * @return the uri
+	 */
+	public URI getUri() {
+		return uri;
+	}
+
+	/**
+	 * @param uri the uri to set
+	 */
+	public void setUri(final URI uri) {
+		this.uri = uri;
+	}
+
+	private URI uri;
+
+	private static final String S_NAME = "name";
 
 }

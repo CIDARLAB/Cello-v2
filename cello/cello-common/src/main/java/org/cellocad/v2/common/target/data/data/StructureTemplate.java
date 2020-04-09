@@ -18,33 +18,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
-
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
+package org.cellocad.v2.common.target.data.data;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-12
  *
  */
-public class CircuitRulesTest {
+public class StructureTemplate extends StructureObject {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	public StructureTemplate(final String template) {
+		if (!template.startsWith(S_PREFIX)) {
+			throw new RuntimeException("Not a template.");
+		}
+		String str = template.substring(1);
+		this.setName(str);
 	}
+
+	/**
+	 * Getter for <code>input</code>.
+	 *
+	 * @return The value of <code>input</code>.
+	 */
+	public Input getInput() {
+		return input;
+	}
+
+	/**
+	 * Setter for <code>input</code>.
+	 *
+	 * @param input The value to set <code>input</code>.
+	 */
+	public void setInput(Input input) {
+		this.input = input;
+	}
+
+	private Input input;
+
+	public static final String S_PREFIX = "#";
 
 }

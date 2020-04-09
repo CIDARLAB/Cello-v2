@@ -18,33 +18,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-25
  *
  */
-public class CircuitRulesTest {
+public abstract class LookupTableFunction extends Function {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	public LookupTableFunction(JSONObject jObj) {
+		super(jObj);
 	}
+
+	public static final String S_TABLE = "table";
+	public static final String S_OUTPUT = "output";
 
 }

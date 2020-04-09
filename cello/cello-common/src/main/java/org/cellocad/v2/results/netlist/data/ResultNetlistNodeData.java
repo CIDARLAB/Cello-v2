@@ -29,7 +29,7 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.JSON.JSONUtils;
 import org.cellocad.v2.common.application.data.ApplicationNetlistNodeData;
 import org.cellocad.v2.common.profile.ProfileUtils;
-import org.cellocad.v2.common.target.data.component.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.results.clustering.CLResults;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.partitioning.PTResults;

@@ -3,11 +3,6 @@
 	"parameters":
 	[
 		{
-			"name" : "Gates",
-			"type" : "string",
-			"value": "NOR"
-		},
-		{
 			"name" : "NetSynth",
 			"type" : "boolean",
 			"value": true

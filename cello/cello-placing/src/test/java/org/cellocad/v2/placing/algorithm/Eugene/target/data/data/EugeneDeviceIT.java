@@ -24,9 +24,9 @@ import java.io.IOException;
 
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.component.OutputDevice;
-import org.cellocad.v2.common.target.data.model.Structure;
-import org.cellocad.v2.common.target.data.model.StructureDevice;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Structure;
+import org.cellocad.v2.common.target.data.data.StructureDevice;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

@@ -30,7 +30,7 @@ import java.util.Set;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.target.data.component.Gate;
+import org.cellocad.v2.common.target.data.data.Gate;
 
 /**
  * The GateManager class is class managing the gate(s) for the gate assignment in the <i>SimulatedAnnealing</i> algorithm.

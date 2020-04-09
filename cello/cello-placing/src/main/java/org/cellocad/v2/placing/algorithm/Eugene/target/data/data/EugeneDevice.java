@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.model.StructureDevice;
-import org.cellocad.v2.common.target.data.model.StructureObject;
-import org.cellocad.v2.common.target.data.model.StructureTemplate;
+import org.cellocad.v2.common.target.data.data.StructureDevice;
+import org.cellocad.v2.common.target.data.data.StructureObject;
+import org.cellocad.v2.common.target.data.data.StructureTemplate;
 import org.json.simple.JSONObject;
 
 /**

@@ -18,33 +18,61 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-12
  *
  */
-public class CircuitRulesTest {
+public class ParameterReference extends Parameter {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
 	}
+
+	private void parseMap(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
+		this.map = value;
+	}
+
+	private void parseParameterReference(final JSONObject JObj) {
+		this.parseName(JObj);
+		this.parseMap(JObj);
+	}
+
+	public ParameterReference(final JSONObject jObj) {
+		super(jObj);
+		this.init();
+		this.parseParameterReference(jObj);
+	}
+
+	@Override
+	public Number evaluate(EvaluationContext ce) throws CelloException {
+		Number rtn = null;
+		Evaluatable e = ce.dereference(this.getMap());
+		rtn = e.evaluate(ce);
+		return rtn;
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		rtn = rtn && (this.getMap() != null);
+		return rtn;
+	}
+
+	private String getMap() {
+		return map;
+	}
+
+	private String map;
 
 }

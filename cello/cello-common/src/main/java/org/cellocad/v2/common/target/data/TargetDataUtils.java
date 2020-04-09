@@ -34,18 +34,19 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
-import org.cellocad.v2.common.target.data.component.AssignableDevice;
-import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.component.InputSensor;
-import org.cellocad.v2.common.target.data.component.OutputDevice;
-import org.cellocad.v2.common.target.data.component.Part;
-import org.cellocad.v2.common.target.data.model.AnalyticFunction;
-import org.cellocad.v2.common.target.data.model.BivariateLookupTableFunction;
-import org.cellocad.v2.common.target.data.model.Function;
-import org.cellocad.v2.common.target.data.model.LookupTableFunction;
-import org.cellocad.v2.common.target.data.model.Model;
-import org.cellocad.v2.common.target.data.model.Structure;
-import org.cellocad.v2.common.target.data.model.UnivariateLookupTableFunction;
+import org.cellocad.v2.common.target.data.data.AnalyticFunction;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.BivariateLookupTableFunction;
+import org.cellocad.v2.common.target.data.data.Function;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.LogicConstraints;
+import org.cellocad.v2.common.target.data.data.LookupTableFunction;
+import org.cellocad.v2.common.target.data.data.Model;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.Structure;
+import org.cellocad.v2.common.target.data.data.UnivariateLookupTableFunction;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -54,14 +55,23 @@ import org.json.simple.parser.ParseException;
 /**
  * The TargetDataUtils class is class with utility methods for <i>TargetData</i>
  * instances.
- * 
+ *
  * @author Vincent Mirian
  * @author Timothy Jones
- * 
+ *
  * @date Nov 22, 2017
  *
  */
 public class TargetDataUtils {
+
+	private static final String S_PARTS = "parts";
+	private static final String S_FUNCTIONS = "functions";
+	private static final String S_MODELS = "models";
+	private static final String S_STRUCTURES = "structures";
+	private static final String S_GATES = "gates";
+	private static final String S_INPUTSENSORS = "input_sensors";
+	private static final String S_OUTPUTDEVICES = "output_devices";
+	private static final String S_LOGIC_CONSTRAINTS = "logic_constraints";
 
 	public static final CObjectCollection<Part> getParts(final TargetData td) {
 		CObjectCollection<Part> rtn = new CObjectCollection<Part>();
@@ -100,7 +110,7 @@ public class TargetDataUtils {
 	}
 
 	private static void attachFunctions(final JSONObject jObj, final Model model,
-			final CObjectCollection<Function> functions) {
+	        final CObjectCollection<Function> functions) {
 		JSONObject obj = (JSONObject) jObj.get(Model.S_FUNCTIONS);
 		Iterator<?> it = obj.keySet().iterator();
 		while (it.hasNext()) {
@@ -112,7 +122,7 @@ public class TargetDataUtils {
 	}
 
 	public static final CObjectCollection<Model> getModels(final TargetData td,
-			final CObjectCollection<Function> functions) {
+	        final CObjectCollection<Function> functions) {
 		CObjectCollection<Model> rtn = new CObjectCollection<Model>();
 		for (int i = 0; i < td.getNumJSONObject(S_MODELS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_MODELS, i);
@@ -134,21 +144,21 @@ public class TargetDataUtils {
 	}
 
 	private static void attachModel(final JSONObject jObj, final AssignableDevice d,
-			final CObjectCollection<Model> models) {
+	        final CObjectCollection<Model> models) {
 		String name = ProfileUtils.getString(jObj, AssignableDevice.S_MODEL);
 		Model model = models.findCObjectByName(name);
 		d.setModel(model);
 	}
 
 	private static void attachStructure(final JSONObject jObj, final AssignableDevice d,
-			final CObjectCollection<Structure> structures) {
+	        final CObjectCollection<Structure> structures) {
 		String name = ProfileUtils.getString(jObj, AssignableDevice.S_STRUCTURE);
 		Structure structure = structures.findCObjectByName(name);
 		d.setStructure(structure);
 	}
 
 	public static final CObjectCollection<Gate> getGates(final TargetData td, final CObjectCollection<Model> models,
-			final CObjectCollection<Structure> structures) {
+	        final CObjectCollection<Structure> structures) {
 		CObjectCollection<Gate> rtn = new CObjectCollection<Gate>();
 		for (int i = 0; i < td.getNumJSONObject(S_GATES); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_GATES, i);
@@ -163,7 +173,7 @@ public class TargetDataUtils {
 	}
 
 	public static final CObjectCollection<InputSensor> getInputSensors(final TargetData td,
-			final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
+	        final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
 		CObjectCollection<InputSensor> rtn = new CObjectCollection<InputSensor>();
 		for (int i = 0; i < td.getNumJSONObject(S_INPUTSENSORS); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_INPUTSENSORS, i);
@@ -178,7 +188,7 @@ public class TargetDataUtils {
 	}
 
 	public static final CObjectCollection<OutputDevice> getOutputDevices(final TargetData td,
-			final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
+	        final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
 		CObjectCollection<OutputDevice> rtn = new CObjectCollection<OutputDevice>();
 		for (int i = 0; i < td.getNumJSONObject(S_OUTPUTDEVICES); i++) {
 			JSONObject jObj = td.getJSONObjectAtIdx(S_OUTPUTDEVICES, i);
@@ -189,6 +199,19 @@ public class TargetDataUtils {
 			attachStructure(jObj, device, structures);
 			rtn.add(device);
 		}
+		return rtn;
+	}
+
+	/**
+	 * Get the logic constraints section of the target data.
+	 *
+	 * @param td The target data.
+	 * @return The logic constraints.
+	 */
+	public static LogicConstraints getLogicConstraints(TargetData td) {
+		LogicConstraints rtn = null;
+		JSONObject jObj = td.getJSONObjectAtIdx(S_LOGIC_CONSTRAINTS, 0);
+		rtn = new LogicConstraints(jObj);
 		return rtn;
 	}
 
@@ -223,7 +246,7 @@ public class TargetDataUtils {
 	/**
 	 * Initializes a newly created TargetData using the RuntimeEnv, <i>runEnv</i>,
 	 * and strings referencing command line arguments.
-	 * 
+	 *
 	 * @param runEnv                    the RuntimeEnv
 	 * @param userConstraintsFileOption the string referencing command line argument
 	 *                                  for the User Constraints File
@@ -235,7 +258,7 @@ public class TargetDataUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static final TargetData getTargetTargetData(final RuntimeEnv runEnv, final String userConstraintsFileOption,
-			final String inputSensorFileOption, final String outputDeviceFileOption) {
+	        final String inputSensorFileOption, final String outputDeviceFileOption) {
 		Utils.isNullRuntimeException(runEnv, "runEnv");
 		Utils.isNullRuntimeException(userConstraintsFileOption, "userConstraintsFileOption");
 		TargetData rtn = null;
@@ -255,16 +278,8 @@ public class TargetDataUtils {
 		jsonTop.addAll(inputSensorJson);
 		jsonTop.addAll(outputDeviceJson);
 		// Create TargetData object
-	    rtn = new TargetData(jsonTop);
-	    return rtn;
+		rtn = new TargetData(jsonTop);
+		return rtn;
 	}
-
-	private static final String S_PARTS = "parts";
-	private static final String S_FUNCTIONS = "functions";
-	private static final String S_MODELS = "models";
-	private static final String S_STRUCTURES = "structures";
-	private static final String S_GATES = "gates";
-	private static final String S_INPUTSENSORS = "input_sensors";
-	private static final String S_OUTPUTDEVICES = "output_devices";
 
 }

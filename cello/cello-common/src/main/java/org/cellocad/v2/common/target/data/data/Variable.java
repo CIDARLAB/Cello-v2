@@ -18,33 +18,65 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.profile.ProfileUtils;
+import org.cellocad.v2.results.netlist.NetlistNode;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
  *
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2020-02-12
  *
  */
-public class CircuitRulesTest {
+public class Variable extends Evaluatable {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	private void init() {
 	}
+
+	private void parseMap(final JSONObject JObj) {
+		String value = ProfileUtils.getString(JObj, Reference.S_MAP);
+		this.map = value;
+	}
+
+	private void parseVariable(final JSONObject JObj) {
+		this.parseName(JObj);
+		this.parseMap(JObj);
+	}
+
+	public Variable(JSONObject jObj) {
+		super(jObj);
+		this.init();
+		this.parseVariable(jObj);
+	}
+
+	@Override
+	public Number evaluate(EvaluationContext ec) throws CelloException {
+		Number rtn = null;
+		NetlistNode node = ec.getNode();
+		Evaluatable e = ec.dereference(this.getMap());
+		if (e == null)
+			throw new RuntimeException("Dereference failed.");
+		rtn = e.evaluate(ec);
+		ec.setNode(node);
+		return rtn;
+	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getName() != null);
+		return rtn;
+	}
+
+	private String getMap() {
+		return map;
+	}
+
+	private String map;
 
 }

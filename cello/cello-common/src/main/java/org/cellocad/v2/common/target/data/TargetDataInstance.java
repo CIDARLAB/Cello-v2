@@ -23,14 +23,15 @@ package org.cellocad.v2.common.target.data;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
-import org.cellocad.v2.common.target.data.component.AssignableDevice;
-import org.cellocad.v2.common.target.data.component.Gate;
-import org.cellocad.v2.common.target.data.component.InputSensor;
-import org.cellocad.v2.common.target.data.component.OutputDevice;
-import org.cellocad.v2.common.target.data.component.Part;
-import org.cellocad.v2.common.target.data.model.Function;
-import org.cellocad.v2.common.target.data.model.Model;
-import org.cellocad.v2.common.target.data.model.Structure;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.Function;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.LogicConstraints;
+import org.cellocad.v2.common.target.data.data.Model;
+import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.common.target.data.data.Structure;
 
 /**
  * The {@code TargetDataInstance} class is a represetation of the target data in
@@ -45,7 +46,14 @@ import org.cellocad.v2.common.target.data.model.Structure;
  */
 public class TargetDataInstance extends CObject {
 
+	private LogicConstraints logicConstraints;
+	private CObjectCollection<Part> parts;
+	private CObjectCollection<Gate> gates;
+	private CObjectCollection<InputSensor> inputSensors;
+	private CObjectCollection<OutputDevice> outputDevices;
+
 	public TargetDataInstance(final TargetData td) throws CelloException {
+		this.logicConstraints = TargetDataUtils.getLogicConstraints(td);
 		CObjectCollection<Function> functions = TargetDataUtils.getFunctions(td);
 		CObjectCollection<Model> models = TargetDataUtils.getModels(td, functions);
 		CObjectCollection<Structure> structures = TargetDataUtils.getStructures(td);
@@ -58,6 +66,7 @@ public class TargetDataInstance extends CObject {
 	@Override
 	public boolean isValid() {
 		boolean rtn = super.isValid();
+		rtn = rtn && (this.getLogicConstraints() != null && this.getLogicConstraints().isValid());
 		rtn = rtn && (this.getParts() != null && this.getParts().isValid());
 		rtn = rtn && (this.getGates() != null && this.getGates().isValid());
 		rtn = rtn && (this.getInputSensors() != null && this.getInputSensors().isValid());
@@ -79,15 +88,22 @@ public class TargetDataInstance extends CObject {
 	}
 
 	/**
+	 * Getter for {@code logicConstraints}.
+	 *
+	 * @return The value of {@code logicConstraints}.
+	 */
+	public LogicConstraints getLogicConstraints() {
+		return this.logicConstraints;
+	}
+
+	/**
 	 * Getter for <i>parts</i>.
 	 *
 	 * @return value of parts
 	 */
 	public CObjectCollection<Part> getParts() {
-		return parts;
+		return this.parts;
 	}
-
-	private CObjectCollection<Part> parts;
 
 	/**
 	 * Getter for <i>gates</i>.
@@ -95,10 +111,8 @@ public class TargetDataInstance extends CObject {
 	 * @return value of gates
 	 */
 	public CObjectCollection<Gate> getGates() {
-		return gates;
+		return this.gates;
 	}
-
-	private CObjectCollection<Gate> gates;
 
 	/**
 	 * Getter for <i>inputSensors</i>.
@@ -106,14 +120,8 @@ public class TargetDataInstance extends CObject {
 	 * @return value of inputSensors
 	 */
 	public CObjectCollection<InputSensor> getInputSensors() {
-		return inputSensors;
+		return this.inputSensors;
 	}
-
-	public void setInputSensors(CObjectCollection<InputSensor> inputSensors) {
-		this.inputSensors = inputSensors;
-	}
-
-	private CObjectCollection<InputSensor> inputSensors;
 
 	/**
 	 * Getter for <i>outputDevices</i>.
@@ -121,9 +129,7 @@ public class TargetDataInstance extends CObject {
 	 * @return value of outputDevices
 	 */
 	public CObjectCollection<OutputDevice> getOutputDevices() {
-		return outputDevices;
+		return this.outputDevices;
 	}
-
-	private CObjectCollection<OutputDevice> outputDevices;
 
 }

@@ -31,7 +31,7 @@ import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.graph.algorithm.SinkDFS;
-import org.cellocad.v2.common.target.data.model.EvaluationContext;
+import org.cellocad.v2.common.target.data.data.EvaluationContext;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;

@@ -23,8 +23,8 @@ package org.cellocad.v2.export.algorithm.SBOL;
 import java.net.URI;
 import java.util.Set;
 
-import org.cellocad.v2.common.target.data.component.AssignableDevice;
-import org.cellocad.v2.common.target.data.component.Part;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.Part;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;

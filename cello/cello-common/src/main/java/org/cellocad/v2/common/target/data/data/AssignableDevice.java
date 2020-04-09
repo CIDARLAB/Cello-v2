@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Boston University (BU)
+ * Copyright (C) 2018 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,33 +18,73 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.cellocad.v2.common.target.data.placing;
+package org.cellocad.v2.common.target.data.data;
 
-import java.io.IOException;
-
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
 
 /**
- *
+ * 
  *
  * @author Timothy Jones
  *
- * @date 2020-01-08
+ * @date 2018-06-29
  *
  */
-public class CircuitRulesTest {
+public abstract class AssignableDevice extends DNAComponent {
 
-	@Test
-	public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-		String str = Utils.getResourceAsString("rules.json");
-		JSONParser parser = new JSONParser();
-		JSONObject obj = (JSONObject) parser.parse(str);
-		CircuitRules rules = new CircuitRules(obj);
+	public AssignableDevice(final JSONObject jObj) {
+		super(jObj);
 	}
+
+	@Override
+	public boolean isValid() {
+		boolean rtn = super.isValid();
+		rtn = rtn && (this.getModel() != null);
+		rtn = rtn && (this.getStructure() != null);
+		return rtn;
+	}
+
+	/**
+	 * Getter for <i>model</i>.
+	 *
+	 * @return value of model
+	 */
+	public Model getModel() {
+		return model;
+	}
+
+	/**
+	 * Setter for <i>model</i>.
+	 *
+	 * @param model the model to set
+	 */
+	public void setModel(final Model model) {
+		this.model = model;
+	}
+
+	private Model model;
+
+	/**
+	 * Getter for <i>structure</i>.
+	 *
+	 * @return value of structure
+	 */
+	public Structure getStructure() {
+		return structure;
+	}
+
+	/**
+	 * Setter for <i>structure</i>.
+	 *
+	 * @param structure the structure to set
+	 */
+	public void setStructure(Structure structure) {
+		this.structure = structure;
+	}
+
+	private Structure structure;
+
+	public static final String S_MODEL = "model";
+	public static final String S_STRUCTURE = "structure";
 
 }

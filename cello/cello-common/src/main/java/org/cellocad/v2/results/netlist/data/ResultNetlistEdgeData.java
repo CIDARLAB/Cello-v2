@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.cellocad.v2.common.application.data.ApplicationNetlistEdgeData;
-import org.cellocad.v2.common.target.data.model.Input;
+import org.cellocad.v2.common.target.data.data.Input;
 import org.json.simple.JSONObject;
 
 /**
