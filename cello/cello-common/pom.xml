@@ -12,6 +12,19 @@
   <properties>
     <stage.name>common</stage.name>
   </properties>
+  <repositories>
+    <repository>
+      <id>sonatypeSnapshots</id>
+      <name>Sonatype Snapshots</name>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -72,6 +85,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.10.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sbolstandard</groupId>
+      <artifactId>libSBOLj</artifactId>
+      <version>2.4.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
