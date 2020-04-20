@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2018 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2020 Boston University (BU)
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,90 +22,96 @@
 package org.cellocad.v2.results.logicSynthesis;
 
 /**
- * The LSResults class is class containing the results assigned by the <i>logicSynthesis</i> stage.
- * 
+ * The LSResults class is class containing the results assigned by the
+ * <i>logicSynthesis</i> stage.
+ *
  * @author Vincent Mirian
- * 
+ * @author Timothy Jones
+ *
  * @date 2018-05-21
  *
  */
 public class LSResults {
 
 	/**
-	 *  S_DEFAULT: value for LSResults
+	 * S_DEFAULT: value for LSResults
 	 */
 	static public final String S_DEFAULT = "";
 	/**
-	 *  S_PRIMARYINPUT: value for LSResults
+	 * S_PRIMARYINPUT: value for LSResults
 	 */
 	static public final String S_PRIMARYINPUT = "PRIMARY_INPUT";
 	/**
-	 *  S_PRIMARYOUTPUT: value for LSResults
+	 * S_PRIMARYOUTPUT: value for LSResults
 	 */
 	static public final String S_PRIMARYOUTPUT = "PRIMARY_OUTPUT";
 	/**
-	 *  S_INPUT: value for LSResults
+	 * S_INPUT: value for LSResults
 	 */
 	static public final String S_INPUT = "INPUT";
 	/**
-	 *  S_OUTPUT: value for LSResults
+	 * S_OUTPUT: value for LSResults
 	 */
 	static public final String S_OUTPUT = "OUTPUT";
 	/**
-	 *  S_NOT: value for LSResults
+	 * S_NOT: value for LSResults
 	 */
 	static public final String S_NOT = "NOT";
 	/**
-	 *  S_AND: value for LSResults
+	 * S_AND: value for LSResults
 	 */
 	static public final String S_AND = "AND";
 	/**
-	 *  S_NAND: value for LSResults
+	 * S_NAND: value for LSResults
 	 */
 	static public final String S_NAND = "NAND";
 	/**
-	 *  S_OR: value for LSResults
+	 * S_OR: value for LSResults
 	 */
 	static public final String S_OR = "OR";
 	/**
-	 *  S_NOR: value for LSResults
+	 * S_NOR: value for LSResults
 	 */
 	static public final String S_NOR = "NOR";
 	/**
-	 *  S_XOR: value for LSResults
+	 * S_XOR: value for LSResults
 	 */
 	static public final String S_XOR = "XOR";
 	/**
-	 *  S_XNOR: value for LSResults
+	 * S_XNOR: value for LSResults
 	 */
 	static public final String S_XNOR = "XNOR";
 	/**
-	 *  S_ANDNOT: value for LSResults
+	 * S_ANDNOT: value for LSResults
 	 */
 	static public final String S_ANDNOT = "ANDNOT";
 	/**
-	 *  S_ORNOT: value for LSResults
+	 * S_ORNOT: value for LSResults
 	 */
 	static public final String S_ORNOT = "ORNOT";
 	/**
-	 *  S_MUX: value for LSResults
+	 * S_MUX: value for LSResults
 	 */
 	static public final String S_MUX = "MUX";
 	/**
-	 *  S_AOI3: value for LSResults
+	 * S_AOI3: value for LSResults
 	 */
 	static public final String S_AOI3 = "AOI3";
 	/**
-	 *  S_OAI3: value for LSResults
+	 * S_OAI3: value for LSResults
 	 */
 	static public final String S_OAI3 = "OAI3";
 	/**
-	 *  S_AOI4: value for LSResults
+	 * S_AOI4: value for LSResults
 	 */
 	static public final String S_AOI4 = "AOI4";
 	/**
-	 *  S_OAI4: value for LSResults
+	 * S_OAI4: value for LSResults
 	 */
 	static public final String S_OAI4 = "OAI4";
-	
+	/*
+	 * S_BUF: value for LSResults
+	 */
+	public static final String S_BUF = "BUF";
+
 }
