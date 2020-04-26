@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import org.cellocad.v2.common.Utils;
 import org.json.simple.JSONArray;
@@ -175,7 +176,7 @@ public class CircuitRules extends AbstractRules {
 
     public String filter(Collection<String> devices, Collection<String> fenceposts) {
         this.parseCircuitRules(this.getJson(), devices, fenceposts);
-        return String.join(Utils.getNewLine(), this.getRules());
+        return String.join(Utils.getNewLine(), this.getRules().stream().limit(1).collect(Collectors.toList()));
     }
 
 //	public String toString() {

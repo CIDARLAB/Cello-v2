@@ -393,11 +393,13 @@ public class Eugene extends PLAlgorithm {
         rtn += "Array allResults;";
         rtn += Utils.getNewLine() + Utils.getNewLine();
         int j = 0;
-        final String fmt = "for(num i%d = 0; i%d < sizeof(%s_devices); i%d = i%d + 1) {";
+        // final String fmt = "for(num i%d = 0; i%d < sizeof(%s_devices); i%d = i%d + 1) {";
+        final String fmt = "for(num i%d = 0; i%d < 1; i%d = i%d + 1) {";
         for (Collection<StructureDevice> devices : this.getDevicesMap().values()) {
             for (StructureDevice d : devices) {
                 j++;
-                rtn += String.format(fmt, j, j, d.getName(), j, j);
+                // rtn += String.format(fmt, j, j, d.getName(), j, j);
+                rtn += String.format(fmt, j, j, j, j);
                 rtn += Utils.getNewLine();
             }
         }
