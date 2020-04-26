@@ -44,12 +44,12 @@ public class Dot2Pdf {
 		String fileName = file.getName();
 		String baseName = Utils.getFilename(fileName);
 		String parentPath = file.getAbsoluteFile().getParent();
-		rtn = new File(parentPath + Utils.getFileSeparator() + baseName + ".pdf");
+		rtn = new File(parentPath + Utils.getFileSeparator() + baseName + ".png");
 		String command = "dot";
 		if (Utils.isWin()) {
 			command += ".exe";
 		}
-		command += " -Tpdf " + file.getAbsolutePath() + " -o " + rtn.getAbsolutePath();
+		command += " -Tpng " + file.getAbsolutePath() + " -o " + rtn.getAbsolutePath();
 		ExecCommand proc = Utils.executeAndWaitForCommand(command);
 		String error = proc.getError();
 		if (!error.equals("")) {
