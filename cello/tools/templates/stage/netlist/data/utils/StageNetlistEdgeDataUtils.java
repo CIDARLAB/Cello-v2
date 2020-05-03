@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,24 +25,21 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.netlist.data.##NONC
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeDataUtils class is class with utility methods for ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData instances in the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeDataUtils {
 
 	/**
-	 * Resets the stage data for all edges in the netlist instance defined by parameter <i>netlist</i>
+	 * Resets the stage data for all edges in the netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 *
+	 * @param netlist The {@link Netlist}.
 	 */
-	static public void resetStageNetlistEdgeData(Netlist netlist){
+	public static void resetStageNetlistEdgeData(Netlist netlist){
 		for (int i = 0; i < netlist.getNumEdge(); i++) {
 			NetlistEdge edge = netlist.getEdgeAtIdx(i);
 			##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeDataUtils.resetStageNetlistEdgeData(edge);
@@ -49,14 +47,14 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeDataUtils {
 	}
 
 	/**
-	 * Resets the stage data for a NetlistEdge instance
+	 * Resets the stage data for a NetlistEdge instance.
 	 *
-	 * @param edge the NetlistEdge
-	 *
+	 * @param edge The {@link NetlistEdge}.
 	 */
-	static public void resetStageNetlistEdgeData(NetlistEdge edge){
+	public static void resetStageNetlistEdgeData(NetlistEdge edge){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData data = new ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData();
 		edge.setStageNetlistEdgeData(data);
 	}
 	
+
 }

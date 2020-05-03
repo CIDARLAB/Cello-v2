@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,8 +29,8 @@ import org.cellocad.cello2.common.algorithm.data.NetlistEdgeData;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public abstract class ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData extends NetlistEdgeData{
 	
+
 }

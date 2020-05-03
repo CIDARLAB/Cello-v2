@@ -5,9 +5,8 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Copy of Google Checks
-    Description: 
-Checkstyle configuration that checks the Google coding conventions from Google Java Style that can be found at https://google.github.io/styleguide/javaguide.html.
+    Checkstyle-Configuration: Cello + Google Checks
+    Description: none
 -->
 <module name="Checker">
   <property name="severity" value="warning"/>
@@ -100,22 +99,18 @@ Checkstyle configuration that checks the Google coding conventions from Google J
       <property name="tokens" value="METHOD_REF"/>
     </module>
     <module name="PackageName">
-      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+      <property name="format" value="^[a-z]+(\.[a-zA-Z0-9_]*)*$"/>
       <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="TypeName">
-      <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
+      <property name="format" value="^[A-Z][a-zA-Z0-9_]*$"/>
       <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="MemberName">
-      <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
       <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="ParameterName">
-	  <!-- Cello edit -->
-	  <!-- Allow names like wType -->
-      <!-- <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/> -->
-	  <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$"/>
+      <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$"/>
       <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LambdaParameterName">
@@ -155,14 +150,11 @@ Checkstyle configuration that checks the Google coding conventions from Google J
       <property name="caseIndent" value="2"/>
     </module>
     <module name="AbbreviationAsWordInName">
-      <property name="allowedAbbreviationLength" value="1"/>
+      <property name="allowedAbbreviationLength" value="2"/>
       <property name="ignoreFinal" value="false"/>
-      <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,                     PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF"/>
     </module>
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance">
-	  <!-- Cello edit -->
-	  <!-- 'rtn' declaration is usually the first line in the method. Ignore distance. -->
       <property name="ignoreVariablePattern" value="(^rtn$)"/>
     </module>
     <module name="CustomImportOrder">
@@ -229,9 +221,6 @@ Checkstyle configuration that checks the Google coding conventions from Google J
     <module name="CommentsIndentation">
       <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
     </module>
-    <!-- <module name="SuppressionXpathFilter"> -->
-    <!--   <property name="file" value="${org.checkstyle.google.suppressionxpathfilter.config}"/> -->
-    <!-- </module> -->
   </module>
   <module name="BeforeExecutionExclusionFileFilter">
     <property name="fileNamePattern" value="module\-info\.java$"/>
@@ -246,6 +235,6 @@ Checkstyle configuration that checks the Google coding conventions from Google J
   <module name="LineLength">
     <property name="fileExtensions" value="java"/>
     <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
-    <property name="max" value="100"/>
+    <property name="max" value="20000"/>
   </module>
 </module>

@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,15 +29,14 @@ import org.cellocad.cello2.common.algorithm.data.NetlistEdgeDataFactory;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory extends NetlistEdgeDataFactory<##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData>{
 
 	/**
-	 *  Returns the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData that has the same name as the parameter <i>name</i> within the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory
+	 *  Returns the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData that has the same name as the parameter {@code name} within the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory
 	 *  
-	 *  @param name string used for searching this instance
-	 *  @return the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData instance if the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData exists within the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory, otherwise null
+	 *  @param name string used for searching this instance.
+	 *  @return The ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData instance if the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData exists within the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory, otherwise null.
 	 */
 	@Override
 	protected ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData getNetlistEdgeData(final String name) {
@@ -44,4 +44,5 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory extends N
 		return rtn;
 	}
 	
+
 }

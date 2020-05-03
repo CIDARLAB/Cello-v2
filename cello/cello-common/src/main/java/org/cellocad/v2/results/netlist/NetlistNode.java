@@ -1,32 +1,30 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.cellocad.v2.results.netlist;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.JSON.JSONUtils;
 import org.cellocad.v2.common.algorithm.data.NetlistNodeData;
 import org.cellocad.v2.common.graph.graph.VertexTemplate;
+import org.cellocad.v2.common.json.JsonUtils;
 import org.cellocad.v2.common.netlist.data.StageNetlistNodeData;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
@@ -34,255 +32,273 @@ import org.cellocad.v2.results.netlist.data.ResultNetlistNodeData;
 import org.json.simple.JSONObject;
 
 /**
- * The NetlistNode class is a class representing the node(s) of the  project.
- * 
- * @author Vincent Mirian
- * 
- * @date 2018-05-21
+ * The NetlistNode class is a class representing the node(s) of the project.
  *
+ * @author Vincent Mirian
+ *
+ * @date 2018-05-21
  */
-public class NetlistNode extends VertexTemplate<NetlistEdge>{
+public class NetlistNode extends VertexTemplate<NetlistEdge> {
 
-	private void setDefault() {
-		this.setResultNetlistNodeData(new ResultNetlistNodeData());
-	}
+  private void setDefault() {
+    setResultNetlistNodeData(new ResultNetlistNodeData());
+  }
 
-	/**
-	 *  Initializes a newly created NetlistNode 
-	 */
-	public NetlistNode(){
-		super();
-		this.setDefault();
-	}
+  /**
+   * Initializes a newly created {@link NetlistNode}.
+   */
+  public NetlistNode() {
+    super();
+    setDefault();
+  }
 
-	/**
-	 *  Initializes a newly created NetlistNode with its contents set to those of <i>other</i>.
-	 *  
-	 *  @param other the other NetlistNode
-	 */
-	public NetlistNode(final NetlistNode other){
-		super(other);
-		this.setDefault();
-		this.setResultNetlistNodeData(new ResultNetlistNodeData(other.getResultNetlistNodeData()));
-	}
+  /**
+   * Initializes a newly created {@link NetlistNode} with its contents set to those of parameter
+   * {@code other}.
+   *
+   * @param other The other NetlistNode.
+   */
+  public NetlistNode(final NetlistNode other) {
+    super(other);
+    setDefault();
+    setResultNetlistNodeData(new ResultNetlistNodeData(other.getResultNetlistNodeData()));
+  }
 
-	/**
-	 *  Initializes a newly created NetlistNode using the parameter <i>JObj</i>.
-	 *  
-	 *  @param JObj the JavaScript Object Notation (JSON) representation of the NetlistNode Object
-	 */
-	public NetlistNode(final JSONObject JObj){
-		this();
-		this.parse(JObj);
-	}
+  /**
+   * Initializes a newly created {@link NetlistNode} using the parameter {@code jsonObj}.
+   *
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link NetlistNode}
+   *                object.
+   */
+  public NetlistNode(final JSONObject jsonObj) {
+    this();
+    parse(jsonObj);
+  }
 
-	/*
-	 * Parse
-	 */
-	private void parseName(final JSONObject JObj){
-		String name = ProfileUtils.getString(JObj, "name");
-		if (name != null) {
-			this.setName(name);
-		}
-	}
-	
-	private void parse(final JSONObject JObj){
-    	this.parseName(JObj);
-    	this.getResultNetlistNodeData().parse(JObj);
-	}
-	
-	/*
-	 * Inherit
-	 */
-	/**
-	 *  Adds this instance to the source node of the NetlistEdge defined by parameter <i>e</i>
-	 *  
-	 *  @param e the NetlistEdge
-	 */
-	@Override
-	protected void addMeToSrc(final NetlistEdge e) {
-		e.setSrc(this);
-	}
+  /*
+   * Parse
+   */
+  private void parseName(final JSONObject jsonObj) {
+    final String name = ProfileUtils.getString(jsonObj, "name");
+    if (name != null) {
+      setName(name);
+    }
+  }
 
-	/**
-	 *  Adds this instance to the destination node of the NetlistEdge defined by parameter <i>e</i>
-	 *  
-	 *  @param e the NetlistEdge
-	 */
-	@Override
-	protected void addMeToDst(final NetlistEdge e) {
-		e.setDst(this);
-	}
+  private void parse(final JSONObject jsonObj) {
+    parseName(jsonObj);
+    getResultNetlistNodeData().parse(jsonObj);
+  }
 
-	/**
-	 *  Return a newly created NetlistEdge with its contents set to those of parameter <i>e</i>.
-	 *  
-	 *  @param e the other NetlistEdge
-	 *  @return a newly created NetlistEdge with its contents set to those of parameter <i>e</i>.
-	 */
-	@Override
-	public NetlistEdge createT(final NetlistEdge e) {
-		NetlistEdge rtn = null;
-		rtn = new NetlistEdge(e);
-		return rtn;
-	}
+  /*
+   * Inherit
+   */
+  /**
+   * Adds this instance to the source node of the {@link NetlistEdge} defined by parameter
+   * {@code e}.
+   *
+   * @param e The {@link NetlistEdge}.
+   */
+  @Override
+  protected void addMeToSrc(final NetlistEdge e) {
+    e.setSrc(this);
+  }
 
-	/*
-	 * Write
-	 */	
-	/**
-	 *  Returns a string containing the header in JSON format of this instance
-	 *  @return a string containing the header in JSON format of this instance
-	 */
-	protected String getJSONHeader(){	
-		String rtn = "";
-		// name
-		rtn += JSONUtils.getEntryToString("name", this.getName());
-		return rtn;
-	}
+  /**
+   * Adds this instance to the destination node of the {@link NetlistEdge} defined by parameter
+   * {@code e}.
+   *
+   * @param e The {@link NetlistEdge}.
+   */
+  @Override
+  protected void addMeToDst(final NetlistEdge e) {
+    e.setDst(this);
+  }
 
-	/**
-	 *  Returns a string containing the footer in JSON format of this instance
-	 *  @return a string containing the footer in JSON format of this instance
-	 */
-	protected String getJSONFooter(){	
-		String rtn = "";
-		return rtn;
-	}
+  /**
+   * Return a newly created {@link NetlistEdge} object with its contents set to those of parameter
+   * {@code e}.
+   *
+   * @param e The other {@link NetlistEdge}.
+   * @return A newly created {@link NetlistEdge} object with its contents set to those of parameter
+   *         {@code e}.
+   */
+  @Override
+  public NetlistEdge createT(final NetlistEdge e) {
+    NetlistEdge rtn = null;
+    rtn = new NetlistEdge(e);
+    return rtn;
+  }
 
-	/**
-	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
-	 *  @param indent the number of indents
-	 *  @param os the writer
-	 *  @throws IOException If an I/O error occurs
-	 */
-	public void writeJSON(int indent, final Writer os) throws IOException {
-		String str = null;
-		//header
-		str = this.getJSONHeader();
-		str = JSONUtils.addIndent(indent, str);
-		os.write(str);
-		// data
-		this.getResultNetlistNodeData().writeJSON(indent, os);
-		/*StageNetlistNodeData sdata = this.getStageNetlistNodeData();
-		if (sdata != null) {
-			sdata.writeJSON(indent, os);
-		}
-		NetlistNodeData data = this.getNetlistNodeData();
-		if (data != null) {
-			data.writeJSON(indent, os);
-		}*/
-		//footer
-		str = this.getJSONFooter();
-		str = JSONUtils.addIndent(indent, str);
-		os.write(str);
-	}
+  /*
+   * Write
+   */
+  /**
+   * Returns a string containing the header in JSON format of this instance.
+   *
+   * @return A string containing the header in JSON format of this instance.
+   */
+  protected String getJsonHeader() {
+    String rtn = "";
+    // name
+    rtn += JsonUtils.getEntryToString("name", getName());
+    return rtn;
+  }
 
-	/*
-	 * dot file
-	 */
-	/**
-	 * Returns a string representing the shape of this instance in DOT (graph description language) format
-	 * 
-	 * @return a string representing the shape of this instance in DOT (graph description language) format
-	 */
-	@Override
-	protected String getShape(){
-		String rtn = "";
-		rtn = "circle";
-		if (
-				(this.getResultNetlistNodeData().getPartitionID() < 0)
-			){
-			rtn = "octagon";
-		}
-		if (!(LSResultsUtils.isAllInput(this) || LSResultsUtils.isAllOutput(this))) {
-			rtn = "box";
-		}
-		return rtn;
-	}
+  /**
+   * Returns a string containing the footer in JSON format of this instance.
+   *
+   * @return A string containing the footer in JSON format of this instance.
+   */
+  protected String getJsonFooter() {
+    final String rtn = "";
+    return rtn;
+  }
 
-	/**
-	 * Returns a string containing this instance in DOT (graph description language) format
-	 * 
-	 * @return a string containing this instance in DOT (graph description language) format
-	 */
-	@Override
-	protected String getData(){
-		String rtn = "";
-		// strip
-		rtn += super.getData();
-		rtn = rtn.substring(0, rtn.lastIndexOf("\"]" + Utils.getNewLine()));
-		// add
-		rtn += this.getResultNetlistNodeData().toString();
-		// update
-		rtn += "\"]";
-		rtn += Utils.getNewLine();
-		// add point for fanout
-		// TODO: hack this should be in a hypergraph Netlist
-		if (this.getNumOutEdge() > 1) {
-			rtn += "\"" + this.getName() + "Point\" [ shape=point ]";
-			rtn += Utils.getNewLine();
-			rtn += "\"" + this.getName() + "\" -> \"" + this.getName() + "Point\":w";
-			rtn += Utils.getNewLine();
-		}
-		return rtn;
-	}
+  /**
+   * Writes this instance in JSON format to the writer defined by parameter {@code os} with the
+   * number of indents equivalent to the parameter {@code indent}.
+   *
+   * @param indent The number of indents.
+   * @param os     The writer.
+   * @throws IOException If an I/O error occurs.
+   */
+  public void writeJson(final int indent, final Writer os) throws IOException {
+    String str = null;
+    // header
+    str = getJsonHeader();
+    str = JsonUtils.addIndent(indent, str);
+    os.write(str);
+    // data
+    getResultNetlistNodeData().writeJson(indent, os);
+    /*
+     * StageNetlistNodeData sdata = this.getStageNetlistNodeData(); if (sdata != null) {
+     * sdata.writeJSON(indent, os); } NetlistNodeData data = this.getNetlistNodeData(); if (data !=
+     * null) { data.writeJSON(indent, os); }.
+     */
+    // footer
+    str = getJsonFooter();
+    str = JsonUtils.addIndent(indent, str);
+    os.write(str);
+  }
 
-	/*
-	 * ResultNetlistData
-	 */
-	/**
-	 *  Setter for <i>resultNetlistData</i>
-	 *  @param nData the ResultNetlistNodeData to set <i>resultNetlistData</i>
-	 */
-	public void setResultNetlistNodeData(final ResultNetlistNodeData nData){
-		this.resultNetlistData = nData;
-	}
-	/**
-	 *  Getter for <i>resultNetlistData</i>
-	 *  @return the ResultNetlistNodeData of this instance
-	 */
-	public ResultNetlistNodeData getResultNetlistNodeData(){
-		return this.resultNetlistData;
-	}
-	private ResultNetlistNodeData resultNetlistData;
+  /*
+   * dot file
+   */
+  /**
+   * Returns a string representing the shape of this instance in DOT (graph description language)
+   * format.
+   *
+   * @return A string representing the shape of this instance in DOT (graph description language)
+   *         format.
+   */
+  @Override
+  protected String getShape() {
+    String rtn = "";
+    rtn = "circle";
+    if (getResultNetlistNodeData().getPartitionID() < 0) {
+      rtn = "octagon";
+    }
+    if (!(LSResultsUtils.isAllInput(this) || LSResultsUtils.isAllOutput(this))) {
+      rtn = "box";
+    }
+    return rtn;
+  }
 
-	/*
-	 * NetlistData
-	 */
-	/**
-	 *  Setter for <i>netlistData</i>
-	 *  @param nData the NetlistNodeData to set <i>netlistData</i>
-	 */
-	public void setNetlistNodeData(final NetlistNodeData nData){
-		this.netlistData = nData;
-	}
-	/**
-	 *  Getter for <i>netlistData</i>
-	 *  @return the NetlistNodeData of this instance
-	 */
-	public NetlistNodeData getNetlistNodeData(){
-		return this.netlistData;
-	}
-	private NetlistNodeData netlistData;
+  /**
+   * Returns a string containing this instance in DOT (graph description language) format.
+   *
+   * @return A string containing this instance in DOT (graph description language) format.
+   */
+  @Override
+  protected String getData() {
+    String rtn = "";
+    // strip
+    rtn += super.getData();
+    rtn = rtn.substring(0, rtn.lastIndexOf("\"]" + Utils.getNewLine()));
+    // add
+    rtn += getResultNetlistNodeData().toString();
+    // update
+    rtn += "\"]";
+    rtn += Utils.getNewLine();
+    // add point for fanout
+    // TODO: hack this should be in a hypergraph Netlist
+    if (getNumOutEdge() > 1) {
+      rtn += "\"" + getName() + "Point\" [ shape=point ]";
+      rtn += Utils.getNewLine();
+      rtn += "\"" + getName() + "\" -> \"" + getName() + "Point\":w";
+      rtn += Utils.getNewLine();
+    }
+    return rtn;
+  }
 
-	/*
-	 * StageNetlistNodeData
-	 */
-	/**
-	 *  Setter for <i>stageNetlistData</i>
-	 *  @param nData the StageNetlistNodeData to set <i>stageNetlistData</i>
-	 */
-	public void setStageNetlistNodeData(final StageNetlistNodeData nData){
-		this.stageNetlistData = nData;
-	}
-	/**
-	 *  Getter for <i>stageNetlistData</i>
-	 *  @return the StageNetlistNodeData of this instance
-	 */
-	public StageNetlistNodeData getStageNetlistNodeData(){
-		return this.stageNetlistData;
-	}
-	private StageNetlistNodeData stageNetlistData;
-	
+  /*
+   * ResultNetlistData
+   */
+  /**
+   * Setter for {@code resultNetlistData}.
+   *
+   * @param nData The ResultNetlistNodeData to set <i>resultNetlistData</i>.
+   */
+  public void setResultNetlistNodeData(final ResultNetlistNodeData nData) {
+    resultNetlistData = nData;
+  }
+
+  /**
+   * Getter for {@code resultNetlistData}.
+   *
+   * @return The ResultNetlistNodeData of this instance.
+   */
+  public ResultNetlistNodeData getResultNetlistNodeData() {
+    return resultNetlistData;
+  }
+
+  private ResultNetlistNodeData resultNetlistData;
+
+  /*
+   * NetlistData
+   */
+  /**
+   * Setter for {@code netlistData}.
+   *
+   * @param nData The NetlistNodeData to set <i>netlistData</i>.
+   */
+  public void setNetlistNodeData(final NetlistNodeData nData) {
+    netlistData = nData;
+  }
+
+  /**
+   * Getter for {@code netlistData}.
+   *
+   * @return The NetlistNodeData of this instance.
+   */
+  public NetlistNodeData getNetlistNodeData() {
+    return netlistData;
+  }
+
+  private NetlistNodeData netlistData;
+
+  /*
+   * StageNetlistNodeData
+   */
+  /**
+   * Setter for {@code stageNetlistData}.
+   *
+   * @param nData The StageNetlistNodeData to set <i>stageNetlistData</i>.
+   */
+  public void setStageNetlistNodeData(final StageNetlistNodeData nData) {
+    stageNetlistData = nData;
+  }
+
+  /**
+   * Getter for {@code stageNetlistData}.
+   *
+   * @return The StageNetlistNodeData of this instance.
+   */
+  public StageNetlistNodeData getStageNetlistNodeData() {
+    return stageNetlistData;
+  }
+
+  private StageNetlistNodeData stageNetlistData;
+
 }

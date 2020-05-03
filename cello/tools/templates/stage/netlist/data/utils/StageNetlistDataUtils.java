@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,26 +24,24 @@ package org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.netlist.data.utils
 import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.netlist.data.##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData;
 import org.cellocad.cello2.results.netlist.Netlist;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistDataUtils class is class with utility methods for ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData instances in the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistDataUtils {
 
 	/**
-	 * Resets the stage data for a netlist instance defined by parameter <i>netlist</i>
+	 * Resets the stage data for a netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 *
+	 * @param netlist The {@link Netlist}.
 	 */
-	static public void resetStageNetlistData(Netlist netlist){
+	public static void resetStageNetlistData(Netlist netlist){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData data = new ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData();
 		netlist.setStageNetlistData(data);
 	}
 	
+
 }

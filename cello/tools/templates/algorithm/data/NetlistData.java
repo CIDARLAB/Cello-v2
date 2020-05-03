@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,7 +32,6 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.algorithm.##NONCE##
  * @author ##NONCE##21##AUTHORNAME##21##NONCE
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##ALGONAME##21##NONCENetlistData extends ##NONCE##21##EXTENDS##21##NONCENetlistData{
 
@@ -39,7 +39,7 @@ public class ##NONCE##21##ALGONAME##21##NONCENetlistData extends ##NONCE##21##EX
 	}
 	
 	/**
-	 *  Initializes a newly created ##NONCE##21##ALGONAME##21##NONCENetlistData
+	 *  Initializes a newly created ##NONCE##21##ALGONAME##21##NONCENetlistData.
 	 */
 	public ##NONCE##21##ALGONAME##21##NONCENetlistData(){
 		super();
@@ -47,13 +47,14 @@ public class ##NONCE##21##ALGONAME##21##NONCENetlistData extends ##NONCE##21##EX
 	}
 
 	/**
-	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
-	 *  @param indent the number of indents
-	 *  @param os the writer
-	 *  @throws IOException If an I/O error occurs
+	 *  Writes this instance in JSON format to the writer defined by parameter {@code os} with the number of indents equivalent to the parameter {@code indent}
+	 *  @param indent the number of indents.
+	 *  @param os The writer.
+	 *  @throws IOException If an I/O error occurs.
 	 */
 	public void writeJSON(int indent, final Writer os) throws IOException {
 		
 	}
 	
+
 }

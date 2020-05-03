@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -38,15 +39,14 @@ import org.cellocad.cello2.results.##NONCE##21##STAGENAME##21##NONCE.##NONCE##21
  * @author ##NONCE##21##AUTHORNAME##21##NONCE
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##NONCE{
 
 	/**
-	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistNodeData</i> of the <i>node</i>
+	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistNodeData</i> of the <i>node</i>.
 	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>##NONCE##21##ALGONAME##21##NONCENetlistNodeData</i> instance if it exists, null otherwise
+	 *  @param node A node within the netlist of this instance.
+	 *  @return The <i>##NONCE##21##ALGONAME##21##NONCENetlistNodeData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##ALGONAME##21##NONCENetlistNodeData get##NONCE##21##ALGONAME##21##NONCENetlistNodeData(NetlistNode node){
 		##NONCE##21##ALGONAME##21##NONCENetlistNodeData rtn = null;
@@ -55,10 +55,10 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistEdgeData</i> of the <i>edge</i>
+	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistEdgeData</i> of the <i>edge</i>.
 	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>##NONCE##21##ALGONAME##21##NONCENetlistEdgeData</i> instance if it exists, null otherwise
+	 *  @param edge An edge within the netlist of this instance.
+	 *  @return The <i>##NONCE##21##ALGONAME##21##NONCENetlistEdgeData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##ALGONAME##21##NONCENetlistEdgeData get##NONCE##21##ALGONAME##21##NONCENetlistEdgeData(NetlistEdge edge){
 		##NONCE##21##ALGONAME##21##NONCENetlistEdgeData rtn = null;
@@ -67,10 +67,10 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistData</i> of the <i>netlist</i>
+	 *  Returns the <i>##NONCE##21##ALGONAME##21##NONCENetlistData</i> of the <i>netlist</i>.
 	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>##NONCE##21##ALGONAME##21##NONCENetlistData</i> instance if it exists, null otherwise
+	 *  @param netlist the netlist of this instance.
+	 *  @return The <i>##NONCE##21##ALGONAME##21##NONCENetlistData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##ALGONAME##21##NONCENetlistData get##NONCE##21##ALGONAME##21##NONCENetlistData(Netlist netlist){
 		##NONCE##21##ALGONAME##21##NONCENetlistData rtn = null;
@@ -79,7 +79,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Gets the Constraint data from the NetlistConstraintFile
+	 *  Gets the Constraint data from the NetlistConstraintFile.
 	 */
 	@Override
 	protected void getConstraintFromNetlistConstraintFile() {
@@ -87,7 +87,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Gets the data from the UCF
+	 *  Gets the data from the UCF.
 	 */
 	@Override
 	protected void getDataFromUCF() {
@@ -95,7 +95,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Set parameter(s) value(s) of the algorithm
+	 *  Set parameter(s) value(s) of the algorithm.
 	 */
 	@Override
 	protected void setParameterValues() {
@@ -104,7 +104,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Validate parameter value of the algorithm
+	 *  Validate parameter value of the algorithm.
 	 */
 	@Override
 	protected void validateParameterValues() {
@@ -112,7 +112,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Perform preprocessing
+	 *  Perform preprocessing.
 	 */
 	@Override
 	protected void preprocessing() {
@@ -120,7 +120,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Run the (core) algorithm
+	 *  Run the (core) algorithm.
 	 */
 	@Override
 	protected void run() {
@@ -128,7 +128,7 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	}
 
 	/**
-	 *  Perform postprocessing
+	 *  Perform postprocessing.
 	 */
 	@Override
 	protected void postprocessing() {
@@ -138,9 +138,9 @@ public class ##NONCE##21##ALGONAME##21##NONCE extends ##NONCE##21##EXTENDS##21##
 	##NONCE##21##PARAMETERGETTERSETTER##21##NONCE
 
 	/**
-	 *  Returns the Logger for the <i>##NONCE##21##ALGONAME##21##NONCE</i> algorithm
+	 *  Returns the Logger for the <i>##NONCE##21##ALGONAME##21##NONCE</i> algorithm.
 	 *
-	 *  @return the logger for the <i>##NONCE##21##ALGONAME##21##NONCE</i> algorithm
+	 *  @return The logger for the <i>##NONCE##21##ALGONAME##21##NONCE</i> algorithm.
 	 */
 	@Override
 	protected Logger getLogger() {

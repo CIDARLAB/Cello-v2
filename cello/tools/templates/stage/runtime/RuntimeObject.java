@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -51,22 +52,21 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.runtime.environment
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObject{
 
 	/**
-	 *  Initializes a newly created ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject with its <i>stage</i> set to parameter <i>stage</i>,
-	 *  its <i>targetData</i> set to parameter <i>targetData</i>,
-	 *  its <i>netlist</i> set to parameter <i>netlist</i>, and,
-	 *  its <i>runEnv</i> set to parameter <i>runEnv</i>.
+	 *  Initializes a newly created ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject with its <i>stage</i> set to parameter {@code stage},
+	 *  its <i>targetData</i> set to parameter {@code targetData},
+	 *  its <i>netlist</i> set to parameter {@code netlist}, and,
+	 *  its <i>runEnv</i> set to parameter {@code runEnv}.
 	 *  
-	 *  @param stage Stage used during execution
-	 *  @param targetData TargetData used during execution
-	 *  @param netlistConstraint NetlistConstraint used during execution
-	 *  @param netlist Netlist used during execution
-	 *  @param runEnv RuntimeEnv used during execution
-	 *  @throws RuntimeException if any of the parameters are null
+	 *  @param stage Stage used during execution.
+	 *  @param targetData TargetData used during execution.
+	 *  @param netlistConstraint NetlistConstraint used during execution.
+	 *  @param netlist Netlist used during execution.
+	 *  @param runEnv RuntimeEnv used during execution.
+	 *  @throws RuntimeException if any of the parameters are null.
 	 */
 	public ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject(
 			final Stage stage,
@@ -90,10 +90,10 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 
 	
 	/**
-	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter <i>netlist</i>
+	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter {@code netlist}
 	 *  <b>Note: this method will be deprecated in the future.</b>
 	 *  
-	 *  @param netlist the <i>netlist</i> of this instance
+	 *  @param netlist the <i>netlist</i> of this instance.
 	 */
 	@Override
 	protected void setStageNetlistData(Netlist netlist) {
@@ -101,10 +101,10 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 
 	/**
-	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter <i>node</i>
+	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter {@code node}
 	 *  <b>Note: this method will be deprecated in the future.</b>
 	 *  
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 *  @param node A node within the netlist of this instance.
 	 */
 	@Override
 	protected void setStageNetlistNodeData(NetlistNode node) {
@@ -112,10 +112,10 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 
 	/**
-	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter <i>edge</i>
+	 *  Sets the ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData for the ##NONCE##21##STAGENAME##21##NONCE stage in parameter {@code edge}
 	 *  <b>Note: method this will be deprecated in the future.</b>
 	 *  
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 *  @param edge An edge within the netlist of this instance.
 	 */
 	@Override
 	protected void setStageNetlistEdgeData(NetlistEdge edge) {
@@ -123,8 +123,8 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 
 	/**
-	 *  Sets the NetlistData of the appropriate algorithm in parameter <i>netlist</i>
-	 *  @param netlist the <i>netlist</i> of this instance
+	 *  Sets the NetlistData of the appropriate algorithm in parameter {@code netlist}
+	 *  @param netlist the <i>netlist</i> of this instance.
 	 */
 	@Override
 	protected void setNetlistData(Netlist netlist) {
@@ -133,8 +133,8 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 
 	/**
-	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter <i>node</i>
-	 *  @param node a node within the <i>netlist</i> of this instance
+	 *  Sets the NetlistNodeData of the appropriate algorithm in parameter {@code node}
+	 *  @param node A node within the netlist of this instance.
 	 */
 	@Override
 	protected void setNetlistNodeData(NetlistNode node) {
@@ -143,8 +143,8 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 
 	/**
-	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter <i>edge</i>
-	 *  @param edge an edge within the <i>netlist</i> of this instance
+	 *  Sets the NetlistEdgeData of the appropriate algorithm in parameter {@code edge}
+	 *  @param edge An edge within the netlist of this instance.
 	 */
 	@Override
 	protected void setNetlistEdgeData(NetlistEdge edge) {
@@ -153,10 +153,9 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	}
 	
 	/**
-	 * Returns the path of the Resources directory for the ##NONCE##21##STAGENAME##21##NONCE stage
+	 * Returns the path of the Resources directory for the ##NONCE##21##STAGENAME##21##NONCE stage.
 	 * 
-	 * @return the path of the Resources directory for the ##NONCE##21##STAGENAME##21##NONCE stage
-	 *
+	 * @return The path of the Resources directory for the ##NONCE##21##STAGENAME##21##NONCE stage.
 	 */
 	@Override
 	protected String getResourcesFilepath() {
@@ -168,7 +167,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	/**
 	 *  Returns a string representing the OPTIONS command line argument for the ##NONCE##21##STAGENAME##21##NONCE stage
 	 *  
-	 *  @return a string representing the OPTIONS command line argument for the ##NONCE##21##STAGENAME##21##NONCE stage
+	 *  @return A string representing the OPTIONS command line argument for the ##NONCE##21##STAGENAME##21##NONCE stage.
 	 */
 	@Override
 	protected String getOptionsString() {
@@ -189,7 +188,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 
 	/**
 	 *  Getter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory
-	 *  @return the ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory
+	 *  @return The ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory getNetlistDataFactory() {
 		return this.netlistDataFactory;
@@ -197,7 +196,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	
 	/**
 	 *  Setter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory
-	 *  @param netlistDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory
+	 *  @param netlistDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory.
 	 */
 	private void setNetlistDataFactory(final ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory netlistDataFactory) {
 		this.netlistDataFactory = netlistDataFactory;
@@ -205,7 +204,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	
 	/**
 	 *  Getter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory
-	 *  @return the ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory
+	 *  @return The ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory getNetlistNodeDataFactory() {
 		return this.netlistNodeDataFactory;
@@ -213,7 +212,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	
 	/**
 	 *  Setter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory
-	 *  @param netlistNodeDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory
+	 *  @param netlistNodeDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory.
 	 */
 	private void setNetlistNodeDataFactory(final ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory netlistNodeDataFactory) {
 		this.netlistNodeDataFactory = netlistNodeDataFactory;
@@ -221,7 +220,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	
 	/**
 	 *  Getter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory
-	 *  @return the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory
+	 *  @return The ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory getNetlistEdgeDataFactory() {
 		return this.netlistEdgeDataFactory;
@@ -229,7 +228,7 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	
 	/**
 	 *  Setter for the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactor
-	 *  @param netlistEdgeDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactor
+	 *  @param netlistEdgeDataFactory the ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactor.
 	 */
 	private void setNetlistEdgeDataFactory(final ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory netlistEdgeDataFactory) {
 		this.netlistEdgeDataFactory = netlistEdgeDataFactory;
@@ -239,10 +238,9 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject extends RuntimeObj
 	private ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory netlistEdgeDataFactory;
 	private ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory netlistNodeDataFactory;
 
-
 	/**
 	 *  Returns the Logger instance for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
-	 *  @return the Logger instance for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
+	 *  @return The Logger instance for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
 	 */
 	protected Logger getLogger() {
 		return ##NONCE##21##STAGEPREFIX##21##NONCERuntimeObject.logger;

@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,18 +32,18 @@ import org.cellocad.cello2.common.netlist.data.StageNetlistNodeData;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData extends StageNetlistNodeData{
 
 	/**
-	 *  Writes this instance in JSON format to the writer defined by parameter <i>os</i> with the number of indents equivalent to the parameter <i>indent</i>
-	 *  @param indent the number of indents
-	 *  @param os the writer
-	 *  @throws IOException If an I/O error occurs
+	 *  Writes this instance in JSON format to the writer defined by parameter {@code os} with the number of indents equivalent to the parameter {@code indent}
+	 *  @param indent the number of indents.
+	 *  @param os The writer.
+	 *  @throws IOException If an I/O error occurs.
 	 */
 	public void writeJSON(int indent, final Writer os) throws IOException {
 		
 	}	
+
 }
 

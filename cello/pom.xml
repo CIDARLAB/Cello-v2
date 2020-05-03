@@ -36,7 +36,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.0</version><!--$NO-MVN-MAN-VER$-->
         <configuration>
           <archive>
             <manifest>
@@ -99,30 +99,30 @@
           </execution>
         </executions>
       </plugin>
-	  <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.1.1</version>
         <configuration>
-		  <consoleOutput>true</consoleOutput>
-		  <!-- Inclued src/test/java -->
-		  <includeTestSourceDirectory>true</includeTestSourceDirectory>
-		  <!-- Make a warning a violation -->
-		  <violationSeverity>warning</violationSeverity>
+          <consoleOutput>true</consoleOutput>
+          <!-- Inclued src/test/java -->
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <!-- Make a warning a violation -->
+          <violationSeverity>warning</violationSeverity>
           <encoding>UTF-8</encoding>
-		  <configLocation>checkstyle.xml</configLocation>
-		  <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-		  <suppressionsFileExpression>org.checkstyle.google.suppressionfilter.config</suppressionsFileExpression>
+          <configLocation>checkstyle.xml</configLocation>
+          <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+          <suppressionsFileExpression>org.checkstyle.google.suppressionfilter.config</suppressionsFileExpression>
         </configuration>
-		<executions>
-		  <execution>
-			<id>validate</id>
-			<phase>validate</phase>
-			<goals>
-			  <goal>check</goal>
-			</goals>
-		  </execution>
-		</executions>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

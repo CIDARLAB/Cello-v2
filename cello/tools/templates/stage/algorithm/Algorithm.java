@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -37,15 +38,14 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.netlist.data.##NONC
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algorithm{
 
 	/**
-	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData</i> of the <i>node</i>
+	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData</i> of the <i>node</i>.
 	 *
-	 *  @param node a node within the <i>netlist</i> of this instance
-	 *  @return the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData</i> instance if it exists, null otherwise
+	 *  @param node A node within the netlist of this instance.
+	 *  @return The <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData getStageNetlistNodeData(NetlistNode node){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData rtn = null;
@@ -54,10 +54,10 @@ public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algor
 	}
 
 	/**
-	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData</i> of the <i>edge</i>
+	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData</i> of the <i>edge</i>.
 	 *
-	 *  @param edge an edge within the <i>netlist</i> of this instance
-	 *  @return the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData</i> instance if it exists, null otherwise
+	 *  @param edge An edge within the netlist of this instance.
+	 *  @return The <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData getStageNetlistEdgeData(NetlistEdge edge){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistEdgeData rtn = null;
@@ -66,10 +66,10 @@ public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algor
 	}
 
 	/**
-	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData</i> of the <i>netlist</i>
+	 *  Returns the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData</i> of the <i>netlist</i>.
 	 *
-	 *  @param netlist the netlist of this instance
-	 *  @return the <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData</i> instance if it exists, null otherwise
+	 *  @param netlist the netlist of this instance.
+	 *  @return The <i>##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData</i> instance if it exists, null otherwise.
 	 */
 	protected ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData getStageNetlistData(Netlist netlist){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistData rtn = null;
@@ -78,9 +78,9 @@ public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algor
 	}
 
 	/**
-	 *  Returns the Logger for the <i>##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm</i> algorithm
+	 *  Returns the Logger for the <i>##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm</i> algorithm.
 	 *
-	 *  @return the logger for the <i>##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm</i> algorithm
+	 *  @return The logger for the <i>##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm</i> algorithm.
 	 */
 	@Override
 	protected Logger getLogger() {
@@ -88,4 +88,5 @@ public abstract class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm extends Algor
 	}
 	
 	private static final Logger logger = LogManager.getLogger(##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm.class);
+
 }

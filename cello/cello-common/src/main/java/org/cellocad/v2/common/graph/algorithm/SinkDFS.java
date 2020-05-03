@@ -1,27 +1,25 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.cellocad.v2.common.graph.algorithm;
 
 import java.util.Stack;
-
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.graph.AbstractEdge;
 import org.cellocad.v2.common.graph.AbstractGraph;
@@ -31,159 +29,175 @@ import org.cellocad.v2.common.graph.AbstractVertex.VertexType;
 
 /**
  * The DFS class is class performing depth-first search (DFS) on an <i>AbstractGraph</i>.
- * @param <V> the type of the AbstractVertex
- * @param <E> the type of the AbstractEdge
- * @param <G> the type of the AbstractGraph
- * 
- * @author Vincent Mirian
- * 
- * @date Nov 1, 2017
  *
+ * @param <V> the type of the {@link AbstractVertex}.
+ * @param <E> the type of the {@link AbstractEdge}.
+ * @param <G> the type of the {@link AbstractGraph}.
+ *
+ * @author Vincent Mirian
+ *
+ * @date Nov 1, 2017
  */
-public class SinkDFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V,E>> extends CObject{
+public class SinkDFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V, E>>
+    extends CObject {
 
-	private void init() {
-		DFS = new Stack<V>();
-	}
-	
-	private void reset() {
-		this.getDFS().clear();
-	}
-	
-	private void doDFS() {
-		G g = this.getGraph();
-		Stack<V> stack = new Stack<V>();
-		// initialize VertexDiscovery		
-		// get Sink Vertex
-		for (int i = 0; i < g.getNumVertex(); i++) {
-			V v = g.getVertexAtIdx(i);
-			if (v.getVertexType() == VertexType.SINK) {
-				this.getDFS().push(v);
-				stack.push(v);
-			}
-			v.setVertexDiscovery(VertexDiscovery.UNVISITED);
-		}
-		// doDFS
-		while(!stack.isEmpty()) {
-			V v = stack.pop();
-			// skip if SOURCE
-			if (v.getVertexType() == VertexType.SOURCE) {
-				v.setVertexDiscovery(VertexDiscovery.VISITED);
-			}
-			// skip if VISITED
-			if (v.getVertexDiscovery() == VertexDiscovery.VISITED) {
-				continue;
-			}
-			v.setVertexDiscovery(VertexDiscovery.VISITED);
-			for (int i = 0; i < v.getNumInEdge(); i++) {
-				E e = (E) v.getInEdgeAtIdx(i);
-				V src = (V) e.getSrc();
-				if (src.getVertexDiscovery() == VertexDiscovery.UNVISITED) {
-					this.getDFS().push(src);
-					stack.push(src);
-				}
-			}
-		}
-	}
-	
-	private Stack<V> getDFS() {
-		return this.DFS;
-	}
+  private void init() {
+    dfs = new Stack<>();
+  }
 
-	/**
-	 *  Initializes a newly created DFS 
-	 */
-	public SinkDFS() {
-		init();
-	}
+  private void reset() {
+    this.getDFS().clear();
+  }
 
-	/**
-	 *  Initializes a newly created DFS with an AbstractGraph defined by parameter <i>g</i>
-	 */
-	public SinkDFS(final G g) {
-		init();
-		this.setGraph(g);
-	}
+  private void doDFS() {
+    final G g = this.getGraph();
+    final Stack<V> stack = new Stack<>();
+    // initialize VertexDiscovery
+    // get Sink Vertex
+    for (int i = 0; i < g.getNumVertex(); i++) {
+      final V v = g.getVertexAtIdx(i);
+      if (v.getVertexType() == VertexType.SINK) {
+        this.getDFS().push(v);
+        stack.push(v);
+      }
+      v.setVertexDiscovery(VertexDiscovery.UNVISITED);
+    }
+    // doDFS
+    while (!stack.isEmpty()) {
+      final V v = stack.pop();
+      // skip if SOURCE
+      if (v.getVertexType() == VertexType.SOURCE) {
+        v.setVertexDiscovery(VertexDiscovery.VISITED);
+      }
+      // skip if VISITED
+      if (v.getVertexDiscovery() == VertexDiscovery.VISITED) {
+        continue;
+      }
+      v.setVertexDiscovery(VertexDiscovery.VISITED);
+      for (int i = 0; i < v.getNumInEdge(); i++) {
+        final E e = v.getInEdgeAtIdx(i);
+        final V src = e.getSrc();
+        if (src.getVertexDiscovery() == VertexDiscovery.UNVISITED) {
+          this.getDFS().push(src);
+          stack.push(src);
+        }
+      }
+    }
+  }
 
-	/**
-	 *  Setter for the instance's AbstractGraph
-	 *  @param g the AbstractGraph
-	 */
-	public void setGraph(final G g) {
-		reset();
-		this.graph = g;
-		this.doDFS();
-	}
+  private Stack<V> getDFS() {
+    return this.dfs;
+  }
 
-	/**
-	 *  Getter for the instance's AbstractGraph
-	 *  @return the AbstractGraph of this instance
-	 */
-	public G getGraph() {
-		return this.graph;
-	}
+  /**
+   * Initializes a newly created {@link DFS}.
+   */
+  public SinkDFS() {
+    init();
+  }
 
-	/**
-	 *  Returns the next AbstractVertex of this instance's AbstractGraph when performing the depth-first search (DFS) algorithm
-	 *  @return the next AbstractVertex of this instance's AbstractGraph when performing the depth-first search (DFS) algorithm
-	 */
-	public V getNextVertex() {
-		V rtn = null;
-		if (!this.getDFS().isEmpty())
-			rtn = this.getDFS().pop();
-		return rtn;
-	}
+  /**
+   * Initializes a newly created {@link DFS} with an AbstractGraph defined by parameter {@code g}.
+   */
+  public SinkDFS(final G g) {
+    init();
+    this.setGraph(g);
+  }
 
-	/*
-	 * HashCode
-	 */
-	/**
-	 *  Returns a hash code value for the object.
-	 *  @return a hash code value for this object.
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((DFS == null) ? 0 : DFS.hashCode());
-		result = prime * result + ((graph == null) ? 0 : graph.hashCode());
-		return result;
-	}
+  /**
+   * Setter for the instance's AbstractGraph.
+   *
+   * @param g The {@link AbstractGraph}.
+   */
+  public void setGraph(final G g) {
+    reset();
+    this.graph = g;
+    this.doDFS();
+  }
 
-	/*
-	 * Equals
-	 */
-	/**
-	 *  Indicates whether some other object is "equal to" this one.
-	 *  
-	 *  @param obj the object to compare with.
-	 *  @return true if this object is the same as the obj argument; false otherwise.
-	 */
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		if (!(obj instanceof SinkDFS<?,?,?>)) {
-			return false;
-		}
-		SinkDFS<?,?,?> other = (SinkDFS<?,?,?>) obj;
-		if (DFS == null) {
-			if (other.DFS != null)
-				return false;
-		} else if (!DFS.equals(other.DFS))
-			return false;
-		if (graph == null) {
-			if (other.graph != null)
-				return false;
-		} else if (!graph.equals(other.graph))
-			return false;
-		return true;
-	}
+  /**
+   * Getter for the instance's AbstractGraph.
+   *
+   * @return The {@link AbstractGraph} of this instance.
+   */
+  public G getGraph() {
+    return this.graph;
+  }
 
-	private G graph;
-	private Stack<V> DFS;
+  /**
+   * Returns the next AbstractVertex of this instance's AbstractGraph when performing the
+   * depth-first search (DFS) algorithm.
+   *
+   * @return The next AbstractVertex of this instance's AbstractGraph when performing the
+   *         depth-first search (DFS) algorithm.
+   */
+  public V getNextVertex() {
+    V rtn = null;
+    if (!this.getDFS().isEmpty()) {
+      rtn = this.getDFS().pop();
+    }
+    return rtn;
+  }
+
+  /*
+   * HashCode
+   */
+  /**
+   * Returns a hash code value for the object.
+   *
+   * @return A hash code value for this object.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + (dfs == null ? 0 : dfs.hashCode());
+    result = prime * result + (graph == null ? 0 : graph.hashCode());
+    return result;
+  }
+
+  /*
+   * Equals
+   */
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   *
+   * @param obj The object to compare with.
+   * @return True if this object is the same as the obj argument; false otherwise.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    if (!(obj instanceof SinkDFS<?, ?, ?>)) {
+      return false;
+    }
+    final SinkDFS<?, ?, ?> other = (SinkDFS<?, ?, ?>) obj;
+    if (dfs == null) {
+      if (other.dfs != null) {
+        return false;
+      }
+    } else if (!dfs.equals(other.dfs)) {
+      return false;
+    }
+    if (graph == null) {
+      if (other.graph != null) {
+        return false;
+      }
+    } else if (!graph.equals(other.graph)) {
+      return false;
+    }
+    return true;
+  }
+
+  private G graph;
+  private Stack<V> dfs;
+
 }

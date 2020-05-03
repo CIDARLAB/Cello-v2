@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,21 +32,20 @@ import org.cellocad.cello2.common.stage.runtime.environment.StageRuntimeEnv;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeEnv extends StageRuntimeEnv{
 
 	/**
 	 *  Initializes a newly created ##NONCE##21##STAGEPREFIX##21##NONCERuntimeEnv with command line argument(s), <i>args</i>.
 	 *  
-	 *  @param args command line argument(s)
+	 *  @param args command line argument(s).
 	 */
 	public ##NONCE##21##STAGEPREFIX##21##NONCERuntimeEnv(String[] args) {
 		super(args);
 	}
 	
 	/**
-	 *  Setter for <i>options</i>
+	 *  Setter for <i>options</i>.
 	 */
 	@Override
 	protected void setOptions() {
@@ -53,4 +53,5 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCERuntimeEnv extends StageRuntimeE
 		// uncomment the line below to add options
 		// Options options = this.getOptions();
 	}
+
 }

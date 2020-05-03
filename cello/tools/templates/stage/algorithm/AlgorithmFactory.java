@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,15 +29,14 @@ import org.cellocad.cello2.common.algorithm.AlgorithmFactory;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory extends AlgorithmFactory<##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm>{
 
 	/**
-	 *  Returns the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm that has the same name as the parameter <i>name</i> within this instance
+	 *  Returns the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm that has the same name as the parameter {@code name} within this instance
 	 *  
-	 *  @param name string used for searching the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory
-	 *  @return ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm instance if the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm exists within the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory, otherwise null
+	 *  @param name string used for searching the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory.
+	 *  @return ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm instance if the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm exists within the ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory, otherwise null.
 	 */
 	@Override
 	protected ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithm getAlgorithm(final String name) {
@@ -44,4 +44,5 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCEAlgorithmFactory extends Algorit
 		return rtn;
 	}
 	
+
 }

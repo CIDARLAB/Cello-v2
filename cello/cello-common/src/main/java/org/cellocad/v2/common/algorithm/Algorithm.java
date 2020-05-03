@@ -1,25 +1,22 @@
-/**
- * Copyright (C) 2017-2020
- * Massachusetts Institute of Technology (MIT)
- * Boston University (BU)
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+/*
+ * Copyright (C) 2017-2020 Massachusetts Institute of Technology (MIT), Boston University (BU)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package org.cellocad.v2.common.algorithm;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,288 +32,285 @@ import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.netlist.Netlist;
 
 /**
- * Algorithm class is the base class for all algorithms using the Poros
- * framework.
+ * Algorithm class is the base class for all algorithms using the Poros framework.
  *
  * @author Vincent Mirian
  * @author Timothy Jones
  *
  * @date Nov 17, 2017
- *
  */
 public abstract class Algorithm extends CObject {
 
-	/**
-	 * Executes the algorithm. Executes the following methods in sequential
-	 * order:<br>
-	 * {@link #getConstraintFromNetlistConstraintFile()}<br>
-	 * {@link #getDataFromUCF()}<br>
-	 * {@link #setParameterValues()}<br>
-	 * {@link #validateParameterValues()}<br>
-	 * {@link #preprocessing()}<br>
-	 * {@link #run()}<br>
-	 * {@link #postprocessing()}<br>
-	 *
-	 * @param netlist           Netlist used during execution
-	 * @param targetData        TargetData used during execution
-	 * @param netlistConstraint NetlistConstraint used during execution
-	 * @param results           Results used during execution
-	 * @param AProfile          AlgorithmProfile used during execution
-	 * @param runtimeEnv        RuntimeEnv used during execution
-	 * @throws CelloException
-	 * @throws RuntimeException if any of the parameters are null
-	 */
-	public void execute(final Netlist netlist, final TargetData targetData, final NetlistConstraint netlistConstraint,
-	        final Results results, final AlgorithmProfile AProfile, final RuntimeEnv runtimeEnv) throws CelloException {
-		Utils.isNullRuntimeException(netlist, "netlist");
-		Utils.isNullRuntimeException(targetData, "targetData");
-		Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
-		Utils.isNullRuntimeException(results, "results");
-		Utils.isNullRuntimeException(AProfile, "AProfile");
-		Utils.isNullRuntimeException(runtimeEnv, "runtimeEnv");
-		// init
-		this.setNetlist(netlist);
-		this.setTargetData(targetData);
-		this.setNetlistConstraint(netlistConstraint);
-		this.setResults(results);
-		this.setAlgorithmProfile(AProfile);
-		this.setRuntimeEnv(runtimeEnv);
-		// execute
-		this.getConstraintFromNetlistConstraintFile();
-		this.getDataFromUCF();
-		this.setParameterValues();
-		this.validateParameterValues();
-		this.preprocessing();
-		this.run();
-		this.postprocessing();
-	}
+  /**
+   * Executes the algorithm. Executes the following methods in sequential order:<br>
+   * {@link #getConstraintFromNetlistConstraintFile()}<br>
+   * {@link #getDataFromUcf()}<br>
+   * {@link #setParameterValues()}<br>
+   * {@link #validateParameterValues()}<br>
+   * {@link #preprocessing()}<br>
+   * {@link #run()}<br>
+   * {@link #postprocessing()}<br>
+   * .
+   *
+   * @param netlist           The {@link Netlist} used during execution.
+   * @param targetData        The {@link TargetData} used during execution.
+   * @param netlistConstraint The {@link NetlistConstraint} used during execution.
+   * @param results           The {@link Results} used during execution.
+   * @param algProfile        The {@link AlgorithmProfile} used during execution.
+   * @param runtimeEnv        The {@link RuntimeEnv} used during execution.
+   * @throws CelloException Unable to execute algorithm.
+   */
+  public void execute(final Netlist netlist, final TargetData targetData,
+      final NetlistConstraint netlistConstraint, final Results results,
+      final AlgorithmProfile algProfile, final RuntimeEnv runtimeEnv) throws CelloException {
+    Utils.isNullRuntimeException(netlist, "netlist");
+    Utils.isNullRuntimeException(targetData, "targetData");
+    Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
+    Utils.isNullRuntimeException(results, "results");
+    Utils.isNullRuntimeException(algProfile, "algProfile");
+    Utils.isNullRuntimeException(runtimeEnv, "runtimeEnv");
+    // init
+    setNetlist(netlist);
+    setTargetData(targetData);
+    setNetlistConstraint(netlistConstraint);
+    setResults(results);
+    setAlgorithmProfile(algProfile);
+    setRuntimeEnv(runtimeEnv);
+    // execute
+    getConstraintFromNetlistConstraintFile();
+    getDataFromUcf();
+    setParameterValues();
+    validateParameterValues();
+    preprocessing();
+    run();
+    postprocessing();
+  }
 
-	/*
-	 * Getter and Setter
-	 */
+  /*
+   * Getter and Setter
+   */
 
-	/**
-	 * Setter for <i>netlist</i>
-	 *
-	 * @param netlist the Netlist to set <i>netlist</i>
-	 */
-	private void setNetlist(final Netlist netlist) {
-		this.netlist = netlist;
-	}
+  /**
+   * Setter for {@code netlist}.
+   *
+   * @param netlist The value to set {@link netlist}.
+   */
+  private void setNetlist(final Netlist netlist) {
+    this.netlist = netlist;
+  }
 
-	/**
-	 * Getter for <i>netlist</i>
-	 *
-	 * @return the Netlist of this instance
-	 */
-	protected Netlist getNetlist() {
-		return this.netlist;
-	}
+  /**
+   * Getter for {@code netlist}.
+   *
+   * @return The {@link Netlist} of this instance.
+   */
+  protected Netlist getNetlist() {
+    return netlist;
+  }
 
-	/**
-	 * Setter for <i>targetData</i>
-	 *
-	 * @param targetData the TargetData to set <i>targetData</i>
-	 */
-	private void setTargetData(final TargetData targetData) {
-		this.targetData = targetData;
-	}
+  /**
+   * Setter for {@code targetData}.
+   *
+   * @param targetData The value to set {@link targetData}.
+   */
+  private void setTargetData(final TargetData targetData) {
+    this.targetData = targetData;
+  }
 
-	/**
-	 * Getter for <i>targetData</i>
-	 *
-	 * @return the TargetData of this instance
-	 */
-	protected TargetData getTargetData() {
-		return this.targetData;
-	}
+  /**
+   * Getter for {@code targetData}.
+   *
+   * @return The {@link TargetData} of this instance.
+   */
+  protected TargetData getTargetData() {
+    return targetData;
+  }
 
-	/**
-	 * Setter for <i>netlistConstraint</i>
-	 *
-	 * @param netlistConstraint the NetlistConstraint to set
-	 *                          <i>netlistConstraint</i>
-	 */
-	private void setNetlistConstraint(final NetlistConstraint netlistConstraint) {
-		this.netlistConstraint = netlistConstraint;
-	}
+  /**
+   * Setter for {@code netlistConstraint}.
+   *
+   * @param netlistConstraint The value to set {@link netlistConstraint}.
+   */
+  private void setNetlistConstraint(final NetlistConstraint netlistConstraint) {
+    this.netlistConstraint = netlistConstraint;
+  }
 
-	/**
-	 * Getter for <i>netlistConstraint</i>
-	 *
-	 * @return the NetlistConstraint of this instance
-	 */
-	protected NetlistConstraint getNetlistConstraint() {
-		return this.netlistConstraint;
-	}
+  /**
+   * Getter for {@code netlistConstraint}.
+   *
+   * @return The {@link NetlistConstraint} of this instance.
+   */
+  protected NetlistConstraint getNetlistConstraint() {
+    return netlistConstraint;
+  }
 
-	/**
-	 * Getter for {@code results}.
-	 *
-	 * @return The value of {@code results}.
-	 */
-	protected Results getResults() {
-		return this.results;
-	}
+  /**
+   * Getter for {@code results}.
+   *
+   * @return The value of {@code results}.
+   */
+  protected Results getResults() {
+    return results;
+  }
 
-	/**
-	 * Setter for {@code results}.
-	 *
-	 * @param results The value to set {@code results}.
-	 */
-	private void setResults(Results results) {
-		this.results = results;
-	}
+  /**
+   * Setter for {@code results}.
+   *
+   * @param results The value to set {@code results}.
+   */
+  private void setResults(final Results results) {
+    this.results = results;
+  }
 
-	/**
-	 * Setter for <i>AProfile</i>
-	 *
-	 * @param AProfile the AlgorithmProfile to set <i>AProfile</i>
-	 */
-	private void setAlgorithmProfile(final AlgorithmProfile AProfile) {
-		this.AProfile = AProfile;
-	}
+  /**
+   * Setter for {@code algProfile}.
+   *
+   * @param algProfile The value to set {@link algProfile}.
+   */
+  private void setAlgorithmProfile(final AlgorithmProfile algProfile) {
+    this.algProfile = algProfile;
+  }
 
-	/**
-	 * Getter for <i>AProfile</i>
-	 *
-	 * @return the AlgorithmProfile of this instance
-	 */
-	protected AlgorithmProfile getAlgorithmProfile() {
-		return this.AProfile;
-	}
+  /**
+   * Getter for {@code algProfile}.
+   *
+   * @return The {@link AlgorithmProfile} of this instance.
+   */
+  protected AlgorithmProfile getAlgorithmProfile() {
+    return algProfile;
+  }
 
-	/**
-	 * Setter for <i>runtimeEnv</i>
-	 *
-	 * @param runtimeEnv the RuntimeEnv to set <i>runtimeEnv</i>
-	 */
-	private void setRuntimeEnv(final RuntimeEnv runtimeEnv) {
-		this.runtimeEnv = runtimeEnv;
-	}
+  /**
+   * Setter for {@code runtimeEnv}.
+   *
+   * @param runtimeEnv The value to set {@link runtimeEnv}.
+   */
+  private void setRuntimeEnv(final RuntimeEnv runtimeEnv) {
+    this.runtimeEnv = runtimeEnv;
+  }
 
-	/**
-	 * Getter for <i>runtimeEnv</i>
-	 *
-	 * @return the RuntimeEnv of this instance
-	 */
-	protected RuntimeEnv getRuntimeEnv() {
-		return this.runtimeEnv;
-	}
+  /**
+   * Getter for {@code runtimeEnv}.
+   *
+   * @return The {@link RuntimeEnv} of this instance.
+   */
+  protected RuntimeEnv getRuntimeEnv() {
+    return runtimeEnv;
+  }
 
-	private Netlist netlist;
-	private TargetData targetData;
-	private NetlistConstraint netlistConstraint;
-	private Results results;
-	private AlgorithmProfile AProfile;
-	private RuntimeEnv runtimeEnv;
+  private Netlist netlist;
+  private TargetData targetData;
+  private NetlistConstraint netlistConstraint;
+  private Results results;
+  private AlgorithmProfile algProfile;
+  private RuntimeEnv runtimeEnv;
 
-	/**
-	 * Gets the Constraint data from the NetlistConstraintFile
-	 */
-	abstract protected void getConstraintFromNetlistConstraintFile();
+  /**
+   * Gets the constraint data from the netlist constraint file.
+   */
+  protected abstract void getConstraintFromNetlistConstraintFile();
 
-	/**
-	 * Gets the data from the UCF
-	 *
-	 * @throws CelloException
-	 */
-	abstract protected void getDataFromUCF() throws CelloException;
+  /**
+   * Gets the data from the UCF.
+   *
+   * @throws CelloException Unable to get data from UCF.
+   */
+  protected abstract void getDataFromUcf() throws CelloException;
 
-	/**
-	 * Set parameter(s) value(s) of the algorithm
-	 */
-	abstract protected void setParameterValues();
+  /**
+   * Set parameter values of the algorithm.
+   */
+  protected abstract void setParameterValues();
 
-	/**
-	 * Validate parameter value of the algorithm
-	 */
-	abstract protected void validateParameterValues();
+  /**
+   * Validate parameter values of the algorithm.
+   */
+  protected abstract void validateParameterValues();
 
-	/**
-	 * Perform preprocessing
-	 *
-	 * @throws CelloException
-	 */
-	abstract protected void preprocessing() throws CelloException;
+  /**
+   * Perform preprocessing.
+   *
+   * @throws CelloException Unable to perform preprocessing.
+   */
+  protected abstract void preprocessing() throws CelloException;
 
-	/**
-	 * Run the (core) algorithm
-	 *
-	 * @throws CelloException
-	 */
-	abstract protected void run() throws CelloException;
+  /**
+   * Run the (core) algorithm.
+   *
+   * @throws CelloException Unable to run the (core) algorithm.
+   */
+  protected abstract void run() throws CelloException;
 
-	/**
-	 * Perform postprocessing
-	 *
-	 * @throws CelloException
-	 */
-	abstract protected void postprocessing() throws CelloException;
+  /**
+   * Perform postprocessing.
+   *
+   * @throws CelloException Unable to perform postprocessing.
+   */
+  protected abstract void postprocessing() throws CelloException;
 
-	/**
-	 * Log parameter <i>str</i> at the Trace level
-	 *
-	 * @param str string to log
-	 */
-	protected void logTrace(String str) {
-		this.getLogger().trace(str);
-	}
+  /**
+   * Log parameter {@code str} at the Trace level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logTrace(final String str) {
+    getLogger().trace(str);
+  }
 
-	/**
-	 * Log parameter <i>str</i> at the Debug level
-	 *
-	 * @param str string to log
-	 */
-	protected void logDebug(String str) {
-		this.getLogger().debug(str);
-	}
+  /**
+   * Log parameter {@code str} at the Debug level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logDebug(final String str) {
+    getLogger().debug(str);
+  }
 
-	/**
-	 * Log parameter <i>str</i> at the Info level
-	 *
-	 * @param str string to log
-	 */
-	protected void logInfo(String str) {
-		this.getLogger().info(str);
-	}
+  /**
+   * Log parameter {@code str} at the Info level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logInfo(final String str) {
+    getLogger().info(str);
+  }
 
-	/**
-	 * Log parameter <i>str</i> at the Warn level
-	 *
-	 * @param str string to log
-	 */
-	protected void logWarn(String str) {
-		this.getLogger().warn(str);
-	}
+  /**
+   * Log parameter {@code str} at the Warn level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logWarn(final String str) {
+    getLogger().warn(str);
+  }
 
-	/**
-	 * Log parameter <i>str</i> at the Error level
-	 *
-	 * @param str string to log
-	 */
-	protected void logError(String str) {
-		this.getLogger().error(str);
-	}
+  /**
+   * Log parameter {@code str} at the Error level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logError(final String str) {
+    getLogger().error(str);
+  }
 
-	/**
-	 * Log parameter <i>str</i> at the Fatal level
-	 *
-	 * @param str string to log
-	 */
-	protected void logFatal(String str) {
-		this.getLogger().fatal(str);
-	}
+  /**
+   * Log parameter {@code str} at the Fatal level.
+   *
+   * @param str The {@link String} to log.
+   */
+  protected void logFatal(final String str) {
+    getLogger().fatal(str);
+  }
 
-	/**
-	 * Returns the Logger instance for the class
-	 *
-	 * @return the Logger instance for the class
-	 */
-	protected Logger getLogger() {
-		return Algorithm.logger;
-	}
+  /**
+   * Returns the {@link Logger}.
+   *
+   * @return The {@link Logger}.
+   */
+  protected Logger getLogger() {
+    return Algorithm.logger;
+  }
 
-	private static final Logger logger = LogManager.getLogger(Algorithm.class);
+  private static final Logger logger = LogManager.getLogger(Algorithm.class);
 
 }

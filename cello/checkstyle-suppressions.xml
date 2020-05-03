@@ -4,5 +4,5 @@
     "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
   <!-- Allow non-standard method names for integration tests -->
-  <suppress checks="MethodName" files="[a-zA-Z0-9]+IT.java"/>
+  <suppress checks="MethodName" files="[a-zA-Z0-9]+(IT|Test).java"/>
 </suppressions>

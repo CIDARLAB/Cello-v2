@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -46,14 +47,13 @@ import org.cellocad.cello2.common.target.data.TargetDataUtils;
  * @author ##NONCE##21##AUTHORNAME##21##NONCE
  * 
  * @date Today
- *
  */
 public class Main {
 
 	/**
 	 * The <i>main</i> method is the executable for the <i>##NONCE##21##APPNAME##21##NONCE</i> application.
 	 * 
-	 * @param args command line argument(s)
+	 * @param args command line argument(s).
 	 */
 	public static void main(String[] args) {
 		/*
@@ -108,7 +108,7 @@ public class Main {
 		 * Add Stages above
 		 */
 		/*
-		 * Write netlist
+		 * Write netlist.
 		 */
 		// Write netlist
 		String outputNetlistFilePath = null;
@@ -126,9 +126,9 @@ public class Main {
 	}
 
 	/**
-	 *  Setup the logger using the ##NONCE##21##APPNAME##21##NONCERuntimeEnv defined by parameter <i>runEnv</i>
+	 *  Setup the logger using the ##NONCE##21##APPNAME##21##NONCERuntimeEnv defined by parameter {@code runEnv}.
 	 *
-	 *  @param runEnv the ##NONCE##21##APPNAME##21##NONCERuntimeEnv
+	 *  @param runEnv the ##NONCE##21##APPNAME##21##NONCERuntimeEnv.
 	 */
 	protected static void setupLogger(##NONCE##21##APPNAME##21##NONCERuntimeEnv runEnv) {
 		String logfile = runEnv.getOptionValue(##NONCE##21##APPNAME##21##NONCEArgString.LOGFILENAME);
@@ -146,13 +146,14 @@ public class Main {
 	}
 
 	/**
-	 *  Returns the Logger for the <i>Main</i> class
+	 *  Returns the {@link Logger}.
 	 *
-	 *  @return the logger for the <i>Main</i> class
+	 *  @return The {@link Logger}.
 	 */
-	static protected Logger getLogger() {
+	protected static Logger getLogger() {
 		return Main.logger;
 	}
 	
 	private static final Logger logger = LogManager.getLogger(Main.class);
+
 }

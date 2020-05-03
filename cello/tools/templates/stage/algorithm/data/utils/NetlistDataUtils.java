@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,22 +32,21 @@ import org.cellocad.cello2.results.netlist.Netlist;
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataUtils {
 
 	/**
-	 * Resets the algorithm data, where the algorithm is defined by parameter <i>AProfile</i>,
-	 * for a netlist instance defined by parameter <i>netlist</i>
+	 * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile},
+	 * for a netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 * @param AProfile the AlgorithmProfile
-	 *
+	 * @param netlist The {@link Netlist}.
+	 * @param algProfile The {@link AlgorithmProfile}.
 	 */
-	static public void resetNetlistData(Netlist netlist, AlgorithmProfile AProfile){
+	public static void resetNetlistData(Netlist netlist, AlgorithmProfile algProfile){
 		##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory ##NONCE##21##STAGEPREFIX##21##NONCEFactory = new ##NONCE##21##STAGEPREFIX##21##NONCENetlistDataFactory();
-		##NONCE##21##STAGEPREFIX##21##NONCENetlistData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistData(AProfile);
+		##NONCE##21##STAGEPREFIX##21##NONCENetlistData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistData(algProfile);
 		netlist.setNetlistData(data);
 	}
 	
+
 }

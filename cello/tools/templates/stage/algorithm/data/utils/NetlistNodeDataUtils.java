@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,44 +27,41 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.algorithm.data.##NO
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataUtils class is class with utility methods for ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeData instances in the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataUtils {
 
 	/**
-	 * Resets the algorithm data, where the algorithm is defined by parameter <i>AProfile</i>,
-	 * for all nodes in the netlist instance defined by parameter <i>netlist</i>
+	 * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile},
+	 * for all nodes in the netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 * @param AProfile the AlgorithmProfile
-	 *
+	 * @param netlist The {@link Netlist}.
+	 * @param algProfile The {@link AlgorithmProfile}.
 	 */
-	static public void resetNetlistNodeData(Netlist netlist, AlgorithmProfile AProfile){
+	public static void resetNetlistNodeData(Netlist netlist, AlgorithmProfile algProfile){
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
-			##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataUtils.resetNetlistNodeData(node, AProfile);
+			##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataUtils.resetNetlistNodeData(node, algProfile);
 		}
 	}
 
 	/**
-	 * Resets the algorithm data, where the algorithm is defined by parameter <i>AProfile</i>,
-	 * for a NetlistNode instance defined by parameter <i>node</i>
+	 * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile},
+	 * for a NetlistNode instance defined by parameter {@code node}.
 	 *
-	 * @param node the NetlistNode
-	 * @param AProfile the AlgorithmProfile
-	 *
+	 * @param node The {@link NetlistNode}.
+	 * @param algProfile The {@link AlgorithmProfile}.
 	 */
-	static public void resetNetlistNodeData(NetlistNode node, AlgorithmProfile AProfile){
+	public static void resetNetlistNodeData(NetlistNode node, AlgorithmProfile algProfile){
 		##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory ##NONCE##21##STAGEPREFIX##21##NONCEFactory = new ##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeDataFactory();
-		##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistNodeData(AProfile);
+		##NONCE##21##STAGEPREFIX##21##NONCENetlistNodeData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistNodeData(algProfile);
 		node.setNetlistNodeData(data);
 	}
 	
+
 }

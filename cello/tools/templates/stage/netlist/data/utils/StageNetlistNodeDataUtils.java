@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,24 +25,21 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.netlist.data.##NONC
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistNode;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeDataUtils class is class with utility methods for ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData instances in the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeDataUtils {
 
 	/**
-	 * Resets the stage data for all nodes in the netlist instance defined by parameter <i>netlist</i>
+	 * Resets the stage data for all nodes in the netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 *
+	 * @param netlist The {@link Netlist}.
 	 */
-	static public void resetStageNetlistNodeData(Netlist netlist){
+	public static void resetStageNetlistNodeData(Netlist netlist){
 		for (int i = 0; i < netlist.getNumVertex(); i++) {
 			NetlistNode node = netlist.getVertexAtIdx(i);
 			##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeDataUtils.resetStageNetlistNodeData(node);
@@ -49,14 +47,14 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeDataUtils {
 	}
 
 	/**
-	 * Resets the stage data for a NetlistNode instance
+	 * Resets the stage data for a NetlistNode instance.
 	 *
-	 * @param node the NetlistNode
-	 *
+	 * @param node The {@link NetlistNode}.
 	 */
-	static public void resetStageNetlistNodeData(NetlistNode node){
+	public static void resetStageNetlistNodeData(NetlistNode node){
 		##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData data = new ##NONCE##21##STAGEPREFIX##21##NONCEStageNetlistNodeData();
 		node.setStageNetlistNodeData(data);
 	}
 	
+
 }

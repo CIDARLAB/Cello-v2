@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -20,36 +21,32 @@
  */
 package org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.common;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCEUtils class is class with utility methods for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCEUtils {
 
 	/**
-	 * Returns the path of the ClassLoader
+	 * Returns the path of the ClassLoader.
 	 * 
-	 * @return the path of the ClassLoader
-	 *
+	 * @return The path of the ClassLoader.
 	 */
-	static public String getFilepath(){
+	public static String getFilepath(){
 		String rtn = "";
 		rtn = ##NONCE##21##STAGEPREFIX##21##NONCEUtils.class.getClassLoader().getResource(".").getPath();
 		return rtn;
 	}
 
 	/**
-	 * Returns the path of the Resources directory for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage
+	 * Returns the path of the Resources directory for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
 	 * 
-	 * @return the path of the Resources directory for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage
-	 *
+	 * @return The path of the Resources directory for the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
 	 */	
-	static public String getResourcesFilepath(){
+	public static String getResourcesFilepath(){
 		String rtn = "";
 		rtn += ##NONCE##21##STAGEPREFIX##21##NONCEUtils.getFilepath();
 		rtn += "resources-";
@@ -57,4 +54,5 @@ public class ##NONCE##21##STAGEPREFIX##21##NONCEUtils {
 		return rtn;
 	}
 	
+
 }

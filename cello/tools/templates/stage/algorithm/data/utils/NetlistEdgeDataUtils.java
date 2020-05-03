@@ -1,5 +1,6 @@
-/**
+/*
  * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,44 +27,41 @@ import org.cellocad.cello2.##NONCE##21##STAGENAME##21##NONCE.algorithm.data.##NO
 import org.cellocad.cello2.results.netlist.Netlist;
 import org.cellocad.cello2.results.netlist.NetlistEdge;
 
-
 /**
  * The ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataUtils class is class with utility methods for ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData instances in the <i>##NONCE##21##STAGENAME##21##NONCE</i> stage.
  * 
  * @author Vincent Mirian
  * 
  * @date Today
- *
  */
 public class ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataUtils {
 
 	/**
-	 * Resets the algorithm data, where the algorithm is defined by parameter <i>AProfile</i>,
-	 * for all edges in the netlist instance defined by parameter <i>netlist</i>
+	 * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile},
+	 * for all edges in the netlist instance defined by parameter {@code netlist}.
 	 *
-	 * @param netlist the Netlist
-	 * @param AProfile the AlgorithmProfile
-	 *
+	 * @param netlist The {@link Netlist}.
+	 * @param algProfile The {@link AlgorithmProfile}.
 	 */
-	static public void resetNetlistEdgeData(Netlist netlist, AlgorithmProfile AProfile){
+	public static void resetNetlistEdgeData(Netlist netlist, AlgorithmProfile algProfile){
 		for (int i = 0; i < netlist.getNumEdge(); i++) {
 			NetlistEdge edge = netlist.getEdgeAtIdx(i);
-			##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataUtils.resetNetlistEdgeData(edge, AProfile);
+			##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataUtils.resetNetlistEdgeData(edge, algProfile);
 		}
 	}
 
 	/**
-	 * Resets the algorithm data, where the algorithm is defined by parameter <i>AProfile</i>,
-	 * for a NetlistEdge instance defined by parameter <i>edge</i>
+	 * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile},
+	 * for a NetlistEdge instance defined by parameter {@code edge}.
 	 *
-	 * @param edge the NetlistEdge
-	 * @param AProfile the AlgorithmProfile
-	 *
+	 * @param edge The {@link NetlistEdge}.
+	 * @param algProfile The {@link AlgorithmProfile}.
 	 */
-	static public void resetNetlistEdgeData(NetlistEdge edge, AlgorithmProfile AProfile){
+	public static void resetNetlistEdgeData(NetlistEdge edge, AlgorithmProfile algProfile){
 		##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory ##NONCE##21##STAGEPREFIX##21##NONCEFactory = new ##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeDataFactory();
-		##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistEdgeData(AProfile);
+		##NONCE##21##STAGEPREFIX##21##NONCENetlistEdgeData data = ##NONCE##21##STAGEPREFIX##21##NONCEFactory.getNetlistEdgeData(algProfile);
 		edge.setNetlistEdgeData(data);
 	}
 	
+
 }
