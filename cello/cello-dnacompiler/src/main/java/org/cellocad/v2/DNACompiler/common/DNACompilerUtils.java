@@ -31,7 +31,7 @@ import java.net.URL;
  * @author Timothy Jones
  * @date 2019-02-20
  */
-public class DnaCompilerUtils {
+public class DNACompilerUtils {
 
   /**
    * Gets the location of a resource as a {@link URL} object.
@@ -41,7 +41,7 @@ public class DnaCompilerUtils {
    */
   public static URL getResource(final String resource) {
     URL rtn = null;
-    rtn = DnaCompilerUtils.class.getClassLoader().getResource(resource);
+    rtn = DNACompilerUtils.class.getClassLoader().getResource(resource);
     return rtn;
   }
 
@@ -54,7 +54,7 @@ public class DnaCompilerUtils {
    */
   public static String getResourceAsString(final String resource) throws IOException {
     String rtn = "";
-    final InputStream is = DnaCompilerUtils.getResource(resource).openStream();
+    final InputStream is = DNACompilerUtils.getResource(resource).openStream();
     final InputStreamReader isr = new InputStreamReader(is);
     final BufferedReader br = new BufferedReader(isr);
     final StringBuffer sb = new StringBuffer();
@@ -77,7 +77,7 @@ public class DnaCompilerUtils {
    */
   public static String getApplicationConfiguration() throws IOException {
     String rtn = "";
-    rtn = DnaCompilerUtils.getResourceAsString("Configuration.json");
+    rtn = DNACompilerUtils.getResourceAsString("Configuration.json");
     return rtn;
   }
 }

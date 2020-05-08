@@ -23,8 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.cellocad.v2.DNACompiler.common.DnaCompilerUtils;
-import org.cellocad.v2.DNACompiler.runtime.environment.DnaCompilerRuntimeEnv;
+import org.cellocad.v2.DNACompiler.common.DNACompilerUtils;
+import org.cellocad.v2.DNACompiler.runtime.environment.DNACompilerRuntimeEnv;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.application.ApplicationConfiguration;
@@ -66,7 +66,7 @@ public class Main {
    * @throws CelloException an error in printing the partitioning graph.
    */
   protected static void printPartitioningGraphs(
-      final DnaCompilerRuntimeEnv runEnv, final Netlist myNetlist) throws CelloException {
+      final DNACompilerRuntimeEnv runEnv, final Netlist myNetlist) throws CelloException {
     final String outputDir = runEnv.getOptionValue(ArgString.OUTPUTDIR) + Utils.getFileSeparator();
     final PTBlockNetlist ptBlockNetlist = new PTBlockNetlist(myNetlist);
     Netlist netlist = null;
@@ -100,7 +100,7 @@ public class Main {
      * Preparation
      */
     // RuntimeEnv
-    final DnaCompilerRuntimeEnv runEnv = new DnaCompilerRuntimeEnv(args);
+    final DNACompilerRuntimeEnv runEnv = new DNACompilerRuntimeEnv(args);
     runEnv.setName("DNACompiler");
     if (!runEnv.isValid()) {
       throw new RuntimeException("DNACompilerRuntimeEnv is invalid!");
@@ -117,7 +117,7 @@ public class Main {
     try {
       appCfg =
           ApplicationUtils.getApplicationConfiguration(
-              runEnv, ArgString.OPTIONS, DnaCompilerUtils.getApplicationConfiguration());
+              runEnv, ArgString.OPTIONS, DNACompilerUtils.getApplicationConfiguration());
     } catch (final IOException e) {
       throw new RuntimeException("Error with application configuration file.");
     }
@@ -231,7 +231,7 @@ public class Main {
   }
 
   protected static void writeJsonForNetlist(
-      final DnaCompilerRuntimeEnv runEnv, final Netlist netlist, final String inputFilePath) {
+      final DNACompilerRuntimeEnv runEnv, final Netlist netlist, final String inputFilePath) {
     String outputNetlistFilePath = null;
     outputNetlistFilePath = runEnv.getOptionValue(ArgString.OUTPUTNETLIST);
     if (outputNetlistFilePath == null) {
@@ -250,7 +250,7 @@ public class Main {
    *
    * @param runEnv The DNACompilerRuntimeEnv.
    */
-  protected static void setupLogger(final DnaCompilerRuntimeEnv runEnv) {
+  protected static void setupLogger(final DNACompilerRuntimeEnv runEnv) {
     String logfile = runEnv.getOptionValue(ArgString.LOGFILENAME);
     if (logfile == null) {
       logfile = "log.log";

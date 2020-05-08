@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.cellocad.v2.DNACompiler.runtime.Main;
-import org.cellocad.v2.DNACompiler.runtime.environment.DnaCompilerArgString;
+import org.cellocad.v2.DNACompiler.runtime.environment.DNACompilerArgString;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.junit.BeforeClass;
@@ -35,7 +35,7 @@ import org.junit.Test;
  * @author Timothy Jones
  * @date 2020-02-25
  */
-public class DnaCompilerIT {
+public class DNACompilerIT {
 
   /**
    * Environment setup for tests.
@@ -48,17 +48,17 @@ public class DnaCompilerIT {
     Path dir = Files.createTempDirectory("cello_");
     args =
         new String[] {
-          "-" + DnaCompilerArgString.INPUTNETLIST,
+          "-" + DNACompilerArgString.INPUTNETLIST,
           Utils.getResource("and.v").getFile(),
-          "-" + DnaCompilerArgString.USERCONSTRAINTSFILE,
+          "-" + DNACompilerArgString.USERCONSTRAINTSFILE,
           Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
-          "-" + DnaCompilerArgString.INPUTSENSORFILE,
+          "-" + DNACompilerArgString.INPUTSENSORFILE,
           Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
-          "-" + DnaCompilerArgString.OUTPUTDEVICEFILE,
+          "-" + DNACompilerArgString.OUTPUTDEVICEFILE,
           Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
-          "-" + DnaCompilerArgString.OUTPUTDIR,
+          "-" + DNACompilerArgString.OUTPUTDIR,
           dir.toString(),
-          "-" + DnaCompilerArgString.PYTHONENV,
+          "-" + DNACompilerArgString.PYTHONENV,
           "python"
         };
   }
