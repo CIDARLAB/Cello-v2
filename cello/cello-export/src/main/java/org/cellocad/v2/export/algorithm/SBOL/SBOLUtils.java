@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.Set;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.Part;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolDataUtils;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLDocument;
 import org.sbolstandard.core2.SBOLValidationException;
@@ -39,7 +39,7 @@ import org.synbiohub.frontend.SynBioHubFrontend;
  *
  * @date 2018-05-21
  */
-public class SbolUtils {
+public class SBOLUtils {
 
   /**
    * Add a component definition of {@code part} to {@code document}. Use SynBioHub definition if
@@ -79,7 +79,7 @@ public class SbolUtils {
       rtn = document.createComponentDefinition(part.getName(), "1", ComponentDefinition.DNA_REGION);
       part.setUri(rtn.getIdentity());
       final Sequence sequence = document.createSequence(part.getName() + "_sequence",
-          SbolDataUtils.getDnaSequence(part), Sequence.IUPAC_DNA);
+          SBOLDataUtils.getDnaSequence(part), Sequence.IUPAC_DNA);
       rtn.addSequence(sequence);
       if (part.getPartType().equals("promoter")) {
         rtn.addRole(SequenceOntology.PROMOTER);
@@ -133,7 +133,7 @@ public class SbolUtils {
 
     if (rtn != null) {
       document.createCopy(rtn);
-      SbolUtils.addChildCDsAndSequences(rtn, document);
+      SBOLUtils.addChildCDsAndSequences(rtn, document);
       final Set<Sequence> sequences = rtn.getSequences();
       if (sequences != null) {
         for (final Sequence s : sequences) {
@@ -145,7 +145,7 @@ public class SbolUtils {
           document.createComponentDefinition(device.getName(), "1", ComponentDefinition.DNA_REGION);
       device.setUri(rtn.getIdentity());
       final Sequence sequence = document.createSequence(device.getName() + "_sequence",
-          SbolDataUtils.getDnaSequence(device), Sequence.IUPAC_DNA);
+          SBOLDataUtils.getDnaSequence(device), Sequence.IUPAC_DNA);
       rtn.addSequence(sequence);
       // TODO add part definitions
     }
@@ -166,7 +166,7 @@ public class SbolUtils {
             document.createCopy(s);
           }
         }
-        SbolUtils.addChildCDsAndSequences(child, document);
+        SBOLUtils.addChildCDsAndSequences(child, document);
       }
     }
   }

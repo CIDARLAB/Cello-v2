@@ -20,7 +20,7 @@
 package org.cellocad.v2.export.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolNetlistNodeData;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
 
 /**
  * The EXNetlistNodeDataFactory is a NetlistNodeData factory for the <i>export</i> stage.
@@ -43,7 +43,7 @@ public class EXNetlistNodeDataFactory extends NetlistNodeDataFactory<EXNetlistNo
   protected EXNetlistNodeData getNetlistNodeData(final String name) {
     EXNetlistNodeData rtn = null;
     if (name.equals("SBOL")) {
-      rtn = new SbolNetlistNodeData();
+      rtn = new SBOLNetlistNodeData();
     }
     return rtn;
   }

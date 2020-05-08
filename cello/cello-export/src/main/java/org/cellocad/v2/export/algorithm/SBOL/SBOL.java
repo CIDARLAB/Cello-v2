@@ -46,10 +46,10 @@ import org.cellocad.v2.common.target.data.data.StructureObject;
 import org.cellocad.v2.common.target.data.data.StructurePart;
 import org.cellocad.v2.common.target.data.data.StructureTemplate;
 import org.cellocad.v2.export.algorithm.EXAlgorithm;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolDataUtils;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolNetlistData;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolNetlistEdgeData;
-import org.cellocad.v2.export.algorithm.SBOL.data.SbolNetlistNodeData;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLDataUtils;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
+import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
 import org.cellocad.v2.export.target.data.EXTargetDataInstance;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
@@ -83,41 +83,41 @@ import org.virtualparts.data.SBOLInteractionAdder_GeneCentric;
  *
  * @date 2018-06-04
  */
-public class Sbol extends EXAlgorithm {
+public class SBOL extends EXAlgorithm {
 
   /**
-   * Returns the {@link SbolNetlistNodeData} of the given node.
+   * Returns the {@link SBOLNetlistNodeData} of the given node.
    *
    * @param node A node within the netlist of this instance.
-   * @return The {@link SbolNetlistNodeData} instance if it exists, null otherwise.
+   * @return The {@link SBOLNetlistNodeData} instance if it exists, null otherwise.
    */
-  protected SbolNetlistNodeData getSbolNetlistNodeData(final NetlistNode node) {
-    SbolNetlistNodeData rtn = null;
-    rtn = (SbolNetlistNodeData) node.getNetlistNodeData();
+  protected SBOLNetlistNodeData getSbolNetlistNodeData(final NetlistNode node) {
+    SBOLNetlistNodeData rtn = null;
+    rtn = (SBOLNetlistNodeData) node.getNetlistNodeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link SbolNetlistEdgeData} of the given edge.
+   * Returns the {@link SBOLNetlistEdgeData} of the given edge.
    *
    * @param edge An edge within the netlist of this instance.
-   * @return The {@link SbolNetlistEdgeData} instance if it exists, null otherwise.
+   * @return The {@link SBOLNetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected SbolNetlistEdgeData getSbolNetlistEdgeData(final NetlistEdge edge) {
-    SbolNetlistEdgeData rtn = null;
-    rtn = (SbolNetlistEdgeData) edge.getNetlistEdgeData();
+  protected SBOLNetlistEdgeData getSbolNetlistEdgeData(final NetlistEdge edge) {
+    SBOLNetlistEdgeData rtn = null;
+    rtn = (SBOLNetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link SbolNetlistData} of the given netlist.
+   * Returns the {@link SBOLNetlistData} of the given netlist.
    *
    * @param netlist The netlist of this instance.
-   * @return The {@link SbolNetlistData} instance if it exists, null otherwise.
+   * @return The {@link SBOLNetlistData} instance if it exists, null otherwise.
    */
-  protected SbolNetlistData getSbolNetlistData(final Netlist netlist) {
-    SbolNetlistData rtn = null;
-    rtn = (SbolNetlistData) netlist.getNetlistData();
+  protected SBOLNetlistData getSbolNetlistData(final Netlist netlist) {
+    SBOLNetlistData rtn = null;
+    rtn = (SBOLNetlistData) netlist.getNetlistData();
     return rtn;
   }
 
@@ -228,11 +228,11 @@ public class Sbol extends EXAlgorithm {
             final Part part = getTargetDataInstance().getParts().findCObjectByName(str);
             AssignableDevice ad = getTargetDataInstance().getAssignableDeviceByName(str);
             if (part != null) {
-              SbolUtils.addPartDefinition(part, document, getSbhFrontend());
+              SBOLUtils.addPartDefinition(part, document, getSbhFrontend());
               continue;
             }
             if (ad != null) {
-              SbolUtils.addDeviceDefinition(ad, document, getSbhFrontend());
+              SBOLUtils.addDeviceDefinition(ad, document, getSbhFrontend());
               continue;
             }
             final String nodeName = component.getNode();
@@ -241,10 +241,10 @@ public class Sbol extends EXAlgorithm {
             ad = getTargetDataInstance().getAssignableDeviceByName(deviceName);
             final Structure s = ad.getStructure();
             final StructureDevice sd = s.getDeviceByName(str);
-            final Collection<String> parts = Sbol.getFlattenedPartList(sd);
+            final Collection<String> parts = SBOL.getFlattenedPartList(sd);
             for (final String partName : parts) {
               final Part c = (Part) getDnaComponentByName(partName);
-              SbolUtils.addPartDefinition(c, document, getSbhFrontend());
+              SBOLUtils.addPartDefinition(c, document, getSbhFrontend());
             }
           }
         }
@@ -263,7 +263,7 @@ public class Sbol extends EXAlgorithm {
         rtn.add(o.getName());
       }
       if (o instanceof StructureDevice) {
-        rtn.addAll(Sbol.getFlattenedPartList((StructureDevice) o));
+        rtn.addAll(SBOL.getFlattenedPartList((StructureDevice) o));
       }
     }
     return rtn;
@@ -309,7 +309,7 @@ public class Sbol extends EXAlgorithm {
                   getTargetDataInstance().getAssignableDeviceByName(deviceName);
               final Structure s = ad.getStructure();
               final StructureDevice sd = s.getDeviceByName(componentName);
-              final Collection<String> parts = Sbol.getFlattenedPartList(sd);
+              final Collection<String> parts = SBOL.getFlattenedPartList(sd);
               for (final String str : parts) {
                 final DnaComponent c = getDnaComponentByName(str);
                 components.add(c);
@@ -328,7 +328,7 @@ public class Sbol extends EXAlgorithm {
                 cd.createComponent(cDisplayId, cAccess, cDefinitionURI);
 
             // SequenceAnnotation
-            final String s = SbolDataUtils.getDnaSequence(co);
+            final String s = SBOLDataUtils.getDnaSequence(co);
             final String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
             final String saLocationId = saDisplayId + "_Range";
             final int start = sequence.length() + 1;
@@ -465,7 +465,7 @@ public class Sbol extends EXAlgorithm {
           for (int l = 0; l < component.getNumPart(); l++) {
             final String name = component.getPartAtIdx(l);
             final DnaComponent c = getDnaComponentByName(name);
-            seq += SbolDataUtils.getDnaSequence(c);
+            seq += SBOLDataUtils.getDnaSequence(c);
           }
 
           // Component
@@ -764,7 +764,7 @@ public class Sbol extends EXAlgorithm {
    */
   @Override
   protected Logger getLogger() {
-    return Sbol.logger;
+    return SBOL.logger;
   }
 
   private String repositoryUrl;
@@ -774,6 +774,6 @@ public class Sbol extends EXAlgorithm {
   private SynBioHubFrontend sbhFrontend;
   private SBOLDocument sbolDocument;
   private String sbolFilename;
-  private static final Logger logger = LogManager.getLogger(Sbol.class);
+  private static final Logger logger = LogManager.getLogger(SBOL.class);
 
 }

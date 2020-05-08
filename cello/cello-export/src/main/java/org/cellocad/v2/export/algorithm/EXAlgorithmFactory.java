@@ -20,7 +20,7 @@
 package org.cellocad.v2.export.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.export.algorithm.SBOL.Sbol;
+import org.cellocad.v2.export.algorithm.SBOL.SBOL;
 
 /**
  * The EXAlgorithmFactory is an algorithm factory for the <i>export</i> stage.
@@ -43,7 +43,7 @@ public class EXAlgorithmFactory extends AlgorithmFactory<EXAlgorithm> {
   protected EXAlgorithm getAlgorithm(final String name) {
     EXAlgorithm rtn = null;
     if (name.equals("SBOL")) {
-      rtn = new Sbol();
+      rtn = new SBOL();
     }
     return rtn;
   }

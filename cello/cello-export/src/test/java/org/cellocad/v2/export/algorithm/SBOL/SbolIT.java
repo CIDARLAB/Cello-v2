@@ -43,7 +43,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Integration test for {@link Sbol}.
+ * Integration test for {@link SBOL}.
  *
  * @author Timothy Jones
  *

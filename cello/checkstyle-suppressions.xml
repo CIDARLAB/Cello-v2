@@ -7,5 +7,5 @@
   <suppress checks="MethodName" files="[a-zA-Z0-9]+(IT|Test).java"/>
   <!-- Non-standard algorithm names -->
   <suppress checks="TypeName" files="maxFanout[a-zA-Z]*.java"/>
-  <suppress checks="AbbreviationAsWordInName" files="(GPCC_BASE|GPCC_SCIP_BASE|GPCC_SUGARM_BASE|GPCC_GRID)[a-zA-Z_]*.java"/>
+  <suppress checks="AbbreviationAsWordInName" files="(GPCC_BASE|GPCC_SCIP_BASE|GPCC_SUGARM_BASE|GPCC_GRID|SBOL)[a-zA-Z_]*.java"/>
 </suppressions>

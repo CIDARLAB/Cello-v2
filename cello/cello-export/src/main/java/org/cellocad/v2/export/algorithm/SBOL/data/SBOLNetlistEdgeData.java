@@ -21,25 +21,24 @@ package org.cellocad.v2.export.algorithm.SBOL.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.export.algorithm.data.EXNetlistNodeData;
+import org.cellocad.v2.export.algorithm.data.EXNetlistEdgeData;
 
 /**
- * The SBOLNetlistNodeData class contains all data for a node used within the <i>SBOL</i> algorithm
- * class of the <i>export</i> stage.
+ * The data for an edge used within the <i>SBOL</i> algorithm of the <i>export</i> stage.
  *
  * @author Timothy Jones
  *
  * @date 2018-06-04
  */
-public class SbolNetlistNodeData extends EXNetlistNodeData {
+public class SBOLNetlistEdgeData extends EXNetlistEdgeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link SbolNetlistNodeData}.
+   * Initializes a newly created {@link SBOLNetlistEdgeData}.
    */
-  public SbolNetlistNodeData() {
+  public SBOLNetlistEdgeData() {
     super();
     setDefault();
   }

@@ -32,7 +32,7 @@ import org.cellocad.v2.common.target.data.data.Part;
  *
  * @date 2018-05-21
  */
-public class SbolDataUtils {
+public class SBOLDataUtils {
 
   /**
    * Gets the DNA sequence of the given compenent.
@@ -48,15 +48,15 @@ public class SbolDataUtils {
     }
     if (component instanceof Gate) {
       final Gate gate = (Gate) component;
-      rtn = SbolDataUtils.getDnaSequence(gate);
+      rtn = SBOLDataUtils.getDnaSequence(gate);
     }
     if (component instanceof InputSensor) {
       final InputSensor sensor = (InputSensor) component;
-      rtn = SbolDataUtils.getDnaSequence(sensor);
+      rtn = SBOLDataUtils.getDnaSequence(sensor);
     }
     if (component instanceof OutputDevice) {
       final OutputDevice reporter = (OutputDevice) component;
-      rtn = SbolDataUtils.getDnaSequence(reporter);
+      rtn = SBOLDataUtils.getDnaSequence(reporter);
     }
     return rtn;
   }

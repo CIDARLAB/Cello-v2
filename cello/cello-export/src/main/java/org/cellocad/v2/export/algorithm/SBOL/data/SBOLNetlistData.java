@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Massachusetts Institute of Technology (MIT), Boston University (BU)
+ * Copyright (C) 2018 Boston University (BU)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -17,17 +17,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
+package org.cellocad.v2.export.algorithm.SBOL.data;
+
+import java.io.IOException;
+import java.io.Writer;
+import org.cellocad.v2.export.algorithm.data.EXNetlistData;
 
 /**
- * The SimulatedAnnealingDataUtils is class with utility methods for the data used in the
- * <i>SimulatedAnnealing</i> algorithm.
+ * The data for a netlist used within the <i>SBOL</i> algorithm of the <i>export</i> stage.
  *
- * @author Vincent Mirian
  * @author Timothy Jones
  *
- * @date 2018-05-21
+ * @date 2018-06-04
  */
-public class SimulatedAnnealingDataUtils {
+public class SBOLNetlistData extends EXNetlistData {
+
+  private void setDefault() {
+  }
+
+  /**
+   * Initializes a newly created {@link SBOLNetlistData}.
+   */
+  public SBOLNetlistData() {
+    super();
+    setDefault();
+  }
+
+  /**
+   * Writes this instance in JSON format to the writer defined by parameter {@code os} with the
+   * number of indents equivalent to the parameter {@code indent}.
+   *
+   * @param indent The number of indents.
+   * @param os     The writer.
+   * @throws IOException If an I/O error occurs.
+   */
+  @Override
+  public void writeJson(final int indent, final Writer os) throws IOException {
+
+  }
 
 }

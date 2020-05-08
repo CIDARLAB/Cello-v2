@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Massachusetts Institute of Technology (MIT)
+ * Copyright (C) 2018 Boston University (BU)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -17,29 +17,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
+package org.cellocad.v2.export.algorithm.SBOL.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.technologyMapping.algorithm.data.TMNetlistData;
+import org.cellocad.v2.export.algorithm.data.EXNetlistNodeData;
 
 /**
- * The data for a netlist used within the <i>SimulatedAnnealing</i> algorithm of the
- * <i>technologyMapping</i> stage.
+ * The SBOLNetlistNodeData class contains all data for a node used within the <i>SBOL</i> algorithm
+ * class of the <i>export</i> stage.
  *
- * @author Vincent Mirian
+ * @author Timothy Jones
  *
- * @date 2018-05-21
+ * @date 2018-06-04
  */
-public class SimulatedAnnealingNetlistData extends TMNetlistData {
+public class SBOLNetlistNodeData extends EXNetlistNodeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link SimulatedAnnealingNetlistData}.
+   * Initializes a newly created {@link SBOLNetlistNodeData}.
    */
-  public SimulatedAnnealingNetlistData() {
+  public SBOLNetlistNodeData() {
     super();
     setDefault();
   }
