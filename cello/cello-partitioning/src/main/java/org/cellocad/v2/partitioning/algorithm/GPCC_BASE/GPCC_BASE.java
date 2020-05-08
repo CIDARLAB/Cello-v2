@@ -30,9 +30,9 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.constraint.Weight;
 import org.cellocad.v2.partitioning.algorithm.PTAlgorithm;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistNodeData;
 import org.cellocad.v2.partitioning.common.Block;
 import org.cellocad.v2.partitioning.common.Netlister;
 import org.cellocad.v2.partitioning.common.Partition;
@@ -50,7 +50,7 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * @author Vincent Mirian
  * @date 2018-05-21
  */
-public class GpccBase extends PTAlgorithm {
+public class GPCC_BASE extends PTAlgorithm {
 
   /** Initializes class members. */
   private void init() {
@@ -61,44 +61,44 @@ public class GpccBase extends PTAlgorithm {
     cellBlockList = new ArrayList<>();
   }
 
-  /** Initializes a newly created {@link GpccBase}. */
-  public GpccBase() {
+  /** Initializes a newly created {@link GPCC_BASE}. */
+  public GPCC_BASE() {
     init();
   }
 
   /**
-   * Returns the {@link GpccBaseNetlistNodeData} of the given node.
+   * Returns the {@link GPCC_BASENetlistNodeData} of the given node.
    *
    * @param node A node within the netlist of this instance.
-   * @return The {@link GpccBaseNetlistNodeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_BASENetlistNodeData} instance if it exists, null otherwise.
    */
-  protected GpccBaseNetlistNodeData getGpccBaseNetlistNodeData(final NetlistNode node) {
-    GpccBaseNetlistNodeData rtn = null;
-    rtn = (GpccBaseNetlistNodeData) node.getNetlistNodeData();
+  protected GPCC_BASENetlistNodeData getGpccBaseNetlistNodeData(final NetlistNode node) {
+    GPCC_BASENetlistNodeData rtn = null;
+    rtn = (GPCC_BASENetlistNodeData) node.getNetlistNodeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccBaseNetlistEdgeData} of the given edge.
+   * Returns the {@link GPCC_BASENetlistEdgeData} of the given edge.
    *
    * @param edge An edge within the netlist of this instance.
-   * @return The {@link GpccBaseNetlistEdgeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_BASENetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected GpccBaseNetlistEdgeData getGpccBaseNetlistEdgeData(final NetlistEdge edge) {
-    GpccBaseNetlistEdgeData rtn = null;
-    rtn = (GpccBaseNetlistEdgeData) edge.getNetlistEdgeData();
+  protected GPCC_BASENetlistEdgeData getGpccBaseNetlistEdgeData(final NetlistEdge edge) {
+    GPCC_BASENetlistEdgeData rtn = null;
+    rtn = (GPCC_BASENetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccBaseNetlistData} of the given netlist.
+   * Returns the {@link GPCC_BASENetlistData} of the given netlist.
    *
    * @param netlist The netlist of this instance.
-   * @return The {@link GpccBaseNetlistData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_BASENetlistData} instance if it exists, null otherwise.
    */
-  protected GpccBaseNetlistData getGpccBaseNetlistData(final Netlist netlist) {
-    GpccBaseNetlistData rtn = null;
-    rtn = (GpccBaseNetlistData) netlist.getNetlistData();
+  protected GPCC_BASENetlistData getGpccBaseNetlistData(final Netlist netlist) {
+    GPCC_BASENetlistData rtn = null;
+    rtn = (GPCC_BASENetlistData) netlist.getNetlistData();
     return rtn;
   }
 
@@ -347,8 +347,8 @@ public class GpccBase extends PTAlgorithm {
    */
   @Override
   protected Logger getLogger() {
-    return GpccBase.logger;
+    return GPCC_BASE.logger;
   }
 
-  private static final Logger logger = LogManager.getLogger(GpccBase.class);
+  private static final Logger logger = LogManager.getLogger(GPCC_BASE.class);
 }

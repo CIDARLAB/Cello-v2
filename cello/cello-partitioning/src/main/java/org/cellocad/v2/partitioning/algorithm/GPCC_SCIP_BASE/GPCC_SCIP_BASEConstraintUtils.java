@@ -34,14 +34,12 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.netlist.NetlistNodeUtils;
 
 /**
- * The GPCCSCIPBaseConstraintUtils class is class with utility methods for the <i>GPCC_SCIP_BASE</i>
- * instances.
+ * Utility methods for the <i>GPCC_SCIP_BASE</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class GpccScipBaseConstraintUtils {
+public class GPCC_SCIP_BASEConstraintUtils {
 
   /**
    * Returns a aggregated set of integers from the list defined by parameter {@code listSets}.
@@ -64,17 +62,17 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Write SCIP Objective Function.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeObjectiveFunction(final GpccScipBase scip, final String filename) {
+  private static void writeObjectiveFunction(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
-    constraint += GpccScipBaseConstraintUtils.S_MINIMIZE;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_MINIMIZE;
     constraint += Utils.getNewLine();
     constraint += Utils.getTabCharacter();
-    constraint += GpccScipBaseConstraintUtils.S_OBJECTIVE;
-    constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
-    constraint += GpccScipBaseConstraintUtils.S_NUMEDGE;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_OBJECTIVE;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_NUMEDGE;
     constraint += Utils.getNewLine();
     // write SCIP script
     Utils.appendToFile(constraint, filename);
@@ -83,38 +81,39 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Write SCIP Objective Function.
    *
-   * @param scip  Scip instance.
-   * @param cell  The {@link NetlistNode}.
+   * @param scip Scip instance.
+   * @param cell The {@link NetlistNode}.
    * @param block The Block.
    */
-  protected static String assign(final GpccScipBase scip, final NetlistNode cell,
-      final Block block) {
+  protected static String assign(
+      final GPCC_SCIP_BASE scip, final NetlistNode cell, final Block block) {
     String rtn = "";
     final int celli = scip.getCellList().indexOf(cell);
     final int blocki = scip.getBlockList().indexOf(block);
     if (celli == -1 || blocki == -1) {
       throw new RuntimeException("Error with values!");
     }
-    rtn += GpccScipBaseConstraintUtils.assignInt(scip.getCellList().indexOf(cell),
-        scip.getBlockList().indexOf(block));
+    rtn +=
+        GPCC_SCIP_BASEConstraintUtils.assignInt(
+            scip.getCellList().indexOf(cell), scip.getBlockList().indexOf(block));
     return rtn;
   }
 
   /**
-   * Returns a string representation of the assignment variable of cell defined by parameter
-   * {@code cell} to the block defined by parameter {@code block}.
+   * Returns a string representation of the assignment variable of cell defined by parameter {@code
+   * cell} to the block defined by parameter {@code block}.
    *
-   * @param cell  An integer representing the cell.
+   * @param cell An integer representing the cell.
    * @param block An integer representing the block.
-   * @return A string representation of the assignment variable of cell defined by parameter
-   *         {@code cell} to the block defined by parameter {@code block}.
+   * @return A string representation of the assignment variable of cell defined by parameter {@code
+   *     cell} to the block defined by parameter {@code block}.
    */
   protected static String assignInt(final int cell, final int block) {
     String rtn = "";
-    rtn += GpccScipBaseConstraintUtils.S_ASSIGN;
-    rtn += GpccScipBaseConstraintUtils.S_CELL;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_ASSIGN;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_CELL;
     rtn += cell;
-    rtn += GpccScipBaseConstraintUtils.S_BLK;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_BLK;
     rtn += block;
     return rtn;
   }
@@ -123,27 +122,27 @@ public class GpccScipBaseConstraintUtils {
    * Returns a string representing the Block Capacity Header for Block index defined by parameter
    * {@code blockIdx} and capacity index defined by parameter {@code capacityIdx}.
    *
-   * @param blockIdx    The block index.
+   * @param blockIdx The block index.
    * @param capacityIdx The capacity index.
    * @return A string representing the Block Capacity Header.
    */
-  private static String getConstraintsBlockCapacityHeader(final int blockIdx,
-      final int capacityIdx) {
+  private static String getConstraintsBlockCapacityHeader(
+      final int blockIdx, final int capacityIdx) {
     String rtn = "";
     // header
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_HEADER;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
     rtn += Utils.getNewLine();
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_COMMENT;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_COMMENT;
     rtn += Utils.getTabCharacterRepeat(2);
-    rtn += GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += blockIdx + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += GpccScipBaseConstraintUtils.S_CAPACITY + GpccScipBaseConstraintUtils.S_SPACE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_BLK + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn += blockIdx + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_CAPACITY + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
     rtn += capacityIdx;
     rtn += Utils.getNewLine();
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_HEADER;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
     rtn += Utils.getNewLine();
     return rtn;
   }
@@ -152,18 +151,18 @@ public class GpccScipBaseConstraintUtils {
    * Returns a string representing the Block Capacity Identifier for Block index defined by
    * parameter {@code blockIdx} and capacity index defined by parameter {@code capacityIdx}.
    *
-   * @param blockIdx    The block index.
+   * @param blockIdx The block index.
    * @param capacityIdx The capacity index.
    * @return A string representing the Block Capacity Identifier.
    */
-  private static String getConstraintsBlockCapacityIdentifier(final int blockIdx,
-      final int capacityIdx) {
+  private static String getConstraintsBlockCapacityIdentifier(
+      final int blockIdx, final int capacityIdx) {
     String rtn = "";
     // identifier
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_UNDERSCORE;
-    rtn += blockIdx + GpccScipBaseConstraintUtils.S_UNDERSCORE;
-    rtn += GpccScipBaseConstraintUtils.S_CAPACITY + GpccScipBaseConstraintUtils.S_UNDERSCORE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_BLK + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+    rtn += blockIdx + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_CAPACITY + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
     rtn += capacityIdx;
     return rtn;
   }
@@ -176,18 +175,20 @@ public class GpccScipBaseConstraintUtils {
    * @param cellList The cellList.
    * @return A string representing the Block Capacity CellList.
    */
-  private static String getConstraintsBlockCapacityCellList(final int blockIdx,
-      final Set<Integer> cellList) {
+  private static String getConstraintsBlockCapacityCellList(
+      final int blockIdx, final Set<Integer> cellList) {
     String rtn = "";
     final int size = cellList.size();
     int cellIdx = 0;
     final Iterator<Integer> it = cellList.iterator();
     while (it.hasNext()) {
       final int cellId = it.next();
-      rtn += GpccScipBaseConstraintUtils.assignInt(cellId, blockIdx);
+      rtn += GPCC_SCIP_BASEConstraintUtils.assignInt(cellId, blockIdx);
       if (cellIdx < size - 1) {
-        rtn += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_ADDITION
-            + GpccScipBaseConstraintUtils.S_SPACE;
+        rtn +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + GPCC_SCIP_BASEConstraintUtils.S_ADDITION
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
       }
       cellIdx++;
     }
@@ -197,11 +198,11 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes the Block Capacity.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeConstraintsBlockCapacity(final GpccScipBase scip,
-      final String filename) {
+  private static void writeConstraintsBlockCapacity(
+      final GPCC_SCIP_BASE scip, final String filename) {
     String equ = "";
     final List<List<Set<Integer>>> blockCapacityCellList = scip.getBlockCapacityCellList();
     for (int blockIdx = 0; blockIdx < blockCapacityCellList.size(); blockIdx++) {
@@ -217,33 +218,40 @@ public class GpccScipBaseConstraintUtils {
         final Set<Integer> cellList = allCellList.get(capacityIdx);
         // header
         constraint +=
-            GpccScipBaseConstraintUtils.getConstraintsBlockCapacityHeader(blockIdx, capacityIdx);
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityHeader(blockIdx, capacityIdx);
         // identifier lower
-        constraint += GpccScipBaseConstraintUtils.getConstraintsBlockCapacityIdentifier(blockIdx,
-            capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_LOWER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
-        equ = GpccScipBaseConstraintUtils.getConstraintsBlockCapacityCellList(blockIdx, cellList);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityIdentifier(
+                blockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_LOWER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
+        equ = GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityCellList(blockIdx, cellList);
         constraint += equ;
         // in LP format: >, >=, => is equivalent to =>
         // capacity lower bound symbol is reduced to => (flipped)
-        constraint += GpccScipBaseConstraintUtils.S_SPACE
-            + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
-            + GpccScipBaseConstraintUtils.S_SPACE + capacity.getLowerBound();
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getLowerBound();
         constraint += Utils.getNewLine();
         // identifier upper
-        constraint += GpccScipBaseConstraintUtils.getConstraintsBlockCapacityIdentifier(blockIdx,
-            capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_UPPER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityIdentifier(
+                blockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UPPER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
         constraint += equ;
         // rtn += writeConstraintsBlockCapacityCellList(blockIdx, cellList);
         // in LP format: <, <=, =< is equivalent to <=
         // capacity upper bound symbol is reduced to <, thus substract one from value
-        constraint += GpccScipBaseConstraintUtils.S_SPACE + capacity.getUpperBoundType().toString()
-            + GpccScipBaseConstraintUtils.S_SPACE + (capacity.getUpperBound() - 1);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getUpperBoundType().toString()
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + (capacity.getUpperBound() - 1);
         constraint += Utils.getNewLine();
       }
       // write SCIP script
@@ -254,12 +262,12 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes the Block Connections Capacity.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
   @SuppressWarnings("unused")
-  private static void writeConstraintsBlockConnectionsCapacity(final GpccScipBase scip,
-      final String filename) {
+  private static void writeConstraintsBlockConnectionsCapacity(
+      final GPCC_SCIP_BASE scip, final String filename) {
     String equ = "";
     final List<List<Set<Integer>>> blockCapacityCellList = scip.getBlockCapacityCellList();
     for (int blockIdx = 0; blockIdx < blockCapacityCellList.size(); blockIdx++) {
@@ -281,33 +289,40 @@ public class GpccScipBaseConstraintUtils {
         final Set<Integer> cellList = allCellList.get(capacityIdx);
         // header
         constraint +=
-            GpccScipBaseConstraintUtils.getConstraintsBlockCapacityHeader(blockIdx, capacityIdx);
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityHeader(blockIdx, capacityIdx);
         // identifier lower
-        constraint += GpccScipBaseConstraintUtils.getConstraintsBlockCapacityIdentifier(blockIdx,
-            capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_LOWER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
-        equ = GpccScipBaseConstraintUtils.getConstraintsBlockCapacityCellList(blockIdx, cellList);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityIdentifier(
+                blockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_LOWER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
+        equ = GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityCellList(blockIdx, cellList);
         constraint += equ;
         // in LP format: >, >=, => is equivalent to =>
         // capacity lower bound symbol is reduced to => (flipped)
-        constraint += GpccScipBaseConstraintUtils.S_SPACE
-            + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
-            + GpccScipBaseConstraintUtils.S_SPACE + capacity.getLowerBound();
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getLowerBound();
         constraint += Utils.getNewLine();
         // identifier upper
-        constraint += GpccScipBaseConstraintUtils.getConstraintsBlockCapacityIdentifier(blockIdx,
-            capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_UPPER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsBlockCapacityIdentifier(
+                blockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UPPER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
         constraint += equ;
         // rtn += writeConstraintsBlockCapacityCellList(blockIdx, cellList);
         // in LP format: <, <=, =< is equivalent to <=
         // capacity upper bound symbol is reduced to <, thus substract one from value
-        constraint += GpccScipBaseConstraintUtils.S_SPACE + capacity.getUpperBoundType().toString()
-            + GpccScipBaseConstraintUtils.S_SPACE + (capacity.getUpperBound() - 1);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getUpperBoundType().toString()
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + (capacity.getUpperBound() - 1);
         constraint += Utils.getNewLine();
         // write SCIP script
         Utils.appendToFile(constraint, filename);
@@ -318,10 +333,10 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes the Assignment.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeConstraintsAssignment(final GpccScipBase scip, final String filename) {
+  private static void writeConstraintsAssignment(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
     final List<Set<Integer>> cellBlockList = scip.getCellBlockList();
     for (int i = 0; i < cellBlockList.size(); i++) {
@@ -331,36 +346,44 @@ public class GpccScipBaseConstraintUtils {
       }
       // header
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_HEADER;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
       constraint += Utils.getNewLine();
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_COMMENT;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_COMMENT;
       constraint += Utils.getTabCharacterRepeat(2);
-      constraint += GpccScipBaseConstraintUtils.S_ASSIGN + " " + GpccScipBaseConstraintUtils.S_CELL;
+      constraint +=
+          GPCC_SCIP_BASEConstraintUtils.S_ASSIGN + " " + GPCC_SCIP_BASEConstraintUtils.S_CELL;
       constraint += i;
       constraint += Utils.getNewLine();
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_HEADER;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
       constraint += Utils.getNewLine();
       // identifier
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_ASSIGN + GpccScipBaseConstraintUtils.S_CELL
-          + GpccScipBaseConstraintUtils.S_UNDERSCORE;
+      constraint +=
+          GPCC_SCIP_BASEConstraintUtils.S_ASSIGN
+              + GPCC_SCIP_BASEConstraintUtils.S_CELL
+              + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
       constraint += i;
-      constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
       final Iterator<Integer> it = cellBlockList.get(i).iterator();
       int j = 0;
       while (it.hasNext()) {
         final int blkId = it.next();
-        constraint += GpccScipBaseConstraintUtils.assignInt(i, blkId);
+        constraint += GPCC_SCIP_BASEConstraintUtils.assignInt(i, blkId);
         if (j < size - 1) {
-          constraint += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_ADDITION
-              + GpccScipBaseConstraintUtils.S_SPACE;
+          constraint +=
+              GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                  + GPCC_SCIP_BASEConstraintUtils.S_ADDITION
+                  + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
         }
         j++;
       }
-      constraint += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_EQUAL
-          + GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_ONE;
+      constraint +=
+          GPCC_SCIP_BASEConstraintUtils.S_SPACE
+              + GPCC_SCIP_BASEConstraintUtils.S_EQUAL
+              + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+              + GPCC_SCIP_BASEConstraintUtils.S_ONE;
       constraint += Utils.getNewLine();
     }
     // write SCIP script
@@ -369,60 +392,68 @@ public class GpccScipBaseConstraintUtils {
 
   /**
    * Returns a string representing the InterBlock Capacity Header for Source Block index defined by
-   * parameter {@code srcBlockIdx}, Destination Block index defined by parameter
-   * {@code dstBlockIdx}, and capacity index defined by parameter {@code capacityIdx}.
+   * parameter {@code srcBlockIdx}, Destination Block index defined by parameter {@code
+   * dstBlockIdx}, and capacity index defined by parameter {@code capacityIdx}.
    *
    * @param srcBlockIdx The source block index.
    * @param dstBlockIdx The destination block index.
    * @param capacityIdx The capacity index.
    * @return A string representing the InterBlock Capacity Header.
    */
-  private static String getConstraintsInterBlockCapacityHeader(final int srcBlockIdx,
-      final int dstBlockIdx, final int capacityIdx) {
+  private static String getConstraintsInterBlockCapacityHeader(
+      final int srcBlockIdx, final int dstBlockIdx, final int capacityIdx) {
     String rtn = "";
     // header
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_HEADER;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
     rtn += Utils.getNewLine();
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_COMMENT;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_COMMENT;
     rtn += Utils.getTabCharacterRepeat(2);
-    rtn += GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += srcBlockIdx + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += GpccScipBaseConstraintUtils.S_TO + GpccScipBaseConstraintUtils.S_SPACE
-        + GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += dstBlockIdx + GpccScipBaseConstraintUtils.S_SPACE;
-    rtn += GpccScipBaseConstraintUtils.S_CAPACITY + GpccScipBaseConstraintUtils.S_SPACE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_BLK + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn += srcBlockIdx + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn +=
+        GPCC_SCIP_BASEConstraintUtils.S_TO
+            + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+            + GPCC_SCIP_BASEConstraintUtils.S_BLK
+            + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn += dstBlockIdx + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_CAPACITY + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
     rtn += capacityIdx;
     rtn += Utils.getNewLine();
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_HEADER;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
     rtn += Utils.getNewLine();
     return rtn;
   }
 
   /**
    * Returns a string representing the InterBlock Capacity Header for Source Block index defined by
-   * parameter {@code srcBlockIdx}, Destination Block index defined by parameter
-   * {@code dstBlockIdx}, and capacity index defined by parameter {@code capacityIdx}.
+   * parameter {@code srcBlockIdx}, Destination Block index defined by parameter {@code
+   * dstBlockIdx}, and capacity index defined by parameter {@code capacityIdx}.
    *
    * @param srcBlockIdx The source block index.
    * @param dstBlockIdx The destination block index.
    * @param capacityIdx The capacity index.
    * @return A string representing the InterBlock Capacity Header.
    */
-  private static String getConstraintsInterBlockCapacityIdentifier(final int srcBlockIdx,
-      final int dstBlockIdx, final int capacityIdx) {
+  private static String getConstraintsInterBlockCapacityIdentifier(
+      final int srcBlockIdx, final int dstBlockIdx, final int capacityIdx) {
     String rtn = "";
     // identifier
     rtn += Utils.getTabCharacter();
-    rtn += GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_UNDERSCORE;
-    rtn += srcBlockIdx + GpccScipBaseConstraintUtils.S_UNDERSCORE;
-    rtn += GpccScipBaseConstraintUtils.S_TO + GpccScipBaseConstraintUtils.S_UNDERSCORE
-        + GpccScipBaseConstraintUtils.S_BLK + GpccScipBaseConstraintUtils.S_UNDERSCORE;
+    rtn += GPCC_SCIP_BASEConstraintUtils.S_BLK + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+    rtn += srcBlockIdx + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+    rtn +=
+        GPCC_SCIP_BASEConstraintUtils.S_TO
+            + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE
+            + GPCC_SCIP_BASEConstraintUtils.S_BLK
+            + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
     rtn += dstBlockIdx;
-    rtn += GpccScipBaseConstraintUtils.S_UNDERSCORE + GpccScipBaseConstraintUtils.S_CAPACITY
-        + GpccScipBaseConstraintUtils.S_UNDERSCORE;
+    rtn +=
+        GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE
+            + GPCC_SCIP_BASEConstraintUtils.S_CAPACITY
+            + GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
     rtn += capacityIdx;
     return rtn;
   }
@@ -430,15 +461,19 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Returns a string representing the Edge Equation.
    *
-   * @param srcCells    source cells.
-   * @param dstCells    dstCells cells.
-   * @param nodeList    node list.
+   * @param srcCells source cells.
+   * @param dstCells dstCells cells.
+   * @param nodeList node list.
    * @param srcBlockIdx source block index.
    * @param dstBlockIdx destination block index.
    * @return A string representing the Edge Equation.
    */
-  private static String getEdgeEquation(final Set<Integer> srcCells, final Set<Integer> dstCells,
-      final List<NetlistNode> nodeList, final int srcBlockIdx, final int dstBlockIdx) {
+  private static String getEdgeEquation(
+      final Set<Integer> srcCells,
+      final Set<Integer> dstCells,
+      final List<NetlistNode> nodeList,
+      final int srcBlockIdx,
+      final int dstBlockIdx) {
     String rtn = "";
     // for each source cell
     final Iterator<Integer> it0 = srcCells.iterator();
@@ -458,25 +493,31 @@ public class GpccScipBaseConstraintUtils {
         int coefficient = 0;
         coefficient += NetlistNodeUtils.numNetlistEdgesBetween(src, dst);
         if (coefficient > 0) {
-          term += Integer.toString(coefficient) + GpccScipBaseConstraintUtils.S_SPACE;
-          term += GpccScipBaseConstraintUtils.assignInt(j, srcBlockIdx);
-          term += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_MULTIPLICATION
-              + GpccScipBaseConstraintUtils.S_SPACE;
-          term += GpccScipBaseConstraintUtils.assignInt(k, dstBlockIdx);
+          term += Integer.toString(coefficient) + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+          term += GPCC_SCIP_BASEConstraintUtils.assignInt(j, srcBlockIdx);
+          term +=
+              GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                  + GPCC_SCIP_BASEConstraintUtils.S_MULTIPLICATION
+                  + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
+          term += GPCC_SCIP_BASEConstraintUtils.assignInt(k, dstBlockIdx);
         }
         // if term is not empty add to objective function
         if (!term.isEmpty()) {
           if (!rtn.isEmpty()) {
-            rtn += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_ADDITION
-                + GpccScipBaseConstraintUtils.S_SPACE;
+            rtn +=
+                GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                    + GPCC_SCIP_BASEConstraintUtils.S_ADDITION
+                    + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
           }
-          rtn += GpccScipBaseConstraintUtils.S_SPACE
-              + GpccScipBaseConstraintUtils.S_SQUARE_BRACKET_OPEN
-              + GpccScipBaseConstraintUtils.S_SPACE;
+          rtn +=
+              GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                  + GPCC_SCIP_BASEConstraintUtils.S_SQUARE_BRACKET_OPEN
+                  + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
           rtn += term;
-          rtn += GpccScipBaseConstraintUtils.S_SPACE
-              + GpccScipBaseConstraintUtils.S_SQUARE_BRACKET_CLOSE
-              + GpccScipBaseConstraintUtils.S_SPACE;
+          rtn +=
+              GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                  + GPCC_SCIP_BASEConstraintUtils.S_SQUARE_BRACKET_CLOSE
+                  + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
         }
       }
     }
@@ -486,11 +527,11 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes the InterBlock Capacity.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeConstraintsInterBlockCapacity(final GpccScipBase scip,
-      final String filename) {
+  private static void writeConstraintsInterBlockCapacity(
+      final GPCC_SCIP_BASE scip, final String filename) {
     String equ = "";
     final List<Block> blockList = scip.getBlockList();
     final List<List<Set<Integer>>> blockCapacityCellList = scip.getBlockCapacityCellList();
@@ -504,40 +545,49 @@ public class GpccScipBaseConstraintUtils {
       final int srcBlockIdx = blockList.indexOf(srcBlock);
       final int dstBlockIdx = blockList.indexOf(dstBlock);
       final Set<Integer> srcCells =
-          GpccScipBaseConstraintUtils.union(blockCapacityCellList.get(srcBlockIdx));
+          GPCC_SCIP_BASEConstraintUtils.union(blockCapacityCellList.get(srcBlockIdx));
       final Set<Integer> dstCells =
-          GpccScipBaseConstraintUtils.union(blockCapacityCellList.get(dstBlockIdx));
+          GPCC_SCIP_BASEConstraintUtils.union(blockCapacityCellList.get(dstBlockIdx));
       for (int capacityIdx = 0; capacityIdx < interblock.getNumCapacity(); capacityIdx++) {
         final Capacity capacity = interblock.getCapacityAtIdx(capacityIdx);
         // header
-        constraint += GpccScipBaseConstraintUtils
-            .getConstraintsInterBlockCapacityHeader(srcBlockIdx, dstBlockIdx, capacityIdx);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsInterBlockCapacityHeader(
+                srcBlockIdx, dstBlockIdx, capacityIdx);
         // identifier lower
-        constraint += GpccScipBaseConstraintUtils
-            .getConstraintsInterBlockCapacityIdentifier(srcBlockIdx, dstBlockIdx, capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_LOWER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
-        equ = GpccScipBaseConstraintUtils.getEdgeEquation(srcCells, dstCells, nodeList, srcBlockIdx,
-            dstBlockIdx);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsInterBlockCapacityIdentifier(
+                srcBlockIdx, dstBlockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_LOWER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
+        equ =
+            GPCC_SCIP_BASEConstraintUtils.getEdgeEquation(
+                srcCells, dstCells, nodeList, srcBlockIdx, dstBlockIdx);
         constraint += equ;
         // in LP format: >, >=, => is equivalent to =>
         // capacity lower bound symbol is reduced to => (flipped)
-        constraint += GpccScipBaseConstraintUtils.S_SPACE
-            + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
-            + GpccScipBaseConstraintUtils.S_SPACE + capacity.getLowerBound();
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + LowerBoundType.getStringFlip(capacity.getLowerBoundType())
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getLowerBound();
         constraint += Utils.getNewLine();
         // identifier upper
-        constraint += GpccScipBaseConstraintUtils
-            .getConstraintsInterBlockCapacityIdentifier(srcBlockIdx, dstBlockIdx, capacityIdx);
-        constraint += GpccScipBaseConstraintUtils.S_UNDERSCORE;
-        constraint += GpccScipBaseConstraintUtils.S_UPPER;
-        constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.getConstraintsInterBlockCapacityIdentifier(
+                srcBlockIdx, dstBlockIdx, capacityIdx);
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UNDERSCORE;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_UPPER;
+        constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
         constraint += equ;
         // in LP format: <, <=, =< is equivalent to <=
         // capacity upper bound symbol is reduced to <, thus substract one from value
-        constraint += GpccScipBaseConstraintUtils.S_SPACE + capacity.getUpperBoundType().toString()
-            + GpccScipBaseConstraintUtils.S_SPACE + (capacity.getUpperBound() - 1);
+        constraint +=
+            GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + capacity.getUpperBoundType().toString()
+                + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                + (capacity.getUpperBound() - 1);
         constraint += Utils.getNewLine();
       }
       // write SCIP script
@@ -551,7 +601,7 @@ public class GpccScipBaseConstraintUtils {
    * @param scip scip instance.
    * @return A string representation the total number of edges.
    */
-  public static String getConstraintsObjectiveTotalEdges(final GpccScipBase scip) {
+  public static String getConstraintsObjectiveTotalEdges(final GPCC_SCIP_BASE scip) {
     String rtn = "";
     int totalEdges = 0;
     final List<NetlistNode> nodeList = scip.getCellList();
@@ -570,10 +620,10 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes Objective.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeConstraintsObjective(final GpccScipBase scip, final String filename) {
+  private static void writeConstraintsObjective(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
     String equ = "";
     final List<List<Set<Integer>>> blockCapacityCellList = scip.getBlockCapacityCellList();
@@ -582,34 +632,38 @@ public class GpccScipBaseConstraintUtils {
     if (sizeI != 0) {
       // header
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_HEADER;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
       constraint += Utils.getNewLine();
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_COMMENT;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_COMMENT;
       constraint += Utils.getTabCharacterRepeat(2);
-      constraint += GpccScipBaseConstraintUtils.S_OBJECTIVE;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_OBJECTIVE;
       constraint += Utils.getNewLine();
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_HEADER;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_HEADER;
       constraint += Utils.getNewLine();
       // identifier
       constraint += Utils.getTabCharacter();
-      constraint += GpccScipBaseConstraintUtils.S_OBJECTIVEEQUATION;
-      constraint += GpccScipBaseConstraintUtils.S_IDENTIFIERSEPARATOR;
-      constraint += GpccScipBaseConstraintUtils.S_NUMEDGE;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_OBJECTIVEEQUATION;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_IDENTIFIERSEPARATOR;
+      constraint += GPCC_SCIP_BASEConstraintUtils.S_NUMEDGE;
       // for each block
       for (int i = 0; i < sizeI; i++) {
         final List<Set<Integer>> allCellList = blockCapacityCellList.get(i);
-        final Set<Integer> cellList = GpccScipBaseConstraintUtils.union(allCellList);
-        equ = GpccScipBaseConstraintUtils.getEdgeEquation(cellList, cellList, nodeList, i, i);
+        final Set<Integer> cellList = GPCC_SCIP_BASEConstraintUtils.union(allCellList);
+        equ = GPCC_SCIP_BASEConstraintUtils.getEdgeEquation(cellList, cellList, nodeList, i, i);
         if (!equ.isEmpty()) {
-          constraint += GpccScipBaseConstraintUtils.S_SPACE + GpccScipBaseConstraintUtils.S_ADDITION
-              + GpccScipBaseConstraintUtils.S_SPACE;
+          constraint +=
+              GPCC_SCIP_BASEConstraintUtils.S_SPACE
+                  + GPCC_SCIP_BASEConstraintUtils.S_ADDITION
+                  + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
         }
         constraint += equ;
       }
-      constraint += GpccScipBaseConstraintUtils.S_EQUAL + GpccScipBaseConstraintUtils.S_SPACE
-          + GpccScipBaseConstraintUtils.getConstraintsObjectiveTotalEdges(scip);
+      constraint +=
+          GPCC_SCIP_BASEConstraintUtils.S_EQUAL
+              + GPCC_SCIP_BASEConstraintUtils.S_SPACE
+              + GPCC_SCIP_BASEConstraintUtils.getConstraintsObjectiveTotalEdges(scip);
       constraint += Utils.getNewLine();
     }
     // write SCIP script
@@ -619,12 +673,12 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes Subject To.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeSubjectTo(final GpccScipBase scip, final String filename) {
+  private static void writeSubjectTo(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
-    constraint += GpccScipBaseConstraintUtils.S_SUBJECTTO;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_SUBJECTTO;
     constraint += Utils.getNewLine();
     // write SCIP script
     Utils.appendToFile(constraint, filename);
@@ -633,28 +687,28 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes Constraints.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeConstraints(final GpccScipBase scip, final String filename) {
-    GpccScipBaseConstraintUtils.writeSubjectTo(scip, filename);
-    GpccScipBaseConstraintUtils.writeConstraintsBlockCapacity(scip, filename);
+  private static void writeConstraints(final GPCC_SCIP_BASE scip, final String filename) {
+    GPCC_SCIP_BASEConstraintUtils.writeSubjectTo(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeConstraintsBlockCapacity(scip, filename);
     // GPCCSCIPBaseConstraintUtils.writeConstraintsBlockConnectionsCapacity(scip,
     // filename);
-    GpccScipBaseConstraintUtils.writeConstraintsAssignment(scip, filename);
-    GpccScipBaseConstraintUtils.writeConstraintsInterBlockCapacity(scip, filename);
-    GpccScipBaseConstraintUtils.writeConstraintsObjective(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeConstraintsAssignment(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeConstraintsInterBlockCapacity(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeConstraintsObjective(scip, filename);
   }
 
   /**
    * Writes Binary.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeBinary(final GpccScipBase scip, final String filename) {
+  private static void writeBinary(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
-    constraint += GpccScipBaseConstraintUtils.S_BINARY;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_BINARY;
     constraint += Utils.getNewLine();
     final List<Set<Integer>> cellBlockList = scip.getCellBlockList();
     for (int i = 0; i < cellBlockList.size(); i++) {
@@ -666,7 +720,7 @@ public class GpccScipBaseConstraintUtils {
       while (it.hasNext()) {
         final int blkId = it.next();
         constraint += Utils.getTabCharacter();
-        constraint += GpccScipBaseConstraintUtils.assignInt(i, blkId);
+        constraint += GPCC_SCIP_BASEConstraintUtils.assignInt(i, blkId);
         constraint += Utils.getNewLine();
       }
     }
@@ -677,12 +731,12 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes the End.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    */
-  private static void writeEnd(final GpccScipBase scip, final String filename) {
+  private static void writeEnd(final GPCC_SCIP_BASE scip, final String filename) {
     String constraint = "";
-    constraint += GpccScipBaseConstraintUtils.S_END;
+    constraint += GPCC_SCIP_BASEConstraintUtils.S_END;
     constraint += Utils.getNewLine();
     // write SCIP script
     Utils.appendToFile(constraint, filename);
@@ -691,21 +745,21 @@ public class GpccScipBaseConstraintUtils {
   /**
    * Writes SCIP Constraint File.
    *
-   * @param scip     scip instance.
+   * @param scip scip instance.
    * @param filename filename.
    * @throws IOException Unable to create file.
    */
-  public static void writeScipConstraintFile(final GpccScipBase scip, final String filename)
+  public static void writeScipConstraintFile(final GPCC_SCIP_BASE scip, final String filename)
       throws IOException {
     Utils.deleteFilename(filename);
     Utils.createFile(filename);
-    GpccScipBaseConstraintUtils.writeObjectiveFunction(scip, filename);
-    GpccScipBaseConstraintUtils.writeConstraints(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeObjectiveFunction(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeConstraints(scip, filename);
     /*
      * this.writeBounds(); this.writeGeneral();.
      */
-    GpccScipBaseConstraintUtils.writeBinary(scip, filename);
-    GpccScipBaseConstraintUtils.writeEnd(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeBinary(scip, filename);
+    GPCC_SCIP_BASEConstraintUtils.writeEnd(scip, filename);
   }
 
   private static String S_MINIMIZE = "Minimize";
@@ -734,6 +788,5 @@ public class GpccScipBaseConstraintUtils {
   private static String S_SPACE = " ";
   private static String S_UNDERSCORE = "_";
   private static String S_IDENTIFIERSEPARATOR =
-      GpccScipBaseConstraintUtils.S_COLON + GpccScipBaseConstraintUtils.S_SPACE;
-
+      GPCC_SCIP_BASEConstraintUtils.S_COLON + GPCC_SCIP_BASEConstraintUtils.S_SPACE;
 }

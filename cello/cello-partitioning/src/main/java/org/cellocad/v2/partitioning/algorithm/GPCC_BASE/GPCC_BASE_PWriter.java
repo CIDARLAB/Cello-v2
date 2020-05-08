@@ -37,10 +37,9 @@ import org.cellocad.v2.results.netlist.NetlistNodeUtils;
  * The implementation of the problem writer for the <i>GPCC_BASE</i> algorithm.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class GpccBasePWriter {
+public abstract class GPCC_BASE_PWriter {
 
   /**
    * Returns a aggregated set of integers from the list defined by parameter {@code listSets}.
@@ -57,20 +56,20 @@ public abstract class GpccBasePWriter {
   }
 
   /**
-   * Returns a string representation of the assignment variable of cell defined by parameter
-   * {@code cell} to the block defined by parameter {@code block}.
+   * Returns a string representation of the assignment variable of cell defined by parameter {@code
+   * cell} to the block defined by parameter {@code block}.
    *
-   * @param cell  An integer representing the cell.
+   * @param cell An integer representing the cell.
    * @param block An integer representing the block.
-   * @return A string representation of the assignment variable of cell defined by parameter
-   *         {@code cell} to the block defined by parameter {@code block}.
+   * @return A string representation of the assignment variable of cell defined by parameter {@code
+   *     cell} to the block defined by parameter {@code block}.
    */
   protected String assignInt(final int cell, final int block) {
     String rtn = "";
-    rtn += GpccBasePWriter.S_ASSIGN;
-    rtn += GpccBasePWriter.S_CELL;
+    rtn += GPCC_BASE_PWriter.S_ASSIGN;
+    rtn += GPCC_BASE_PWriter.S_CELL;
     rtn += cell;
-    rtn += GpccBasePWriter.S_BLK;
+    rtn += GPCC_BASE_PWriter.S_BLK;
     rtn += block;
     return rtn;
   }
@@ -134,15 +133,19 @@ public abstract class GpccBasePWriter {
   /**
    * Returns a string representing the Edge Equation.
    *
-   * @param srcCells    source cells.
-   * @param dstCells    dstCells cells.
-   * @param nodeList    node list.
+   * @param srcCells source cells.
+   * @param dstCells dstCells cells.
+   * @param nodeList node list.
    * @param srcBlockIdx source block index.
    * @param dstBlockIdx destination block index.
    * @return A string representing the Edge Equation.
    */
-  protected String getEdgeEquation(final Set<Integer> srcCells, final Set<Integer> dstCells,
-      final List<NetlistNode> nodeList, final int srcBlockIdx, final int dstBlockIdx) {
+  protected String getEdgeEquation(
+      final Set<Integer> srcCells,
+      final Set<Integer> dstCells,
+      final List<NetlistNode> nodeList,
+      final int srcBlockIdx,
+      final int dstBlockIdx) {
     String rtn = "";
     // for each source cell
     final Iterator<Integer> it0 = srcCells.iterator();
@@ -235,9 +238,7 @@ public abstract class GpccBasePWriter {
    */
   protected abstract String getObjectiveConstraintEdgeAfterEndTotalEdges();
 
-  /**
-   * Writes the Objective Constraint Edge.
-   */
+  /** Writes the Objective Constraint Edge. */
   protected void writeConstraintsObjectiveEdge() {
     String constraint = "";
     String equ = "";
@@ -271,9 +272,7 @@ public abstract class GpccBasePWriter {
     Utils.appendToFile(constraint, getFilename());
   }
 
-  /**
-   * Writes the Header.
-   */
+  /** Writes the Header. */
   protected void writeHeader() {
     String constraint = "";
     constraint += getComment() + getFilename() + Utils.getNewLine();
@@ -309,9 +308,7 @@ public abstract class GpccBasePWriter {
    */
   protected abstract String getAssignmentVariablePostfix();
 
-  /**
-   * Writes the Assignment Variable.
-   */
+  /** Writes the Assignment Variable. */
   protected void writeAssignmentVariable() {
     String constraint = "";
     final List<Set<Integer>> cellBlockList = getGpccBase().getCellBlockList();
@@ -341,9 +338,7 @@ public abstract class GpccBasePWriter {
    */
   protected abstract String getEnd();
 
-  /**
-   * Writes the End.
-   */
+  /** Writes the End. */
   protected void writeEnd() {
     String constraint = "";
     constraint += getEnd();
@@ -355,7 +350,7 @@ public abstract class GpccBasePWriter {
    * Returns a string representing the Block Capacity Header for Block index defined by parameter
    * {@code blockIdx} and capacity index defined by parameter {@code capacityIdx}.
    *
-   * @param blockIdx    The block index.
+   * @param blockIdx The block index.
    * @param capacityIdx The capacity index.
    * @return A string representing the Block Capacity Header.
    */
@@ -363,9 +358,9 @@ public abstract class GpccBasePWriter {
     String rtn = "";
     // header
     rtn += Utils.getTabCharacter();
-    rtn += GpccBasePWriter.S_BLK + GpccBasePWriter.S_SPACE;
-    rtn += blockIdx + GpccBasePWriter.S_SPACE;
-    rtn += GpccBasePWriter.S_CAPACITY + GpccBasePWriter.S_SPACE;
+    rtn += GPCC_BASE_PWriter.S_BLK + GPCC_BASE_PWriter.S_SPACE;
+    rtn += blockIdx + GPCC_BASE_PWriter.S_SPACE;
+    rtn += GPCC_BASE_PWriter.S_CAPACITY + GPCC_BASE_PWriter.S_SPACE;
     rtn += capacityIdx;
     return rtn;
   }
@@ -378,14 +373,14 @@ public abstract class GpccBasePWriter {
    * @param cellList The cellList.
    * @return A string representing the Block Capacity CellList.
    */
-  protected String getConstraintsBlockCapacityCellList(final int blockIdx,
-      final Set<Integer> cellList) {
+  protected String getConstraintsBlockCapacityCellList(
+      final int blockIdx, final Set<Integer> cellList) {
     String rtn = "";
     int cellIdx = 0;
     final Iterator<Integer> it = cellList.iterator();
     while (it.hasNext()) {
       if (cellIdx != 0) {
-        rtn += GpccBasePWriter.S_SPACE;
+        rtn += GPCC_BASE_PWriter.S_SPACE;
       }
       final int cellId = it.next();
       rtn += assignInt(cellId, blockIdx);
@@ -426,9 +421,7 @@ public abstract class GpccBasePWriter {
    */
   protected abstract String getConstraintsBlockCapacityUpperAfterEqn(Capacity c);
 
-  /**
-   * Writes the Block Capacity.
-   */
+  /** Writes the Block Capacity. */
   protected void writeConstraintsBlockCapacity() {
     String equ = "";
     final List<List<Set<Integer>>> blockCapacityCellList = getGpccBase().getBlockCapacityCellList();
@@ -444,18 +437,20 @@ public abstract class GpccBasePWriter {
         final Capacity capacity = block.getCapacityAtIdx(capacityIdx);
         final Set<Integer> cellList = allCellList.get(capacityIdx);
         // header
-        constraint += getComment() + getConstraintsBlockCapacityHeader(blockIdx, capacityIdx)
-            + Utils.getNewLine();
+        constraint +=
+            getComment()
+                + getConstraintsBlockCapacityHeader(blockIdx, capacityIdx)
+                + Utils.getNewLine();
         equ = getConstraintsBlockCapacityCellList(blockIdx, cellList);
         // identifier lower
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_LOWER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_LOWER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityLowerBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityLowerAfterEqn(capacity);
         // identifier upper
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_UPPER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_UPPER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityUpperBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityUpperAfterEqn(capacity);
@@ -469,13 +464,13 @@ public abstract class GpccBasePWriter {
    * Returns a string representing the Block Input Connection Capacity CellList for cell defined by
    * parameter {@code cellID} and block defined by parameter {@code blockIdx}.
    *
-   * @param cellId   The cell index.
+   * @param cellId The cell index.
    * @param blockIdx The block index.
    * @return A string representing the Block Input Connection Capacity CellList.
    */
   // input to cellId in BlockIdx
-  protected String getConstraintsBlockInputConnectionCapacityCellList(final int cellId,
-      final int blockIdx) {
+  protected String getConstraintsBlockInputConnectionCapacityCellList(
+      final int cellId, final int blockIdx) {
     String rtn = "";
     final List<NetlistNode> nodeList = getGpccBase().getCellList();
     final List<Set<Integer>> cellBlockList = getGpccBase().getCellBlockList();
@@ -507,13 +502,13 @@ public abstract class GpccBasePWriter {
    * Returns a string representing the Block Output Connection Capacity CellList for cell defined by
    * parameter {@code cellID} and block defined by parameter {@code blockIdx}.
    *
-   * @param cellId   The cell index.
+   * @param cellId The cell index.
    * @param blockIdx The block index.
    * @return A string representing the Block Output Connection Capacity CellList.
    */
   // output from cellId in BlockIdx
-  protected String getConstraintsBlockOutputConnectionCapacityCellList(final int cellId,
-      final int blockIdx) {
+  protected String getConstraintsBlockOutputConnectionCapacityCellList(
+      final int cellId, final int blockIdx) {
     String rtn = "";
     /*
      * List<NetlistNode> nodeList = this.getGPCC_BASE().getCellList(); List<Set<Integer>>
@@ -536,14 +531,14 @@ public abstract class GpccBasePWriter {
    * parameter {@code cellID} and block defined by parameter {@code blockIdx} to block defined by
    * parameter {@code dstBlockIdx}.
    *
-   * @param cellId      The cell index.
-   * @param blockIdx    The block index.
+   * @param cellId The cell index.
+   * @param blockIdx The block index.
    * @param dstBlockIdx The destination block index.
    * @return A string representing the Block Output Connection Capacity CellList.
    */
   // output from cellId in BlockIdx to DstBlockIdx
-  protected String getConstraintsBlockOutputConnectionCapacityCellListDst(final int cellId,
-      final int blockIdx, final int dstBlockIdx) {
+  protected String getConstraintsBlockOutputConnectionCapacityCellListDst(
+      final int cellId, final int blockIdx, final int dstBlockIdx) {
     String rtn = "";
     final List<NetlistNode> nodeList = getGpccBase().getCellList();
     final List<Set<Integer>> cellBlockList = getGpccBase().getCellBlockList();
@@ -580,15 +575,15 @@ public abstract class GpccBasePWriter {
    * parameter {@code blockIdx}, parameter {@code isOutput} defines whether the Connection is for an
    * output or an input.
    *
-   * @param isOutput    true if the connection is an output, false otherwise.
-   * @param blockIdx    The block index.
+   * @param isOutput true if the connection is an output, false otherwise.
+   * @param blockIdx The block index.
    * @param dstBlockIdx The destination block index.
    * @return A string representing the Block Connection Capacity CellList for block defined by
-   *         parameter {@code blockIdx},.
+   *     parameter {@code blockIdx},.
    */
   // TODO: make abstract
-  protected String getConstraintsConnectionsCapacityCellList(final boolean isOutput,
-      final int blockIdx, final int dstBlockIdx) {
+  protected String getConstraintsConnectionsCapacityCellList(
+      final boolean isOutput, final int blockIdx, final int dstBlockIdx) {
     String rtn = "";
     final List<List<Set<Integer>>> blockCapacityCellList = getGpccBase().getBlockCapacityCellList();
     final List<Set<Integer>> allCellList = blockCapacityCellList.get(blockIdx);
@@ -613,7 +608,7 @@ public abstract class GpccBasePWriter {
         rtn += "( if ( and ";
         rtn += "( > ";
         rtn += assignInt(cellId, blockIdx);
-        rtn += GpccBasePWriter.S_SPACE;
+        rtn += GPCC_BASE_PWriter.S_SPACE;
         rtn += " 0 )";
         rtn += dstNodeBlockAssign;
         // rtn += ") (add 1 " + dstNodeBlockAssignVar + ") (add 0 " +
@@ -627,7 +622,7 @@ public abstract class GpccBasePWriter {
         rtn += "( if ";
         rtn += "( > ";
         rtn += assignInt(cellId, blockIdx);
-        rtn += GpccBasePWriter.S_SPACE;
+        rtn += GPCC_BASE_PWriter.S_SPACE;
         rtn += " 0 )";
         // rtn += "(add " + dstNodeBlockAssign + " " + dstNodeBlockAssignVar + ")";
         rtn += dstNodeBlockAssign;
@@ -647,10 +642,10 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Input Connections Capacity Variable for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected String getConstraintsInputConnectionsCapacityVariable(final int blockIdx) {
-    return GpccBasePWriter.S_BLK + blockIdx + GpccBasePWriter.S_ICC;
+    return GPCC_BASE_PWriter.S_BLK + blockIdx + GPCC_BASE_PWriter.S_ICC;
   }
 
   /**
@@ -659,10 +654,10 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Output Connections Capacity Variable for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected String getConstraintsOutputConnectionsCapacityVariable(final int blockIdx) {
-    return GpccBasePWriter.S_BLK + blockIdx + GpccBasePWriter.S_OCC;
+    return GPCC_BASE_PWriter.S_BLK + blockIdx + GPCC_BASE_PWriter.S_OCC;
   }
 
   /**
@@ -671,7 +666,7 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Input Connections Block Max Connections for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected String getConstraintsInputConnectionsCapacityBlockMaxConnections(final int blockIdx) {
     String rtn = "";
@@ -699,7 +694,7 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Output Connections Block Max Connections for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected String getConstraintsOutputConnectionsCapacityBlockMaxConnections(final int blockIdx) {
     String rtn = "";
@@ -727,7 +722,7 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Output Connections Capacity Prefix for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected abstract String getConstraintsOutputConnectionsCapacityPrefix(int blockIdx);
 
@@ -737,7 +732,7 @@ public abstract class GpccBasePWriter {
    *
    * @param blockIdx The block index.
    * @return A string representing the Input Connections Capacity Prefix for block defined by
-   *         parameter {@code blockIdx}.
+   *     parameter {@code blockIdx}.
    */
   protected abstract String getConstraintsInputConnectionsCapacityPrefix(int blockIdx);
 
@@ -778,42 +773,35 @@ public abstract class GpccBasePWriter {
         equ = getConstraintsConnectionsCapacityCellList(isOutput, blockIdx, -1);
         // identifier lower
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_LOWER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_LOWER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityLowerBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityLowerAfterEqn(capacity);
         // identifier upper
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_UPPER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_UPPER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityUpperBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityUpperAfterEqn(capacity);
-
       }
       // write script
       Utils.appendToFile(constraint, getFilename());
     }
   }
 
-  /**
-   * Writes the Block Output Connections Capacity.
-   */
+  /** Writes the Block Output Connections Capacity. */
   protected void writeConstraintsBlockOutputConnectionsCapacity() {
     writeConstraintsBlockConnectionsCapacity(true);
   }
 
-  /**
-   * Writes the Block Input Connections Capacity.
-   */
+  /** Writes the Block Input Connections Capacity. */
   protected void writeConstraintsBlockInputConnectionsCapacity() {
     writeConstraintsBlockConnectionsCapacity(false);
   }
 
   protected abstract String getConstraintsInOutConnectionsCapacityPrefix(int blockIdx);
 
-  /**
-   * Writes the Block InOut Connections Capacity.
-   */
+  /** Writes the Block InOut Connections Capacity. */
   protected void writeConstraintsBlockInOutConnectionsCapacity() {
     String equIn = "";
     String equOut = "";
@@ -840,16 +828,16 @@ public abstract class GpccBasePWriter {
         constraint += getConstraintsInOutConnectionsCapacityPrefix(blockIdx);
         equIn = getConstraintsConnectionsCapacityCellList(false, blockIdx, -1);
         equOut = getConstraintsConnectionsCapacityCellList(true, blockIdx, -1);
-        equ = equIn + GpccBasePWriter.S_SPACE + equOut;
+        equ = equIn + GPCC_BASE_PWriter.S_SPACE + equOut;
         // identifier lower
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_LOWER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_LOWER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityLowerBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityLowerAfterEqn(capacity);
         // identifier upper
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_UPPER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_UPPER + Utils.getNewLine();
         constraint += getConstraintsBlockCapacityUpperBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsBlockCapacityUpperAfterEqn(capacity);
@@ -873,9 +861,7 @@ public abstract class GpccBasePWriter {
    */
   protected abstract String getConstraintsAssignmentPostfix();
 
-  /**
-   * Writes the Assignment.
-   */
+  /** Writes the Assignment. */
   protected void writeConstraintsAssignment() {
     String constraint = "";
     final List<Set<Integer>> cellBlockList = getGpccBase().getCellBlockList();
@@ -885,15 +871,18 @@ public abstract class GpccBasePWriter {
         continue;
       }
       // header
-      constraint += getComment() + GpccBasePWriter.S_ASSIGN + GpccBasePWriter.S_SPACE
-          + GpccBasePWriter.S_CELL;
+      constraint +=
+          getComment()
+              + GPCC_BASE_PWriter.S_ASSIGN
+              + GPCC_BASE_PWriter.S_SPACE
+              + GPCC_BASE_PWriter.S_CELL;
       constraint += i;
       constraint += Utils.getNewLine();
       // compute
       constraint += getConstraintsAssignmentPrefix();
       final Iterator<Integer> it = cellBlockList.get(i).iterator();
       while (it.hasNext()) {
-        constraint += GpccBasePWriter.S_SPACE;
+        constraint += GPCC_BASE_PWriter.S_SPACE;
         final int blkId = it.next();
         constraint += assignInt(i, blkId);
       }
@@ -911,17 +900,20 @@ public abstract class GpccBasePWriter {
    *
    * @return A string representing the InterBlock Capacity Header.
    */
-  private String getConstraintsInterBlockCapacityHeader(final int srcBlockIdx,
-      final int dstBlockIdx, final int capacityIdx) {
+  private String getConstraintsInterBlockCapacityHeader(
+      final int srcBlockIdx, final int dstBlockIdx, final int capacityIdx) {
     String rtn = "";
     // header
     rtn += Utils.getTabCharacter();
-    rtn += GpccBasePWriter.S_BLK + GpccBasePWriter.S_SPACE;
-    rtn += srcBlockIdx + GpccBasePWriter.S_SPACE;
-    rtn += GpccBasePWriter.S_TO + GpccBasePWriter.S_SPACE + GpccBasePWriter.S_BLK
-        + GpccBasePWriter.S_SPACE;
-    rtn += dstBlockIdx + GpccBasePWriter.S_SPACE;
-    rtn += GpccBasePWriter.S_CAPACITY + GpccBasePWriter.S_SPACE;
+    rtn += GPCC_BASE_PWriter.S_BLK + GPCC_BASE_PWriter.S_SPACE;
+    rtn += srcBlockIdx + GPCC_BASE_PWriter.S_SPACE;
+    rtn +=
+        GPCC_BASE_PWriter.S_TO
+            + GPCC_BASE_PWriter.S_SPACE
+            + GPCC_BASE_PWriter.S_BLK
+            + GPCC_BASE_PWriter.S_SPACE;
+    rtn += dstBlockIdx + GPCC_BASE_PWriter.S_SPACE;
+    rtn += GPCC_BASE_PWriter.S_CAPACITY + GPCC_BASE_PWriter.S_SPACE;
     rtn += capacityIdx;
     return rtn;
   }
@@ -931,7 +923,7 @@ public abstract class GpccBasePWriter {
    * parameter {@code c}.
    *
    * @return A string representing the InterBlock Capacity Lower Before Eqn of capacity defined by
-   *         parameter {@code c}.
+   *     parameter {@code c}.
    */
   protected abstract String getConstraintsInterBlockCapacityLowerBeforeEqn(Capacity c);
 
@@ -940,7 +932,7 @@ public abstract class GpccBasePWriter {
    * parameter {@code c}.
    *
    * @return A string representing the InterBlock Capacity Lower After Eqn of capacity defined by
-   *         parameter {@code c}.
+   *     parameter {@code c}.
    */
   protected abstract String getConstraintsInterBlockCapacityLowerAfterEqn(Capacity c);
 
@@ -949,7 +941,7 @@ public abstract class GpccBasePWriter {
    * parameter {@code c}.
    *
    * @return A string representing the InterBlock Capacity Upper Before Eqn of capacity defined by
-   *         parameter {@code c}.
+   *     parameter {@code c}.
    */
   protected abstract String getConstraintsInterBlockCapacityUpperBeforeEqn(Capacity c);
 
@@ -958,24 +950,22 @@ public abstract class GpccBasePWriter {
    * parameter {@code c}.
    *
    * @return A string representing the InterBlock Capacity Upper After Eqn of capacity defined by
-   *         parameter {@code c}.
+   *     parameter {@code c}.
    */
   protected abstract String getConstraintsInterBlockCapacityUpperAfterEqn(Capacity c);
 
   /**
-   * Returns a string representing the InterBlock Equ for source block defined by parameter
-   * {@code srcBlockIdx}, and, destination block defined by parameter {@code dstBlockIdx}.
+   * Returns a string representing the InterBlock Equ for source block defined by parameter {@code
+   * srcBlockIdx}, and, destination block defined by parameter {@code dstBlockIdx}.
    *
    * @param srcBlockIdx The source block.
    * @param dstBlockIdx The destination block.
-   * @return A string representing the InterBlock Equ for source block defined by parameter
-   *         {@code srcBlockIdx}, and, destination block defined by parameter {@code dstBlockIdx}.
+   * @return A string representing the InterBlock Equ for source block defined by parameter {@code
+   *     srcBlockIdx}, and, destination block defined by parameter {@code dstBlockIdx}.
    */
   protected abstract String getInterBlockEqn(int srcBlockIdx, int dstBlockIdx);
 
-  /**
-   * Writes the InterBlock Capacity.
-   */
+  /** Writes the InterBlock Capacity. */
   protected void writeConstraintsInterBlockCapacity() {
     String equ = "";
     final List<Block> blockList = getGpccBase().getBlockList();
@@ -990,19 +980,20 @@ public abstract class GpccBasePWriter {
       for (int capacityIdx = 0; capacityIdx < interblock.getNumCapacity(); capacityIdx++) {
         final Capacity capacity = interblock.getCapacityAtIdx(capacityIdx);
         // header
-        constraint += getComment()
-            + getConstraintsInterBlockCapacityHeader(srcBlockIdx, dstBlockIdx, capacityIdx)
-            + Utils.getNewLine();
+        constraint +=
+            getComment()
+                + getConstraintsInterBlockCapacityHeader(srcBlockIdx, dstBlockIdx, capacityIdx)
+                + Utils.getNewLine();
         equ = getInterBlockEqn(srcBlockIdx, dstBlockIdx);
         // identifier lower
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_LOWER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_LOWER + Utils.getNewLine();
         constraint += getConstraintsInterBlockCapacityLowerBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsInterBlockCapacityLowerAfterEqn(capacity);
         // identifier upper
         constraint +=
-            getComment() + Utils.getTabCharacter() + GpccBasePWriter.S_UPPER + Utils.getNewLine();
+            getComment() + Utils.getTabCharacter() + GPCC_BASE_PWriter.S_UPPER + Utils.getNewLine();
         constraint += getConstraintsInterBlockCapacityUpperBeforeEqn(capacity);
         constraint += equ;
         constraint += getConstraintsInterBlockCapacityUpperAfterEqn(capacity);
@@ -1012,14 +1003,10 @@ public abstract class GpccBasePWriter {
     }
   }
 
-  /**
-   * Writes the content.
-   */
+  /** Writes the content. */
   public abstract void writeContent();
 
-  /**
-   * Write.
-   */
+  /** Write. */
   public void write() throws IOException {
     Utils.deleteFilename(getFilename());
     Utils.createFile(getFilename());
@@ -1029,10 +1016,10 @@ public abstract class GpccBasePWriter {
   }
 
   /**
-   * Initializes a newly created {@link GpccBasePWriter} with a {@link GpccBase} defined by
+   * Initializes a newly created {@link GPCC_BASE_PWriter} with a {@link GPCC_BASE} defined by
    * parameter {@code gpcc}, and filename defined by parameter {@code filename}.
    */
-  protected GpccBasePWriter(final GpccBase gpcc, final String filename) {
+  protected GPCC_BASE_PWriter(final GPCC_BASE gpcc, final String filename) {
     setGpccBase(gpcc);
     setFilename(filename);
   }
@@ -1062,7 +1049,7 @@ public abstract class GpccBasePWriter {
    *
    * @param myGpccBase The value to set {@code myGpccBase}.
    */
-  protected void setGpccBase(final GpccBase myGpccBase) {
+  protected void setGpccBase(final GPCC_BASE myGpccBase) {
     this.myGpccBase = myGpccBase;
   }
 
@@ -1071,11 +1058,11 @@ public abstract class GpccBasePWriter {
    *
    * @return The value of {@code myGpccBase}.
    */
-  protected GpccBase getGpccBase() {
+  protected GPCC_BASE getGpccBase() {
     return myGpccBase;
   }
 
-  private GpccBase myGpccBase;
+  private GPCC_BASE myGpccBase;
 
   static String S_TO = "TO";
   static String S_UPPER = "UPPER";
@@ -1089,7 +1076,7 @@ public abstract class GpccBasePWriter {
   static String S_MINIMIZE = "minimize";
   static String S_MAXIMIZE = "maximize";
   static String S_COMMENT = ";";
-  static String S_END = GpccBasePWriter.S_COMMENT + "End";
+  static String S_END = GPCC_BASE_PWriter.S_COMMENT + "End";
   static String S_ASSIGN = "Assign";
   static String S_CAPACITY = "Capacity";
   static String S_CELL = "C";
@@ -1105,9 +1092,13 @@ public abstract class GpccBasePWriter {
   static String S_ZERO = "0";
   static String S_ONE = "1";
   static String S_BINARYRANGE =
-      GpccBasePWriter.S_ZERO + GpccBasePWriter.S_SPACE + GpccBasePWriter.S_ONE;
-  static String S_BINARYDOMAIN = GpccBasePWriter.S_PARENTHESIS_OPEN + GpccBasePWriter.S_DOMAIN
-      + GpccBasePWriter.S_SPACE + GpccBasePWriter.S_BINARY + GpccBasePWriter.S_SPACE
-      + GpccBasePWriter.S_BINARYRANGE + GpccBasePWriter.S_PARENTHESIS_CLOSE;
-
+      GPCC_BASE_PWriter.S_ZERO + GPCC_BASE_PWriter.S_SPACE + GPCC_BASE_PWriter.S_ONE;
+  static String S_BINARYDOMAIN =
+      GPCC_BASE_PWriter.S_PARENTHESIS_OPEN
+          + GPCC_BASE_PWriter.S_DOMAIN
+          + GPCC_BASE_PWriter.S_SPACE
+          + GPCC_BASE_PWriter.S_BINARY
+          + GPCC_BASE_PWriter.S_SPACE
+          + GPCC_BASE_PWriter.S_BINARYRANGE
+          + GPCC_BASE_PWriter.S_PARENTHESIS_CLOSE;
 }

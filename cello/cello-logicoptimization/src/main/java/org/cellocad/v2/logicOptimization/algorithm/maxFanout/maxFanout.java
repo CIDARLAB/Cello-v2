@@ -25,9 +25,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.graph.algorithm.BFS;
 import org.cellocad.v2.logicOptimization.algorithm.LOAlgorithm;
-import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.MaxFanoutNetlistData;
-import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.MaxFanoutNetlistEdgeData;
-import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.MaxFanoutNetlistNodeData;
+import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetlistData;
+import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetlistEdgeData;
+import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetlistNodeData;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
 import org.cellocad.v2.results.netlist.Netlist;
@@ -38,66 +38,55 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>maxFanout</i> algorithm in the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class MaxFanout extends LOAlgorithm {
+public class maxFanout extends LOAlgorithm {
 
   /**
-   * Returns the {@link MaxFanoutNetlistNodeData} of the given node.
+   * Returns the {@link maxFanoutNetlistNodeData} of the given node.
    *
    * @param node A node within the netlist of this instance.
-   * @return The {@link MaxFanoutNetlistNodeData} instance if it exists, null otherwise.
+   * @return The {@link maxFanoutNetlistNodeData} instance if it exists, null otherwise.
    */
-  protected MaxFanoutNetlistNodeData getMaxFanoutNetlistNodeData(final NetlistNode node) {
-    MaxFanoutNetlistNodeData rtn = null;
-    rtn = (MaxFanoutNetlistNodeData) node.getNetlistNodeData();
+  protected maxFanoutNetlistNodeData getMaxFanoutNetlistNodeData(final NetlistNode node) {
+    maxFanoutNetlistNodeData rtn = null;
+    rtn = (maxFanoutNetlistNodeData) node.getNetlistNodeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link MaxFanoutNetlistEdgeData} of the given edge.
+   * Returns the {@link maxFanoutNetlistEdgeData} of the given edge.
    *
    * @param edge An edge within the netlist of this instance.
-   * @return The {@link MaxFanoutNetlistEdgeData} instance if it exists, null otherwise.
+   * @return The {@link maxFanoutNetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected MaxFanoutNetlistEdgeData getMaxFanoutNetlistEdgeData(final NetlistEdge edge) {
-    MaxFanoutNetlistEdgeData rtn = null;
-    rtn = (MaxFanoutNetlistEdgeData) edge.getNetlistEdgeData();
+  protected maxFanoutNetlistEdgeData getMaxFanoutNetlistEdgeData(final NetlistEdge edge) {
+    maxFanoutNetlistEdgeData rtn = null;
+    rtn = (maxFanoutNetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link MaxFanoutNetlistData} of the given netlist.
+   * Returns the {@link maxFanoutNetlistData} of the given netlist.
    *
    * @param netlist The netlist of this instance.
-   * @return The {@link MaxFanoutNetlistData} instance if it exists, null otherwise.
+   * @return The {@link maxFanoutNetlistData} instance if it exists, null otherwise.
    */
-  protected MaxFanoutNetlistData getMaxFanoutNetlistData(final Netlist netlist) {
-    MaxFanoutNetlistData rtn = null;
-    rtn = (MaxFanoutNetlistData) netlist.getNetlistData();
+  protected maxFanoutNetlistData getMaxFanoutNetlistData(final Netlist netlist) {
+    maxFanoutNetlistData rtn = null;
+    rtn = (maxFanoutNetlistData) netlist.getNetlistData();
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
-  protected void getDataFromUcf() {
+  protected void getDataFromUcf() {}
 
-  }
-
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     Boolean present = true;
@@ -107,25 +96,15 @@ public class MaxFanout extends LOAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
-  protected void preprocessing() {
+  protected void preprocessing() {}
 
-  }
-
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
   protected void run() {
     final Netlist netlist = getNetlist();
@@ -151,7 +130,7 @@ public class MaxFanout extends LOAlgorithm {
           final int numEdgePerNode = fanout / (numToAdd + 1);
           for (int i = 0; i < numToAdd; i++) {
             final NetlistNode duplicate = new NetlistNode(node);
-            duplicate.setName(duplicate.getName() + MaxFanout.S_DUPLICATE + i);
+            duplicate.setName(duplicate.getName() + maxFanout.S_DUPLICATE + i);
             logInfo("Duplicating node name " + duplicate.getName());
             // add in edges
             for (int j = 0; j < node.getNumInEdge(); j++) {
@@ -159,7 +138,7 @@ public class MaxFanout extends LOAlgorithm {
               final NetlistNode src = edge.getSrc();
               // make new edge
               final NetlistEdge duplicateEdge = new NetlistEdge(edge);
-              duplicateEdge.setName(duplicateEdge.getName() + MaxFanout.S_DUPLICATE);
+              duplicateEdge.setName(duplicateEdge.getName() + maxFanout.S_DUPLICATE);
               logInfo("Creating edge name " + duplicateEdge.getName());
               logInfo("Connecting to source node " + src.getName());
               logInfo("Connecting to destination node " + duplicate.getName());
@@ -203,13 +182,9 @@ public class MaxFanout extends LOAlgorithm {
     }
   }
 
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
-  protected void postprocessing() {
-
-  }
+  protected void postprocessing() {}
 
   /**
    * Setter for {@code max}.
@@ -238,11 +213,10 @@ public class MaxFanout extends LOAlgorithm {
    */
   @Override
   protected Logger getLogger() {
-    return MaxFanout.logger;
+    return maxFanout.logger;
   }
 
-  private static final Logger logger = LogManager.getLogger(MaxFanout.class);
+  private static final Logger logger = LogManager.getLogger(maxFanout.class);
 
   private static final String S_DUPLICATE = "_Duplicate";
-
 }

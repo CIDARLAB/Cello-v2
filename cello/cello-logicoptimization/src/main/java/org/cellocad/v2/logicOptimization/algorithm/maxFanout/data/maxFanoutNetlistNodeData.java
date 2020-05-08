@@ -17,29 +17,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data;
+package org.cellocad.v2.logicOptimization.algorithm.maxFanout.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.partitioning.algorithm.data.PTNetlistData;
+import org.cellocad.v2.logicOptimization.algorithm.data.LONetlistNodeData;
 
 /**
- * The data for a netlist used within the <i>GPCC_BASE</i> algorithm of the <i>partitioning</i>
- * stage.
+ * The maxFanoutNetlistNodeData class contains all data for a node used within the <i>maxFanout</i>
+ * algorithm class of the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class GpccBaseNetlistData extends PTNetlistData {
+public class maxFanoutNetlistNodeData extends LONetlistNodeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link GpccBaseNetlistData}.
+   * Initializes a newly created maxFanoutNetlistNodeData.
    */
-  public GpccBaseNetlistData() {
+  public maxFanoutNetlistNodeData() {
     super();
     setDefault();
   }

@@ -29,10 +29,10 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.ArgString;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GPCC_BASE;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistNodeData;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -44,41 +44,41 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  *
  * @date 2018-05-21
  */
-public class GpccScipBase extends GpccBase {
+public class GPCC_SCIP_BASE extends GPCC_BASE {
 
   /**
-   * Returns the {@link GpccScipBaseNetlistNodeData} of the given node.
+   * Returns the {@link GPCC_SCIP_BASENetlistNodeData} of the given node.
    *
    * @param node A node within the netlist of this instance.
-   * @return The {@link GpccScipBaseNetlistNodeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SCIP_BASENetlistNodeData} instance if it exists, null otherwise.
    */
-  protected GpccScipBaseNetlistNodeData getGpccScipBaseNetlistNodeData(final NetlistNode node) {
-    GpccScipBaseNetlistNodeData rtn = null;
-    rtn = (GpccScipBaseNetlistNodeData) node.getNetlistNodeData();
+  protected GPCC_SCIP_BASENetlistNodeData getGpccScipBaseNetlistNodeData(final NetlistNode node) {
+    GPCC_SCIP_BASENetlistNodeData rtn = null;
+    rtn = (GPCC_SCIP_BASENetlistNodeData) node.getNetlistNodeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccScipBaseNetlistEdgeData} of the given edge.
+   * Returns the {@link GPCC_SCIP_BASENetlistEdgeData} of the given edge.
    *
    * @param edge An edge within the netlist of this instance.
-   * @return The {@link GpccScipBaseNetlistEdgeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SCIP_BASENetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected GpccScipBaseNetlistEdgeData getGpccScipBaseNetlistEdgeData(final NetlistEdge edge) {
-    GpccScipBaseNetlistEdgeData rtn = null;
-    rtn = (GpccScipBaseNetlistEdgeData) edge.getNetlistEdgeData();
+  protected GPCC_SCIP_BASENetlistEdgeData getGpccScipBaseNetlistEdgeData(final NetlistEdge edge) {
+    GPCC_SCIP_BASENetlistEdgeData rtn = null;
+    rtn = (GPCC_SCIP_BASENetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccScipBaseNetlistData} of the given netlist.
+   * Returns the {@link GPCC_SCIP_BASENetlistData} of the given netlist.
    *
    * @param netlist The netlist of this instance.
-   * @return The {@link GpccScipBaseNetlistData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SCIP_BASENetlistData} instance if it exists, null otherwise.
    */
-  protected GpccScipBaseNetlistData getGpccScipBaseNetlistData(final Netlist netlist) {
-    GpccScipBaseNetlistData rtn = null;
-    rtn = (GpccScipBaseNetlistData) netlist.getNetlistData();
+  protected GPCC_SCIP_BASENetlistData getGpccScipBaseNetlistData(final Netlist netlist) {
+    GPCC_SCIP_BASENetlistData rtn = null;
+    rtn = (GPCC_SCIP_BASENetlistData) netlist.getNetlistData();
     return rtn;
   }
 
@@ -224,7 +224,7 @@ public class GpccScipBase extends GpccBase {
     setPartitionDotFile(outputDir + Utils.getFileSeparator() + filename + "_SCIP.dot");
     // SCIPConstraint
     try {
-      GpccScipBaseConstraintUtils.writeScipConstraintFile(this, getScipConstraintFilename());
+      GPCC_SCIP_BASEConstraintUtils.writeScipConstraintFile(this, getScipConstraintFilename());
     } catch (IOException e) {
       throw new CelloException(e);
     }
@@ -354,10 +354,10 @@ public class GpccScipBase extends GpccBase {
    */
   @Override
   protected Logger getLogger() {
-    return GpccScipBase.logger;
+    return GPCC_SCIP_BASE.logger;
   }
 
-  private static final Logger logger = LogManager.getLogger(GpccScipBase.class);
+  private static final Logger logger = LogManager.getLogger(GPCC_SCIP_BASE.class);
 
   protected static String S_HEADER_FOOTER =
       "+-----------------------------------------------------";

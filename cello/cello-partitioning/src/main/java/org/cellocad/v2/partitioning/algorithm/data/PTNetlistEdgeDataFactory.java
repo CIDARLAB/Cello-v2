@@ -24,9 +24,9 @@ package org.cellocad.v2.partitioning.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistEdgeData;
 import org.cellocad.v2.common.algorithm.data.NetlistEdgeDataFactory;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistEdgeData;
 import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistEdgeData;
 
 /**
@@ -51,13 +51,13 @@ public class PTNetlistEdgeDataFactory extends NetlistEdgeDataFactory<PTNetlistEd
   protected PTNetlistEdgeData getNetlistEdgeData(final String name) {
     PTNetlistEdgeData rtn = null;
     if (name.equals("GPCC_SUGARM_BASE")) {
-      rtn = new GpccSugarMBaseNetlistEdgeData();
+      rtn = new GPCC_SUGARM_BASENetlistEdgeData();
     }
     if (name.equals("GPCC_SCIP_BASE")) {
-      rtn = new GpccScipBaseNetlistEdgeData();
+      rtn = new GPCC_SCIP_BASENetlistEdgeData();
     }
     if (name.equals("GPCC_BASE")) {
-      rtn = new GpccBaseNetlistEdgeData();
+      rtn = new GPCC_BASENetlistEdgeData();
     }
     if (name.equals("HMetis")) {
       rtn = new HMetisNetlistEdgeData();

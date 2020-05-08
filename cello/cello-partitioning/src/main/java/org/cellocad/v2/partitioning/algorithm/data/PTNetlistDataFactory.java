@@ -20,9 +20,9 @@
 package org.cellocad.v2.partitioning.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistDataFactory;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GPCC_SCIP_BASENetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistData;
 import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistData;
 
 /**
@@ -46,13 +46,13 @@ public class PTNetlistDataFactory extends NetlistDataFactory<PTNetlistData> {
   protected PTNetlistData getNetlistData(final String name) {
     PTNetlistData rtn = null;
     if (name.equals("GPCC_SUGARM_BASE")) {
-      rtn = new GpccSugarMBaseNetlistData();
+      rtn = new GPCC_SUGARM_BASENetlistData();
     }
     if (name.equals("GPCC_SCIP_BASE")) {
-      rtn = new GpccScipBaseNetlistData();
+      rtn = new GPCC_SCIP_BASENetlistData();
     }
     if (name.equals("GPCC_BASE")) {
-      rtn = new GpccBaseNetlistData();
+      rtn = new GPCC_BASENetlistData();
     }
     if (name.equals("HMetis")) {
       rtn = new HMetisNetlistData();

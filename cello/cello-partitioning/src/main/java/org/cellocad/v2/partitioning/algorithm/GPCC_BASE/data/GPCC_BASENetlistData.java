@@ -17,29 +17,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.logicOptimization.algorithm.maxFanout.data;
+package org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.logicOptimization.algorithm.data.LONetlistData;
+import org.cellocad.v2.partitioning.algorithm.data.PTNetlistData;
 
 /**
- * The data for a netlist used within the <i>maxFanout</i> algorithm of the <i>logicOptimization</i>
+ * The data for a netlist used within the <i>GPCC_BASE</i> algorithm of the <i>partitioning</i>
  * stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class MaxFanoutNetlistData extends LONetlistData {
+public class GPCC_BASENetlistData extends PTNetlistData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created maxFanoutNetlistData.
-   */
-  public MaxFanoutNetlistData() {
+  /** Initializes a newly created {@link GPCC_BASENetlistData}. */
+  public GPCC_BASENetlistData() {
     super();
     setDefault();
   }
@@ -49,12 +45,9 @@ public class MaxFanoutNetlistData extends LONetlistData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

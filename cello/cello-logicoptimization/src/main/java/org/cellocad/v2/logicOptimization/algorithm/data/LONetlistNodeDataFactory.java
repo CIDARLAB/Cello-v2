@@ -20,7 +20,7 @@
 package org.cellocad.v2.logicOptimization.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
-import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.MaxFanoutNetlistNodeData;
+import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetlistNodeData;
 
 /**
  * The LONetlistNodeDataFactory is a NetlistNodeData factory for the <i>logicOptimization</i> stage.
@@ -43,7 +43,7 @@ public class LONetlistNodeDataFactory extends NetlistNodeDataFactory<LONetlistNo
   protected LONetlistNodeData getNetlistNodeData(final String name) {
     LONetlistNodeData rtn = null;
     if (name.equals("maxFanout")) {
-      rtn = new MaxFanoutNetlistNodeData();
+      rtn = new maxFanoutNetlistNodeData();
     }
     return rtn;
   }

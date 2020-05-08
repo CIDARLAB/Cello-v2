@@ -21,25 +21,25 @@ package org.cellocad.v2.logicOptimization.algorithm.maxFanout.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.logicOptimization.algorithm.data.LONetlistNodeData;
+import org.cellocad.v2.logicOptimization.algorithm.data.LONetlistData;
 
 /**
- * The maxFanoutNetlistNodeData class contains all data for a node used within the <i>maxFanout</i>
- * algorithm class of the <i>logicOptimization</i> stage.
+ * The data for a netlist used within the <i>maxFanout</i> algorithm of the <i>logicOptimization</i>
+ * stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class MaxFanoutNetlistNodeData extends LONetlistNodeData {
+public class maxFanoutNetlistData extends LONetlistData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created maxFanoutNetlistNodeData.
+   * Initializes a newly created maxFanoutNetlistData.
    */
-  public MaxFanoutNetlistNodeData() {
+  public maxFanoutNetlistData() {
     super();
     setDefault();
   }

@@ -32,10 +32,10 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.ExecCommand;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.ArgString;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GPCC_BASE;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GPCC_SUGARM_BASENetlistNodeData;
 import org.cellocad.v2.partitioning.common.Block;
 import org.cellocad.v2.partitioning.common.Move;
 import org.cellocad.v2.partitioning.common.Partition;
@@ -53,41 +53,41 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  *
  * @date 2018-05-21
  */
-public class GpccSugarMBase extends GpccBase {
+public class GPCC_SUGARM_BASE extends GPCC_BASE {
 
   /**
-   * Returns the {@link GpccSugarMBaseNetlistNodeData} of the given node.
+   * Returns the {@link GPCC_SUGARM_BASENetlistNodeData} of the given node.
    *
    * @param node A node within the netlist of this instance.
-   * @return The {@link GpccSugarMBaseNetlistNodeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SUGARM_BASENetlistNodeData} instance if it exists, null otherwise.
    */
-  protected GpccSugarMBaseNetlistNodeData getGpccSugarMBaseNetlistNodeData(final NetlistNode node) {
-    GpccSugarMBaseNetlistNodeData rtn = null;
-    rtn = (GpccSugarMBaseNetlistNodeData) node.getNetlistNodeData();
+  protected GPCC_SUGARM_BASENetlistNodeData getGpccSugarMBaseNetlistNodeData(final NetlistNode node) {
+    GPCC_SUGARM_BASENetlistNodeData rtn = null;
+    rtn = (GPCC_SUGARM_BASENetlistNodeData) node.getNetlistNodeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccSugarMBaseNetlistEdgeData} of the given edge.
+   * Returns the {@link GPCC_SUGARM_BASENetlistEdgeData} of the given edge.
    *
    * @param edge An edge within the netlist of this instance.
-   * @return The {@link GpccSugarMBaseNetlistEdgeData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SUGARM_BASENetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected GpccSugarMBaseNetlistEdgeData getGpccSugarMBaseNetlistEdgeData(final NetlistEdge edge) {
-    GpccSugarMBaseNetlistEdgeData rtn = null;
-    rtn = (GpccSugarMBaseNetlistEdgeData) edge.getNetlistEdgeData();
+  protected GPCC_SUGARM_BASENetlistEdgeData getGpccSugarMBaseNetlistEdgeData(final NetlistEdge edge) {
+    GPCC_SUGARM_BASENetlistEdgeData rtn = null;
+    rtn = (GPCC_SUGARM_BASENetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
   }
 
   /**
-   * Returns the {@link GpccSugarMBaseNetlistData} of the given netlist.
+   * Returns the {@link GPCC_SUGARM_BASENetlistData} of the given netlist.
    *
    * @param netlist The netlist of this instance.
-   * @return The {@link GpccSugarMBaseNetlistData} instance if it exists, null otherwise.
+   * @return The {@link GPCC_SUGARM_BASENetlistData} instance if it exists, null otherwise.
    */
-  protected GpccSugarMBaseNetlistData getGpccSugarMBaseNetlistData(final Netlist netlist) {
-    GpccSugarMBaseNetlistData rtn = null;
-    rtn = (GpccSugarMBaseNetlistData) netlist.getNetlistData();
+  protected GPCC_SUGARM_BASENetlistData getGpccSugarMBaseNetlistData(final Netlist netlist) {
+    GPCC_SUGARM_BASENetlistData rtn = null;
+    rtn = (GPCC_SUGARM_BASENetlistData) netlist.getNetlistData();
     return rtn;
   }
 
@@ -188,7 +188,7 @@ public class GpccSugarMBase extends GpccBase {
     // other
     int currentBlockNum = 0;
     int bestBlockNum = -1;
-    final GpccSugarMPWriter writer = new GpccSugarMPWriter(this, getCspFilename(), currentBlockNum);
+    final GPCC_SUGARM_BASEPWriter writer = new GPCC_SUGARM_BASEPWriter(this, getCspFilename(), currentBlockNum);
     // TODO: open window of binary search
     // TODO: enable random point in range
     // binary search for optimal numBlocks
@@ -205,9 +205,9 @@ public class GpccSugarMBase extends GpccBase {
       currentBlockNum = Double.valueOf(Math.floor((lower + upper) / 2.0)).intValue();
       writer.setLowerBoundBlocks(currentBlockNum);
       writer.setUpperBoundBlocks(currentBlockNum);
-      logInfo(GpccSugarMBase.S_HEADER_FOOTER);
+      logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
       logInfo("Attempting with " + currentBlockNum + " blocks.");
-      logInfo(GpccSugarMBase.S_HEADER_FOOTER);
+      logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
       // write info
       try {
         writer.write();
@@ -216,7 +216,7 @@ public class GpccSugarMBase extends GpccBase {
       }
       // encode
       logInfo("Encoding...");
-      final String[] argsEnc = {GpccSugarMBase.S_V, GpccSugarMBase.S_V, GpccSugarMBase.S_ENCODE,
+      final String[] argsEnc = {GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_ENCODE,
           getCspFilename(), getCnfFilename(), getMapFilename()};
       SugarMain.main(argsEnc);
       // minisat
@@ -252,7 +252,7 @@ public class GpccSugarMBase extends GpccBase {
 
   protected boolean isUnsat(final String str) {
     boolean rtn = false;
-    rtn = str.contains(GpccSugarMBase.S_UNSATISFIABLE);
+    rtn = str.contains(GPCC_SUGARM_BASE.S_UNSATISFIABLE);
     return rtn;
   }
 
@@ -268,16 +268,16 @@ public class GpccSugarMBase extends GpccBase {
       line = stk.nextToken();
       line.trim();
       // status
-      if (line.startsWith(GpccSugarMBase.S_SOLUTIONMARKER)) {
-        logInfo(GpccSugarMBase.S_HEADER_LINE_PREFIX + GpccSugarMBase.S_SPACE + line);
-        if (line.contains(GpccSugarMBase.S_UNSATISFIABLE)) {
+      if (line.startsWith(GPCC_SUGARM_BASE.S_SOLUTIONMARKER)) {
+        logInfo(GPCC_SUGARM_BASE.S_HEADER_LINE_PREFIX + GPCC_SUGARM_BASE.S_SPACE + line);
+        if (line.contains(GPCC_SUGARM_BASE.S_UNSATISFIABLE)) {
           logInfo("GPCC_SUGARM cannot find a solution!");
           Utils.exit(-1);
         }
         continue;
       }
       // assignment
-      if (line.startsWith(GpccSugarMBase.S_ASSIGNMARKER)) {
+      if (line.startsWith(GPCC_SUGARM_BASE.S_ASSIGNMARKER)) {
         int cellId = -1;
         int blockId = -1;
         final StringTokenizer strtok = new StringTokenizer(line);
@@ -288,8 +288,8 @@ public class GpccSugarMBase extends GpccBase {
         int blkIdx = 0;
         if (strtok.hasMoreTokens()) {
           token = strtok.nextToken();
-          prefixIdx = token.indexOf(GpccSugarMBase.S_ASSIGN + GpccSugarMBase.S_CELL);
-          blkIdx = token.indexOf(GpccSugarMBase.S_BLK);
+          prefixIdx = token.indexOf(GPCC_SUGARM_BASE.S_ASSIGN + GPCC_SUGARM_BASE.S_CELL);
+          blkIdx = token.indexOf(GPCC_SUGARM_BASE.S_BLK);
           if (prefixIdx == 0 && blkIdx > prefixIdx) {
             assignment = token;
           }
@@ -301,9 +301,9 @@ public class GpccSugarMBase extends GpccBase {
           token = strtok.nextToken();
           if (Math.round(Double.parseDouble(token)) == 1) {
             cellId = Integer.parseInt(assignment.substring(
-                GpccSugarMBase.S_ASSIGN.length() + GpccSugarMBase.S_CELL.length(), blkIdx));
+                GPCC_SUGARM_BASE.S_ASSIGN.length() + GPCC_SUGARM_BASE.S_CELL.length(), blkIdx));
             blockId =
-                Integer.parseInt(assignment.substring(blkIdx + GpccSugarMBase.S_BLK.length()));
+                Integer.parseInt(assignment.substring(blkIdx + GPCC_SUGARM_BASE.S_BLK.length()));
           }
         }
         if (cellId >= 0 && blockId >= 0) {
@@ -333,7 +333,7 @@ public class GpccSugarMBase extends GpccBase {
     // Tell Java to use your special stream
     System.setOut(ps);
     // Run Decode
-    final String[] argsDec = {GpccSugarMBase.S_V, GpccSugarMBase.S_V, GpccSugarMBase.S_DECODE,
+    final String[] argsDec = {GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_DECODE,
         getOutFilename(), getMapFilename()};
     SugarMain.main(argsDec);
     // Put things back
@@ -357,7 +357,7 @@ public class GpccSugarMBase extends GpccBase {
     PartitionUtils.writeDotFileForPartition(P,
         outputDir + Utils.getFileSeparator() + P.getName() + "_final.dot");
     // delete
-    if (GpccSugarMBase.B_CLEANUP) {
+    if (GPCC_SUGARM_BASE.B_CLEANUP) {
       Utils.deleteFilename(getCspFilename());
       Utils.deleteFilename(getCnfFilename());
       Utils.deleteFilename(getMapFilename());
@@ -370,10 +370,10 @@ public class GpccSugarMBase extends GpccBase {
    * Logs the Result header.
    */
   protected void logResultHeader() {
-    logInfo(GpccSugarMBase.S_HEADER_FOOTER);
-    logInfo(GpccSugarMBase.S_HEADER_LINE_PREFIX
-        + Utils.getTabCharacterRepeat(GpccSugarMBase.S_TAB_NUM) + GpccSugarMBase.S_RESULT);
-    logInfo(GpccSugarMBase.S_HEADER_FOOTER);
+    logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
+    logInfo(GPCC_SUGARM_BASE.S_HEADER_LINE_PREFIX
+        + Utils.getTabCharacterRepeat(GPCC_SUGARM_BASE.S_TAB_NUM) + GPCC_SUGARM_BASE.S_RESULT);
+    logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
   }
 
   /**
@@ -603,10 +603,10 @@ public class GpccSugarMBase extends GpccBase {
    */
   @Override
   protected Logger getLogger() {
-    return GpccSugarMBase.logger;
+    return GPCC_SUGARM_BASE.logger;
   }
 
-  private static final Logger logger = LogManager.getLogger(GpccSugarMBase.class);
+  private static final Logger logger = LogManager.getLogger(GPCC_SUGARM_BASE.class);
 
   private static boolean B_CLEANUP = false;
   static String S_ENCODE = "-encode";

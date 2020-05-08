@@ -17,29 +17,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.logicOptimization.algorithm.maxFanout.data;
+package org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.logicOptimization.algorithm.data.LONetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistData;
 
 /**
- * The data for an edge used within the <i>maxFanout</i> algorithm of the <i>logicOptimization</i>
- * stage.
+ * The data for a netlist used within the <i>GPCC_SUGARM_BASE</i> algorithm of the
+ * <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class MaxFanoutNetlistEdgeData extends LONetlistEdgeData {
+public class GPCC_SUGARM_BASENetlistData extends GPCC_BASENetlistData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created maxFanoutNetlistEdgeData.
+   * Initializes a newly created {@link GPCC_SUGARM_BASENetlistData}.
    */
-  public MaxFanoutNetlistEdgeData() {
+  public GPCC_SUGARM_BASENetlistData() {
     super();
     setDefault();
   }

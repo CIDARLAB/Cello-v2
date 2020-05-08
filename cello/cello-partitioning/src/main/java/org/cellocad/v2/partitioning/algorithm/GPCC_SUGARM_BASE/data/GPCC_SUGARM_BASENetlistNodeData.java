@@ -21,25 +21,25 @@ package org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistNodeData;
 
 /**
- * The data for a netlist used within the <i>GPCC_SUGARM_BASE</i> algorithm of the
- * <i>partitioning</i> stage.
+ * The GPCC_SUGARM_BASENetlistNodeData class contains all data for a node used within the
+ * <i>GPCC_SUGARM_BASE</i> algorithm class of the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class GpccSugarMBaseNetlistData extends GpccBaseNetlistData {
+public class GPCC_SUGARM_BASENetlistNodeData extends GPCC_BASENetlistNodeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link GpccSugarMBaseNetlistData}.
+   * Initializes a newly created {@link GPCC_SUGARM_BASENetlistNodeData}.
    */
-  public GpccSugarMBaseNetlistData() {
+  public GPCC_SUGARM_BASENetlistNodeData() {
     super();
     setDefault();
   }

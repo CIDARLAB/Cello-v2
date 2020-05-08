@@ -215,6 +215,7 @@
     <module name="SingleLineJavadoc">
       <property name="severity" value="ignore"/>
       <property name="ignoreInlineTags" value="false"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="EmptyCatchBlock">
       <property name="exceptionVariableName" value="expected"/>

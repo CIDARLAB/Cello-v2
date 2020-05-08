@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBasePWriter;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GPCC_BASE;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GPCC_BASE_PWriter;
 import org.cellocad.v2.partitioning.profile.Capacity;
 
 /**
@@ -34,111 +34,131 @@ import org.cellocad.v2.partitioning.profile.Capacity;
  * algorithm.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class GpccSugarMPWriter extends GpccBasePWriter {
+public class GPCC_SUGARM_BASEPWriter extends GPCC_BASE_PWriter {
 
   @Override
   protected String getEdgeEquationCoefficient(final int coefficient) {
     String rtn = "";
-    rtn += Integer.toString(coefficient) + GpccSugarMPWriter.S_SPACE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_MULTIPLICATION
-        + GpccSugarMPWriter.S_SPACE;
+    rtn += Integer.toString(coefficient) + GPCC_SUGARM_BASEPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_MULTIPLICATION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
   }
 
   @Override
   protected String getEdgeEquationBetweenBlocks() {
-    return GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getEdgeEquationAfterBlocks() {
-    return GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getEdgeEquationBeforeTerm() {
-    return GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_MULTIPLICATION
-        + GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+        + GPCC_SUGARM_BASEPWriter.S_MULTIPLICATION
+        + GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getEdgeEquationAfterTerm() {
-    return GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getComment() {
-    return GpccSugarMPWriter.S_COMMENT;
+    return GPCC_SUGARM_BASEPWriter.S_COMMENT;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeName() {
-    return GpccSugarMPWriter.S_OBJECTIVE + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_MINIMIZE
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_NUMEDGE;
+    return GPCC_SUGARM_BASEPWriter.S_OBJECTIVE
+        + GPCC_SUGARM_BASEPWriter.S_SPACE
+        + GPCC_SUGARM_BASEPWriter.S_MINIMIZE
+        + GPCC_SUGARM_BASEPWriter.S_SPACE
+        + GPCC_SUGARM_BASEPWriter.S_NUMEDGE;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeBeforeTotalEdges() {
-    return GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_DOMAIN
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_EDGE + GpccSugarMPWriter.S_SPACE
-        + GpccSugarMPWriter.S_ZERO + GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+        + GPCC_SUGARM_BASEPWriter.S_DOMAIN
+        + GPCC_SUGARM_BASEPWriter.S_SPACE
+        + GPCC_SUGARM_BASEPWriter.S_EDGE
+        + GPCC_SUGARM_BASEPWriter.S_SPACE
+        + GPCC_SUGARM_BASEPWriter.S_ZERO
+        + GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeAfterTotalEdges() {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_INT
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_NUMEDGE + GpccSugarMPWriter.S_SPACE
-        + GpccSugarMPWriter.S_EDGE + GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_EQUAL
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_PARENTHESIS_OPEN
-        + GpccSugarMPWriter.S_ADDITION + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_NUMEDGE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_SPACE + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_INT
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_NUMEDGE
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_EDGE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE
+            + Utils.getNewLine();
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_EQUAL
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_ADDITION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_NUMEDGE;
     return rtn;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeBeforeEqn() {
-    return GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeAfterEqn() {
-    return GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeBeforeEndTotalEdges() {
-    return GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE;
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + GPCC_SUGARM_BASEPWriter.S_SPACE;
   }
 
   @Override
   protected String getObjectiveConstraintEdgeAfterEndTotalEdges() {
-    return GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    return GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
   }
 
   @Override
   protected String getAssignmentVariablePrefix() {
-    return GpccSugarMPWriter.S_BINARYDOMAIN + Utils.getNewLine();
+    return GPCC_SUGARM_BASEPWriter.S_BINARYDOMAIN + Utils.getNewLine();
   }
 
   @Override
   protected String getAssignmentVariablePreAssign() {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN;
-    rtn += GpccSugarMPWriter.S_INT + GpccSugarMPWriter.S_SPACE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN;
+    rtn += GPCC_SUGARM_BASEPWriter.S_INT + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
-
   }
 
   @Override
   protected String getAssignmentVariablePostAssign() {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_BINARY;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_SPACE + GPCC_SUGARM_BASEPWriter.S_BINARY;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE;
     rtn += Utils.getNewLine();
     return rtn;
   }
@@ -152,7 +172,7 @@ public class GpccSugarMPWriter extends GpccBasePWriter {
   protected String getEnd() {
     String rtn = "";
     rtn += getComment();
-    rtn += GpccSugarMPWriter.S_END;
+    rtn += GPCC_SUGARM_BASEPWriter.S_END;
     rtn += Utils.getNewLine();
     return rtn;
   }
@@ -160,90 +180,115 @@ public class GpccSugarMPWriter extends GpccBasePWriter {
   @Override
   protected String getConstraintsBlockCapacityLowerBeforeEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + c.getLowerBoundType().toString()
-        + GpccSugarMPWriter.S_SPACE + c.getLowerBound() + GpccSugarMPWriter.S_SPACE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_ADDITION
-        + GpccSugarMPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + c.getLowerBoundType().toString()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + c.getLowerBound()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_ADDITION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
   }
 
   @Override
   protected String getConstraintsBlockCapacityLowerAfterEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
     return rtn;
   }
 
   @Override
   protected String getConstraintsBlockCapacityUpperBeforeEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + c.getUpperBoundType().toString()
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_PARENTHESIS_OPEN
-        + GpccSugarMPWriter.S_ADDITION + GpccSugarMPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + c.getUpperBoundType().toString()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_ADDITION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
   }
 
   @Override
   protected String getConstraintsBlockCapacityUpperAfterEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + GPCC_SUGARM_BASEPWriter.S_SPACE;
     rtn += c.getUpperBound();
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
     return rtn;
   }
 
   @Override
   protected String getConstraintsAssignmentPrefix() {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_EQUAL
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_ONE + GpccSugarMPWriter.S_SPACE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_ADDITION;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_EQUAL
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_ONE
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN + GPCC_SUGARM_BASEPWriter.S_ADDITION;
     return rtn;
   }
 
   @Override
   protected String getConstraintsAssignmentPostfix() {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE
-        + GpccSugarMPWriter.S_PARENTHESIS_CLOSE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE;
     return rtn;
   }
 
   @Override
   protected String getConstraintsInterBlockCapacityLowerBeforeEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + c.getLowerBoundType().toString()
-        + GpccSugarMPWriter.S_SPACE + c.getLowerBound() + GpccSugarMPWriter.S_SPACE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_ADDITION
-        + GpccSugarMPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + c.getLowerBoundType().toString()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + c.getLowerBound()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_ADDITION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
   }
 
   @Override
   protected String getConstraintsInterBlockCapacityLowerAfterEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE;
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
     return rtn;
-
   }
 
   @Override
   protected String getConstraintsInterBlockCapacityUpperBeforeEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_OPEN + c.getUpperBoundType().toString()
-        + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_PARENTHESIS_OPEN
-        + GpccSugarMPWriter.S_ADDITION + GpccSugarMPWriter.S_SPACE;
+    rtn +=
+        GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + c.getUpperBoundType().toString()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+            + GPCC_SUGARM_BASEPWriter.S_ADDITION
+            + GPCC_SUGARM_BASEPWriter.S_SPACE;
     return rtn;
   }
 
   @Override
   protected String getConstraintsInterBlockCapacityUpperAfterEqn(final Capacity c) {
     String rtn = "";
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + GpccSugarMPWriter.S_SPACE;
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + GPCC_SUGARM_BASEPWriter.S_SPACE;
     rtn += c.getUpperBound();
-    rtn += GpccSugarMPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+    rtn += GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
     return rtn;
   }
 
@@ -296,13 +341,28 @@ public class GpccSugarMPWriter extends GpccBasePWriter {
     String constraintHeader = "";
     String equ = "";
     final List<List<Set<Integer>>> blockCapacityCellList = getGpccBase().getBlockCapacityCellList();
-    constraintHeader += getComment() + GpccSugarMPWriter.S_OBJECTIVE + GpccSugarMPWriter.S_SPACE
-        + "NumBlocks" + Utils.getNewLine();
-    constraintHeader += "(" + GpccSugarMPWriter.S_INT + GpccSugarMPWriter.S_SPACE + "NumBlocks "
-        + getLowerBoundBlocks() + GpccSugarMPWriter.S_SPACE + getUpperBoundBlocks() + ")"
-        + Utils.getNewLine();
-    constraintHeader += "(" + GpccSugarMPWriter.S_OBJECTIVE + GpccSugarMPWriter.S_SPACE
-        + "minimize NumBlocks)" + Utils.getNewLine();
+    constraintHeader +=
+        getComment()
+            + GPCC_SUGARM_BASEPWriter.S_OBJECTIVE
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + "NumBlocks"
+            + Utils.getNewLine();
+    constraintHeader +=
+        "("
+            + GPCC_SUGARM_BASEPWriter.S_INT
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + "NumBlocks "
+            + getLowerBoundBlocks()
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + getUpperBoundBlocks()
+            + ")"
+            + Utils.getNewLine();
+    constraintHeader +=
+        "("
+            + GPCC_SUGARM_BASEPWriter.S_OBJECTIVE
+            + GPCC_SUGARM_BASEPWriter.S_SPACE
+            + "minimize NumBlocks)"
+            + Utils.getNewLine();
     //
     for (int blockIdx = 0; blockIdx < blockCapacityCellList.size(); blockIdx++) {
       final List<Set<Integer>> cellList = blockCapacityCellList.get(blockIdx);
@@ -346,7 +406,7 @@ public class GpccSugarMPWriter extends GpccBasePWriter {
     writeConstraintsObjectiveNumBlocks();
   }
 
-  GpccSugarMPWriter(final GpccBase gpcc, final String filename, final int upperbound) {
+  GPCC_SUGARM_BASEPWriter(final GPCC_BASE gpcc, final String filename, final int upperbound) {
     super(gpcc, filename);
     setLowerBoundBlocks(0);
     setUpperBoundBlocks(upperbound);
@@ -436,9 +496,13 @@ public class GpccSugarMPWriter extends GpccBasePWriter {
   static String S_ONE = "1";
   static String S_END = "End";
   static String S_BINARYRANGE =
-      GpccSugarMPWriter.S_ZERO + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_ONE;
-  static String S_BINARYDOMAIN = GpccSugarMPWriter.S_PARENTHESIS_OPEN + GpccSugarMPWriter.S_DOMAIN
-      + GpccSugarMPWriter.S_SPACE + GpccSugarMPWriter.S_BINARY + GpccSugarMPWriter.S_SPACE
-      + GpccSugarMPWriter.S_BINARYRANGE + GpccSugarMPWriter.S_PARENTHESIS_CLOSE;
-
+      GPCC_SUGARM_BASEPWriter.S_ZERO + GPCC_SUGARM_BASEPWriter.S_SPACE + GPCC_SUGARM_BASEPWriter.S_ONE;
+  static String S_BINARYDOMAIN =
+      GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
+          + GPCC_SUGARM_BASEPWriter.S_DOMAIN
+          + GPCC_SUGARM_BASEPWriter.S_SPACE
+          + GPCC_SUGARM_BASEPWriter.S_BINARY
+          + GPCC_SUGARM_BASEPWriter.S_SPACE
+          + GPCC_SUGARM_BASEPWriter.S_BINARYRANGE
+          + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE;
 }

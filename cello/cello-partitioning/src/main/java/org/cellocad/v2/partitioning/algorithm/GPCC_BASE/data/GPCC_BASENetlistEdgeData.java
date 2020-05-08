@@ -21,25 +21,24 @@ package org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.partitioning.algorithm.data.PTNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.data.PTNetlistEdgeData;
 
 /**
- * The GPCC_BASENetlistNodeData class contains all data for a node used within the <i>GPCC_BASE</i>
- * algorithm class of the <i>partitioning</i> stage.
+ * The data for an edge used within the <i>GPCC_BASE</i> algorithm of the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class GpccBaseNetlistNodeData extends PTNetlistNodeData {
+public class GPCC_BASENetlistEdgeData extends PTNetlistEdgeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link GpccBaseNetlistNodeData}.
+   * Initializes a newly created {@link GPCC_BASENetlistEdgeData}.
    */
-  public GpccBaseNetlistNodeData() {
+  public GPCC_BASENetlistEdgeData() {
     super();
     setDefault();
   }

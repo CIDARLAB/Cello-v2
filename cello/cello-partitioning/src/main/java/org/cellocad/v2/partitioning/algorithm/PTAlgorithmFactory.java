@@ -20,9 +20,9 @@
 package org.cellocad.v2.partitioning.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.GpccScipBase;
-import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.GpccSugarMBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GPCC_BASE;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.GPCC_SCIP_BASE;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.GPCC_SUGARM_BASE;
 import org.cellocad.v2.partitioning.algorithm.HMetis.HMetis;
 
 /**
@@ -46,13 +46,13 @@ public class PTAlgorithmFactory extends AlgorithmFactory<PTAlgorithm> {
   protected PTAlgorithm getAlgorithm(final String name) {
     PTAlgorithm rtn = null;
     if (name.equals("GPCC_SUGARM_BASE")) {
-      rtn = new GpccSugarMBase();
+      rtn = new GPCC_SUGARM_BASE();
     }
     if (name.equals("GPCC_SCIP_BASE")) {
-      rtn = new GpccScipBase();
+      rtn = new GPCC_SCIP_BASE();
     }
     if (name.equals("GPCC_BASE")) {
-      rtn = new GpccBase();
+      rtn = new GPCC_BASE();
     }
     if (name.equals("HMetis")) {
       rtn = new HMetis();
