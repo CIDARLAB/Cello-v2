@@ -17,14 +17,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.gpccGrid;
+package org.cellocad.v2.placing.algorithm.GPCC_GRID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.placing.algorithm.PLAlgorithm;
-import org.cellocad.v2.placing.algorithm.gpccGrid.data.GpccGridNetlistData;
-import org.cellocad.v2.placing.algorithm.gpccGrid.data.GpccGridNetlistEdgeData;
-import org.cellocad.v2.placing.algorithm.gpccGrid.data.GpccGridNetlistNodeData;
+import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistData;
+import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistEdgeData;
+import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistNodeData;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -33,7 +33,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation the <i>GPCC_GRID</i> algorithm in the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GpccGrid extends PLAlgorithm {
@@ -74,57 +73,36 @@ public class GpccGrid extends PLAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
-  protected void getDataFromUcf() {
+  protected void getDataFromUcf() {}
 
-  }
-
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
-  protected void setParameterValues() {
-  }
+  protected void setParameterValues() {}
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
     // analyze and insert dummy cells to relay
     // see notes for algo
   }
 
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
   protected void run() {
     // see notes for algo
   }
 
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
   protected void postprocessing() {
     // verify
@@ -141,5 +119,4 @@ public class GpccGrid extends PLAlgorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(GpccGrid.class);
-
 }

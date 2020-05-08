@@ -17,29 +17,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccBase.data;
+package org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.partitioning.algorithm.data.PTNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistNodeData;
 
 /**
- * The data for a netlist used within the <i>GPCC_BASE</i> algorithm of the <i>partitioning</i>
+ * The data for a node used within the <i>GPCC_SCIP_BASE</i> algorithm of the <i>partitioning</i>
  * stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class GpccBaseNetlistData extends PTNetlistData {
+public class GpccScipBaseNetlistNodeData extends GpccBaseNetlistNodeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link GpccBaseNetlistData}.
+   * Initializes a newly created {@link GpccScipBaseNetlistNodeData}.
    */
-  public GpccBaseNetlistData() {
+  public GpccScipBaseNetlistNodeData() {
     super();
     setDefault();
   }

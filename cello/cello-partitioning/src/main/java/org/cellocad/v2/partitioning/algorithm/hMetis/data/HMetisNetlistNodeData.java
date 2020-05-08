@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.hMetis.data;
+package org.cellocad.v2.partitioning.algorithm.HMetis.data;
 
 import java.io.IOException;
 import java.io.Writer;

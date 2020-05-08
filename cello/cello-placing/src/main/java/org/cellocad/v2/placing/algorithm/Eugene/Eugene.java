@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.eugene;
+package org.cellocad.v2.placing.algorithm.Eugene;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,12 +48,12 @@ import org.cellocad.v2.common.target.data.data.StructureDevice;
 import org.cellocad.v2.common.target.data.data.StructureObject;
 import org.cellocad.v2.common.target.data.data.StructureTemplate;
 import org.cellocad.v2.placing.algorithm.PLAlgorithm;
-import org.cellocad.v2.placing.algorithm.eugene.data.DnaPlotLibUtils;
-import org.cellocad.v2.placing.algorithm.eugene.data.EugeneNetlistData;
-import org.cellocad.v2.placing.algorithm.eugene.data.EugeneNetlistEdgeData;
-import org.cellocad.v2.placing.algorithm.eugene.data.EugeneNetlistNodeData;
-import org.cellocad.v2.placing.algorithm.eugene.target.data.EugeneTargetDataUtils;
-import org.cellocad.v2.placing.algorithm.eugene.target.data.data.EugeneDevice;
+import org.cellocad.v2.placing.algorithm.Eugene.data.DnaPlotLibUtils;
+import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistData;
+import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
+import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistNodeData;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.EugeneTargetDataUtils;
+import org.cellocad.v2.placing.algorithm.Eugene.target.data.data.EugeneDevice;
 import org.cellocad.v2.placing.target.data.PLTargetDataInstance;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -76,7 +76,6 @@ import org.cidarlab.eugene.exception.EugeneException;
  * The implementation of the <i>Eugene</i> algorithm in the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-06
  */
 public class Eugene extends PLAlgorithm {
@@ -117,13 +116,9 @@ public class Eugene extends PLAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
-
-  }
+  protected void getConstraintFromNetlistConstraintFile() {}
 
   /**
    * Gets the data from the UCF.
@@ -138,15 +133,16 @@ public class Eugene extends PLAlgorithm {
     setGeneticLocations(EugeneTargetDataUtils.getGeneticLocations(getTargetData()));
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
     final String inputFilename = getNetlist().getInputFilename();
-    final String filename = outputDir + Utils.getFileSeparator() + Utils.getFilename(inputFilename)
-        + "_eugeneScript.eug";
+    final String filename =
+        outputDir
+            + Utils.getFileSeparator()
+            + Utils.getFilename(inputFilename)
+            + "_eugeneScript.eug";
     setEugeneScriptFilename(filename);
 
     Boolean present = false;
@@ -157,9 +153,7 @@ public class Eugene extends PLAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
   protected void validateParameterValues() {
     if (getMaxPlacements() == null || getMaxPlacements() <= 0) {
@@ -172,8 +166,9 @@ public class Eugene extends PLAlgorithm {
     NetlistNode node = null;
     node = BFS.getNextVertex();
     while (node != null) {
-      final Collection<StructureDevice> devices = EugeneUtils.getDevices(node,
-          getTargetDataInstance().getGates(), getTargetDataInstance().getOutputDevices());
+      final Collection<StructureDevice> devices =
+          EugeneUtils.getDevices(
+              node, getTargetDataInstance().getGates(), getTargetDataInstance().getOutputDevices());
       getDevicesMap().put(node, devices);
       for (final StructureDevice d : devices) {
         getDeviceNameNetlistNodeMap().put(d.getName(), node);
@@ -299,17 +294,14 @@ public class Eugene extends PLAlgorithm {
   /**
    * For every device in the circuit, get a Eugene device rule definition.
    *
-   * <p>
-   * Example:
+   * <p>Example:
    *
-   * <pre>
-   * {@code
+   * <pre>{@code
    * Rule A1_AmtRRules ( ON A1_AmtR:
    *     CONTAINS pTet AND
    *     ALL_FORWARD
-   * );}
-   * </pre>
-   * </p>
+   * );
+   * }</pre>
    *
    * @return A collection of Eugene device rules.
    */
@@ -429,9 +421,7 @@ public class Eugene extends PLAlgorithm {
     return rtn;
   }
 
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
     LSResultNetlistUtils.setVertexTypeUsingLSResult(getNetlist());
@@ -542,9 +532,18 @@ public class Eugene extends PLAlgorithm {
     final String filename = Utils.getFilename(inputFilename);
     final String activityFile = outputDir + Utils.getFileSeparator() + filename + "_activity.csv";
     final String logicFile = outputDir + Utils.getFileSeparator() + filename + "_logic.csv";
-    final String cmd = String.format(fmt, python, rnaseqFilename, userConstraintsFile, activityFile,
-        logicFile, netlistFile, inputSensorFile, outputDeviceFile,
-        outputDir + Utils.getFileSeparator() + "rnaseq_" + filename);
+    final String cmd =
+        String.format(
+            fmt,
+            python,
+            rnaseqFilename,
+            userConstraintsFile,
+            activityFile,
+            logicFile,
+            netlistFile,
+            inputSensorFile,
+            outputDeviceFile,
+            outputDir + Utils.getFileSeparator() + "rnaseq_" + filename);
     Utils.executeAndWaitForCommand(cmd);
   }
 
@@ -593,8 +592,16 @@ public class Eugene extends PLAlgorithm {
     final String fmt = "%s -W ignore %s -params %s -parts %s -designs %s -regulation %s -output %s";
     final String output = outputDir + Utils.getFileSeparator() + getNetlist().getName() + "_dpl";
     final String python = getRuntimeEnv().getOptionValue(ArgString.PYTHONENV);
-    final String cmd = String.format(fmt, python, libraryPlotFilename, paramsFilename,
-        partsFilename, designsFilename, regFilename, output);
+    final String cmd =
+        String.format(
+            fmt,
+            python,
+            libraryPlotFilename,
+            paramsFilename,
+            partsFilename,
+            designsFilename,
+            regFilename,
+            output);
     Utils.executeAndWaitForCommand(cmd + ".pdf");
     Utils.executeAndWaitForCommand(cmd + ".png");
   }
@@ -774,7 +781,7 @@ public class Eugene extends PLAlgorithm {
 
   /**
    * Getter for {@code deviceNameNetlistNodeMap}.
-   * 
+   *
    * @return The value of {@code deviceNameNetlistNodeMap}.
    */
   public Map<String, NetlistNode> getDeviceNameNetlistNodeMap() {
@@ -783,7 +790,7 @@ public class Eugene extends PLAlgorithm {
 
   /**
    * Setter for {@code deviceNameNetlistNodeMap}.
-   * 
+   *
    * @param deviceNameNetlistNodeMap The value to set {@code deviceNameNetlistNodeMap}.
    */
   public void setDeviceNameNetlistNodeMap(final Map<String, NetlistNode> deviceNameNetlistNodeMap) {
@@ -884,5 +891,4 @@ public class Eugene extends PLAlgorithm {
   private CObjectCollection<GeneticLocation> geneticLocations;
 
   private static String S_FENCEPOST = "fencepost";
-
 }

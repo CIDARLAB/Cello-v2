@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.eugene.target.data.data;
+package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.util.ArrayList;
 import java.util.List;

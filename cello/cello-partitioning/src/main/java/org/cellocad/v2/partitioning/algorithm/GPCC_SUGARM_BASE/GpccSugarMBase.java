@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccSugarMBase;
+package org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,10 +32,10 @@ import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.ExecCommand;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.ArgString;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.gpccSugarMBase.data.GpccSugarMBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.gpccSugarMBase.data.GpccSugarMBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.gpccSugarMBase.data.GpccSugarMBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistNodeData;
 import org.cellocad.v2.partitioning.common.Block;
 import org.cellocad.v2.partitioning.common.Move;
 import org.cellocad.v2.partitioning.common.Partition;

@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccScipBase;
+package org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,10 +29,10 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.runtime.environment.ArgString;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.gpccScipBase.data.GpccScipBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.gpccScipBase.data.GpccScipBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.gpccScipBase.data.GpccScipBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistNodeData;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;

@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.results;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.toxicity.TMToxicityEvaluation;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 
 /**
  * The NetlistUtils class is a class with utility methods for the result of the

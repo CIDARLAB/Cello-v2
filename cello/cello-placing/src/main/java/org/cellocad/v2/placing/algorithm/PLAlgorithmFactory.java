@@ -20,8 +20,8 @@
 package org.cellocad.v2.placing.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.placing.algorithm.eugene.Eugene;
-import org.cellocad.v2.placing.algorithm.gpccGrid.GpccGrid;
+import org.cellocad.v2.placing.algorithm.Eugene.Eugene;
+import org.cellocad.v2.placing.algorithm.GPCC_GRID.GpccGrid;
 
 /**
  * The PLAlgorithmFactory is an algorithm factory for the <i>placing</i> stage.

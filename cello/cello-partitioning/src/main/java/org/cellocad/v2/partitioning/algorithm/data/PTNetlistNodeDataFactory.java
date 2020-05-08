@@ -20,10 +20,10 @@
 package org.cellocad.v2.partitioning.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.data.GpccBaseNetlistNodeData;
-import org.cellocad.v2.partitioning.algorithm.gpccScipBase.data.GpccScipBaseNetlistNodeData;
-import org.cellocad.v2.partitioning.algorithm.gpccSugarMBase.data.GpccSugarMBaseNetlistNodeData;
-import org.cellocad.v2.partitioning.algorithm.hMetis.data.HMetisNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.data.GpccScipBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.data.GpccSugarMBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistNodeData;
 
 /**
  * The PTNetlistNodeDataFactory is a NetlistNodeData factory for the <i>partitioning</i> stage.

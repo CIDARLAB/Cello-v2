@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccBase;
+package org.cellocad.v2.partitioning.algorithm.GPCC_BASE;
 
 import java.io.IOException;
 import java.util.HashSet;

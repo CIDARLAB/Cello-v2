@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,11 +46,11 @@ import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.assignment.GateManager;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.score.ScoreUtils;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.toxicity.TMToxicityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.results.ResponsePlotUtils;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.results.SimulatedAnnealingResultsUtils;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlotUtils;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
 import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 

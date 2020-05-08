@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.toxicity;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -37,8 +37,8 @@ import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.toxicity.toxicitytable.Toxicity;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.toxicity.toxicitytable.ToxicityTable;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.Toxicity;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.toxicitytable.ToxicityTable;
 
 /**
  * The TMToxicityEvaluation class evaluates the toxicity of a netlist used within the

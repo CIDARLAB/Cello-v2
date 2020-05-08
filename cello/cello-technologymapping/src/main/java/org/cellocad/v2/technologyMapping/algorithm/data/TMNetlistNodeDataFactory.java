@@ -20,7 +20,7 @@
 package org.cellocad.v2.technologyMapping.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 
 /**
  * The TMNetlistNodeDataFactory is a NetlistNodeData factory for the <i>technologyMapping</i> stage.

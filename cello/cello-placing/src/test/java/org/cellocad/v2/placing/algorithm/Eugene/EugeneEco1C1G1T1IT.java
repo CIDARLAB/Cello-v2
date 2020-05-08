@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.eugene;
+package org.cellocad.v2.placing.algorithm.Eugene;
 
 import java.io.File;
 import java.io.IOException;

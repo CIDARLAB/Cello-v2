@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.hMetis;
+package org.cellocad.v2.partitioning.algorithm.HMetis;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,9 +40,9 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.file.dot.utils.DotUtils;
 import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.partitioning.algorithm.PTAlgorithm;
-import org.cellocad.v2.partitioning.algorithm.hMetis.data.HMetisNetlistData;
-import org.cellocad.v2.partitioning.algorithm.hMetis.data.HMetisNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.hMetis.data.HMetisNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistData;
+import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistNodeData;
 import org.cellocad.v2.partitioning.common.Block;
 import org.cellocad.v2.partitioning.common.Move;
 import org.cellocad.v2.partitioning.common.Netlister;
@@ -62,7 +62,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>HMetis</i> algorithm in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class HMetis extends PTAlgorithm {
@@ -72,16 +71,12 @@ public class HMetis extends PTAlgorithm {
     vertexIntegerMap = new HashMap<>();
   }
 
-  /**
-   * Initializes a newly created {@link HMetis}.
-   */
+  /** Initializes a newly created {@link HMetis}. */
   public HMetis() {
     init();
   }
 
-  /**
-   * Creates the file path for the HMetis Input File.
-   */
+  /** Creates the file path for the HMetis Input File. */
   protected void createHMetisInFilePath() {
     String file = "";
     file += getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
@@ -90,9 +85,7 @@ public class HMetis extends PTAlgorithm {
     setHMetisInFile(file);
   }
 
-  /**
-   * Creates the file path for the HMetis Output File.
-   */
+  /** Creates the file path for the HMetis Output File. */
   protected void createHMetisOutFilePath() {
     String file = "";
     file += getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
@@ -102,9 +95,7 @@ public class HMetis extends PTAlgorithm {
     setHMetisOutFile(file);
   }
 
-  /**
-   * Adds the content to the HMetis Input File.
-   */
+  /** Adds the content to the HMetis Input File. */
   protected void addContentHMetisInFilePath() {
     final PTNetlist ptNetlist = getNetlister().getPTNetlist();
     final String newline = System.lineSeparator();
@@ -145,9 +136,7 @@ public class HMetis extends PTAlgorithm {
     }
   }
 
-  /**
-   * Creates the the HMetis Execution command.
-   */
+  /** Creates the the HMetis Execution command. */
   protected void createHMetisExec() {
     String cmd = "";
     cmd += "hmetis ";
@@ -159,9 +148,7 @@ public class HMetis extends PTAlgorithm {
     setHMetisExec(cmd);
   }
 
-  /**
-   * Creates the file path for the Partition Dot File.
-   */
+  /** Creates the file path for the Partition Dot File. */
   protected void createPartitionDotFilePath() {
     String file = "";
     file += getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
@@ -171,9 +158,7 @@ public class HMetis extends PTAlgorithm {
     setPartitionDotFile(file);
   }
 
-  /**
-   * Translates the result from HMetis application to the Netlist.
-   */
+  /** Translates the result from HMetis application to the Netlist. */
   protected void applyResult() {
     final List<Move> moves = new ArrayList<>();
     Move move = null;
@@ -249,40 +234,23 @@ public class HMetis extends PTAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
-  protected void getDataFromUcf() {
+  protected void getDataFromUcf() {}
 
-  }
-
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
-  protected void setParameterValues() {
-  }
+  protected void setParameterValues() {}
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
     final Netlist netlist = getNetlist();
@@ -318,9 +286,7 @@ public class HMetis extends PTAlgorithm {
     createPartitionDotFilePath();
   }
 
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
   protected void run() {
     Utils.executeAndWaitForCommand(getHMetisExec());
@@ -338,8 +304,8 @@ public class HMetis extends PTAlgorithm {
     Utils.deleteFilename(getHMetisInFile());
     Utils.deleteFilename(getHMetisOutFile());
     final File dotFile = new File(getPartitionDotFile());
-    PTNetlistUtils.writeDotFileForPartition(getNetlister().getPTNetlist(),
-        dotFile.getAbsolutePath());
+    PTNetlistUtils.writeDotFileForPartition(
+        getNetlister().getPTNetlist(), dotFile.getAbsolutePath());
     DotUtils.dot2pdf(dotFile);
   }
 
@@ -510,5 +476,4 @@ public class HMetis extends PTAlgorithm {
   private Map<PTNetlistNode, Integer> getVertexIntegerMap() {
     return vertexIntegerMap;
   }
-
 }

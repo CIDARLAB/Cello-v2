@@ -17,29 +17,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.gpccGrid.data;
+package org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data;
 
 import java.io.IOException;
 import java.io.Writer;
-import org.cellocad.v2.placing.algorithm.data.PLNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.data.PTNetlistNodeData;
 
 /**
- * The GPCC_GRIDNetlistNodeData class contains all data for a node used within the <i>GPCC_GRID</i>
- * algorithm class of the <i>placing</i> stage.
+ * The GPCC_BASENetlistNodeData class contains all data for a node used within the <i>GPCC_BASE</i>
+ * algorithm class of the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
  *
  * @date 2018-05-21
  */
-public class GpccGridNetlistNodeData extends PLNetlistNodeData {
+public class GpccBaseNetlistNodeData extends PTNetlistNodeData {
 
   private void setDefault() {
   }
 
   /**
-   * Initializes a newly created {@link GpccGridNetlistNodeData}.
+   * Initializes a newly created {@link GpccBaseNetlistNodeData}.
    */
-  public GpccGridNetlistNodeData() {
+  public GpccBaseNetlistNodeData() {
     super();
     setDefault();
   }

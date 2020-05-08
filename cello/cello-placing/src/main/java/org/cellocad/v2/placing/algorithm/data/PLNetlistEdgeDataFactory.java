@@ -20,8 +20,8 @@
 package org.cellocad.v2.placing.algorithm.data;
 
 import org.cellocad.v2.common.algorithm.data.NetlistEdgeDataFactory;
-import org.cellocad.v2.placing.algorithm.eugene.data.EugeneNetlistEdgeData;
-import org.cellocad.v2.placing.algorithm.gpccGrid.data.GpccGridNetlistEdgeData;
+import org.cellocad.v2.placing.algorithm.Eugene.data.EugeneNetlistEdgeData;
+import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistEdgeData;
 
 /**
  * The PLNetlistEdgeDataFactory is a NetlistEdgeData factory for the <i>placing</i> stage.

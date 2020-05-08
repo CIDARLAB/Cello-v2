@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccSugarMBase;
+package org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.GpccBasePWriter;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBasePWriter;
 import org.cellocad.v2.partitioning.profile.Capacity;
 
 /**

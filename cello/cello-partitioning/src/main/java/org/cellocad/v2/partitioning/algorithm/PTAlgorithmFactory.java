@@ -20,10 +20,10 @@
 package org.cellocad.v2.partitioning.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.GpccBase;
-import org.cellocad.v2.partitioning.algorithm.gpccScipBase.GpccScipBase;
-import org.cellocad.v2.partitioning.algorithm.gpccSugarMBase.GpccSugarMBase;
-import org.cellocad.v2.partitioning.algorithm.hMetis.HMetis;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.GpccBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SCIP_BASE.GpccScipBase;
+import org.cellocad.v2.partitioning.algorithm.GPCC_SUGARM_BASE.GpccSugarMBase;
+import org.cellocad.v2.partitioning.algorithm.HMetis.HMetis;
 
 /**
  * The PTAlgorithmFactory is an algorithm factory for the <i>partitioning</i> stage.

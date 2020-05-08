@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.partitioning.algorithm.gpccBase;
+package org.cellocad.v2.partitioning.algorithm.GPCC_BASE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,9 +30,9 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.constraint.Weight;
 import org.cellocad.v2.partitioning.algorithm.PTAlgorithm;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.data.GpccBaseNetlistData;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.data.GpccBaseNetlistEdgeData;
-import org.cellocad.v2.partitioning.algorithm.gpccBase.data.GpccBaseNetlistNodeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistEdgeData;
+import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GpccBaseNetlistNodeData;
 import org.cellocad.v2.partitioning.common.Block;
 import org.cellocad.v2.partitioning.common.Netlister;
 import org.cellocad.v2.partitioning.common.Partition;
@@ -48,14 +48,11 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>GPCC_BASE</i> algorithm in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GpccBase extends PTAlgorithm {
 
-  /**
-   * Initializes class members.
-   */
+  /** Initializes class members. */
   private void init() {
     cellList = new ArrayList<>();
     ptCellList = new ArrayList<>();
@@ -64,9 +61,7 @@ public class GpccBase extends PTAlgorithm {
     cellBlockList = new ArrayList<>();
   }
 
-  /**
-   * Initializes a newly created {@link GpccBase}.
-   */
+  /** Initializes a newly created {@link GpccBase}. */
   public GpccBase() {
     init();
   }
@@ -107,40 +102,23 @@ public class GpccBase extends PTAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
-  protected void getDataFromUcf() {
+  protected void getDataFromUcf() {}
 
-  }
-
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
-  protected void setParameterValues() {
-  }
+  protected void setParameterValues() {}
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * set Weights for PTNetlistNode.
-   */
+  /** set Weights for PTNetlistNode. */
   private void setPTNetlistNodeWeights() {
     final PTNetlist ptnetlist = getNetlister().getPTNetlist();
     final CObjectCollection<CObject> units =
@@ -157,9 +135,7 @@ public class GpccBase extends PTAlgorithm {
     }
   }
 
-  /**
-   * Relate Data Structure.
-   */
+  /** Relate Data Structure. */
   private void relateDataStructure() {
     final List<PTNetlistNode> ptCellList = getPTCellList();
     final List<Block> blockList = getBlockList();
@@ -184,9 +160,7 @@ public class GpccBase extends PTAlgorithm {
     }
   }
 
-  /**
-   * Initialize Data Structure.
-   */
+  /** Initialize Data Structure. */
   private void initDataStructure() {
     final List<NetlistNode> cellList = getCellList();
     final List<PTNetlistNode> ptCellList = getPTCellList();
@@ -226,9 +200,7 @@ public class GpccBase extends PTAlgorithm {
     relateDataStructure();
   }
 
-  /**
-   * Initializes preprocessing.
-   */
+  /** Initializes preprocessing. */
   protected void initPreprocessing() {
     final Netlist netlist = getNetlist();
     setNetlister(new Netlister(netlist));
@@ -243,7 +215,7 @@ public class GpccBase extends PTAlgorithm {
 
   /**
    * Perform preprocessing.
-   * 
+   *
    * @throws CelloException Unable to perform preprocessing.
    */
   @Override
@@ -253,7 +225,7 @@ public class GpccBase extends PTAlgorithm {
 
   /**
    * Run the (core) algorithm.
-   * 
+   *
    * @throws CelloException Unable to run the (core) algorithm.
    */
   @Override
@@ -261,13 +233,9 @@ public class GpccBase extends PTAlgorithm {
     throw new RuntimeException("Cannot execute GPCC_BASE!");
   }
 
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
-  protected void postprocessing() {
-
-  }
+  protected void postprocessing() {}
 
   /*
    * Netlister
@@ -383,5 +351,4 @@ public class GpccBase extends PTAlgorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(GpccBase.class);
-
 }

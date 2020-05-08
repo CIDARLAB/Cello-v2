@@ -20,7 +20,7 @@
 package org.cellocad.v2.technologyMapping.algorithm;
 
 import org.cellocad.v2.common.algorithm.AlgorithmFactory;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.SimulatedAnnealing;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedAnnealing;
 
 /**
  * The TMAlgorithmFactory is an algorithm factory for the <i>technologyMapping</i> stage.

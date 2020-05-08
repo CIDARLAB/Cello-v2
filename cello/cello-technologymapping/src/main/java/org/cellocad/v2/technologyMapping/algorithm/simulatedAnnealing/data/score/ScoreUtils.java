@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.score;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score;
 
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;

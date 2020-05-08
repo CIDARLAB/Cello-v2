@@ -17,14 +17,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.SimulatedAnnealingNetlistData;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
-import org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistData;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistEdgeData;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.SimulatedAnnealingNetlistNodeData;
 
 /**
  * Utility methods for the <i>SimulatedAnnealing</i> algorithm in the <i>technologyMapping</i>

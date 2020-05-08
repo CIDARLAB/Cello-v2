@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.simulatedAnnealing.data;
+package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
 
 /**
  * The SimulatedAnnealingDataUtils is class with utility methods for the data used in the
