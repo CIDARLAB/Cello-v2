@@ -25,7 +25,6 @@ import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
  * Manages and parses common command line arguments for an application.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public class ApplicationRuntimeEnv extends RuntimeEnv {
@@ -40,14 +39,11 @@ public class ApplicationRuntimeEnv extends RuntimeEnv {
     super(args);
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   @Override
   protected void setOptions() {
     super.setOptions();
     // uncomment the line below to add options
     // Options options = this.getOptions();
   }
-
 }

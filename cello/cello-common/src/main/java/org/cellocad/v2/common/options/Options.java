@@ -39,7 +39,6 @@ import org.cellocad.v2.common.Pair;
  * to modify the default execution of an application or a stage.
  *
  * @author Vincent Mirian
- *
  * @date Dec 8, 2017
  */
 public final class Options extends CObject {
@@ -99,7 +98,7 @@ public final class Options extends CObject {
    *
    * @param stage The name of the stage.
    * @return If the parameter {@code stage} is present, return the value of the stage defined by
-   *         parameter {@code stage}, otherwise null.
+   *     parameter {@code stage}, otherwise null.
    */
   public String getStageName(final String stage) {
     String rtn = null;
@@ -112,9 +111,9 @@ public final class Options extends CObject {
    * parameter {@code stage}.
    *
    * @param stage The name of the stage.
-   * @param arg   The name of the argument.
+   * @param arg The name of the argument.
    * @return If the argument is present in the stage, return the value of the argument defined by
-   *         parameter {@code arg} for the stage defined by parameter {@code stage}, otherwise null.
+   *     parameter {@code arg} for the stage defined by parameter {@code stage}, otherwise null.
    */
   public String getStageArgValueName(final String stage, final String arg) {
     String rtn = null;
@@ -147,8 +146,8 @@ public final class Options extends CObject {
    * @param stage The name of the stage.
    * @param index index of the argument.
    * @return If the index is within the bounds (0 <= bounds < this.getNumStageArgValue(stage)),
-   *         return a pair instance with the first element containing the name of the argument, and,
-   *         the second element containing the value of the argument, otherwise return null.
+   *     return a pair instance with the first element containing the name of the argument, and, the
+   *     second element containing the value of the argument, otherwise return null.
    */
   public Pair<String, String> getStageArgValueAtIdx(final String stage, final int index) {
     Pair<String, String> rtn = null;
@@ -180,5 +179,4 @@ public final class Options extends CObject {
 
   private Map<String, String> stageValues;
   private Map<String, Map<String, String>> stageArgValues;
-
 }

@@ -31,13 +31,10 @@ import java.util.RandomAccess;
  * Collection for CObject Object's.
  *
  * @param <T> the type of elements in this collection.
- *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Oct 27, 2017
  */
-
 public class CObjectCollection<T extends CObject> extends CObject
     implements List<T>, RandomAccess, Cloneable, Serializable {
 
@@ -45,9 +42,7 @@ public class CObjectCollection<T extends CObject> extends CObject
     collection = new ArrayList<>();
   }
 
-  /**
-   * Constructs an empty list.
-   */
+  /** Constructs an empty list. */
   public CObjectCollection() {
     super();
     init();
@@ -110,7 +105,7 @@ public class CObjectCollection<T extends CObject> extends CObject
    * currently at that position (if any) and any subsequent elements to the right (adds one to their
    * indices).
    *
-   * @param index   index at which the specified element is to be inserted.
+   * @param index index at which the specified element is to be inserted.
    * @param element element to be inserted.
    * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size()).
    */
@@ -142,19 +137,17 @@ public class CObjectCollection<T extends CObject> extends CObject
    * the order that they are returned by the specified collection's iterator.
    *
    * @param index index at which to insert the first element from the specified collection.
-   * @param c     collection containing elements to be added to this list.
+   * @param c collection containing elements to be added to this list.
    * @return True if this list changed as a result of the call.
    * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
-   * @throws NullPointerException      if the specified collection is null.
+   * @throws NullPointerException if the specified collection is null.
    */
   @Override
   public boolean addAll(final int index, final Collection<? extends T> c) {
     return collection.addAll(index, c);
   }
 
-  /**
-   * Removes all of the elements from this list. The list will be empty after this call returns.
-   */
+  /** Removes all of the elements from this list. The list will be empty after this call returns. */
   @Override
   public void clear() {
     collection.clear();
@@ -205,7 +198,7 @@ public class CObjectCollection<T extends CObject> extends CObject
    *
    * @param o element to search for.
    * @return The index of the first occurrence of the specified element in this list, or -1 if this
-   *         list does not contain the element.
+   *     list does not contain the element.
    */
   @Override
   public int indexOf(final Object o) {
@@ -239,7 +232,7 @@ public class CObjectCollection<T extends CObject> extends CObject
    *
    * @param o element to search for.
    * @return The index of the last occurrence of the specified element in this list, or -1 if this
-   *         list does not contain the element.
+   *     list does not contain the element.
    */
   @Override
   public int lastIndexOf(final Object o) {
@@ -264,7 +257,7 @@ public class CObjectCollection<T extends CObject> extends CObject
    * the specified index minus one. The returned list iterator is fail-fast.
    *
    * @return A list iterator over the elements in this list (in proper sequence), starting at the
-   *         specified position in the list.
+   *     specified position in the list.
    * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size()).
    */
   @Override
@@ -305,11 +298,10 @@ public class CObjectCollection<T extends CObject> extends CObject
    *
    * @param c A collection containing elements to be removed from this list.
    * @return True if this list changed as a result of the call.
-   * @throws ClassCastException   If the class of an element of this list is incompatible with the
-   *                              specified collection (optional).
+   * @throws ClassCastException If the class of an element of this list is incompatible with the
+   *     specified collection (optional).
    * @throws NullPointerException If this list contains a null element and the specified collection
-   *                              does not permit null elements (optional), or if the specified
-   *                              collection is null.
+   *     does not permit null elements (optional), or if the specified collection is null.
    */
   @Override
   public boolean removeAll(final Collection<?> c) {
@@ -323,11 +315,10 @@ public class CObjectCollection<T extends CObject> extends CObject
    *
    * @param c collection containing elements to be retained in this list.
    * @return True if this list changed as a result of the call.
-   * @throws ClassCastException   if the class of an element of this list is incompatible with the
-   *                              specified collection (optional)
+   * @throws ClassCastException if the class of an element of this list is incompatible with the
+   *     specified collection (optional)
    * @throws NullPointerException if this list contains a null element and the specified collection
-   *                              does not permit null elements (optional), or if the specified
-   *                              collection is null.
+   *     does not permit null elements (optional), or if the specified collection is null.
    */
   @Override
   public boolean retainAll(final Collection<?> c) {
@@ -337,11 +328,11 @@ public class CObjectCollection<T extends CObject> extends CObject
   /**
    * Replaces the element at the specified position in this list with the specified element.
    *
-   * @param index   Index of the element to replace.
+   * @param index Index of the element to replace.
    * @param element Element to be stored at the specified position.
    * @return The element previously at the specified position.
    * @throws IndexOutOfBoundsException - if the index is out of range (index < 0 || index >=
-   *                                   size()).
+   *     size()).
    */
   @Override
   public T set(final int index, final T element) {
@@ -366,12 +357,12 @@ public class CObjectCollection<T extends CObject> extends CObject
    * operations.
    *
    * @param fromIndex Low endpoint (inclusive) of the subList.
-   * @param toIndex   High endpoint (exclusive) of the subList.
+   * @param toIndex High endpoint (exclusive) of the subList.
    * @return A view of the specified range within this list.
    * @throws IndexOutOfBoundsException If an endpoint index value is out of range (fromIndex < 0 ||
-   *                                   toIndex > size).
-   * @throws IllegalArgumentException  If the endpoint indices are out of order (fromIndex >
-   *                                   toIndex).
+   *     toIndex > size).
+   * @throws IllegalArgumentException If the endpoint indices are out of order (fromIndex >
+   *     toIndex).
    */
   @Override
   public List<T> subList(final int fromIndex, final int toIndex) {
@@ -382,15 +373,11 @@ public class CObjectCollection<T extends CObject> extends CObject
    * Returns an array containing all of the elements in this list in proper sequence (from first to
    * last element).
    *
-   * <p>
-   * The returned array will be "safe" in that no references to it are maintained by this list. (In
-   * other words, this method must allocate a new array). The caller is thus free to modify the
+   * <p>The returned array will be "safe" in that no references to it are maintained by this list.
+   * (In other words, this method must allocate a new array). The caller is thus free to modify the
    * returned array.
-   * </p>
-   * 
-   * <p>
-   * This method acts as bridge between array-based and collection-based APIs.
-   * </p>
+   *
+   * <p>This method acts as bridge between array-based and collection-based APIs.
    *
    * @return An array containing all of the elements in this list in proper sequence.
    */
@@ -405,18 +392,16 @@ public class CObjectCollection<T extends CObject> extends CObject
    * list fits in the specified array, it is returned therein. Otherwise, a new array is allocated
    * with the runtime type of the specified array and the size of this list.
    *
-   * <p>
-   * If the list fits in the specified array with room to spare (i.e., the array has more elements
-   * than the list), the element in the array immediately following the end of the collection is set
-   * to null. (This is useful in determining the length of the list only if the caller knows that
-   * the list does not contain any null elements.).
-   * </p>
-   * 
+   * <p>If the list fits in the specified array with room to spare (i.e., the array has more
+   * elements than the list), the element in the array immediately following the end of the
+   * collection is set to null. (This is useful in determining the length of the list only if the
+   * caller knows that the list does not contain any null elements.).
+   *
    * @param a The array into which the elements of the list are to be stored, if it is big enough;
-   *          otherwise, a new array of the same runtime type is allocated for this purpose.
+   *     otherwise, a new array of the same runtime type is allocated for this purpose.
    * @return An array containing the elements of the list.
-   * @throws ArrayStoreException  If the runtime type of the specified array is not a supertype of
-   *                              the runtime type of every element in this list
+   * @throws ArrayStoreException If the runtime type of the specified array is not a supertype of
+   *     the runtime type of every element in this list
    * @throws NullPointerException If the specified array is null.
    */
   @Override
@@ -446,10 +431,9 @@ public class CObjectCollection<T extends CObject> extends CObject
    */
   /**
    * Returns the hash code value for this list.
-   * <p>
-   * This implementation uses exactly the code that is used to define the list hash function in the
-   * documentation for the List.hashCode() method.
-   * </p>
+   *
+   * <p>This implementation uses exactly the code that is used to define the list hash function in
+   * the documentation for the List.hashCode() method.
    *
    * @return The hash code value for this list.
    */
@@ -471,14 +455,12 @@ public class CObjectCollection<T extends CObject> extends CObject
    * : e1.equals(e2)).) In other words, two lists are defined to be equal if they contain the same
    * elements in the same order.
    *
-   * <p>
-   * This implementation first checks if the specified object is this list. If so, it returns true;
-   * if not, it checks if the specified object is a list. If not, it returns false; if so, it
+   * <p>This implementation first checks if the specified object is this list. If so, it returns
+   * true; if not, it checks if the specified object is a list. If not, it returns false; if so, it
    * iterates over both lists, comparing corresponding pairs of elements. If any comparison returns
    * false, this method returns false. If either iterator runs out of elements before the other it
    * returns false (as the lists are of unequal length); otherwise it returns true when the
    * iterations complete.
-   * </p>
    *
    * @param obj The object to be compared for equality with this list.
    * @return True if the specified object is equal to this list.
@@ -545,5 +527,4 @@ public class CObjectCollection<T extends CObject> extends CObject
     rtn = rtn + Utils.getNewLine();
     return rtn;
   }
-
 }

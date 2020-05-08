@@ -33,7 +33,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The base class for all algorithms in the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public abstract class EXAlgorithm extends Algorithm {
@@ -85,5 +84,4 @@ public abstract class EXAlgorithm extends Algorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(EXAlgorithm.class);
-
 }

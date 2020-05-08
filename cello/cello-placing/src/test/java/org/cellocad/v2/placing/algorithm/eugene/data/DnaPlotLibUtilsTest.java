@@ -37,33 +37,40 @@ import org.junit.Test;
  * Tests for {@link DnaPlotLibUtils}.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-28
  */
 public class DnaPlotLibUtilsTest {
 
   /**
    * Environment setup for tests.
-   * 
+   *
    * @throws CelloException Unable to instantiate supporting classes.
    */
   @BeforeClass
   public static void init() throws CelloException {
-    final String[] args = {"-" + ArgString.INPUTNETLIST,
-        Utils.getResource("and_placed_netlist.json").getFile(), "-" + ArgString.USERCONSTRAINTSFILE,
-        Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-        "-" + ArgString.INPUTSENSORFILE,
-        Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
-        "-" + ArgString.OUTPUTDEVICEFILE,
-        Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
-        "-" + StageArgString.ALGORITHMNAME, "Eugene"};
+    final String[] args = {
+      "-" + ArgString.INPUTNETLIST,
+      Utils.getResource("and_placed_netlist.json").getFile(),
+      "-" + ArgString.USERCONSTRAINTSFILE,
+      Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+      "-" + ArgString.INPUTSENSORFILE,
+      Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+      "-" + ArgString.OUTPUTDEVICEFILE,
+      Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
+      "-" + StageArgString.ALGORITHMNAME,
+      "Eugene"
+    };
     final PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
     runEnv.setName("placing");
     // Read Netlist
     DnaPlotLibUtilsTest.netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
     // get TargetData
-    DnaPlotLibUtilsTest.td = TargetDataUtils.getTargetTargetData(runEnv,
-        ArgString.USERCONSTRAINTSFILE, ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    DnaPlotLibUtilsTest.td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     DnaPlotLibUtilsTest.tdi = new TargetDataInstance(DnaPlotLibUtilsTest.td);
   }
 
@@ -78,22 +85,26 @@ public class DnaPlotLibUtilsTest {
   public void getDnaDesigns_MockNetlist_ShouldReturnExactMatch() throws CelloException {
     final List<String> designs =
         DnaPlotLibUtils.getDnaDesigns(DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
-    assert designs.get(1).equals(
-        "and_placed0,pPhlF,YFP_cassette,_NONCE_PAD0,pTet,RiboJ10,S2,SrpR,ECK120029600,pSrpR,pAmtR,RiboJ53,P3,PhlF,ECK120033737,pTac,BydvJ,A1,AmtR,L3S2P55");
+    assert designs
+        .get(1)
+        .equals(
+            "and_placed0,pPhlF,YFP_cassette,_NONCE_PAD0,pTet,RiboJ10,S2,SrpR,ECK120029600,pSrpR,pAmtR,RiboJ53,P3,PhlF,ECK120033737,pTac,BydvJ,A1,AmtR,L3S2P55");
   }
 
   @Test
   public void getRegulatoryInformation_MockNetlist_ShouldReturnFourInteractions()
       throws CelloException {
-    final List<String> reg = DnaPlotLibUtils.getRegulatoryInformation(DnaPlotLibUtilsTest.netlist,
-        DnaPlotLibUtilsTest.tdi);
+    final List<String> reg =
+        DnaPlotLibUtils.getRegulatoryInformation(
+            DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
     assert reg.size() == 4;
   }
 
   @Test
   public void getRegulatoryInformation_MockNetlist_ShouldReturnExactMatch() throws CelloException {
-    final List<String> reg = DnaPlotLibUtils.getRegulatoryInformation(DnaPlotLibUtilsTest.netlist,
-        DnaPlotLibUtilsTest.tdi);
+    final List<String> reg =
+        DnaPlotLibUtils.getRegulatoryInformation(
+            DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
     assert reg.get(2).equals("AmtR,Repression,pAmtR,3,-,,0.23;0.66;0.88");
   }
 
@@ -114,5 +125,4 @@ public class DnaPlotLibUtilsTest {
   private static TargetDataInstance tdi;
   private static Netlist netlist;
   private static TargetData td;
-
 }

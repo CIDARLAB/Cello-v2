@@ -26,7 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageRuntimeEnv;
  * <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class EXRuntimeEnv extends StageRuntimeEnv {
@@ -40,14 +39,11 @@ public class EXRuntimeEnv extends StageRuntimeEnv {
     super(args);
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   @Override
   protected void setOptions() {
     super.setOptions();
     // uncomment the line below to add options
     // Options options = this.getOptions();
   }
-
 }

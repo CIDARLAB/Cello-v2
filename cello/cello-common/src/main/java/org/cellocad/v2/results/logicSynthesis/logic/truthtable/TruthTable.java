@@ -30,18 +30,14 @@ import org.cellocad.v2.common.CObject;
  * input columns of the truth table, the truth table output column is associated with an output
  * object type. Rows are of type {@link State}.
  *
- * @param <InputT>  Th input object type.
+ * @param <InputT> Th input object type.
  * @param <OutputT> The output object type.
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TruthTable<InputT, OutputT> extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     truthTableMap = new HashMap<>();
     states = new ArrayList<>();
@@ -51,7 +47,7 @@ public class TruthTable<InputT, OutputT> extends CObject {
    * Initializes a newly created {@link TruthTable} with the list of inputs defined by parameter
    * {@code inputs} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param inputs  The List of inputs.
+   * @param inputs The List of inputs.
    * @param outputs The List of outputs.
    */
   public TruthTable(final List<State<InputT>> inputs, final List<OutputT> outputs) {
@@ -69,7 +65,7 @@ public class TruthTable<InputT, OutputT> extends CObject {
    * Initializes a newly created {@link TruthTable} with the list of states defined by parameter
    * {@code states} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param states  The List of states.
+   * @param states The List of states.
    * @param outputs The List of outputs.
    */
   public TruthTable(final States<InputT> states, final List<OutputT> outputs) {
@@ -129,7 +125,7 @@ public class TruthTable<InputT, OutputT> extends CObject {
    *
    * @param index The index of the {@link State} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumStates()), returns the
-   *         State<Input> at the specified position in this instance, otherwise null.
+   *     State<Input> at the specified position in this instance, otherwise null.
    */
   public State<InputT> getStateAtIdx(final int index) {
     State<InputT> rtn = null;
@@ -150,5 +146,4 @@ public class TruthTable<InputT, OutputT> extends CObject {
 
   List<State<InputT>> states;
   Map<State<InputT>, State<OutputT>> truthTableMap;
-
 }

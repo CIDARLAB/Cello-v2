@@ -26,7 +26,6 @@ import org.cellocad.v2.common.algorithm.AlgorithmFactory;
  * The CLAlgorithmFactory is an algorithm factory for the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLAlgorithmFactory extends AlgorithmFactory<CLAlgorithm> {
@@ -37,7 +36,7 @@ public class CLAlgorithmFactory extends AlgorithmFactory<CLAlgorithm> {
    *
    * @param name string used for searching the CLAlgorithmFactory.
    * @return The {@link CLAlgorithm} instance if the {@link CLAlgorithm} type exists within the
-   *         {@link CLAlgorithmFactory}, otherwise null.
+   *     {@link CLAlgorithmFactory}, otherwise null.
    */
   @Override
   protected CLAlgorithm getAlgorithm(final String name) {
@@ -47,5 +46,4 @@ public class CLAlgorithmFactory extends AlgorithmFactory<CLAlgorithm> {
     }
     return rtn;
   }
-
 }

@@ -30,9 +30,8 @@ import org.json.simple.JSONObject;
 
 /**
  * A capacity profile.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 6, 2017
  */
 public class CapacityProfile extends ProfileObject {
@@ -144,7 +143,7 @@ public class CapacityProfile extends ProfileObject {
 
   /**
    * Get the capacity unit at the given index.
-   * 
+   *
    * @param index An index.
    * @return The capacity unit at the given index.
    */
@@ -299,5 +298,4 @@ public class CapacityProfile extends ProfileObject {
   private LowerBoundType lowerBoundType;
   private int upperBound;
   private UpperBoundType upperBoundType;
-
 }

@@ -26,7 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageRuntimeEnv;
  * <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLRuntimeEnv extends StageRuntimeEnv {
@@ -40,14 +39,11 @@ public class CLRuntimeEnv extends StageRuntimeEnv {
     super(args);
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   @Override
   protected void setOptions() {
     super.setOptions();
     // uncomment the line below to add options
     // Options options = this.getOptions();
   }
-
 }

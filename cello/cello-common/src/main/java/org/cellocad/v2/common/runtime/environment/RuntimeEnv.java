@@ -35,7 +35,6 @@ import org.cellocad.v2.common.Utils;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 13, 2017
  */
 public class RuntimeEnv extends CObject {
@@ -67,9 +66,7 @@ public class RuntimeEnv extends CObject {
   }
 
   // print help
-  /**
-   * Print the help message of this instance.
-   */
+  /** Print the help message of this instance. */
   public void printHelp() {
     final HelpFormatter formatter = new HelpFormatter();
     String name = getName();
@@ -89,9 +86,7 @@ public class RuntimeEnv extends CObject {
     return options;
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   protected void setOptions() {
     final Options options = getOptions();
     options.addOption(getHelpOption());
@@ -145,8 +140,9 @@ public class RuntimeEnv extends CObject {
    * @return The USERCONSTRAINTSFILE Option for this instance.
    */
   protected Option getUserConstraintsFileOption() {
-    final Option rtn = new Option(ArgString.USERCONSTRAINTSFILE, true,
-        ArgDescription.USERCONSTRAINTSFILE_DESCRIPTION);
+    final Option rtn =
+        new Option(
+            ArgString.USERCONSTRAINTSFILE, true, ArgDescription.USERCONSTRAINTSFILE_DESCRIPTION);
     makeRequired(rtn);
     return rtn;
   }
@@ -210,8 +206,11 @@ public class RuntimeEnv extends CObject {
    * @return The NETLISTCONSTRAINTFILE Option for this instance.
    */
   protected Option getNetlistConstraintFileOption() {
-    final Option rtn = new Option(ArgString.NETLISTCONSTRAINTFILE, true,
-        ArgDescription.NETLISTCONSTRAINTFILE_DESCRIPTION);
+    final Option rtn =
+        new Option(
+            ArgString.NETLISTCONSTRAINTFILE,
+            true,
+            ArgDescription.NETLISTCONSTRAINTFILE_DESCRIPTION);
     return rtn;
   }
 
@@ -231,7 +230,7 @@ public class RuntimeEnv extends CObject {
    *
    * @param str The command line argument.
    * @return The string default value for string <i>str</i> that references a command line argument
-   *         if command line argument exists, otherwise null.
+   *     if command line argument exists, otherwise null.
    */
   // get Values
   protected String getDefault(final String str) {
@@ -283,7 +282,7 @@ public class RuntimeEnv extends CObject {
    *
    * @param str The command line argument.
    * @return True if the string <i>str</i> that references a command line argument is present,
-   *         otherwise false.
+   *     otherwise false.
    */
   public boolean hasOption(final String str) {
     boolean rtn = false;
@@ -297,7 +296,7 @@ public class RuntimeEnv extends CObject {
    *
    * @param c The command line argument.
    * @return True if the char <i>c</i> that references a command line argument is present, otherwise
-   *         false.
+   *     false.
    */
   public boolean hasOption(final char c) {
     boolean rtn = false;
@@ -326,5 +325,4 @@ public class RuntimeEnv extends CObject {
   private CommandLineParser parser;
   private CommandLine line;
   private Options options;
-
 }

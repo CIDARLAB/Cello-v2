@@ -29,7 +29,6 @@ import org.json.simple.JSONObject;
  * A device within a structure.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-11
  */
 public class StructureDevice extends StructureObject {
@@ -107,5 +106,4 @@ public class StructureDevice extends StructureObject {
   private List<StructureObject> components;
 
   private static final String S_COMPONENTS = "components";
-
 }

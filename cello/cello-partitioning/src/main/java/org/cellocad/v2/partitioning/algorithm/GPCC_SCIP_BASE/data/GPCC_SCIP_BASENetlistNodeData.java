@@ -28,17 +28,13 @@ import org.cellocad.v2.partitioning.algorithm.GPCC_BASE.data.GPCC_BASENetlistNod
  * stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GPCC_SCIP_BASENetlistNodeData extends GPCC_BASENetlistNodeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link GPCC_SCIP_BASENetlistNodeData}.
-   */
+  /** Initializes a newly created {@link GPCC_SCIP_BASENetlistNodeData}. */
   public GPCC_SCIP_BASENetlistNodeData() {
     super();
     setDefault();
@@ -49,12 +45,9 @@ public class GPCC_SCIP_BASENetlistNodeData extends GPCC_BASENetlistNodeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

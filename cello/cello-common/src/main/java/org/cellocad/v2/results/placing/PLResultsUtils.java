@@ -28,7 +28,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The PLResultUtils class is class with utility methods for the result of the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class PLResultsUtils {
@@ -39,7 +38,7 @@ public class PLResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist}.
+   *     {@code netlist}.
    */
   public static CObjectCollection<NetlistNode> getLogicNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -47,12 +46,13 @@ public class PLResultsUtils {
     for (int i = 0; i < netlist.getNumVertex(); i++) {
       final NetlistNode node = netlist.getVertexAtIdx(i);
       final String nodeType = node.getResultNetlistNodeData().getNodeType();
-      if (!nodeType.equals(LSResults.S_PRIMARYINPUT) && !nodeType.equals(LSResults.S_INPUT)
-          && !nodeType.equals(LSResults.S_PRIMARYOUTPUT) && !nodeType.equals(LSResults.S_OUTPUT)) {
+      if (!nodeType.equals(LSResults.S_PRIMARYINPUT)
+          && !nodeType.equals(LSResults.S_INPUT)
+          && !nodeType.equals(LSResults.S_PRIMARYOUTPUT)
+          && !nodeType.equals(LSResults.S_OUTPUT)) {
         rtn.add(node);
       }
     }
     return rtn;
   }
-
 }

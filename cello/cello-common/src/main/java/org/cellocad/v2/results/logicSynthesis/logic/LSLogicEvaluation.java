@@ -41,14 +41,11 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * A Boolean logic evaluation of a netlist in the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSLogicEvaluation {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     truthtables = new HashMap<>();
   }
@@ -84,31 +81,27 @@ public class LSLogicEvaluation {
    * Returns a Boolean representation of the evaluation of the NodeType defined by <i>nodeType</i>
    * with input defined by parameters <i>inputs</i>.
    *
-   * @param inputs   a List of inputs.
+   * @param inputs a List of inputs.
    * @param nodeType The NodeType.
    * @return A Boolean representation of the evaluation of the NodeType defined by <i>nodeType</i>
-   *         with input defined by parameters <i>inputs</i>.
+   *     with input defined by parameters <i>inputs</i>.
    */
   private Boolean computeLogic(final List<Boolean> inputs, final String nodeType) {
     Boolean rtn = inputs.get(0);
     for (int i = 1; i < inputs.size(); i++) {
       final Boolean value = inputs.get(i);
       switch (nodeType) {
-        case LSResults.S_AND: {
+        case LSResults.S_AND:
           rtn = rtn && value;
           break;
-        }
-        case LSResults.S_OR: {
+        case LSResults.S_OR:
           rtn = rtn || value;
           break;
-        }
-        case LSResults.S_XOR: {
+        case LSResults.S_XOR:
           rtn = rtn ^ value;
           break;
-        }
-        default: {
+        default:
           throw new RuntimeException("Unknown nodeType");
-        }
       }
     }
     return rtn;
@@ -118,10 +111,10 @@ public class LSLogicEvaluation {
    * Returns a List of Boolean representation of the input values for NetlistNode defined by
    * parameter {@code node} at the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return A List of Boolean representation of the input values for NetlistNode defined by
-   *         parameter {@code node} at the state defined by parameter {@code state}.
+   *     parameter {@code node} at the state defined by parameter {@code state}.
    */
   private List<Boolean> getInputLogic(final NetlistNode node, final State<NetlistNode> state) {
     final List<Boolean> rtn = new ArrayList<>();
@@ -142,10 +135,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for a Primary Input for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for a Primary Input for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computePrimaryInput(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -160,10 +153,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for a Primary Output for NetlistNode defined by parameter {@code node}
    * at the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for a Primary Output for NetlistNode defined by parameter {@code node}
-   *         at the state defined by parameter {@code state}.
+   *     at the state defined by parameter {@code state}.
    */
   private Boolean computePrimaryOutput(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -181,10 +174,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for a NOT NodeType for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for a NOT NodeType for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computeNOT(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -200,10 +193,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an AND NodeType for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an AND NodeType for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computeAND(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -218,10 +211,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an NAND NodeType for NetlistNode defined by parameter {@code node}
    * at the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an NAND NodeType for NetlistNode defined by parameter {@code node}
-   *         at the state defined by parameter {@code state}.
+   *     at the state defined by parameter {@code state}.
    */
   private Boolean computeNand(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -237,10 +230,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an OR NodeType for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an OR NodeType for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computeOR(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -255,10 +248,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an NOR NodeType for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an NOR NodeType for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computeNOR(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -274,10 +267,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an XOR NodeType for NetlistNode defined by parameter {@code node} at
    * the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an XOR NodeType for NetlistNode defined by parameter {@code node} at
-   *         the state defined by parameter {@code state}.
+   *     the state defined by parameter {@code state}.
    */
   private Boolean computeXOR(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -292,10 +285,10 @@ public class LSLogicEvaluation {
    * Returns the evaluation for an XNOR NodeType for NetlistNode defined by parameter {@code node}
    * at the state defined by parameter {@code state}.
    *
-   * @param node  The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param state The state.
    * @return The evaluation for an XNOR NodeType for NetlistNode defined by parameter {@code node}
-   *         at the state defined by parameter {@code state}.
+   *     at the state defined by parameter {@code state}.
    */
   private Boolean computeXnor(final NetlistNode node, final State<NetlistNode> state) {
     Boolean rtn = null;
@@ -323,51 +316,39 @@ public class LSLogicEvaluation {
         throw new RuntimeException("Invalid number of output(s)!");
       }
       switch (nodeType) {
-        case LSResults.S_PRIMARYINPUT: {
+        case LSResults.S_PRIMARYINPUT:
           result = computePrimaryInput(node, inputState);
           break;
-        }
-        case LSResults.S_PRIMARYOUTPUT: {
+        case LSResults.S_PRIMARYOUTPUT:
           result = computePrimaryOutput(node, inputState);
           break;
-        }
-        case LSResults.S_INPUT: {
+        case LSResults.S_INPUT:
           continue;
-        }
-        case LSResults.S_OUTPUT: {
+        case LSResults.S_OUTPUT:
           continue;
-        }
-        case LSResults.S_NOT: {
+        case LSResults.S_NOT:
           result = computeNOT(node, inputState);
           break;
-        }
-        case LSResults.S_AND: {
+        case LSResults.S_AND:
           result = computeAND(node, inputState);
           break;
-        }
-        case LSResults.S_NAND: {
+        case LSResults.S_NAND:
           result = computeNand(node, inputState);
           break;
-        }
-        case LSResults.S_OR: {
+        case LSResults.S_OR:
           result = computeOR(node, inputState);
           break;
-        }
-        case LSResults.S_NOR: {
+        case LSResults.S_NOR:
           result = computeNOR(node, inputState);
           break;
-        }
-        case LSResults.S_XOR: {
+        case LSResults.S_XOR:
           result = computeXOR(node, inputState);
           break;
-        }
-        case LSResults.S_XNOR: {
+        case LSResults.S_XNOR:
           result = computeXnor(node, inputState);
           break;
-        }
-        default: {
+        default:
           throw new RuntimeException("Unknown nodeType");
-        }
       }
       Utils.isNullRuntimeException(result, "result");
       if (!outputState.setState(node, result)) {
@@ -446,7 +427,7 @@ public class LSLogicEvaluation {
    * delimiter equivalent to the parameter {@code delimiter}.
    *
    * @param delimiter The delimiter.
-   * @param os        The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeCSV(final String delimiter, final Writer os) throws IOException {
@@ -469,5 +450,4 @@ public class LSLogicEvaluation {
 
   private Map<NetlistNode, TruthTable<NetlistNode, NetlistNode>> truthtables;
   private States<NetlistNode> states;
-
 }

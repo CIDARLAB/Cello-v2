@@ -26,9 +26,7 @@ import org.cellocad.v2.common.Utils;
  * A profile derived from a {@link ProfileObject} object.
  *
  * @param <T> The type of the {@link ProfileObject}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 9, 2017
  */
 public class DerivedProfile<T extends ProfileObject> extends CObject {
@@ -65,5 +63,4 @@ public class DerivedProfile<T extends ProfileObject> extends CObject {
   }
 
   private T profile;
-
 }

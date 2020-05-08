@@ -25,7 +25,6 @@ import org.cellocad.v2.common.runtime.environment.ArgDescription;
  * The descriptions of the common command line arguments for a stage.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public class StageArgDescription extends ArgDescription {
@@ -33,21 +32,12 @@ public class StageArgDescription extends ArgDescription {
   /*
    * Default
    */
-  /**
-   * String representing the {@code ALGORITHMNAME} command line argument description.
-   */
+  /** String representing the {@code ALGORITHMNAME} command line argument description. */
   public static final String ALGORITHMNAME_DESCRIPTION = "algorithm name for the Stage";
-  /**
-   * String representing the {@code STAGENAME} command line argument description.
-   */
+  /** String representing the {@code STAGENAME} command line argument description. */
   public static final String STAGENAME_DESCRIPTION = "name of the Stage instance";
-  /**
-   * String representing the {@code INPUTNETLIST} command line argument description.
-   */
+  /** String representing the {@code INPUTNETLIST} command line argument description. */
   public static final String INPUTNETLIST_DESCRIPTION = "input netlist file for Stage";
-  /**
-   * String representing the {@code OUTPUTNETLIST} command line argument description.
-   */
+  /** String representing the {@code OUTPUTNETLIST} command line argument description. */
   public static final String OUTPUTNETLIST_DESCRIPTION = "output netlist file for Stage";
-
 }

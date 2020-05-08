@@ -21,38 +21,32 @@ package org.cellocad.v2.common.constraint;
 
 /**
  * Objects representing upper bound types.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public enum UpperBoundType {
-  LESS_THAN, LESS_THAN_OR_EQUAL;// , EQUAL;
+  LESS_THAN,
+  LESS_THAN_OR_EQUAL; // , EQUAL;
 
   /**
    * Get the {@link UpperBoundType} corresponding to the given string.
-   * 
+   *
    * @param str A string representing an upper bound type.
    * @return The {@link UpperBoundType} corresponding to the given string.
    */
   public static UpperBoundType getBoundType(final String str) {
     UpperBoundType rtn = null;
     switch (str) {
-      case "less_than": {
+      case "less_than":
         rtn = LESS_THAN;
         break;
-      }
-      case "less_than_or_equal": {
+      case "less_than_or_equal":
         rtn = LESS_THAN_OR_EQUAL;
         break;
-      }
-      /*
-       * case "equal":{ rtn = EQUAL; break; }
-       */
-      default: {
+      default:
         rtn = null;
         break;
-      }
     }
     return rtn;
   }
@@ -61,23 +55,16 @@ public enum UpperBoundType {
   public String toString() {
     String rtn = null;
     switch (this) {
-      case LESS_THAN_OR_EQUAL: {
+      case LESS_THAN_OR_EQUAL:
         rtn = "<=";
         break;
-      }
-      case LESS_THAN: {
+      case LESS_THAN:
         rtn = "<";
         break;
-      }
-      /*
-       * case "equal":{ rtn = EQUAL; break; }
-       */
-      default: {
+      default:
         rtn = null;
         break;
-      }
     }
     return rtn;
   }
-
 }

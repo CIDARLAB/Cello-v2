@@ -23,14 +23,11 @@ package org.cellocad.v2.common.graph.graph;
  * The Edge class is a class representing the edge(s) of a <i>Graph</i>.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class Edge extends EdgeTemplate<Vertex> {
 
-  /**
-   * Initializes a newly created {@link Edge}.
-   */
+  /** Initializes a newly created {@link Edge}. */
   public Edge() {
     super();
   }
@@ -48,8 +45,8 @@ public class Edge extends EdgeTemplate<Vertex> {
   }
 
   /**
-   * Initializes a newly created {@link Edge} with its contents set to those of parameter
-   * {@code other}.
+   * Initializes a newly created {@link Edge} with its contents set to those of parameter {@code
+   * other}.
    *
    * @param other The other Edge.
    */
@@ -58,5 +55,4 @@ public class Edge extends EdgeTemplate<Vertex> {
     setSrc(other.getSrc());
     setDst(other.getDst());
   }
-
 }

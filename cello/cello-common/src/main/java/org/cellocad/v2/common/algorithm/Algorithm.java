@@ -36,7 +36,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 17, 2017
  */
 public abstract class Algorithm extends CObject {
@@ -52,17 +51,22 @@ public abstract class Algorithm extends CObject {
    * {@link #postprocessing()}<br>
    * .
    *
-   * @param netlist           The {@link Netlist} used during execution.
-   * @param targetData        The {@link TargetData} used during execution.
+   * @param netlist The {@link Netlist} used during execution.
+   * @param targetData The {@link TargetData} used during execution.
    * @param netlistConstraint The {@link NetlistConstraint} used during execution.
-   * @param results           The {@link Results} used during execution.
-   * @param algProfile        The {@link AlgorithmProfile} used during execution.
-   * @param runtimeEnv        The {@link RuntimeEnv} used during execution.
+   * @param results The {@link Results} used during execution.
+   * @param algProfile The {@link AlgorithmProfile} used during execution.
+   * @param runtimeEnv The {@link RuntimeEnv} used during execution.
    * @throws CelloException Unable to execute algorithm.
    */
-  public void execute(final Netlist netlist, final TargetData targetData,
-      final NetlistConstraint netlistConstraint, final Results results,
-      final AlgorithmProfile algProfile, final RuntimeEnv runtimeEnv) throws CelloException {
+  public void execute(
+      final Netlist netlist,
+      final TargetData targetData,
+      final NetlistConstraint netlistConstraint,
+      final Results results,
+      final AlgorithmProfile algProfile,
+      final RuntimeEnv runtimeEnv)
+      throws CelloException {
     Utils.isNullRuntimeException(netlist, "netlist");
     Utils.isNullRuntimeException(targetData, "targetData");
     Utils.isNullRuntimeException(netlistConstraint, "netlistConstraint");
@@ -205,9 +209,7 @@ public abstract class Algorithm extends CObject {
   private AlgorithmProfile algProfile;
   private RuntimeEnv runtimeEnv;
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   protected abstract void getConstraintFromNetlistConstraintFile();
 
   /**
@@ -217,14 +219,10 @@ public abstract class Algorithm extends CObject {
    */
   protected abstract void getDataFromUcf() throws CelloException;
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   protected abstract void setParameterValues();
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   protected abstract void validateParameterValues();
 
   /**
@@ -312,5 +310,4 @@ public abstract class Algorithm extends CObject {
   }
 
   private static final Logger logger = LogManager.getLogger(Algorithm.class);
-
 }

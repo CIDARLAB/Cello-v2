@@ -28,14 +28,13 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * instances in the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LOStageNetlistNodeDataUtils {
 
   /**
-   * Resets the stage data for all nodes in the netlist instance defined by parameter
-   * {@code netlist}.
+   * Resets the stage data for all nodes in the netlist instance defined by parameter {@code
+   * netlist}.
    *
    * @param netlist The {@link Netlist}.
    */
@@ -55,5 +54,4 @@ public class LOStageNetlistNodeDataUtils {
     final LOStageNetlistNodeData data = new LOStageNetlistNodeData();
     node.setStageNetlistNodeData(data);
   }
-
 }

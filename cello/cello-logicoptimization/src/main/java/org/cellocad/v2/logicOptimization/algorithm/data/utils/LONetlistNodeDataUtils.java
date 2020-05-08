@@ -30,7 +30,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LONetlistNodeDataUtils {
@@ -39,11 +38,11 @@ public class LONetlistNodeDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * all nodes in the netlist instance defined by parameter {@code netlist}.
    *
-   * @param netlist    The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
-  public static void resetNetlistNodeData(final Netlist netlist,
-      final AlgorithmProfile algProfile) {
+  public static void resetNetlistNodeData(
+      final Netlist netlist, final AlgorithmProfile algProfile) {
     for (int i = 0; i < netlist.getNumVertex(); i++) {
       final NetlistNode node = netlist.getVertexAtIdx(i);
       LONetlistNodeDataUtils.resetNetlistNodeData(node, algProfile);
@@ -54,14 +53,13 @@ public class LONetlistNodeDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * a NetlistNode instance defined by parameter {@code node}.
    *
-   * @param node       The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
-  public static void resetNetlistNodeData(final NetlistNode node,
-      final AlgorithmProfile algProfile) {
+  public static void resetNetlistNodeData(
+      final NetlistNode node, final AlgorithmProfile algProfile) {
     final LONetlistNodeDataFactory LOFactory = new LONetlistNodeDataFactory();
     final LONetlistNodeData data = LOFactory.getNetlistNodeData(algProfile);
     node.setNetlistNodeData(data);
   }
-
 }

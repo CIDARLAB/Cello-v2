@@ -26,9 +26,7 @@ import org.cellocad.v2.common.profile.AlgorithmProfile;
  * The AlgorithmFactory class is an algorithm factory.
  *
  * @param <T> the type of Algorithm.
- *
  * @author Vincent Mirian
- *
  * @date Nov 21, 2017
  */
 public abstract class AlgorithmFactory<T extends Algorithm> extends CObject {
@@ -38,8 +36,8 @@ public abstract class AlgorithmFactory<T extends Algorithm> extends CObject {
    * within the {@link AlgorithmFactory}.
    *
    * @param name string used for searching the AlgorithmFactory.
-   * @return The {@link Algorithm} instance if the {@link Algorithm} type exists within the
-   *         {@link AlgorithmFactory}, otherwise null.
+   * @return The {@link Algorithm} instance if the {@link Algorithm} type exists within the {@link
+   *     AlgorithmFactory}, otherwise null.
    */
   protected abstract T getAlgorithm(final String name);
 
@@ -48,8 +46,8 @@ public abstract class AlgorithmFactory<T extends Algorithm> extends CObject {
    * AlgorithmFactory.
    *
    * @param algProfile AlgorithmProfile used for searching the AlgorithmFactory.
-   * @return The {@link Algorithm} instance if the {@link Algorithm} type exists within the
-   *         {@link AlgorithmFactory}, otherwise null.
+   * @return The {@link Algorithm} instance if the {@link Algorithm} type exists within the {@link
+   *     AlgorithmFactory}, otherwise null.
    */
   public T getAlgorithm(final AlgorithmProfile algProfile) {
     T rtn = null;
@@ -62,5 +60,4 @@ public abstract class AlgorithmFactory<T extends Algorithm> extends CObject {
     }
     return rtn;
   }
-
 }

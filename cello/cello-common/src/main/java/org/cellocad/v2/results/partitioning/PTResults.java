@@ -23,13 +23,9 @@ package org.cellocad.v2.results.partitioning;
  * The PTResults class is class containing the results assigned by the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTResults {
-  /**
-   * S_DEFAULT: value for PTResults.
-   */
+  /** S_DEFAULT: value for PTResults. */
   public static int S_DEFAULT = -1;
-
 }

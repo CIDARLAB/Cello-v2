@@ -25,11 +25,7 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
  * The EXArgString class is class containing the string referencing the command line argument(s) for
  * the <i>export</i> stage.
  *
- *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
-public class EXArgString extends StageArgString {
-
-}
+public class EXArgString extends StageArgString {}

@@ -25,7 +25,6 @@ import org.cellocad.v2.common.runtime.environment.ArgString;
  * Strings referencing the common command line arguments for a stage.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public class StageArgString extends ArgString {
@@ -33,13 +32,8 @@ public class StageArgString extends ArgString {
   /*
    * Default
    */
-  /**
-   * The algorithm name.
-   */
+  /** The algorithm name. */
   public static final String ALGORITHMNAME = "algoName";
-  /**
-   * The stage name.
-   */
+  /** The stage name. */
   public static final String STAGENAME = "stageName";
-
 }

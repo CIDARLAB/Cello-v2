@@ -25,7 +25,6 @@ import org.json.simple.JSONObject;
  * A base class for a parameter in a function or model.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public abstract class Parameter extends Evaluatable {
@@ -33,5 +32,4 @@ public abstract class Parameter extends Evaluatable {
   public Parameter(final JSONObject jObj) {
     super(jObj);
   }
-
 }

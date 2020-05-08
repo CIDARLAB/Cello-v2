@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistNodeData;
  * The data for a node used within the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class LSNetlistNodeData extends NetlistNodeData {
-
-}
+public abstract class LSNetlistNodeData extends NetlistNodeData {}

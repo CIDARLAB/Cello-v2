@@ -24,9 +24,8 @@ import org.cellocad.v2.common.graph.graph.GraphTemplate;
 
 /**
  * A netlist for the <i>partitioning</i> stage.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 30, 2017
  */
 public class PTNetlist extends GraphTemplate<PTNetlistNode, PTNetlistEdge> {
@@ -58,7 +57,7 @@ public class PTNetlist extends GraphTemplate<PTNetlistNode, PTNetlistEdge> {
    * instance.
    *
    * @return A string containing the header in DOT (graph description language) format of this
-   *         instance.
+   *     instance.
    */
   @Override
   protected String getDotHeader() {
@@ -95,5 +94,4 @@ public class PTNetlist extends GraphTemplate<PTNetlistNode, PTNetlistEdge> {
     }
     return rtn;
   }
-
 }

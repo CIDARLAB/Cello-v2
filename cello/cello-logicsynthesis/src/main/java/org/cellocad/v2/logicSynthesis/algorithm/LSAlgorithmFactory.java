@@ -26,7 +26,6 @@ import org.cellocad.v2.logicSynthesis.algorithm.Yosys.Yosys;
  * The LSAlgorithmFactory is an algorithm factory for the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSAlgorithmFactory extends AlgorithmFactory<LSAlgorithm> {
@@ -37,7 +36,7 @@ public class LSAlgorithmFactory extends AlgorithmFactory<LSAlgorithm> {
    *
    * @param name string used for searching the LSAlgorithmFactory.
    * @return The {@link LSAlgorithm} instance if the {@link LSAlgorithm} type exists within the
-   *         {@link LSAlgorithmFactory}, otherwise null.
+   *     {@link LSAlgorithmFactory}, otherwise null.
    */
   @Override
   protected LSAlgorithm getAlgorithm(final String name) {
@@ -47,5 +46,4 @@ public class LSAlgorithmFactory extends AlgorithmFactory<LSAlgorithm> {
     }
     return rtn;
   }
-
 }

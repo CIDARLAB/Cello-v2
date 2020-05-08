@@ -26,7 +26,6 @@ import org.json.simple.JSONObject;
  * A dummy {@link Evaluatable object}. Evaluation always returns zero.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-21
  */
 public class NullEvaluatable extends Evaluatable {
@@ -35,12 +34,10 @@ public class NullEvaluatable extends Evaluatable {
     super(jObj);
   }
 
-  public NullEvaluatable() {
-  }
+  public NullEvaluatable() {}
 
   @Override
   public Number evaluate(final EvaluationContext ce) throws CelloException {
     return new Double(0.0);
   }
-
 }

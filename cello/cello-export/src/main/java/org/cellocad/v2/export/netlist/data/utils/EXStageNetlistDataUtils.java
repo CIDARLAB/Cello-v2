@@ -27,7 +27,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * in the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class EXStageNetlistDataUtils {
@@ -41,5 +40,4 @@ public class EXStageNetlistDataUtils {
     final EXStageNetlistData data = new EXStageNetlistData();
     netlist.setStageNetlistData(data);
   }
-
 }

@@ -27,7 +27,6 @@ import org.cellocad.v2.common.target.data.TargetDataInstance;
  * A target data instance for the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
 public class PLTargetDataInstance extends TargetDataInstance {
@@ -35,5 +34,4 @@ public class PLTargetDataInstance extends TargetDataInstance {
   public PLTargetDataInstance(final TargetData td) throws CelloException {
     super(td);
   }
-
 }

@@ -29,7 +29,6 @@ import java.net.URL;
  * Utility methods for the <i>logicOptimization</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public class LOUtils {
@@ -69,5 +68,4 @@ public class LOUtils {
     rtn = sb.toString();
     return rtn;
   }
-
 }

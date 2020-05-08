@@ -26,9 +26,8 @@ import org.cellocad.v2.results.netlist.NetlistEdge;
 
 /**
  * A netlist edge in the <i>partitioning</i> stage.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class PTNetlistEdge extends EdgeTemplate<PTNetlistNode> {
@@ -37,9 +36,7 @@ public class PTNetlistEdge extends EdgeTemplate<PTNetlistNode> {
     myWeight = new Weight();
   }
 
-  /**
-   * Initializes a newly created {@link PTNetlistEdge}.
-   */
+  /** Initializes a newly created {@link PTNetlistEdge}. */
   public PTNetlistEdge() {
     super();
     setSrc(null);
@@ -202,5 +199,4 @@ public class PTNetlistEdge extends EdgeTemplate<PTNetlistNode> {
   }
 
   private NetlistEdge netlistEdge;
-
 }

@@ -34,7 +34,6 @@ import org.json.simple.JSONObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 21, 2017
  */
 public final class TargetData extends CObject {
@@ -46,8 +45,8 @@ public final class TargetData extends CObject {
   /**
    * Initializes a newly created {@link TargetData} using the parameter {@code jsonArr}.
    *
-   * @param jsonArr The JavaScript Object Notation (JSON) Array representation of the
-   *                {@link TargetData} object.
+   * @param jsonArr The JavaScript Object Notation (JSON) Array representation of the {@link
+   *     TargetData} object.
    */
   public TargetData(final JSONArray jsonArr) {
     super();
@@ -71,7 +70,7 @@ public final class TargetData extends CObject {
   /**
    * Returns a {@link JSONObject} of type, {@code type}, at index, {@code index}.
    *
-   * @param type  The type of target data.
+   * @param type The type of target data.
    * @param index The index of the {@link JSONObject} object to return.
    * @return The {@link JSONObject} if it exists, otherwise null.
    */
@@ -104,5 +103,4 @@ public final class TargetData extends CObject {
   }
 
   Map<String, List<JSONObject>> collectionTypeData;
-
 }

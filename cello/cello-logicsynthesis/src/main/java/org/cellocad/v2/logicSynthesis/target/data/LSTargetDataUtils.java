@@ -25,9 +25,6 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
  * Utility methods for target data in the <i>logicSynthesis</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
-public class LSTargetDataUtils extends TargetDataUtils {
-
-}
+public class LSTargetDataUtils extends TargetDataUtils {}

@@ -37,7 +37,6 @@ import java.util.Random;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Oct 28, 2017
  */
 public final class Utils {
@@ -56,7 +55,7 @@ public final class Utils {
 
   /**
    * Get a resource as an {@link InputStream}.
-   * 
+   *
    * @param resource The resource name.
    * @return An {@link InputStream} of the resource, if it exists.
    */
@@ -93,16 +92,14 @@ public final class Utils {
 
   /**
    * Gets the base file name without extension given a relative or absolute path.
-   * 
-   * <p>
-   * Example:
-   * 
+   *
+   * <p>Example:
+   *
    * <pre>
    * getFilename("/var/tmp/foo.txt"); // returns "foo"
    * getFilename("../../bar.log"); // returns "bar"
    * </pre>
-   * </p>
-   * 
+   *
    * @param name The relative or absolute path of a file.
    * @return The base file name without an extension.
    */
@@ -122,7 +119,7 @@ public final class Utils {
 
   /**
    * Create a file.
-   * 
+   *
    * @param filename The file name.
    * @return True if successful.
    */
@@ -135,8 +132,8 @@ public final class Utils {
 
   /**
    * Append a string to a file.
-   * 
-   * @param str      A string.
+   *
+   * @param str A string.
    * @param filename The file name.
    */
   public static void appendToFile(final String str, final String filename) {
@@ -153,8 +150,8 @@ public final class Utils {
 
   /**
    * Write a string to a file.
-   * 
-   * @param str      A string.
+   *
+   * @param str A string.
    * @param filename The file name.
    */
   public static void writeToFile(final String str, final String filename) {
@@ -174,7 +171,7 @@ public final class Utils {
    *
    * @param name The file name.
    * @return True if the file was deleted by this method; false if the file could not be deleted
-   *         because it did not exist.
+   *     because it did not exist.
    */
   public static boolean deleteFilename(final String name) {
     boolean rtn = false;
@@ -194,7 +191,7 @@ public final class Utils {
 
   /**
    * Whether the operating system is Windows-based.
-   * 
+   *
    * @param os The operating system string.
    * @return Whether the operating system is Windows-based.
    */
@@ -213,7 +210,7 @@ public final class Utils {
 
   /**
    * Whether the operating system is Mac-based.
-   * 
+   *
    * @param os The operating system string.
    * @return Whether the operating system is Mac-based.
    */
@@ -232,13 +229,16 @@ public final class Utils {
 
   /**
    * Whether the operating system is Unix-based.
-   * 
+   *
    * @param os The operating system string.
    * @return Whether the operating system is Unix-based.
    */
   private static boolean isUnix(final String os) {
-    return os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0
-        || os.indexOf("bsd") > 0 || os.indexOf("irix") > 0;
+    return os.indexOf("nix") >= 0
+        || os.indexOf("nux") >= 0
+        || os.indexOf("aix") > 0
+        || os.indexOf("bsd") > 0
+        || os.indexOf("irix") > 0;
   }
 
   /**
@@ -300,7 +300,7 @@ public final class Utils {
    * File Separator of the System.
    *
    * @return A string representing the elements in the parameter {@code folders} separated by the
-   *         File Separator of the System.
+   *     File Separator of the System.
    */
   public static String getPath(final String[] folders) {
     String rtn = "";
@@ -316,7 +316,7 @@ public final class Utils {
    * File Separator of the System omitting the last File Separator.
    *
    * @return A string representing the elements in the parameter {@code folders} separated by the
-   *         File Separator of the System omitting the last File Separator.
+   *     File Separator of the System omitting the last File Separator.
    */
   public static String getPathFile(final String[] folders) {
     String rtn = "";
@@ -342,13 +342,13 @@ public final class Utils {
   }
 
   /**
-   * Returns a string representing the parameter {@code str} indented with parameter
-   * {@code numIndent} tabulator character(s).
+   * Returns a string representing the parameter {@code str} indented with parameter {@code
+   * numIndent} tabulator character(s).
    *
    * @param numIndent number of indentation(s).
-   * @param str       The string to indent.
-   * @return A string representing the parameter {@code str} indented with parameter
-   *         {@code numIndent} tabulator character(s).
+   * @param str The string to indent.
+   * @return A string representing the parameter {@code str} indented with parameter {@code
+   *     numIndent} tabulator character(s).
    */
   public static String addIndent(final int numIndent, final String str) {
     String rtn = "";
@@ -447,12 +447,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Boolean instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Boolean instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Boolean} value, otherwise an instance with
-   *         the value equivalent to the parameter {@code str} content.
+   *     the value equivalent to the parameter {@code str} content.
    */
   public static Boolean getBoolean(final String str) {
     Boolean rtn = null;
@@ -470,7 +470,7 @@ public final class Utils {
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Byte} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static Byte getByte(final String str) {
     Byte rtn = null;
@@ -483,12 +483,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Character instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Character instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Character} value, otherwise an instance with
-   *         the value equivalent to the parameter {@code str} content.
+   *     the value equivalent to the parameter {@code str} content.
    */
   public static Character getCharacter(final String str) {
     Character rtn = null;
@@ -499,12 +499,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Short instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Short instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Short} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static Short getShort(final String str) {
     Short rtn = null;
@@ -517,12 +517,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Integer instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Integer instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Integer} value, otherwise an instance with
-   *         the value equivalent to the parameter {@code str} content.
+   *     the value equivalent to the parameter {@code str} content.
    */
   public static Integer getInteger(final String str) {
     Integer rtn = null;
@@ -539,7 +539,7 @@ public final class Utils {
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Long} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static Long getLong(final String str) {
     Long rtn = null;
@@ -552,12 +552,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Float instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Float instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Float} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static Float getFloat(final String str) {
     Float rtn = null;
@@ -570,12 +570,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a Double instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a Double instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Double} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static Double getDouble(final String str) {
     Double rtn = null;
@@ -588,12 +588,12 @@ public final class Utils {
   }
 
   /**
-   * Returns a String instance where the value is retrieved from the content of parameter
-   * {@code str}.
+   * Returns a String instance where the value is retrieved from the content of parameter {@code
+   * str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link String} value, otherwise an instance with the
-   *         value equivalent to the parameter {@code str} content.
+   *     value equivalent to the parameter {@code str} content.
    */
   public static String getString(final String str) {
     String rtn = null;
@@ -617,7 +617,7 @@ public final class Utils {
    * @param min minimum value.
    * @param max maximum value.
    * @return A random integer value between a minimum value defined by parameter {@code min} and a
-   *         maximum value defined by parameter {@code max}.
+   *     maximum value defined by parameter {@code max}.
    */
   public static int random(final int min, final int max) {
     int rtn = 0;
@@ -628,15 +628,15 @@ public final class Utils {
 
   /**
    * Returns a random integer value between a minimum value defined by parameter {@code min} and a
-   * maximum value defined by parameter {@code max} using the seed defined by parameter
-   * {@code seed}.
+   * maximum value defined by parameter {@code max} using the seed defined by parameter {@code
+   * seed}.
    *
-   * @param min  minimum value.
-   * @param max  maximum value.
+   * @param min minimum value.
+   * @param max maximum value.
    * @param seed The seed.
    * @return A random integer value between a minimum value defined by parameter {@code min} and a
-   *         maximum value defined by parameter {@code max} using the seed defined by parameter
-   *         {@code seed}.
+   *     maximum value defined by parameter {@code max} using the seed defined by parameter {@code
+   *     seed}.
    */
   public static int random(final int min, final int max, final long seed) {
     int rtn = 0;
@@ -644,5 +644,4 @@ public final class Utils {
     rtn = random.nextInt(max - min + 1) + min;
     return rtn;
   }
-
 }

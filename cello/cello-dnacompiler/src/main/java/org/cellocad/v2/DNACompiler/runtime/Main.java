@@ -52,22 +52,21 @@ import org.cellocad.v2.technologyMapping.runtime.TMRuntimeObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class Main {
 
   /**
    * The <i>printPartitioningGraphs</i> prints the partitioning graph of netlist defined by
-   * parameter {@code myNetlist} using the DNACompilerRuntimeEnv defined by parameter
-   * {@code runEnv}.
+   * parameter {@code myNetlist} using the DNACompilerRuntimeEnv defined by parameter {@code
+   * runEnv}.
    *
-   * @param runEnv    The DNACompilerRuntimeEnv.
+   * @param runEnv The DNACompilerRuntimeEnv.
    * @param myNetlist The {@link Netlist}.
    * @throws CelloException an error in printing the partitioning graph.
    */
-  protected static void printPartitioningGraphs(final DnaCompilerRuntimeEnv runEnv,
-      final Netlist myNetlist) throws CelloException {
+  protected static void printPartitioningGraphs(
+      final DnaCompilerRuntimeEnv runEnv, final Netlist myNetlist) throws CelloException {
     final String outputDir = runEnv.getOptionValue(ArgString.OUTPUTDIR) + Utils.getFileSeparator();
     final PTBlockNetlist ptBlockNetlist = new PTBlockNetlist(myNetlist);
     Netlist netlist = null;
@@ -116,8 +115,9 @@ public class Main {
     // ApplicationConfiguration
     ApplicationConfiguration appCfg;
     try {
-      appCfg = ApplicationUtils.getApplicationConfiguration(runEnv, ArgString.OPTIONS,
-          DnaCompilerUtils.getApplicationConfiguration());
+      appCfg =
+          ApplicationUtils.getApplicationConfiguration(
+              runEnv, ArgString.OPTIONS, DnaCompilerUtils.getApplicationConfiguration());
     } catch (final IOException e) {
       throw new RuntimeException("Error with application configuration file.");
     }
@@ -125,8 +125,12 @@ public class Main {
       throw new RuntimeException("ApplicationConfiguration is invalid!");
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     if (!td.isValid()) {
       throw new CelloException("TargetData is invalid!");
     }
@@ -226,8 +230,8 @@ public class Main {
     Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
   }
 
-  protected static void writeJsonForNetlist(final DnaCompilerRuntimeEnv runEnv,
-      final Netlist netlist, final String inputFilePath) {
+  protected static void writeJsonForNetlist(
+      final DnaCompilerRuntimeEnv runEnv, final Netlist netlist, final String inputFilePath) {
     String outputNetlistFilePath = null;
     outputNetlistFilePath = runEnv.getOptionValue(ArgString.OUTPUTNETLIST);
     if (outputNetlistFilePath == null) {
@@ -267,5 +271,4 @@ public class Main {
   }
 
   private static Logger logger;
-
 }

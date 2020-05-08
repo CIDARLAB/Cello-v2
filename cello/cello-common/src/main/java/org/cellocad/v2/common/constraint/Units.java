@@ -27,9 +27,8 @@ import org.cellocad.v2.common.profile.ProfileObject;
 
 /**
  * Units.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 
@@ -46,9 +45,7 @@ public class Units extends CObject {
     unitsEnables = Arrays.copyOf(array, array.length);
   }
 
-  /**
-   * Initializes a newly created {@link Units}.
-   */
+  /** Initializes a newly created {@link Units}. */
   public Units() {
     super();
     disableUnitsEnabled();
@@ -68,20 +65,20 @@ public class Units extends CObject {
     setProfileUnits(other.getProfileUnits());
   }
 
-  public Units(final CObjectCollection<ProfileObject> units,
-      final CObjectCollection<CObject> allUnits) {
+  public Units(
+      final CObjectCollection<ProfileObject> units, final CObjectCollection<CObject> allUnits) {
     this();
     resetWithProfileObject(units, allUnits);
   }
 
   /**
    * Resets this instance with a profile object.
-   * 
-   * @param units    Units.
+   *
+   * @param units Units.
    * @param allUnits All units.
    */
-  public void resetWithProfileObject(final CObjectCollection<ProfileObject> units,
-      final CObjectCollection<CObject> allUnits) {
+  public void resetWithProfileObject(
+      final CObjectCollection<ProfileObject> units, final CObjectCollection<CObject> allUnits) {
     Utils.isNullRuntimeException(units, "Units");
     final CObjectCollection<CObject> unitsTemp = new CObjectCollection<>();
     ProfileObject profileObj = null;
@@ -96,12 +93,12 @@ public class Units extends CObject {
 
   /**
    * Resets with {@link CObject}.
-   * 
-   * @param units    Units.
+   *
+   * @param units Units.
    * @param allUnits All units.
    */
-  public void resetWithCObject(final CObjectCollection<CObject> units,
-      final CObjectCollection<CObject> allUnits) {
+  public void resetWithCObject(
+      final CObjectCollection<CObject> units, final CObjectCollection<CObject> allUnits) {
     Utils.isNullRuntimeException(units, "Units");
     Utils.isNullRuntimeException(allUnits, "AllUnits");
     setProfileUnits(allUnits);
@@ -154,7 +151,7 @@ public class Units extends CObject {
    */
   /**
    * Check if these units align with others.
-   * 
+   *
    * @param other Another {@link Units} object.
    * @return Whether units align.
    */
@@ -175,7 +172,7 @@ public class Units extends CObject {
    */
   /**
    * Check existence.
-   * 
+   *
    * @param other Other units.
    * @return Existence flag.
    */
@@ -254,7 +251,7 @@ public class Units extends CObject {
    */
   /**
    * Get a string representation of a {@link Units} instance.
-   * 
+   *
    * @return The string representation.
    */
   public String getUnitsToString() {
@@ -307,5 +304,4 @@ public class Units extends CObject {
   boolean unitsEnabled;
   private boolean[] unitsEnables;
   private CObjectCollection<CObject> allUnits;
-
 }

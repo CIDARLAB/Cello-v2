@@ -28,14 +28,13 @@ import org.cellocad.v2.common.Utils;
  * Utility methods for converting DOT files to other formats.
  *
  * @author Timothy Jones
- *
  * @date 2019-11-10
  */
 public class DotUtils {
 
   /**
    * Convert a DOT file to another format.
-   * 
+   *
    * @param file The DOT file to convert.
    * @return A {@link File} object pointing to the result of the conversion.
    * @throws CelloException Unable to convert DOT file.
@@ -64,7 +63,7 @@ public class DotUtils {
 
   /**
    * Convert a DOT file to a PDF.
-   * 
+   *
    * @param file The DOT file to convert.
    * @return A {@link File} object pointing to the PDF file.
    * @throws CelloException Unable to convert DOT file.
@@ -77,7 +76,7 @@ public class DotUtils {
 
   /**
    * Convert a DOT file to a PNG.
-   * 
+   *
    * @param file The DOT file to convert.
    * @return A {@link File} object pointing to the PNG file.
    * @throws CelloException Unable to convert DOT file.
@@ -90,5 +89,4 @@ public class DotUtils {
 
   private static final String S_PDF = "pdf";
   private static final String S_PNG = "png";
-
 }

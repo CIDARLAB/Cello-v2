@@ -30,9 +30,8 @@ import org.cellocad.v2.partitioning.profile.InterBlockProfile;
 
 /**
  * An inter block.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 26, 2017
  */
 public class InterBlock extends CapacityCollection<InterBlockProfile> {
@@ -43,14 +42,17 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Initializes a newly created {@link InterBlock} object.
-   * 
-   * @param ibp           An {@link InterBlockProfile} object.
-   * @param blocks        A collection of {@link Block} objects.
-   * @param capacity      A collection of {@link Capacity} objects.
+   *
+   * @param ibp An {@link InterBlockProfile} object.
+   * @param blocks A collection of {@link Block} objects.
+   * @param capacity A collection of {@link Capacity} objects.
    * @param capacityUnits A collection of {@link CObject} objects.
    */
-  public InterBlock(final InterBlockProfile ibp, final CObjectCollection<Block> blocks,
-      final CObjectCollection<Capacity> capacity, final CObjectCollection<CObject> capacityUnits) {
+  public InterBlock(
+      final InterBlockProfile ibp,
+      final CObjectCollection<Block> blocks,
+      final CObjectCollection<Capacity> capacity,
+      final CObjectCollection<CObject> capacityUnits) {
     super(ibp, capacity);
     init();
     Utils.isNullRuntimeException(capacityUnits, "CapacityUnits");
@@ -70,7 +72,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
    */
   /**
    * Whether this instance can fit.
-   * 
+   *
    * @return Whether this instance can fit.
    */
   public boolean canFit() {
@@ -81,7 +83,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Whether this instance can fit using the given weight.
-   * 
+   *
    * @return Whether this instance can fit using the given weight.
    */
   @Override
@@ -97,7 +99,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Whether this instance is overflow.
-   * 
+   *
    * @return Whether this instance is overflow.
    */
   public boolean isOverflow() {
@@ -108,7 +110,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Whether this instance is overflow using the given weight.
-   * 
+   *
    * @param wObj A {@link Weight} object.
    * @return Whether this instance is overflow using the given weight.
    */
@@ -125,7 +127,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Whether this instance is underflow.
-   * 
+   *
    * @return Whether this instance is underflow.
    */
   public boolean isUnderflow() {
@@ -136,7 +138,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Whether this instance is underflow using the given weight.
-   * 
+   *
    * @param wObj A {@link Weight} object.
    * @return Whether this instance is underflow using the given weight.
    */
@@ -156,7 +158,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
    */
   /**
    * Adds the given {@link PTNetlistEdge} to this instance.
-   * 
+   *
    * @param edge A {@link PTNetlistEdge} object.
    */
   public void addPEdge(final PTNetlistEdge edge) {
@@ -168,7 +170,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Removes the given {@link PTNetlistEdge} from this instance.
-   * 
+   *
    * @param edge A {@link PTNetlistEdge} object.
    */
   public void removePEdge(final PTNetlistEdge edge) {
@@ -180,7 +182,7 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   /**
    * Get the {@link PTNetlistEdge} at the given index.
-   * 
+   *
    * @param index An index.
    * @return The {@link PTNetlistEdge} at the given index.
    */
@@ -294,5 +296,4 @@ public class InterBlock extends CapacityCollection<InterBlockProfile> {
 
   private CObjectCollection<PTNetlistEdge> edges;
   private final Weight myWeight;
-
 }

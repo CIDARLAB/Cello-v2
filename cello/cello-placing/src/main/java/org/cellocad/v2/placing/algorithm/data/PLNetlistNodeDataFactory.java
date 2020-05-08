@@ -27,18 +27,17 @@ import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistNodeData;
  * The PLNetlistNodeDataFactory is a NetlistNodeData factory for the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLNetlistNodeDataFactory extends NetlistNodeDataFactory<PLNetlistNodeData> {
 
   /**
-   * Returns the {@link PLNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link PLNetlistNodeDataFactory}.
+   * Returns the {@link PLNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link PLNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link PLNetlistNodeData} instance if the {@link PLNetlistNodeData} type exists
-   *         within the {@link PLNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link PLNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected PLNetlistNodeData getNetlistNodeData(final String name) {
@@ -51,5 +50,4 @@ public class PLNetlistNodeDataFactory extends NetlistNodeDataFactory<PLNetlistNo
     }
     return rtn;
   }
-
 }

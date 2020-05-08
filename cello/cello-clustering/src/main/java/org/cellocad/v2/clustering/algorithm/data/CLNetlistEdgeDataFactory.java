@@ -26,18 +26,17 @@ import org.cellocad.v2.common.algorithm.data.NetlistEdgeDataFactory;
  * A {@link NetlistEdgeData} factory for the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLNetlistEdgeDataFactory extends NetlistEdgeDataFactory<CLNetlistEdgeData> {
 
   /**
-   * Returns the {@link CLNetlistEdgeData} object that has the same name as the parameter
-   * {@code name} within the {@link CLNetlistEdgeDataFactory}.
+   * Returns the {@link CLNetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link CLNetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link CLNetlistEdgeData} instance if the {@link CLNetlistEdgeData} type exists
-   *         within the {@link CLNetlistEdgeDataFactory}, otherwise null.
+   *     within the {@link CLNetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected CLNetlistEdgeData getNetlistEdgeData(final String name) {
@@ -47,5 +46,4 @@ public class CLNetlistEdgeDataFactory extends NetlistEdgeDataFactory<CLNetlistEd
     }
     return rtn;
   }
-
 }

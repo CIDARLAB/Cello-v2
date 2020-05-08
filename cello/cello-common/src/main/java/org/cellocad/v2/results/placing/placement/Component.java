@@ -36,7 +36,6 @@ import org.json.simple.JSONObject;
  * "transcriptional unit."
  *
  * @author Timothy Jones
- *
  * @date 2019-05-15
  */
 public class Component extends CObject {
@@ -104,7 +103,7 @@ public class Component extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -143,7 +142,7 @@ public class Component extends CObject {
 
   /**
    * Get the part at the specified index.
-   * 
+   *
    * @param index The index.
    * @return The part at the specified index.
    */
@@ -155,7 +154,7 @@ public class Component extends CObject {
 
   /**
    * Returns the parts.
-   * 
+   *
    * @return The parts.
    */
   private List<String> getParts() {
@@ -164,7 +163,7 @@ public class Component extends CObject {
 
   /**
    * Returns the node name to which this component corresponds.
-   * 
+   *
    * @return The node name to which this component corresponds.
    */
   public String getNode() {
@@ -173,7 +172,7 @@ public class Component extends CObject {
 
   /**
    * Setter for {@code node}.
-   * 
+   *
    * @param node The value to set {@code node}.
    */
   public void setNode(final String node) {
@@ -267,5 +266,4 @@ public class Component extends CObject {
   private Boolean bDown;
   private Boolean direction;
   private URI uri;
-
 }

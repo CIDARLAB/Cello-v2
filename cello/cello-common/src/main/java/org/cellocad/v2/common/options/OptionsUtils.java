@@ -26,7 +26,6 @@ import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
  * The OptionsUtils class is class with utility methods for <i>Options</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Dec 9, 2017
  */
 public final class OptionsUtils {
@@ -35,7 +34,7 @@ public final class OptionsUtils {
    * Initializes a newly created {@link Options} using the RuntimeEnv, <i>runEnv</i>, and, the
    * string referencing command line argument for the Options file, <i>options</i>.
    *
-   * @param runEnv  The RuntimeEnv to extract the Options file, <i>options</i>.
+   * @param runEnv The RuntimeEnv to extract the Options file, <i>options</i>.
    * @param options The string referencing command line argument for the Options file.
    * @return The Options if created successfully, otherwise null.
    * @throws RuntimeException if any of the parameters are null.
@@ -51,5 +50,4 @@ public final class OptionsUtils {
     }
     return rtn;
   }
-
 }

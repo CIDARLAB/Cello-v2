@@ -33,7 +33,6 @@ import org.json.simple.JSONObject;
  * The {@code Structure} class represents a gate's structure.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-13
  */
 public class Structure extends CObject {
@@ -156,8 +155,8 @@ public class Structure extends CObject {
     return rtn;
   }
 
-  private StructureDevice getStructureDeviceByName(final String name,
-      final StructureDevice device) {
+  private StructureDevice getStructureDeviceByName(
+      final String name, final StructureDevice device) {
     StructureDevice rtn = null;
     for (final StructureObject o : device.getComponents()) {
       if (o instanceof StructureDevice) {
@@ -173,7 +172,7 @@ public class Structure extends CObject {
 
   /**
    * Get a device by name.
-   * 
+   *
    * @param name The name.
    * @return The device with the given name.
    */
@@ -237,5 +236,4 @@ public class Structure extends CObject {
   static final String S_INPUTS = "inputs";
   static final String S_OUTPUTS = "outputs";
   static final String S_DEVICES = "devices";
-
 }

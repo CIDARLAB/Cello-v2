@@ -32,9 +32,8 @@ import org.json.simple.parser.ParseException;
 
 /**
  * A partitioner profile parser.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class PartitionerProfileParser extends CObject {
@@ -58,7 +57,7 @@ public class PartitionerProfileParser extends CObject {
 
   /**
    * Get the partitioner profile with the given name.
-   * 
+   *
    * @param name A partitioner profile name.
    * @return The partitioner profile with the given name.
    */
@@ -170,5 +169,4 @@ public class PartitionerProfileParser extends CObject {
   private CObjectCollection<PartitionerProfile> profiles;
   private CObjectCollection<PartitionProfile> pProfiles;
   private CObjectCollection<AlgorithmProfile> aProfiles;
-
 }

@@ -29,9 +29,7 @@ import org.cellocad.v2.common.Utils;
  * The AbstractVertex class is a class representing the node(s) of a <i>AbstractGraph</i>.
  *
  * @param <T> the type of the {@link AbstractEdge}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject {
@@ -61,8 +59,8 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
   }
 
   /**
-   * Adds this instance to the source node of the {@link AbstractEdge} defined by parameter
-   * {@code e}.
+   * Adds this instance to the source node of the {@link AbstractEdge} defined by parameter {@code
+   * e}.
    *
    * @param e The {@link AbstractEdge}.
    */
@@ -82,7 +80,7 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    *
    * @param e The other {@link AbstractEdge}.
    * @return A newly created {@link AbstractEdge} object with its contents set to those of parameter
-   *         {@code e}.
+   *     {@code e}.
    */
   public abstract T createT(T e);
 
@@ -117,21 +115,13 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
   /*
    * VertexType
    */
-  /**
-   * Describes the type or direction of a vertex, e.g. source or sink.
-   */
+  /** Describes the type or direction of a vertex, e.g. source or sink. */
   public enum VertexType {
-    /**
-     * None.
-     */
+    /** None. */
     NONE,
-    /**
-     * Source.
-     */
+    /** Source. */
     SOURCE,
-    /**
-     * Sink.
-     */
+    /** Sink. */
     SINK
   }
 
@@ -156,21 +146,13 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
   /*
    * VertexColor
    */
-  /**
-   * Describes the color of a vertex.
-   */
+  /** Describes the color of a vertex. */
   public enum VertexColor {
-    /**
-     * Black.
-     */
+    /** Black. */
     BLACK,
-    /**
-     * Grey.
-     */
+    /** Grey. */
     GREY,
-    /**
-     * White.
-     */
+    /** White. */
     WHITE
   }
 
@@ -195,21 +177,13 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
   /*
    * VertexDiscovery
    */
-  /**
-   * Describes the discovery status of a vertex, e.g. visited, touched, or unvisited.
-   */
+  /** Describes the discovery status of a vertex, e.g. visited, touched, or unvisited. */
   public enum VertexDiscovery {
-    /**
-     * Visited.
-     */
+    /** Visited. */
     VISITED,
-    /**
-     * Touched.
-     */
+    /** Touched. */
     TOUCHED,
-    /**
-     * Unvisited.
-     */
+    /** Unvisited. */
     UNVISITED
   }
 
@@ -263,8 +237,8 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    *
    * @param index The index of the {@link AbstractEdge} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumInEdge()), returns the
-   *         {@link AbstractEdge} at the specified position in the InEdge(s) of this instance,
-   *         otherwise null.
+   *     {@link AbstractEdge} at the specified position in the InEdge(s) of this instance, otherwise
+   *     null.
    */
   public T getInEdgeAtIdx(final int index) {
     T rtn = null;
@@ -289,7 +263,7 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    * false.
    *
    * @return True if the vertex contains the inedge defined by parameter {@code edge}, otherwise
-   *         false.
+   *     false.
    */
   public boolean hasInEdge(final T edge) {
     final boolean rtn = inEdges.contains(edge);
@@ -301,16 +275,14 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    *
    * @param name name of the element to return.
    * @return The first occurrence of the inedge with name defined by parameter {@code name} if an
-   *         element exists, null otherwise.
+   *     element exists, null otherwise.
    */
   public T hasInEdgeWithName(final String name) {
     final T rtn = inEdges.findCObjectByName(name);
     return rtn;
   }
 
-  /**
-   * Removes all of the {@link AbstractEdge} from the InEdge(s) of this instance.
-   */
+  /** Removes all of the {@link AbstractEdge} from the InEdge(s) of this instance. */
   public void clearInEdge() {
     inEdges.clear();
   }
@@ -347,8 +319,8 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    *
    * @param index The index of the {@link AbstractEdge} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumOutEdge()), returns the
-   *         {@link AbstractEdge} at the specified position in the OutEdge(s) of this instance,
-   *         otherwise null.
+   *     {@link AbstractEdge} at the specified position in the OutEdge(s) of this instance,
+   *     otherwise null.
    */
   public T getOutEdgeAtIdx(final int index) {
     T rtn = null;
@@ -373,7 +345,7 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    * false.
    *
    * @return True if the vertex contains the outedge defined by parameter {@code edge}, otherwise
-   *         false.
+   *     false.
    */
   public boolean hasOutEdge(final T edge) {
     final boolean rtn = outEdges.contains(edge);
@@ -385,16 +357,14 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    *
    * @param name name of the element to return.
    * @return The first occurrence of the outedge with name defined by parameter {@code name} if an
-   *         element exists, null otherwise.
+   *     element exists, null otherwise.
    */
   public T hasOutEdgeWithName(final String name) {
     final T rtn = outEdges.findCObjectByName(name);
     return rtn;
   }
 
-  /**
-   * Removes all of the {@link AbstractEdge} from the OutEdge(s) of this instance.
-   */
+  /** Removes all of the {@link AbstractEdge} from the OutEdge(s) of this instance. */
   public void clearOutEdge() {
     outEdges.clear();
   }
@@ -407,7 +377,7 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
    * format.
    *
    * @return A string representing the shape of this instance in DOT (graph description language)
-   *         format.
+   *     format.
    */
   protected String getShape() {
     String rtn = "";
@@ -637,5 +607,4 @@ public abstract class AbstractVertex<T extends AbstractEdge<?>> extends CObject 
   private VertexDiscovery vertexDiscovery;
   private CObjectCollection<T> inEdges;
   private CObjectCollection<T> outEdges;
-
 }

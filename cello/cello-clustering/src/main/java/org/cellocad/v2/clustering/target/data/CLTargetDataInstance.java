@@ -27,7 +27,6 @@ import org.cellocad.v2.common.target.data.TargetDataInstance;
  * A target data instance for the <i>clustering</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
 public class CLTargetDataInstance extends TargetDataInstance {
@@ -35,5 +34,4 @@ public class CLTargetDataInstance extends TargetDataInstance {
   public CLTargetDataInstance(final TargetData td) throws CelloException {
     super(td);
   }
-
 }

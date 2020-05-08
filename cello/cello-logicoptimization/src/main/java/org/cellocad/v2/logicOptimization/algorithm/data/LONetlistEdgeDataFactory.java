@@ -26,18 +26,17 @@ import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetli
  * The LONetlistEdgeDataFactory is a NetlistEdgeData factory for the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LONetlistEdgeDataFactory extends NetlistEdgeDataFactory<LONetlistEdgeData> {
 
   /**
-   * Returns the {@link LONetlistEdgeData} object that has the same name as the parameter
-   * {@code name} within the {@link LONetlistEdgeDataFactory}.
+   * Returns the {@link LONetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link LONetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link LONetlistEdgeData} instance if the {@link LONetlistEdgeData} type exists
-   *         within the {@link LONetlistEdgeDataFactory}, otherwise null.
+   *     within the {@link LONetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected LONetlistEdgeData getNetlistEdgeData(final String name) {
@@ -47,5 +46,4 @@ public class LONetlistEdgeDataFactory extends NetlistEdgeDataFactory<LONetlistEd
     }
     return rtn;
   }
-
 }

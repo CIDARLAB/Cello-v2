@@ -28,17 +28,22 @@ import org.cellocad.v2.results.logicSynthesis.LSResults;
  * The YosysUtils class is class with utility methods for the <i>Yosys</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class YosysUtils {
 
-  /**
-   * ValidGates: Array of Strings containing Valid Gates for the <i>Yosys</i> algorithm.
-   */
-  public static final String[] ValidGates =
-      {LSResults.S_NOT, LSResults.S_AND, LSResults.S_NAND, LSResults.S_OR, LSResults.S_NOR,
-          LSResults.S_XOR, LSResults.S_XNOR, LSResults.S_ANDNOT, LSResults.S_ORNOT,};
+  /** ValidGates: Array of Strings containing Valid Gates for the <i>Yosys</i> algorithm. */
+  public static final String[] ValidGates = {
+    LSResults.S_NOT,
+    LSResults.S_AND,
+    LSResults.S_NAND,
+    LSResults.S_OR,
+    LSResults.S_NOR,
+    LSResults.S_XOR,
+    LSResults.S_XNOR,
+    LSResults.S_ANDNOT,
+    LSResults.S_ORNOT,
+  };
 
   /**
    * Returns a boolean flag signifying that the parameter {@code gate} is a valid gate.
@@ -58,7 +63,7 @@ public class YosysUtils {
    *
    * @param type The type to validate.
    * @return A string representing a valid result for the <i>logicSynthesis</i> stage using the
-   *         parameter {@code type}.
+   *     parameter {@code type}.
    */
   protected static String getNodeType(final String type) {
     String rtn = type;
@@ -76,5 +81,4 @@ public class YosysUtils {
 
   private static String S_TYPE_PREFIX = "$_";
   private static String S_TYPE_POSTFIX = "_";
-
 }

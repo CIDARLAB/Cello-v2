@@ -50,7 +50,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>GPCC_SUGARM_BASE</i> algorithm in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GPCC_SUGARM_BASE extends GPCC_BASE {
@@ -61,7 +60,8 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
    * @param node A node within the netlist of this instance.
    * @return The {@link GPCC_SUGARM_BASENetlistNodeData} instance if it exists, null otherwise.
    */
-  protected GPCC_SUGARM_BASENetlistNodeData getGpccSugarMBaseNetlistNodeData(final NetlistNode node) {
+  protected GPCC_SUGARM_BASENetlistNodeData getGpccSugarMBaseNetlistNodeData(
+      final NetlistNode node) {
     GPCC_SUGARM_BASENetlistNodeData rtn = null;
     rtn = (GPCC_SUGARM_BASENetlistNodeData) node.getNetlistNodeData();
     return rtn;
@@ -73,7 +73,8 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
    * @param edge An edge within the netlist of this instance.
    * @return The {@link GPCC_SUGARM_BASENetlistEdgeData} instance if it exists, null otherwise.
    */
-  protected GPCC_SUGARM_BASENetlistEdgeData getGpccSugarMBaseNetlistEdgeData(final NetlistEdge edge) {
+  protected GPCC_SUGARM_BASENetlistEdgeData getGpccSugarMBaseNetlistEdgeData(
+      final NetlistEdge edge) {
     GPCC_SUGARM_BASENetlistEdgeData rtn = null;
     rtn = (GPCC_SUGARM_BASENetlistEdgeData) edge.getNetlistEdgeData();
     return rtn;
@@ -91,25 +92,17 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
   protected void getDataFromUcf() {
     super.getDataFromUcf();
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     super.setParameterValues();
@@ -132,9 +125,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     }
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
   protected void validateParameterValues() {
     super.validateParameterValues();
@@ -142,7 +133,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
 
   /**
    * Perform preprocessing.
-   * 
+   *
    * @throws CelloException Unable to perform preprocessing.
    */
   @Override
@@ -165,7 +156,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
 
   /**
    * Run the (core) algorithm.
-   * 
+   *
    * @throws CelloException Unable to write file.
    */
   @Override
@@ -188,7 +179,8 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     // other
     int currentBlockNum = 0;
     int bestBlockNum = -1;
-    final GPCC_SUGARM_BASEPWriter writer = new GPCC_SUGARM_BASEPWriter(this, getCspFilename(), currentBlockNum);
+    final GPCC_SUGARM_BASEPWriter writer =
+        new GPCC_SUGARM_BASEPWriter(this, getCspFilename(), currentBlockNum);
     // TODO: open window of binary search
     // TODO: enable random point in range
     // binary search for optimal numBlocks
@@ -216,8 +208,14 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
       }
       // encode
       logInfo("Encoding...");
-      final String[] argsEnc = {GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_ENCODE,
-          getCspFilename(), getCnfFilename(), getMapFilename()};
+      final String[] argsEnc = {
+        GPCC_SUGARM_BASE.S_V,
+        GPCC_SUGARM_BASE.S_V,
+        GPCC_SUGARM_BASE.S_ENCODE,
+        getCspFilename(),
+        getCnfFilename(),
+        getMapFilename()
+      };
       SugarMain.main(argsEnc);
       // minisat
       logInfo("Solving...");
@@ -237,8 +235,14 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
         applyResult();
         final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
         final Partition P = getPartitioner().getPartition();
-        PartitionUtils.writeDotFileForPartition(P, outputDir + Utils.getFileSeparator()
-            + P.getName() + "_blocks_" + currentBlockNum + "_final.dot");
+        PartitionUtils.writeDotFileForPartition(
+            P,
+            outputDir
+                + Utils.getFileSeparator()
+                + P.getName()
+                + "_blocks_"
+                + currentBlockNum
+                + "_final.dot");
         numIteration++;
       }
       numAttempts++;
@@ -300,8 +304,11 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
         if (strtok.hasMoreTokens()) {
           token = strtok.nextToken();
           if (Math.round(Double.parseDouble(token)) == 1) {
-            cellId = Integer.parseInt(assignment.substring(
-                GPCC_SUGARM_BASE.S_ASSIGN.length() + GPCC_SUGARM_BASE.S_CELL.length(), blkIdx));
+            cellId =
+                Integer.parseInt(
+                    assignment.substring(
+                        GPCC_SUGARM_BASE.S_ASSIGN.length() + GPCC_SUGARM_BASE.S_CELL.length(),
+                        blkIdx));
             blockId =
                 Integer.parseInt(assignment.substring(blkIdx + GPCC_SUGARM_BASE.S_BLK.length()));
           }
@@ -319,9 +326,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     partition.doMoves(moves);
   }
 
-  /**
-   * Perform decode.
-   */
+  /** Perform decode. */
   protected void decode() {
     // decode
     logInfo("Decoding...");
@@ -333,8 +338,13 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     // Tell Java to use your special stream
     System.setOut(ps);
     // Run Decode
-    final String[] argsDec = {GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_V, GPCC_SUGARM_BASE.S_DECODE,
-        getOutFilename(), getMapFilename()};
+    final String[] argsDec = {
+      GPCC_SUGARM_BASE.S_V,
+      GPCC_SUGARM_BASE.S_V,
+      GPCC_SUGARM_BASE.S_DECODE,
+      getOutFilename(),
+      getMapFilename()
+    };
     SugarMain.main(argsDec);
     // Put things back
     System.out.flush();
@@ -344,9 +354,7 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     logInfo(getOutput());
   }
 
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
   protected void postprocessing() {
     super.postprocessing();
@@ -354,8 +362,8 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     getNetlister().getNetlist();
     final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
     final Partition P = getPartitioner().getPartition();
-    PartitionUtils.writeDotFileForPartition(P,
-        outputDir + Utils.getFileSeparator() + P.getName() + "_final.dot");
+    PartitionUtils.writeDotFileForPartition(
+        P, outputDir + Utils.getFileSeparator() + P.getName() + "_final.dot");
     // delete
     if (GPCC_SUGARM_BASE.B_CLEANUP) {
       Utils.deleteFilename(getCspFilename());
@@ -366,13 +374,13 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
     PTNetlistUtils.writeDotFileForPartition(getNetlister().getPTNetlist(), getPartitionDotFile());
   }
 
-  /**
-   * Logs the Result header.
-   */
+  /** Logs the Result header. */
   protected void logResultHeader() {
     logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
-    logInfo(GPCC_SUGARM_BASE.S_HEADER_LINE_PREFIX
-        + Utils.getTabCharacterRepeat(GPCC_SUGARM_BASE.S_TAB_NUM) + GPCC_SUGARM_BASE.S_RESULT);
+    logInfo(
+        GPCC_SUGARM_BASE.S_HEADER_LINE_PREFIX
+            + Utils.getTabCharacterRepeat(GPCC_SUGARM_BASE.S_TAB_NUM)
+            + GPCC_SUGARM_BASE.S_RESULT);
     logInfo(GPCC_SUGARM_BASE.S_HEADER_FOOTER);
   }
 
@@ -646,5 +654,4 @@ public class GPCC_SUGARM_BASE extends GPCC_BASE {
   protected static String S_RESULT = "    RESULTS";
   protected static String S_V = "-v";
   protected static int S_TAB_NUM = 3;
-
 }

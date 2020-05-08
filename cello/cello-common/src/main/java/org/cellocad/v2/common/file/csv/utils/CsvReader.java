@@ -29,17 +29,16 @@ import org.cellocad.v2.common.CObject;
  * A reader for a CSV file.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class CsvReader extends CObject {
 
   /**
-   * Initializes a newly created {@link CsvReader} with a file defined by parameter
-   * {@code filename}, and, a delimeter for the fields of the record defined by parameter
-   * {@code delimeter}.
+   * Initializes a newly created {@link CsvReader} with a file defined by parameter {@code
+   * filename}, and, a delimeter for the fields of the record defined by parameter {@code
+   * delimeter}.
    *
-   * @param filename  The filename.
+   * @param filename The filename.
    * @param delimeter The delimeter.
    */
   public CsvReader(final String filename, final String delimeter) {
@@ -101,5 +100,4 @@ public class CsvReader extends CObject {
   }
 
   private String csvSplitBy;
-
 }

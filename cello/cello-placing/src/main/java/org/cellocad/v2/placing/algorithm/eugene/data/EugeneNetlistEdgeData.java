@@ -27,17 +27,13 @@ import org.cellocad.v2.placing.algorithm.data.PLNetlistEdgeData;
  * The data for an edge used within the <i>Eugene</i> algorithm of the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-06
  */
 public class EugeneNetlistEdgeData extends PLNetlistEdgeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link EugeneNetlistEdgeData}.
-   */
+  /** Initializes a newly created {@link EugeneNetlistEdgeData}. */
   public EugeneNetlistEdgeData() {
     super();
     setDefault();
@@ -48,12 +44,9 @@ public class EugeneNetlistEdgeData extends PLNetlistEdgeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

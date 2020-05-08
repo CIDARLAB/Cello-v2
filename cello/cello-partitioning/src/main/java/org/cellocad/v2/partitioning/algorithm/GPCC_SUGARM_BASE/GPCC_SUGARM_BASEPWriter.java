@@ -100,7 +100,9 @@ public class GPCC_SUGARM_BASEPWriter extends GPCC_BASE_PWriter {
   protected String getObjectiveConstraintEdgeAfterTotalEdges() {
     String rtn = "";
     rtn +=
-        GPCC_SUGARM_BASEPWriter.S_SPACE + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE + Utils.getNewLine();
+        GPCC_SUGARM_BASEPWriter.S_SPACE
+            + GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_CLOSE
+            + Utils.getNewLine();
     rtn +=
         GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
             + GPCC_SUGARM_BASEPWriter.S_INT
@@ -496,7 +498,9 @@ public class GPCC_SUGARM_BASEPWriter extends GPCC_BASE_PWriter {
   static String S_ONE = "1";
   static String S_END = "End";
   static String S_BINARYRANGE =
-      GPCC_SUGARM_BASEPWriter.S_ZERO + GPCC_SUGARM_BASEPWriter.S_SPACE + GPCC_SUGARM_BASEPWriter.S_ONE;
+      GPCC_SUGARM_BASEPWriter.S_ZERO
+          + GPCC_SUGARM_BASEPWriter.S_SPACE
+          + GPCC_SUGARM_BASEPWriter.S_ONE;
   static String S_BINARYDOMAIN =
       GPCC_SUGARM_BASEPWriter.S_PARENTHESIS_OPEN
           + GPCC_SUGARM_BASEPWriter.S_DOMAIN

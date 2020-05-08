@@ -26,9 +26,8 @@ import org.cellocad.v2.common.profile.DerivedProfile;
 
 /**
  * A collection of {@link CapacityCollectionProfile} objects.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public class CapacityCollection<T extends CapacityCollectionProfile> extends DerivedProfile<T> {
@@ -39,8 +38,8 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
 
   /**
    * Initializes a newly created {@link CapacityCollection} object.
-   * 
-   * @param ccp        A capacity collection profile.
+   *
+   * @param ccp A capacity collection profile.
    * @param capacities A collection of {@link Capacity} objects.
    */
   public CapacityCollection(final T ccp, final CObjectCollection<Capacity> capacities) {
@@ -63,7 +62,7 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
    */
   /**
    * Whether this instance can fit using the given weight.
-   * 
+   *
    * @param wObj A {@link Weight}.
    * @return Whether this instance can fit using the given weight.
    */
@@ -80,7 +79,7 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
 
   /**
    * Whether this instance is overflow using the given weight.
-   * 
+   *
    * @param wObj A {@link Weight}.
    * @return Whether this instance is overflow using the given weight.
    */
@@ -97,7 +96,7 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
 
   /**
    * Whether this instance is underflow using the given weight.
-   * 
+   *
    * @param wObj A {@link Weight}.
    * @return Whether this instance is underflow using the given weight.
    */
@@ -117,7 +116,7 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
    */
   /**
    * Adds the given {@link Capacity} object to this instance.
-   * 
+   *
    * @param c A {@link Capacity} object.
    */
   public void addCapacity(final Capacity c) {
@@ -128,7 +127,7 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
 
   /**
    * Gets the {@link Capacity} object at the given index.
-   * 
+   *
    * @param index An index.
    * @return The {@link Capacity} object at the given index.
    */
@@ -145,5 +144,4 @@ public class CapacityCollection<T extends CapacityCollectionProfile> extends Der
   }
 
   private CObjectCollection<Capacity> myCapacity;
-
 }

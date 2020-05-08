@@ -50,7 +50,6 @@ import org.cellocad.v2.results.placing.placement.Placements;
  * Utility methods for generating dnaplotlib plots for Cello designs.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-28
  */
 public class DnaPlotLibUtils {
@@ -62,7 +61,7 @@ public class DnaPlotLibUtils {
 
   /**
    * Gets the given {@link Color} object as an RGB string for use with dnaplotlib.
-   * 
+   *
    * @param color A {@link Color} object.
    * @return The given {@link Color} object as an RGB string for use with dnaplotlib.
    */
@@ -77,7 +76,7 @@ public class DnaPlotLibUtils {
 
   /**
    * Gets the given Cello part type as a dnaplotlib-compatible part type string.
-   * 
+   *
    * @param type A Cello part type, e.g. {@code promoter} or {@code rbs}.
    * @return A dnaplotlib-compatible part type string if one exists, otherwise null.
    */
@@ -114,8 +113,12 @@ public class DnaPlotLibUtils {
     return rtn;
   }
 
-  private static Collection<String> unNestDevice(final String object, final Component component,
-      final Netlist netlist, final TargetDataInstance tdi) throws CelloException {
+  private static Collection<String> unNestDevice(
+      final String object,
+      final Component component,
+      final Netlist netlist,
+      final TargetDataInstance tdi)
+      throws CelloException {
     final Collection<String> rtn = new ArrayList<>();
     final NetlistNode node = netlist.getVertexByName(component.getNode());
     final String deviceName = node.getResultNetlistNodeData().getDeviceName();
@@ -132,9 +135,9 @@ public class DnaPlotLibUtils {
 
   /**
    * Gets a list of CSV records representing the Cello designs in dnaplotlib format.
-   * 
+   *
    * @param netlist The netlist containing the designs.
-   * @param tdi     The target data instance containing the data used in the designs.
+   * @param tdi The target data instance containing the data used in the designs.
    * @return A list of CSV records representing the Cello designs in dnaplotlib format.
    * @throws CelloException Unable to generate the Cello designs in dnaplotlib format.
    */
@@ -180,11 +183,11 @@ public class DnaPlotLibUtils {
   /**
    * Gets a list of CSV records representing the part information for Cello designs in dnaplotlib
    * format.
-   * 
+   *
    * @param netlist The netlist containing the designs.
-   * @param tdi     The target data instance containing the data used in the designs.
+   * @param tdi The target data instance containing the data used in the designs.
    * @return A list of CSV records representing the part information for Cello designs in dnaplotlib
-   *         format.
+   *     format.
    * @throws CelloException Unable to generate part information.
    */
   public static List<String> getPartInformation(final Netlist netlist, final TargetDataInstance tdi)
@@ -254,11 +257,12 @@ public class DnaPlotLibUtils {
           }
         }
         if (j + 1 < placement.getNumPlacementGroup()) {
-          final String pad = String.format("%s%d,%s,30,,,,1.00;1.00;1.00,,,,,",
-              DnaPlotLibUtils.S_NONCEPAD, j, DnaPlotLibUtils.S_USERDEFINED);
+          final String pad =
+              String.format(
+                  "%s%d,%s,30,,,,1.00;1.00;1.00,,,,,",
+                  DnaPlotLibUtils.S_NONCEPAD, j, DnaPlotLibUtils.S_USERDEFINED);
           rtn.add(pad);
         }
-
       }
     }
     return rtn;
@@ -267,15 +271,15 @@ public class DnaPlotLibUtils {
   /**
    * Gets a list of CSV records representing the regulatory information for Cello designs in
    * dnaplotlib format.
-   * 
+   *
    * @param netlist The netlist containing the designs.
-   * @param tdi     The target data instance containing the data used in the designs.
+   * @param tdi The target data instance containing the data used in the designs.
    * @return A list of CSV records representing the regulatory information for Cello designs in
-   *         dnaplotlib format.
+   *     dnaplotlib format.
    * @throws CelloException Unable to generate regulatory information.
    */
-  public static List<String> getRegulatoryInformation(final Netlist netlist,
-      final TargetDataInstance tdi) throws CelloException {
+  public static List<String> getRegulatoryInformation(
+      final Netlist netlist, final TargetDataInstance tdi) throws CelloException {
     final List<String> rtn = new ArrayList<>();
     final Set<String> specified = new HashSet<>();
     rtn.add("from_partname,type,to_partname,arrowhead_length,linestyle,linewidth,color");
@@ -338,5 +342,4 @@ public class DnaPlotLibUtils {
   private static String S_REPRESSION = "Repression";
   private static String S_USERDEFINED = "UserDefined";
   private static String S_NONCEPAD = "_NONCE_PAD";
-
 }

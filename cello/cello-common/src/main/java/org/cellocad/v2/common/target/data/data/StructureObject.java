@@ -25,7 +25,6 @@ import org.cellocad.v2.common.CObject;
  * A base class for a child object in a structure.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public class StructureObject extends CObject {
@@ -37,5 +36,4 @@ public class StructureObject extends CObject {
   public StructureObject(final StructureObject obj) {
     super(obj);
   }
-
 }

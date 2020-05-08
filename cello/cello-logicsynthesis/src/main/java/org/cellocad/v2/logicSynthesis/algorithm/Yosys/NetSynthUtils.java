@@ -54,7 +54,6 @@ import org.json.simple.JSONArray;
  * Utility methods for processing netlists with NetSynth.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-29
  */
 public class NetSynthUtils {
@@ -69,7 +68,6 @@ public class NetSynthUtils {
     }
 
     private int i = 0;
-
   }
 
   private static class EdgeNamer {
@@ -82,12 +80,11 @@ public class NetSynthUtils {
     }
 
     private int i = 0;
-
   }
 
   /**
    * Escape special characters in the given string before NetSynth processing.
-   * 
+   *
    * @param str A string.
    * @return The string with escaped special characters.
    */
@@ -99,7 +96,7 @@ public class NetSynthUtils {
 
   /**
    * Get a structural Verilog representation of the given netlist.
-   * 
+   *
    * @param netlist A netlist.
    * @return A structural Verilog representation of the given netlist.
    */
@@ -218,8 +215,11 @@ public class NetSynthUtils {
         throw new CelloException("Unable to set executable permissions on file " + f.toString());
       }
     }
-    files = Arrays.asList(new String[] {"abc.rc", "netlist_in3out1.json", "netlist_in3out1_OR.json",
-        "tempVerilog.v"});
+    files =
+        Arrays.asList(
+            new String[] {
+              "abc.rc", "netlist_in3out1.json", "netlist_in3out1_OR.json", "tempVerilog.v"
+            });
     for (final String file : files) {
       p = Paths.get(sourceBase, file);
       NetSynthUtils.copyResource(p, targetPath);
@@ -230,7 +230,7 @@ public class NetSynthUtils {
 
   /**
    * Gets the {@link LSResults} node type from the given NetSynth gate type.
-   * 
+   *
    * @param type The NetSynth gate type.
    * @return The {@link LSResults} node type from the given NetSynth gate type.
    */
@@ -262,25 +262,29 @@ public class NetSynthUtils {
 
   /**
    * Run NetSynth on the given netlist.
-   * 
-   * @param netlist   A netlist.
-   * @param motifs    The motif library.
+   *
+   * @param netlist A netlist.
+   * @param motifs The motif library.
    * @param outputDir The output directory.
    * @return A NetSynth-processed netlist.
-   * @throws JSONException  Unable to parse JSON motif library.
-   * @throws IOException    Unable to read resources.
+   * @throws JSONException Unable to parse JSON motif library.
+   * @throws IOException Unable to read resources.
    * @throws CelloException Unable to generate NetSynth-processed netlist.
    */
-  public static Netlist getNetSynthNetlist(final Netlist netlist, final JSONArray motifs,
-      final String outputDir) throws JSONException, IOException, CelloException {
+  public static Netlist getNetSynthNetlist(
+      final Netlist netlist, final JSONArray motifs, final String outputDir)
+      throws JSONException, IOException, CelloException {
     Netlist rtn = null;
     final Path path = NetSynthUtils.initResources();
     final NetSynth n =
         new NetSynth("netSynth", path.toString() + Utils.getFileSeparator(), outputDir);
     // verilog
     final String verilog = NetSynthUtils.getVerilog(netlist);
-    final String verilogFilePath = outputDir + Utils.getFileSeparator()
-        + Utils.getFilename(netlist.getInputFilename()) + ".struct.v";
+    final String verilogFilePath =
+        outputDir
+            + Utils.getFileSeparator()
+            + Utils.getFilename(netlist.getInputFilename())
+            + ".struct.v";
     Utils.writeToFile(verilog, verilogFilePath);
     // args
     final List<NetSynthSwitch> args = new ArrayList<>();
@@ -338,5 +342,4 @@ public class NetSynthUtils {
     }
     return rtn;
   }
-
 }

@@ -27,9 +27,8 @@ import org.json.simple.JSONObject;
 
 /**
  * Partitioner.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class Partitioner {
@@ -95,5 +94,4 @@ public class Partitioner {
   }
 
   private Partition partition;
-
 }

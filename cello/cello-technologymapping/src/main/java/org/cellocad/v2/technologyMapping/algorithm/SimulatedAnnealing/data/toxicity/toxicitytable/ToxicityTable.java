@@ -28,18 +28,14 @@ import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
  * input columns of the truth table, the truth table output column is associated with an output
  * object type. Rows are of type {@link State}.
  *
- * @param <InputT>  The input object type.
+ * @param <InputT> The input object type.
  * @param <OutputT> The output object type.
- *
  * @author Timothy Jones
- *
  * @date 2019-02-03
  */
 public class ToxicityTable<InputT, OutputT> {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     toxicityTableMap = new HashMap<>();
     states = new ArrayList<>();
@@ -49,7 +45,7 @@ public class ToxicityTable<InputT, OutputT> {
    * Initializes a newly created {@link ToxicityTable} with the list of inputs defined by parameter
    * {@code inputs} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param inputs  The List of inputs.
+   * @param inputs The List of inputs.
    * @param outputs The List of outputs.
    */
   public ToxicityTable(final List<State<InputT>> inputs, final List<OutputT> outputs) {
@@ -66,7 +62,7 @@ public class ToxicityTable<InputT, OutputT> {
    * Initializes a newly created {@link ToxicityTable} with the list of states defined by parameter
    * {@code states} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param states  The List of states.
+   * @param states The List of states.
    * @param outputs The List of outputs.
    */
   public ToxicityTable(final States<InputT> states, final List<OutputT> outputs) {
@@ -105,7 +101,7 @@ public class ToxicityTable<InputT, OutputT> {
    *
    * @param state The input activity.
    * @return The output toxicity for the activity defined by parameter {@code activity}, otherwise
-   *         null.
+   *     null.
    */
   public Toxicity<OutputT> getToxicityOutput(final State<InputT> state) {
     Toxicity<OutputT> rtn = null;
@@ -118,7 +114,7 @@ public class ToxicityTable<InputT, OutputT> {
    *
    * @param index The index of the {@link Activity} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumActivities()), returns the
-   *         Activity<Input> at the specified position in this instance, otherwise null.
+   *     Activity<Input> at the specified position in this instance, otherwise null.
    */
   public State<InputT> getStateAtIdx(final int index) {
     State<InputT> rtn = null;
@@ -139,5 +135,4 @@ public class ToxicityTable<InputT, OutputT> {
 
   List<State<InputT>> states;
   Map<State<InputT>, Toxicity<OutputT>> toxicityTableMap;
-
 }

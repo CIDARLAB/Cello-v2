@@ -31,24 +31,20 @@ import org.cellocad.v2.common.Pair;
  * <i>technologyMapping</i> stage.
  *
  * @param <T> The object type with which the activity is associated.
- *
  * @author Timothy Jones
- *
  * @date 2018-05-22
  */
 public class Activity<T> extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     activityEntry = new ArrayList<>();
     activityEntryMap = new HashMap<>();
   }
 
   /**
-   * Initializes a newly created {@link Activity} with the list of types defined by parameter
-   * {@code nodes} and value defined by parameter {@code value}.
+   * Initializes a newly created {@link Activity} with the list of types defined by parameter {@code
+   * nodes} and value defined by parameter {@code value}.
    *
    * @param nodes The List of types.
    * @param value The value.
@@ -64,8 +60,8 @@ public class Activity<T> extends CObject {
   }
 
   /**
-   * Initializes a newly created {@link Activity} with the list of types defined by parameter
-   * {@code nodes}.
+   * Initializes a newly created {@link Activity} with the list of types defined by parameter {@code
+   * nodes}.
    *
    * @param nodes The List of types.
    */
@@ -100,9 +96,9 @@ public class Activity<T> extends CObject {
    * Returns the {@link Pair} object at the specified position in this instance.
    *
    * @param index The index of the {@link Pair} object to return.
-   * @return If the index is within the bounds
-   *         {@code (0 <= bounds < this.getNumActivityPosition())}, returns the {@link Pair} object
-   *         at the specified position in this instance, otherwise null.
+   * @return If the index is within the bounds {@code (0 <= bounds <
+   *     this.getNumActivityPosition())}, returns the {@link Pair} object at the specified position
+   *     in this instance, otherwise null.
    */
   protected Pair<T, Double> getActivityPositionAtIdx(final int index) {
     Pair<T, Double> rtn = null;
@@ -134,10 +130,10 @@ public class Activity<T> extends CObject {
   }
 
   /**
-   * Returns true if the given node exists in this instance, then assigns the {@link Double}
-   * {@code value} to the node.
+   * Returns true if the given node exists in this instance, then assigns the {@link Double} {@code
+   * value} to the node.
    *
-   * @param node  The node.
+   * @param node The node.
    * @param value The value.
    * @return True if the node exists in this instance, false otherwise.
    */
@@ -156,5 +152,4 @@ public class Activity<T> extends CObject {
 
   private List<Pair<T, Double>> activityEntry;
   private Map<T, Double> activityEntryMap;
-
 }

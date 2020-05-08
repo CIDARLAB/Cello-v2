@@ -33,21 +33,16 @@ import org.json.simple.JSONObject;
  * A placement.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-05
  */
 public class Placement extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     placement = new ArrayList<>();
   }
 
-  /**
-   * Initializes a newly created {@link Placement}.
-   */
+  /** Initializes a newly created {@link Placement}. */
   public Placement(final Boolean up, final Boolean down) {
     init();
     setUp(up);
@@ -58,7 +53,7 @@ public class Placement extends CObject {
    * Initializes a newly created {@link Placement} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link NetlistNode}
-   *                object.
+   *     object.
    */
   public Placement(final JSONArray jsonObj, final Boolean up, final Boolean down) {
     this(up, down);
@@ -88,7 +83,7 @@ public class Placement extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -114,7 +109,7 @@ public class Placement extends CObject {
 
   /**
    * Gets the placement group at the given index.
-   * 
+   *
    * @param index An index.
    * @return The placement group at the given index.
    */
@@ -239,5 +234,4 @@ public class Placement extends CObject {
   private Boolean bDown;
   private Boolean direction;
   private URI uri;
-
 }

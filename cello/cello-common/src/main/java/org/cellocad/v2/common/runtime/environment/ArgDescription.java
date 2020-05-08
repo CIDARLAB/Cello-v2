@@ -25,7 +25,6 @@ package org.cellocad.v2.common.runtime.environment;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 17, 2017
  */
 public class ArgDescription {
@@ -33,59 +32,36 @@ public class ArgDescription {
   /*
    * General
    */
-  /**
-   * String representing the HELP command line argument description.
-   */
+  /** String representing the HELP command line argument description. */
   public static final String HELP_DESCRIPTION = "print this message";
 
-  /**
-   * String representing the INPUTSENSORFILE command line argument description.
-   */
+  /** String representing the INPUTSENSORFILE command line argument description. */
   public static final String INPUTSENSORFILE_DESCRIPTION = "path to input sensor file";
 
-  /**
-   * String representing the OUTPUTDEVICEFILE command line argument description.
-   */
+  /** String representing the OUTPUTDEVICEFILE command line argument description. */
   public static final String OUTPUTDEVICEFILE_DESCRIPTION = "path to output device file";
 
-  /**
-   * String representing the USERCONSTRAINTSFILE command line argument description.
-   */
+  /** String representing the USERCONSTRAINTSFILE command line argument description. */
   public static final String USERCONSTRAINTSFILE_DESCRIPTION = "path to user constraints file";
 
-  /**
-   * String representing the OPTIONS command line argument description.
-   */
+  /** String representing the OPTIONS command line argument description. */
   public static final String OPTIONS_DESCRIPTION = "path to options file";
 
-  /**
-   * String representing the OUTPUTDIR command line argument description.
-   */
+  /** String representing the OUTPUTDIR command line argument description. */
   public static final String OUTPUTDIR_DESCRIPTION = "path of output directory";
 
-  /**
-   * String representing the PYTHONENV command line argument description.
-   */
+  /** String representing the PYTHONENV command line argument description. */
   public static final String PYTHONENV_DESCRIPTION = "path to python environment";
 
-  /**
-   * String representing the INPUTNETLIST command line argument description.
-   */
+  /** String representing the INPUTNETLIST command line argument description. */
   public static final String INPUTNETLIST_DESCRIPTION = "path to input netlist file";
 
-  /**
-   * String representing the OUTPUTNETLIST command line argument description.
-   */
+  /** String representing the OUTPUTNETLIST command line argument description. */
   public static final String OUTPUTNETLIST_DESCRIPTION = "path to output netlist file";
 
-  /**
-   * String representing the NETLISTCONSTRAINTFILE command line argument description.
-   */
+  /** String representing the NETLISTCONSTRAINTFILE command line argument description. */
   public static final String NETLISTCONSTRAINTFILE_DESCRIPTION = "path to netlist constraint file";
 
-  /**
-   * String representing the LOGFILENAME command line argument.
-   */
+  /** String representing the LOGFILENAME command line argument. */
   public static final String LOGFILENAME_DESCRIPTION = "log filename";
-
 }

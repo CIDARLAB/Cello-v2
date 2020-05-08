@@ -33,7 +33,6 @@ import org.json.simple.JSONObject;
  * The NetlistEdge class is a class representing the user design.
  *
  * @author Vincent Mirian
- *
  * @date Nov 17, 2017
  */
 public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
@@ -42,9 +41,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
     setInputFilename(null);
   }
 
-  /**
-   * Initializes a newly created {@link Netlist}.
-   */
+  /** Initializes a newly created {@link Netlist}. */
   public Netlist() {
     super();
     setDefault();
@@ -163,7 +160,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -212,7 +209,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    *
    * @param other The other NetlistNode.
    * @return A newly created {@link NetlistNode} object with its contents set to those of parameter
-   *         {@code other}.
+   *     {@code other}.
    */
   @Override
   public NetlistNode createV(final NetlistNode other) {
@@ -226,7 +223,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    *
    * @param other The other NetlistEdge.
    * @return A newly created {@link NetlistEdge} object with its contents set to those of parameter
-   *         {@code other}.
+   *     {@code other}.
    */
   @Override
   public NetlistEdge createE(final NetlistEdge other) {
@@ -302,5 +299,4 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
   }
 
   private StageNetlistData stageNetlistData;
-
 }

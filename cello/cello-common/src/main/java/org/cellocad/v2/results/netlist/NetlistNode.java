@@ -35,7 +35,6 @@ import org.json.simple.JSONObject;
  * The NetlistNode class is a class representing the node(s) of the project.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class NetlistNode extends VertexTemplate<NetlistEdge> {
@@ -44,9 +43,7 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
     setResultNetlistNodeData(new ResultNetlistNodeData());
   }
 
-  /**
-   * Initializes a newly created {@link NetlistNode}.
-   */
+  /** Initializes a newly created {@link NetlistNode}. */
   public NetlistNode() {
     super();
     setDefault();
@@ -68,7 +65,7 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
    * Initializes a newly created {@link NetlistNode} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link NetlistNode}
-   *                object.
+   *     object.
    */
   public NetlistNode(final JSONObject jsonObj) {
     this();
@@ -94,8 +91,8 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
    * Inherit
    */
   /**
-   * Adds this instance to the source node of the {@link NetlistEdge} defined by parameter
-   * {@code e}.
+   * Adds this instance to the source node of the {@link NetlistEdge} defined by parameter {@code
+   * e}.
    *
    * @param e The {@link NetlistEdge}.
    */
@@ -121,7 +118,7 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
    *
    * @param e The other {@link NetlistEdge}.
    * @return A newly created {@link NetlistEdge} object with its contents set to those of parameter
-   *         {@code e}.
+   *     {@code e}.
    */
   @Override
   public NetlistEdge createT(final NetlistEdge e) {
@@ -160,7 +157,7 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -190,7 +187,7 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
    * format.
    *
    * @return A string representing the shape of this instance in DOT (graph description language)
-   *         format.
+   *     format.
    */
   @Override
   protected String getShape() {
@@ -300,5 +297,4 @@ public class NetlistNode extends VertexTemplate<NetlistEdge> {
   }
 
   private StageNetlistNodeData stageNetlistData;
-
 }

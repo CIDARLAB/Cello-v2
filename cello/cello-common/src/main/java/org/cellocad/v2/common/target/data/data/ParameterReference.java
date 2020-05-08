@@ -25,15 +25,13 @@ import org.json.simple.JSONObject;
 
 /**
  * A reference to a parameter.
- * 
- * @author Timothy Jones
  *
+ * @author Timothy Jones
  * @date 2020-02-12
  */
 public class ParameterReference extends Parameter {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseMap(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, Reference.S_MAP);
@@ -77,5 +75,4 @@ public class ParameterReference extends Parameter {
   }
 
   private String map;
-
 }

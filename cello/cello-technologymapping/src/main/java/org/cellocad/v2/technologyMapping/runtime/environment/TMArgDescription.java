@@ -26,9 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgDescription;
  * for the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class TMArgDescription extends StageArgDescription {
-
-}
+public class TMArgDescription extends StageArgDescription {}

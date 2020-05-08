@@ -26,7 +26,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * Stats from the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSResultsStats {
@@ -44,23 +43,34 @@ public class LSResultsStats {
     rtn += LSResultsStats.S_HEADER + Utils.getNewLine();
     rtn += "Netlist name: " + myNetlist.getName() + Utils.getNewLine();
     rtn += LSResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Total number of inputs: " + LSResultsUtils.getAllInputNodes(myNetlist).size()
-        + Utils.getNewLine();
-    rtn += "Number of primary inputs: " + LSResultsUtils.getPrimaryInputNodes(myNetlist).size()
-        + Utils.getNewLine();
+    rtn +=
+        "Total number of inputs: "
+            + LSResultsUtils.getAllInputNodes(myNetlist).size()
+            + Utils.getNewLine();
+    rtn +=
+        "Number of primary inputs: "
+            + LSResultsUtils.getPrimaryInputNodes(myNetlist).size()
+            + Utils.getNewLine();
     rtn +=
         "Number of inputs: " + LSResultsUtils.getInputNodes(myNetlist).size() + Utils.getNewLine();
     rtn += LSResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Total number of outputs: " + LSResultsUtils.getAllOutputNodes(myNetlist).size()
-        + Utils.getNewLine();
-    rtn += "Number of primary outputs: " + LSResultsUtils.getPrimaryOutputNodes(myNetlist).size()
-        + Utils.getNewLine();
-    rtn += "Number of outputs: " + LSResultsUtils.getOutputNodes(myNetlist).size()
-        + Utils.getNewLine();
+    rtn +=
+        "Total number of outputs: "
+            + LSResultsUtils.getAllOutputNodes(myNetlist).size()
+            + Utils.getNewLine();
+    rtn +=
+        "Number of primary outputs: "
+            + LSResultsUtils.getPrimaryOutputNodes(myNetlist).size()
+            + Utils.getNewLine();
+    rtn +=
+        "Number of outputs: "
+            + LSResultsUtils.getOutputNodes(myNetlist).size()
+            + Utils.getNewLine();
     rtn += LSResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Number of gates : "
-        + (myNetlist.getNumVertex() - LSResultsUtils.getAllInputOutputNodes(myNetlist).size())
-        + Utils.getNewLine();
+    rtn +=
+        "Number of gates : "
+            + (myNetlist.getNumVertex() - LSResultsUtils.getAllInputOutputNodes(myNetlist).size())
+            + Utils.getNewLine();
     final String[] validnodes = LSResultsUtils.ValidNodeTypes;
     for (int i = 0; i < validnodes.length; i++) {
       final String nodeTypeName = validnodes[i];
@@ -74,5 +84,4 @@ public class LSResultsStats {
   }
 
   private static final String S_HEADER = "--------------------------------------------";
-
 }

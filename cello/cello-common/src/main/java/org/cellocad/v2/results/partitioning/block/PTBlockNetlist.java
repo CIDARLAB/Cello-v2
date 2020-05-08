@@ -39,7 +39,6 @@ import org.cellocad.v2.results.partitioning.PTResults;
  * The PTResults class is class containing the results assigned by the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTBlockNetlist {
@@ -82,8 +81,8 @@ public class PTBlockNetlist {
     }
   }
 
-  private String getEdgeName(final NetlistEdge edge, final NetlistNode srcNode,
-      final NetlistNode dstNode) {
+  private String getEdgeName(
+      final NetlistEdge edge, final NetlistNode srcNode, final NetlistNode dstNode) {
     String rtn = "";
     rtn += srcNode.getName();
     rtn += PTBlockNetlist.S_UNDERSCORE;
@@ -97,8 +96,8 @@ public class PTBlockNetlist {
     return rtn;
   }
 
-  private String getVINodeName(final NetlistEdge edge, final NetlistNode srcNode,
-      final NetlistNode dstNode) {
+  private String getVINodeName(
+      final NetlistEdge edge, final NetlistNode srcNode, final NetlistNode dstNode) {
     String rtn = "";
     rtn += PTBlockNetlist.S_INPUT;
     rtn += PTBlockNetlist.S_UNDERSCORE;
@@ -110,8 +109,8 @@ public class PTBlockNetlist {
     return rtn;
   }
 
-  private String getVONodeName(final NetlistEdge edge, final NetlistNode srcNode,
-      final NetlistNode dstNode) {
+  private String getVONodeName(
+      final NetlistEdge edge, final NetlistNode srcNode, final NetlistNode dstNode) {
     String rtn = "";
     rtn += PTBlockNetlist.S_OUTPUT;
     rtn += PTBlockNetlist.S_UNDERSCORE;
@@ -141,7 +140,7 @@ public class PTBlockNetlist {
 
   /**
    * Get the matching virtual I/O node name.
-   * 
+   *
    * @param name The original name.
    * @return The matching virtual I/O node name.
    */
@@ -664,7 +663,7 @@ public class PTBlockNetlist {
 
   /**
    * Sets the netlist of this instance.
-   * 
+   *
    * @param netlist The netlist.
    */
   public void setNetlist(final Netlist netlist) {
@@ -744,7 +743,7 @@ public class PTBlockNetlist {
 
   /**
    * Get the netlist at the specified index.
-   * 
+   *
    * @param index An index.
    * @return The netlist at the specified index.
    */
@@ -771,7 +770,7 @@ public class PTBlockNetlist {
 
   /**
    * Get the netlist FO at the given index.
-   * 
+   *
    * @param index An index.
    * @return The netlist FO at the given index.
    */
@@ -802,5 +801,4 @@ public class PTBlockNetlist {
   private static String S_INPUT = "INPUT";
   private static String S_TO = "TO";
   private static String S_FROM = "FROM";
-
 }

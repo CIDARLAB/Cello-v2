@@ -28,17 +28,13 @@ import org.cellocad.v2.export.algorithm.data.EXNetlistNodeData;
  * class of the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class SBOLNetlistNodeData extends EXNetlistNodeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link SBOLNetlistNodeData}.
-   */
+  /** Initializes a newly created {@link SBOLNetlistNodeData}. */
   public SBOLNetlistNodeData() {
     super();
     setDefault();
@@ -49,12 +45,9 @@ public class SBOLNetlistNodeData extends EXNetlistNodeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

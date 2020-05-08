@@ -37,7 +37,6 @@ import org.cellocad.v2.partitioning.profile.CapacityProfile;
  * A partition block.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class Block extends CapacityCollection<BlockProfile> {
@@ -49,8 +48,8 @@ public class Block extends CapacityCollection<BlockProfile> {
     inoutConnectionsCapacity = new CObjectCollection<>();
   }
 
-  private void initOutputConnectionsCapacity(final BlockProfile bp,
-      final CObjectCollection<Capacity> ccp) {
+  private void initOutputConnectionsCapacity(
+      final BlockProfile bp, final CObjectCollection<Capacity> ccp) {
     Utils.isNullRuntimeException(ccp, "CapacityCollectionProfile");
     Utils.isNullRuntimeException(bp, "BlockProfile");
     init();
@@ -64,8 +63,8 @@ public class Block extends CapacityCollection<BlockProfile> {
     }
   }
 
-  private void initInputConnectionsCapacity(final BlockProfile bp,
-      final CObjectCollection<Capacity> ccp) {
+  private void initInputConnectionsCapacity(
+      final BlockProfile bp, final CObjectCollection<Capacity> ccp) {
     Utils.isNullRuntimeException(ccp, "CapacityCollectionProfile");
     Utils.isNullRuntimeException(bp, "BlockProfile");
     init();
@@ -79,8 +78,8 @@ public class Block extends CapacityCollection<BlockProfile> {
     }
   }
 
-  private void initInOutConnectionsCapacity(final BlockProfile bp,
-      final CObjectCollection<Capacity> ccp) {
+  private void initInOutConnectionsCapacity(
+      final BlockProfile bp, final CObjectCollection<Capacity> ccp) {
     Utils.isNullRuntimeException(ccp, "CapacityCollectionProfile");
     Utils.isNullRuntimeException(bp, "BlockProfile");
     init();
@@ -96,12 +95,14 @@ public class Block extends CapacityCollection<BlockProfile> {
 
   /**
    * Initializes a newly created {@link Block} object.
-   * 
-   * @param bp            A {@link BlockProfile}.
-   * @param capacity      A collection of {@link Capacity} objects.
+   *
+   * @param bp A {@link BlockProfile}.
+   * @param capacity A collection of {@link Capacity} objects.
    * @param capacityUnits A collection of {@link CObject} objects corresponding to capacity units.
    */
-  public Block(final BlockProfile bp, final CObjectCollection<Capacity> capacity,
+  public Block(
+      final BlockProfile bp,
+      final CObjectCollection<Capacity> capacity,
       final CObjectCollection<CObject> capacityUnits) {
     super(bp, capacity);
     init();
@@ -124,7 +125,7 @@ public class Block extends CapacityCollection<BlockProfile> {
    */
   /**
    * Whether the block can fit.
-   * 
+   *
    * @return A boolean representing wether the block can fit.
    */
   public boolean canFit() {
@@ -146,7 +147,7 @@ public class Block extends CapacityCollection<BlockProfile> {
 
   /**
    * Whether the block is overflow.
-   * 
+   *
    * @return A boolean representing wether the block is overflow.
    */
   public boolean isOverflow() {
@@ -168,7 +169,7 @@ public class Block extends CapacityCollection<BlockProfile> {
 
   /**
    * Wheter the block is underflow.
-   * 
+   *
    * @return A boolean representing wether the block is underflow.
    */
   public boolean isUnderflow() {
@@ -193,7 +194,7 @@ public class Block extends CapacityCollection<BlockProfile> {
    */
   /**
    * Add the given {@link PTNetlistNode} object to this instance.
-   * 
+   *
    * @param node A {@link PTNetlistNode} object.
    */
   public void addPNode(final PTNetlistNode node) {
@@ -205,7 +206,7 @@ public class Block extends CapacityCollection<BlockProfile> {
 
   /**
    * Remove the given {@link PTNetlistNode} object to this instance.
-   * 
+   *
    * @param node A {@link PTNetlistNode} object.
    */
   public void removePNode(final PTNetlistNode node) {
@@ -217,7 +218,7 @@ public class Block extends CapacityCollection<BlockProfile> {
 
   /**
    * Get the {@link PTNetlistNode} object at the specified index if it exists, otherwise null.
-   * 
+   *
    * @param index The index.
    * @return The {@link PTNetlistNode} object at the specified index if it exists, otherwise null.
    */
@@ -244,7 +245,7 @@ public class Block extends CapacityCollection<BlockProfile> {
    */
   /**
    * Converts this instance into a {@link PTNetlist} object.
-   * 
+   *
    * @return The {@link PTNetlist} object corresponding to this instance.
    */
   public PTNetlist convertToPTNetlist() {
@@ -393,8 +394,8 @@ public class Block extends CapacityCollection<BlockProfile> {
    *
    * @param index The index of the {@link Capacity} object to return.
    * @return If the index is within the bounds (0 <= bounds <
-   *         this.getNumOutputConnectionsCapacity()), return the Capacity at the specified position
-   *         in <i>outputConnectionsCapacity</i>, otherwise null.
+   *     this.getNumOutputConnectionsCapacity()), return the Capacity at the specified position in
+   *     <i>outputConnectionsCapacity</i>, otherwise null.
    */
   public Capacity getOutputConnectionsCapacityAtIdx(final int index) {
     Capacity rtn = null;
@@ -441,8 +442,8 @@ public class Block extends CapacityCollection<BlockProfile> {
    *
    * @param index The index of the {@link Capacity} object to return.
    * @return If the index is within the bounds (0 <= bounds <
-   *         this.getNumInputConnectionsCapacity()), return the Capacity at the specified position
-   *         in <i>inputConnectionsCapacity</i>, otherwise null.
+   *     this.getNumInputConnectionsCapacity()), return the Capacity at the specified position in
+   *     <i>inputConnectionsCapacity</i>, otherwise null.
    */
   public Capacity getInputConnectionsCapacityAtIdx(final int index) {
     Capacity rtn = null;
@@ -489,8 +490,8 @@ public class Block extends CapacityCollection<BlockProfile> {
    *
    * @param index The index of the {@link Capacity} object to return.
    * @return If the index is within the bounds (0 <= bounds <
-   *         this.getNumInOutConnectionsCapacity()), return the Capacity at the specified position
-   *         in <i>inoutConnectionsCapacity</i>, otherwise null.
+   *     this.getNumInOutConnectionsCapacity()), return the Capacity at the specified position in
+   *     <i>inoutConnectionsCapacity</i>, otherwise null.
    */
   public Capacity getInOutConnectionsCapacityAtIdx(final int index) {
     Capacity rtn = null;
@@ -523,5 +524,4 @@ public class Block extends CapacityCollection<BlockProfile> {
   private CObjectCollection<Capacity> outputConnectionsCapacity;
   private CObjectCollection<Capacity> inputConnectionsCapacity;
   private CObjectCollection<Capacity> inoutConnectionsCapacity;
-
 }

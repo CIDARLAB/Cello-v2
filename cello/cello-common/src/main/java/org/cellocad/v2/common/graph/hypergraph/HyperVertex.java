@@ -23,14 +23,11 @@ package org.cellocad.v2.common.graph.hypergraph;
  * The HyperVertex class is a class representing the node(s) of a <i>HyperGraph</i>.
  *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public class HyperVertex extends HyperVertexTemplate<HyperEdge> {
 
-  /**
-   * Initializes a newly created {@link HyperVertex}.
-   */
+  /** Initializes a newly created {@link HyperVertex}. */
   public HyperVertex() {
     super();
   }
@@ -77,5 +74,4 @@ public class HyperVertex extends HyperVertexTemplate<HyperEdge> {
     rtn = new HyperEdge(e);
     return rtn;
   }
-
 }

@@ -33,21 +33,20 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
  * Utility methods for computing the scores of netlists.
  *
  * @author Timothy Jones
- *
  * @date 2018-07-16
  */
 public class ScoreUtils {
 
   /**
    * Compute the score of a netlist using its logic and activity evaluations.
-   * 
+   *
    * @param netlist A netlist.
-   * @param lsle    The logic evaluation of the netlist.
-   * @param tmae    The activity evaluation of the netlist.
+   * @param lsle The logic evaluation of the netlist.
+   * @param tmae The activity evaluation of the netlist.
    * @return
    */
-  public static Double score(final Netlist netlist, final LSLogicEvaluation lsle,
-      final TMActivityEvaluation tmae) {
+  public static Double score(
+      final Netlist netlist, final LSLogicEvaluation lsle, final TMActivityEvaluation tmae) {
     if (!netlist.isValid()) {
       throw new RuntimeException("netlist is not valid!");
     }
@@ -64,8 +63,8 @@ public class ScoreUtils {
     return rtn;
   }
 
-  private static Double getOnOffRatio(final NetlistNode node, final LSLogicEvaluation lsle,
-      final TMActivityEvaluation tmae) {
+  private static Double getOnOffRatio(
+      final NetlistNode node, final LSLogicEvaluation lsle, final TMActivityEvaluation tmae) {
     Double rtn = null;
 
     Double on = Double.MAX_VALUE;
@@ -91,5 +90,4 @@ public class ScoreUtils {
 
     return rtn;
   }
-
 }

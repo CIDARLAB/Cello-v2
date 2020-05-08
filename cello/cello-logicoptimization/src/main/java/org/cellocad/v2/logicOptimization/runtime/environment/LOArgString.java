@@ -25,11 +25,7 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
  * The LOArgString class is class containing the string referencing the command line argument(s) for
  * the <i>logicOptimization</i> stage.
  *
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class LOArgString extends StageArgString {
-
-}
+public class LOArgString extends StageArgString {}

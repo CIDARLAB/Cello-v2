@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistData;
  * The data for a netlist used within the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class CLNetlistData extends NetlistData {
-
-}
+public abstract class CLNetlistData extends NetlistData {}

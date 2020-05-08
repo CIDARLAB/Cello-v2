@@ -25,21 +25,22 @@ import org.json.simple.JSONObject;
 
 /**
  * An inter block profile.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 6, 2017
  */
 public class InterBlockProfile extends CapacityCollectionProfile {
 
   /**
    * Initializes a newly created {@link InterBlockProfile}.
-   * 
-   * @param jsonObj  The JSON data associated with the {@link InterBlockProfile}.
-   * @param blocks   A collection of {@link BlockProfile} objects.
+   *
+   * @param jsonObj The JSON data associated with the {@link InterBlockProfile}.
+   * @param blocks A collection of {@link BlockProfile} objects.
    * @param capacity A collection of {@link CapacityProfile} objects.
    */
-  public InterBlockProfile(final JSONObject jsonObj, final CObjectCollection<BlockProfile> blocks,
+  public InterBlockProfile(
+      final JSONObject jsonObj,
+      final CObjectCollection<BlockProfile> blocks,
       final CObjectCollection<CapacityProfile> capacity) {
     super(jsonObj, capacity);
     // parse
@@ -62,8 +63,8 @@ public class InterBlockProfile extends CapacityCollectionProfile {
     }
   }
 
-  private void parseDestination(final JSONObject jsonObj,
-      final CObjectCollection<BlockProfile> blocks) {
+  private void parseDestination(
+      final JSONObject jsonObj, final CObjectCollection<BlockProfile> blocks) {
     final String destinationName = ProfileUtils.getString(jsonObj, "destination");
     if (destinationName != null) {
       final BlockProfile destination = blocks.findCObjectByName(destinationName);
@@ -161,5 +162,4 @@ public class InterBlockProfile extends CapacityCollectionProfile {
 
   private BlockProfile source;
   private BlockProfile destination;
-
 }

@@ -36,7 +36,6 @@ import org.synbiohub.frontend.SynBioHubFrontend;
  * Utility methods for the <i>Sbol</i> instances.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class SBOLUtils {
@@ -45,13 +44,14 @@ public class SBOLUtils {
    * Add a component definition of {@code part} to {@code document}. Use SynBioHub definition if
    * available, add sequences if found.
    *
-   * @param part     The part to add.
+   * @param part The part to add.
    * @param document The {@link SBOLDocument} to add the {@link ComponentDefinition}.
-   * @throws SynBioHubException      unable to fetch SBOL from SynBioHub for {@code part}.
+   * @throws SynBioHubException unable to fetch SBOL from SynBioHub for {@code part}.
    * @throws SBOLValidationException unable to create component definition.
    */
-  public static ComponentDefinition addPartDefinition(final Part part, final SBOLDocument document,
-      final SynBioHubFrontend sbh) throws SynBioHubException, SBOLValidationException {
+  public static ComponentDefinition addPartDefinition(
+      final Part part, final SBOLDocument document, final SynBioHubFrontend sbh)
+      throws SynBioHubException, SBOLValidationException {
     ComponentDefinition rtn = null;
     final URI uri = part.getUri();
     if (uri != null) {
@@ -78,8 +78,9 @@ public class SBOLUtils {
     } else {
       rtn = document.createComponentDefinition(part.getName(), "1", ComponentDefinition.DNA_REGION);
       part.setUri(rtn.getIdentity());
-      final Sequence sequence = document.createSequence(part.getName() + "_sequence",
-          SBOLDataUtils.getDnaSequence(part), Sequence.IUPAC_DNA);
+      final Sequence sequence =
+          document.createSequence(
+              part.getName() + "_sequence", SBOLDataUtils.getDnaSequence(part), Sequence.IUPAC_DNA);
       rtn.addSequence(sequence);
       if (part.getPartType().equals("promoter")) {
         rtn.addRole(SequenceOntology.PROMOTER);
@@ -108,13 +109,13 @@ public class SBOLUtils {
    * Add a component definition of <i>device</i> to <i>document</i>. Use SynBioHub definition if
    * available, add sequences if found.
    *
-   * @param device   The device to add.
+   * @param device The device to add.
    * @param document The <i>SBOLDocument</i> to add the <i>ComponentDefinition</i>.
-   * @throws SynBioHubException      unable to fetch SBOL from SynBioHub for <i>device</i>
+   * @throws SynBioHubException unable to fetch SBOL from SynBioHub for <i>device</i>
    * @throws SBOLValidationException unable to create component definition.
    */
-  public static ComponentDefinition addDeviceDefinition(final AssignableDevice device,
-      final SBOLDocument document, final SynBioHubFrontend sbh)
+  public static ComponentDefinition addDeviceDefinition(
+      final AssignableDevice device, final SBOLDocument document, final SynBioHubFrontend sbh)
       throws SynBioHubException, SBOLValidationException {
     final URI uri = device.getUri();
     ComponentDefinition rtn = null;
@@ -144,8 +145,11 @@ public class SBOLUtils {
       rtn =
           document.createComponentDefinition(device.getName(), "1", ComponentDefinition.DNA_REGION);
       device.setUri(rtn.getIdentity());
-      final Sequence sequence = document.createSequence(device.getName() + "_sequence",
-          SBOLDataUtils.getDnaSequence(device), Sequence.IUPAC_DNA);
+      final Sequence sequence =
+          document.createSequence(
+              device.getName() + "_sequence",
+              SBOLDataUtils.getDnaSequence(device),
+              Sequence.IUPAC_DNA);
       rtn.addSequence(sequence);
       // TODO add part definitions
     }
@@ -153,8 +157,9 @@ public class SBOLUtils {
     return rtn;
   }
 
-  protected static void addChildCDsAndSequences(final ComponentDefinition cd,
-      final SBOLDocument document) throws SynBioHubException, SBOLValidationException {
+  protected static void addChildCDsAndSequences(
+      final ComponentDefinition cd, final SBOLDocument document)
+      throws SynBioHubException, SBOLValidationException {
     final Set<org.sbolstandard.core2.Component> components = cd.getComponents();
     if (components != null) {
       for (final org.sbolstandard.core2.Component c : components) {
@@ -170,5 +175,4 @@ public class SBOLUtils {
       }
     }
   }
-
 }

@@ -38,7 +38,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSResultsUtils {
@@ -48,7 +47,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is a Primary, false
-   *         otherwise.
+   *     otherwise.
    */
   public static boolean isPrimary(final NetlistNode node) {
     boolean rtn = false;
@@ -62,7 +61,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is a PrimaryInput,
-   *         false otherwise.
+   *     false otherwise.
    */
   public static boolean isPrimaryInput(final NetlistNode node) {
     boolean rtn = false;
@@ -75,7 +74,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is a PrimaryOutput,
-   *         false otherwise.
+   *     false otherwise.
    */
   public static boolean isPrimaryOutput(final NetlistNode node) {
     boolean rtn = false;
@@ -88,7 +87,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is an Input, false
-   *         otherwise.
+   *     otherwise.
    */
   public static boolean isInput(final NetlistNode node) {
     boolean rtn = false;
@@ -102,7 +101,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is an
-   *         Input/PrimaryInput, false otherwise.
+   *     Input/PrimaryInput, false otherwise.
    */
   public static boolean isAllInput(final NetlistNode node) {
     boolean rtn = false;
@@ -116,7 +115,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is an Output, false
-   *         otherwise.
+   *     otherwise.
    */
   public static boolean isOutput(final NetlistNode node) {
     boolean rtn = false;
@@ -130,7 +129,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is an
-   *         Output/PrimaryOutput, false otherwise.
+   *     Output/PrimaryOutput, false otherwise.
    */
   public static boolean isAllOutput(final NetlistNode node) {
     boolean rtn = false;
@@ -144,7 +143,7 @@ public class LSResultsUtils {
    *
    * @param node The {@link NetlistNode}.
    * @return True if the {@link NetlistNode} defined by parameter {@code node} is an Input/Output,
-   *         false otherwise.
+   *     false otherwise.
    */
   public static boolean isInputOutput(final NetlistNode node) {
     boolean rtn = false;
@@ -157,13 +156,13 @@ public class LSResultsUtils {
    * Returns a {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
    * {@code netlist} with a NodeType defined by {@code nodeType}.
    *
-   * @param netlist  The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param nodeType The {@link NodeType}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a NodeType defined by {@code nodeType}.
+   *     {@code netlist} with a NodeType defined by {@code nodeType}.
    */
-  public static CObjectCollection<NetlistNode> getNodeType(final Netlist netlist,
-      final String nodeType) {
+  public static CObjectCollection<NetlistNode> getNodeType(
+      final Netlist netlist, final String nodeType) {
     CObjectCollection<NetlistNode> rtn = null;
     rtn = new CObjectCollection<>();
     for (int i = 0; i < netlist.getNumVertex(); i++) {
@@ -181,7 +180,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Input NodeType.
+   *     {@code netlist} with a Primary Input NodeType.
    */
   public static CObjectCollection<NetlistNode> getPrimaryInputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -195,7 +194,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Output NodeType.
+   *     {@code netlist} with a Primary Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getPrimaryOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -209,7 +208,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Input/Output NodeType.
+   *     {@code netlist} with a Primary Input/Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getPrimaryInputOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -224,7 +223,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with an Input NodeType.
+   *     {@code netlist} with an Input NodeType.
    */
   public static CObjectCollection<NetlistNode> getInputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -238,7 +237,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with an Output NodeType.
+   *     {@code netlist} with an Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -252,7 +251,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with an Input/Output NodeType.
+   *     {@code netlist} with an Input/Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getInputOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -267,7 +266,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Input or Input NodeType.
+   *     {@code netlist} with a Primary Input or Input NodeType.
    */
   public static CObjectCollection<NetlistNode> getAllInputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -282,7 +281,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Output or Output NodeType.
+   *     {@code netlist} with a Primary Output or Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getAllOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -297,7 +296,7 @@ public class LSResultsUtils {
    *
    * @param netlist The {@link Netlist}.
    * @return A {@link CObjectCollection} of {@link NetlistNode} from the {@link Netlist} defined by
-   *         {@code netlist} with a Primary Input, Input, Primary Output or Output NodeType.
+   *     {@code netlist} with a Primary Input, Input, Primary Output or Output NodeType.
    */
   public static CObjectCollection<NetlistNode> getAllInputOutputNodes(final Netlist netlist) {
     CObjectCollection<NetlistNode> rtn = null;
@@ -306,13 +305,20 @@ public class LSResultsUtils {
     return rtn;
   }
 
-  /**
-   * ValidNodeTypes: Array of Strings containing Valid NodeType.
-   */
-  public static final String[] ValidNodeTypes =
-      {LSResults.S_PRIMARYINPUT, LSResults.S_PRIMARYOUTPUT, LSResults.S_INPUT, LSResults.S_OUTPUT,
-          LSResults.S_NOT, LSResults.S_AND, LSResults.S_NAND, LSResults.S_OR, LSResults.S_NOR,
-          LSResults.S_XOR, LSResults.S_XNOR};
+  /** ValidNodeTypes: Array of Strings containing Valid NodeType. */
+  public static final String[] ValidNodeTypes = {
+    LSResults.S_PRIMARYINPUT,
+    LSResults.S_PRIMARYOUTPUT,
+    LSResults.S_INPUT,
+    LSResults.S_OUTPUT,
+    LSResults.S_NOT,
+    LSResults.S_AND,
+    LSResults.S_NAND,
+    LSResults.S_OR,
+    LSResults.S_NOR,
+    LSResults.S_XOR,
+    LSResults.S_XNOR
+  };
 
   /**
    * Returns a boolean flag signifying that the parameter {@code nodeType} is a valid NodeType.
@@ -328,15 +334,15 @@ public class LSResultsUtils {
   }
 
   /**
-   * Writes the logic evaluation defined by parameter {@code lsle} to file defined by
-   * {@code filename}.
+   * Writes the logic evaluation defined by parameter {@code lsle} to file defined by {@code
+   * filename}.
    *
-   * @param lsle     The logic evaluation.
+   * @param lsle The logic evaluation.
    * @param filename The file to write the activity evaluation.
    * @throws RuntimeException If any of the parameters are null.
    */
-  public static void writeCsvForLSLogicEvaluation(final LSLogicEvaluation lsle,
-      final String filename) {
+  public static void writeCsvForLSLogicEvaluation(
+      final LSLogicEvaluation lsle, final String filename) {
     Utils.isNullRuntimeException(lsle, "lsle");
     Utils.isNullRuntimeException(filename, "filename");
     try {
@@ -349,5 +355,4 @@ public class LSResultsUtils {
       e.printStackTrace();
     }
   }
-
 }

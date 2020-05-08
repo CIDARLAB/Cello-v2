@@ -45,14 +45,11 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxic
  * <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-01-29
  */
 public class TMToxicityEvaluation extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     toxicitytables = new HashMap<>();
   }
@@ -90,7 +87,7 @@ public class TMToxicityEvaluation extends CObject {
    * Evaluates the toxicity table for a node.
    *
    * @param node A node.
-   * @param ec   An evaluation context.
+   * @param ec An evaluation context.
    * @throws CelloException Unable to evaluate toxicity table.
    */
   private void evaluateToxicityTable(final NetlistNode node, final EvaluationContext ec)
@@ -101,8 +98,13 @@ public class TMToxicityEvaluation extends CObject {
       final State<NetlistNode> inputState = toxicityTable.getStateAtIdx(i);
       final Toxicity<NetlistNode> outputToxicity = toxicityTable.getToxicityOutput(inputState);
       ec.setState(inputState);
-      Double result = node.getResultNetlistNodeData().getDevice().getModel()
-          .getFunctionByName("toxicity").evaluate(ec).doubleValue();
+      Double result =
+          node.getResultNetlistNodeData()
+              .getDevice()
+              .getModel()
+              .getFunctionByName("toxicity")
+              .evaluate(ec)
+              .doubleValue();
       if (result > TMToxicityEvaluation.D_MAXGROWTH) {
         result = TMToxicityEvaluation.D_MAXGROWTH;
       }
@@ -133,7 +135,7 @@ public class TMToxicityEvaluation extends CObject {
 
   /**
    * Gets the predicted relative growth of the organism at the given state.
-   * 
+   *
    * @param state A state.
    * @return The relative growth.
    */
@@ -167,7 +169,7 @@ public class TMToxicityEvaluation extends CObject {
 
   /**
    * Gets the minimum relative growth over all states of the circuit.
-   * 
+   *
    * @return
    */
   public Double getMinimumGrowth() {
@@ -248,7 +250,7 @@ public class TMToxicityEvaluation extends CObject {
    * delimiter equivalent to the parameter {@code delimiter}.
    *
    * @param delimiter The delimiter.
-   * @param os        The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeCSV(final String delimiter, final Writer os) throws IOException {
@@ -273,5 +275,4 @@ public class TMToxicityEvaluation extends CObject {
 
   private Map<NetlistNode, ToxicityTable<NetlistNode, NetlistNode>> toxicitytables;
   private TMActivityEvaluation tmae;
-
 }

@@ -46,7 +46,6 @@ import org.junit.Test;
  * Integration test for the {@link Eugene} algorithm using the Eco1C1G1T1 library.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-09
  */
 public class EugeneEco1C1G1T1IT {
@@ -55,9 +54,9 @@ public class EugeneEco1C1G1T1IT {
 
   /**
    * Environment setup for tests.
-   * 
+   *
    * @throws CelloException Unable to instantiate supporting classes.
-   * @throws IOException    Unable to read resources.
+   * @throws IOException Unable to read resources.
    */
   @BeforeClass
   public static void init() throws CelloException, IOException {
@@ -66,16 +65,22 @@ public class EugeneEco1C1G1T1IT {
     }
     final Path dir = Files.createTempDirectory("cello_");
     output = dir.toFile();
-    final String[] args = {"-" + ArgString.INPUTNETLIST,
-        Utils.getResource("and_Eco1C1G1T1_TM.netlist.json").getFile(),
-        "-" + ArgString.USERCONSTRAINTSFILE,
-        Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-        "-" + ArgString.INPUTSENSORFILE,
-        Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
-        "-" + ArgString.OUTPUTDEVICEFILE,
-        Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
-        "-" + StageArgString.ALGORITHMNAME, "Eugene", "-" + ArgString.OUTPUTDIR, dir.toString(),
-        "-" + ArgString.PYTHONENV, "python"};
+    final String[] args = {
+      "-" + ArgString.INPUTNETLIST,
+      Utils.getResource("and_Eco1C1G1T1_TM.netlist.json").getFile(),
+      "-" + ArgString.USERCONSTRAINTSFILE,
+      Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+      "-" + ArgString.INPUTSENSORFILE,
+      Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+      "-" + ArgString.OUTPUTDEVICEFILE,
+      Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
+      "-" + StageArgString.ALGORITHMNAME,
+      "Eugene",
+      "-" + ArgString.OUTPUTDIR,
+      dir.toString(),
+      "-" + ArgString.PYTHONENV,
+      "python"
+    };
     final PLRuntimeEnv runEnv = new PLRuntimeEnv(args);
     runEnv.setName("placing");
     // InputFile
@@ -97,8 +102,12 @@ public class EugeneEco1C1G1T1IT {
       stage.setName(stageName);
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     if (!td.isValid()) {
       throw new CelloException("TargetData is invalid!");
     }
@@ -124,5 +133,4 @@ public class EugeneEco1C1G1T1IT {
 
   private static PLRuntimeObject pl;
   private static File output;
-
 }

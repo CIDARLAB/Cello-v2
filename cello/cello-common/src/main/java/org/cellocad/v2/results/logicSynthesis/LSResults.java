@@ -26,90 +26,50 @@ package org.cellocad.v2.results.logicSynthesis;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class LSResults {
 
-  /**
-   * Default.
-   */
+  /** Default. */
   public static final String S_DEFAULT = "";
-  /**
-   * Primary input.
-   */
+  /** Primary input. */
   public static final String S_PRIMARYINPUT = "PRIMARY_INPUT";
-  /**
-   * Primary output.
-   */
+  /** Primary output. */
   public static final String S_PRIMARYOUTPUT = "PRIMARY_OUTPUT";
-  /**
-   * Input.
-   */
+  /** Input. */
   public static final String S_INPUT = "INPUT";
-  /**
-   * Output.
-   */
+  /** Output. */
   public static final String S_OUTPUT = "OUTPUT";
-  /**
-   * NOT.
-   */
+  /** NOT. */
   public static final String S_NOT = "NOT";
-  /**
-   * AND.
-   */
+  /** AND. */
   public static final String S_AND = "AND";
-  /**
-   * NAND.
-   */
+  /** NAND. */
   public static final String S_NAND = "NAND";
-  /**
-   * OR.
-   */
+  /** OR. */
   public static final String S_OR = "OR";
-  /**
-   * NOR.
-   */
+  /** NOR. */
   public static final String S_NOR = "NOR";
-  /**
-   * XOR.
-   */
+  /** XOR. */
   public static final String S_XOR = "XOR";
-  /**
-   * XNOR.
-   */
+  /** XNOR. */
   public static final String S_XNOR = "XNOR";
-  /**
-   * ANDNOT.
-   */
+  /** ANDNOT. */
   public static final String S_ANDNOT = "ANDNOT";
-  /**
-   * ORNOT.
-   */
+  /** ORNOT. */
   public static final String S_ORNOT = "ORNOT";
-  /**
-   * MUX.
-   */
+  /** MUX. */
   public static final String S_MUX = "MUX";
-  /**
-   * AOI3.
-   */
+  /** AOI3. */
   public static final String S_AOI3 = "AOI3";
-  /**
-   * OAI3.
-   */
+  /** OAI3. */
   public static final String S_OAI3 = "OAI3";
-  /**
-   * AOI4.
-   */
+  /** AOI4. */
   public static final String S_AOI4 = "AOI4";
-  /**
-   * OAI4.
-   */
+  /** OAI4. */
   public static final String S_OAI4 = "OAI4";
   /*
    * BUF.
    */
   public static final String S_BUF = "BUF";
-
 }

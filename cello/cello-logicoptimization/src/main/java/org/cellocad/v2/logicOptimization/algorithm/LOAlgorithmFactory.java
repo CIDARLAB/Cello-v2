@@ -26,7 +26,6 @@ import org.cellocad.v2.logicOptimization.algorithm.maxFanout.maxFanout;
  * The LOAlgorithmFactory is an algorithm factory for the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LOAlgorithmFactory extends AlgorithmFactory<LOAlgorithm> {
@@ -37,7 +36,7 @@ public class LOAlgorithmFactory extends AlgorithmFactory<LOAlgorithm> {
    *
    * @param name string used for searching the LOAlgorithmFactory.
    * @return The {@link LOAlgorithm} instance if the {@link LOAlgorithm} type exists within the
-   *         {@link LOAlgorithmFactory}, otherwise null.
+   *     {@link LOAlgorithmFactory}, otherwise null.
    */
   @Override
   protected LOAlgorithm getAlgorithm(final String name) {
@@ -47,5 +46,4 @@ public class LOAlgorithmFactory extends AlgorithmFactory<LOAlgorithm> {
     }
     return rtn;
   }
-
 }

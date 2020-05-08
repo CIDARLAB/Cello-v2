@@ -26,15 +26,14 @@ import org.json.simple.JSONObject;
 
 /**
  * A profile of a partition block.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class BlockProfile extends CapacityCollectionProfile {
 
-  private void parseOutputConnectionsCapacity(final JSONObject jsonObj,
-      final CObjectCollection<CapacityProfile> capacities) {
+  private void parseOutputConnectionsCapacity(
+      final JSONObject jsonObj, final CObjectCollection<CapacityProfile> capacities) {
     // Capacity
     final JSONArray jsonArr = (JSONArray) jsonObj.get("output_connections_capacity");
     if (jsonArr != null) {
@@ -53,8 +52,8 @@ public class BlockProfile extends CapacityCollectionProfile {
     }
   }
 
-  private void parseInputConnectionsCapacity(final JSONObject jsonObj,
-      final CObjectCollection<CapacityProfile> capacities) {
+  private void parseInputConnectionsCapacity(
+      final JSONObject jsonObj, final CObjectCollection<CapacityProfile> capacities) {
     // Capacity
     final JSONArray jsonArr = (JSONArray) jsonObj.get("input_connections_capacity");
     if (jsonArr != null) {
@@ -73,8 +72,8 @@ public class BlockProfile extends CapacityCollectionProfile {
     }
   }
 
-  private void parseInOutConnectionsCapacity(final JSONObject jsonObj,
-      final CObjectCollection<CapacityProfile> capacities) {
+  private void parseInOutConnectionsCapacity(
+      final JSONObject jsonObj, final CObjectCollection<CapacityProfile> capacities) {
     // Capacity
     final JSONArray jsonArr = (JSONArray) jsonObj.get("inout_connections_capacity");
     if (jsonArr != null) {
@@ -105,8 +104,8 @@ public class BlockProfile extends CapacityCollectionProfile {
 
   /**
    * Initializes a newly created {@link BlockProfile} object.
-   * 
-   * @param jsonObj  The {@link JSONObject} corresponding to the block profile.
+   *
+   * @param jsonObj The {@link JSONObject} corresponding to the block profile.
    * @param capacity A collection of {@link CapacityProfile} objects.
    */
   public BlockProfile(final JSONObject jsonObj, final CObjectCollection<CapacityProfile> capacity) {
@@ -121,8 +120,8 @@ public class BlockProfile extends CapacityCollectionProfile {
    * Input
    */
   /**
-   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to
-   * {@code inputConnectionsCapacity}.
+   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to {@code
+   * inputConnectionsCapacity}.
    *
    * @param c A {@link CapacityProfile} object.
    */
@@ -133,14 +132,13 @@ public class BlockProfile extends CapacityCollectionProfile {
   }
 
   /**
-   * Returns the {@link CapacityProfile} object at the specified position in
-   * {@code inputConnectionsCapacity}.
+   * Returns the {@link CapacityProfile} object at the specified position in {@code
+   * inputConnectionsCapacity}.
    *
    * @param index The index of the {@link CapacityProfile} object to return.
-   * @return If the index is within the bounds
-   *         {@code (0 <= bounds < this.getNumInputConnectionsCapacity())}, return the
-   *         {@link CapacityProfile} object at the specified position in
-   *         {@code inputConnectionsCapacity}, otherwise null.
+   * @return If the index is within the bounds {@code (0 <= bounds <
+   *     this.getNumInputConnectionsCapacity())}, return the {@link CapacityProfile} object at the
+   *     specified position in {@code inputConnectionsCapacity}, otherwise null.
    */
   public CapacityProfile getInputConnectionsCapacityAtIdx(final int index) {
     CapacityProfile rtn = null;
@@ -174,8 +172,8 @@ public class BlockProfile extends CapacityCollectionProfile {
    * Output
    */
   /**
-   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to
-   * {@code outputConnectionsCapacity}.
+   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to {@code
+   * outputConnectionsCapacity}.
    *
    * @param c A {@link CapacityProfile} object.
    */
@@ -186,14 +184,13 @@ public class BlockProfile extends CapacityCollectionProfile {
   }
 
   /**
-   * Returns the {@link CapacityProfile} object at the specified position in
-   * {@code outputConnectionsCapacity}.
+   * Returns the {@link CapacityProfile} object at the specified position in {@code
+   * outputConnectionsCapacity}.
    *
    * @param index The index of the {@link CapacityProfile} object to return.
-   * @return If the index is within the bounds
-   *         {@code (0 <= bounds < this.getNumOutputConnectionsCapacity())}, return the
-   *         {@link CapacityProfile} object at the specified position in
-   *         {@code outputConnectionsCapacity}, otherwise null.
+   * @return If the index is within the bounds {@code (0 <= bounds <
+   *     this.getNumOutputConnectionsCapacity())}, return the {@link CapacityProfile} object at the
+   *     specified position in {@code outputConnectionsCapacity}, otherwise null.
    */
   public CapacityProfile getOutputConnectionsCapacityAtIdx(final int index) {
     CapacityProfile rtn = null;
@@ -227,8 +224,8 @@ public class BlockProfile extends CapacityCollectionProfile {
    * InOut
    */
   /**
-   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to
-   * {@code inoutConnectionsCapacity}.
+   * Adds the {@link CapacityProfile} object defined by parameter {@code c} to {@code
+   * inoutConnectionsCapacity}.
    *
    * @param c A {@link CapacityProfile} object.
    */
@@ -239,14 +236,13 @@ public class BlockProfile extends CapacityCollectionProfile {
   }
 
   /**
-   * Returns the {@link CapacityProfile} object at the specified position in
-   * {@code inoutConnectionsCapacity}.
+   * Returns the {@link CapacityProfile} object at the specified position in {@code
+   * inoutConnectionsCapacity}.
    *
    * @param index The index of the {@link CapacityProfile} object to return.
-   * @return If the index is within the bounds
-   *         {@code (0 <= bounds < this.getNumInOutConnectionsCapacity())}, return the
-   *         {@link CapacityProfile} at the specified position in {@code inoutConnectionsCapacity},
-   *         otherwise null.
+   * @return If the index is within the bounds {@code (0 <= bounds <
+   *     this.getNumInOutConnectionsCapacity())}, return the {@link CapacityProfile} at the
+   *     specified position in {@code inoutConnectionsCapacity}, otherwise null.
    */
   public CapacityProfile getInOutConnectionsCapacityAtIdx(final int index) {
     CapacityProfile rtn = null;
@@ -275,5 +271,4 @@ public class BlockProfile extends CapacityCollectionProfile {
   }
 
   private CObjectCollection<CapacityProfile> inoutConnectionsCapacity;
-
 }

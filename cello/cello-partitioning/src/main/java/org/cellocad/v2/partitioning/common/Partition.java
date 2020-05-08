@@ -42,9 +42,8 @@ import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 
 /**
  * A partition.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 26, 2017
  */
 public class Partition extends DerivedProfile<PartitionProfile> {
@@ -173,7 +172,7 @@ public class Partition extends DerivedProfile<PartitionProfile> {
 
   /**
    * Gets the block at the specified index.
-   * 
+   *
    * @param index An index.
    * @return The block at the specified index.
    */
@@ -207,7 +206,7 @@ public class Partition extends DerivedProfile<PartitionProfile> {
 
   /**
    * Gets the {@link InterBlock} at the given index.
-   * 
+   *
    * @param index An index.
    * @return The {@link InterBlock} at the given index.
    */
@@ -229,7 +228,7 @@ public class Partition extends DerivedProfile<PartitionProfile> {
    */
   /**
    * Perform a set of moves.
-   * 
+   *
    * @param moves A list of moves.
    * @return Whether the moves were performed.
    */
@@ -309,7 +308,7 @@ public class Partition extends DerivedProfile<PartitionProfile> {
 
   /**
    * Write the DOT file to the writer.
-   * 
+   *
    * @param os A writer.
    * @throws IOException Unable to write.
    */
@@ -472,5 +471,4 @@ public class Partition extends DerivedProfile<PartitionProfile> {
   private List<InterBlock> interblocks;
   private CObjectCollection<CObject> interblockCapacityUnits;
   private CObjectCollection<Capacity> interblockCapacity;
-
 }

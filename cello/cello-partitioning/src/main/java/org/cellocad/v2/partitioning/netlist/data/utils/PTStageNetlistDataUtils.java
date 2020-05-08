@@ -27,7 +27,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTStageNetlistDataUtils {
@@ -41,5 +40,4 @@ public class PTStageNetlistDataUtils {
     final PTStageNetlistData data = new PTStageNetlistData();
     netlist.setStageNetlistData(data);
   }
-
 }

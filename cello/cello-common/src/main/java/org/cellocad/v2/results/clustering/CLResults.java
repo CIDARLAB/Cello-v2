@@ -23,14 +23,10 @@ package org.cellocad.v2.results.clustering;
  * The CLResults class is class containing the results assigned by the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLResults {
 
-  /**
-   * S_DEFAULT: value for CLResults.
-   */
+  /** S_DEFAULT: value for CLResults. */
   public static int S_DEFAULT = -1;
-
 }

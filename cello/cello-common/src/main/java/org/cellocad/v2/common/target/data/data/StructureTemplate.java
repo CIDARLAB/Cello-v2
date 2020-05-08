@@ -23,7 +23,6 @@ package org.cellocad.v2.common.target.data.data;
  * A template object in a structure.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public class StructureTemplate extends StructureObject {
@@ -62,5 +61,4 @@ public class StructureTemplate extends StructureObject {
   private Input input;
 
   public static final String S_PREFIX = "#";
-
 }

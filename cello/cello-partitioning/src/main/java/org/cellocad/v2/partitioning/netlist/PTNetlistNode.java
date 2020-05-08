@@ -29,9 +29,8 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
  * A netlist node for the <i>partitioning</i> stage.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 26, 2017
  */
 public class PTNetlistNode extends VertexTemplate<PTNetlistEdge> {
@@ -87,7 +86,7 @@ public class PTNetlistNode extends VertexTemplate<PTNetlistEdge> {
    */
   /**
    * Set the block of this instance.
-   * 
+   *
    * @param block The block to set.
    */
   public void setMyBlock(final Block block) {
@@ -128,7 +127,7 @@ public class PTNetlistNode extends VertexTemplate<PTNetlistEdge> {
    */
   /**
    * Set a lock on the block with the given name.
-   * 
+   *
    * @param block A name of a block.
    */
   public void setMyBlockLock(final String block) {
@@ -219,7 +218,7 @@ public class PTNetlistNode extends VertexTemplate<PTNetlistEdge> {
    * format.
    *
    * @return A string representing the shape of this instance in DOT (graph description language)
-   *         format.
+   *     format.
    */
   @Override
   protected String getShape() {
@@ -456,5 +455,4 @@ public class PTNetlistNode extends VertexTemplate<PTNetlistEdge> {
   private Weight myWeight;
   private boolean placeLock;
   private String blockPlaceLock;
-
 }

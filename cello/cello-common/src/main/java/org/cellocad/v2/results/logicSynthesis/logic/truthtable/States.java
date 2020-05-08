@@ -27,28 +27,24 @@ import java.util.List;
  * algorithm class of the <i>technologyMapping</i> stage.
  *
  * @param T type index.
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class States<T> {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     states = new ArrayList<>();
   }
 
   /**
-   * Initializes a newly created {@link States} with the list of inputs defined by parameter
-   * {@code inputs} the True value defined by parameter {@code one}, the false value defined by
-   * parameter {@code zero}.
+   * Initializes a newly created {@link States} with the list of inputs defined by parameter {@code
+   * inputs} the True value defined by parameter {@code one}, the false value defined by parameter
+   * {@code zero}.
    *
    * @param inputs The List of inputs.
-   * @param one    The True value.
-   * @param zero   The False value.
+   * @param one The True value.
+   * @param zero The False value.
    */
   public States(final List<T> inputs, final Boolean one, final Boolean zero) {
     init();
@@ -76,7 +72,7 @@ public class States<T> {
    *
    * @param index The index of the {@link State} object to return.
    * @return If the index is within the bounds {@code (0 <= bounds < this.getNumStates())}, returns
-   *         the {@link State} object at the specified position in this instance, otherwise null.
+   *     the {@link State} object at the specified position in this instance, otherwise null.
    */
   public State<T> getStateAtIdx(final int index) {
     State<T> rtn = null;
@@ -140,5 +136,4 @@ public class States<T> {
   List<State<T>> states;
   private Boolean bOne;
   private Boolean bZero;
-
 }

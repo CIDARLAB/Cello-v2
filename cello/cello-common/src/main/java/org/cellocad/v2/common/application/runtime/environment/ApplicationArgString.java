@@ -26,7 +26,6 @@ import org.cellocad.v2.common.runtime.environment.ArgString;
  * line argument(s) for an application.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public class ApplicationArgString extends ArgString {

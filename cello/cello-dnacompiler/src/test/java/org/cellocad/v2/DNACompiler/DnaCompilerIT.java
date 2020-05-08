@@ -6,10 +6,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -33,30 +33,34 @@ import org.junit.Test;
  * Integration tests for {@link DnaCompiler}.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-25
  */
 public class DnaCompilerIT {
 
   /**
    * Environment setup for tests.
-   * 
-   * @throws IOException    Unable to read resources.
+   *
+   * @throws IOException Unable to read resources.
    * @throws CelloException Unable to instantiate supporting classes.
    */
   @BeforeClass
   public static void init() throws IOException, CelloException {
     Path dir = Files.createTempDirectory("cello_");
-    args = new String[] {"-" + DnaCompilerArgString.INPUTNETLIST,
-        Utils.getResource("and.v").getFile(), "-" + DnaCompilerArgString.USERCONSTRAINTSFILE,
-        Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
-        "-" + DnaCompilerArgString.INPUTSENSORFILE,
-        Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
-        "-" + DnaCompilerArgString.OUTPUTDEVICEFILE,
-        Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
-        "-" + DnaCompilerArgString.OUTPUTDIR, dir.toString(), "-" + DnaCompilerArgString.PYTHONENV,
-        "python"};
-
+    args =
+        new String[] {
+          "-" + DnaCompilerArgString.INPUTNETLIST,
+          Utils.getResource("and.v").getFile(),
+          "-" + DnaCompilerArgString.USERCONSTRAINTSFILE,
+          Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
+          "-" + DnaCompilerArgString.INPUTSENSORFILE,
+          Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
+          "-" + DnaCompilerArgString.OUTPUTDEVICEFILE,
+          Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
+          "-" + DnaCompilerArgString.OUTPUTDIR,
+          dir.toString(),
+          "-" + DnaCompilerArgString.PYTHONENV,
+          "python"
+        };
   }
 
   @Test
@@ -65,5 +69,4 @@ public class DnaCompilerIT {
   }
 
   private static String[] args;
-
 }

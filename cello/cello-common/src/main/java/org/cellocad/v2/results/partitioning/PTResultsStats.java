@@ -37,7 +37,6 @@ import org.cellocad.v2.results.partitioning.block.PTBlockNetlist;
  * Stats from a {@link PTBlockNetlist} instance.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTResultsStats {
@@ -45,7 +44,7 @@ public class PTResultsStats {
   /**
    * Returns the minimum value between parameters <i>left</i> and <i>right</i>.
    *
-   * @param left  a value.
+   * @param left a value.
    * @param right a value.
    */
   private static int min(final int left, final int right) {
@@ -59,7 +58,7 @@ public class PTResultsStats {
   /**
    * Returns the maximum value between parameters <i>left</i> and <i>right</i>.
    *
-   * @param left  a value.
+   * @param left a value.
    * @param right a value.
    */
   private static int max(final int left, final int right) {
@@ -171,8 +170,12 @@ public class PTResultsStats {
         nodes.add(outputNode);
         // get number of connection to individual blocks
         final String inputName = PTBlockNetlist.getMatchingVioNodeName(node.getName());
-        final NetlistNode inputNode = ptBlockNetlist.getVirtualLargeNetlistFO()
-            .getVertexByName(inputName).getOutEdgeAtIdx(0).getDst();
+        final NetlistNode inputNode =
+            ptBlockNetlist
+                .getVirtualLargeNetlistFO()
+                .getVertexByName(inputName)
+                .getOutEdgeAtIdx(0)
+                .getDst();
         final int pid = inputNode.getResultNetlistNodeData().getPartitionID();
         Integer count = PID.get(pid);
         if (count == null) {
@@ -192,8 +195,12 @@ public class PTResultsStats {
         final NetlistNode inputNode = node.getOutEdgeAtIdx(0).getSrc();
         nodes.add(inputNode);
         final String outputName = PTBlockNetlist.getMatchingVioNodeName(node.getName());
-        final NetlistNode oNode = ptBlockNetlist.getVirtualLargeNetlistFO()
-            .getVertexByName(outputName).getInEdgeAtIdx(0).getSrc();
+        final NetlistNode oNode =
+            ptBlockNetlist
+                .getVirtualLargeNetlistFO()
+                .getVertexByName(outputName)
+                .getInEdgeAtIdx(0)
+                .getSrc();
         final int pid = oNode.getResultNetlistNodeData().getPartitionID();
         Integer count = PID.get(pid);
         if (count == null) {
@@ -206,40 +213,75 @@ public class PTResultsStats {
       rtn += "Signals sent from [PID, count]: " + PID.toString() + Utils.getNewLine();
     }
     rtn += PTResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Minimum number of total inputs to a cell: " + minAInput
-        + ", Maximum number of total inputs to a cell: ";
-    rtn += maxAInput + ", Average number of total inputs per cell: "
-        + (double) totalAInput / numBlocks + Utils.getNewLine();
-    rtn += "Minimum number of primary inputs to a cell: " + minPInput
-        + ", Maximum number of primary inputs to a cell: ";
-    rtn += maxPInput + ", Average number of primary inputs per cell: "
-        + (double) totalPInput / numBlocks + Utils.getNewLine();
-    rtn += "Minimum number of inputs to a cell: " + minInput
-        + ", Maximum number of inputs to a cell: ";
-    rtn += maxInput + ", Average number of inputs per cell: " + (double) totalInput / numBlocks
-        + Utils.getNewLine();
+    rtn +=
+        "Minimum number of total inputs to a cell: "
+            + minAInput
+            + ", Maximum number of total inputs to a cell: ";
+    rtn +=
+        maxAInput
+            + ", Average number of total inputs per cell: "
+            + (double) totalAInput / numBlocks
+            + Utils.getNewLine();
+    rtn +=
+        "Minimum number of primary inputs to a cell: "
+            + minPInput
+            + ", Maximum number of primary inputs to a cell: ";
+    rtn +=
+        maxPInput
+            + ", Average number of primary inputs per cell: "
+            + (double) totalPInput / numBlocks
+            + Utils.getNewLine();
+    rtn +=
+        "Minimum number of inputs to a cell: "
+            + minInput
+            + ", Maximum number of inputs to a cell: ";
+    rtn +=
+        maxInput
+            + ", Average number of inputs per cell: "
+            + (double) totalInput / numBlocks
+            + Utils.getNewLine();
     rtn += PTResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Minimum number of total outputs from a cell: " + minAOutput
-        + ", Maximum number of total outputs from a cell: ";
-    rtn += maxAOutput + ", Average number of total outputs per cell: "
-        + (double) totalAOutput / numBlocks + Utils.getNewLine();
-    rtn += "Minimum number of primary outputs from a cell: " + minPOutput
-        + ", Maximum number of primary outputs from a cell: ";
-    rtn += maxPOutput + ", Average number of primary outputs per cell: "
-        + (double) totalPOutput / numBlocks + Utils.getNewLine();
-    rtn += "Minimum number of outputs from a cell: " + minOutput
-        + ", Maximum number of outputs from a cell: ";
-    rtn += maxOutput + ", Average number of outputs per cell: " + (double) totalOutput / numBlocks
-        + Utils.getNewLine();
+    rtn +=
+        "Minimum number of total outputs from a cell: "
+            + minAOutput
+            + ", Maximum number of total outputs from a cell: ";
+    rtn +=
+        maxAOutput
+            + ", Average number of total outputs per cell: "
+            + (double) totalAOutput / numBlocks
+            + Utils.getNewLine();
+    rtn +=
+        "Minimum number of primary outputs from a cell: "
+            + minPOutput
+            + ", Maximum number of primary outputs from a cell: ";
+    rtn +=
+        maxPOutput
+            + ", Average number of primary outputs per cell: "
+            + (double) totalPOutput / numBlocks
+            + Utils.getNewLine();
+    rtn +=
+        "Minimum number of outputs from a cell: "
+            + minOutput
+            + ", Maximum number of outputs from a cell: ";
+    rtn +=
+        maxOutput
+            + ", Average number of outputs per cell: "
+            + (double) totalOutput / numBlocks
+            + Utils.getNewLine();
     rtn += PTResultsStats.S_HEADER + Utils.getNewLine();
-    rtn += "Total number of gates within all cells: " + totalGates
-        + ", Minimum number of gates within a cell: " + minGates
-        + ", Maximum number of gates within a cell: ";
-    rtn += maxGates + ", Average number of gates per cell: " + (double) totalGates / numBlocks
-        + Utils.getNewLine();
+    rtn +=
+        "Total number of gates within all cells: "
+            + totalGates
+            + ", Minimum number of gates within a cell: "
+            + minGates
+            + ", Maximum number of gates within a cell: ";
+    rtn +=
+        maxGates
+            + ", Average number of gates per cell: "
+            + (double) totalGates / numBlocks
+            + Utils.getNewLine();
     return rtn;
   }
 
   private static final String S_HEADER = "--------------------------------------------";
-
 }

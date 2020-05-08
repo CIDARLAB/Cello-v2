@@ -23,7 +23,6 @@ package org.cellocad.v2.common;
  * A base exception for Cello.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-21
  */
 public class CelloException extends Exception {
@@ -45,5 +44,4 @@ public class CelloException extends Exception {
   public CelloException(final Throwable cause) {
     super(cause);
   }
-
 }

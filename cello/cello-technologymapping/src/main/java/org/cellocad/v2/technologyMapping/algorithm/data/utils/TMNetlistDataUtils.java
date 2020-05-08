@@ -29,7 +29,6 @@ import org.cellocad.v2.technologyMapping.algorithm.data.TMNetlistDataFactory;
  * <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMNetlistDataUtils {
@@ -38,7 +37,7 @@ public class TMNetlistDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * a netlist instance defined by parameter {@code netlist}.
    *
-   * @param netlist    The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
   public static void resetNetlistData(final Netlist netlist, final AlgorithmProfile algProfile) {
@@ -46,5 +45,4 @@ public class TMNetlistDataUtils {
     final TMNetlistData data = TMFactory.getNetlistData(algProfile);
     netlist.setNetlistData(data);
   }
-
 }

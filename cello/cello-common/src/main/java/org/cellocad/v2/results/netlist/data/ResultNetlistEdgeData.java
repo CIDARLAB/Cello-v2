@@ -29,17 +29,13 @@ import org.json.simple.JSONObject;
  * The data for an edge used within the project.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class ResultNetlistEdgeData extends ApplicationNetlistEdgeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link ResultNetlistEdgeData}.
-   */
+  /** Initializes a newly created {@link ResultNetlistEdgeData}. */
   public ResultNetlistEdgeData() {
     super();
     setDefault();
@@ -60,7 +56,7 @@ public class ResultNetlistEdgeData extends ApplicationNetlistEdgeData {
    * Initializes a newly created {@link ResultNetlistEdgeData} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                ResultNetlistEdgeData Object.
+   *     ResultNetlistEdgeData Object.
    */
   public ResultNetlistEdgeData(final JSONObject jsonObj) {
     super();
@@ -73,22 +69,20 @@ public class ResultNetlistEdgeData extends ApplicationNetlistEdgeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-  }
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 
   /**
    * Parses the data attached to this instance.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the Project
-   *                NetlistEdgeData Object.
+   *     NetlistEdgeData Object.
    */
   @Override
-  public void parse(final JSONObject jsonObj) {
-  }
+  public void parse(final JSONObject jsonObj) {}
 
   /**
    * Getter for {@code input}.
@@ -109,5 +103,4 @@ public class ResultNetlistEdgeData extends ApplicationNetlistEdgeData {
   }
 
   private Input input;
-
 }

@@ -24,14 +24,10 @@ package org.cellocad.v2.results.technologyMapping;
  * stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMResults {
 
-  /**
-   * S_DEFAULT: value for TMResults.
-   */
+  /** S_DEFAULT: value for TMResults. */
   public static String S_DEFAULT = "";
-
 }

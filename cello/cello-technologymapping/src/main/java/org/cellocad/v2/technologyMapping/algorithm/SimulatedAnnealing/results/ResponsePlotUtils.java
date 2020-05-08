@@ -53,7 +53,6 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
  * Utility methods for generating response plots.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-30
  */
 public class ResponsePlotUtils {
@@ -83,8 +82,9 @@ public class ResponsePlotUtils {
 
   private static List<Double> getXData() {
     final List<Double> rtn = new ArrayList<>();
-    final Double d = (Math.log10(ResponsePlotUtils.D_XMAX) - Math.log10(ResponsePlotUtils.D_XMIN))
-        / ResponsePlotUtils.I_NUM;
+    final Double d =
+        (Math.log10(ResponsePlotUtils.D_XMAX) - Math.log10(ResponsePlotUtils.D_XMIN))
+            / ResponsePlotUtils.I_NUM;
     final Double xmin = Math.log10(ResponsePlotUtils.D_XMIN);
     for (int i = 0; i <= ResponsePlotUtils.I_NUM; i++) {
       rtn.add(Math.pow(10, xmin + d * i));
@@ -149,8 +149,8 @@ public class ResponsePlotUtils {
     return rtn;
   }
 
-  private static List<Double> getHiLoXData(final NetlistNode node, final List<Integer> idx,
-      final TMActivityEvaluation tmae) {
+  private static List<Double> getHiLoXData(
+      final NetlistNode node, final List<Integer> idx, final TMActivityEvaluation tmae) {
     final List<Double> rtn = new ArrayList<>();
     for (final int i : idx) {
       Double d = 0.0;
@@ -168,8 +168,8 @@ public class ResponsePlotUtils {
     return rtn;
   }
 
-  private static List<Double> getHiLoYData(final NetlistNode node, final List<Integer> idx,
-      final TMActivityEvaluation tmae) {
+  private static List<Double> getHiLoYData(
+      final NetlistNode node, final List<Integer> idx, final TMActivityEvaluation tmae) {
     final List<Double> rtn = new ArrayList<>();
     final ActivityTable<NetlistNode, NetlistNode> at = tmae.getActivityTable(node);
     for (final int i : idx) {
@@ -181,8 +181,12 @@ public class ResponsePlotUtils {
     return rtn;
   }
 
-  private static String getPlotScript(final NetlistNode node, final LSLogicEvaluation lsle,
-      final TMActivityEvaluation tmae, final String dir) throws CelloException {
+  private static String getPlotScript(
+      final NetlistNode node,
+      final LSLogicEvaluation lsle,
+      final TMActivityEvaluation tmae,
+      final String dir)
+      throws CelloException {
     String rtn = null;
     // template
     try {
@@ -210,19 +214,29 @@ public class ResponsePlotUtils {
     rtn = rtn.replace(ResponsePlotUtils.S_XMAX, String.format("%e", ResponsePlotUtils.D_XMAX));
     rtn = rtn.replace(ResponsePlotUtils.S_YMIN, String.format("%e", ResponsePlotUtils.D_YMIN));
     rtn = rtn.replace(ResponsePlotUtils.S_YMAX, String.format("%e", ResponsePlotUtils.D_YMAX));
-    rtn = rtn.replace(ResponsePlotUtils.S_XDATA,
-        String.join(",", ResponsePlotUtils.getDoubleList(x)));
-    rtn = rtn.replace(ResponsePlotUtils.S_YDATA,
-        String.join(",", ResponsePlotUtils.getDoubleList(y)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_XDATA, String.join(",", ResponsePlotUtils.getDoubleList(x)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_YDATA, String.join(",", ResponsePlotUtils.getDoubleList(y)));
     rtn = rtn.replace(ResponsePlotUtils.S_COLOR, ResponsePlotUtils.getColor(gate.getColor()));
-    rtn = rtn.replace(ResponsePlotUtils.S_HIX,
-        ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoXData(node, hi, tmae)));
-    rtn = rtn.replace(ResponsePlotUtils.S_HIY,
-        ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoYData(node, hi, tmae)));
-    rtn = rtn.replace(ResponsePlotUtils.S_LOX,
-        ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoXData(node, lo, tmae)));
-    rtn = rtn.replace(ResponsePlotUtils.S_LOY,
-        ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoYData(node, lo, tmae)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_HIX,
+            ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoXData(node, hi, tmae)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_HIY,
+            ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoYData(node, hi, tmae)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_LOX,
+            ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoXData(node, lo, tmae)));
+    rtn =
+        rtn.replace(
+            ResponsePlotUtils.S_LOY,
+            ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoYData(node, lo, tmae)));
     rtn = rtn.replace(ResponsePlotUtils.S_OUTPUTFILE, output);
     return rtn;
   }
@@ -234,8 +248,12 @@ public class ResponsePlotUtils {
     return rtn;
   }
 
-  private static void generatePlot(final NetlistNode node, final LSLogicEvaluation lsle,
-      final TMActivityEvaluation tmae, final RuntimeEnv runEnv) throws CelloException {
+  private static void generatePlot(
+      final NetlistNode node,
+      final LSLogicEvaluation lsle,
+      final TMActivityEvaluation tmae,
+      final RuntimeEnv runEnv)
+      throws CelloException {
     final String outDir = runEnv.getOptionValue(ArgString.OUTPUTDIR);
     // script
     final String script = ResponsePlotUtils.getPlotScript(node, lsle, tmae, outDir);
@@ -249,15 +267,19 @@ public class ResponsePlotUtils {
 
   /**
    * Generate the response plots for all non-primary nodes in a netlist.
-   * 
+   *
    * @param netlist A netlist.
-   * @param lsle    The logic evaluation of the netlist.
-   * @param tmae    The activity evaluation of the netlist.
-   * @param runEnv  The runtime environment that contains the output directory.
+   * @param lsle The logic evaluation of the netlist.
+   * @param tmae The activity evaluation of the netlist.
+   * @param runEnv The runtime environment that contains the output directory.
    * @throws CelloException Unable to generate the response plots.
    */
-  public static void generatePlots(final Netlist netlist, final LSLogicEvaluation lsle,
-      final TMActivityEvaluation tmae, final RuntimeEnv runEnv) throws CelloException {
+  public static void generatePlots(
+      final Netlist netlist,
+      final LSLogicEvaluation lsle,
+      final TMActivityEvaluation tmae,
+      final RuntimeEnv runEnv)
+      throws CelloException {
     for (int i = 0; i < netlist.getNumVertex(); i++) {
       final NetlistNode node = netlist.getVertexAtIdx(i);
       if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node)) {
@@ -289,5 +311,4 @@ public class ResponsePlotUtils {
   private static String S_LOY = ResponsePlotUtils.S_NONCE + "LOY" + ResponsePlotUtils.S_NONCE;
   private static String S_OUTPUTFILE =
       ResponsePlotUtils.S_NONCE + "OUTPUTFILE" + ResponsePlotUtils.S_NONCE;
-
 }

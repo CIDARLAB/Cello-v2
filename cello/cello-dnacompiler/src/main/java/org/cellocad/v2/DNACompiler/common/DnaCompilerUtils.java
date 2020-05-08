@@ -29,7 +29,6 @@ import java.net.URL;
  * The DNACompilerUtils class is class with utility methods for the <i>DNACompiler</i> application.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public class DnaCompilerUtils {
@@ -48,7 +47,7 @@ public class DnaCompilerUtils {
 
   /**
    * Reads the given resource as a string.
-   * 
+   *
    * @param resource A resource name.
    * @return The given resource as a string.
    * @throws IOException Unable to load the given resource.
@@ -81,5 +80,4 @@ public class DnaCompilerUtils {
     rtn = DnaCompilerUtils.getResourceAsString("Configuration.json");
     return rtn;
   }
-
 }

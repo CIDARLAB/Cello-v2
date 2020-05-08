@@ -25,11 +25,7 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
  * The CLArgString class is class containing the string referencing the command line argument(s) for
  * the <i>clustering</i> stage.
  *
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class CLArgString extends StageArgString {
-
-}
+public class CLArgString extends StageArgString {}

@@ -32,7 +32,6 @@ import org.json.simple.JSONObject;
  * The NetlistConstraint class is a class for managing and accessing the Netlist Constraint data.
  *
  * @author Vincent Mirian
- *
  * @date Nov 21, 2017
  */
 public final class NetlistConstraint extends CObject {
@@ -41,9 +40,7 @@ public final class NetlistConstraint extends CObject {
     collectionTypeData = new HashMap<>();
   }
 
-  /**
-   * Initializes a newly created {@link NetlistConstraint}.
-   */
+  /** Initializes a newly created {@link NetlistConstraint}. */
   public NetlistConstraint() {
     super();
     init();
@@ -53,7 +50,7 @@ public final class NetlistConstraint extends CObject {
    * Initializes a newly created {@link NetlistConstraint} using the parameter {@code JArray}.
    *
    * @param jsonArr The JavaScript Object Notation (JSON) Array representation of the
-   *                NetlistConstraint Object.
+   *     NetlistConstraint Object.
    */
   public NetlistConstraint(final JSONArray jsonArr) {
     super();
@@ -77,7 +74,7 @@ public final class NetlistConstraint extends CObject {
   /**
    * Returns a JSONObject of type {@code type} at index {@code index}.
    *
-   * @param type  The type of netlist constraint data.
+   * @param type The type of netlist constraint data.
    * @param index The index of the {@link JSONObject} object to return.
    * @return The {@link JSONObject} if it exists, otherwise null.
    */
@@ -110,5 +107,4 @@ public final class NetlistConstraint extends CObject {
   }
 
   Map<String, List<JSONObject>> collectionTypeData;
-
 }

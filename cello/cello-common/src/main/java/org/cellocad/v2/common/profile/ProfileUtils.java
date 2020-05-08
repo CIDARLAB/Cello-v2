@@ -26,7 +26,6 @@ import org.json.simple.JSONObject;
  * The AlgorithmProfileUtils class is class with utility methods for <i>ProfileObject</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Nov 21, 2017
  */
 public final class ProfileUtils {
@@ -36,7 +35,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Boolean, returns an instance of type Boolean
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Boolean getBoolean(final Object value) {
     Boolean rtn = null;
@@ -51,11 +50,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Boolean with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Boolean getBoolean(final JSONObject jsonObj, final String member) {
     Boolean rtn = null;
@@ -69,7 +68,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Long, returns an instance of type Byte
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Byte getByte(final Object value) {
     Byte rtn = null;
@@ -85,11 +84,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Byte with its contents equivalent
-   *         to the value of the attribute, otherwise null.
+   *     to the value of the attribute, otherwise null.
    */
   public static Byte getByte(final JSONObject jsonObj, final String member) {
     Byte rtn = null;
@@ -103,7 +102,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type String, returns an instance of type Character
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Character getCharacter(final Object value) {
     Character rtn = null;
@@ -121,11 +120,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Character with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Character getCharacter(final JSONObject jsonObj, final String member) {
     Character rtn = null;
@@ -139,7 +138,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Long, returns an instance of type Short
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Short getShort(final Object value) {
     Short rtn = null;
@@ -155,11 +154,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Short with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Short getShort(final JSONObject jsonObj, final String member) {
     Short rtn = null;
@@ -173,7 +172,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Long, returns an instance of type Integer
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Integer getInteger(final Object value) {
     Integer rtn = null;
@@ -189,11 +188,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Integer with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Integer getInteger(final JSONObject jsonObj, final String member) {
     Integer rtn = null;
@@ -207,7 +206,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Long, returns an instance of type Long
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Long getLong(final Object value) {
     Long rtn = null;
@@ -222,11 +221,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Long with its contents equivalent
-   *         to the value of the attribute, otherwise null.
+   *     to the value of the attribute, otherwise null.
    */
   public static Long getLong(final JSONObject jsonObj, final String member) {
     Long rtn = null;
@@ -240,7 +239,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Double, returns an instance of type Float
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Float getFloat(final Object value) {
     Float rtn = null;
@@ -256,11 +255,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Float with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Float getFloat(final JSONObject jsonObj, final String member) {
     Float rtn = null;
@@ -274,7 +273,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type Double, returns an instance of type Double
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static Double getDouble(final Object value) {
     Double rtn = null;
@@ -289,11 +288,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Double with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Double getDouble(final JSONObject jsonObj, final String member) {
     Double rtn = null;
@@ -307,7 +306,7 @@ public final class ProfileUtils {
    *
    * @param value The Object to cast.
    * @return If the parameter {@code value} is of type String, returns an instance of type String
-   *         containing the contents of parameter {@code value}, otherwise null.
+   *     containing the contents of parameter {@code value}, otherwise null.
    */
   public static String getString(final Object value) {
     String rtn = null;
@@ -322,11 +321,11 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type String with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static String getString(final JSONObject jsonObj, final String member) {
     String rtn = null;
@@ -340,16 +339,15 @@ public final class ProfileUtils {
    * equivalent to parameter {@code member} from the JavaScript Object Notation (JSON)
    * representation of the {@link ProfileObject} object (parameter {@code jsonObj}).
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
-   * @param member  The name of the attribute.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
+   * @param member The name of the attribute.
    * @return If the attribute is present, then an instance of type Object with its contents
-   *         equivalent to the value of the attribute, otherwise null.
+   *     equivalent to the value of the attribute, otherwise null.
    */
   public static Object getObject(final JSONObject jsonObj, final String member) {
     Object rtn = null;
     rtn = jsonObj.get(member);
     return rtn;
   }
-
 }

@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistNodeData;
  * The data for a node used within the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
-public abstract class EXNetlistNodeData extends NetlistNodeData {
-
-}
+public abstract class EXNetlistNodeData extends NetlistNodeData {}

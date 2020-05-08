@@ -43,14 +43,11 @@ import org.cellocad.v2.results.technologyMapping.activity.activitytable.Activity
  * The complete activity evaluation of a netlist.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-24
  */
 public class TMActivityEvaluation {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     activitytables = new HashMap<>();
   }
@@ -85,10 +82,10 @@ public class TMActivityEvaluation {
    * Returns a List of Double representation of the input values for NetlistNode defined by
    * parameter {@code node} at the state defined by parameter {@code state}.
    *
-   * @param node     The {@link NetlistNode}.
+   * @param node The {@link NetlistNode}.
    * @param activity The activity.
    * @return A List of Double representation of the input values for NetlistNode defined by
-   *         parameter {@code node} at the activity defined by parameter {@code activity}.
+   *     parameter {@code node} at the activity defined by parameter {@code activity}.
    */
   public List<Double> getInputActivity(final NetlistNode node, final State<NetlistNode> activity) {
     final List<Double> rtn = new ArrayList<>();
@@ -114,8 +111,13 @@ public class TMActivityEvaluation {
       final State<NetlistNode> inputState = activityTable.getStateAtIdx(i);
       final Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputState);
       ec.setState(inputState);
-      final Double result = node.getResultNetlistNodeData().getDevice().getModel()
-          .getFunctionByName(FunctionType.S_RESPONSEFUNCTION).evaluate(ec).doubleValue();
+      final Double result =
+          node.getResultNetlistNodeData()
+              .getDevice()
+              .getModel()
+              .getFunctionByName(FunctionType.S_RESPONSEFUNCTION)
+              .evaluate(ec)
+              .doubleValue();
       if (outputActivity.getNumActivityPosition() != 1) {
         throw new RuntimeException("Invalid number of output(s)!");
       }
@@ -203,7 +205,7 @@ public class TMActivityEvaluation {
    * delimiter equivalent to the parameter {@code delimiter}.
    *
    * @param delimiter The delimiter.
-   * @param os        The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeCSV(final String delimiter, final Writer os) throws IOException {
@@ -226,5 +228,4 @@ public class TMActivityEvaluation {
 
   private Map<NetlistNode, ActivityTable<NetlistNode, NetlistNode>> activitytables;
   private States<NetlistNode> states;
-
 }

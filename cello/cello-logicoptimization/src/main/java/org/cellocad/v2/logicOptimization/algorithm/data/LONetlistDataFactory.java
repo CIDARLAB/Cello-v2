@@ -26,7 +26,6 @@ import org.cellocad.v2.logicOptimization.algorithm.maxFanout.data.maxFanoutNetli
  * The LONetlistDataFactory class is a NetlistData factory for the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LONetlistDataFactory extends NetlistDataFactory<LONetlistData> {
@@ -37,7 +36,7 @@ public class LONetlistDataFactory extends NetlistDataFactory<LONetlistData> {
    *
    * @param name string used for searching this instance.
    * @return The {@link LONetlistData} instance if the {@link LONetlistData} type exists within the
-   *         {@link LONetlistDataFactory}, otherwise null.
+   *     {@link LONetlistDataFactory}, otherwise null.
    */
   @Override
   protected LONetlistData getNetlistData(final String name) {
@@ -47,5 +46,4 @@ public class LONetlistDataFactory extends NetlistDataFactory<LONetlistData> {
     }
     return rtn;
   }
-
 }

@@ -26,7 +26,6 @@ import org.cellocad.v2.common.CObject;
  * A result object.
  *
  * @author Timothy Jones
- *
  * @date 2020-03-30
  */
 public class Result extends CObject {
@@ -38,10 +37,10 @@ public class Result extends CObject {
   /**
    * Create a new result object.
    *
-   * @param name        The result name.
-   * @param stage       The stage that generated the result.
+   * @param name The result name.
+   * @param stage The stage that generated the result.
    * @param description A description of the result.
-   * @param file        The result file.
+   * @param file The result file.
    */
   public Result(final String name, final String stage, final String description, final File file) {
     super();
@@ -77,5 +76,4 @@ public class Result extends CObject {
   public File getFile() {
     return file;
   }
-
 }

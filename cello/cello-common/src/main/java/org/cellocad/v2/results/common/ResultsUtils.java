@@ -29,7 +29,6 @@ import java.net.URL;
  * The ResultsUtils class is class with utility methods for the project.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public final class ResultsUtils {
@@ -69,5 +68,4 @@ public final class ResultsUtils {
     rtn = sb.toString();
     return rtn;
   }
-
 }

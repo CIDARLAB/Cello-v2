@@ -26,16 +26,12 @@ import org.cellocad.v2.common.graph.AbstractEdge;
  * The EdgeTemplate class is a class representing the edge(s) of a <i>GraphTemplate</i>.
  *
  * @param <T> the type of the VertexTemplate.
- *
  * @author Vincent Mirian
- *
  * @date Nov 2, 2017
  */
 public class EdgeTemplate<T extends VertexTemplate<?>> extends AbstractEdge<T> {
 
-  /**
-   * Initializes a newly created {@link EdgeTemplate}.
-   */
+  /** Initializes a newly created {@link EdgeTemplate}. */
   public EdgeTemplate() {
     super();
     setSrc(null);
@@ -132,5 +128,4 @@ public class EdgeTemplate<T extends VertexTemplate<?>> extends AbstractEdge<T> {
     rtn = rtn + "]";
     return rtn;
   }
-
 }

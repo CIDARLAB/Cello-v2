@@ -25,20 +25,17 @@ import org.json.simple.JSONObject;
  * An input sensor.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-23
  */
 public class InputSensor extends AssignableDevice {
 
-  private void init() {
-  }
+  private void init() {}
 
-  private void parseInputSensor(final JSONObject jsonObj) {
-  }
+  private void parseInputSensor(final JSONObject jsonObj) {}
 
   /**
    * Initializes a newly created input sensor object with the given JSON data.
-   * 
+   *
    * @param jsonObj The JSON data associated with the input sensor.
    */
   public InputSensor(final JSONObject jsonObj) {
@@ -46,5 +43,4 @@ public class InputSensor extends AssignableDevice {
     init();
     parseInputSensor(jsonObj);
   }
-
 }

@@ -25,22 +25,20 @@ import org.cellocad.v2.common.Utils;
  * Utility methods for building a JSON formatted {@link String}.
  *
  * @author Vincent Mirian
- *
  * @date Nov 21, 2017
  */
-
 public class JsonUtils {
 
   /**
-   * Returns a string representing the parameter {@code str} indented with parameter
-   * {@code numIndent} tabulator character(s), but avoids the indentation on the final last line
-   * preceeded with a new line.
+   * Returns a string representing the parameter {@code str} indented with parameter {@code
+   * numIndent} tabulator character(s), but avoids the indentation on the final last line preceeded
+   * with a new line.
    *
    * @param numIndent number of indentation(s).
-   * @param str       The string to indent.
-   * @return A string representing the parameter {@code str} indented with parameter
-   *         {@code numIndent} tabulator character(s),but avoids the indentation on the final last
-   *         line preceeded with a new line.
+   * @param str The string to indent.
+   * @return A string representing the parameter {@code str} indented with parameter {@code
+   *     numIndent} tabulator character(s),but avoids the indentation on the final last line
+   *     preceeded with a new line.
    */
   public static String addIndent(final int numIndent, final String str) {
     String rtn = "";
@@ -59,8 +57,8 @@ public class JsonUtils {
    *
    * @param name The name of the attribute.
    * @return If parameter {@code name} is not null, return a string with the name of the attribute
-   *         equivalent to the parameter {@code name} in the following JSON format: "<i>name</i>: ",
-   *         otherwise "null: ".
+   *     equivalent to the parameter {@code name} in the following JSON format: "<i>name</i>: ",
+   *     otherwise "null: ".
    */
   private static String getKeyEntryToString(final String name) {
     String rtn = "";
@@ -79,15 +77,15 @@ public class JsonUtils {
    * the value of the attribute equivalent to the parameter {@code value} in the following JSON
    * format: "<i>name</i>: <i>value</i>".
    *
-   * @param name  The name of the attribute.
+   * @param name The name of the attribute.
    * @param value The value of the attribute.
    * @return If parameter {@code name} is not null and parameter {@code value} is not null,<br>
-   *         . return a string in the following JSON format: "<i>name</i>: <i>value</i>",<br>
-   *         if parameter {@code name} is not null and parameter {@code value} is null,<br>
-   *         return a string in the following JSON format: "<i>name</i>: null",<br>
-   *         if parameter {@code name} is null and parameter {@code value} is not null,<br>
-   *         return a string in the following JSON format: "null: <i>value</i>",<br>
-   *         otherwise return a string in the following JSON format: "null: null".
+   *     . return a string in the following JSON format: "<i>name</i>: <i>value</i>",<br>
+   *     if parameter {@code name} is not null and parameter {@code value} is null,<br>
+   *     return a string in the following JSON format: "<i>name</i>: null",<br>
+   *     if parameter {@code name} is null and parameter {@code value} is not null,<br>
+   *     return a string in the following JSON format: "null: <i>value</i>",<br>
+   *     otherwise return a string in the following JSON format: "null: null".
    */
   public static String getEntryToString(final String name, final String value) {
     String rtn = "";
@@ -101,10 +99,10 @@ public class JsonUtils {
    * the value of the attribute equivalent to the parameter {@code value} in the following JSON
    * format: "<i>name</i>: <i>value</i>".
    *
-   * @param name  The name of the attribute.
+   * @param name The name of the attribute.
    * @param value The value of the attribute.
    * @return If parameter {@code name} is not null, return a string in the following JSON format:
-   *         "<i>name</i>: <i>value</i>", otherwise "null: <i>value</i>".
+   *     "<i>name</i>: <i>value</i>", otherwise "null: <i>value</i>".
    */
   public static String getEntryToString(final String name, final int value) {
     String rtn = "";
@@ -121,10 +119,10 @@ public class JsonUtils {
    *
    * @param value The value of the string.
    * @return If parameter {@code value} is not null,<br>
-   *         . return a string in the following JSON format: "<i>value</i>",<br>
-   *         if parameter {@code value} is null,<br>
-   *         return a string in the following JSON format: "null",<br>
-   *         .
+   *     . return a string in the following JSON format: "<i>value</i>",<br>
+   *     if parameter {@code value} is null,<br>
+   *     return a string in the following JSON format: "null",<br>
+   *     .
    */
   public static String getValueToString(final String value) {
     String rtn = "";
@@ -157,7 +155,7 @@ public class JsonUtils {
    * a new line.
    *
    * @return A string representing the end entry in JSON format ("}") followed by a common (",") and
-   *         a new line.
+   *     a new line.
    */
   public static String getEndEntryString() {
     String rtn = "";
@@ -175,11 +173,11 @@ public class JsonUtils {
    *
    * @param name The name of the attribute.
    * @return If parameter {@code name} is not null, return a string with the name of the attribute
-   *         equivalent to the parameter {@code name} followed by a new line and a string for the
-   *         start array in the following JSON format:<br>
-   *         . "<i>name</i>: <br>
-   *         [", otherwise "null: <br>
-   *         [".
+   *     equivalent to the parameter {@code name} followed by a new line and a string for the start
+   *     array in the following JSON format:<br>
+   *     . "<i>name</i>: <br>
+   *     [", otherwise "null: <br>
+   *     [".
    */
   public static String getStartArrayWithMemberString(final String name) {
     String rtn = "";
@@ -206,7 +204,7 @@ public class JsonUtils {
    * a new line.
    *
    * @return A string representing the end array in JSON format ("]") followed by a common (",") and
-   *         a new line.
+   *     a new line.
    */
   public static String getEndArrayString() {
     String rtn = "";
@@ -215,5 +213,4 @@ public class JsonUtils {
     rtn += Utils.getNewLine();
     return rtn;
   }
-
 }

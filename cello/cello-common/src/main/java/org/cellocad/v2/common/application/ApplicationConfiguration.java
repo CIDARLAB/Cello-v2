@@ -29,7 +29,6 @@ import org.json.simple.JSONObject;
  * The ApplicationConfiguration class is a class containing the configuration for an application.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public final class ApplicationConfiguration extends ProfileObject {
@@ -39,11 +38,11 @@ public final class ApplicationConfiguration extends ProfileObject {
   }
 
   /**
-   * Initializes a newly created {@link ApplicationConfiguration} using the parameter
-   * {@code jsonObj}.
+   * Initializes a newly created {@link ApplicationConfiguration} using the parameter {@code
+   * jsonObj}.
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ApplicationConfiguration} object.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ApplicationConfiguration} object.
    */
   public ApplicationConfiguration(final JSONObject jsonObj) {
     super(jsonObj);
@@ -94,7 +93,7 @@ public final class ApplicationConfiguration extends ProfileObject {
    *
    * @param index The index of the {@link Stage} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumStage()), returns the Stage
-   *         at the specified position in this instance, otherwise null.
+   *     at the specified position in this instance, otherwise null.
    */
   public Stage getStageAtIdx(final int index) {
     Stage rtn = null;
@@ -119,5 +118,4 @@ public final class ApplicationConfiguration extends ProfileObject {
   }
 
   CObjectCollection<Stage> stages;
-
 }

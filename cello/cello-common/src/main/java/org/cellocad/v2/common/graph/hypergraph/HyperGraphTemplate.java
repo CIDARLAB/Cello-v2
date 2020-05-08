@@ -27,19 +27,15 @@ import org.cellocad.v2.common.graph.AbstractGraph;
  *
  * @param <V> The type of the {@link HyperVertexTemplate}.
  * @param <H> The type of the {@link HyperEdgeTemplate}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
-public abstract class HyperGraphTemplate<V extends HyperVertexTemplate<H>, H extends HyperEdgeTemplate<V>>
+public abstract class HyperGraphTemplate<
+        V extends HyperVertexTemplate<H>, H extends HyperEdgeTemplate<V>>
     extends AbstractGraph<V, H> {
 
-  /**
-   * Initializes a newly created {@link HyperGraphTemplate}.
-   */
+  /** Initializes a newly created {@link HyperGraphTemplate}. */
   public HyperGraphTemplate() {
     super();
   }
-
 }

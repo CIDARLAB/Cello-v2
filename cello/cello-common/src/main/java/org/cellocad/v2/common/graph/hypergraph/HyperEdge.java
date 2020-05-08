@@ -23,21 +23,18 @@ package org.cellocad.v2.common.graph.hypergraph;
  * A representation of the edge(s) of a {@link HyperGraph}.
  *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public class HyperEdge extends HyperEdgeTemplate<HyperVertex> {
 
-  /**
-   * Initializes a newly created {@link HyperEdge}.
-   */
+  /** Initializes a newly created {@link HyperEdge}. */
   public HyperEdge() {
     super();
   }
 
   /**
-   * Initializes a newly created {@link HyperEdge} with its source node defined by parameter
-   * {@code src}.
+   * Initializes a newly created {@link HyperEdge} with its source node defined by parameter {@code
+   * src}.
    *
    * @param src The source node.
    */
@@ -54,5 +51,4 @@ public class HyperEdge extends HyperEdgeTemplate<HyperVertex> {
   public HyperEdge(final HyperEdge other) {
     super(other);
   }
-
 }

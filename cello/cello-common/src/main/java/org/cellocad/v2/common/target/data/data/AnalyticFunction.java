@@ -33,7 +33,6 @@ import org.mariuszgromada.math.mxparser.Expression;
  * A function that can be evaluated analytically.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-21
  */
 public final class AnalyticFunction extends Function {
@@ -74,7 +73,7 @@ public final class AnalyticFunction extends Function {
 
   /**
    * Initializes a newly created {@link AnalyticFunction} object from the given JSON data.
-   * 
+   *
    * @param jsonObj The JSON data associated with the function.
    */
   public AnalyticFunction(final JSONObject jsonObj) {
@@ -116,8 +115,8 @@ public final class AnalyticFunction extends Function {
 
   /**
    * Evaluate the function within the given context, and with the given variable map.
-   * 
-   * @param ec    The {@link EvaluationContext}.
+   *
+   * @param ec The {@link EvaluationContext}.
    * @param value The variable map.
    * @return The result of the evaluation.
    * @throws CelloException Unable to evaluate the function.
@@ -160,5 +159,4 @@ public final class AnalyticFunction extends Function {
   public static final String S_EQUATION = "equation";
   public static final String S_PARAMETERS = "parameters";
   private static final String S_STATE = "_STATE";
-
 }

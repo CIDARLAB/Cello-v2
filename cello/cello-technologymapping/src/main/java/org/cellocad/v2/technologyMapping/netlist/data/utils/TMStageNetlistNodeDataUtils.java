@@ -28,14 +28,13 @@ import org.cellocad.v2.technologyMapping.netlist.data.TMStageNetlistNodeData;
  * instances in the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMStageNetlistNodeDataUtils {
 
   /**
-   * Resets the stage data for all nodes in the netlist instance defined by parameter
-   * {@code netlist}.
+   * Resets the stage data for all nodes in the netlist instance defined by parameter {@code
+   * netlist}.
    *
    * @param netlist The {@link Netlist}.
    */
@@ -55,5 +54,4 @@ public class TMStageNetlistNodeDataUtils {
     final TMStageNetlistNodeData data = new TMStageNetlistNodeData();
     node.setStageNetlistNodeData(data);
   }
-
 }

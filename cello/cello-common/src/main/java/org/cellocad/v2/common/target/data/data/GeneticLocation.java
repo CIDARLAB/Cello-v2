@@ -27,13 +27,11 @@ import org.json.simple.JSONObject;
  * A genetic location object in the target data.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-13
  */
 public class GeneticLocation extends CObject {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseSymbol(final JSONObject jsonObj) {
     final String str = ProfileUtils.getString(jsonObj, GeneticLocation.S_SYMBOL);
@@ -68,5 +66,4 @@ public class GeneticLocation extends CObject {
 
   private static final String S_SYMBOL = "symbol";
   private static final String S_LOCUS = "locus";
-
 }

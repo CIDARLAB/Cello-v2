@@ -26,9 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgDescription;
  * for the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class LOArgDescription extends StageArgDescription {
-
-}
+public class LOArgDescription extends StageArgDescription {}

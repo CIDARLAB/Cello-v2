@@ -54,7 +54,6 @@ import org.json.simple.JSONArray;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class Yosys extends LSAlgorithm {
@@ -110,13 +109,9 @@ public class Yosys extends LSAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
-
-  }
+  protected void getConstraintFromNetlistConstraintFile() {}
 
   /**
    * Gets the data from the UCF.
@@ -129,9 +124,7 @@ public class Yosys extends LSAlgorithm {
     setTargetDataInstance(tdi);
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     Boolean present = true;
@@ -141,9 +134,7 @@ public class Yosys extends LSAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter value for <i>Gates</i>.
-   */
+  /** Validate parameter value for <i>Gates</i>. */
   protected void validateGatesParameterValues() {
     final List<String> validGates = new ArrayList<>(Arrays.asList(YosysUtils.ValidGates));
     final StringTokenizer strtok = new StringTokenizer(getGates(), Yosys.S_GATES_DELIM);
@@ -156,9 +147,7 @@ public class Yosys extends LSAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
   protected void validateParameterValues() {
     validateGatesParameterValues();
@@ -176,9 +165,7 @@ public class Yosys extends LSAlgorithm {
     return rtn;
   }
 
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
     final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
@@ -260,9 +247,7 @@ public class Yosys extends LSAlgorithm {
     }
   }
 
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
   protected void run() {
     final ExecCommand proc =
@@ -347,9 +332,7 @@ public class Yosys extends LSAlgorithm {
   /*
    * Log
    */
-  /**
-   * Logs the Result header.
-   */
+  /** Logs the Result header. */
   protected void logResultHeader() {
     logInfo(Yosys.S_HEADER_FOOTER);
     logInfo(
@@ -485,5 +468,4 @@ public class Yosys extends LSAlgorithm {
   protected void setTargetDataInstance(final LSTargetDataInstance targetDataInstance) {
     this.targetDataInstance = targetDataInstance;
   }
-
 }

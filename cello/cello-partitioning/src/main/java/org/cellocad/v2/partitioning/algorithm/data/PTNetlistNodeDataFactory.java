@@ -29,18 +29,17 @@ import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistNodeData;
  * The PTNetlistNodeDataFactory is a NetlistNodeData factory for the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTNetlistNodeDataFactory extends NetlistNodeDataFactory<PTNetlistNodeData> {
 
   /**
-   * Returns the {@link PTNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link PTNetlistNodeDataFactory}.
+   * Returns the {@link PTNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link PTNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link PTNetlistNodeData} instance if the {@link PTNetlistNodeData} type exists
-   *         within the {@link PTNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link PTNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected PTNetlistNodeData getNetlistNodeData(final String name) {
@@ -59,5 +58,4 @@ public class PTNetlistNodeDataFactory extends NetlistNodeDataFactory<PTNetlistNo
     }
     return rtn;
   }
-
 }

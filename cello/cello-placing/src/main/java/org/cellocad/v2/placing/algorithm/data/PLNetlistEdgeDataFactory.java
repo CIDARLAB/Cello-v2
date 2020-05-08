@@ -27,18 +27,17 @@ import org.cellocad.v2.placing.algorithm.GPCC_GRID.data.GpccGridNetlistEdgeData;
  * The PLNetlistEdgeDataFactory is a NetlistEdgeData factory for the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLNetlistEdgeDataFactory extends NetlistEdgeDataFactory<PLNetlistEdgeData> {
 
   /**
-   * Returns the {@link PLNetlistEdgeData} object that has the same name as the parameter
-   * {@code name} within the {@link PLNetlistEdgeDataFactory}.
+   * Returns the {@link PLNetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link PLNetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link PLNetlistEdgeData} instance if the {@link PLNetlistEdgeData} type exists
-   *         within the {@link PLNetlistEdgeDataFactory}, otherwise null.
+   *     within the {@link PLNetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected PLNetlistEdgeData getNetlistEdgeData(final String name) {
@@ -51,5 +50,4 @@ public class PLNetlistEdgeDataFactory extends NetlistEdgeDataFactory<PLNetlistEd
     }
     return rtn;
   }
-
 }

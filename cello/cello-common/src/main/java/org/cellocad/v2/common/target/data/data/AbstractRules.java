@@ -23,7 +23,6 @@ package org.cellocad.v2.common.target.data.data;
  * Rules is a class representing the rules for part and gate placement <i>Eugene</i> algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2018-08-10
  */
 public abstract class AbstractRules {
@@ -84,8 +83,7 @@ public abstract class AbstractRules {
     } while (f);
   }
 
-  private void init() {
-  }
+  private void init() {}
 
   public AbstractRules() {
     init();
@@ -93,5 +91,4 @@ public abstract class AbstractRules {
 
   protected static final String S_RULES = "rules";
   protected static final String S_FUNCTION = "function";
-
 }

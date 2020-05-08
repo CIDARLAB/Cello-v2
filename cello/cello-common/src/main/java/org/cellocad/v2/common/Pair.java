@@ -25,7 +25,6 @@ package org.cellocad.v2.common;
  * @param <F> the type of the first element in the tuple.
  * @param <S> the type of the second element in the tuple.
  * @author Vincent Mirian
- *
  * @date Oct 28, 2017
  */
 public class Pair<F, S> {
@@ -33,10 +32,10 @@ public class Pair<F, S> {
   private S second; // second member of pair
 
   /**
-   * Initializes a newly created {@link Pair} with its <i>first</i> set to parameter
-   * {@code first},and, its <i>second</i> set to parameter {@code second}.
+   * Initializes a newly created {@link Pair} with its <i>first</i> set to parameter {@code
+   * first},and, its <i>second</i> set to parameter {@code second}.
    *
-   * @param first  The first element of the Pair.
+   * @param first The first element of the Pair.
    * @param second The second element of the Pair.
    */
   public Pair(final F first, final S second) {
@@ -137,5 +136,4 @@ public class Pair<F, S> {
     }
     return true;
   }
-
 }

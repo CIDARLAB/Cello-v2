@@ -29,7 +29,6 @@ import org.cellocad.v2.partitioning.algorithm.HMetis.HMetis;
  * The PTAlgorithmFactory is an algorithm factory for the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTAlgorithmFactory extends AlgorithmFactory<PTAlgorithm> {
@@ -40,7 +39,7 @@ public class PTAlgorithmFactory extends AlgorithmFactory<PTAlgorithm> {
    *
    * @param name string used for searching the PTAlgorithmFactory.
    * @return The {@link PTAlgorithm} instance if the {@link PTAlgorithm} type exists within the
-   *         {@link PTAlgorithmFactory}, otherwise null.
+   *     {@link PTAlgorithmFactory}, otherwise null.
    */
   @Override
   protected PTAlgorithm getAlgorithm(final String name) {
@@ -59,5 +58,4 @@ public class PTAlgorithmFactory extends AlgorithmFactory<PTAlgorithm> {
     }
     return rtn;
   }
-
 }

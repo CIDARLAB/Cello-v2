@@ -27,14 +27,13 @@ import org.json.simple.JSONObject;
  * Utility methods for the data in the <i>Yosys</i> algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-31
  */
 public class YosysDataUtils {
 
   /**
    * Get the motif library from the target data.
-   * 
+   *
    * @param td The target data.
    * @return The motif library from the target data.
    */
@@ -49,5 +48,4 @@ public class YosysDataUtils {
   }
 
   private static String S_MOTIFLIBRARY = "motif_library";
-
 }

@@ -31,7 +31,6 @@ import org.json.simple.JSONObject;
  * Represents the logic constraints section of the target data.
  *
  * @author Timothy Jones
- *
  * @date 2020-03-30
  */
 public class LogicConstraints extends CObject {
@@ -67,7 +66,7 @@ public class LogicConstraints extends CObject {
 
   /**
    * Initializes a newly created {@link LogicConstraints} object with the given JSON data.
-   * 
+   *
    * @param jsonObj The JSON data associated with the {@link LogicConstraints} object.
    */
   public LogicConstraints(final JSONObject jsonObj) {
@@ -83,7 +82,7 @@ public class LogicConstraints extends CObject {
 
   /**
    * Get the maximum instances of the given gate type.
-   * 
+   *
    * @param gateType A gate type.
    * @return The maximum instances of the given gate type.
    */
@@ -92,5 +91,4 @@ public class LogicConstraints extends CObject {
     rtn = gates.get(gateType);
     return rtn;
   }
-
 }

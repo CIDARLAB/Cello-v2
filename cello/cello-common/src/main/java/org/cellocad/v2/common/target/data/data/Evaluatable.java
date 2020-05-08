@@ -28,7 +28,6 @@ import org.json.simple.JSONObject;
  * A base class representing an object that can be evaluated to obtain a numerical output.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public abstract class Evaluatable extends CObject {
@@ -42,8 +41,7 @@ public abstract class Evaluatable extends CObject {
     parseName(jsonObj);
   }
 
-  public Evaluatable() {
-  }
+  public Evaluatable() {}
 
   @Override
   public boolean isValid() {
@@ -55,5 +53,4 @@ public abstract class Evaluatable extends CObject {
   public abstract Number evaluate(EvaluationContext ec) throws CelloException;
 
   protected static final String S_NAME = "name";
-
 }

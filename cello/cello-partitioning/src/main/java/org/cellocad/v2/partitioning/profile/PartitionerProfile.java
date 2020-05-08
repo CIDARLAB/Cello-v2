@@ -27,15 +27,16 @@ import org.json.simple.JSONObject;
 
 /**
  * A partitioner profile.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class PartitionerProfile extends ProfileObject {
 
-  public PartitionerProfile(final CObjectCollection<PartitionProfile> pProfiles,
-      final CObjectCollection<AlgorithmProfile> algProfiles, final JSONObject jsonObj) {
+  public PartitionerProfile(
+      final CObjectCollection<PartitionProfile> pProfiles,
+      final CObjectCollection<AlgorithmProfile> algProfiles,
+      final JSONObject jsonObj) {
     super(jsonObj);
     parse(pProfiles, algProfiles, jsonObj);
   }
@@ -43,8 +44,8 @@ public class PartitionerProfile extends ProfileObject {
   /*
    * Parse
    */
-  private void parsePartitionProfile(final CObjectCollection<PartitionProfile> pProfiles,
-      final JSONObject jsonObj) {
+  private void parsePartitionProfile(
+      final CObjectCollection<PartitionProfile> pProfiles, final JSONObject jsonObj) {
     PartitionProfile ppObj;
     final String PartitionProfile = ProfileUtils.getString(jsonObj, "PartitionProfile");
     if (PartitionProfile == null) {
@@ -57,8 +58,8 @@ public class PartitionerProfile extends ProfileObject {
     setPProfile(ppObj);
   }
 
-  private void parseAlgorithmProfile(final CObjectCollection<AlgorithmProfile> algProfiles,
-      final JSONObject jsonObj) {
+  private void parseAlgorithmProfile(
+      final CObjectCollection<AlgorithmProfile> algProfiles, final JSONObject jsonObj) {
     AlgorithmProfile apObj;
     final String AlgorithmProfile = ProfileUtils.getString(jsonObj, "AlgorithmProfile");
     if (AlgorithmProfile == null) {
@@ -71,8 +72,10 @@ public class PartitionerProfile extends ProfileObject {
     setalgProfile(apObj);
   }
 
-  private void parse(final CObjectCollection<PartitionProfile> pProfiles,
-      final CObjectCollection<AlgorithmProfile> algProfiles, final JSONObject jsonObj) {
+  private void parse(
+      final CObjectCollection<PartitionProfile> pProfiles,
+      final CObjectCollection<AlgorithmProfile> algProfiles,
+      final JSONObject jsonObj) {
     // name
     // this.parseName(JObj);
     // PartitionProfile
@@ -143,5 +146,4 @@ public class PartitionerProfile extends ProfileObject {
 
   private PartitionProfile pProfile;
   private AlgorithmProfile algProfile;
-
 }

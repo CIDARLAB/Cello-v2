@@ -25,16 +25,12 @@ import org.cellocad.v2.common.graph.AbstractVertex;
  * The VertexTemplate class is a class representing the node(s) of a <i>GraphTemplate</i>.
  *
  * @param <T> the type of the EdgeTemplate.
- *
  * @author Vincent Mirian
- *
  * @date Nov 2, 2017
  */
 public abstract class VertexTemplate<T extends EdgeTemplate<?>> extends AbstractVertex<T> {
 
-  /**
-   * Initializes a newly created {@link VertexTemplate}.
-   */
+  /** Initializes a newly created {@link VertexTemplate}. */
   public VertexTemplate() {
     super();
   }
@@ -72,5 +68,4 @@ public abstract class VertexTemplate<T extends EdgeTemplate<?>> extends Abstract
     rtn = rtn + "]";
     return rtn;
   }
-
 }

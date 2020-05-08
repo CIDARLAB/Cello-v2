@@ -33,7 +33,6 @@ import org.cellocad.v2.technologyMapping.netlist.data.TMStageNetlistNodeData;
  * The base class for all algorithms in the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public abstract class TMAlgorithm extends Algorithm {
@@ -85,5 +84,4 @@ public abstract class TMAlgorithm extends Algorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(TMAlgorithm.class);
-
 }

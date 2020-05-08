@@ -26,9 +26,6 @@ import org.cellocad.v2.common.application.runtime.environment.ApplicationArgStri
  * application.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class DnaCompilerArgString extends ApplicationArgString {
-
-}
+public class DnaCompilerArgString extends ApplicationArgString {}

@@ -41,14 +41,13 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * Utility methods for the <i>Eugene</i> algorithm in the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-05-29
  */
 public class EugeneUtils {
 
   /**
    * Get the name of a device to be used in a Eugene program.
-   * 
+   *
    * @param name The name of the device.
    * @return The name of a device to be used in a Eugene program.
    */
@@ -60,7 +59,7 @@ public class EugeneUtils {
 
   /**
    * Get the base name of a device that was used in a Eugene program.
-   * 
+   *
    * @param name The name of a device that was used in a Eugene program.
    * @return The base name.
    */
@@ -72,15 +71,13 @@ public class EugeneUtils {
 
   /**
    * Get a Eugene {@code PartType} definition for the given Cello part type.
-   * 
-   * <p>
-   * Example:
-   * 
+   *
+   * <p>Example:
+   *
    * <pre>
    * getPartTypeDefinition("promoter"); // returns "PartType promoter;"
    * </pre>
-   * </p>
-   * 
+   *
    * @param type A Ceello part type, e.g. {@code promoter}.
    * @return A Eugene {@code PartType} definition for the given Cello part type.
    */
@@ -92,13 +89,13 @@ public class EugeneUtils {
 
   /**
    * Get all the part types of the parts that appear in the given device.
-   * 
+   *
    * @param device A {@link StructureDevice}.
-   * @param parts  The {@link Part} objects that describe the part names in the given device.
+   * @param parts The {@link Part} objects that describe the part names in the given device.
    * @return All the part types of the parts that appear in the given device.
    */
-  public static Set<String> getPartTypes(final StructureDevice device,
-      final CObjectCollection<Part> parts) {
+  public static Set<String> getPartTypes(
+      final StructureDevice device, final CObjectCollection<Part> parts) {
     final Set<String> rtn = new HashSet<>();
     for (final StructureObject o : device.getComponents()) {
       if (o instanceof StructurePart) {
@@ -121,7 +118,7 @@ public class EugeneUtils {
 
   /**
    * Get the Eugene part definition for the given Cello {@link Part}.
-   * 
+   *
    * @param part A {@link Part}.
    * @return The Eugene part definition for the given Cello {@link Part}.
    */
@@ -136,13 +133,13 @@ public class EugeneUtils {
 
   /**
    * Get all the part definitions for the parts that appear in the given device.
-   * 
+   *
    * @param device A {@link StructureDevice}.
-   * @param parts  The {@link Part} objects that describe the part names in the given device.
+   * @param parts The {@link Part} objects that describe the part names in the given device.
    * @return
    */
-  public static Set<String> getPartDefinitions(final StructureDevice device,
-      final CObjectCollection<Part> parts) {
+  public static Set<String> getPartDefinitions(
+      final StructureDevice device, final CObjectCollection<Part> parts) {
     final Set<String> rtn = new HashSet<>();
     for (final StructureObject o : device.getComponents()) {
       if (o instanceof StructurePart) {
@@ -161,13 +158,13 @@ public class EugeneUtils {
 
   /**
    * Get the {@link Part} objects that act as inputs to the given node.
-   * 
+   *
    * @param node A {@link NetlistNode}.
-   * @param tdi  The {@link TargetDataInstance} that describes the parts.
+   * @param tdi The {@link TargetDataInstance} that describes the parts.
    * @return A collection of {@link Part} objects that act as inputs to the given node.
    */
-  public static CObjectCollection<Part> getInputs(final NetlistNode node,
-      final TargetDataInstance tdi) {
+  public static CObjectCollection<Part> getInputs(
+      final NetlistNode node, final TargetDataInstance tdi) {
     final CObjectCollection<Part> rtn = new CObjectCollection<>();
     for (int i = 0; i < node.getNumInEdge(); i++) {
       final NetlistEdge e = node.getInEdgeAtIdx(i);
@@ -194,14 +191,16 @@ public class EugeneUtils {
    * Obtain the StructureDevice objects associated with a given node. If more device objects are
    * specified in a gate than there are inputs to the node, the extra devices will be discarded.
    *
-   * @param node      The {@link NetlistNode}.
-   * @param gates     The Gate objects.
-   * @param sensors   The InputSensor objects.
+   * @param node The {@link NetlistNode}.
+   * @param gates The Gate objects.
+   * @param sensors The InputSensor objects.
    * @param reporters The OutputReporter objects.
    * @return A collection of StructureDevice objects associated with the NetlistNode.
    */
-  static Collection<StructureDevice> getDevices(final NetlistNode node,
-      final CObjectCollection<Gate> gates, final CObjectCollection<OutputDevice> reporters) {
+  static Collection<StructureDevice> getDevices(
+      final NetlistNode node,
+      final CObjectCollection<Gate> gates,
+      final CObjectCollection<OutputDevice> reporters) {
     final Collection<StructureDevice> rtn = new ArrayList<>();
     final String gateType = node.getResultNetlistNodeData().getDeviceName();
     final Integer num = node.getNumInEdge();
@@ -263,5 +262,4 @@ public class EugeneUtils {
     }
     return rtn;
   }
-
 }

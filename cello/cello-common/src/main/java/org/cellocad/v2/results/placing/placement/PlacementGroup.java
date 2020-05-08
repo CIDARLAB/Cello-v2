@@ -36,14 +36,11 @@ import org.json.simple.JSONObject;
  * particular plasmid.
  *
  * @author Timothy Jones
- *
  * @date 2019-05-15
  */
 public class PlacementGroup extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     placementGroup = new ArrayList<>();
   }
@@ -51,7 +48,7 @@ public class PlacementGroup extends CObject {
   /**
    * Initializes a newly created {@link PlacementGroup}.
    *
-   * @param up   The up direction.
+   * @param up The up direction.
    * @param down The down direction.
    */
   public PlacementGroup(final Boolean up, final Boolean down) {
@@ -95,7 +92,7 @@ public class PlacementGroup extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -138,7 +135,7 @@ public class PlacementGroup extends CObject {
 
   /**
    * Gets the component at the given index.
-   * 
+   *
    * @param index An index.
    * @return The component at the given index.
    */
@@ -212,5 +209,4 @@ public class PlacementGroup extends CObject {
   private Boolean bUp;
   private Boolean bDown;
   private URI uri;
-
 }

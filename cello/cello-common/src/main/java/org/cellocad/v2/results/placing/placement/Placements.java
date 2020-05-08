@@ -29,14 +29,11 @@ import org.cellocad.v2.common.json.JsonUtils;
  * A collection of {@link Placement} objects.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-05
  */
 public class Placements {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     placements = new ArrayList<>();
   }
@@ -55,7 +52,7 @@ public class Placements {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -81,7 +78,7 @@ public class Placements {
 
   /**
    * Gets the placement at the given index.
-   * 
+   *
    * @param index A placement.
    * @return The placement at the given index.
    */
@@ -110,5 +107,4 @@ public class Placements {
   }
 
   List<Placement> placements;
-
 }

@@ -49,7 +49,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class PTRuntimeObject extends RuntimeObject {
@@ -60,16 +59,20 @@ public class PTRuntimeObject extends RuntimeObject {
    * set to parameter {@code netlist}, its <i>results</i> set to parameter {@code results}, and, its
    * <i>runEnv</i> set to parameter {@code runEnv}.
    *
-   * @param stage             The {@link Stage} used during execution.
-   * @param targetData        The {@link TargetData} used during execution.
+   * @param stage The {@link Stage} used during execution.
+   * @param targetData The {@link TargetData} used during execution.
    * @param netlistConstraint The {@link NetlistConstraint} used during execution.
-   * @param netlist           The {@link Netlist} used during execution.
-   * @param results           The {@link Results} used during execution.
-   * @param runEnv            The {@link RuntimeEnv} used during execution.
+   * @param netlist The {@link Netlist} used during execution.
+   * @param results The {@link Results} used during execution.
+   * @param runEnv The {@link RuntimeEnv} used during execution.
    * @throws RuntimeException if any of the parameters are null.
    */
-  public PTRuntimeObject(final Stage stage, final TargetData targetData,
-      final NetlistConstraint netlistConstraint, final Netlist netlist, final Results results,
+  public PTRuntimeObject(
+      final Stage stage,
+      final TargetData targetData,
+      final NetlistConstraint netlistConstraint,
+      final Netlist netlist,
+      final Results results,
       final RuntimeEnv runEnv) {
     super(stage, targetData, netlistConstraint, netlist, results, runEnv);
   }
@@ -158,7 +161,7 @@ public class PTRuntimeObject extends RuntimeObject {
    * <i>partitioning</i> stage.
    *
    * @return A string representing the {@code OPTIONS} command line argument for the
-   *         <i>partitioning</i> stage.
+   *     <i>partitioning</i> stage.
    */
   @Override
   protected String getOptionsString() {
@@ -248,5 +251,4 @@ public class PTRuntimeObject extends RuntimeObject {
   }
 
   private static final Logger logger = LogManager.getLogger(PTRuntimeObject.class);
-
 }

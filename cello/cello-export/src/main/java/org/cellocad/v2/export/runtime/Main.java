@@ -41,7 +41,6 @@ import org.cellocad.v2.results.netlist.NetlistUtils;
  * The Main class is the executable class for the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class Main {
@@ -75,8 +74,12 @@ public class Main {
       stage.setName(stageName);
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     if (!td.isValid()) {
       throw new CelloException("TargetData is invalid!");
     }
@@ -133,5 +136,4 @@ public class Main {
   }
 
   private static Logger logger;
-
 }

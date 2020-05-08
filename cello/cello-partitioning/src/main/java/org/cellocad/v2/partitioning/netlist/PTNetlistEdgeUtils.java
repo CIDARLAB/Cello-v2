@@ -23,14 +23,13 @@ package org.cellocad.v2.partitioning.netlist;
  * Utility methods for {@link PTNetlistEdge} instances.
  *
  * @author Vincent Mirian
- *
  * @date Jan 21, 2018
  */
 public class PTNetlistEdgeUtils {
 
   /**
    * Check if an edge is connected to a primary input or output node.
-   * 
+   *
    * @param edge An edge.
    * @return Whether the edge is connected to a primary input or output node.
    */
@@ -40,5 +39,4 @@ public class PTNetlistEdgeUtils {
     rtn = rtn || PTNetlistNodeUtils.isPrimary(edge.getDst());
     return rtn;
   }
-
 }

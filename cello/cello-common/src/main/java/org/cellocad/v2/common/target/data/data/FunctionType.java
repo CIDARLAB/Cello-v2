@@ -23,12 +23,10 @@ package org.cellocad.v2.common.target.data.data;
  * Constants representing function types.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
 public class FunctionType {
 
   public static final String S_RESPONSEFUNCTION = "response_function";
   public static final String S_INPUTCOMPOSITION = "input_composition";
-
 }

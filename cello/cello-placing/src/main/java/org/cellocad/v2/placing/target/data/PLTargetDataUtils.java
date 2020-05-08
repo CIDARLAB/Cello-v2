@@ -25,9 +25,6 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
  * Utility methods for the target data in the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
-public class PLTargetDataUtils extends TargetDataUtils {
-
-}
+public class PLTargetDataUtils extends TargetDataUtils {}

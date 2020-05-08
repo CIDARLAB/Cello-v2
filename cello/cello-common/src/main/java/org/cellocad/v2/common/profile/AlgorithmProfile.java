@@ -30,7 +30,6 @@ import org.json.simple.JSONObject;
  * software representation of the algorithm configuration file.
  *
  * @author Vincent Mirian
- *
  * @date Oct 27, 2017
  */
 public final class AlgorithmProfile extends ProfileObject {
@@ -39,7 +38,7 @@ public final class AlgorithmProfile extends ProfileObject {
    * Initializes a newly created {@link AlgorithmProfile} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the AlgorithmProfile
-   *                Object.
+   *     Object.
    */
   public AlgorithmProfile(final JSONObject jsonObj) {
     super(jsonObj);
@@ -79,10 +78,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Boolean> getBooleanParameter(final String name) {
     final Boolean value = booleanParameters.get(name);
@@ -94,7 +93,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the boolean parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setBooleanParameter(final String name, final Boolean value) {
@@ -106,10 +105,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Byte> getByteParameter(final String name) {
     final Byte value = byteParameters.get(name);
@@ -121,7 +120,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the byte parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setByteParameter(final String name, final Byte value) {
@@ -133,10 +132,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Character> getCharParameter(final String name) {
     final Character value = charParameters.get(name);
@@ -148,7 +147,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the character parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setCharacterParameter(final String name, final Character value) {
@@ -160,10 +159,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Short> getShortParameter(final String name) {
     final Short value = shortParameters.get(name);
@@ -175,7 +174,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the short parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setShortParameter(final String name, final Short value) {
@@ -187,10 +186,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Integer> getIntParameter(final String name) {
     final Integer value = intParameters.get(name);
@@ -202,7 +201,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the integer parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setIntegerParameter(final String name, final Integer value) {
@@ -214,10 +213,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Long> getLongParameter(final String name) {
     final Long value = longParameters.get(name);
@@ -229,7 +228,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the long parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setLongParameter(final String name, final Long value) {
@@ -241,10 +240,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Float> getFloatParameter(final String name) {
     final Float value = floatParameters.get(name);
@@ -256,7 +255,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the float parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setFloatParameter(final String name, final Float value) {
@@ -268,10 +267,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, Double> getDoubleParameter(final String name) {
     final Double value = doubleParameters.get(name);
@@ -283,7 +282,7 @@ public final class AlgorithmProfile extends ProfileObject {
   /**
    * Setter for the double parameter with its name equivalent to parameter {@code name}.
    *
-   * @param name  The name of the parameter.
+   * @param name The name of the parameter.
    * @param value The value of the parameter.
    */
   public void setDoubleParameter(final String name, final Double value) {
@@ -295,10 +294,10 @@ public final class AlgorithmProfile extends ProfileObject {
    *
    * @param name The name of the parameter.
    * @return A pair instance with the first element representing the validity of the second element,
-   *         and, the second element contains the value of the parameter {@code name}. If the
-   *         parameter is present for this instance, then the value of the first element is true,
-   *         otherwise false. If the parameter is present for this instance, the value of the second
-   *         element is the value of the parameter, otherwise null.
+   *     and, the second element contains the value of the parameter {@code name}. If the parameter
+   *     is present for this instance, then the value of the first element is true, otherwise false.
+   *     If the parameter is present for this instance, the value of the second element is the value
+   *     of the parameter, otherwise null.
    */
   public Pair<Boolean, String> getStringParameter(final String name) {
     final String value = stringParameters.get(name);
@@ -333,54 +332,44 @@ public final class AlgorithmProfile extends ProfileObject {
       throw new RuntimeException("Value not specified for parameter " + name + ".");
     }
     switch (type) {
-      case BOOLEAN: {
-        final Boolean data = ProfileUtils.getBoolean(jsonObj, "value");
-        setBooleanParameter(name, data);
+      case BOOLEAN:
+        final Boolean b = ProfileUtils.getBoolean(jsonObj, "value");
+        setBooleanParameter(name, b);
         break;
-      }
-      case BYTE: {
-        final Byte data = ProfileUtils.getByte(jsonObj, "value");
-        setByteParameter(name, data);
+      case BYTE:
+        final Byte by = ProfileUtils.getByte(jsonObj, "value");
+        setByteParameter(name, by);
         break;
-      }
-      case CHAR: {
+      case CHAR:
         final Character c = ProfileUtils.getCharacter(jsonObj, "value");
         setCharacterParameter(name, c);
         break;
-      }
-      case SHORT: {
-        final Short data = ProfileUtils.getShort(jsonObj, "value");
-        setShortParameter(name, data);
+      case SHORT:
+        final Short s = ProfileUtils.getShort(jsonObj, "value");
+        setShortParameter(name, s);
         break;
-      }
-      case INT: {
-        final Integer data = ProfileUtils.getInteger(jsonObj, "value");
-        setIntegerParameter(name, data);
+      case INT:
+        final Integer i = ProfileUtils.getInteger(jsonObj, "value");
+        setIntegerParameter(name, i);
         break;
-      }
-      case LONG: {
-        final Long data = ProfileUtils.getLong(jsonObj, "value");
-        setLongParameter(name, data);
+      case LONG:
+        final Long l = ProfileUtils.getLong(jsonObj, "value");
+        setLongParameter(name, l);
         break;
-      }
-      case FLOAT: {
-        final Float data = ProfileUtils.getFloat(jsonObj, "value");
-        setFloatParameter(name, data);
+      case FLOAT:
+        final Float f = ProfileUtils.getFloat(jsonObj, "value");
+        setFloatParameter(name, f);
         break;
-      }
-      case DOUBLE: {
-        final Double data = ProfileUtils.getDouble(jsonObj, "value");
-        setDoubleParameter(name, data);
+      case DOUBLE:
+        final Double d = ProfileUtils.getDouble(jsonObj, "value");
+        setDoubleParameter(name, d);
         break;
-      }
-      case STRING: {
-        final String data = ProfileUtils.getString(jsonObj, "value");
-        setStringParameter(name, data);
+      case STRING:
+        final String str = ProfileUtils.getString(jsonObj, "value");
+        setStringParameter(name, str);
         break;
-      }
-      default: {
+      default:
         throw new RuntimeException("Invalid type for parameter " + name + ".");
-      }
     }
   }
 
@@ -531,5 +520,4 @@ public final class AlgorithmProfile extends ProfileObject {
   private final Map<String, Float> floatParameters;
   private final Map<String, Double> doubleParameters;
   private final Map<String, String> stringParameters;
-
 }

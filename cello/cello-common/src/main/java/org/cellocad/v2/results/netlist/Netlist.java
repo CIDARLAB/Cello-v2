@@ -45,7 +45,6 @@ import org.json.simple.JSONObject;
  * The Netlist class is a class representing the netlist of the project.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
@@ -77,9 +76,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
     setResultNetlistData(new ResultNetlistData(other.getResultNetlistData()));
   }
 
-  /**
-   * Initializes a newly created {@link Netlist}.
-   */
+  /** Initializes a newly created {@link Netlist}. */
   public Netlist() {
     super();
     setDefault();
@@ -89,7 +86,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    * Initializes a newly created {@link Netlist} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link Netlist}
-   *                object.
+   *     object.
    */
   public Netlist(final JSONObject jsonObj) {
     this();
@@ -200,7 +197,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -256,7 +253,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    *
    * @param other The other NetlistNode.
    * @return A newly created {@link NetlistNode} object with its contents set to those of parameter
-   *         {@code other}.
+   *     {@code other}.
    */
   @Override
   public NetlistNode createV(final NetlistNode other) {
@@ -270,7 +267,7 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
    *
    * @param other The other NetlistEdge.
    * @return A newly created {@link NetlistEdge} object with its contents set to those of parameter
-   *         {@code other}.
+   *     {@code other}.
    */
   @Override
   public NetlistEdge createE(final NetlistEdge other) {
@@ -465,5 +462,4 @@ public class Netlist extends GraphTemplate<NetlistNode, NetlistEdge> {
   }
 
   private StageNetlistData stageNetlistData;
-
 }

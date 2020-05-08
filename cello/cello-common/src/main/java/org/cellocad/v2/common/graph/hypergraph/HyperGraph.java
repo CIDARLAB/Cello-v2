@@ -24,18 +24,17 @@ package org.cellocad.v2.common.graph.hypergraph;
  * edge(s) of type {@link HyperEdge}.
  *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public class HyperGraph extends HyperGraphTemplate<HyperVertex, HyperEdge> {
 
   /**
-   * Return a newly created {@link HyperVertex} with its contents set to those of parameter
-   * {@code other}.
+   * Return a newly created {@link HyperVertex} with its contents set to those of parameter {@code
+   * other}.
    *
    * @param other The other {@link HyperVertex}.
-   * @return A newly created {@link HyperVertex} with its contents set to those of parameter
-   *         {@code other}.
+   * @return A newly created {@link HyperVertex} with its contents set to those of parameter {@code
+   *     other}.
    */
   @Override
   public HyperVertex createV(final HyperVertex other) {
@@ -45,12 +44,12 @@ public class HyperGraph extends HyperGraphTemplate<HyperVertex, HyperEdge> {
   }
 
   /**
-   * Return a newly created {@link HyperEdge} with its contents set to those of parameter
-   * {@code other}.
+   * Return a newly created {@link HyperEdge} with its contents set to those of parameter {@code
+   * other}.
    *
    * @param other The other {@link HyperEdge}.
-   * @return A newly created {@link HyperEdge} with its contents set to those of parameter
-   *         {@code other}.
+   * @return A newly created {@link HyperEdge} with its contents set to those of parameter {@code
+   *     other}.
    */
   @Override
   public HyperEdge createE(final HyperEdge other) {
@@ -58,5 +57,4 @@ public class HyperGraph extends HyperGraphTemplate<HyperVertex, HyperEdge> {
     rtn = new HyperEdge(other);
     return rtn;
   }
-
 }

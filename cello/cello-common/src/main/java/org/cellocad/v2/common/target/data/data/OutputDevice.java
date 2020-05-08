@@ -25,16 +25,13 @@ import org.json.simple.JSONObject;
  * An output device, e.g. GFP.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-29
  */
 public class OutputDevice extends AssignableDevice {
 
-  private void init() {
-  }
+  private void init() {}
 
-  private void parseOutputDevice(final JSONObject jObj) {
-  }
+  private void parseOutputDevice(final JSONObject jObj) {}
 
   /**
    * Initializes a newly created {@link OutputDevice} with the given JSON data.
@@ -46,5 +43,4 @@ public class OutputDevice extends AssignableDevice {
     init();
     parseOutputDevice(jsonObj);
   }
-
 }

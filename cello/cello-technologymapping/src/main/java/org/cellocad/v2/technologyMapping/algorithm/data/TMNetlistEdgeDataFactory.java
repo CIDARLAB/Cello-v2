@@ -26,18 +26,17 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.Simul
  * The TMNetlistEdgeDataFactory is a NetlistEdgeData factory for the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMNetlistEdgeDataFactory extends NetlistEdgeDataFactory<TMNetlistEdgeData> {
 
   /**
-   * Returns the {@link TMNetlistEdgeData} object that has the same name as the parameter
-   * {@code name} within the {@link TMNetlistEdgeDataFactory}.
+   * Returns the {@link TMNetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link TMNetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link TMNetlistEdgeData} instance if the {@link TMNetlistEdgeData} type exists
-   *         within the {@link TMNetlistEdgeDataFactory}, otherwise null.
+   *     within the {@link TMNetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected TMNetlistEdgeData getNetlistEdgeData(final String name) {
@@ -47,5 +46,4 @@ public class TMNetlistEdgeDataFactory extends NetlistEdgeDataFactory<TMNetlistEd
     }
     return rtn;
   }
-
 }

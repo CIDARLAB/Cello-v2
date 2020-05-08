@@ -25,9 +25,6 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
-public class SimulatedAnnealingDataUtils {
-
-}
+public class SimulatedAnnealingDataUtils {}

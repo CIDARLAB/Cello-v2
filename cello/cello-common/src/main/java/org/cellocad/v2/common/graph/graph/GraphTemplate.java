@@ -27,17 +27,13 @@ import org.cellocad.v2.common.graph.AbstractGraph;
  *
  * @param <V> The type of the {@link VertexTemplate}.
  * @param <E> The type of the {@link EdgeTemplate}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 2, 2017
  */
 public abstract class GraphTemplate<V extends VertexTemplate<E>, E extends EdgeTemplate<V>>
     extends AbstractGraph<V, E> {
 
-  /**
-   * Initializes a newly created {@link GraphTemplate}.
-   */
+  /** Initializes a newly created {@link GraphTemplate}. */
   public GraphTemplate() {
     super();
   }
@@ -51,5 +47,4 @@ public abstract class GraphTemplate<V extends VertexTemplate<E>, E extends EdgeT
   public GraphTemplate(final GraphTemplate<V, E> other) {
     super(other);
   }
-
 }

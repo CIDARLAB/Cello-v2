@@ -24,16 +24,13 @@ import org.cellocad.v2.partitioning.netlist.PTNetlistNode;
 
 /**
  * A representation of a move operation.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 26, 2017
  */
 public class Move extends CObject {
 
-  /**
-   * Initializes a newly created {@link Move}.
-   */
+  /** Initializes a newly created {@link Move}. */
   public Move() {
     setPNode(null);
     setSrcBlock(null);
@@ -43,7 +40,7 @@ public class Move extends CObject {
   /**
    * Initializes a newly created {@link Move}.
    *
-   * @param node     The node to move.
+   * @param node The node to move.
    * @param srcBlock The source block.
    * @param dstBlock The destination block.
    */
@@ -85,9 +82,7 @@ public class Move extends CObject {
    * Undo
    */
 
-  /**
-   * Invert the move.
-   */
+  /** Invert the move. */
   public void makeUndo() {
     final Block Src = getSrcBlock();
     final Block Dst = getDstBlock();
@@ -177,12 +172,16 @@ public class Move extends CObject {
    */
   @Override
   public String toString() {
-    return "Move [node=" + node + ", srcBlock=" + srcBlock.getName() + ", dstBlock="
-        + dstBlock.getName() + "]";
+    return "Move [node="
+        + node
+        + ", srcBlock="
+        + srcBlock.getName()
+        + ", dstBlock="
+        + dstBlock.getName()
+        + "]";
   }
 
   private PTNetlistNode node;
   private Block srcBlock;
   private Block dstBlock;
-
 }

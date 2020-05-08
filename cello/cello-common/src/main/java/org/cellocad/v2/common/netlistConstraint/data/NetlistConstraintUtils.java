@@ -35,7 +35,6 @@ import org.json.simple.parser.ParseException;
  * instances.
  *
  * @author Vincent Mirian
- *
  * @date Nov 22, 2017
  */
 public final class NetlistConstraintUtils {
@@ -45,18 +44,18 @@ public final class NetlistConstraintUtils {
    * the string referencing command line argument for the NetlistConstraint file,
    * <i>netlistConstraintFile</i>.
    *
-   * @param runEnv                The RuntimeEnv to extract the NetlistConstraint file,
-   *                              <i>netlistConstraintFile</i>.
+   * @param runEnv The RuntimeEnv to extract the NetlistConstraint file,
+   *     <i>netlistConstraintFile</i>.
    * @param netlistConstraintFile The string referencing command line argument for the
-   *                              NetlistConstraint file.
+   *     NetlistConstraint file.
    * @return The NetlistConstraintData if created successfully, otherwise null.
    * @throws RuntimeException if: <br>
-   *                          Error accessing <i>netlistConstraintDataFile</i><br>
-   *                          Error parsing <i>netlistConstraintFile</i><br>
-   *                          .
+   *     Error accessing <i>netlistConstraintDataFile</i><br>
+   *     Error parsing <i>netlistConstraintFile</i><br>
+   *     .
    */
-  public static NetlistConstraint getNetlistConstraintData(final RuntimeEnv runEnv,
-      final String netlistConstraintFile) {
+  public static NetlistConstraint getNetlistConstraintData(
+      final RuntimeEnv runEnv, final String netlistConstraintFile) {
     Utils.isNullRuntimeException(runEnv, "runEnv");
     Utils.isNullRuntimeException(netlistConstraintFile, "netlistConstraintFile");
     NetlistConstraint rtn = null;
@@ -91,5 +90,4 @@ public final class NetlistConstraintUtils {
     }
     return rtn;
   }
-
 }

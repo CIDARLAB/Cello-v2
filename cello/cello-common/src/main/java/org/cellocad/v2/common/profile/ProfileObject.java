@@ -26,23 +26,18 @@ import org.json.simple.JSONObject;
  * The ProfileObject class is the base object for all profile classes within the Poros framework.
  *
  * @author Vincent Mirian
- *
  * @date Oct 27, 2017
  */
 public class ProfileObject extends CObject {
 
-  /**
-   * Initializes a newly created {@link CObject} with an empty string as its <i>name</i>.
-   */
-  public ProfileObject() {
-
-  }
+  /** Initializes a newly created {@link CObject} with an empty string as its <i>name</i>. */
+  public ProfileObject() {}
 
   /**
    * Initializes a newly created {@link ProfileObject} using the parameter {@code jsonObj}.
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
    */
   protected ProfileObject(final JSONObject jsonObj) {
     parseName(jsonObj);
@@ -55,8 +50,8 @@ public class ProfileObject extends CObject {
    * Extracts the value of name attribute from the parameter {@code jsonObj}, and sets the name to
    * the extracted value.
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ProfileObject} object.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ProfileObject} object.
    * @throws RuntimeException if the name is not specified in the parameter {@code jsonObj}.
    */
   protected void parseName(final JSONObject jsonObj) {
@@ -67,5 +62,4 @@ public class ProfileObject extends CObject {
     }
     setName(name);
   }
-
 }

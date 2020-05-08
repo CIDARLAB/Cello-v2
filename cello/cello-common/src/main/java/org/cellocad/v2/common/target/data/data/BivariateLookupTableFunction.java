@@ -34,7 +34,6 @@ import org.json.simple.JSONObject;
  * A bivariate lookup table function.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-21
  */
 public class BivariateLookupTableFunction extends LookupTableFunction {
@@ -48,8 +47,9 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
     final JSONArray jArr = (JSONArray) jsonObj.get(LookupTableFunction.S_TABLE);
     if (jArr == null) {
       final String fmt = "Invalid %s specification: %s.";
-      final String str = String.format(fmt, BivariateLookupTableFunction.class.getSimpleName(),
-          jsonObj.toString());
+      final String str =
+          String.format(
+              fmt, BivariateLookupTableFunction.class.getSimpleName(), jsonObj.toString());
       throw new CelloException(str);
     }
     if (jArr.size() == 0) {
@@ -140,7 +140,7 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
 
   /**
    * Evaluates this instance with the given variable mapping.
-   * 
+   *
    * @param value A variable mapping.
    * @return The list of results.
    */
@@ -159,8 +159,9 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
       } else {
         rtn = new ArrayList<>();
         for (int i = 0; i < ydata[xbar.getFirst()].length; i++) {
-          rtn.add((zdata[xbar.getFirst()][i] / w1 + zdata[xbar.getSecond()][i] / w2)
-              / (1.0 / w1 + 1.0 / w2));
+          rtn.add(
+              (zdata[xbar.getFirst()][i] / w1 + zdata[xbar.getSecond()][i] / w2)
+                  / (1.0 / w1 + 1.0 / w2));
         }
       }
     } else {
@@ -171,7 +172,7 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
 
   /**
    * Evaluates this instance with the given variable mapping.
-   * 
+   *
    * @param value A variable mapping.
    * @return The result.
    */
@@ -227,5 +228,4 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
   private Double[] xdata;
   private Double[][] ydata;
   private Double[][] zdata;
-
 }

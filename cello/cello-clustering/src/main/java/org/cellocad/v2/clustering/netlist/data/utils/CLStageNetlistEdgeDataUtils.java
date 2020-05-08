@@ -28,14 +28,13 @@ import org.cellocad.v2.results.netlist.NetlistEdge;
  * instances in the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLStageNetlistEdgeDataUtils {
 
   /**
-   * Resets the stage data for all edges in the netlist instance defined by parameter
-   * {@code netlist}.
+   * Resets the stage data for all edges in the netlist instance defined by parameter {@code
+   * netlist}.
    *
    * @param netlist The {@link Netlist}.
    */
@@ -55,5 +54,4 @@ public class CLStageNetlistEdgeDataUtils {
     final CLStageNetlistEdgeData data = new CLStageNetlistEdgeData();
     edge.setStageNetlistEdgeData(data);
   }
-
 }

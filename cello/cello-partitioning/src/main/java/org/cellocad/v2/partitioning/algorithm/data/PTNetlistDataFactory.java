@@ -29,7 +29,6 @@ import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistData;
  * The PTNetlistDataFactory class is a NetlistData factory for the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTNetlistDataFactory extends NetlistDataFactory<PTNetlistData> {
@@ -40,7 +39,7 @@ public class PTNetlistDataFactory extends NetlistDataFactory<PTNetlistData> {
    *
    * @param name string used for searching this instance.
    * @return The {@link PTNetlistData} instance if the {@link PTNetlistData} type exists within the
-   *         {@link PTNetlistDataFactory}, otherwise null.
+   *     {@link PTNetlistDataFactory}, otherwise null.
    */
   @Override
   protected PTNetlistData getNetlistData(final String name) {
@@ -59,5 +58,4 @@ public class PTNetlistDataFactory extends NetlistDataFactory<PTNetlistData> {
     }
     return rtn;
   }
-
 }

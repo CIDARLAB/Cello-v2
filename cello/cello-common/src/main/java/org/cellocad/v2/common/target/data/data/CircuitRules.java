@@ -37,7 +37,6 @@ import org.logicng.transformations.dnf.DNFFactorization;
  * Rules is a class representing the rules for part and gate placement <i>Eugene</i> algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2018-08-10
  */
 public class CircuitRules extends AbstractRules {
@@ -45,7 +44,7 @@ public class CircuitRules extends AbstractRules {
   /**
    * Rename the device in a rule.
    *
-   * @param rule    The rule.
+   * @param rule The rule.
    * @param devices The list of devices that should be renamed in the rule.
    * @return The rule with renamed devices.
    */
@@ -65,8 +64,12 @@ public class CircuitRules extends AbstractRules {
     return rtn;
   }
 
-  private void parseBlock(final JSONObject obj, final Collection<String> devices,
-      final Collection<String> fenceposts, final StringBuilder builder, final Namer namer) {
+  private void parseBlock(
+      final JSONObject obj,
+      final Collection<String> devices,
+      final Collection<String> fenceposts,
+      final StringBuilder builder,
+      final Namer namer) {
     final JSONArray rules = (JSONArray) obj.get(AbstractRules.S_RULES);
     final String op = getOperator((String) obj.get(AbstractRules.S_FUNCTION));
     builder.append("(");
@@ -100,14 +103,14 @@ public class CircuitRules extends AbstractRules {
   /**
    * Build an individual (Eugene) <code>Rule</code> block.
    *
-   * @param st    A <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
-   *              the DNF rule set.
+   * @param st A <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
+   *     the DNF rule set.
    * @param names A map from a name in the DNF to the device name.
-   * @param num   A numeral for the rule used in naming.
+   * @param num A numeral for the rule used in naming.
    * @return A string representation of the Rule block.
    */
-  protected String buildRule(final StringTokenizer st, final Map<String, String> names,
-      final int num) {
+  protected String buildRule(
+      final StringTokenizer st, final Map<String, String> names, final int num) {
     String rtn = "";
     rtn += "Rule CircuitRule" + String.valueOf(num) + "( ON circuit:" + Utils.getNewLine();
     while (st.hasMoreTokens()) {
@@ -129,8 +132,8 @@ public class CircuitRules extends AbstractRules {
   /**
    * Generate all (Eugene) Rule blocks from the DNF.
    *
-   * @param st    The <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated
-   *              with the DNF rule set.
+   * @param st The <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
+   *     the DNF rule set.
    * @param names A map from a name in the DNF to the device name.
    */
   private void buildRules(final StringTokenizer st, final Map<String, String> names) {
@@ -141,7 +144,9 @@ public class CircuitRules extends AbstractRules {
     }
   }
 
-  private void parseCircuitRules(final JSONObject jObj, final Collection<String> devices,
+  private void parseCircuitRules(
+      final JSONObject jObj,
+      final Collection<String> devices,
       final Collection<String> fenceposts) {
     final JSONObject jArr = (JSONObject) jObj.get(AbstractRules.S_RULES);
     final StringBuilder builder = new StringBuilder();
@@ -194,7 +199,7 @@ public class CircuitRules extends AbstractRules {
 
   /**
    * Returns the original JSON object used to construct the circuit rules.
-   * 
+   *
    * @return The json.
    */
   private JSONObject getJson() {
@@ -202,5 +207,4 @@ public class CircuitRules extends AbstractRules {
   }
 
   private final JSONObject json;
-
 }

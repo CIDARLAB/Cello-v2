@@ -28,17 +28,13 @@ import org.cellocad.v2.placing.algorithm.data.PLNetlistNodeData;
  * algorithm class of the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-06
  */
 public class EugeneNetlistNodeData extends PLNetlistNodeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link EugeneNetlistNodeData}.
-   */
+  /** Initializes a newly created {@link EugeneNetlistNodeData}. */
   public EugeneNetlistNodeData() {
     super();
     setDefault();
@@ -49,12 +45,9 @@ public class EugeneNetlistNodeData extends PLNetlistNodeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

@@ -32,7 +32,6 @@ import org.cellocad.v2.results.netlist.data.ResultNetlistEdgeData;
  * A context in which a pointer is evaluated or dereferenced.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public class EvaluationContext {
@@ -65,8 +64,9 @@ public class EvaluationContext {
     throw new CelloException(String.format(fmt, EvaluationContext.S_UNSUPPORTED, map, token));
   }
 
-  private Evaluatable dereferenceInput(final StringTokenizer st, final String map,
-      final NetlistNode node, final Input input) throws CelloException {
+  private Evaluatable dereferenceInput(
+      final StringTokenizer st, final String map, final NetlistNode node, final Input input)
+      throws CelloException {
     Evaluatable rtn = null;
     NetlistNode src = null;
     for (int i = 0; i < node.getNumInEdge(); i++) {
@@ -87,8 +87,9 @@ public class EvaluationContext {
     return rtn;
   }
 
-  private Evaluatable dereferenceStructure(final StringTokenizer st, final String map,
-      final NetlistNode node, final Structure structure) throws CelloException {
+  private Evaluatable dereferenceStructure(
+      final StringTokenizer st, final String map, final NetlistNode node, final Structure structure)
+      throws CelloException {
     Evaluatable rtn = null;
     EvaluationContext.isTooShortException(st, map);
     final String token = st.nextToken();
@@ -112,8 +113,9 @@ public class EvaluationContext {
     return rtn;
   }
 
-  private Evaluatable dereferenceModel(final StringTokenizer st, final String map,
-      final NetlistNode node, final Model model) throws CelloException {
+  private Evaluatable dereferenceModel(
+      final StringTokenizer st, final String map, final NetlistNode node, final Model model)
+      throws CelloException {
     Evaluatable rtn = null;
     EvaluationContext.isTooShortException(st, map);
     final String token = st.nextToken();
@@ -135,8 +137,8 @@ public class EvaluationContext {
     return rtn;
   }
 
-  private Evaluatable dereferenceRoot(final StringTokenizer st, final String map,
-      final NetlistNode node) throws CelloException {
+  private Evaluatable dereferenceRoot(
+      final StringTokenizer st, final String map, final NetlistNode node) throws CelloException {
     Evaluatable rtn = null;
     // TODO check cache or originate entry
     EvaluationContext.isTooShortException(st, map);
@@ -159,7 +161,7 @@ public class EvaluationContext {
 
   /**
    * Dereference the given pointer string.
-   * 
+   *
    * @param map A pointer string.
    * @return The dereferenced {@link Evaluatable} object.
    * @throws CelloException Unable to dereference the given pointer string.
@@ -252,5 +254,4 @@ public class EvaluationContext {
 
   private static final String S_INVALID = "Invalid reference string";
   private static final String S_UNSUPPORTED = "Unsupported reference string";
-
 }

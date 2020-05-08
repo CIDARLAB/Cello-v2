@@ -27,7 +27,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * in the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSStageNetlistDataUtils {
@@ -41,5 +40,4 @@ public class LSStageNetlistDataUtils {
     final LSStageNetlistData data = new LSStageNetlistData();
     netlist.setStageNetlistData(data);
   }
-
 }

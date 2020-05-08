@@ -27,9 +27,8 @@ import java.io.Writer;
 
 /**
  * Utility methods for paritions.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 31, 2017
  */
 public class PartitionUtils {
@@ -38,7 +37,7 @@ public class PartitionUtils {
    * Writes the Partition defined by parameter {@code p} in DOT (graph description language) format
    * to the file defined by {@code filename}.
    *
-   * @param p        The Partition.
+   * @param p The Partition.
    * @param filename The file.
    */
   public static void writeDotFileForPartition(final Partition p, final String filename) {
@@ -52,5 +51,4 @@ public class PartitionUtils {
       e.printStackTrace();
     }
   }
-
 }

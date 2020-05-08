@@ -26,9 +26,7 @@ import org.cellocad.v2.common.profile.AlgorithmProfile;
  * The NetlistDataFactory class is a NetlistData factory.
  *
  * @param <T> the type of NetlistData.
- *
  * @author Vincent Mirian
- *
  * @date Dec 15, 2017
  */
 public abstract class NetlistDataFactory<T extends NetlistData> extends CObject {
@@ -39,7 +37,7 @@ public abstract class NetlistDataFactory<T extends NetlistData> extends CObject 
    *
    * @param name string used for searching the NetlistDataFactory.
    * @return The {@link NetlistData} instance if the {@link NetlistData} type exists within the
-   *         {@link NetlistDataFactory}, otherwise null.
+   *     {@link NetlistDataFactory}, otherwise null.
    */
   protected abstract T getNetlistData(final String name);
 
@@ -49,7 +47,7 @@ public abstract class NetlistDataFactory<T extends NetlistData> extends CObject 
    *
    * @param algProfile AlgorithmProfile used for searching the NetlistDataFactory.
    * @return The {@link NetlistData} instance if the {@link NetlistData} type exists within the
-   *         {@link NetlistDataFactory}, otherwise null.
+   *     {@link NetlistDataFactory}, otherwise null.
    */
   public T getNetlistData(final AlgorithmProfile algProfile) {
     T rtn = null;
@@ -62,5 +60,4 @@ public abstract class NetlistDataFactory<T extends NetlistData> extends CObject 
     }
     return rtn;
   }
-
 }

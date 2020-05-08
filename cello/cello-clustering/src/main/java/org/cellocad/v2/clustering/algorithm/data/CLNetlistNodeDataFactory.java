@@ -26,18 +26,17 @@ import org.cellocad.v2.common.algorithm.data.NetlistNodeDataFactory;
  * The CLNetlistNodeDataFactory is a NetlistNodeData factory for the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLNetlistNodeDataFactory extends NetlistNodeDataFactory<CLNetlistNodeData> {
 
   /**
-   * Returns the {@link CLNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link CLNetlistNodeDataFactory}.
+   * Returns the {@link CLNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link CLNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link CLNetlistNodeData} instance if the {@link CLNetlistNodeData} type exists
-   *         within the {@link CLNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link CLNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected CLNetlistNodeData getNetlistNodeData(final String name) {
@@ -47,5 +46,4 @@ public class CLNetlistNodeDataFactory extends NetlistNodeDataFactory<CLNetlistNo
     }
     return rtn;
   }
-
 }

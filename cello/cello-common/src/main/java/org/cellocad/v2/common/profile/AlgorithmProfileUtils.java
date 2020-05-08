@@ -32,7 +32,6 @@ import org.json.simple.parser.ParseException;
  * instances.
  *
  * @author Vincent Mirian
- *
  * @date Dec 9, 2017
  */
 public final class AlgorithmProfileUtils {
@@ -42,7 +41,7 @@ public final class AlgorithmProfileUtils {
    * <i>options</i>.
    *
    * @param algProfile An {@link AlgorithmProfile} instance.
-   * @param options    An {@link Options} instance.
+   * @param options An {@link Options} instance.
    * @throws RuntimeException if parameter {@code algProfile} is null.
    */
   public static void overrideWithOptions(final AlgorithmProfile algProfile, final Options options) {
@@ -137,9 +136,9 @@ public final class AlgorithmProfileUtils {
    * @param filename The path to the algorithm configuration file.
    * @return The AlgorithmProfile if created successfully, otherwise null.
    * @throws RuntimeException if: <br>
-   *                          Error accessing {@code filename}<br>
-   *                          Error parsing {@code filename}<br>
-   *                          .
+   *     Error accessing {@code filename}<br>
+   *     Error parsing {@code filename}<br>
+   *     .
    */
   public static AlgorithmProfile getAlgorithmProfile(final String filename) {
     AlgorithmProfile rtn = null;
@@ -161,5 +160,4 @@ public final class AlgorithmProfileUtils {
     rtn = new AlgorithmProfile(jsonTop);
     return rtn;
   }
-
 }

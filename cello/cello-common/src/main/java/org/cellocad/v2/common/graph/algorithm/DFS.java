@@ -33,12 +33,11 @@ import org.cellocad.v2.common.graph.AbstractVertex.VertexType;
  * @param <V> the type of the {@link AbstractVertex}.
  * @param <E> the type of the {@link AbstractEdge}.
  * @param <G> the type of the {@link AbstractGraph}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 1, 2017
  */
-public class DFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V, E>>
+public class DFS<
+        V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V, E>>
     extends CObject {
 
   private void init() {
@@ -91,9 +90,7 @@ public class DFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G exten
     return this.dfs;
   }
 
-  /**
-   * Initializes a newly created {@link DFS}.
-   */
+  /** Initializes a newly created {@link DFS}. */
   public DFS() {
     init();
   }
@@ -131,7 +128,7 @@ public class DFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G exten
    * depth-first search (DFS) algorithm.
    *
    * @return The next AbstractVertex of this instance's AbstractGraph when performing the
-   *         depth-first search (DFS) algorithm.
+   *     depth-first search (DFS) algorithm.
    */
   public V getNextVertex() {
     V rtn = null;
@@ -201,5 +198,4 @@ public class DFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G exten
 
   private G graph;
   private Stack<V> dfs;
-
 }

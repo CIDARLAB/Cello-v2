@@ -32,21 +32,20 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxic
  * <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-14
  */
 public class SimulatedAnnealingResultsUtils {
 
   /**
-   * Writes the toxicity evaluation defined by parameter {@code tmte} to file defined by
-   * {@code filename}.
+   * Writes the toxicity evaluation defined by parameter {@code tmte} to file defined by {@code
+   * filename}.
    *
-   * @param tmte     The toxicity evaluation.
+   * @param tmte The toxicity evaluation.
    * @param filename The file to write the toxicity evaluation.
    * @throws RuntimeException Any of the parameters are null.
    */
-  public static void writeCsvForTMToxicityEvaluation(final TMToxicityEvaluation tmte,
-      final String filename) {
+  public static void writeCsvForTMToxicityEvaluation(
+      final TMToxicityEvaluation tmte, final String filename) {
     Utils.isNullRuntimeException(tmte, "tmte");
     Utils.isNullRuntimeException(filename, "filename");
     try {
@@ -59,5 +58,4 @@ public class SimulatedAnnealingResultsUtils {
       e.printStackTrace();
     }
   }
-
 }

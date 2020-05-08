@@ -25,14 +25,13 @@ import org.cellocad.v2.results.logicSynthesis.LSResults;
  * The PTNetlistNodeUtils class is class with utility methods for <i>PTNetlistNode</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Jan 21, 2018
  */
 public class PTNetlistNodeUtils {
 
   /**
    * Whether the given node is a primary input or output.
-   * 
+   *
    * @param node A node.
    * @return Whether the given node is a primiary input or output.
    */
@@ -45,7 +44,7 @@ public class PTNetlistNodeUtils {
 
   /**
    * Whether the given node is a primiary output.
-   * 
+   *
    * @param node A node.
    * @return Whether the given node is a primiary output.
    */
@@ -57,7 +56,7 @@ public class PTNetlistNodeUtils {
 
   /**
    * Whether the given node is a primiary input.
-   * 
+   *
    * @param node A node.
    * @return Whether the given node is a primiary input.
    */
@@ -66,5 +65,4 @@ public class PTNetlistNodeUtils {
     rtn = rtn || node.getNodeType().equals(LSResults.S_PRIMARYINPUT);
     return rtn;
   }
-
 }

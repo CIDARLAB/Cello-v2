@@ -27,7 +27,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * in the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLStageNetlistDataUtils {
@@ -41,5 +40,4 @@ public class CLStageNetlistDataUtils {
     final CLStageNetlistData data = new CLStageNetlistData();
     netlist.setStageNetlistData(data);
   }
-
 }

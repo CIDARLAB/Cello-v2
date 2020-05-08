@@ -27,13 +27,11 @@ import org.json.simple.JSONObject;
  * An input object used in a gate structure object.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-11
  */
 public class Input extends CObject {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseName(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, Input.S_NAME);
@@ -95,5 +93,4 @@ public class Input extends CObject {
 
   private static final String S_NAME = "name";
   private static final String S_PARTTYPE = "part_type";
-
 }

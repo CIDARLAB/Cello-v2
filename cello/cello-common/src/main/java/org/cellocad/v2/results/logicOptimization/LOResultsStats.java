@@ -29,7 +29,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * Stats from a netlist instance in the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LOResultsStats {
@@ -83,14 +82,25 @@ public class LOResultsStats {
       }
       rtn += LOResultsStats.S_HEADER + Utils.getNewLine();
       rtn += "Node Type: " + nodeTypeName + Utils.getNewLine();
-      rtn += "Max Fan-in: " + maxFI + ", min Fan-in: " + minFI + ", avg Fan-in: "
-          + (double) totalFI / numNodes + Utils.getNewLine();
-      rtn += "Max Fan-out: " + maxFO + ", min Fan-out: " + minFO + ", avg Fan-out: "
-          + (double) totalFO / numNodes + Utils.getNewLine();
+      rtn +=
+          "Max Fan-in: "
+              + maxFI
+              + ", min Fan-in: "
+              + minFI
+              + ", avg Fan-in: "
+              + (double) totalFI / numNodes
+              + Utils.getNewLine();
+      rtn +=
+          "Max Fan-out: "
+              + maxFO
+              + ", min Fan-out: "
+              + minFO
+              + ", avg Fan-out: "
+              + (double) totalFO / numNodes
+              + Utils.getNewLine();
     }
     return rtn;
   }
 
   private static final String S_HEADER = "--------------------------------------------";
-
 }

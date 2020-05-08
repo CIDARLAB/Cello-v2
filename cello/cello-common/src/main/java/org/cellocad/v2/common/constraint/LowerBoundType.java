@@ -21,38 +21,32 @@ package org.cellocad.v2.common.constraint;
 
 /**
  * A representation of a lower bound type.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public enum LowerBoundType {
-  GREATER_THAN_OR_EQUAL, GREATER_THAN;// , EQUAL;
+  GREATER_THAN_OR_EQUAL,
+  GREATER_THAN; // , EQUAL;
 
   /**
    * Get the {@link LowerBoundType} from the given string.
-   * 
+   *
    * @param str A string representation of a {@link LowerBoundType} object.
    * @return The {@link LowerBoundType} object.
    */
   public static LowerBoundType getBoundType(final String str) {
     LowerBoundType rtn = null;
     switch (str) {
-      case "greater_than_or_equal": {
+      case "greater_than_or_equal":
         rtn = GREATER_THAN_OR_EQUAL;
         break;
-      }
-      case "greater_than": {
+      case "greater_than":
         rtn = GREATER_THAN;
         break;
-      }
-      /*
-       * case "equal":{ rtn = EQUAL; break; }
-       */
-      default: {
+      default:
         rtn = null;
         break;
-      }
     }
     return rtn;
   }
@@ -60,29 +54,23 @@ public enum LowerBoundType {
   /**
    * Get a string representation of the operator associated with the given {@link LowerBoundType}
    * object.
-   * 
+   *
    * @param lb A {@link LowerBoundType} object.
-   * @return A string representation of the operator associated with the given
-   *         {@link LowerBoundType} object.
+   * @return A string representation of the operator associated with the given {@link
+   *     LowerBoundType} object.
    */
   public static String getStringFlip(final LowerBoundType lb) {
     String rtn = null;
     switch (lb) {
-      case GREATER_THAN_OR_EQUAL: {
+      case GREATER_THAN_OR_EQUAL:
         rtn = "=>";
         break;
-      }
-      case GREATER_THAN: {
+      case GREATER_THAN:
         rtn = ">";
         break;
-      }
-      /*
-       * case "equal":{ rtn = EQUAL; break; }
-       */
-      default: {
+      default:
         rtn = null;
         break;
-      }
     }
     return rtn;
   }
@@ -91,23 +79,16 @@ public enum LowerBoundType {
   public String toString() {
     String rtn = null;
     switch (this) {
-      case GREATER_THAN_OR_EQUAL: {
+      case GREATER_THAN_OR_EQUAL:
         rtn = "<=";
         break;
-      }
-      case GREATER_THAN: {
+      case GREATER_THAN:
         rtn = "<";
         break;
-      }
-      /*
-       * case "equal":{ rtn = EQUAL; break; }
-       */
-      default: {
+      default:
         rtn = null;
         break;
-      }
     }
     return rtn;
   }
-
 }

@@ -34,7 +34,6 @@ import org.json.simple.JSONObject;
  * The NetlistEdge class is a class representing the edge(s) of the project.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class NetlistEdge extends EdgeTemplate<NetlistNode> {
@@ -43,9 +42,7 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
     setResultNetlistEdgeData(new ResultNetlistEdgeData());
   }
 
-  /**
-   * Initializes a newly created {@link NetlistEdge}.
-   */
+  /** Initializes a newly created {@link NetlistEdge}. */
   public NetlistEdge() {
     super();
     setDefault();
@@ -82,7 +79,7 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
    * Initializes a newly created {@link NetlistEdge} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link NetlistEdge}
-   *                object.
+   *     object.
    */
   public NetlistEdge(final JSONObject jsonObj) {
     this();
@@ -138,7 +135,7 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public void writeJson(final int indent, final Writer os) throws IOException {
@@ -258,5 +255,4 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
   }
 
   private StageNetlistEdgeData stageNetlistData;
-
 }

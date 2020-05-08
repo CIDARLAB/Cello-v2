@@ -29,7 +29,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * result from the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSResultNetlistUtils {
@@ -53,5 +52,4 @@ public class LSResultNetlistUtils {
       }
     }
   }
-
 }

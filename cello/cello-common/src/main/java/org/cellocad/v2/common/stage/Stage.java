@@ -27,17 +27,13 @@ import org.json.simple.JSONObject;
  * The Stage class is a class containing the configuration for a stage.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public final class Stage extends ProfileObject {
 
-  private void init() {
-  }
+  private void init() {}
 
-  /**
-   * Initializes a newly created {@link Stage} with <i>algorithmName</i> set to null.
-   */
+  /** Initializes a newly created {@link Stage} with <i>algorithmName</i> set to null. */
   public Stage() {
     super();
     init();
@@ -94,5 +90,4 @@ public final class Stage extends ProfileObject {
   }
 
   String algorithmName;
-
 }

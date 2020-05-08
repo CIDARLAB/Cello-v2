@@ -31,29 +31,25 @@ import org.cellocad.v2.common.Pair;
  * class of the <i>technologyMapping</i> stage.
  *
  * @param T type index.
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class State<T> extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     stateEntry = new ArrayList<>();
     stateEntryMap = new HashMap<>();
   }
 
   /**
-   * Initializes a newly created {@link State} with the list of types defined by parameter
-   * {@code nodes} the True value defined by parameter {@code one}, the false value defined by
-   * parameter {@code zero}, and value defined by parameter {@code value}.
+   * Initializes a newly created {@link State} with the list of types defined by parameter {@code
+   * nodes} the True value defined by parameter {@code one}, the false value defined by parameter
+   * {@code zero}, and value defined by parameter {@code value}.
    *
    * @param nodes The List of types.
-   * @param one   The True value.
-   * @param zero  The False value.
+   * @param one The True value.
+   * @param zero The False value.
    * @param value The value.
    */
   public State(final List<T> nodes, final Boolean one, final Boolean zero, final int value) {
@@ -78,13 +74,13 @@ public class State<T> extends CObject {
   }
 
   /**
-   * Initializes a newly created {@link State} with the list of types defined by parameter
-   * {@code nodes} the True value defined by parameter {@code one}, the false value defined by
-   * parameter {@code zero}.
+   * Initializes a newly created {@link State} with the list of types defined by parameter {@code
+   * nodes} the True value defined by parameter {@code one}, the false value defined by parameter
+   * {@code zero}.
    *
    * @param nodes The List of types.
-   * @param one   The True value.
-   * @param zero  The False value.
+   * @param one The True value.
+   * @param zero The False value.
    */
   public State(final List<T> nodes, final Boolean one, final Boolean zero) {
     this(nodes, one, zero, 0);
@@ -118,7 +114,7 @@ public class State<T> extends CObject {
    *
    * @param index The index of the {@link Pair} object to return.
    * @return If the index is within the bounds {@code (0 <= bounds < this.getNumStatePosition())},
-   *         returns the {@link Pair} at the specified position in this instance, otherwise null.
+   *     returns the {@link Pair} at the specified position in this instance, otherwise null.
    */
   protected Pair<T, Boolean> getStatePositionAtIdx(final int index) {
     Pair<T, Boolean> rtn = null;
@@ -150,10 +146,10 @@ public class State<T> extends CObject {
   }
 
   /**
-   * Returns true if the {@code node} exists in this instance, then assigns the Boolean
-   * {@code value} to the {@code node}.
+   * Returns true if the {@code node} exists in this instance, then assigns the Boolean {@code
+   * value} to the {@code node}.
    *
-   * @param node  The node.
+   * @param node The node.
    * @param value The value.
    * @return True if the node exists in this instance, false otherwise.
    */
@@ -216,5 +212,4 @@ public class State<T> extends CObject {
   private Map<T, Boolean> stateEntryMap;
   private Boolean bOne;
   private Boolean bZero;
-
 }

@@ -25,9 +25,6 @@ import org.cellocad.v2.common.application.runtime.environment.ApplicationArgDesc
  * Descriptions of the command line arguments for the <i>DNACompiler</i> application.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class DnaCompilerArgDescription extends ApplicationArgDescription {
-
-}
+public class DnaCompilerArgDescription extends ApplicationArgDescription {}

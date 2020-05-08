@@ -27,7 +27,6 @@ import org.junit.Test;
  * Tests for {@link OutputOrTransform}.
  *
  * @author Timothy Jones
- *
  * @date 2019-05-08
  */
 public class OutputOrTransformTest {
@@ -42,5 +41,4 @@ public class OutputOrTransformTest {
     final Netlist netlist = netlist();
     new OutputOrTransform(netlist);
   }
-
 }

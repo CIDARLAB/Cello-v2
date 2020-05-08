@@ -6,10 +6,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -40,15 +40,14 @@ import org.junit.Test;
  * Tests for {@link BivariateLookupTableFunction}.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-21
  */
 public class BivariateLookupTableFunctionTest {
 
   /**
    * Environment setup for tests.
-   * 
-   * @throws IOException    Unable to read resources.
+   *
+   * @throws IOException Unable to read resources.
    * @throws ParseException Unable to parse JSON in resources.
    * @throws CelloException Unable to instantiate supporting classes.
    */
@@ -107,5 +106,4 @@ public class BivariateLookupTableFunctionTest {
   private static BivariateLookupTableFunction lut;
 
   private static Double TOLERANCE = 1e-8;
-
 }

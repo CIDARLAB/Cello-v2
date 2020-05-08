@@ -29,7 +29,6 @@ import java.net.URL;
  * Utility methods for the <i>placing</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public class PLUtils {
@@ -69,5 +68,4 @@ public class PLUtils {
     rtn = sb.toString();
     return rtn;
   }
-
 }

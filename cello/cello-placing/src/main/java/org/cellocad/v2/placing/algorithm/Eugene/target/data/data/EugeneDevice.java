@@ -31,7 +31,6 @@ import org.json.simple.JSONObject;
  * A representation of a {@code Device} object in Eugene.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public class EugeneDevice extends StructureDevice {
@@ -79,5 +78,4 @@ public class EugeneDevice extends StructureDevice {
     rtn += root;
     return rtn;
   }
-
 }

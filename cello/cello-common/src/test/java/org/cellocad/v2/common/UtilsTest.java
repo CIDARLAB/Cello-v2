@@ -6,10 +6,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -23,9 +23,8 @@ import org.junit.Test;
 
 /**
  * Tests for {@link Utils}.
- * 
+ *
  * @author Timothy Jones
- * 
  * @date 2020-02-14
  */
 public class UtilsTest {
@@ -71,14 +70,16 @@ public class UtilsTest {
   }
 
   @Test
-  public void getPath_ArrayOfStrings_ShouldReturnConcatenatedArrayAsStringWithTrailingFileSeparator() {
+  public void
+      getPath_ArrayOfStrings_ShouldReturnConcatenatedArrayAsStringWithTrailingFileSeparator() {
     String[] arr = new String[] {"abc", "def", "hij"};
     String str = String.join(Utils.getFileSeparator(), arr) + Utils.getFileSeparator();
     assert (Utils.getPath(arr).equals(str));
   }
 
   @Test
-  public void getPathFile_ArrayOfStrings_ShouldReturnConcatenatedArrayAsStringWithoutTrailingFileSeparator() {
+  public void
+      getPathFile_ArrayOfStrings_ShouldReturnConcatenatedArrayAsStringWithoutTrailingFileSeparator() {
     String[] arr = new String[] {"abc", "def", "hij"};
     assert (Utils.getPathFile(arr).equals(String.join(Utils.getFileSeparator(), arr)));
   }
@@ -265,5 +266,4 @@ public class UtilsTest {
     String str = "abc123^&$";
     assert (Utils.getString(str).equals(str));
   }
-
 }

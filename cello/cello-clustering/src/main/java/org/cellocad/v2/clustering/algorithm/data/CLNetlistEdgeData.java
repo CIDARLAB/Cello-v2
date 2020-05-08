@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistEdgeData;
  * The data for an edge used within the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class CLNetlistEdgeData extends NetlistEdgeData {
-
-}
+public abstract class CLNetlistEdgeData extends NetlistEdgeData {}

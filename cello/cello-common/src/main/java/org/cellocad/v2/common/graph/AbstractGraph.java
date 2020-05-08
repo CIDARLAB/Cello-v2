@@ -28,14 +28,12 @@ import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
 
 /**
- * The AbstractGraph class is a class representing a graph consisting of: 1) node(s) of type
- * {@link AbstractVertex}, and, 2) edge(s) of type {@link AbstractEdge}.
+ * The AbstractGraph class is a class representing a graph consisting of: 1) node(s) of type {@link
+ * AbstractVertex}, and, 2) edge(s) of type {@link AbstractEdge}.
  *
  * @param <V> The type of the {@link AbstractVertex}.
  * @param <E> The type of the {@link AbstractEdge}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends AbstractEdge<V>>
@@ -46,24 +44,20 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
     this.edges = new CObjectCollection<>();
   }
 
-  /**
-   * Clear the contents of the {@link AbstractGraph}.
-   */
+  /** Clear the contents of the {@link AbstractGraph}. */
   public void clear() {
     this.vertices.clear();
     this.edges.clear();
   }
 
-  /**
-   * Initializes a newly created {@link AbstractGraph}.
-   */
+  /** Initializes a newly created {@link AbstractGraph}. */
   public AbstractGraph() {
     init();
   }
 
   /**
-   * Adds the {@link AbstractVertex} defined by parameter {@code v} to the source node of the
-   * {@link AbstractEdge} defined by parameter {@code e}.
+   * Adds the {@link AbstractVertex} defined by parameter {@code v} to the source node of the {@link
+   * AbstractEdge} defined by parameter {@code e}.
    *
    * @param v The {@link AbstractVertex}.
    * @param e The {@link AbstractEdge}.
@@ -84,8 +78,8 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
   }
 
   /**
-   * Adds the {@link AbstractEdge} defined by parameter {@code e} to the InEdge(s) of the
-   * {@link AbstractVertex} defined by parameter {@code v}.
+   * Adds the {@link AbstractEdge} defined by parameter {@code e} to the InEdge(s) of the {@link
+   * AbstractVertex} defined by parameter {@code v}.
    *
    * @param v The {@link AbstractVertex}.
    * @param e The {@link AbstractEdge}.
@@ -95,8 +89,8 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
   }
 
   /**
-   * Adds the {@link AbstractEdge} defined by parameter {@code e} to the OutEdge(s) of the
-   * {@link AbstractVertex} defined by parameter {@code v}.
+   * Adds the {@link AbstractEdge} defined by parameter {@code e} to the OutEdge(s) of the {@link
+   * AbstractVertex} defined by parameter {@code v}.
    *
    * @param v The {@link AbstractVertex}.
    * @param e The {@link AbstractEdge}.
@@ -106,12 +100,12 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
   }
 
   /**
-   * Return a newly created AbstractVertex with its contents set to those of parameter
-   * {@code other}.
+   * Return a newly created AbstractVertex with its contents set to those of parameter {@code
+   * other}.
    *
    * @param other The other {@link AbstractVertex}.
-   * @return A newly created AbstractVertex with its contents set to those of parameter
-   *         {@code other}.
+   * @return A newly created AbstractVertex with its contents set to those of parameter {@code
+   *     other}.
    */
   public abstract V createV(final V other);
 
@@ -121,7 +115,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    *
    * @param other The other {@link AbstractEdge}.
    * @return A newly created {@link AbstractEdge} object with its contents set to those of parameter
-   *         {@code other}.
+   *     {@code other}.
    */
   public abstract E createE(final E other);
 
@@ -248,7 +242,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    *
    * @param index The index of the {@link AbstractVertex} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumVertex()), returns the
-   *         {@link AbstractVertex} at the specified position in this instance, otherwise null.
+   *     {@link AbstractVertex} at the specified position in this instance, otherwise null.
    */
   public V getVertexAtIdx(final int index) {
     V rtn = null;
@@ -264,7 +258,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    *
    * @param name name of the {@link AbstractVertex} to return.
    * @return The first occurrence of the {@link AbstractVertex} with its name equivalent to
-   *         parameter {@code name}.
+   *     parameter {@code name}.
    */
   public V getVertexByName(final String name) {
     V rtn = null;
@@ -311,8 +305,8 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    * Returns the {@link AbstractEdge} at the specified position in this instance.
    *
    * @param index The index of the {@link AbstractEdge} object to return.
-   * @return If the index is within the bounds (0 <= bounds < this.getNumEdge()), returns the
-   *         {@link AbstractEdge} at the specified position in this instance, otherwise null.
+   * @return If the index is within the bounds (0 <= bounds < this.getNumEdge()), returns the {@link
+   *     AbstractEdge} at the specified position in this instance, otherwise null.
    */
   public E getEdgeAtIdx(final int index) {
     E rtn = null;
@@ -328,7 +322,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    *
    * @param name name of the {@link AbstractEdge} to return.
    * @return The first occurrence of the {@link AbstractEdge} with its name equivalent to parameter
-   *         {@code name}.
+   *     {@code name}.
    */
   public E getEdgeByName(final String name) {
     E rtn = null;
@@ -405,7 +399,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    * instance.
    *
    * @return A string containing the header in DOT (graph description language) format of this
-   *         instance.
+   *     instance.
    */
   protected String getDotHeader() {
     String rtn = "";
@@ -429,7 +423,7 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
    * instance.
    *
    * @return A string containing the footer in DOT (graph description language) format of this
-   *         instance.
+   *     instance.
    */
   protected String getDotFooter() {
     String rtn = "";
@@ -641,5 +635,4 @@ public abstract class AbstractGraph<V extends AbstractVertex<E>, E extends Abstr
 
   private CObjectCollection<V> vertices;
   private CObjectCollection<E> edges;
-
 }

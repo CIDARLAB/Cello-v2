@@ -23,9 +23,6 @@ package org.cellocad.v2.common.target.data.data;
  * A part in a structure.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
-public class StructurePart extends StructureObject {
-
-}
+public class StructurePart extends StructureObject {}

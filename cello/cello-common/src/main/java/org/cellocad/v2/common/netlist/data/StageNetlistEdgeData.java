@@ -29,7 +29,6 @@ import org.cellocad.v2.common.CObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Dec 10, 2017
  */
 public abstract class StageNetlistEdgeData extends CObject {
@@ -39,9 +38,8 @@ public abstract class StageNetlistEdgeData extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public abstract void writeJson(int indent, Writer os) throws IOException;
-
 }

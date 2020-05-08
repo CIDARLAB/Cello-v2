@@ -34,9 +34,8 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
  * A netlist generator for the <i>partitioning</i> stage.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class Netlister extends CObject {
@@ -205,5 +204,4 @@ public class Netlister extends CObject {
   }
 
   private static final Logger logger = LogManager.getLogger(Netlister.class);
-
 }

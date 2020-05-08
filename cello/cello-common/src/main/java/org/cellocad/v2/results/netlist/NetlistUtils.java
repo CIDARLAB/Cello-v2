@@ -38,7 +38,6 @@ import org.json.simple.parser.ParseException;
  * The NetlistUtils class is class with utility methods for <i>Netlist</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class NetlistUtils {
@@ -47,14 +46,14 @@ public class NetlistUtils {
    * Initializes a newly created {@link Netlist} using the RuntimeEnv, <i>runEnv</i>, and, the
    * string referencing command line argument for the inputNetlist file, <i>inputNetlist</i>.
    *
-   * @param runEnv       The RuntimeEnv to extract the inputNetlist file, <i>inputNetlist</i>.
+   * @param runEnv The RuntimeEnv to extract the inputNetlist file, <i>inputNetlist</i>.
    * @param inputNetlist The string referencing command line argument for the inputNetlist file.
    * @return The Netlist if created successfully, otherwise null.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          Error accessing <i>inputNetlist</i><br>
-   *                          Error parsing <i>inputNetlist</i><br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     Error accessing <i>inputNetlist</i><br>
+   *     Error parsing <i>inputNetlist</i><br>
+   *     .
    */
   public static Netlist getNetlist(final RuntimeEnv runEnv, final String inputNetlist) {
     Utils.isNullRuntimeException(runEnv, "runEnv");
@@ -91,11 +90,11 @@ public class NetlistUtils {
   /**
    * Writes the netlist defined by parameter {@code netlist} to file defined by {@code filename}.
    *
-   * @param netlist  The netlist.
+   * @param netlist The netlist.
    * @param filename The file to write the netlist.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     .
    */
   public static void writeJsonForNetlist(final Netlist netlist, final String filename) {
     Utils.isNullRuntimeException(netlist, "netlist");
@@ -117,7 +116,7 @@ public class NetlistUtils {
    * Writes the Netlist defined by parameter {@code netlist} in DOT (graph description language)
    * format to the file defined by {@code filename}.
    *
-   * @param netlist  The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param filename The file.
    */
   public static void writeDotFileForGraph(final Netlist netlist, final String filename) {
@@ -131,5 +130,4 @@ public class NetlistUtils {
       e.printStackTrace();
     }
   }
-
 }

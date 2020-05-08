@@ -27,17 +27,13 @@ import org.cellocad.v2.partitioning.algorithm.data.PTNetlistData;
  * The data for a netlist used within the <i>HMetis</i> algorithm of the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class HMetisNetlistData extends PTNetlistData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link HMetisNetlistData}.
-   */
+  /** Initializes a newly created {@link HMetisNetlistData}. */
   public HMetisNetlistData() {
     super();
     setDefault();
@@ -48,12 +44,9 @@ public class HMetisNetlistData extends PTNetlistData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

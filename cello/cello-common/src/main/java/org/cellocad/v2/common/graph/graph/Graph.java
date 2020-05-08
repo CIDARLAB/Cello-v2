@@ -24,7 +24,6 @@ package org.cellocad.v2.common.graph.graph;
  * type {@code Edge}.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class Graph extends GraphTemplate<Vertex, Edge> {
@@ -64,5 +63,4 @@ public class Graph extends GraphTemplate<Vertex, Edge> {
   protected String getDotVerticesPrefix() {
     return "";
   }
-
 }

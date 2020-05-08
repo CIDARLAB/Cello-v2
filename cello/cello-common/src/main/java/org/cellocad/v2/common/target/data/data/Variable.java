@@ -28,13 +28,11 @@ import org.json.simple.JSONObject;
  * A free variable.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 public class Variable extends Evaluatable {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseMap(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, Reference.S_MAP);
@@ -82,5 +80,4 @@ public class Variable extends Evaluatable {
   }
 
   private String map;
-
 }

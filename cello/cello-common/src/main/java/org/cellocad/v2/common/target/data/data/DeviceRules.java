@@ -38,13 +38,16 @@ import org.logicng.transformations.dnf.DNFFactorization;
  * The rules associated with part placement inside of a device or gate.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-13
  */
 public class DeviceRules extends AbstractRules {
 
-  private void parseBlock(final JSONObject obj, final StructureDevice device,
-      final CObjectCollection<Part> inputs, final StringBuilder builder, final Namer namer) {
+  private void parseBlock(
+      final JSONObject obj,
+      final StructureDevice device,
+      final CObjectCollection<Part> inputs,
+      final StringBuilder builder,
+      final Namer namer) {
     final JSONArray rules = (JSONArray) obj.get(AbstractRules.S_RULES);
     final String op = getOperator((String) obj.get(AbstractRules.S_FUNCTION));
     builder.append("(");
@@ -84,10 +87,10 @@ public class DeviceRules extends AbstractRules {
   /**
    * Build an individual (Eugene) <code>Rule</code> block.
    *
-   * @param st    A <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
-   *              the DNF rule set.
+   * @param st A <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
+   *     the DNF rule set.
    * @param names A map from an object name in a rule to the desired name.
-   * @param num   A numeral for the rule used in naming.
+   * @param num A numeral for the rule used in naming.
    * @return A string representation of the Rule block.
    */
   protected String buildRule(final StringTokenizer st, final String name, final int num) {
@@ -120,8 +123,8 @@ public class DeviceRules extends AbstractRules {
     return rtn;
   }
 
-  private Collection<String> parseDeviceRules(final JSONObject jObj, final StructureDevice device,
-      final CObjectCollection<Part> inputs) {
+  private Collection<String> parseDeviceRules(
+      final JSONObject jObj, final StructureDevice device, final CObjectCollection<Part> inputs) {
     Collection<String> rtn = null;
     final JSONObject jArr = (JSONObject) jObj.get(AbstractRules.S_RULES);
     final StringBuilder builder = new StringBuilder();
@@ -186,5 +189,4 @@ public class DeviceRules extends AbstractRules {
   }
 
   private final JSONObject json;
-
 }

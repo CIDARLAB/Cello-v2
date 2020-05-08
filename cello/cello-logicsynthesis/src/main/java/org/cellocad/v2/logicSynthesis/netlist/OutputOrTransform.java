@@ -31,7 +31,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * Modifies a netlist to include "output OR" motifs.
  *
  * @author Timothy Jones
- *
  * @date 2019-05-08
  */
 public class OutputOrTransform extends CObject {
@@ -77,5 +76,4 @@ public class OutputOrTransform extends CObject {
       }
     }
   }
-
 }

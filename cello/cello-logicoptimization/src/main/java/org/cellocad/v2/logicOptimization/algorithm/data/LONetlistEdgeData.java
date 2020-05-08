@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistEdgeData;
  * The data for an edge used within the <i>logicOptimization</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class LONetlistEdgeData extends NetlistEdgeData {
-
-}
+public abstract class LONetlistEdgeData extends NetlistEdgeData {}

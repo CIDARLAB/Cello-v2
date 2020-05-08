@@ -44,28 +44,31 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 17, 2017
  */
 // Object that aggregates the netlist, the stage configuration, target data and RuntimeEnv
 public abstract class RuntimeObject extends CObject {
 
   /**
-   * Initializes a newly created {@link RuntimeObject} with its <i>stage</i> set to parameter
-   * {@code stage}, its <i>targetData</i> set to parameter {@code targetData}, its <i>netlist</i>
-   * set to parameter {@code netlist}, its <i>results</i> set to parameter {@code results}, and, its
+   * Initializes a newly created {@link RuntimeObject} with its <i>stage</i> set to parameter {@code
+   * stage}, its <i>targetData</i> set to parameter {@code targetData}, its <i>netlist</i> set to
+   * parameter {@code netlist}, its <i>results</i> set to parameter {@code results}, and, its
    * <i>runEnv</i> set to parameter {@code runEnv}.
    *
-   * @param stage             The {@link Stage} used during execution.
-   * @param targetData        The {@link TargetData} used during execution.
+   * @param stage The {@link Stage} used during execution.
+   * @param targetData The {@link TargetData} used during execution.
    * @param netlistConstraint The {@link NetlistConstraint} used during execution.
-   * @param netlist           The {@link Netlist} used during execution.
-   * @param results           The {@link Results} used during execution.
-   * @param runEnv            The {@link RuntimeEnv} used during execution.
+   * @param netlist The {@link Netlist} used during execution.
+   * @param results The {@link Results} used during execution.
+   * @param runEnv The {@link RuntimeEnv} used during execution.
    * @throws RuntimeException if any of the parameters are null.
    */
-  public RuntimeObject(final Stage stage, final TargetData targetData,
-      final NetlistConstraint netlistConstraint, final Netlist netlist, final Results results,
+  public RuntimeObject(
+      final Stage stage,
+      final TargetData targetData,
+      final NetlistConstraint netlistConstraint,
+      final Netlist netlist,
+      final Results results,
       final RuntimeEnv runEnv) {
     super();
     Utils.isNullRuntimeException(stage, "stage");
@@ -213,9 +216,7 @@ public abstract class RuntimeObject extends CObject {
     return RuntimeObject.logger;
   }
 
-  /**
-   * Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of this stage.
-   */
+  /** Prepares the DataFactory for the Netlist, NetlistNode and NetlistEdge of this stage. */
   protected abstract void prepareDataFactory();
 
   /**
@@ -303,9 +304,7 @@ public abstract class RuntimeObject extends CObject {
     return rtn;
   }
 
-  /**
-   * Initialize temporary data for the Stage's Netlist, NetlistNode and NetlistEdge.
-   */
+  /** Initialize temporary data for the Stage's Netlist, NetlistNode and NetlistEdge. */
   // Prepare Stage Temporary data in Netlist
   protected void prepareStageNetlistData() {
     final Netlist netlist = getNetlist();
@@ -320,9 +319,7 @@ public abstract class RuntimeObject extends CObject {
     }
   }
 
-  /**
-   * Initialize temporary data for the Algorithm's Netlist, NetlistNode and NetlistEdge.
-   */
+  /** Initialize temporary data for the Algorithm's Netlist, NetlistNode and NetlistEdge. */
   // Prepare Temporary data in Netlist
   protected void prepareNetlistData() {
     final Netlist netlist = getNetlist();
@@ -367,7 +364,7 @@ public abstract class RuntimeObject extends CObject {
    * Executes algorithm {@code algo}.
    *
    * @param algo The Algorithm to execute.
-   * @throws CelloException   Unable to execute the algorithm.
+   * @throws CelloException Unable to execute the algorithm.
    * @throws RuntimeException If {@code algo} is invalid.
    */
   protected void executeAlgo(final Algorithm algo) throws CelloException {
@@ -375,18 +372,20 @@ public abstract class RuntimeObject extends CObject {
       throw new RuntimeException("Algorithm not found!");
     } else if (algo != null) {
       getLogger().info("Executing Algorithm: " + algo.getName());
-      algo.execute(getNetlist(), getTargetData(), getNetlistConstraint(), getResults(), algProfile,
+      algo.execute(
+          getNetlist(),
+          getTargetData(),
+          getNetlistConstraint(),
+          getResults(),
+          algProfile,
           getRuntimeEnv());
     } else {
       getLogger().info("No Algorithm Executing!");
     }
   }
 
-  /**
-   * Perform postprocessing.
-   */
-  protected void postprocessing() {
-  }
+  /** Perform postprocessing. */
+  protected void postprocessing() {}
 
   /**
    * Executes the RuntimeObject. Executes the following methods in sequential order:<br>
@@ -414,5 +413,4 @@ public abstract class RuntimeObject extends CObject {
   private final Results results;
   private final RuntimeEnv runEnv;
   private static final Logger logger = LogManager.getLogger(RuntimeObject.class);
-
 }

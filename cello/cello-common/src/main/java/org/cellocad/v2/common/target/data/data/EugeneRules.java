@@ -28,14 +28,13 @@ import java.util.StringTokenizer;
  * A collection of Eugene-related constants and methods for interacting with them.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-13
  */
 public final class EugeneRules {
 
   /**
    * Get the first occurance of a Eugene keyword in the given rule.
-   * 
+   *
    * @param rule A Eugene rule string.
    * @return The first occurance of a Eugene keyword in the given rule.
    */
@@ -54,7 +53,7 @@ public final class EugeneRules {
 
   /**
    * Get the non-keyword strings in the given rule.
-   * 
+   *
    * @param rule A Eugene rule.
    * @return A collection of the non-keyword strings in the given rule.
    */
@@ -116,23 +115,50 @@ public final class EugeneRules {
   public static final String S_AND = "AND";
   public static final String S_OR = "OR";
 
-  /**
-   * ValidNodeTypes: Array of Strings containing valid rule keyword.
-   */
-  public static final Collection<String> ValidRuleKeywords = Arrays.asList(EugeneRules.S_CONTAINS,
-      EugeneRules.S_NOTCONTAINS, EugeneRules.S_EXACTLY, EugeneRules.S_NOTEXACTLY,
-      EugeneRules.S_MORETHAN, EugeneRules.S_NOTMORETHAN, EugeneRules.S_SAMECOUNT,
-      EugeneRules.S_WITH, EugeneRules.S_NOTWITH, EugeneRules.S_THEN, EugeneRules.S_STARTSWITH,
-      EugeneRules.S_ENDSWITH, EugeneRules.S_AFTER, EugeneRules.S_ALLAFTER, EugeneRules.S_SOMEAFTER,
-      EugeneRules.S_BEFORE, EugeneRules.S_ALLBEFORE, EugeneRules.S_SOMEBEFORE, EugeneRules.S_NEXTTO,
-      EugeneRules.S_ALLNEXTTO, EugeneRules.S_SOMENEXTTO, EugeneRules.S_EQUALS,
-      EugeneRules.S_NOTEQUALS, EugeneRules.S_ALLFORWARD, EugeneRules.S_ALLREVERSE,
-      EugeneRules.S_FORWARD, EugeneRules.S_REVERSE, EugeneRules.S_SAMEORIENTATION,
-      EugeneRules.S_ALLSAMEORIENTATION, EugeneRules.S_ALTERNATEORIENTATION, EugeneRules.S_REPRESSES,
-      EugeneRules.S_INDUCES, EugeneRules.S_DRIVES, EugeneRules.S_NOT, EugeneRules.S_AND,
-      EugeneRules.S_OR);
-  public static final Collection<String> GlobalOrientationRuleKeywords =
-      Arrays.asList(EugeneRules.S_ALLFORWARD, EugeneRules.S_ALLREVERSE,
-          EugeneRules.S_ALLSAMEORIENTATION, EugeneRules.S_ALTERNATEORIENTATION);
+  /** ValidNodeTypes: Array of Strings containing valid rule keyword. */
+  public static final Collection<String> ValidRuleKeywords =
+      Arrays.asList(
+          EugeneRules.S_CONTAINS,
+          EugeneRules.S_NOTCONTAINS,
+          EugeneRules.S_EXACTLY,
+          EugeneRules.S_NOTEXACTLY,
+          EugeneRules.S_MORETHAN,
+          EugeneRules.S_NOTMORETHAN,
+          EugeneRules.S_SAMECOUNT,
+          EugeneRules.S_WITH,
+          EugeneRules.S_NOTWITH,
+          EugeneRules.S_THEN,
+          EugeneRules.S_STARTSWITH,
+          EugeneRules.S_ENDSWITH,
+          EugeneRules.S_AFTER,
+          EugeneRules.S_ALLAFTER,
+          EugeneRules.S_SOMEAFTER,
+          EugeneRules.S_BEFORE,
+          EugeneRules.S_ALLBEFORE,
+          EugeneRules.S_SOMEBEFORE,
+          EugeneRules.S_NEXTTO,
+          EugeneRules.S_ALLNEXTTO,
+          EugeneRules.S_SOMENEXTTO,
+          EugeneRules.S_EQUALS,
+          EugeneRules.S_NOTEQUALS,
+          EugeneRules.S_ALLFORWARD,
+          EugeneRules.S_ALLREVERSE,
+          EugeneRules.S_FORWARD,
+          EugeneRules.S_REVERSE,
+          EugeneRules.S_SAMEORIENTATION,
+          EugeneRules.S_ALLSAMEORIENTATION,
+          EugeneRules.S_ALTERNATEORIENTATION,
+          EugeneRules.S_REPRESSES,
+          EugeneRules.S_INDUCES,
+          EugeneRules.S_DRIVES,
+          EugeneRules.S_NOT,
+          EugeneRules.S_AND,
+          EugeneRules.S_OR);
 
+  public static final Collection<String> GlobalOrientationRuleKeywords =
+      Arrays.asList(
+          EugeneRules.S_ALLFORWARD,
+          EugeneRules.S_ALLREVERSE,
+          EugeneRules.S_ALLSAMEORIENTATION,
+          EugeneRules.S_ALTERNATEORIENTATION);
 }

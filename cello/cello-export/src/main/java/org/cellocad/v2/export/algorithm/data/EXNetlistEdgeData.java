@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistEdgeData;
  * The data for an edge used within the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
-public abstract class EXNetlistEdgeData extends NetlistEdgeData {
-
-}
+public abstract class EXNetlistEdgeData extends NetlistEdgeData {}

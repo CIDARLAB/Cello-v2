@@ -39,7 +39,6 @@ import org.cellocad.v2.common.target.data.data.Structure;
  * objects are parsed only at the JSON level.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
 public class TargetDataInstance extends CObject {
@@ -80,7 +79,7 @@ public class TargetDataInstance extends CObject {
 
   /**
    * Get an assignable device by name.
-   * 
+   *
    * @param name The name of the device.
    * @return The assignable device, if it exists, otherwise null.
    */
@@ -144,5 +143,4 @@ public class TargetDataInstance extends CObject {
   public CObjectCollection<OutputDevice> getOutputDevices() {
     return outputDevices;
   }
-
 }

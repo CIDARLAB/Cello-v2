@@ -34,14 +34,13 @@ import org.cellocad.v2.common.graph.AbstractVertex.VertexType;
  * @param <V> the type of the {@link AbstractVertex}.
  * @param <E> the type of the {@link AbstractEdge}.
  * @param <G> the type of the {@link AbstractGraph}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 1, 2017
  */
 // TODO: make BFS dynamic
 // TODO: make BFS_reverse (sink to source)
-public class SinkBFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V, E>>
+public class SinkBFS<
+        V extends AbstractVertex<E>, E extends AbstractEdge<V>, G extends AbstractGraph<V, E>>
     extends CObject {
 
   private void init() {
@@ -92,9 +91,7 @@ public class SinkBFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G e
     return this.bfs;
   }
 
-  /**
-   * Initializes a newly created {@link BFS}.
-   */
+  /** Initializes a newly created {@link BFS}. */
   public SinkBFS() {
     init();
   }
@@ -132,7 +129,7 @@ public class SinkBFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G e
    * breadth-first search (BFS) algorithm.
    *
    * @return The next AbstractVertex of this instance's AbstractGraph when performing the
-   *         breadth-first search (BFS) algorithm.
+   *     breadth-first search (BFS) algorithm.
    */
   public V getNextVertex() {
     V rtn = null;
@@ -202,5 +199,4 @@ public class SinkBFS<V extends AbstractVertex<E>, E extends AbstractEdge<V>, G e
 
   private G graph;
   private Queue<V> bfs;
-
 }

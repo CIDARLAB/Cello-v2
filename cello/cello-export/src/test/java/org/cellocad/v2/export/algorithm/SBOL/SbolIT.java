@@ -46,31 +46,36 @@ import org.junit.Test;
  * Integration test for {@link SBOL}.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-25
  */
 public class SbolIT {
 
   /**
    * Environment setup for tests.
-   * 
-   * @throws IOException    Unable to read resources.
+   *
+   * @throws IOException Unable to read resources.
    * @throws CelloException Unable to instantiate supporting classes.
    */
   @BeforeClass
   public static void init() throws IOException, CelloException {
     final Path dir = Files.createTempDirectory("cello_");
     SbolIT.output = dir.toFile();
-    final String[] args =
-        {"-" + ArgString.INPUTNETLIST, Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
-            "-" + ArgString.USERCONSTRAINTSFILE,
-            Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
-            "-" + ArgString.INPUTSENSORFILE,
-            Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
-            "-" + ArgString.OUTPUTDEVICEFILE,
-            Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
-            "-" + StageArgString.ALGORITHMNAME, "SBOL", "-" + ArgString.OUTPUTDIR, dir.toString(),
-            "-" + ArgString.PYTHONENV, "python"};
+    final String[] args = {
+      "-" + ArgString.INPUTNETLIST,
+      Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
+      "-" + ArgString.USERCONSTRAINTSFILE,
+      Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
+      "-" + ArgString.INPUTSENSORFILE,
+      Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
+      "-" + ArgString.OUTPUTDEVICEFILE,
+      Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
+      "-" + StageArgString.ALGORITHMNAME,
+      "SBOL",
+      "-" + ArgString.OUTPUTDIR,
+      dir.toString(),
+      "-" + ArgString.PYTHONENV,
+      "python"
+    };
     final EXRuntimeEnv runEnv = new EXRuntimeEnv(args);
     runEnv.setName("export");
     // Read Netlist
@@ -83,8 +88,12 @@ public class SbolIT {
       stage.setName(stageName);
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     // NetlistConstraint
     NetlistConstraint netlistConstraint =
         NetlistConstraintUtils.getNetlistConstraintData(runEnv, ArgString.NETLISTCONSTRAINTFILE);
@@ -107,5 +116,4 @@ public class SbolIT {
 
   private static EXRuntimeObject EX;
   private static File output;
-
 }

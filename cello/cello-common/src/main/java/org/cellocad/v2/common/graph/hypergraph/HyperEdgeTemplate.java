@@ -25,16 +25,12 @@ import org.cellocad.v2.common.graph.AbstractEdge;
  * A representation the edge(s) of a {@link HyperGraphTemplate}.
  *
  * @param <T> The type of the {@link HyperVertexTemplate}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 14, 2017
  */
 public class HyperEdgeTemplate<T extends HyperVertexTemplate<?>> extends AbstractEdge<T> {
 
-  /**
-   * Initializes a newly created {@link HyperEdgeTemplate}.
-   */
+  /** Initializes a newly created {@link HyperEdgeTemplate}. */
   public HyperEdgeTemplate() {
     super();
   }
@@ -58,5 +54,4 @@ public class HyperEdgeTemplate<T extends HyperVertexTemplate<?>> extends Abstrac
   public HyperEdgeTemplate(final HyperEdgeTemplate<T> other) {
     super(other);
   }
-
 }

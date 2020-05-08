@@ -31,13 +31,11 @@ import org.json.simple.JSONObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class Gate extends AssignableDevice {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseRegulator(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, Gate.S_REGULATOR);
@@ -171,5 +169,4 @@ public class Gate extends AssignableDevice {
   public static final String S_COLOR = "color";
   public static final String S_MODEL = "model";
   public static final String S_STRUCTURE = "structure";
-
 }

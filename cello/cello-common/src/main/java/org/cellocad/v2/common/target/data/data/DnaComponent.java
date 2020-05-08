@@ -28,13 +28,11 @@ import org.json.simple.JSONObject;
  * A base class for any DNA-based object: a gate, a part, etc.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-11
  */
 public abstract class DnaComponent extends CObject {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseName(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, DnaComponent.S_NAME);
@@ -59,7 +57,7 @@ public abstract class DnaComponent extends CObject {
 
   /**
    * Getter for {@code uri}.
-   * 
+   *
    * @return The value of {@code uri}.
    */
   public URI getUri() {
@@ -68,7 +66,7 @@ public abstract class DnaComponent extends CObject {
 
   /**
    * Setter for {@code uri}.
-   * 
+   *
    * @param uri The value to set {@code uri}.
    */
   public void setUri(final URI uri) {
@@ -78,5 +76,4 @@ public abstract class DnaComponent extends CObject {
   private URI uri;
 
   private static final String S_NAME = "name";
-
 }

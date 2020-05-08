@@ -33,7 +33,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The base class for all algorithms in the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public abstract class PLAlgorithm extends Algorithm {
@@ -85,5 +84,4 @@ public abstract class PLAlgorithm extends Algorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(PLAlgorithm.class);
-
 }

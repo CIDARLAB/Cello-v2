@@ -42,7 +42,6 @@ import org.cellocad.v2.technologyMapping.runtime.environment.TMRuntimeEnv;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class Main {
@@ -76,8 +75,12 @@ public class Main {
       stage.setName(stageName);
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     if (!td.isValid()) {
       throw new CelloException("TargetData is invalid!");
     }
@@ -134,5 +137,4 @@ public class Main {
   }
 
   private static Logger logger;
-
 }

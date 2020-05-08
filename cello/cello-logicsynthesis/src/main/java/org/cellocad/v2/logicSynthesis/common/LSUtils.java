@@ -29,7 +29,6 @@ import java.net.URL;
  * Utility methods for the <i>logicSynthesis</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public class LSUtils {
@@ -69,5 +68,4 @@ public class LSUtils {
     rtn = sb.toString();
     return rtn;
   }
-
 }

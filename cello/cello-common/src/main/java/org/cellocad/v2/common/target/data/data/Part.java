@@ -28,13 +28,11 @@ import org.json.simple.JSONObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class Part extends DnaComponent {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parsePartType(final JSONObject jsonObj) {
     final String value = ProfileUtils.getString(jsonObj, Part.S_TYPE);
@@ -90,5 +88,4 @@ public class Part extends DnaComponent {
 
   private static final String S_TYPE = "type";
   private static final String S_DNASEQUENCE = "dnasequence";
-
 }

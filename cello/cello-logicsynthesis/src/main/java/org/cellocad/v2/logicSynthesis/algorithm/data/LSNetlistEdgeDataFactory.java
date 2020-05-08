@@ -26,18 +26,17 @@ import org.cellocad.v2.logicSynthesis.algorithm.Yosys.data.YosysNetlistEdgeData;
  * The LSNetlistEdgeDataFactory is a NetlistEdgeData factory for the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSNetlistEdgeDataFactory extends NetlistEdgeDataFactory<LSNetlistEdgeData> {
 
   /**
-   * Returns the {@link LSNetlistEdgeData} object that has the same name as the parameter
-   * {@code name} within the {@link LSNetlistEdgeDataFactory}.
+   * Returns the {@link LSNetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link LSNetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link LSNetlistEdgeData} instance if the {@link LSNetlistEdgeData} type exists
-   *         within the {@link LSNetlistEdgeDataFactory}, otherwise null.
+   *     within the {@link LSNetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected LSNetlistEdgeData getNetlistEdgeData(final String name) {
@@ -47,5 +46,4 @@ public class LSNetlistEdgeDataFactory extends NetlistEdgeDataFactory<LSNetlistEd
     }
     return rtn;
   }
-
 }

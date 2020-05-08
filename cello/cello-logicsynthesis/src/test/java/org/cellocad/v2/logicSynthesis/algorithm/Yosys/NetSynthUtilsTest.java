@@ -41,15 +41,14 @@ import org.junit.Test;
  * Tests for {@link NetSynthUtils}.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-31
  */
 public class NetSynthUtilsTest {
 
   /**
    * Environment setup for tests.
-   * 
-   * @throws IOException    Unable to load resources.
+   *
+   * @throws IOException Unable to load resources.
    * @throws ParseException Unable to parse JSON in resources.
    */
   @BeforeClass
@@ -84,13 +83,15 @@ public class NetSynthUtilsTest {
     final Path dir = Files.createTempDirectory("cello_");
     final Netlist n =
         NetSynthUtils.getNetSynthNetlist(NetSynthUtilsTest.netlist, motifs, dir.toString());
-    final String output = dir.toString() + Utils.getFileSeparator()
-        + NetSynthUtilsTest.netlist.getInputFilename() + "_netSynth.json";
+    final String output =
+        dir.toString()
+            + Utils.getFileSeparator()
+            + NetSynthUtilsTest.netlist.getInputFilename()
+            + "_netSynth.json";
     NetlistUtils.writeJsonForNetlist(n, output);
     FileUtils.deleteDirectory(dir.toFile());
   }
 
   private static Netlist netlist;
   private static TargetData targetData;
-
 }

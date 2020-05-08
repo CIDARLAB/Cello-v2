@@ -33,7 +33,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The base class for all algorithms in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public abstract class PTAlgorithm extends Algorithm {
@@ -85,5 +84,4 @@ public abstract class PTAlgorithm extends Algorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(PTAlgorithm.class);
-
 }

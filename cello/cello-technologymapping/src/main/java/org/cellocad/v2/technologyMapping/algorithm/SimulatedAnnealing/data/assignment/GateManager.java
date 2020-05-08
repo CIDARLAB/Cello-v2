@@ -35,7 +35,6 @@ import org.cellocad.v2.common.target.data.data.Gate;
  * algorithm.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GateManager extends CObject {
@@ -55,8 +54,8 @@ public class GateManager extends CObject {
     unassignedGatesMap = new HashMap<>();
   }
 
-  private void addGroups(final Map<String, CObjectCollection<Gate>> map,
-      final CObjectCollection<Gate> gates) {
+  private void addGroups(
+      final Map<String, CObjectCollection<Gate>> map, final CObjectCollection<Gate> gates) {
     CObjectCollection<Gate> list = null;
     for (int i = 0; i < gates.size(); i++) {
       final Gate gate = gates.get(i);
@@ -82,8 +81,8 @@ public class GateManager extends CObject {
     }
   }
 
-  private void addGatesToGroup(final Map<String, CObjectCollection<Gate>> map,
-      final CObjectCollection<Gate> gates) {
+  private void addGatesToGroup(
+      final Map<String, CObjectCollection<Gate>> map, final CObjectCollection<Gate> gates) {
     CObjectCollection<Gate> list = null;
     for (int i = 0; i < gates.size(); i++) {
       final Gate gate = gates.get(i);
@@ -96,8 +95,8 @@ public class GateManager extends CObject {
     }
   }
 
-  private void addNumGatesToGroup(final Map<String, Integer> map,
-      final CObjectCollection<Gate> gates) {
+  private void addNumGatesToGroup(
+      final Map<String, Integer> map, final CObjectCollection<Gate> gates) {
     Integer value = null;
     for (int i = 0; i < gates.size(); i++) {
       final Gate gate = gates.get(i);
@@ -212,7 +211,11 @@ public class GateManager extends CObject {
   }
 
   private enum OP {
-    LESS_THAN, LESS_THAN_OR_EQUAL, EQUAL, GREATER_THAN_OR_EQUAL, GREATER_THAN;
+    LESS_THAN,
+    LESS_THAN_OR_EQUAL,
+    EQUAL,
+    GREATER_THAN_OR_EQUAL,
+    GREATER_THAN;
 
     public static boolean evaluate(final int lh, final int rh, final OP op) {
       boolean rtn = false;
@@ -233,11 +236,10 @@ public class GateManager extends CObject {
       }
       return rtn;
     }
-
   }
 
-  private String getRandomGroupGTEq(final Map<String, Integer> gates, final int value,
-      final OP op) {
+  private String getRandomGroupGTEq(
+      final Map<String, Integer> gates, final int value, final OP op) {
     String rtn = null;
     final Set<Map.Entry<String, Integer>> set = gates.entrySet();
     final Iterator<Map.Entry<String, Integer>> iter = set.iterator();
@@ -255,10 +257,14 @@ public class GateManager extends CObject {
     return rtn;
   }
 
-  private boolean setGate(final CObjectCollection<Gate> a1,
-      final Map<String, CObjectCollection<Gate>> a2, final Map<String, Integer> a3,
-      final CObjectCollection<Gate> b1, final Map<String, CObjectCollection<Gate>> b2,
-      final Map<String, Integer> b3, final Gate gate) {
+  private boolean setGate(
+      final CObjectCollection<Gate> a1,
+      final Map<String, CObjectCollection<Gate>> a2,
+      final Map<String, Integer> a3,
+      final CObjectCollection<Gate> b1,
+      final Map<String, CObjectCollection<Gate>> b2,
+      final Map<String, Integer> b3,
+      final Gate gate) {
     final boolean rtn = false;
     // must be: 1) unassigned gates, and, 2) unassigned gates by group
     boolean g1 = this.contains(a1, gate);
@@ -285,15 +291,15 @@ public class GateManager extends CObject {
   /*
    * Map/Group
    */
-  private CObjectCollection<Gate> getGatesByGroup(final Map<String, CObjectCollection<Gate>> gates,
-      final String group) {
+  private CObjectCollection<Gate> getGatesByGroup(
+      final Map<String, CObjectCollection<Gate>> gates, final String group) {
     CObjectCollection<Gate> rtn = null;
     rtn = gates.get(group);
     return rtn;
   }
 
-  private Gate getRandomGateByGroup(final Map<String, CObjectCollection<Gate>> gates,
-      final String group) {
+  private Gate getRandomGateByGroup(
+      final Map<String, CObjectCollection<Gate>> gates, final String group) {
     Gate rtn = null;
     final CObjectCollection<Gate> list = getGatesByGroup(gates, group);
     rtn = getRandomGate(list);
@@ -324,7 +330,7 @@ public class GateManager extends CObject {
    */
   /**
    * Get a random assigned gate within the given group.
-   * 
+   *
    * @param group The gate group.
    * @return A random assigned gate within the given group.
    */
@@ -356,7 +362,7 @@ public class GateManager extends CObject {
 
   /**
    * Get a random unassigned gate within the given group.
-   * 
+   *
    * @param group The gate group.
    * @return A random unassigned gate within the given group.
    */
@@ -400,7 +406,7 @@ public class GateManager extends CObject {
    */
   /**
    * Get a random gate from an unassigned group.
-   * 
+   *
    * @return A random gate from an unassigned group.
    */
   public Gate getRandomGateFromUnassignedGroup() {
@@ -418,27 +424,41 @@ public class GateManager extends CObject {
    */
   /**
    * Mark the given gate as assigned.
-   * 
+   *
    * @param gate A gate.
    * @return False.
    */
   public boolean setAssignedGate(final Gate gate) {
     boolean rtn = false;
-    rtn = setGate(getUnassignedGates(), getUnassignedGatesMap(), getNumUnassignedGatesGroupMap(),
-        getAssignedGates(), getAssignedGatesMap(), getNumAssignedGatesGroupMap(), gate);
+    rtn =
+        setGate(
+            getUnassignedGates(),
+            getUnassignedGatesMap(),
+            getNumUnassignedGatesGroupMap(),
+            getAssignedGates(),
+            getAssignedGatesMap(),
+            getNumAssignedGatesGroupMap(),
+            gate);
     return rtn;
   }
 
   /**
    * Mark the given gate as unassigned.
-   * 
+   *
    * @param gate A gate.
    * @return False.
    */
   public boolean setUnassignedGate(final Gate gate) {
     boolean rtn = false;
-    rtn = setGate(getAssignedGates(), getAssignedGatesMap(), getNumAssignedGatesGroupMap(),
-        getUnassignedGates(), getUnassignedGatesMap(), getNumUnassignedGatesGroupMap(), gate);
+    rtn =
+        setGate(
+            getAssignedGates(),
+            getAssignedGatesMap(),
+            getNumAssignedGatesGroupMap(),
+            getUnassignedGates(),
+            getUnassignedGatesMap(),
+            getNumUnassignedGatesGroupMap(),
+            gate);
     return rtn;
   }
 
@@ -532,5 +552,4 @@ public class GateManager extends CObject {
    */
   private static int I_ZERO = 0;
   private static long L_SEED = 21;
-
 }

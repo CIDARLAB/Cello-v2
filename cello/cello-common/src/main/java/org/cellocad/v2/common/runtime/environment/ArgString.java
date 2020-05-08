@@ -25,7 +25,6 @@ package org.cellocad.v2.common.runtime.environment;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 17, 2017
  */
 public class ArgString {
@@ -33,59 +32,36 @@ public class ArgString {
   /*
    * General
    */
-  /**
-   * String referencing the HELP command line argument.
-   */
+  /** String referencing the HELP command line argument. */
   public static final String HELP = "help";
 
-  /**
-   * String referencing the INPUTSENSORFILE command line argument.
-   */
+  /** String referencing the INPUTSENSORFILE command line argument. */
   public static final String INPUTSENSORFILE = "inputSensorFile";
 
-  /**
-   * String referencing the OUTPUTDEVICEFILE command line argument.
-   */
+  /** String referencing the OUTPUTDEVICEFILE command line argument. */
   public static final String OUTPUTDEVICEFILE = "outputDeviceFile";
 
-  /**
-   * String referencing the USERCONSTRAINTSFILE command line argument.
-   */
+  /** String referencing the USERCONSTRAINTSFILE command line argument. */
   public static final String USERCONSTRAINTSFILE = "userConstraintsFile";
 
-  /**
-   * String referencing the OPTIONS command line argument.
-   */
+  /** String referencing the OPTIONS command line argument. */
   public static final String OPTIONS = "options";
 
-  /**
-   * String referencing the OUTPUTDIR command line argument.
-   */
+  /** String referencing the OUTPUTDIR command line argument. */
   public static final String OUTPUTDIR = "outputDir";
 
-  /**
-   * String referencing the PYTHONENV command line argument.
-   */
+  /** String referencing the PYTHONENV command line argument. */
   public static final String PYTHONENV = "pythonEnv";
 
-  /**
-   * String referencing the INPUTNETLIST command line argument.
-   */
+  /** String referencing the INPUTNETLIST command line argument. */
   public static final String INPUTNETLIST = "inputNetlist";
 
-  /**
-   * String referencing the OUTPUTNETLIST command line argument.
-   */
+  /** String referencing the OUTPUTNETLIST command line argument. */
   public static final String OUTPUTNETLIST = "outputNetlist";
 
-  /**
-   * String referencing the NETLISTCONSTRAINTFILE command line argument.
-   */
+  /** String referencing the NETLISTCONSTRAINTFILE command line argument. */
   public static final String NETLISTCONSTRAINTFILE = "netlistConstraintFile";
 
-  /**
-   * String referencing the LOGFILENAME command line argument.
-   */
+  /** String referencing the LOGFILENAME command line argument. */
   public static final String LOGFILENAME = "logFilename";
-
 }

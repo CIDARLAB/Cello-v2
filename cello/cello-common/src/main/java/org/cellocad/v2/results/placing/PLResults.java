@@ -23,14 +23,10 @@ package org.cellocad.v2.results.placing;
  * The PLResults class is class containing the results assigned by the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLResults {
 
-  /**
-   * S_DEFAULT: value for PLResults.
-   */
+  /** S_DEFAULT: value for PLResults. */
   public static String S_DEFAULT = "";
-
 }

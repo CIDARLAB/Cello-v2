@@ -32,13 +32,11 @@ import org.json.simple.JSONObject;
  * A univariate lookup table function.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-21
  */
 public class UnivariateLookupTableFunction extends LookupTableFunction {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseTable(final JSONObject jsonObj) throws CelloException {
     final Builder<Integer, String, Double> builder = ImmutableTable.builder();
@@ -135,5 +133,4 @@ public class UnivariateLookupTableFunction extends LookupTableFunction {
   }
 
   private Table<Integer, String, Double> table;
-
 }

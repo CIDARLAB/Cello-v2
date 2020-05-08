@@ -27,7 +27,6 @@ import org.json.simple.JSONObject;
  * A base class for an evaluatable function.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-11
  */
 public abstract class Function extends Evaluatable {
@@ -57,7 +56,7 @@ public abstract class Function extends Evaluatable {
 
   /**
    * Initializes a newly created {@link Function} object with the given JSON data.
-   * 
+   *
    * @param jsonObj The JSON data corresponding to the {@link Function} object.
    */
   public Function(final JSONObject jsonObj) {
@@ -78,5 +77,4 @@ public abstract class Function extends Evaluatable {
   private CObjectCollection<Variable> variables;
 
   public static final String S_VARIABLES = "variables";
-
 }

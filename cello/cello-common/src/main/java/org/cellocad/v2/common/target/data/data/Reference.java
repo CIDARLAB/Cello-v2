@@ -23,7 +23,6 @@ package org.cellocad.v2.common.target.data.data;
  * String constants corresponding to pointer/reference notation.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-12
  */
 final class Reference {
@@ -31,5 +30,4 @@ final class Reference {
   static final String S_MAP = "map";
   static final String S_DELIM = "/";
   static final String S_REFCHAR = "#/";
-
 }

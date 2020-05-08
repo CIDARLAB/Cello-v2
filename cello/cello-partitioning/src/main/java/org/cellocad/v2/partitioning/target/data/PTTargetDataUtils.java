@@ -25,9 +25,6 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
  * Utility methods for the target data in the <i>partitioning</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
-public class PTTargetDataUtils extends TargetDataUtils {
-
-}
+public class PTTargetDataUtils extends TargetDataUtils {}

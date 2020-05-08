@@ -31,7 +31,6 @@ import org.json.simple.JSONObject;
  * A representation of a gate model.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-11
  */
 public class Model extends CObject {
@@ -112,7 +111,7 @@ public class Model extends CObject {
 
   /**
    * Gets the parameter at the given index.
-   * 
+   *
    * @param index An index.
    * @return The parameter at the given index.
    */
@@ -147,5 +146,4 @@ public class Model extends CObject {
   static final String S_NAME = "name";
   public static final String S_FUNCTIONS = "functions";
   static final String S_PARAMETERS = "parameters";
-
 }

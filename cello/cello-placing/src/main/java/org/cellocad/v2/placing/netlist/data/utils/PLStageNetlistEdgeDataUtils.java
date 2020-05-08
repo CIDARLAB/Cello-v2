@@ -28,14 +28,13 @@ import org.cellocad.v2.results.netlist.NetlistEdge;
  * instances in the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLStageNetlistEdgeDataUtils {
 
   /**
-   * Resets the stage data for all edges in the netlist instance defined by parameter
-   * {@code netlist}.
+   * Resets the stage data for all edges in the netlist instance defined by parameter {@code
+   * netlist}.
    *
    * @param netlist The {@link Netlist}.
    */
@@ -55,5 +54,4 @@ public class PLStageNetlistEdgeDataUtils {
     final PLStageNetlistEdgeData data = new PLStageNetlistEdgeData();
     edge.setStageNetlistEdgeData(data);
   }
-
 }

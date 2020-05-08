@@ -37,7 +37,6 @@ import org.cellocad.v2.common.graph.graph.Vertex;
  * The GraphUtils class is class with utility methods for the for <i>Graph</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Oct 28, 2017
  */
 public class GraphUtils {
@@ -66,8 +65,8 @@ public class GraphUtils {
   }
 
   /**
-   * Initializes a newly created {@link Graph} using the filename, {@code filename}.
-   * {@code filename} is in comma-separated values (CSV) format.
+   * Initializes a newly created {@link Graph} using the filename, {@code filename}. {@code
+   * filename} is in comma-separated values (CSV) format.
    *
    * @param filename The file.
    */
@@ -103,7 +102,7 @@ public class GraphUtils {
    * Writes the Graph defined by parameter {@code graph} in DOT (graph description language) format
    * to the file defined by {@code filename}.
    *
-   * @param graph    The Graph.
+   * @param graph The Graph.
    * @param filename The file.
    */
   public static void writeDotFileForGraph(final Graph graph, final String filename) {
@@ -117,5 +116,4 @@ public class GraphUtils {
       e.printStackTrace();
     }
   }
-
 }

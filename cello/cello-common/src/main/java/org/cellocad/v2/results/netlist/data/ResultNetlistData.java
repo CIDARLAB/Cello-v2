@@ -31,7 +31,6 @@ import org.json.simple.JSONObject;
  * The data for a netlist used within the project.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class ResultNetlistData extends ApplicationNetlistData {
@@ -40,9 +39,7 @@ public class ResultNetlistData extends ApplicationNetlistData {
     setPlacements(new Placements());
   }
 
-  /**
-   * Initializes a newly created {@link ResultNetlistData}.
-   */
+  /** Initializes a newly created {@link ResultNetlistData}. */
   public ResultNetlistData() {
     super();
     setDefault();
@@ -62,8 +59,8 @@ public class ResultNetlistData extends ApplicationNetlistData {
   /**
    * Initializes a newly created {@link ResultNetlistData} using the parameter {@code JObj}.
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ResultNetlistData} object.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ResultNetlistData} object.
    */
   public ResultNetlistData(final JSONObject jsonObj) {
     super();
@@ -76,7 +73,7 @@ public class ResultNetlistData extends ApplicationNetlistData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
@@ -104,7 +101,7 @@ public class ResultNetlistData extends ApplicationNetlistData {
    * Parses the data attached to this instance.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the Project NetlistData
-   *                Object.
+   *     Object.
    */
   @Override
   public void parse(final JSONObject jsonObj) {
@@ -133,5 +130,4 @@ public class ResultNetlistData extends ApplicationNetlistData {
   }
 
   private Placements placements;
-
 }

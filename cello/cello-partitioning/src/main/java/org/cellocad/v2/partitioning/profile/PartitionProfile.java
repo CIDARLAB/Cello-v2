@@ -27,9 +27,8 @@ import org.json.simple.JSONObject;
 
 /**
  * A partition profile.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Oct 27, 2017
  */
 public class PartitionProfile extends ProfileObject {
@@ -58,8 +57,8 @@ public class PartitionProfile extends ProfileObject {
   /*
    * Parse
    */
-  private void parseCapacityUnits(final JSONObject jsonObj,
-      final CObjectCollection<ProfileObject> capacityUnits) {
+  private void parseCapacityUnits(
+      final JSONObject jsonObj, final CObjectCollection<ProfileObject> capacityUnits) {
     // CapacityUnits
     final JSONArray jsonArr = (JSONArray) jsonObj.get("Capacity_Units");
     if (jsonArr != null) {
@@ -76,7 +75,8 @@ public class PartitionProfile extends ProfileObject {
     }
   }
 
-  private void parseCapacity(final JSONObject jsonObj,
+  private void parseCapacity(
+      final JSONObject jsonObj,
       final CObjectCollection<ProfileObject> capacityUnits,
       final CObjectCollection<CapacityProfile> capacities) {
     // Capacity
@@ -152,8 +152,8 @@ public class PartitionProfile extends ProfileObject {
   /*
    * CapacityUnits
    */
-  private ProfileObject getCapacityUnitsAtIdx(final CObjectCollection<ProfileObject> collection,
-      final int index) {
+  private ProfileObject getCapacityUnitsAtIdx(
+      final CObjectCollection<ProfileObject> collection, final int index) {
     ProfileObject rtn = null;
     if (index >= 0 && index < getCapacityUnitsSize(collection)) {
       rtn = collection.get(index);
@@ -172,8 +172,8 @@ public class PartitionProfile extends ProfileObject {
   /*
    * Capacity
    */
-  private CapacityProfile getCapacityAtIdx(final CObjectCollection<CapacityProfile> collection,
-      final int index) {
+  private CapacityProfile getCapacityAtIdx(
+      final CObjectCollection<CapacityProfile> collection, final int index) {
     CapacityProfile rtn = null;
     if (index >= 0 && index < getCapacitySize(collection)) {
       rtn = collection.get(index);
@@ -194,7 +194,7 @@ public class PartitionProfile extends ProfileObject {
    */
   /**
    * Gets the block profile at the given index.
-   * 
+   *
    * @param index An index.
    * @return The block profile at the given index.
    */
@@ -236,7 +236,7 @@ public class PartitionProfile extends ProfileObject {
    */
   /**
    * Gets the inter block profile at the given index.
-   * 
+   *
    * @param index An index.
    * @return The inter block profile at the given index.
    */
@@ -378,5 +378,4 @@ public class PartitionProfile extends ProfileObject {
   private CObjectCollection<CapacityProfile> interBlockCapacity;
   private CObjectCollection<BlockProfile> blocks;
   private CObjectCollection<InterBlockProfile> interBlocks;
-
 }

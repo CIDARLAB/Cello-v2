@@ -35,7 +35,6 @@ import org.cellocad.v2.common.CelloException;
  * The results of an application. Writes a metadata file.
  *
  * @author Timothy Jones
- *
  * @date 2020-03-30
  */
 public class Results extends CObject {
@@ -68,8 +67,8 @@ public class Results extends CObject {
    *
    * @param result The result.
    * @throws JsonGenerationException Unable to generate JSON.
-   * @throws JsonMappingException    Unable to map JSON.
-   * @throws IOException             Unable to write to results file.
+   * @throws JsonMappingException Unable to map JSON.
+   * @throws IOException Unable to write to results file.
    */
   public void addResult(final Result result)
       throws JsonGenerationException, JsonMappingException, IOException {
@@ -77,5 +76,4 @@ public class Results extends CObject {
     array.add(node);
     writer.writeValue(file, node);
   }
-
 }

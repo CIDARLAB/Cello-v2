@@ -40,7 +40,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The YosysEdifUtils class is class with utility methods for the <i>Yosys</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class YosysEdifUtils {
@@ -52,17 +51,17 @@ public class YosysEdifUtils {
    * Translates the EDIF file referenced by parameter {@code filename} into the Netlist in parameter
    * {@code netlist} using the <i>Yosys</i> algorithm instance.
    *
-   * @param yosys    The <i>Yosys</i> algorithm instance.
+   * @param yosys The <i>Yosys</i> algorithm instance.
    * @param filename The EDIF file.
-   * @param netlist  The netlist.
+   * @param netlist The netlist.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          Error accessing {@code filename}<br>
-   *                          Error parsing {@code filename}<br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     Error accessing {@code filename}<br>
+   *     Error parsing {@code filename}<br>
+   *     .
    */
-  public static void convertEdifToNetlist(final Yosys yosys, final String filename,
-      final Netlist netlist) {
+  public static void convertEdifToNetlist(
+      final Yosys yosys, final String filename, final Netlist netlist) {
     Utils.isNullRuntimeException(yosys, "yosys");
     Utils.isNullRuntimeException(filename, "filename");
     Utils.isNullRuntimeException(netlist, "netlist");
@@ -87,8 +86,12 @@ public class YosysEdifUtils {
         // Top PortRef
         for (final EdifPortRef topPortRef : net.getInputPortRefs()) {
           if (topPortRef.isTopLevelPortRef()) {
-            srcNode = YosysEdifUtils.getNode(topPortRef.getSingleBitPort().getPortName(),
-                LSResults.S_PRIMARYINPUT, map, netlist);
+            srcNode =
+                YosysEdifUtils.getNode(
+                    topPortRef.getSingleBitPort().getPortName(),
+                    LSResults.S_PRIMARYINPUT,
+                    map,
+                    netlist);
             srcNode.setVertexType(VertexType.SOURCE);
             // Other Input/Output PortRef
             for (final EdifPortRef otherPortRef : net.getPortRefList()) {
@@ -104,8 +107,12 @@ public class YosysEdifUtils {
                 dstNode.setVertexType(VertexType.NONE);
               } else { // Top output
                 assert otherPortRef.getPort().isOutput();
-                dstNode = YosysEdifUtils.getNode(otherPortRef.getSingleBitPort().getPortName(),
-                    LSResults.S_PRIMARYOUTPUT, map, netlist);
+                dstNode =
+                    YosysEdifUtils.getNode(
+                        otherPortRef.getSingleBitPort().getPortName(),
+                        LSResults.S_PRIMARYOUTPUT,
+                        map,
+                        netlist);
                 dstNode.setVertexType(VertexType.SINK);
               }
               // setEdge
@@ -117,8 +124,12 @@ public class YosysEdifUtils {
         // Top PortRef
         for (final EdifPortRef topPortRef : net.getOutputPortRefs()) {
           if (topPortRef.isTopLevelPortRef()) {
-            dstNode = YosysEdifUtils.getNode(topPortRef.getSingleBitPort().getPortName(),
-                LSResults.S_PRIMARYOUTPUT, map, netlist);
+            dstNode =
+                YosysEdifUtils.getNode(
+                    topPortRef.getSingleBitPort().getPortName(),
+                    LSResults.S_PRIMARYOUTPUT,
+                    map,
+                    netlist);
             dstNode.setVertexType(VertexType.SINK);
             // Other Output PortRef
             for (final EdifPortRef otherPortRef : net.getOutputPortRefs()) {
@@ -163,13 +174,13 @@ public class YosysEdifUtils {
    * defined by parameter {@code net}, source node defined by parameter {@code src}, and,
    * destination node defined by parameter {@code dst}.
    *
-   * @param src     The source node.
-   * @param dst     The destination node.
-   * @param net     The attributes.
+   * @param src The source node.
+   * @param dst The destination node.
+   * @param net The attributes.
    * @param netlist The {@link Netlist}.
    */
-  protected static void setEdge(final NetlistNode src, final NetlistNode dst, final EdifNet net,
-      final Netlist netlist) {
+  protected static void setEdge(
+      final NetlistNode src, final NetlistNode dst, final EdifNet net, final Netlist netlist) {
     final NetlistEdge edge = new NetlistEdge(src, dst);
     edge.setName(net.getOldName());
     src.addOutEdge(edge);
@@ -185,14 +196,17 @@ public class YosysEdifUtils {
    * into the {@link Netlist} defined by parameter {@code netlist}. Returns the assigned or
    * initialized {@link NetlistNode}.
    *
-   * @param name    The name of the {@link NetlistNode}.
-   * @param type    The result for the <i>logicSynthesis</i> stage.
-   * @param S_MAP   The translation bookeeper.
+   * @param name The name of the {@link NetlistNode}.
+   * @param type The result for the <i>logicSynthesis</i> stage.
+   * @param S_MAP The translation bookeeper.
    * @param netlist The {@link Netlist}.
    * @return The assigned or initialized {@link NetlistNode}.
    */
-  protected static NetlistNode getNode(final String name, final String type,
-      final Map<String, NetlistNode> map, final Netlist netlist) {
+  protected static NetlistNode getNode(
+      final String name,
+      final String type,
+      final Map<String, NetlistNode> map,
+      final Netlist netlist) {
     NetlistNode rtn = null;
     rtn = map.get(name);
     if (rtn == null) {
@@ -233,5 +247,4 @@ public class YosysEdifUtils {
     }
     return rtn;
   }
-
 }

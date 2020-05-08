@@ -32,14 +32,13 @@ import org.json.simple.JSONObject;
  * <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class EugeneTargetDataUtils {
 
   /**
    * Get the circuit rules contained in the target data.
-   * 
+   *
    * @param td The {@link TargetData}.
    * @return The circuit rules contained in the target data.
    */
@@ -52,7 +51,7 @@ public class EugeneTargetDataUtils {
 
   /**
    * Get the device rules contained in the target data.
-   * 
+   *
    * @param td The {@link TargetData}.
    * @return The device rules contained in the target data.
    */
@@ -65,7 +64,7 @@ public class EugeneTargetDataUtils {
 
   /**
    * Get the genetic locations objects in the target data.
-   * 
+   *
    * @param td The target data.
    * @return The genetic locations objects in the target data.
    */
@@ -84,5 +83,4 @@ public class EugeneTargetDataUtils {
   private static String S_CIRCUITRULES = "circuit_rules";
   private static String S_DEVICERULES = "device_rules";
   private static String S_GENETICLOCATIONS = "genetic_locations";
-
 }

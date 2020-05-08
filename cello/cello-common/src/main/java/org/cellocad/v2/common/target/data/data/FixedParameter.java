@@ -26,13 +26,11 @@ import org.json.simple.JSONObject;
  * A representation of a numerical parameter with a constant, fixed value.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-30
  */
 public class FixedParameter extends Parameter {
 
-  private void init() {
-  }
+  private void init() {}
 
   private void parseValue(final JSONObject jsonObj) {
     final Double value = ProfileUtils.getDouble(jsonObj, FixedParameter.S_VALUE);
@@ -75,5 +73,4 @@ public class FixedParameter extends Parameter {
   private Double value;
 
   private static final String S_VALUE = "value";
-
 }

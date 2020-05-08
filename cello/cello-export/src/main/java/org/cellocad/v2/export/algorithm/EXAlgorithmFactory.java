@@ -26,7 +26,6 @@ import org.cellocad.v2.export.algorithm.SBOL.SBOL;
  * The EXAlgorithmFactory is an algorithm factory for the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class EXAlgorithmFactory extends AlgorithmFactory<EXAlgorithm> {
@@ -37,7 +36,7 @@ public class EXAlgorithmFactory extends AlgorithmFactory<EXAlgorithm> {
    *
    * @param name string used for searching the EXAlgorithmFactory.
    * @return The {@link EXAlgorithm} instance if the {@link EXAlgorithm} type exists within the
-   *         {@link EXAlgorithmFactory}, otherwise null.
+   *     {@link EXAlgorithmFactory}, otherwise null.
    */
   @Override
   protected EXAlgorithm getAlgorithm(final String name) {
@@ -47,5 +46,4 @@ public class EXAlgorithmFactory extends AlgorithmFactory<EXAlgorithm> {
     }
     return rtn;
   }
-
 }

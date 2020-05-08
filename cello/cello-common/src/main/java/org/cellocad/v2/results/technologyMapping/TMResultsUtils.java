@@ -31,7 +31,6 @@ import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
  * Utility methods for handling results from the <i>technologyMapping</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-24
  */
 public class TMResultsUtils {
@@ -39,12 +38,12 @@ public class TMResultsUtils {
   /**
    * Writes an activity evaluation as a CSV file.
    *
-   * @param tmae     The activity evaluation.
+   * @param tmae The activity evaluation.
    * @param filename The file to write the activity evaluation.
    * @throws RuntimeException Any of the parameters are null.
    */
-  public static void writeCsvForTMActivityEvaluation(final TMActivityEvaluation tmae,
-      final String filename) {
+  public static void writeCsvForTMActivityEvaluation(
+      final TMActivityEvaluation tmae, final String filename) {
     Utils.isNullRuntimeException(tmae, "tmte");
     Utils.isNullRuntimeException(filename, "filename");
     try {
@@ -57,5 +56,4 @@ public class TMResultsUtils {
       e.printStackTrace();
     }
   }
-
 }

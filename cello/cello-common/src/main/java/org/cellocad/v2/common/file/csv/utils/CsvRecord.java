@@ -25,7 +25,6 @@ import org.cellocad.v2.common.CObject;
  * The CsvRecord class is containing a record for a CSV file.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class CsvRecord extends CObject {
@@ -34,7 +33,7 @@ public class CsvRecord extends CObject {
    * Initializes a newly created {@link CsvReader} with a record defined by parameter {@code line},
    * and, a delimeter for the fields of the record defined by parameter {@code delimeter}.
    *
-   * @param line      The record.
+   * @param line The record.
    * @param delimeter The delimeter.
    */
   public CsvRecord(final String line, final String delimeter) {
@@ -46,7 +45,7 @@ public class CsvRecord extends CObject {
    *
    * @param index The index of the field to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumFields()), returns the
-   *         field at the specified position in this instance, otherwise null.
+   *     field at the specified position in this instance, otherwise null.
    */
   public String getFieldAtIdx(final int index) {
     String rtn = null;
@@ -84,5 +83,4 @@ public class CsvRecord extends CObject {
   }
 
   private String[] fields;
-
 }

@@ -23,14 +23,10 @@ package org.cellocad.v2.results.export;
  * The EXResults class is class containing the results assigned by the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class EXResults {
 
-  /**
-   * S_DEFAULT: value for EXResults.
-   */
+  /** S_DEFAULT: value for EXResults. */
   public static final String S_DEFAULT = "";
-
 }

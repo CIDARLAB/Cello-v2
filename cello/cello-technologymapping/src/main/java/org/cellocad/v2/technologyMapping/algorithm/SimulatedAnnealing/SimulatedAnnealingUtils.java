@@ -31,7 +31,6 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.Simul
  * stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-07-16
  */
 public class SimulatedAnnealingUtils {
@@ -74,5 +73,4 @@ public class SimulatedAnnealingUtils {
     rtn = (SimulatedAnnealingNetlistData) netlist.getNetlistData();
     return rtn;
   }
-
 }

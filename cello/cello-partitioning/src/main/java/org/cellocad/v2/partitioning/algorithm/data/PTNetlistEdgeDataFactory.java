@@ -33,19 +33,17 @@ import org.cellocad.v2.partitioning.algorithm.HMetis.data.HMetisNetlistEdgeData;
  * A {@link NetlistEdgeData} factory for the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PTNetlistEdgeDataFactory extends NetlistEdgeDataFactory<PTNetlistEdgeData> {
 
   /**
-   * Returns the {@link PTNetlistEdgeData} object that has the same name as the
-   * parameter {@code name} within the {@link PTNetlistEdgeDataFactory}.
+   * Returns the {@link PTNetlistEdgeData} object that has the same name as the parameter {@code
+   * name} within the {@link PTNetlistEdgeDataFactory}.
    *
    * @param name string used for searching this instance.
-   * @return The {@link PTNetlistEdgeData} instance if the
-   *         {@link PTNetlistEdgeData} type exists within the
-   *         {@link PTNetlistEdgeDataFactory}, otherwise null.
+   * @return The {@link PTNetlistEdgeData} instance if the {@link PTNetlistEdgeData} type exists
+   *     within the {@link PTNetlistEdgeDataFactory}, otherwise null.
    */
   @Override
   protected PTNetlistEdgeData getNetlistEdgeData(final String name) {
@@ -64,5 +62,4 @@ public class PTNetlistEdgeDataFactory extends NetlistEdgeDataFactory<PTNetlistEd
     }
     return rtn;
   }
-
 }

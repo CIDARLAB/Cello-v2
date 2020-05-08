@@ -21,13 +21,13 @@ package org.cellocad.v2.common.constraint;
 
 /**
  * Result of a constraint evaluation.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public enum EvaluateResult {
-
-  ERROR, UNDERFLOW, OK, OVERFLOW;
-
+  ERROR,
+  UNDERFLOW,
+  OK,
+  OVERFLOW;
 }

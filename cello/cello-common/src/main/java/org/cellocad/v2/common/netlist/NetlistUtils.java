@@ -38,7 +38,6 @@ import org.json.simple.parser.ParseException;
  * The NetlistUtils class is class with utility methods for <i>Netlist</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Nov 21, 2017
  */
 public class NetlistUtils {
@@ -47,14 +46,14 @@ public class NetlistUtils {
    * Initializes a newly created {@link Netlist} using the RuntimeEnv, <i>runEnv</i>, and, the
    * string referencing command line argument for the inputNetlist file, <i>inputNetlist</i>.
    *
-   * @param runEnv       The RuntimeEnv to extract the inputNetlist file, <i>inputNetlist</i>.
+   * @param runEnv The RuntimeEnv to extract the inputNetlist file, <i>inputNetlist</i>.
    * @param inputNetlist The string referencing command line argument for the inputNetlist file.
    * @return The Netlist if created successfully, otherwise null.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          Error accessing <i>inputNetlist</i><br>
-   *                          Error parsing <i>inputNetlist</i><br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     Error accessing <i>inputNetlist</i><br>
+   *     Error parsing <i>inputNetlist</i><br>
+   *     .
    */
   public static Netlist getNetlist(final RuntimeEnv runEnv, final String inputNetlist) {
     Utils.isNullRuntimeException(runEnv, "runEnv");
@@ -91,7 +90,7 @@ public class NetlistUtils {
   /**
    * Writes the netlist defined by parameter {@code netlist} to file defined by {@code filename}.
    *
-   * @param netlist  The netlist.
+   * @param netlist The netlist.
    * @param filename The file to write the netlist.
    * @throws RuntimeException Any of the parameters are null.
    */
@@ -110,5 +109,4 @@ public class NetlistUtils {
       e.printStackTrace();
     }
   }
-
 }

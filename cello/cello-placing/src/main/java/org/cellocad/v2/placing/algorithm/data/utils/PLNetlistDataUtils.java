@@ -29,7 +29,6 @@ import org.cellocad.v2.results.netlist.Netlist;
  * <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLNetlistDataUtils {
@@ -38,7 +37,7 @@ public class PLNetlistDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * a netlist instance defined by parameter {@code netlist}.
    *
-   * @param netlist    The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
   public static void resetNetlistData(final Netlist netlist, final AlgorithmProfile algProfile) {
@@ -46,5 +45,4 @@ public class PLNetlistDataUtils {
     final PLNetlistData data = PLFactory.getNetlistData(algProfile);
     netlist.setNetlistData(data);
   }
-
 }

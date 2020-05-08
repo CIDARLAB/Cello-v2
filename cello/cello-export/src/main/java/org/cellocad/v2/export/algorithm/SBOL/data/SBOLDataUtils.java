@@ -29,14 +29,13 @@ import org.cellocad.v2.common.target.data.data.Part;
  * Utility methods for the data used in the <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class SBOLDataUtils {
 
   /**
    * Gets the DNA sequence of the given compenent.
-   * 
+   *
    * @param component A DNA component.
    * @return The DNA sequence.
    */
@@ -60,5 +59,4 @@ public class SBOLDataUtils {
     }
     return rtn;
   }
-
 }

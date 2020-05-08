@@ -27,7 +27,6 @@ import org.cellocad.v2.placing.algorithm.GPCC_GRID.GpccGrid;
  * The PLAlgorithmFactory is an algorithm factory for the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLAlgorithmFactory extends AlgorithmFactory<PLAlgorithm> {
@@ -38,7 +37,7 @@ public class PLAlgorithmFactory extends AlgorithmFactory<PLAlgorithm> {
    *
    * @param name string used for searching the PLAlgorithmFactory.
    * @return The {@link PLAlgorithm} instance if the {@link PLAlgorithm} type exists within the
-   *         {@link PLAlgorithmFactory}, otherwise null.
+   *     {@link PLAlgorithmFactory}, otherwise null.
    */
   @Override
   protected PLAlgorithm getAlgorithm(final String name) {
@@ -51,5 +50,4 @@ public class PLAlgorithmFactory extends AlgorithmFactory<PLAlgorithm> {
     }
     return rtn;
   }
-
 }

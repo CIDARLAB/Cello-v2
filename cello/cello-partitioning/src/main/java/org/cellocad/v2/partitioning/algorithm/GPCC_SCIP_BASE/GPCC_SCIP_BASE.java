@@ -41,7 +41,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>GPCC_SCIP_BASE</i> algorithm in the <i>partitioning</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class GPCC_SCIP_BASE extends GPCC_BASE {
@@ -82,41 +81,29 @@ public class GPCC_SCIP_BASE extends GPCC_BASE {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
   protected void getDataFromUcf() {
     super.getDataFromUcf();
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     super.setParameterValues();
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
   protected void validateParameterValues() {
     super.validateParameterValues();
   }
 
-  /**
-   * Write SCIP Script File.
-   */
+  /** Write SCIP Script File. */
   private void writeScipScriptFile() {
     // create SCIP script
     String script = "";
@@ -195,9 +182,7 @@ public class GPCC_SCIP_BASE extends GPCC_BASE {
     }
   }
 
-  /**
-   * Setup Exec.
-   */
+  /** Setup Exec. */
   private void setupExec() {
     // exec
     String exec = "";
@@ -207,7 +192,7 @@ public class GPCC_SCIP_BASE extends GPCC_BASE {
 
   /**
    * Perform preprocessing.
-   * 
+   *
    * @throws CelloException Unable to perform preprocessing.
    */
   @Override
@@ -234,17 +219,11 @@ public class GPCC_SCIP_BASE extends GPCC_BASE {
     writeScipScriptFile();
   }
 
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
-  protected void run() {
+  protected void run() {}
 
-  }
-
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
   protected void postprocessing() {
     super.postprocessing();

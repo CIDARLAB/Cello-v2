@@ -27,9 +27,8 @@ import org.json.simple.JSONObject;
 
 /**
  * A capacity collection profile.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public class CapacityCollectionProfile extends ProfileObject {
@@ -41,11 +40,11 @@ public class CapacityCollectionProfile extends ProfileObject {
   /**
    * Initializes a newly created {@link CapacityCollectionProfile}.
    *
-   * @param jsonObj  The JSON data associated with this instance.
+   * @param jsonObj The JSON data associated with this instance.
    * @param capacity A collection of {@link CapacityProfile} objects.
    */
-  public CapacityCollectionProfile(final JSONObject jsonObj,
-      final CObjectCollection<CapacityProfile> capacity) {
+  public CapacityCollectionProfile(
+      final JSONObject jsonObj, final CObjectCollection<CapacityProfile> capacity) {
     super(jsonObj);
     this.capacity = capacity;
     init();
@@ -92,7 +91,7 @@ public class CapacityCollectionProfile extends ProfileObject {
 
   /**
    * Get the capacity profile at the given index.
-   * 
+   *
    * @param index An index.
    * @return The capacity profile at the given index.
    */
@@ -168,5 +167,4 @@ public class CapacityCollectionProfile extends ProfileObject {
 
   private final CObjectCollection<CapacityProfile> capacity;
   private CObjectCollection<CapacityProfile> myCapacity;
-
 }

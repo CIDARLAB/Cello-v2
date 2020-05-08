@@ -25,17 +25,13 @@ import org.cellocad.v2.common.graph.AbstractVertex;
  * The HyperVertexTemplate class is a class representing the node(s) of a <i>HyperGraphTemplate</i>.
  *
  * @param <T> the type of the HyperEdgeTemplate.
- *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
 public abstract class HyperVertexTemplate<T extends HyperEdgeTemplate<?>>
     extends AbstractVertex<T> {
 
-  /**
-   * Initializes a newly created {@link HyperVertexTemplate}.
-   */
+  /** Initializes a newly created {@link HyperVertexTemplate}. */
   public HyperVertexTemplate() {
     super();
   }
@@ -49,5 +45,4 @@ public abstract class HyperVertexTemplate<T extends HyperEdgeTemplate<?>>
   public HyperVertexTemplate(final HyperVertexTemplate<T> other) {
     super(other);
   }
-
 }

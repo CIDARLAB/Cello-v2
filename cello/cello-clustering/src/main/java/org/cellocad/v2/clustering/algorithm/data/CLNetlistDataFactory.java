@@ -26,7 +26,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistDataFactory;
  * A {@link NetlistData} factory for the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class CLNetlistDataFactory extends NetlistDataFactory<CLNetlistData> {
@@ -37,7 +36,7 @@ public class CLNetlistDataFactory extends NetlistDataFactory<CLNetlistData> {
    *
    * @param name string used for searching this instance.
    * @return The {@link CLNetlistData} instance if the {@link CLNetlistData} type exists within the
-   *         {@link CLNetlistDataFactory}, otherwise null.
+   *     {@link CLNetlistDataFactory}, otherwise null.
    */
   @Override
   protected CLNetlistData getNetlistData(final String name) {
@@ -47,5 +46,4 @@ public class CLNetlistDataFactory extends NetlistDataFactory<CLNetlistData> {
     }
     return rtn;
   }
-
 }

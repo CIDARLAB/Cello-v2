@@ -26,7 +26,6 @@ import org.json.simple.JSONObject;
  * device.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-29
  */
 public abstract class AssignableDevice extends DnaComponent {
@@ -85,5 +84,4 @@ public abstract class AssignableDevice extends DnaComponent {
 
   public static final String S_MODEL = "model";
   public static final String S_STRUCTURE = "structure";
-
 }

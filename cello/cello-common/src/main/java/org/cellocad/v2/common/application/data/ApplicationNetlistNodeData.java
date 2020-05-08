@@ -29,7 +29,6 @@ import org.json.simple.JSONObject;
  * using the Poros framework.
  *
  * @author Vincent Mirian
- *
  * @date Dec 15, 2017
  */
 public abstract class ApplicationNetlistNodeData extends CObject {
@@ -39,7 +38,7 @@ public abstract class ApplicationNetlistNodeData extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public abstract void writeJson(int indent, Writer os) throws IOException;
@@ -47,9 +46,8 @@ public abstract class ApplicationNetlistNodeData extends CObject {
   /**
    * Parses the data attached to this instance.
    *
-   * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                {@link ApplicationNetlistData} Object.
+   * @param jsonObj The JavaScript Object Notation (JSON) representation of the {@link
+   *     ApplicationNetlistData} Object.
    */
   public abstract void parse(final JSONObject jsonObj);
-
 }

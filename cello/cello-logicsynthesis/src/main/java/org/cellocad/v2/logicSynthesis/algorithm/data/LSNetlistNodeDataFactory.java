@@ -26,18 +26,17 @@ import org.cellocad.v2.logicSynthesis.algorithm.Yosys.data.YosysNetlistNodeData;
  * The LSNetlistNodeDataFactory is a NetlistNodeData factory for the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSNetlistNodeDataFactory extends NetlistNodeDataFactory<LSNetlistNodeData> {
 
   /**
-   * Returns the {@link LSNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link LSNetlistNodeDataFactory}.
+   * Returns the {@link LSNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link LSNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link LSNetlistNodeData} instance if the {@link LSNetlistNodeData} type exists
-   *         within the {@link LSNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link LSNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected LSNetlistNodeData getNetlistNodeData(final String name) {
@@ -47,5 +46,4 @@ public class LSNetlistNodeDataFactory extends NetlistNodeDataFactory<LSNetlistNo
     }
     return rtn;
   }
-
 }

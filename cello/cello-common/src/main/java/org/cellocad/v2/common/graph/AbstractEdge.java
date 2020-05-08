@@ -29,12 +29,9 @@ import org.cellocad.v2.common.Utils;
  * The AbstractEdge class is a class representing the edge(s) of a <i>AbstractGraph</i>.
  *
  * @param <T> the type of the {@link AbstractVertex}.
- *
  * @author Vincent Mirian
- *
  * @date Nov 15, 2017
  */
-
 public abstract class AbstractEdge<T extends AbstractVertex<?>> extends CObject {
 
   private void init() {
@@ -107,7 +104,7 @@ public abstract class AbstractEdge<T extends AbstractVertex<?>> extends CObject 
    *
    * @param index The index of the destination to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumDst()), return the node at
-   *         the specified position in the destination node list of this instance, otherwise null.
+   *     the specified position in the destination node list of this instance, otherwise null.
    */
   public T getDstAtIdx(final int index) {
     T rtn = null;
@@ -132,7 +129,7 @@ public abstract class AbstractEdge<T extends AbstractVertex<?>> extends CObject 
    * otherwise false.
    *
    * @return True if the edge contains a destination node defined by parameter {@code node},
-   *         otherwise false.
+   *     otherwise false.
    */
   public boolean hasDst(final T node) {
     final boolean rtn = this.getMyDst().contains(node);
@@ -140,12 +137,12 @@ public abstract class AbstractEdge<T extends AbstractVertex<?>> extends CObject 
   }
 
   /**
-   * Returns the first occurrence of the destination node with name defined by parameter
-   * {@code name}.
+   * Returns the first occurrence of the destination node with name defined by parameter {@code
+   * name}.
    *
    * @param name name of the element to return.
-   * @return The first occurrence of the destination node with name defined by parameter
-   *         {@code name} if an element exists, null otherwise.
+   * @return The first occurrence of the destination node with name defined by parameter {@code
+   *     name} if an element exists, null otherwise.
    */
   public T hasDstWithName(final String name) {
     final T rtn = this.getMyDst().findCObjectByName(name);
@@ -348,5 +345,4 @@ public abstract class AbstractEdge<T extends AbstractVertex<?>> extends CObject 
    */
   private T src;
   private CObjectCollection<T> dst;
-
 }

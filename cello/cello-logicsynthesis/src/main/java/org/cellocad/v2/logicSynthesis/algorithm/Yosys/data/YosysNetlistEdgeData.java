@@ -27,17 +27,13 @@ import org.cellocad.v2.logicSynthesis.algorithm.data.LSNetlistEdgeData;
  * The data for an edge used within the <i>Yosys</i> algorithm of the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class YosysNetlistEdgeData extends LSNetlistEdgeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link YosysNetlistEdgeData}.
-   */
+  /** Initializes a newly created {@link YosysNetlistEdgeData}. */
   public YosysNetlistEdgeData() {
     super();
     setDefault();
@@ -48,12 +44,9 @@ public class YosysNetlistEdgeData extends LSNetlistEdgeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

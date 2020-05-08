@@ -23,7 +23,6 @@ package org.cellocad.v2.common;
  * The CObject class is the base object for all classes within the Poros framework.
  *
  * @author Vincent Mirian
- *
  * @date Oct 26, 2017
  */
 public class CObject {
@@ -40,12 +39,12 @@ public class CObject {
 
   /**
    * Initializes a newly created {@link CObject} with its <i>name</i> set to parameter {@code name},
-   * its <i>type</i> set to parameter {@code type}, and, its <i>idx</i> set to parameter
-   * {@code idx}.
+   * its <i>type</i> set to parameter {@code type}, and, its <i>idx</i> set to parameter {@code
+   * idx}.
    *
    * @param name The name of the CObject.
    * @param type The type of the CObject.
-   * @param idx  The idx of the CObject.
+   * @param idx The idx of the CObject.
    */
   public CObject(final String name, final int type, final int idx) {
     setName(name);
@@ -54,8 +53,8 @@ public class CObject {
   }
 
   /**
-   * Initializes a newly created {@link CObject} with its contents set to those of parameter
-   * {@code other}.
+   * Initializes a newly created {@link CObject} with its contents set to those of parameter {@code
+   * other}.
    *
    * @param other The other CObject.
    */
@@ -203,7 +202,7 @@ public class CObject {
    * Returns a string with the <i>name</i> parameter concatenated with the <i>value</i> parameter in
    * the following form without the quotes: "<i>name</i> = <i>value</i>,".
    *
-   * @param name  The name.
+   * @param name The name.
    * @param value The value.
    * @return A string with the <i>name</i> parameter concatenated with the <i>value</i> parameter.
    */
@@ -222,7 +221,7 @@ public class CObject {
    * Returns a string with the <i>name</i> parameter concatenated with the <i>value</i> parameter in
    * the following form without the quotes: "<i>name</i> = <i>value</i>,".
    *
-   * @param name  The name.
+   * @param name The name.
    * @param value The value.
    * @return A string with the <i>name</i> parameter concatenated with the <i>value</i> parameter.
    */
@@ -236,7 +235,7 @@ public class CObject {
    * Returns a string with the <i>name</i> parameter concatenated with the <i>value</i> parameter in
    * the following form without the quotes: "<i>name</i> = <i>value</i>,".
    *
-   * @param name  The name.
+   * @param name The name.
    * @param value The value.
    * @return A string with the <i>name</i> parameter concatenated with the <i>value</i> parameter.
    */
@@ -282,5 +281,4 @@ public class CObject {
   private String name;
   private int type;
   private int idx;
-
 }

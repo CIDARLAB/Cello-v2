@@ -25,7 +25,6 @@ import org.json.simple.JSONObject;
  * A base class for a lookup table function.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-25
  */
 public abstract class LookupTableFunction extends Function {
@@ -36,5 +35,4 @@ public abstract class LookupTableFunction extends Function {
 
   public static final String S_TABLE = "table";
   public static final String S_OUTPUT = "output";
-
 }

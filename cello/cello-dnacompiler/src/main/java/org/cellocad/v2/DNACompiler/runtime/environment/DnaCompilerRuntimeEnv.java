@@ -25,7 +25,6 @@ import org.cellocad.v2.common.application.runtime.environment.ApplicationRuntime
  * Manages and parses command line arguments for the <i>DNACompiler</i> application.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class DnaCompilerRuntimeEnv extends ApplicationRuntimeEnv {
@@ -40,14 +39,11 @@ public class DnaCompilerRuntimeEnv extends ApplicationRuntimeEnv {
     super(args);
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   @Override
   protected void setOptions() {
     super.setOptions();
     // uncomment the line below to add options
     // Options options = this.getOptions();
   }
-
 }

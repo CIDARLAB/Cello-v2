@@ -27,7 +27,6 @@ import org.cellocad.v2.technologyMapping.netlist.data.TMStageNetlistData;
  * in the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMStageNetlistDataUtils {
@@ -41,5 +40,4 @@ public class TMStageNetlistDataUtils {
     final TMStageNetlistData data = new TMStageNetlistData();
     netlist.setStageNetlistData(data);
   }
-
 }

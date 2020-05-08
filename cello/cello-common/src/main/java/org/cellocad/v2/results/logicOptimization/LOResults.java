@@ -24,9 +24,6 @@ package org.cellocad.v2.results.logicOptimization;
  * stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class LOResults {
-
-}
+public class LOResults {}

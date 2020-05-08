@@ -26,7 +26,6 @@ import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
  * The StageUtils class is class with utility methods for <i>Stage</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public final class StageUtils {
@@ -35,7 +34,7 @@ public final class StageUtils {
    * Initializes a newly created {@link Stage} using the RuntimeEnv, <i>runEnv</i>, and, the string
    * referencing command line argument for the algorithm name, <i>algoName</i>.
    *
-   * @param runEnv   The RuntimeEnv to extract the algorithm name, <i>algoName</i>.
+   * @param runEnv The RuntimeEnv to extract the algorithm name, <i>algoName</i>.
    * @param algoName The string referencing command line argument for the algorithm name.
    * @return The Stage.
    * @throws RuntimeException if any of the parameters are null.
@@ -48,5 +47,4 @@ public final class StageUtils {
     rtn.setAlgorithmName(myAlgoName);
     return rtn;
   }
-
 }

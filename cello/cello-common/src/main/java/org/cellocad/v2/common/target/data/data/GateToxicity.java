@@ -29,10 +29,9 @@ import org.json.simple.JSONObject;
 
 /**
  * The toxicity data associated with a gate.
- * 
+ *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class GateToxicity extends CObject {
@@ -140,7 +139,7 @@ public class GateToxicity extends CObject {
 
   /**
    * Get the input at the given index.
-   * 
+   *
    * @param index An index.
    * @return The input at the given index.
    */
@@ -167,7 +166,7 @@ public class GateToxicity extends CObject {
 
   /**
    * Get the growth at the given index.
-   * 
+   *
    * @param index An index.
    * @return The growth at the given index.
    */
@@ -194,7 +193,7 @@ public class GateToxicity extends CObject {
 
   /**
    * Get the input growth pair at the given index.
-   * 
+   *
    * @param index An index.
    * @return The input growth pair at the given index.
    */
@@ -216,5 +215,4 @@ public class GateToxicity extends CObject {
   private static final String S_MAPSTOVARIABLE = "maps_to_variable";
   private static final String S_INPUT = "input";
   private static final String S_GROWTH = "growth";
-
 }

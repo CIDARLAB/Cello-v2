@@ -6,10 +6,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -47,15 +47,14 @@ import org.junit.Test;
  * Tests for the TMActivityEvaluation class.
  *
  * @author Timothy Jones
- *
  * @date 2020-03-07
  */
 public class TMActivityEvaluationIT {
 
   /**
    * Load sample netlist and library.
-   * 
-   * @throws IOException    Failure to load resource.
+   *
+   * @throws IOException Failure to load resource.
    * @throws ParseException Failure to parse JSON resource.
    * @throws CelloException Failure to instantiate <code>TargetDataInstance</code>.
    */
@@ -100,28 +99,31 @@ public class TMActivityEvaluationIT {
   }
 
   @Test
-  public void TMActivityEvaluation_NetlistForAndGateWithAssignmentUsingBth1C1G1T1_ShouldHaveCorrectActivityTable()
-      throws CelloException {
+  public void
+      TMActivityEvaluation_NetlistForAndGateWithAssignmentUsingBth1C1G1T1_ShouldHaveCorrectActivityTable()
+          throws CelloException {
     TMActivityEvaluation tmae = new TMActivityEvaluation(netlist, lsle);
     NetlistNode node = null;
     ActivityTable<NetlistNode, NetlistNode> at = null;
     node = netlist.getVertexByName("$49");
     at = tmae.getActivityTable(node);
-    assertTrue(Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node)
-        - 0.07432188163670751) < TOLERANCE);
+    assertTrue(
+        Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node) - 0.07432188163670751)
+            < TOLERANCE);
     node = netlist.getVertexByName("$50");
     at = tmae.getActivityTable(node);
-    assertTrue(Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node)
-        - 0.3450647782000437) < TOLERANCE);
+    assertTrue(
+        Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node) - 0.3450647782000437)
+            < TOLERANCE);
     node = netlist.getVertexByName("$48");
     at = tmae.getActivityTable(node);
-    assertTrue(Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node)
-        - 0.19295365098478337) < TOLERANCE);
+    assertTrue(
+        Math.abs(at.getActivityOutput(at.getStateAtIdx(0)).getActivity(node) - 0.19295365098478337)
+            < TOLERANCE);
   }
 
   private static TargetDataInstance tdi;
   private static LSLogicEvaluation lsle;
   private static Netlist netlist;
   private static Double TOLERANCE = 1e-8;
-
 }

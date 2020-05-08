@@ -34,7 +34,6 @@ import org.junit.Test;
  * Integration test for {@link EugeneDevice}.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-09
  */
 public class EugeneDeviceIT {
@@ -52,9 +51,16 @@ public class EugeneDeviceIT {
       str += e.toString();
     }
     final String S_REF =
-        "cassette P1_PhlF_a_cassette();\n" + "Device P1_PhlF_a(\n" + "    promoter,\n"
-            + "    P1_PhlF_a_cassette\n" + ");\n" + "cassette P1_PhlF_b_cassette();\n"
-            + "Device P1_PhlF_b(\n" + "    promoter,\n" + "    P1_PhlF_b_cassette\n" + ");\n";
+        "cassette P1_PhlF_a_cassette();\n"
+            + "Device P1_PhlF_a(\n"
+            + "    promoter,\n"
+            + "    P1_PhlF_a_cassette\n"
+            + ");\n"
+            + "cassette P1_PhlF_b_cassette();\n"
+            + "Device P1_PhlF_b(\n"
+            + "    promoter,\n"
+            + "    P1_PhlF_b_cassette\n"
+            + ");\n";
     assert str.equals(S_REF);
   }
 
@@ -74,9 +80,12 @@ public class EugeneDeviceIT {
       final EugeneDevice e = new EugeneDevice(d);
       str += e.toString();
     }
-    final String S_REF = "Device YFP_reporter(\n" + "    promoter,\n" + "    promoter,\n"
-        + "    YFP_cassette\n" + ");\n";
+    final String S_REF =
+        "Device YFP_reporter(\n"
+            + "    promoter,\n"
+            + "    promoter,\n"
+            + "    YFP_cassette\n"
+            + ");\n";
     assert str.equals(S_REF);
   }
-
 }

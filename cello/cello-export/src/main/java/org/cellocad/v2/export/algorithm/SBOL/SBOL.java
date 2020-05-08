@@ -80,7 +80,6 @@ import org.virtualparts.data.SBOLInteractionAdder_GeneCentric;
  * The implementation of the <i>SBOL</i> algorithm in the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class SBOL extends EXAlgorithm {
@@ -121,13 +120,9 @@ public class SBOL extends EXAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
-
-  }
+  protected void getConstraintFromNetlistConstraintFile() {}
 
   /**
    * Gets the data from the UCF.
@@ -139,9 +134,7 @@ public class SBOL extends EXAlgorithm {
     setTargetDataInstance(new EXTargetDataInstance(getTargetData()));
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
   protected void setParameterValues() {
     Boolean present = false;
@@ -164,9 +157,7 @@ public class SBOL extends EXAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter value for <i>repositoryUrl</i>.
-   */
+  /** Validate parameter value for <i>repositoryUrl</i>. */
   protected void validateRepositoryUrlValue() {
     final String url = getRepositoryUrl();
     if (url != null) {
@@ -179,17 +170,13 @@ public class SBOL extends EXAlgorithm {
     }
   }
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
   protected void validateParameterValues() {
     validateRepositoryUrlValue();
   }
 
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
     // sbh frontend
@@ -208,9 +195,9 @@ public class SBOL extends EXAlgorithm {
    * Add component definitions for all parts of all gates in the netlist.
    *
    * @param document The SBOL document to which to add the definitions.
-   * @throws SynBioHubException      unable to fetch part SBOL from SynBioHub
+   * @throws SynBioHubException unable to fetch part SBOL from SynBioHub
    * @throws SBOLValidationException unable to create component definition
-   * @throws CelloException          Unable to add component definitions.
+   * @throws CelloException Unable to add component definitions.
    */
   protected void addComponentDefinitions(final SBOLDocument document)
       throws SynBioHubException, SBOLValidationException, CelloException {
@@ -274,7 +261,7 @@ public class SBOL extends EXAlgorithm {
    *
    * @param document The SBOLDocument.
    * @throws SBOLValidationException unable to add transcriptional unit
-   * @throws CelloException          Unable to get parts from nested device.
+   * @throws CelloException Unable to get parts from nested device.
    */
   protected void addTranscriptionalUnitDefinitions(final SBOLDocument document)
       throws SBOLValidationException, CelloException {
@@ -290,8 +277,9 @@ public class SBOL extends EXAlgorithm {
               group.getComponentAtIdx(k);
 
           // ComponentDefinition
-          final ComponentDefinition cd = document.createComponentDefinition(
-              name + component.getName(), "1", ComponentDefinition.DNA_REGION);
+          final ComponentDefinition cd =
+              document.createComponentDefinition(
+                  name + component.getName(), "1", ComponentDefinition.DNA_REGION);
           cd.addRole(SequenceOntology.ENGINEERED_REGION);
           component.setUri(cd.getIdentity());
 
@@ -349,8 +337,9 @@ public class SBOL extends EXAlgorithm {
             }
           }
           // Sequence
-          final Sequence s = document.createSequence(cd.getDisplayId() + "_Sequence", sequence,
-              Sequence.IUPAC_DNA);
+          final Sequence s =
+              document.createSequence(
+                  cd.getDisplayId() + "_Sequence", sequence, Sequence.IUPAC_DNA);
           cd.addSequence(s);
         }
       }
@@ -361,10 +350,10 @@ public class SBOL extends EXAlgorithm {
    * Create an SBOL document.
    *
    * @return The generated {@link SBOLDocument}.
-   * @throws SynBioHubException      Unable to fetch SBOL from SynBioHub for a part.
-   * @throws SBOLValidationException Unable to create {@link Component} or
-   *                                 {@link ComponentDefinition}.
-   * @throws CelloException          Unable to create SBOL document.
+   * @throws SynBioHubException Unable to fetch SBOL from SynBioHub for a part.
+   * @throws SBOLValidationException Unable to create {@link Component} or {@link
+   *     ComponentDefinition}.
+   * @throws CelloException Unable to create SBOL document.
    */
   protected SBOLDocument createSbolDocument()
       throws SynBioHubException, SBOLValidationException, CelloException {
@@ -380,22 +369,22 @@ public class SBOL extends EXAlgorithm {
   /**
    * Add device interactions via the Virtual Parts (VPR) API.
    *
-   * @param selectedRepo   The specified synbiohub repository the user wants VPR model generator to
-   *                       connect to.
+   * @param selectedRepo The specified synbiohub repository the user wants VPR model generator to
+   *     connect to.
    * @param generatedModel The file to generate the model from.
-   * @param name           The top level design name.
+   * @param name The top level design name.
    * @return The SBOL Document with interactions.
    * @throws SBOLValidationException Unable to validate SBOL.
-   * @throws IOException             Unable to read or write the given SBOLDocument
+   * @throws IOException Unable to read or write the given SBOLDocument
    * @throws SBOLConversionException Unable to perform conversion for the given SBOLDocument.
-   * @throws VPRException            Unable to perform VPR Model Generation on the given
-   *                                 SBOLDocument.
+   * @throws VPRException Unable to perform VPR Model Generation on the given SBOLDocument.
    * @throws VPRTripleStoreException Unable to perform VPR Model Generation on the given
-   *                                 SBOLDocument.
+   *     SBOLDocument.
    */
-  protected SBOLDocument addInteractions(final String selectedRepo, final SBOLDocument document,
-      final String name) throws SBOLValidationException, IOException, SBOLConversionException,
-      VPRException, VPRTripleStoreException, URISyntaxException {
+  protected SBOLDocument addInteractions(
+      final String selectedRepo, final SBOLDocument document, final String name)
+      throws SBOLValidationException, IOException, SBOLConversionException, VPRException,
+          VPRTripleStoreException, URISyntaxException {
     final Set<URI> collections = new HashSet<>();
     collections.add(new URI(getCollectionUri()));
     final QueryParameters params = new QueryParameters();
@@ -434,7 +423,7 @@ public class SBOL extends EXAlgorithm {
    *
    * @param document The {@link SBOLDocument}.
    * @throws SBOLValidationException unable to add plasmid definition
-   * @throws SynBioHubException      Unable to communicate with SynBioHub.
+   * @throws SynBioHubException Unable to communicate with SynBioHub.
    */
   protected void addGroupDefinitions(final SBOLDocument document)
       throws SBOLValidationException, SynBioHubException {
@@ -531,9 +520,7 @@ public class SBOL extends EXAlgorithm {
         final DirectionType fcDirection = DirectionType.NONE;
         md.createFunctionalComponent(fcDisplayId, fcAccess, fcDefinitionURI, fcDirection);
       }
-
     }
-
   }
 
   /**
@@ -560,8 +547,12 @@ public class SBOL extends EXAlgorithm {
         final SBOLDocument sbolDocument =
             addInteractions(getRepositoryUrl().toString(), getSbolDocument(), getDesignName());
         setSbolDocument(sbolDocument);
-      } catch (IOException | SBOLValidationException | SBOLConversionException | VPRException
-          | VPRTripleStoreException | URISyntaxException e) {
+      } catch (IOException
+          | SBOLValidationException
+          | SBOLConversionException
+          | VPRException
+          | VPRTripleStoreException
+          | URISyntaxException e) {
         throw new CelloException(e);
       }
     }
@@ -585,9 +576,7 @@ public class SBOL extends EXAlgorithm {
     }
   }
 
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
   protected void postprocessing() {
     logInfo("writing SBOL document");
@@ -775,5 +764,4 @@ public class SBOL extends EXAlgorithm {
   private SBOLDocument sbolDocument;
   private String sbolFilename;
   private static final Logger logger = LogManager.getLogger(SBOL.class);
-
 }

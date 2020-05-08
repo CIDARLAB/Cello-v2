@@ -30,7 +30,6 @@ import org.cellocad.v2.results.netlist.NetlistEdge;
  * the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSNetlistEdgeDataUtils {
@@ -39,11 +38,11 @@ public class LSNetlistEdgeDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * all edges in the netlist instance defined by parameter {@code netlist}.
    *
-   * @param netlist    The {@link Netlist}.
+   * @param netlist The {@link Netlist}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
-  public static void resetNetlistEdgeData(final Netlist netlist,
-      final AlgorithmProfile algProfile) {
+  public static void resetNetlistEdgeData(
+      final Netlist netlist, final AlgorithmProfile algProfile) {
     for (int i = 0; i < netlist.getNumEdge(); i++) {
       final NetlistEdge edge = netlist.getEdgeAtIdx(i);
       LSNetlistEdgeDataUtils.resetNetlistEdgeData(edge, algProfile);
@@ -54,14 +53,13 @@ public class LSNetlistEdgeDataUtils {
    * Resets the algorithm data, where the algorithm is defined by parameter {@code algProfile}, for
    * a NetlistEdge instance defined by parameter {@code edge}.
    *
-   * @param edge       The {@link NetlistEdge}.
+   * @param edge The {@link NetlistEdge}.
    * @param algProfile The {@link AlgorithmProfile}.
    */
-  public static void resetNetlistEdgeData(final NetlistEdge edge,
-      final AlgorithmProfile algProfile) {
+  public static void resetNetlistEdgeData(
+      final NetlistEdge edge, final AlgorithmProfile algProfile) {
     final LSNetlistEdgeDataFactory LSFactory = new LSNetlistEdgeDataFactory();
     final LSNetlistEdgeData data = LSFactory.getNetlistEdgeData(algProfile);
     edge.setNetlistEdgeData(data);
   }
-
 }

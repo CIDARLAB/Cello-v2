@@ -60,14 +60,11 @@ import org.json.simple.JSONObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class SimulatedAnnealing extends TMAlgorithm {
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
   protected void getConstraintFromNetlistConstraintFile() {
     final NetlistConstraint constraint = getNetlistConstraint();
@@ -111,24 +108,15 @@ public class SimulatedAnnealing extends TMAlgorithm {
     setTargetDataInstance(tdi);
   }
 
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
-  protected void setParameterValues() {
-  }
+  protected void setParameterValues() {}
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   protected void setTruthTable() {
     LSResultNetlistUtils.setVertexTypeUsingLSResult(getNetlist());
     setLSLogicEvaluation(new LSLogicEvaluation(getNetlist()));
@@ -331,14 +319,10 @@ public class SimulatedAnnealing extends TMAlgorithm {
         // undo
         swap(nodeB, gateB, nodeA, gateA);
       }
-
     }
-
   }
 
-  /**
-   * Copy the gate assignements to the netlist.
-   */
+  /** Copy the gate assignements to the netlist. */
   protected void updateNetlist() {
     for (int i = 0; i < getNetlist().getNumVertex(); i++) {
       final NetlistNode node = getNetlist().getVertexAtIdx(i);
@@ -376,12 +360,12 @@ public class SimulatedAnnealing extends TMAlgorithm {
     setTMCytometryEvaluation(new TMCytometryEvaluation());
     // toxicity
     setTMToxicityEvaluation(new TMToxicityEvaluation(getNetlist(), getTMActivityEvaluation()));
-    SimulatedAnnealingResultsUtils.writeCsvForTMToxicityEvaluation(getTMToxicityEvaluation(),
-        outputFile + "_toxicity.csv");
+    SimulatedAnnealingResultsUtils.writeCsvForTMToxicityEvaluation(
+        getTMToxicityEvaluation(), outputFile + "_toxicity.csv");
     logInfo(getTMToxicityEvaluation().toString());
     // activity
-    TMResultsUtils.writeCsvForTMActivityEvaluation(getTMActivityEvaluation(),
-        outputFile + "_activity.csv");
+    TMResultsUtils.writeCsvForTMActivityEvaluation(
+        getTMActivityEvaluation(), outputFile + "_activity.csv");
     logInfo(getTMActivityEvaluation().toString());
     for (int i = 0; i < getNetlist().getNumVertex(); i++) {
       final NetlistNode node = getNetlist().getVertexAtIdx(i);
@@ -397,12 +381,14 @@ public class SimulatedAnnealing extends TMAlgorithm {
         logInfo(str);
       }
     }
-    logInfo(String.format("Score: %.2f",
-        ScoreUtils.score(getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation())));
+    logInfo(
+        String.format(
+            "Score: %.2f",
+            ScoreUtils.score(getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation())));
     // plots
     logInfo("Generating plots");
-    ResponsePlotUtils.generatePlots(getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(),
-        getRuntimeEnv());
+    ResponsePlotUtils.generatePlots(
+        getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(), getRuntimeEnv());
   }
 
   /**
@@ -479,7 +465,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
 
   /**
    * Setter for {@code unitConversion}.
-   * 
+   *
    * @param unitConversion The value to set {@code unitConversion}.
    */
   protected void setUnitConversion(final Double unitConversion) {
@@ -488,7 +474,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
 
   /**
    * Getter for {@code unitConversion}.
-   * 
+   *
    * @return The value of {@code unitConversion}.
    */
   public Double getUnitConversion() {
@@ -614,5 +600,4 @@ public class SimulatedAnnealing extends TMAlgorithm {
   private static final Double LOGMIN = Math.log10(MINTEMP);
   private static final Double LOGINC = (LOGMAX - LOGMIN) / STEPS;
   private static final Integer T0_STEPS = 100;
-
 }

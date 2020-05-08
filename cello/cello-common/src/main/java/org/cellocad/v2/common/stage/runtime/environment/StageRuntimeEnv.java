@@ -29,7 +29,6 @@ import org.cellocad.v2.common.runtime.environment.RuntimeEnv;
  * a stage.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public class StageRuntimeEnv extends RuntimeEnv {
@@ -43,9 +42,7 @@ public class StageRuntimeEnv extends RuntimeEnv {
     super(args);
   }
 
-  /**
-   * Setter for {@code options}.
-   */
+  /** Setter for {@code options}. */
   @Override
   protected void setOptions() {
     super.setOptions();
@@ -63,8 +60,9 @@ public class StageRuntimeEnv extends RuntimeEnv {
    * @return The ALGORITHMNAME Option for this instance.
    */
   protected Option getAlgorithmNameOption() {
-    final Option rtn = new Option(StageArgString.ALGORITHMNAME, true,
-        StageArgDescription.ALGORITHMNAME_DESCRIPTION);
+    final Option rtn =
+        new Option(
+            StageArgString.ALGORITHMNAME, true, StageArgDescription.ALGORITHMNAME_DESCRIPTION);
     makeRequired(rtn);
     return rtn;
   }
@@ -104,5 +102,4 @@ public class StageRuntimeEnv extends RuntimeEnv {
         new Option(ArgString.OUTPUTNETLIST, true, StageArgDescription.OUTPUTNETLIST_DESCRIPTION);
     return rtn;
   }
-
 }

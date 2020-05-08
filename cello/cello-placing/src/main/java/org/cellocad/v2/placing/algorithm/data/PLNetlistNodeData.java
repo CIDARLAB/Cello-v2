@@ -25,9 +25,6 @@ import org.cellocad.v2.common.algorithm.data.NetlistNodeData;
  * The data for a node used within the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public abstract class PLNetlistNodeData extends NetlistNodeData {
-
-}
+public abstract class PLNetlistNodeData extends NetlistNodeData {}

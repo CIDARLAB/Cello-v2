@@ -27,7 +27,6 @@ import org.cellocad.v2.common.Utils;
  * The NetlistNodeUtils class is class with utility methods for <i>NetlistNode</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class NetlistNodeUtils {
@@ -39,7 +38,7 @@ public class NetlistNodeUtils {
    * @param src The source NetlistNode.
    * @param dst The destination NetlistNode.
    * @return The number of {@link NetlistEdge} objects connecting a source {@link NetlistNode},
-   *         {@code src}, to a destination {@link NetlistNode}, {@code dst}.
+   *     {@code src}, to a destination {@link NetlistNode}, {@code dst}.
    * @throws RuntimeException Any of the parameters are null.
    */
   public static int numNetlistEdgesBetween(final NetlistNode src, final NetlistNode dst) {
@@ -57,11 +56,11 @@ public class NetlistNodeUtils {
    * @param src The source NetlistNode.
    * @param dst The destination NetlistNode.
    * @return A list of NetlistEdges connecting the a source {@link NetlistNode}, {@code src}, to a
-   *         destination {@link NetlistNode}, {@code dst}.
+   *     destination {@link NetlistNode}, {@code dst}.
    * @throws RuntimeException Any of the parameters are null.
    */
-  private static List<NetlistEdge> getNetlistEdgesBetween(final NetlistNode src,
-      final NetlistNode dst) {
+  private static List<NetlistEdge> getNetlistEdgesBetween(
+      final NetlistNode src, final NetlistNode dst) {
     Utils.isNullRuntimeException(src, "src");
     Utils.isNullRuntimeException(dst, "dst");
     final List<NetlistEdge> rtn = new ArrayList<>();
@@ -73,5 +72,4 @@ public class NetlistNodeUtils {
     }
     return rtn;
   }
-
 }

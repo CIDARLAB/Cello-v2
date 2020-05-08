@@ -25,9 +25,6 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
  * Utility methods for target data in the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2020-02-14
  */
-public class EXTargetDataUtils extends TargetDataUtils {
-
-}
+public class EXTargetDataUtils extends TargetDataUtils {}

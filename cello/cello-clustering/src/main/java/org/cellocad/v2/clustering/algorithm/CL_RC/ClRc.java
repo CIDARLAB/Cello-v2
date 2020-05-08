@@ -33,7 +33,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * The implementation of the <i>CL_RC</i> algorithm in the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class ClRc extends CLAlgorithm {
@@ -74,60 +73,33 @@ public class ClRc extends CLAlgorithm {
     return rtn;
   }
 
-  /**
-   * Gets the constraint data from the netlist constraint file.
-   */
+  /** Gets the constraint data from the netlist constraint file. */
   @Override
-  protected void getConstraintFromNetlistConstraintFile() {
+  protected void getConstraintFromNetlistConstraintFile() {}
 
-  }
-
-  /**
-   * Gets the data from the UCF.
-   */
+  /** Gets the data from the UCF. */
   @Override
-  protected void getDataFromUcf() {
+  protected void getDataFromUcf() {}
 
-  }
-
-  /**
-   * Set parameter values of the algorithm.
-   */
+  /** Set parameter values of the algorithm. */
   @Override
-  protected void setParameterValues() {
-  }
+  protected void setParameterValues() {}
 
-  /**
-   * Validate parameter values of the algorithm.
-   */
+  /** Validate parameter values of the algorithm. */
   @Override
-  protected void validateParameterValues() {
+  protected void validateParameterValues() {}
 
-  }
-
-  /**
-   * Perform preprocessing.
-   */
+  /** Perform preprocessing. */
   @Override
-  protected void preprocessing() {
+  protected void preprocessing() {}
 
-  }
-
-  /**
-   * Run the (core) algorithm.
-   */
+  /** Run the (core) algorithm. */
   @Override
-  protected void run() {
+  protected void run() {}
 
-  }
-
-  /**
-   * Perform postprocessing.
-   */
+  /** Perform postprocessing. */
   @Override
-  protected void postprocessing() {
-
-  }
+  protected void postprocessing() {}
 
   /**
    * Returns the {@link Logger} for the <i>CL_RC</i> algorithm.
@@ -140,5 +112,4 @@ public class ClRc extends CLAlgorithm {
   }
 
   private static final Logger logger = LogManager.getLogger(ClRc.class);
-
 }

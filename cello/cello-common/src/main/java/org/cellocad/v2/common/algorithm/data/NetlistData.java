@@ -27,7 +27,6 @@ import org.cellocad.v2.common.CObject;
  * The NetlistData class is the base class for all NetlistData classes using the Poros framework.
  *
  * @author Vincent Mirian
- *
  * @date Dec 15, 2017
  */
 public abstract class NetlistData extends CObject {
@@ -37,9 +36,8 @@ public abstract class NetlistData extends CObject {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   public abstract void writeJson(int indent, Writer os) throws IOException;
-
 }

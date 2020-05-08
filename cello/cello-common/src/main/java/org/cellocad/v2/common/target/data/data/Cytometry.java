@@ -31,7 +31,6 @@ import org.json.simple.JSONObject;
  * <i>SimulatedAnnealing</i> algorithm.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class Cytometry extends CObject {
@@ -82,7 +81,7 @@ public class Cytometry extends CObject {
 
   /**
    * Get the cytometry data at the given index.
-   * 
+   *
    * @param index An index.
    * @return The cytometry data at the given index.
    */
@@ -102,5 +101,4 @@ public class Cytometry extends CObject {
 
   private static final String S_GATENAME = "gate_name";
   private static final String S_CYTOMETRYDATA = "cytometry_data";
-
 }

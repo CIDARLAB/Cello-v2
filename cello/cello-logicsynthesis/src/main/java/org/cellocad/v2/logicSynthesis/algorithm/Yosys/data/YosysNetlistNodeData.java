@@ -28,17 +28,13 @@ import org.cellocad.v2.logicSynthesis.algorithm.data.LSNetlistNodeData;
  * algorithm class of the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class YosysNetlistNodeData extends LSNetlistNodeData {
 
-  private void setDefault() {
-  }
+  private void setDefault() {}
 
-  /**
-   * Initializes a newly created {@link YosysNetlistNodeData}.
-   */
+  /** Initializes a newly created {@link YosysNetlistNodeData}. */
   public YosysNetlistNodeData() {
     super();
     setDefault();
@@ -49,12 +45,9 @@ public class YosysNetlistNodeData extends LSNetlistNodeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

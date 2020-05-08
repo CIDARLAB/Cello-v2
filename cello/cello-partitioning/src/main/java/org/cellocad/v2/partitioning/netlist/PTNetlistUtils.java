@@ -29,7 +29,6 @@ import java.io.Writer;
  * The PTNetlistUtils class is class with utility methods for <i>PTNetlist</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date Jan 21, 2018
  */
 public class PTNetlistUtils {
@@ -38,7 +37,7 @@ public class PTNetlistUtils {
    * Writes the PTNetlist defined by parameter {@code netlist} in DOT (graph description language)
    * format to the file defined by {@code filename}.
    *
-   * @param netlist  The PTNetlist.
+   * @param netlist The PTNetlist.
    * @param filename The file.
    */
   public static void writeDotFileForPartition(final PTNetlist netlist, final String filename) {
@@ -52,5 +51,4 @@ public class PTNetlistUtils {
       e.printStackTrace();
     }
   }
-
 }

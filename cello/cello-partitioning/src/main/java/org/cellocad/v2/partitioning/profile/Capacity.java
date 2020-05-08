@@ -31,9 +31,8 @@ import org.cellocad.v2.common.profile.DerivedProfile;
 
 /**
  * A description of the capacity of a partitioned object.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 
@@ -43,7 +42,7 @@ public class Capacity extends DerivedProfile<CapacityProfile> {
   /**
    * Initializes a newly created {@link Capacity}.
    *
-   * @param cp            A {@link CapacityProfile}.
+   * @param cp A {@link CapacityProfile}.
    * @param capacityUnits A collection of {@link CObject}.
    */
   public Capacity(final CapacityProfile cp, final CObjectCollection<CObject> capacityUnits) {
@@ -86,7 +85,7 @@ public class Capacity extends DerivedProfile<CapacityProfile> {
 
   /**
    * Whether this instance can fit using the given weight.
-   * 
+   *
    * @param wObj A weight.
    * @return Whether this instance can fit using the given weight.
    */
@@ -99,7 +98,7 @@ public class Capacity extends DerivedProfile<CapacityProfile> {
 
   /**
    * Whether this instance is overflow using the given weight.
-   * 
+   *
    * @param wObj A weight.
    * @return Whether this instance is overflow using the given weight.
    */
@@ -112,7 +111,7 @@ public class Capacity extends DerivedProfile<CapacityProfile> {
 
   /**
    * Whether this instance is underflow using the given weight.
-   * 
+   *
    * @param wObj A weight.
    * @return Whether this instance is underflow using the given weight.
    */
@@ -279,5 +278,4 @@ public class Capacity extends DerivedProfile<CapacityProfile> {
   private int upperBound;
   private UpperBoundType upperBoundType;
   private final Units myUnits;
-
 }

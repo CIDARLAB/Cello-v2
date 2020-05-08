@@ -28,14 +28,13 @@ import org.cellocad.v2.results.netlist.NetlistEdge;
  * instances in the <i>logicSynthesis</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class LSStageNetlistEdgeDataUtils {
 
   /**
-   * Resets the stage data for all edges in the netlist instance defined by parameter
-   * {@code netlist}.
+   * Resets the stage data for all edges in the netlist instance defined by parameter {@code
+   * netlist}.
    *
    * @param netlist The {@link Netlist}.
    */
@@ -55,5 +54,4 @@ public class LSStageNetlistEdgeDataUtils {
     final LSStageNetlistEdgeData data = new LSStageNetlistEdgeData();
     edge.setStageNetlistEdgeData(data);
   }
-
 }

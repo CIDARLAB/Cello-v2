@@ -28,9 +28,8 @@ import org.cellocad.v2.common.Utils;
 
 /**
  * A weight.
- * 
- * @author Vincent Mirian
  *
+ * @author Vincent Mirian
  * @date Nov 7, 2017
  */
 public class Weight extends CObject {
@@ -40,9 +39,7 @@ public class Weight extends CObject {
     myUnits = new Units();
   }
 
-  /**
-   * Initializes a newly created {@link Weight}.
-   */
+  /** Initializes a newly created {@link Weight}. */
   public Weight() {
     super();
     init();
@@ -65,7 +62,7 @@ public class Weight extends CObject {
   /**
    * Initializes a newly created {@link Weight}.
    *
-   * @param units    Units.
+   * @param units Units.
    * @param allUnits All units.
    */
   public Weight(final CObjectCollection<CObject> units, final CObjectCollection<CObject> allUnits) {
@@ -83,7 +80,7 @@ public class Weight extends CObject {
 
   /**
    * Reset units.
-   * 
+   *
    * @param allUnits All units.
    */
   public void resetUnits(final CObjectCollection<CObject> allUnits) {
@@ -108,8 +105,8 @@ public class Weight extends CObject {
 
   /**
    * Set weight.
-   * 
-   * @param unit  Unit.
+   *
+   * @param unit Unit.
    * @param value Value.
    */
   public void setWeight(final String unit, final Integer value) {
@@ -118,7 +115,7 @@ public class Weight extends CObject {
 
   /**
    * Get weight.
-   * 
+   *
    * @param unit Unit.
    * @return Weight.
    */
@@ -142,8 +139,8 @@ public class Weight extends CObject {
 
   /**
    * Increment weight.
-   * 
-   * @param unit  Unit.
+   *
+   * @param unit Unit.
    * @param value Value.
    */
   public void incWeight(final String unit, final int value) {
@@ -163,8 +160,8 @@ public class Weight extends CObject {
 
   /**
    * Decrement.
-   * 
-   * @param unit  Unit.
+   *
+   * @param unit Unit.
    * @param value Value.
    */
   public void decWeight(final String unit, final int value) {
@@ -184,7 +181,7 @@ public class Weight extends CObject {
 
   /**
    * Decrement.
-   * 
+   *
    * @param wObj A weight.
    */
   public void dec(final Weight wObj) {
@@ -198,7 +195,7 @@ public class Weight extends CObject {
 
   /**
    * Increment.
-   * 
+   *
    * @param wObj A weight.
    */
   public void inc(final Weight wObj) {
@@ -342,5 +339,4 @@ public class Weight extends CObject {
   private Map<String, Integer> weightMap;
   private Units myUnits;
   private int total;
-
 }

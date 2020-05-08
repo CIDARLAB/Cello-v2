@@ -47,7 +47,6 @@ import org.json.simple.parser.ParseException;
  * Utility methods for the <i>Yosys</i> instances.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class YosysJsonUtils {
@@ -56,17 +55,17 @@ public class YosysJsonUtils {
    * Translates the JSON file referenced by parameter {@code filename} into the Netlist in parameter
    * {@code netlist} using the <i>Yosys</i> algorithm instance.
    *
-   * @param yosys    The <i>Yosys</i> algorithm instance.
+   * @param yosys The <i>Yosys</i> algorithm instance.
    * @param filename The JSON file.
-   * @param netlist  The netlist.
+   * @param netlist The netlist.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          Error accessing {@code filename}<br>
-   *                          Error parsing {@code filename}<br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     Error accessing {@code filename}<br>
+   *     Error parsing {@code filename}<br>
+   *     .
    */
-  public static void getNetlistFromYosysJsonFile(final Yosys yosys, final String filename,
-      final Netlist netlist) {
+  public static void getNetlistFromYosysJsonFile(
+      final Yosys yosys, final String filename, final Netlist netlist) {
     Utils.isNullRuntimeException(yosys, "yosys");
     Utils.isNullRuntimeException(filename, "filename");
     Utils.isNullRuntimeException(netlist, "netlist");
@@ -95,7 +94,6 @@ public class YosysJsonUtils {
       jsonReader.close();
     } catch (final IOException e) {
       throw new RuntimeException("Error with file: " + jsonFile);
-
     }
   }
 
@@ -122,23 +120,25 @@ public class YosysJsonUtils {
   }
 
   /**
-   * Creates NetlistNode instances for the port(s) from the top module defined in parameter
-   * {@code jsonValue}.<br>
-   * Updates the S_MAP of integer to input netlistNode defined by parameter
-   * {@code inputNetlistNode}.<br>
-   * Updates the S_MAP of integer to output netlistNode defined by parameter
-   * {@code outputNetlistNode}.<br>
+   * Creates NetlistNode instances for the port(s) from the top module defined in parameter {@code
+   * jsonValue}.<br>
+   * Updates the S_MAP of integer to input netlistNode defined by parameter {@code
+   * inputNetlistNode}.<br>
+   * Updates the S_MAP of integer to output netlistNode defined by parameter {@code
+   * outputNetlistNode}.<br>
    * Updates the Netlist defined by parameter {@code netlist}.<br>
    * .
    *
-   * @param jsonValue         The JSONObject.
-   * @param inputNetlistNode  The S_MAP of integer to input netlistNode.
+   * @param jsonValue The JSONObject.
+   * @param inputNetlistNode The S_MAP of integer to input netlistNode.
    * @param outputNetlistNode The S_MAP of integer to output netlistNode.
-   * @param netlist           The netlist.
+   * @param netlist The netlist.
    */
-  protected static void parseModule(final JSONObject jsonValue,
+  protected static void parseModule(
+      final JSONObject jsonValue,
       final Multimap<Integer, NetlistNode> inputNetlistNode,
-      final Multimap<Integer, NetlistNode> outputNetlistNode, final Netlist netlist) {
+      final Multimap<Integer, NetlistNode> outputNetlistNode,
+      final Netlist netlist) {
     final JSONObject jPorts = (JSONObject) jsonValue.get(YosysJsonUtils.S_PORTS);
     @SuppressWarnings("unchecked")
     final Set<Map.Entry<?, ?>> entrySet = jPorts.entrySet();
@@ -179,7 +179,7 @@ public class YosysJsonUtils {
    * Return a string representing the marshalled name of the instance using the name defined by
    * parameter {@code name} and the flag defined by parameter {@code hidename}.
    *
-   * @param name     The name.
+   * @param name The name.
    * @param hidename flag to enable name marshalling.
    * @return The marshalled name.
    */
@@ -195,23 +195,25 @@ public class YosysJsonUtils {
   }
 
   /**
-   * Creates NetlistNode instances for the cell(s) from the top module defined in parameter
-   * {@code jsonValue}.<br>
-   * Updates the S_MAP of integer to input netlistNode defined by parameter
-   * {@code inputNetlistNode}.<br>
-   * Updates the S_MAP of integer to output netlistNode defined by parameter
-   * {@code outputNetlistNode}.<br>
+   * Creates NetlistNode instances for the cell(s) from the top module defined in parameter {@code
+   * jsonValue}.<br>
+   * Updates the S_MAP of integer to input netlistNode defined by parameter {@code
+   * inputNetlistNode}.<br>
+   * Updates the S_MAP of integer to output netlistNode defined by parameter {@code
+   * outputNetlistNode}.<br>
    * Updates the Netlist defined by parameter {@code netlist}.<br>
    * .
    *
-   * @param jsonValue         The JSONObject.
-   * @param inputNetlistNode  The S_MAP of integer to input netlistNode.
+   * @param jsonValue The JSONObject.
+   * @param inputNetlistNode The S_MAP of integer to input netlistNode.
    * @param outputNetlistNode The S_MAP of integer to output netlistNode.
-   * @param netlist           The netlist.
+   * @param netlist The netlist.
    */
-  protected static void parseCells(final JSONObject jsonValue,
+  protected static void parseCells(
+      final JSONObject jsonValue,
       final Multimap<Integer, NetlistNode> inputNetlistNode,
-      final Multimap<Integer, NetlistNode> outputNetlistNode, final Netlist netlist) {
+      final Multimap<Integer, NetlistNode> outputNetlistNode,
+      final Netlist netlist) {
     final JSONObject jCells = (JSONObject) jsonValue.get(YosysJsonUtils.S_CELLS);
     @SuppressWarnings("unchecked")
     final Set<Map.Entry<?, ?>> entrySet = jCells.entrySet();
@@ -262,23 +264,25 @@ public class YosysJsonUtils {
   }
 
   /**
-   * Creates NetlistEdge instances for the net(s) from the top module defined in parameter
-   * {@code jsonValue}.<br>
-   * Updates the S_MAP of integer to input netlistNode defined by parameter
-   * {@code inputNetlistNode}.<br>
-   * Updates the S_MAP of integer to output netlistNode defined by parameter
-   * {@code outputNetlistNode}.<br>
+   * Creates NetlistEdge instances for the net(s) from the top module defined in parameter {@code
+   * jsonValue}.<br>
+   * Updates the S_MAP of integer to input netlistNode defined by parameter {@code
+   * inputNetlistNode}.<br>
+   * Updates the S_MAP of integer to output netlistNode defined by parameter {@code
+   * outputNetlistNode}.<br>
    * Updates the Netlist defined by parameter {@code netlist}.<br>
    * .
    *
-   * @param jsonValue         The JSONObject.
-   * @param inputNetlistNode  The S_MAP of integer to input netlistNode.
+   * @param jsonValue The JSONObject.
+   * @param inputNetlistNode The S_MAP of integer to input netlistNode.
    * @param outputNetlistNode The S_MAP of integer to output netlistNode.
-   * @param netlist           The netlist.
+   * @param netlist The netlist.
    */
-  protected static void parseNets(final JSONObject jsonValue,
+  protected static void parseNets(
+      final JSONObject jsonValue,
       final Multimap<Integer, NetlistNode> inputNetlistNode,
-      final Multimap<Integer, NetlistNode> outputNetlistNode, final Netlist netlist) {
+      final Multimap<Integer, NetlistNode> outputNetlistNode,
+      final Netlist netlist) {
     final JSONObject jNets = (JSONObject) jsonValue.get(YosysJsonUtils.S_NETS);
     final Set<Integer> netSet = new HashSet<>();
     @SuppressWarnings("unchecked")
@@ -334,7 +338,7 @@ public class YosysJsonUtils {
    *
    * @param jsonTop The JSONObject.
    * @param netlist The netlist.
-   * @param yosys   The <i>Yosys</i> algorithm instance.
+   * @param yosys The <i>Yosys</i> algorithm instance.
    */
   public static void parseJson(final JSONObject jsonTop, final Netlist netlist, final Yosys yosys) {
     final Multimap<Integer, NetlistNode> inputNetlistNode = ArrayListMultimap.create();
@@ -359,5 +363,4 @@ public class YosysJsonUtils {
   private static String S_PORT_DIRECTIONS = "port_directions";
   private static String S_CONNECTIONS = "connections";
   private static String S_NET_SEPARATOR = "_";
-
 }

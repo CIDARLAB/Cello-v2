@@ -23,9 +23,6 @@ package org.cellocad.v2.results.technologyMapping.cytometry;
  * The cytometry evaluation.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-26
  */
-public class TMCytometryEvaluation {
-
-}
+public class TMCytometryEvaluation {}

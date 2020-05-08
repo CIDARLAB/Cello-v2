@@ -29,18 +29,14 @@ import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
 /**
  * The ActivityTable class represents a mapping between node state and node activity.
  *
- * @param Input  input type index.
+ * @param Input input type index.
  * @param Output output type index.
- *
  * @author Timothy Jones
- *
  * @date 2018-05-24
  */
 public class ActivityTable<InputT, OutputT> {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     activityTableMap = new HashMap<>();
     states = new ArrayList<>();
@@ -50,7 +46,7 @@ public class ActivityTable<InputT, OutputT> {
    * Initializes a newly created {@link ActivityTable} with the list of inputs defined by parameter
    * {@code inputs} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param inputs  The List of inputs.
+   * @param inputs The List of inputs.
    * @param outputs The List of outputs.
    */
   public ActivityTable(final List<State<InputT>> inputs, final List<OutputT> outputs) {
@@ -67,7 +63,7 @@ public class ActivityTable<InputT, OutputT> {
    * Initializes a newly created {@link ActivityTable} with the list of states defined by parameter
    * {@code states} a list of outputs defined by parameter {@code outputs}.
    *
-   * @param states  The List of states.
+   * @param states The List of states.
    * @param outputs The List of outputs.
    */
   public ActivityTable(final States<InputT> states, final List<OutputT> outputs) {
@@ -105,7 +101,7 @@ public class ActivityTable<InputT, OutputT> {
    * Returns the output activity for the activity defined by parameter {@code activity}.
    *
    * @return The output activity for the activity defined by parameter {@code activity}, otherwise
-   *         null.
+   *     null.
    */
   public Activity<OutputT> getActivityOutput(final State<InputT> state) {
     Activity<OutputT> rtn = null;
@@ -118,7 +114,7 @@ public class ActivityTable<InputT, OutputT> {
    *
    * @param index The index of the {@link State} object to return.
    * @return If the index is within the bounds (0 <= bounds < this.getNumStates()), returns the
-   *         State<Input> at the specified position in this instance, otherwise null.
+   *     State<Input> at the specified position in this instance, otherwise null.
    */
   public State<InputT> getStateAtIdx(final int index) {
     State<InputT> rtn = null;
@@ -139,5 +135,4 @@ public class ActivityTable<InputT, OutputT> {
 
   List<State<InputT>> states;
   Map<State<InputT>, Activity<OutputT>> activityTableMap;
-
 }

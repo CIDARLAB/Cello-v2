@@ -26,7 +26,6 @@ import org.json.simple.JSONObject;
  * A representation of the measurement standard object in the UCF.
  *
  * @author Timothy Jones
- *
  * @date 2018-05-22
  */
 public class MeasurementStandard {
@@ -56,5 +55,4 @@ public class MeasurementStandard {
   private String signalCarrierUnits;
 
   private static final String S_SIGNALCARRIERUNITS = "signal_carrier_units";
-
 }

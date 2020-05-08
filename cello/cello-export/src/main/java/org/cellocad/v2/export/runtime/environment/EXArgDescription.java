@@ -26,9 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgDescription;
  * for the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
-public class EXArgDescription extends StageArgDescription {
-
-}
+public class EXArgDescription extends StageArgDescription {}

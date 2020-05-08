@@ -46,31 +46,38 @@ import org.junit.Test;
  * Integration test for the {@link SimulatedAnnealing} algorithm.
  *
  * @author Timothy Jones
- *
  * @date 2020-01-30
  */
 public class SimulatedAnnealingIT {
 
   /**
    * Environment setup for tests.
-   * 
+   *
    * @throws CelloException Unable to initialize supporting classes.
-   * @throws IOException    Unable to load resources.
+   * @throws IOException Unable to load resources.
    */
   @BeforeClass
   public static void init() throws CelloException, IOException {
     final Path dir = Files.createTempDirectory("cello_");
     output = dir.toFile();
-    final String[] args = {"-" + ArgString.INPUTNETLIST,
-        Utils.getResource("and_netlist.json").getFile(), "-" + ArgString.USERCONSTRAINTSFILE,
-        Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-        "-" + ArgString.INPUTSENSORFILE,
-        Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
-        "-" + ArgString.OUTPUTDEVICEFILE,
-        Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
-        "-" + StageArgString.ALGORITHMNAME, "SimulatedAnnealing", "-" + ArgString.PYTHONENV,
-        "python", "-" + ArgString.OUTPUTDIR, dir.toString(), "-" + ArgString.LOGFILENAME,
-        dir.toString() + Utils.getFileSeparator() + "log.log"};
+    final String[] args = {
+      "-" + ArgString.INPUTNETLIST,
+      Utils.getResource("and_netlist.json").getFile(),
+      "-" + ArgString.USERCONSTRAINTSFILE,
+      Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
+      "-" + ArgString.INPUTSENSORFILE,
+      Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
+      "-" + ArgString.OUTPUTDEVICEFILE,
+      Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
+      "-" + StageArgString.ALGORITHMNAME,
+      "SimulatedAnnealing",
+      "-" + ArgString.PYTHONENV,
+      "python",
+      "-" + ArgString.OUTPUTDIR,
+      dir.toString(),
+      "-" + ArgString.LOGFILENAME,
+      dir.toString() + Utils.getFileSeparator() + "log.log"
+    };
     final TMRuntimeEnv runEnv = new TMRuntimeEnv(args);
     runEnv.setName("technologyMapping");
     // InputFile
@@ -92,8 +99,12 @@ public class SimulatedAnnealingIT {
       stage.setName(stageName);
     }
     // get TargetData
-    final TargetData td = TargetDataUtils.getTargetTargetData(runEnv, ArgString.USERCONSTRAINTSFILE,
-        ArgString.INPUTSENSORFILE, ArgString.OUTPUTDEVICEFILE);
+    final TargetData td =
+        TargetDataUtils.getTargetTargetData(
+            runEnv,
+            ArgString.USERCONSTRAINTSFILE,
+            ArgString.INPUTSENSORFILE,
+            ArgString.OUTPUTDEVICEFILE);
     if (!td.isValid()) {
       throw new CelloException("TargetData is invalid!");
     }
@@ -119,5 +130,4 @@ public class SimulatedAnnealingIT {
 
   private static TMRuntimeObject tm;
   private static File output;
-
 }

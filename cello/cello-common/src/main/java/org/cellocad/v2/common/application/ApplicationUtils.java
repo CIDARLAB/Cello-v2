@@ -33,7 +33,6 @@ import org.json.simple.parser.ParseException;
  * instances.
  *
  * @author Vincent Mirian
- *
  * @date Nov 20, 2017
  */
 public final class ApplicationUtils {
@@ -42,7 +41,7 @@ public final class ApplicationUtils {
    * Overrides the ApplicationConfiguration instance,<i>ac</i>, with the Options
    * instance,<i>options</i>.
    *
-   * @param ac      ApplicationConfiguration instance.
+   * @param ac ApplicationConfiguration instance.
    * @param options Options instance.
    * @throws RuntimeException if parameter {@code ac} is null.
    */
@@ -64,17 +63,17 @@ public final class ApplicationUtils {
    * <i>runEnv</i>, the string referencing command line argument for the Options file,
    * <i>options</i>, and, the path to the application configuration file, <i>projectFilename</i>.
    *
-   * @param runEnv  The RuntimeEnv to extract the Options file, <i>options</i>.
+   * @param runEnv The RuntimeEnv to extract the Options file, <i>options</i>.
    * @param options The string referencing command line argument for the Options file.
    * @return The ApplicationConfiguration if created successfully, otherwise null.
    * @throws RuntimeException if: <br>
-   *                          Any of the parameters are null<br>
-   *                          Error accessing <i>projectFilename</i><br>
-   *                          Error parsing <i>projectFilename</i><br>
-   *                          .
+   *     Any of the parameters are null<br>
+   *     Error accessing <i>projectFilename</i><br>
+   *     Error parsing <i>projectFilename</i><br>
+   *     .
    */
-  public static ApplicationConfiguration getApplicationConfiguration(final RuntimeEnv runEnv,
-      final String options, final String project) {
+  public static ApplicationConfiguration getApplicationConfiguration(
+      final RuntimeEnv runEnv, final String options, final String project) {
     Utils.isNullRuntimeException(runEnv, "runEnv");
     Utils.isNullRuntimeException(options, "options");
     Utils.isNullRuntimeException(project, "projectFilename");
@@ -94,5 +93,4 @@ public final class ApplicationUtils {
     ApplicationUtils.overrideWithOptions(rtn, optionsObj);
     return rtn;
   }
-
 }

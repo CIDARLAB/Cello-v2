@@ -32,16 +32,12 @@ import org.cellocad.v2.common.target.data.data.GateToxicity;
  * <i>SimulatedAnnealing</i> algorithm class of the <i>technologyMapping</i> stage.
  *
  * @param T type index.
- *
  * @author Timothy Jones
- *
  * @date 2019-02-03
  */
 public class Toxicity<T> extends CObject {
 
-  /**
-   * Initialize class members.
-   */
+  /** Initialize class members. */
   private void init() {
     toxicityEntry = new ArrayList<>();
     toxicityEntryMap = new HashMap<>();
@@ -91,9 +87,9 @@ public class Toxicity<T> extends CObject {
    * Returns the {@link Pair} at the specified position in this instance.
    *
    * @param index The index of the {@link Pair} object to return.
-   * @return If the index is within the bounds
-   *         {@code (0 <= bounds < this.getNumToxicityPosition())}, returns the {@link Pair} at the
-   *         specified position in this instance, otherwise null.
+   * @return If the index is within the bounds {@code (0 <= bounds <
+   *     this.getNumToxicityPosition())}, returns the {@link Pair} at the specified position in this
+   *     instance, otherwise null.
    */
   protected Pair<T, Double> getToxicityPositionAtIdx(final int index) {
     Pair<T, Double> rtn = null;
@@ -128,7 +124,7 @@ public class Toxicity<T> extends CObject {
    * Returns true if the node exists in this instance, then assigns the Histogram <i>value</i> to
    * the <i>node</i>.
    *
-   * @param node  The node.
+   * @param node The node.
    * @param value The value.
    * @return True if the node exists in this instance, false otherwise.
    */
@@ -147,5 +143,4 @@ public class Toxicity<T> extends CObject {
 
   private List<Pair<T, Double>> toxicityEntry;
   private Map<T, Double> toxicityEntryMap;
-
 }

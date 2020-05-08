@@ -32,7 +32,6 @@ import java.util.concurrent.Semaphore;
  * Reference: <i>https://bjurr.com/runtime-exec-hangs-a-complete-solution/</i>.
  *
  * @author Vincent Mirian
- *
  * @date Jan 21, 2018
  */
 public class ExecCommand {
@@ -116,11 +115,11 @@ public class ExecCommand {
   }
 
   /**
-   * Initializes a newly created {@link ExecCommand} with a command defined by parameter
-   * {@code command} and an input defined by parameter {@code input}.
+   * Initializes a newly created {@link ExecCommand} with a command defined by parameter {@code
+   * command} and an input defined by parameter {@code input}.
    *
    * @param command The command.
-   * @param input   The input.
+   * @param input The input.
    */
   public ExecCommand(final String command, final String input) {
     try {
@@ -137,8 +136,8 @@ public class ExecCommand {
   }
 
   /**
-   * Initializes a newly created {@link ExecCommand} with a command defined by parameter
-   * {@code command}.
+   * Initializes a newly created {@link ExecCommand} with a command defined by parameter {@code
+   * command}.
    *
    * @param command The command.
    */
@@ -224,5 +223,4 @@ public class ExecCommand {
     }
     return array;
   }
-
 }

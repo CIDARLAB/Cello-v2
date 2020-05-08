@@ -37,14 +37,11 @@ import org.json.simple.JSONObject;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date 2018-05-21
  */
 public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
 
-  /**
-   * Set Defaults.
-   */
+  /** Set Defaults. */
   private void setDefault() {
     setNodeType(LSResults.S_DEFAULT);
     setPartitionID(PTResults.S_DEFAULT);
@@ -52,9 +49,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
     setDeviceName(TMResults.S_DEFAULT);
   }
 
-  /**
-   * Initializes a newly created {@link ResultNetlistNodeData}.
-   */
+  /** Initializes a newly created {@link ResultNetlistNodeData}. */
   public ResultNetlistNodeData() {
     super();
     setDefault();
@@ -78,7 +73,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
    * Initializes a newly created {@link ResultNetlistNodeData} using the parameter {@code jsonObj}.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the
-   *                ResultNetlistNodeData Object.
+   *     ResultNetlistNodeData Object.
    */
   public ResultNetlistNodeData(final JSONObject jsonObj) {
     super();
@@ -110,7 +105,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
@@ -148,7 +143,7 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
    * Parses the data attached to this instance.
    *
    * @param jsonObj The JavaScript Object Notation (JSON) representation of the Project
-   *                NetlistNodeData Object.
+   *     NetlistNodeData Object.
    */
   @Override
   public void parse(final JSONObject jsonObj) {
@@ -294,5 +289,4 @@ public class ResultNetlistNodeData extends ApplicationNetlistNodeData {
     }
     return rtn;
   }
-
 }

@@ -53,7 +53,6 @@ import org.json.simple.parser.ParseException;
  *
  * @author Vincent Mirian
  * @author Timothy Jones
- *
  * @date Nov 22, 2017
  */
 public class TargetDataUtils {
@@ -69,7 +68,7 @@ public class TargetDataUtils {
 
   /**
    * Get all the parts from the target data.
-   * 
+   *
    * @param td The target data.
    * @return The parts.
    */
@@ -85,7 +84,7 @@ public class TargetDataUtils {
 
   /**
    * Get all the functions from the target data.
-   * 
+   *
    * @param td The target data.
    * @return The functions.
    * @throws CelloException Unable to get functions.
@@ -117,8 +116,8 @@ public class TargetDataUtils {
     return rtn;
   }
 
-  private static void attachFunctions(final JSONObject jObj, final Model model,
-      final CObjectCollection<Function> functions) {
+  private static void attachFunctions(
+      final JSONObject jObj, final Model model, final CObjectCollection<Function> functions) {
     final JSONObject obj = (JSONObject) jObj.get(Model.S_FUNCTIONS);
     final Iterator<?> it = obj.keySet().iterator();
     while (it.hasNext()) {
@@ -131,13 +130,13 @@ public class TargetDataUtils {
 
   /**
    * Get all the models from the target data.
-   * 
-   * @param td        The target data.
+   *
+   * @param td The target data.
    * @param functions The functions used in the models.
    * @return The models.
    */
-  public static final CObjectCollection<Model> getModels(final TargetData td,
-      final CObjectCollection<Function> functions) {
+  public static final CObjectCollection<Model> getModels(
+      final TargetData td, final CObjectCollection<Function> functions) {
     final CObjectCollection<Model> rtn = new CObjectCollection<>();
     for (int i = 0; i < td.getNumJsonObject(TargetDataUtils.S_MODELS); i++) {
       final JSONObject jObj = td.getJsonObjectAtIdx(TargetDataUtils.S_MODELS, i);
@@ -150,7 +149,7 @@ public class TargetDataUtils {
 
   /**
    * Get all the structures from the target data.
-   * 
+   *
    * @param td The target data.
    * @return The structures.
    * @throws CelloException Unable to load the structures.
@@ -166,14 +165,16 @@ public class TargetDataUtils {
     return rtn;
   }
 
-  private static void attachModel(final JSONObject jObj, final AssignableDevice d,
-      final CObjectCollection<Model> models) {
+  private static void attachModel(
+      final JSONObject jObj, final AssignableDevice d, final CObjectCollection<Model> models) {
     final String name = ProfileUtils.getString(jObj, AssignableDevice.S_MODEL);
     final Model model = models.findCObjectByName(name);
     d.setModel(model);
   }
 
-  private static void attachStructure(final JSONObject jObj, final AssignableDevice d,
+  private static void attachStructure(
+      final JSONObject jObj,
+      final AssignableDevice d,
       final CObjectCollection<Structure> structures) {
     final String name = ProfileUtils.getString(jObj, AssignableDevice.S_STRUCTURE);
     final Structure structure = structures.findCObjectByName(name);
@@ -182,14 +183,16 @@ public class TargetDataUtils {
 
   /**
    * Get all the gates from the target data.
-   * 
-   * @param td         The target data.
-   * @param models     The models used in the gates.
+   *
+   * @param td The target data.
+   * @param models The models used in the gates.
    * @param structures The structures used in the gates.
    * @return The gates.
    */
-  public static final CObjectCollection<Gate> getGates(final TargetData td,
-      final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
+  public static final CObjectCollection<Gate> getGates(
+      final TargetData td,
+      final CObjectCollection<Model> models,
+      final CObjectCollection<Structure> structures) {
     final CObjectCollection<Gate> rtn = new CObjectCollection<>();
     for (int i = 0; i < td.getNumJsonObject(TargetDataUtils.S_GATES); i++) {
       final JSONObject jObj = td.getJsonObjectAtIdx(TargetDataUtils.S_GATES, i);
@@ -205,14 +208,16 @@ public class TargetDataUtils {
 
   /**
    * Get all the input sensors from the target data.
-   * 
-   * @param td         The target data.
-   * @param models     The models used in the sensors.
+   *
+   * @param td The target data.
+   * @param models The models used in the sensors.
    * @param structures The structures used in the sensors.
    * @return The input sensors.
    */
-  public static final CObjectCollection<InputSensor> getInputSensors(final TargetData td,
-      final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
+  public static final CObjectCollection<InputSensor> getInputSensors(
+      final TargetData td,
+      final CObjectCollection<Model> models,
+      final CObjectCollection<Structure> structures) {
     final CObjectCollection<InputSensor> rtn = new CObjectCollection<>();
     for (int i = 0; i < td.getNumJsonObject(TargetDataUtils.S_INPUTSENSORS); i++) {
       final JSONObject jObj = td.getJsonObjectAtIdx(TargetDataUtils.S_INPUTSENSORS, i);
@@ -228,14 +233,16 @@ public class TargetDataUtils {
 
   /**
    * Get all the output devices from the target data.
-   * 
-   * @param td         The target data.
-   * @param models     The models used in the output devices.
+   *
+   * @param td The target data.
+   * @param models The models used in the output devices.
    * @param structures The structures used in the output devices.
    * @return The output devices.
    */
-  public static final CObjectCollection<OutputDevice> getOutputDevices(final TargetData td,
-      final CObjectCollection<Model> models, final CObjectCollection<Structure> structures) {
+  public static final CObjectCollection<OutputDevice> getOutputDevices(
+      final TargetData td,
+      final CObjectCollection<Model> models,
+      final CObjectCollection<Structure> structures) {
     final CObjectCollection<OutputDevice> rtn = new CObjectCollection<>();
     for (int i = 0; i < td.getNumJsonObject(TargetDataUtils.S_OUTPUTDEVICES); i++) {
       final JSONObject jObj = td.getJsonObjectAtIdx(TargetDataUtils.S_OUTPUTDEVICES, i);
@@ -294,18 +301,20 @@ public class TargetDataUtils {
    * Initializes a newly created {@link TargetData} using the RuntimeEnv, <i>runEnv</i>, and strings
    * referencing command line arguments.
    *
-   * @param runEnv                    The RuntimeEnv.
+   * @param runEnv The RuntimeEnv.
    * @param userConstraintsFileOption The string referencing command line argument for the User
-   *                                  Constraints File.
-   * @param inputSensorFileOption     The string referencing command line argument for the Input
-   *                                  Sensor file.
-   * @param outputDeviceFileOption    The string referencing command line argument for the Output
-   *                                  Reporter file.
+   *     Constraints File.
+   * @param inputSensorFileOption The string referencing command line argument for the Input Sensor
+   *     file.
+   * @param outputDeviceFileOption The string referencing command line argument for the Output
+   *     Reporter file.
    * @return The TargetData if created successfully, otherwise null.
    */
   @SuppressWarnings("unchecked")
-  public static final TargetData getTargetTargetData(final RuntimeEnv runEnv,
-      final String userConstraintsFileOption, final String inputSensorFileOption,
+  public static final TargetData getTargetTargetData(
+      final RuntimeEnv runEnv,
+      final String userConstraintsFileOption,
+      final String inputSensorFileOption,
       final String outputDeviceFileOption) {
     Utils.isNullRuntimeException(runEnv, "runEnv");
     Utils.isNullRuntimeException(userConstraintsFileOption, "userConstraintsFileOption");
@@ -330,5 +339,4 @@ public class TargetDataUtils {
     rtn = new TargetData(jsonTop);
     return rtn;
   }
-
 }

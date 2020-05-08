@@ -29,7 +29,6 @@ import java.net.URL;
  * Utility methods for the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2019-02-20
  */
 public class EXUtils {
@@ -69,5 +68,4 @@ public class EXUtils {
     rtn = sb.toString();
     return rtn;
   }
-
 }

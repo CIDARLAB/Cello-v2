@@ -27,7 +27,6 @@ import org.cellocad.v2.common.netlist.data.StageNetlistData;
  * The data for a netlist used within the <i>placing</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class PLStageNetlistData extends StageNetlistData {
@@ -37,12 +36,9 @@ public class PLStageNetlistData extends StageNetlistData {
    * number of indents equivalent to the parameter {@code indent}.
    *
    * @param indent The number of indents.
-   * @param os     The writer.
+   * @param os The writer.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public void writeJson(final int indent, final Writer os) throws IOException {
-
-  }
-
+  public void writeJson(final int indent, final Writer os) throws IOException {}
 }

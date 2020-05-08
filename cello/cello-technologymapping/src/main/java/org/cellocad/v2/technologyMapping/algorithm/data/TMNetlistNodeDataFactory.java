@@ -26,18 +26,17 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.Simul
  * The TMNetlistNodeDataFactory is a NetlistNodeData factory for the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMNetlistNodeDataFactory extends NetlistNodeDataFactory<TMNetlistNodeData> {
 
   /**
-   * Returns the {@link TMNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link TMNetlistNodeDataFactory}.
+   * Returns the {@link TMNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link TMNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link TMNetlistNodeData} instance if the {@link TMNetlistNodeData} type exists
-   *         within the {@link TMNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link TMNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected TMNetlistNodeData getNetlistNodeData(final String name) {
@@ -47,5 +46,4 @@ public class TMNetlistNodeDataFactory extends NetlistNodeDataFactory<TMNetlistNo
     }
     return rtn;
   }
-
 }

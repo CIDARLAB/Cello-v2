@@ -25,11 +25,7 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
  * The PLArgString class is class containing the string referencing the command line argument(s) for
  * the <i>placing</i> stage.
  *
- *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class PLArgString extends StageArgString {
-
-}
+public class PLArgString extends StageArgString {}

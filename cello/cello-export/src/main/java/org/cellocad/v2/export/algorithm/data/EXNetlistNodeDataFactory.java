@@ -26,18 +26,17 @@ import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
  * The EXNetlistNodeDataFactory is a NetlistNodeData factory for the <i>export</i> stage.
  *
  * @author Timothy Jones
- *
  * @date 2018-06-04
  */
 public class EXNetlistNodeDataFactory extends NetlistNodeDataFactory<EXNetlistNodeData> {
 
   /**
-   * Returns the {@link EXNetlistNodeData} object that has the same name as the parameter
-   * {@code name} within the {@link EXNetlistNodeDataFactory}.
+   * Returns the {@link EXNetlistNodeData} object that has the same name as the parameter {@code
+   * name} within the {@link EXNetlistNodeDataFactory}.
    *
    * @param name string used for searching this instance.
    * @return The {@link EXNetlistNodeData} instance if the {@link EXNetlistNodeData} type exists
-   *         within the {@link EXNetlistNodeDataFactory}, otherwise null.
+   *     within the {@link EXNetlistNodeDataFactory}, otherwise null.
    */
   @Override
   protected EXNetlistNodeData getNetlistNodeData(final String name) {
@@ -47,5 +46,4 @@ public class EXNetlistNodeDataFactory extends NetlistNodeDataFactory<EXNetlistNo
     }
     return rtn;
   }
-
 }

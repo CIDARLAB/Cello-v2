@@ -26,9 +26,6 @@ import org.cellocad.v2.common.stage.runtime.environment.StageArgDescription;
  * for the <i>clustering</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
-public class CLArgDescription extends StageArgDescription {
-
-}
+public class CLArgDescription extends StageArgDescription {}

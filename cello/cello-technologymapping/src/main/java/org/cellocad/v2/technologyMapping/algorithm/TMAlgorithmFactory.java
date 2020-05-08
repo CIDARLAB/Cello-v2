@@ -26,7 +26,6 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.SimulatedA
  * The TMAlgorithmFactory is an algorithm factory for the <i>technologyMapping</i> stage.
  *
  * @author Vincent Mirian
- *
  * @date 2018-05-21
  */
 public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm> {
@@ -37,7 +36,7 @@ public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm> {
    *
    * @param name string used for searching the TMAlgorithmFactory.
    * @return The {@link TMAlgorithm} instance if the {@link TMAlgorithm} type exists within the
-   *         {@link TMAlgorithmFactory}, otherwise null.
+   *     {@link TMAlgorithmFactory}, otherwise null.
    */
   @Override
   protected TMAlgorithm getAlgorithm(final String name) {
@@ -47,5 +46,4 @@ public class TMAlgorithmFactory extends AlgorithmFactory<TMAlgorithm> {
     }
     return rtn;
   }
-
 }
