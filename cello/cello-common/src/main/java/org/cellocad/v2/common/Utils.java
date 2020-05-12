@@ -345,7 +345,7 @@ public final class Utils {
    * Returns a string representing the parameter {@code str} indented with parameter {@code
    * numIndent} tabulator character(s).
    *
-   * @param numIndent number of indentation(s).
+   * @param numIndent The number of indentation(s).
    * @param str The string to indent.
    * @return A string representing the parameter {@code str} indented with parameter {@code
    *     numIndent} tabulator character(s).
@@ -433,9 +433,9 @@ public final class Utils {
    * Returns a boolean flag signifying that the parameter {@code cObj} is null.
    *
    * @param cObj Object reference to check.
-   * @param name of the cObj, used in RuntimeException print statement.
+   * @param name The name of the object, used in {@link RuntimeException} print statement.
    * @return True if cObj is null, otherwise false.
-   * @throws RuntimeException if cObj is null.
+   * @throws RuntimeException If the object is null.
    */
   public static boolean isNullRuntimeException(final Object cObj, final String name) {
     boolean rtn = false;
@@ -447,10 +447,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Boolean instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link Boolean} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Boolean} value, otherwise an instance with
    *     the value equivalent to the parameter {@code str} content.
    */
@@ -466,9 +466,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Byte instance where the value is retrieved from the content of parameter {@code str}.
+   * Returns a {@link Byte} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Byte} value, otherwise an instance with the
    *     value equivalent to the parameter {@code str} content.
    */
@@ -483,10 +484,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Character instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link Character} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Character} value, otherwise an instance with
    *     the value equivalent to the parameter {@code str} content.
    */
@@ -499,8 +500,8 @@ public final class Utils {
   }
 
   /**
-   * Returns a Short instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link Short} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
    * @param str string where its content is the value.
    * @return Null if {@code str} is not a valid {@link Short} value, otherwise an instance with the
@@ -517,10 +518,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Integer instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns an {@link Integer} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Integer} value, otherwise an instance with
    *     the value equivalent to the parameter {@code str} content.
    */
@@ -535,9 +536,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Long instance where the value is retrieved from the content of parameter {@code str}.
+   * Returns a {@link Long} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Long} value, otherwise an instance with the
    *     value equivalent to the parameter {@code str} content.
    */
@@ -552,10 +554,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Float instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link Float} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Float} value, otherwise an instance with the
    *     value equivalent to the parameter {@code str} content.
    */
@@ -570,10 +572,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a Double instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link Double} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link Double} value, otherwise an instance with the
    *     value equivalent to the parameter {@code str} content.
    */
@@ -588,10 +590,10 @@ public final class Utils {
   }
 
   /**
-   * Returns a String instance where the value is retrieved from the content of parameter {@code
-   * str}.
+   * Returns a {@link String} instance where the value is retrieved from the content of parameter
+   * {@code str}.
    *
-   * @param str string where its content is the value.
+   * @param str String where its content is the value.
    * @return Null if {@code str} is not a valid {@link String} value, otherwise an instance with the
    *     value equivalent to the parameter {@code str} content.
    */
@@ -604,7 +606,7 @@ public final class Utils {
   /**
    * Exits the current executable with exit code equivalent to parameter {@code exit}.
    *
-   * @param exit exit code.
+   * @param exit Exit code.
    */
   public static void exit(final int exit) {
     System.exit(exit);
@@ -614,8 +616,8 @@ public final class Utils {
    * Returns a random integer value between a minimum value defined by parameter {@code min} and a
    * maximum value defined by parameter {@code max}.
    *
-   * @param min minimum value.
-   * @param max maximum value.
+   * @param min Minimum value.
+   * @param max Maximum value.
    * @return A random integer value between a minimum value defined by parameter {@code min} and a
    *     maximum value defined by parameter {@code max}.
    */
@@ -631,8 +633,8 @@ public final class Utils {
    * maximum value defined by parameter {@code max} using the seed defined by parameter {@code
    * seed}.
    *
-   * @param min minimum value.
-   * @param max maximum value.
+   * @param min Minimum value.
+   * @param max Maximum value.
    * @param seed The seed.
    * @return A random integer value between a minimum value defined by parameter {@code min} and a
    *     maximum value defined by parameter {@code max} using the seed defined by parameter {@code
