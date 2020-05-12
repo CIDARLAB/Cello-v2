@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results;
+package org.cellocad.v2.technologyMapping.results;
 
 import java.awt.Color;
 import java.io.IOException;

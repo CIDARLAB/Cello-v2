@@ -49,8 +49,8 @@ import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
-import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.ResponsePlotUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
+import org.cellocad.v2.technologyMapping.results.ResponsePlotUtils;
 import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 
