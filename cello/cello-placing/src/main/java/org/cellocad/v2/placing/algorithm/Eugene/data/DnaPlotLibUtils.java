@@ -23,8 +23,10 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
@@ -170,12 +172,113 @@ public class DnaPlotLibUtils {
           }
         }
         if (j + 1 < placement.getNumPlacementGroup()) {
-          final String pad = String.format("%s%d", DnaPlotLibUtils.S_NONCEPAD, j);
-          design.add(pad);
+          design.add(DnaPlotLibUtils.S_NONCEPAD);
         }
       }
       final String record = String.join(",", design);
       rtn.add(record);
+    }
+    return rtn;
+  }
+
+  /**
+   * Get a padding object to add between groups.
+   *
+   * @return The padding object in CSV format.
+   */
+  private static String getGroupPadding() {
+    String rtn = null;
+    String fmt = "%s,%s,30,,,,1.00;1.00;1.00,,,,,";
+    rtn = String.format(fmt, DnaPlotLibUtils.S_NONCEPAD, DnaPlotLibUtils.S_USERDEFINED);
+    return rtn;
+  }
+
+  /**
+   * Get the parts information for the parts in the given placement group.
+   *
+   * @param group The placement group.
+   * @param netlist The netlist.
+   * @param tdi The target data instance containing parts information.
+   * @return A map from the part name to the part's information.
+   * @throws CelloException Unable to get parts information.
+   */
+  private static Map<String, String> getPlacementGroupPartInformation(
+      final PlacementGroup group, final Netlist netlist, final TargetDataInstance tdi)
+      throws CelloException {
+    final Map<String, String> rtn = new HashMap<>();
+    for (int k = 0; k < group.getNumComponent(); k++) {
+      final Component component = group.getComponentAtIdx(k);
+      final String n = component.getNode();
+      final NetlistNode node = netlist.getVertexByName(n);
+      for (int l = 0; l < component.getNumPart(); l++) {
+        final String obj = component.getPartAtIdx(l);
+        final Collection<String> deviceParts =
+            DnaPlotLibUtils.unNestDevice(obj, component, netlist, tdi);
+        if (deviceParts.size() == 0) {
+          deviceParts.add(obj);
+        }
+        for (final String p : deviceParts) {
+          if (rtn.containsKey(p)) {
+            continue;
+          }
+          final Part part = tdi.getParts().findCObjectByName(p);
+          String rgb = S_DEFAULT_RGB;
+          String type = DnaPlotLibUtils.getPartType(part.getPartType());
+          String x = "";
+          String y = "";
+          if (part.getPartType().equals("promoter")) {
+            for (int m = 0; m < node.getNumInEdge(); m++) {
+              final NetlistEdge e = node.getInEdgeAtIdx(m);
+              final NetlistNode src = e.getSrc();
+              if (LSResultsUtils.isAllInput(src)) {
+                continue;
+              }
+              final String gateType = src.getResultNetlistNodeData().getDeviceName();
+              final Gate gate = tdi.getGates().findCObjectByName(gateType);
+              if (!gate.getStructure().getOutputs().get(0).equals(p)) {
+                continue;
+              }
+              final Color color = gate.getColor();
+              rgb = DnaPlotLibUtils.getRgb(color);
+            }
+          } else {
+            final String gateType = node.getResultNetlistNodeData().getDeviceName();
+            final Gate gate = tdi.getGates().findCObjectByName(gateType);
+            if (gate != null) {
+              final Color color = gate.getColor();
+              rgb = DnaPlotLibUtils.getRgb(color);
+            }
+            if (LSResultsUtils.isPrimaryOutput(node)) {
+              type = DnaPlotLibUtils.S_USERDEFINED;
+              rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
+              x = String.valueOf(25);
+              y = String.valueOf(5);
+            }
+          }
+          rtn.put(p, String.format("%s,%s,%s,%s,,,%s,,,,,", p, type, x, y, rgb));
+        }
+      }
+    }
+    return rtn;
+  }
+
+  /**
+   * Get the parts information for the parts in the given placement.
+   *
+   * @param placement A placement.
+   * @param netlist The netlist that contains the placement.
+   * @param tdi The target data instance.
+   * @return A list of the parts information.
+   * @throws CelloException Unable to get parts information.
+   */
+  private static Map<String, String> getPlacementPartInformation(
+      final Placement placement, final Netlist netlist, final TargetDataInstance tdi)
+      throws CelloException {
+    final Map<String, String> rtn = new HashMap<>();
+    for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
+      final PlacementGroup group = placement.getPlacementGroupAtIdx(j);
+      final Map<String, String> parts = getPlacementGroupPartInformation(group, netlist, tdi);
+      rtn.putAll(parts);
     }
     return rtn;
   }
@@ -193,77 +296,12 @@ public class DnaPlotLibUtils {
   public static List<String> getPartInformation(final Netlist netlist, final TargetDataInstance tdi)
       throws CelloException {
     final List<String> rtn = new ArrayList<>();
-    final List<String> specified = new ArrayList<>();
-    rtn.add(
-        "part_name,type,x_extent,y_extent,start_pad,end_pad,color,hatch,arrowhead_height,arrowhead_length,linestyle,linewidth");
+    rtn.add(S_PARTS_HEADER);
+    rtn.add(getGroupPadding());
     final Placements placements = netlist.getResultNetlistData().getPlacements();
     for (int i = 0; i < placements.getNumPlacement(); i++) {
       final Placement placement = placements.getPlacementAtIdx(i);
-      for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
-        final PlacementGroup group = placement.getPlacementGroupAtIdx(j);
-        for (int k = 0; k < group.getNumComponent(); k++) {
-          final Component component = group.getComponentAtIdx(k);
-          final String n = component.getNode();
-          final NetlistNode node = netlist.getVertexByName(n);
-          for (int l = 0; l < component.getNumPart(); l++) {
-            final String obj = component.getPartAtIdx(l);
-            final Collection<String> deviceParts =
-                DnaPlotLibUtils.unNestDevice(obj, component, netlist, tdi);
-            if (deviceParts.size() == 0) {
-              deviceParts.add(obj);
-            }
-            for (final String p : deviceParts) {
-              if (specified.contains(p)) {
-                continue;
-              } else {
-                specified.add(p);
-              }
-              final Part part = tdi.getParts().findCObjectByName(p);
-              String rgb = "0.0;0.0;0.0";
-              String type = DnaPlotLibUtils.getPartType(part.getPartType());
-              String x = "";
-              String y = "";
-              if (part.getPartType().equals("promoter")) {
-                for (int m = 0; m < node.getNumInEdge(); m++) {
-                  final NetlistEdge e = node.getInEdgeAtIdx(m);
-                  final NetlistNode src = e.getSrc();
-                  if (LSResultsUtils.isAllInput(src)) {
-                    continue;
-                  }
-                  final String gateType = src.getResultNetlistNodeData().getDeviceName();
-                  final Gate gate = tdi.getGates().findCObjectByName(gateType);
-                  if (!gate.getStructure().getOutputs().get(0).equals(p)) {
-                    continue;
-                  }
-                  final Color color = gate.getColor();
-                  rgb = DnaPlotLibUtils.getRgb(color);
-                }
-              } else {
-                final String gateType = node.getResultNetlistNodeData().getDeviceName();
-                final Gate gate = tdi.getGates().findCObjectByName(gateType);
-                if (gate != null) {
-                  final Color color = gate.getColor();
-                  rgb = DnaPlotLibUtils.getRgb(color);
-                }
-                if (LSResultsUtils.isPrimaryOutput(node)) {
-                  type = DnaPlotLibUtils.S_USERDEFINED;
-                  rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
-                  x = String.valueOf(25);
-                  y = String.valueOf(5);
-                }
-              }
-              rtn.add(String.format("%s,%s,%s,%s,,,%s,,,,,", p, type, x, y, rgb));
-            }
-          }
-        }
-        if (j + 1 < placement.getNumPlacementGroup()) {
-          final String pad =
-              String.format(
-                  "%s%d,%s,30,,,,1.00;1.00;1.00,,,,,",
-                  DnaPlotLibUtils.S_NONCEPAD, j, DnaPlotLibUtils.S_USERDEFINED);
-          rtn.add(pad);
-        }
-      }
+      rtn.addAll(getPlacementPartInformation(placement, netlist, tdi).values());
     }
     return rtn;
   }
@@ -334,12 +372,25 @@ public class DnaPlotLibUtils {
     return rtn;
   }
 
-  private static String S_PROMOTER = "Promoter";
-  private static String S_RIBOZYME = "Ribozyme";
-  private static String S_RBS = "RBS";
-  private static String S_CDS = "CDS";
-  private static String S_TERMINATOR = "Terminator";
-  private static String S_REPRESSION = "Repression";
-  private static String S_USERDEFINED = "UserDefined";
-  private static String S_NONCEPAD = "_NONCE_PAD";
+  private static final String S_PROMOTER = "Promoter";
+  private static final String S_RIBOZYME = "Ribozyme";
+  private static final String S_RBS = "RBS";
+  private static final String S_CDS = "CDS";
+  private static final String S_TERMINATOR = "Terminator";
+  private static final String S_REPRESSION = "Repression";
+  private static final String S_USERDEFINED = "UserDefined";
+  private static final String S_NONCEPAD = "_NONCE_PAD";
+  private static final String S_DEFAULT_RGB = "0.0;0.0;0.0";
+  private static final String S_PARTS_HEADER =
+      "part_name,"
+          + "type,"
+          + "x_extent,"
+          + "y_extent,"
+          + "start_pad,"
+          + "end_pad,"
+          + "color,hatch,"
+          + "arrowhead_height,"
+          + "arrowhead_length,"
+          + "linestyle,"
+          + "linewidth";
 }
