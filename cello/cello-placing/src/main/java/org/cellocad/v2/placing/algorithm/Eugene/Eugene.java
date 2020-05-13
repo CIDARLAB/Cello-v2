@@ -556,7 +556,7 @@ public class Eugene extends PLAlgorithm {
     file = new File(designsFilename);
     DnaPlotLibUtils.writeCSV(designs, file);
     final List<String> parts =
-        DnaPlotLibUtils.getPartInformation(getNetlist(), getTargetDataInstance());
+        DnaPlotLibUtils.getPartsInformation(getNetlist(), getTargetDataInstance());
     final String partsFilename = outputDir + Utils.getFileSeparator() + "dpl_part_information.csv";
     file = new File(partsFilename);
     DnaPlotLibUtils.writeCSV(parts, file);

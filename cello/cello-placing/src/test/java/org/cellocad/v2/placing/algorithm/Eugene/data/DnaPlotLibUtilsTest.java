@@ -109,17 +109,17 @@ public class DnaPlotLibUtilsTest {
   }
 
   @Test
-  public void getartInformation_MockNetlist_ShouldReturn20Parts() throws CelloException {
-    final List<String> part =
-        DnaPlotLibUtils.getPartInformation(DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
-    assert part.size() == 20;
+  public void getPartsInformation_MockNetlist_ShouldReturn20Parts() throws CelloException {
+    final List<String> parts =
+        DnaPlotLibUtils.getPartsInformation(DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
+    assert parts.size() == 20;
   }
 
   @Test
-  public void getartInformation_MockNetlist_ShouldReturnExactMatch() throws CelloException {
-    final List<String> part =
-        DnaPlotLibUtils.getPartInformation(DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
-    assert part.get(2).equals("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,");
+  public void getPartsInformation_MockNetlist_ShouldReturnExactMatch() throws CelloException {
+    final List<String> parts =
+        DnaPlotLibUtils.getPartsInformation(DnaPlotLibUtilsTest.netlist, DnaPlotLibUtilsTest.tdi);
+    assert parts.contains("YFP_cassette,UserDefined,25,5,,,0.00;0.00;0.00,,,,,");
   }
 
   private static TargetDataInstance tdi;

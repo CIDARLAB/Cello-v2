@@ -1,20 +1,23 @@
 /*
  * Copyright (C) 2020 Boston University (BU)
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 package org.cellocad.v2.placing.algorithm.Eugene.data;
@@ -188,8 +191,93 @@ public class DnaPlotLibUtils {
    */
   private static String getGroupPadding() {
     String rtn = null;
-    String fmt = "%s,%s,30,,,,1.00;1.00;1.00,,,,,";
+    final String fmt = "%s,%s,30,,,,1.00;1.00;1.00,,,,,";
     rtn = String.format(fmt, DnaPlotLibUtils.S_NONCEPAD, DnaPlotLibUtils.S_USERDEFINED);
+    return rtn;
+  }
+
+  /**
+   * Get the dnaplotlib part information for a promoter.
+   *
+   * @param promoter The promoter part.
+   * @param node The node associated with the promoter.
+   * @param tdi The target data instance.
+   * @return A string with the part information.
+   */
+  private static String getPromoterPartInformation(
+      final Part promoter, final NetlistNode node, final TargetDataInstance tdi) {
+    String rtn = null;
+    String rgb = DnaPlotLibUtils.S_DEFAULT_RGB;
+    final String type = DnaPlotLibUtils.getPartType(promoter.getPartType());
+    final String x = "";
+    final String y = "";
+    for (int m = 0; m < node.getNumInEdge(); m++) {
+      final NetlistEdge e = node.getInEdgeAtIdx(m);
+      final NetlistNode src = e.getSrc();
+      // Skip if input (do not color)
+      if (LSResultsUtils.isAllInput(src)) {
+        continue;
+      }
+      final String gateType = src.getResultNetlistNodeData().getDeviceName();
+      final Gate gate = tdi.getGates().findCObjectByName(gateType);
+      if (!gate.getStructure().getOutputs().get(0).equals(promoter.getName())) {
+        continue;
+      }
+      final Color color = gate.getColor();
+      rgb = DnaPlotLibUtils.getRgb(color);
+    }
+    rtn = String.format("%s,%s,%s,%s,,,%s,,,,,", promoter.getName(), type, x, y, rgb);
+    return rtn;
+  }
+
+  /**
+   * Get the dnaplotlib part information for a particular non-promoter part.
+   *
+   * @param name The parts.
+   * @param node The netlist node in which the part exists.
+   * @param tdi The target data instance containing parts information.
+   * @return The part information string.
+   */
+  private static String getNonPromoterPartInformation(
+      final Part part, final NetlistNode node, final TargetDataInstance tdi) {
+    String rtn = null;
+    String rgb = DnaPlotLibUtils.S_DEFAULT_RGB;
+    String type = DnaPlotLibUtils.getPartType(part.getPartType());
+    String x = "";
+    String y = "";
+    final String gateType = node.getResultNetlistNodeData().getDeviceName();
+    final Gate gate = tdi.getGates().findCObjectByName(gateType);
+    if (gate != null) {
+      final Color color = gate.getColor();
+      rgb = DnaPlotLibUtils.getRgb(color);
+    }
+    if (LSResultsUtils.isPrimaryOutput(node)) {
+      type = DnaPlotLibUtils.S_USERDEFINED;
+      rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
+      x = String.valueOf(25);
+      y = String.valueOf(5);
+    }
+    rtn = String.format("%s,%s,%s,%s,,,%s,,,,,", part.getName(), type, x, y, rgb);
+    return rtn;
+  }
+
+  /**
+   * Get the dnaplotlib part information for a particular part.
+   *
+   * @param name The part name.
+   * @param node The netlist node in which the part exists.
+   * @param tdi The target data instance containing parts information.
+   * @return The part information string.
+   */
+  private static String getPartInformation(
+      final String name, final NetlistNode node, final TargetDataInstance tdi) {
+    String rtn = null;
+    final Part part = tdi.getParts().findCObjectByName(name);
+    if (part.getPartType().equals("promoter")) {
+      rtn = DnaPlotLibUtils.getPromoterPartInformation(part, node, tdi);
+    } else {
+      rtn = DnaPlotLibUtils.getNonPromoterPartInformation(part, node, tdi);
+    }
     return rtn;
   }
 
@@ -202,14 +290,14 @@ public class DnaPlotLibUtils {
    * @return A map from the part name to the part's information.
    * @throws CelloException Unable to get parts information.
    */
-  private static Map<String, String> getPlacementGroupPartInformation(
+  private static Map<String, String> getPlacementGroupPartsInformation(
       final PlacementGroup group, final Netlist netlist, final TargetDataInstance tdi)
       throws CelloException {
     final Map<String, String> rtn = new HashMap<>();
     for (int k = 0; k < group.getNumComponent(); k++) {
       final Component component = group.getComponentAtIdx(k);
-      final String n = component.getNode();
-      final NetlistNode node = netlist.getVertexByName(n);
+      final String nodeName = component.getNode();
+      final NetlistNode node = netlist.getVertexByName(nodeName);
       for (int l = 0; l < component.getNumPart(); l++) {
         final String obj = component.getPartAtIdx(l);
         final Collection<String> deviceParts =
@@ -217,45 +305,11 @@ public class DnaPlotLibUtils {
         if (deviceParts.size() == 0) {
           deviceParts.add(obj);
         }
-        for (final String p : deviceParts) {
-          if (rtn.containsKey(p)) {
+        for (final String partName : deviceParts) {
+          if (rtn.containsKey(partName)) {
             continue;
           }
-          final Part part = tdi.getParts().findCObjectByName(p);
-          String rgb = S_DEFAULT_RGB;
-          String type = DnaPlotLibUtils.getPartType(part.getPartType());
-          String x = "";
-          String y = "";
-          if (part.getPartType().equals("promoter")) {
-            for (int m = 0; m < node.getNumInEdge(); m++) {
-              final NetlistEdge e = node.getInEdgeAtIdx(m);
-              final NetlistNode src = e.getSrc();
-              if (LSResultsUtils.isAllInput(src)) {
-                continue;
-              }
-              final String gateType = src.getResultNetlistNodeData().getDeviceName();
-              final Gate gate = tdi.getGates().findCObjectByName(gateType);
-              if (!gate.getStructure().getOutputs().get(0).equals(p)) {
-                continue;
-              }
-              final Color color = gate.getColor();
-              rgb = DnaPlotLibUtils.getRgb(color);
-            }
-          } else {
-            final String gateType = node.getResultNetlistNodeData().getDeviceName();
-            final Gate gate = tdi.getGates().findCObjectByName(gateType);
-            if (gate != null) {
-              final Color color = gate.getColor();
-              rgb = DnaPlotLibUtils.getRgb(color);
-            }
-            if (LSResultsUtils.isPrimaryOutput(node)) {
-              type = DnaPlotLibUtils.S_USERDEFINED;
-              rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
-              x = String.valueOf(25);
-              y = String.valueOf(5);
-            }
-          }
-          rtn.put(p, String.format("%s,%s,%s,%s,,,%s,,,,,", p, type, x, y, rgb));
+          rtn.put(partName, DnaPlotLibUtils.getPartInformation(partName, node, tdi));
         }
       }
     }
@@ -271,13 +325,14 @@ public class DnaPlotLibUtils {
    * @return A list of the parts information.
    * @throws CelloException Unable to get parts information.
    */
-  private static Map<String, String> getPlacementPartInformation(
+  private static Map<String, String> getPlacementPartsInformation(
       final Placement placement, final Netlist netlist, final TargetDataInstance tdi)
       throws CelloException {
     final Map<String, String> rtn = new HashMap<>();
     for (int j = 0; j < placement.getNumPlacementGroup(); j++) {
       final PlacementGroup group = placement.getPlacementGroupAtIdx(j);
-      final Map<String, String> parts = getPlacementGroupPartInformation(group, netlist, tdi);
+      final Map<String, String> parts =
+          DnaPlotLibUtils.getPlacementGroupPartsInformation(group, netlist, tdi);
       rtn.putAll(parts);
     }
     return rtn;
@@ -293,15 +348,15 @@ public class DnaPlotLibUtils {
    *     format.
    * @throws CelloException Unable to generate part information.
    */
-  public static List<String> getPartInformation(final Netlist netlist, final TargetDataInstance tdi)
-      throws CelloException {
+  public static List<String> getPartsInformation(
+      final Netlist netlist, final TargetDataInstance tdi) throws CelloException {
     final List<String> rtn = new ArrayList<>();
-    rtn.add(S_PARTS_HEADER);
-    rtn.add(getGroupPadding());
+    rtn.add(DnaPlotLibUtils.S_PARTS_HEADER);
+    rtn.add(DnaPlotLibUtils.getGroupPadding());
     final Placements placements = netlist.getResultNetlistData().getPlacements();
     for (int i = 0; i < placements.getNumPlacement(); i++) {
       final Placement placement = placements.getPlacementAtIdx(i);
-      rtn.addAll(getPlacementPartInformation(placement, netlist, tdi).values());
+      rtn.addAll(DnaPlotLibUtils.getPlacementPartsInformation(placement, netlist, tdi).values());
     }
     return rtn;
   }
