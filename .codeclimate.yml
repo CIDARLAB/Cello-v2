@@ -1,3 +1,11 @@
 exclude_patterns:
   - "Documentation/"
-  - "cello2/tools"
+  - "application"
+  - "cello/cello-clustering"
+  - "cello/cello-common/src/main/java/org/cellocad/v2/results/partitioning"
+  - "cello/cello-logicoptimization"
+  - "cello/cello-partitioning"
+  - "cello/tools"
+  - "sample-input"
+  - "tools-test"
+  - "vinny-tools"
