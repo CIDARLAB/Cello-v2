@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.Eugene.data;
+package org.cellocad.v2.results.placing;
 
 import java.util.List;
 import org.cellocad.v2.common.CelloException;
@@ -30,7 +30,6 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
-import org.cellocad.v2.results.placing.DnaPlotLibUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
