@@ -88,4 +88,10 @@ public class Part extends DnaComponent {
 
   private static final String S_TYPE = "type";
   private static final String S_DNASEQUENCE = "dnasequence";
+
+  public static final String S_PROMOTER = "promoter";
+  public static final String S_RBS = "rbs";
+  public static final String S_RIBOZYME = "ribozyme";
+  public static final String S_CDS = "cds";
+  public static final String S_TERMINATOR = "terminator";
 }

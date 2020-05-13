@@ -273,7 +273,7 @@ public class DnaPlotLibUtils {
       final String name, final NetlistNode node, final TargetDataInstance tdi) {
     String rtn = null;
     final Part part = tdi.getParts().findCObjectByName(name);
-    if (part.getPartType().equals("promoter")) {
+    if (part.getPartType().equals(Part.S_PROMOTER)) {
       rtn = DnaPlotLibUtils.getPromoterPartInformation(part, node, tdi);
     } else {
       rtn = DnaPlotLibUtils.getNonPromoterPartInformation(part, node, tdi);
