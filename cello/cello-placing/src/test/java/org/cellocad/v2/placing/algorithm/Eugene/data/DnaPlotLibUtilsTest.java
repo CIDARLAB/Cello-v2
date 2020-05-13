@@ -30,6 +30,7 @@ import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.placing.runtime.environment.PLRuntimeEnv;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
+import org.cellocad.v2.results.placing.DnaPlotLibUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package org.cellocad.v2.placing.algorithm.Eugene.data;
+package org.cellocad.v2.results.placing;
 
 import java.awt.Color;
 import java.io.File;

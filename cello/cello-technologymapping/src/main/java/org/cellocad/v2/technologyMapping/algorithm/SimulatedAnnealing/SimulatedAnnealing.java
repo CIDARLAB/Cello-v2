@@ -42,6 +42,7 @@ import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.netlist.data.ResultNetlistNodeData;
+import org.cellocad.v2.results.technologyMapping.ResponsePlotUtils;
 import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
@@ -50,7 +51,6 @@ import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assig
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
-import org.cellocad.v2.technologyMapping.results.ResponsePlotUtils;
 import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 
