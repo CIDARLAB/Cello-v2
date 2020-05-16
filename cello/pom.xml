@@ -8,11 +8,13 @@
   <artifactId>cello-parent</artifactId>
   <version>2.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
   <developers>
     <developer>
       <id>jonests</id>
@@ -21,6 +23,7 @@
       <organization>Boston University</organization>
     </developer>
   </developers>
+
   <modules>
     <module>cello-common</module>
     <module>cello-logicsynthesis</module>
@@ -32,6 +35,7 @@
     <module>cello-export</module>
     <module>cello-dnacompiler</module>
   </modules>
+
   <build>
     <plugins>
       <plugin>
@@ -67,24 +71,6 @@
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-            <configuration>
-              <keyname>${gpg.keyname}</keyname>
-              <passphraseServerId>${gpg.keyname}</passphraseServerId>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -126,6 +112,7 @@
       </plugin>
     </plugins>
   </build>
+
   <distributionManagement>
     <repository>
       <id>ossrh</id>
@@ -133,4 +120,33 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <keyname>${gpg.keyname}</keyname>
+                  <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
