@@ -14,15 +14,29 @@ services:
   - docker
 addons:
   homebrew:
+    # install yosys in mac
     packages:
       - yosys
       - graphviz
     update: true
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:saltmakrell/ppa -y; sudo apt-get update; sudo apt-get -y install graphviz yosys; sudo dpkg --add-architecture i386; sudo apt-get update; sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386; fi
+  # Install yosys in linux
+  - >
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    sudo add-apt-repository ppa:saltmakrell/ppa -y;
+    sudo apt-get update;
+    sudo apt-get -y install graphviz yosys;
+    sudo dpkg --add-architecture i386;
+    sudo apt-get update;
+    sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386;
+    fi
   - cd cello/
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 after_success:
   - cd cello-dnacompiler/
-  - if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$DOCKER_USERNAME" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then mvn docker:build -B && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && mvn docker:push -B; fi
+  # Build docker image and deploy to DockerHub
+  - >
+    if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$DOCKER_USERNAME" != "" ] && [ "$DOCKER_PASSWORD" != "" ]; then
+    mvn docker:build -B && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && mvn docker:push -B;
+    fi
