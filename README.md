@@ -130,5 +130,25 @@ First go to the `target` directory:
 
 Then proceed as in the [Execution section from (Option 2)](#execution) above.
 
+# Development
+
+## Deployment
+
+### Sonatype OSS
+
+  + `mvn clean deploy -Pdeploy`
+  + See configuration in the parent `pom.xml`.
+
+### Docker Hub
+
+  + Docker images are built and deployed via Travis CI. See `.travis.yml`.
+  + Manual
+
+        mvn docker:build
+		mvn docker:push
+  
+## Code style
+
+  + https://github.com/google/google-java-format
 
 [1]: https://brew.sh/

@@ -15,14 +15,30 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <organization>
+    <name>CIDAR Lab, Boston University</name>
+    <url>http://cidarlab.org/</url>
+  </organization>
+
   <developers>
     <developer>
-      <id>jonests</id>
+      <id>tim-tx</id>			<!-- GitHub -->
       <name>Timothy Jones</name>
       <email>jonests@bu.edu</email>
-      <organization>Boston University</organization>
+	  <url>https://github.com/tim-tx</url>
+      <organization>CIDAR Lab, Boston University</organization>
+	  <organizationUrl>http://cidarlab.org/</organizationUrl>
+	  <timezone>America/New_York</timezone>
     </developer>
   </developers>
+
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </distributionManagement>
 
   <modules>
     <module>cello-common</module>
@@ -72,6 +88,7 @@
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
+	  <!-- Runs integration tests, i.e. files matching "*IT.java" -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -112,14 +129,6 @@
       </plugin>
     </plugins>
   </build>
-
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <name>Sonatype Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-  </distributionManagement>
 
   <profiles>
     <profile>
