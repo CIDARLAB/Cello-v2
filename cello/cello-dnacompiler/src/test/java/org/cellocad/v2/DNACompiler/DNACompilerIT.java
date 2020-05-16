@@ -45,7 +45,7 @@ public class DNACompilerIT {
    */
   @BeforeClass
   public static void init() throws IOException, CelloException {
-    Path dir = Files.createTempDirectory("cello_");
+    final Path dir = Files.createTempDirectory("cello_");
     args =
         new String[] {
           "-" + DNACompilerArgString.INPUTNETLIST,
@@ -64,7 +64,8 @@ public class DNACompilerIT {
   }
 
   @Test
-  public void execute_None_ShouldReturn() throws CelloException, IOException {
+  public void main_AndGateVerilogWithReferenceLibrary_ShouldReturn()
+      throws CelloException, IOException {
     Main.main(args);
   }
 

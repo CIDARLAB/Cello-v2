@@ -62,11 +62,15 @@ public class Main {
     if (!(inputFile.exists() && !inputFile.isDirectory())) {
       throw new CelloException("Input file does not exist!");
     }
-    // Read Netlist
-    final Netlist netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
-    if (!netlist.isValid()) {
-      throw new CelloException("Netlist is invalid!");
-    }
+    //    // Read Netlist
+    //    final Netlist netlist = NetlistUtils.getNetlist(runEnv, ArgString.INPUTNETLIST);
+    //    if (!netlist.isValid()) {
+    //      throw new CelloException("Netlist is invalid!");
+    //    }
+    // Netlist
+    final Netlist netlist = new Netlist();
+    // Input from User
+    netlist.setInputFilename(inputFilePath);
     // get Stage
     final Stage stage = StageUtils.getStage(runEnv, StageArgString.ALGORITHMNAME);
     stage.setName("logicSynthesis");
