@@ -224,6 +224,18 @@ public class BivariateLookupTableFunction extends LookupTableFunction {
     return rtn;
   }
 
+  /**
+   * Get the Y data at the specified index.
+   *
+   * @param idx The index.
+   * @return The Y data at the specified index.
+   */
+  public List<Double> getYDataAtIdx(final Integer idx) {
+    List<Double> rtn = new ArrayList<>();
+    rtn = Arrays.asList(this.ydata[idx]);
+    return rtn;
+  }
+
   private Variable[] vars;
   private Double[] xdata;
   private Double[][] ydata;

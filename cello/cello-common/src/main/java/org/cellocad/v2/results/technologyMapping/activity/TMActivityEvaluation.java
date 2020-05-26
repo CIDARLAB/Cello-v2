@@ -83,18 +83,18 @@ public class TMActivityEvaluation {
    * parameter {@code node} at the state defined by parameter {@code state}.
    *
    * @param node The {@link NetlistNode}.
-   * @param activity The activity.
+   * @param state The state.
    * @return A List of Double representation of the input values for NetlistNode defined by
    *     parameter {@code node} at the activity defined by parameter {@code activity}.
    */
-  public List<Double> getInputActivity(final NetlistNode node, final State<NetlistNode> activity) {
+  public List<Double> getInputActivity(final NetlistNode node, final State<NetlistNode> state) {
     final List<Double> rtn = new ArrayList<>();
     for (int i = 0; i < node.getNumInEdge(); i++) {
       final NetlistNode inputNode = node.getInEdgeAtIdx(i).getSrc();
       final ActivityTable<NetlistNode, NetlistNode> activityTable =
           getActivityTables().get(inputNode);
-      activityTable.getActivityOutput(activity);
-      final Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(activity);
+      activityTable.getActivityOutput(state);
+      final Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(state);
       if (outputActivity.getNumActivityPosition() != 1) {
         throw new RuntimeException("Invalid number of output(s)!");
       }

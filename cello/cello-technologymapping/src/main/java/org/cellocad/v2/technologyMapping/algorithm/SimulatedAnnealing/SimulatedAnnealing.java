@@ -42,6 +42,7 @@ import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
 import org.cellocad.v2.results.netlist.data.ResultNetlistNodeData;
+import org.cellocad.v2.results.technologyMapping.CytometryPlotUtils;
 import org.cellocad.v2.results.technologyMapping.ResponsePlotUtils;
 import org.cellocad.v2.results.technologyMapping.TMResultsUtils;
 import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
@@ -388,6 +389,8 @@ public class SimulatedAnnealing extends TMAlgorithm {
     // plots
     logInfo("Generating plots");
     ResponsePlotUtils.generatePlots(
+        getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(), getRuntimeEnv());
+    CytometryPlotUtils.generatePlots(
         getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(), getRuntimeEnv());
   }
 
