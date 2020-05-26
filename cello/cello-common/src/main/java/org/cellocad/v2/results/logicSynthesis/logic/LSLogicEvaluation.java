@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.graph.algorithm.BFS;
+import org.cellocad.v2.common.graph.algorithm.MyBFS;
 import org.cellocad.v2.results.logicSynthesis.LSResults;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
@@ -363,7 +363,7 @@ public class LSLogicEvaluation {
    * @param netlist The {@link Netlist}.
    */
   protected void evaluate(final Netlist netlist) {
-    final BFS<NetlistNode, NetlistEdge, Netlist> BFS = new BFS<>(netlist);
+    final MyBFS<NetlistNode, NetlistEdge, Netlist> BFS = new MyBFS<>(netlist);
     NetlistNode node = null;
     node = BFS.getNextVertex();
     while (node != null) {

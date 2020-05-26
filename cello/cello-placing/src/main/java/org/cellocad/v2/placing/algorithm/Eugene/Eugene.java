@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.graph.algorithm.SinkBFS;
+import org.cellocad.v2.common.graph.algorithm.MyBFS;
 import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.cellocad.v2.common.target.data.data.DeviceRules;
@@ -162,7 +162,7 @@ public class Eugene extends PLAlgorithm {
   }
 
   private void setDevices() {
-    final SinkBFS<NetlistNode, NetlistEdge, Netlist> BFS = new SinkBFS<>(getNetlist());
+    final MyBFS<NetlistNode, NetlistEdge, Netlist> BFS = new MyBFS<>(getNetlist());
     NetlistNode node = null;
     node = BFS.getNextVertex();
     while (node != null) {

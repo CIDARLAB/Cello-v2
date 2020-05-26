@@ -19,8 +19,6 @@
 
 package org.cellocad.v2.results.logicSynthesis.logic;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.TruthTable;
@@ -30,7 +28,6 @@ import org.cellocad.v2.results.netlist.NetlistNode;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -41,34 +38,59 @@ import org.junit.Test;
  */
 public class LSLogicEvaluationIT {
 
-  /**
-   * Load sample netlist.
-   *
-   * @throws IOException Failure to load resource.
-   * @throws ParseException Failure to parse netlist.
-   */
-  @BeforeClass
-  public static void init() throws IOException, ParseException {
+  private static Netlist getNetlist(final String filename) throws IOException, ParseException {
+    Netlist rtn = null;
     JSONParser parser = new JSONParser();
-    String str = Utils.getResourceAsString("and_LogicOnly.json");
+    String str = Utils.getResourceAsString(filename);
     JSONObject jsonObj = (JSONObject) parser.parse(str);
-    netlist = new Netlist(jsonObj);
-    LSResultNetlistUtils.setVertexTypeUsingLSResult(netlist);
+    rtn = new Netlist(jsonObj);
+    LSResultNetlistUtils.setVertexTypeUsingLSResult(rtn);
+    return rtn;
   }
 
-  /** Test {@link LSLogicEvaluation} for correctness using mock netlist. */
+  /**
+   * Test {@link LSLogicEvaluation} for correctness using mock netlist.
+   *
+   * @throws ParseException Unable to parse netlist.
+   * @throws IOException Unable to read netlist.
+   */
   @Test
-  public void LSLogicEvaluation_NetlistForAndGateUsingNotAndNor_ShouldHaveCorrectTruthTable() {
+  public void LSLogicEvaluation_NetlistForAndGateUsingNotAndNor_ShouldHaveCorrectTruthTable()
+      throws IOException, ParseException {
+    Netlist netlist = getNetlist("and_LogicOnly.json");
     LSLogicEvaluation lsle = new LSLogicEvaluation(netlist);
     NetlistNode out = netlist.getVertexByName("out");
     TruthTable<NetlistNode, NetlistNode> tt = lsle.getTruthTable(out);
     final Boolean b0 = lsle.getStates().getZero();
     final Boolean b1 = lsle.getStates().getOne();
-    assertTrue(tt.getStateOutput(tt.getStateAtIdx(0)).getState(out).equals(b0));
-    assertTrue(tt.getStateOutput(tt.getStateAtIdx(1)).getState(out).equals(b0));
-    assertTrue(tt.getStateOutput(tt.getStateAtIdx(2)).getState(out).equals(b0));
-    assertTrue(tt.getStateOutput(tt.getStateAtIdx(3)).getState(out).equals(b1));
+    assert (tt.getStateOutput(tt.getStateAtIdx(0)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(1)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(2)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(3)).getState(out).equals(b1));
   }
 
-  private static Netlist netlist;
+  /**
+   * Test {@link LSLogicEvaluation} for correctness using mock netlist.
+   *
+   * @throws ParseException Unable to parse netlist.
+   * @throws IOException Unable to read netlist.
+   */
+  @Test
+  public void LSLogicEvaluation_NetlistForA1CircuitUsingNotAndNor_ShouldHaveCorrectTruthTable()
+      throws IOException, ParseException {
+    Netlist netlist = getNetlist("A1_LogicOnly.json");
+    LSLogicEvaluation lsle = new LSLogicEvaluation(netlist);
+    NetlistNode out = netlist.getVertexByName("out");
+    TruthTable<NetlistNode, NetlistNode> tt = lsle.getTruthTable(out);
+    final Boolean b0 = lsle.getStates().getZero();
+    final Boolean b1 = lsle.getStates().getOne();
+    assert (tt.getStateOutput(tt.getStateAtIdx(0)).getState(out).equals(b1)
+        && tt.getStateOutput(tt.getStateAtIdx(1)).getState(out).equals(b1)
+        && tt.getStateOutput(tt.getStateAtIdx(2)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(3)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(4)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(5)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(6)).getState(out).equals(b0)
+        && tt.getStateOutput(tt.getStateAtIdx(7)).getState(out).equals(b1));
+  }
 }

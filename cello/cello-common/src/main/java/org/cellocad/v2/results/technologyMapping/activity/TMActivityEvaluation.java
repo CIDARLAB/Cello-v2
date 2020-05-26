@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.graph.algorithm.BFS;
+import org.cellocad.v2.common.graph.algorithm.MyBFS;
 import org.cellocad.v2.common.target.data.data.EvaluationContext;
 import org.cellocad.v2.common.target.data.data.FunctionType;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
@@ -135,7 +135,7 @@ public class TMActivityEvaluation {
    * @throws CelloException Unable to evaluate activity.
    */
   protected void evaluate(final Netlist netlist) throws CelloException {
-    final BFS<NetlistNode, NetlistEdge, Netlist> BFS = new BFS<>(netlist);
+    final MyBFS<NetlistNode, NetlistEdge, Netlist> BFS = new MyBFS<>(netlist);
     NetlistNode node = null;
     final EvaluationContext ec = new EvaluationContext();
     node = BFS.getNextVertex();
