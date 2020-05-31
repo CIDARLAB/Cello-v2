@@ -34,7 +34,7 @@ import org.junit.Test;
  * @author Timothy Jones
  * @date 2020-02-25
  */
-public class SbolIT {
+public class SBOLIT {
 
   @Test
   public void main_AndGateNetlistWithSC1C1G1T1Library_ShouldReturn()

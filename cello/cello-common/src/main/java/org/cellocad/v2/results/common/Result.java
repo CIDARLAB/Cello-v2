@@ -19,6 +19,8 @@
 
 package org.cellocad.v2.results.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.File;
 import org.cellocad.v2.common.CObject;
 
@@ -28,10 +30,13 @@ import org.cellocad.v2.common.CObject;
  * @author Timothy Jones
  * @date 2020-03-30
  */
+@JsonIgnoreProperties({"type", "idx", "valid"})
 public class Result extends CObject {
 
   private final String stage;
   private final String description;
+
+  @JsonSerialize(using = CustomFileSerializer.class)
   private final File file;
 
   /**

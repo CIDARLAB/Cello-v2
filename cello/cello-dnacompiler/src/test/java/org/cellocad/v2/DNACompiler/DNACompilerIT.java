@@ -61,6 +61,7 @@ public class DNACompilerIT {
           "-" + DNACompilerArgString.PYTHONENV,
           "python"
         };
+    System.out.println(dir);
   }
 
   @Test

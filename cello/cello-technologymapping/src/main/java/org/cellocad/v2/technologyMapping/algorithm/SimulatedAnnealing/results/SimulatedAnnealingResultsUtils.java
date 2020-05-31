@@ -19,6 +19,7 @@
 
 package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,20 +43,20 @@ public class SimulatedAnnealingResultsUtils {
    *
    * @param tmte The toxicity evaluation.
    * @param filename The file to write the toxicity evaluation.
+   * @return The CSV file.
+   * @throws IOException Unable to write CSV file.
    * @throws RuntimeException Any of the parameters are null.
    */
-  public static void writeCsvForTMToxicityEvaluation(
-      final TMToxicityEvaluation tmte, final String filename) {
+  public static File writeCsvForTMToxicityEvaluation(
+      final TMToxicityEvaluation tmte, final String filename) throws IOException {
     Utils.isNullRuntimeException(tmte, "tmte");
     Utils.isNullRuntimeException(filename, "filename");
-    try {
-      final OutputStream outputStream = new FileOutputStream(filename);
-      final Writer outputStreamWriter = new OutputStreamWriter(outputStream);
-      tmte.writeCSV(",", outputStreamWriter);
-      outputStreamWriter.close();
-      outputStream.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
-    }
+    final File file = new File(filename);
+    final OutputStream outputStream = new FileOutputStream(file);
+    final Writer outputStreamWriter = new OutputStreamWriter(outputStream);
+    tmte.writeCSV(",", outputStreamWriter);
+    outputStreamWriter.close();
+    outputStream.close();
+    return file;
   }
 }

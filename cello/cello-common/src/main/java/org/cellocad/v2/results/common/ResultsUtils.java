@@ -20,10 +20,15 @@
 package org.cellocad.v2.results.common;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.file.dot.utils.DotUtils;
+import org.cellocad.v2.results.netlist.Netlist;
+import org.cellocad.v2.results.netlist.NetlistUtils;
 
 /**
  * The ResultsUtils class is class with utility methods for the project.
@@ -67,5 +72,33 @@ public final class ResultsUtils {
     is.close();
     rtn = sb.toString();
     return rtn;
+  }
+
+  /**
+   * Write the result files for the given netlist.
+   *
+   * @param stage The stage name.
+   * @param outputDir The output directory.
+   * @param netlist The netlist.
+   * @param results The results object to which to add the results.
+   * @throws CelloException Unable to write results.
+   */
+  public static void writeNetlistResults(
+      final String stage, final File outputDir, final Netlist netlist, final Results results)
+      throws CelloException {
+    final File dotFile = new File(outputDir, netlist.getName() + "_" + stage + ".dot");
+    NetlistUtils.writeDotFileForGraph(netlist, dotFile.getAbsolutePath());
+    final File pdfFile = DotUtils.dot2pdf(dotFile);
+    final File pngFile = DotUtils.dot2png(dotFile);
+    Result dot = new Result("netlist", stage, "The netlist.", dotFile);
+    Result pdf = new Result("netlist", stage, "The netlist.", pdfFile);
+    Result png = new Result("netlist", stage, "The netlist.", pngFile);
+    try {
+      results.addResult(dot);
+      results.addResult(pdf);
+      results.addResult(png);
+    } catch (IOException e) {
+      throw new CelloException("Unable to write result.", e);
+    }
   }
 }

@@ -22,6 +22,7 @@
 
 package org.cellocad.v2.results.technologyMapping;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ import org.cellocad.v2.common.target.data.data.EvaluationContext;
 import org.cellocad.v2.common.target.data.data.FunctionType;
 import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.Variable;
+import org.cellocad.v2.results.common.Result;
+import org.cellocad.v2.results.common.Results;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
@@ -166,7 +169,8 @@ public class CytometryPlotUtils {
       final LSLogicEvaluation lsle,
       final TMActivityEvaluation tmae,
       final EvaluationContext ec,
-      final RuntimeEnv runEnv)
+      final RuntimeEnv runEnv,
+      final Results results)
       throws CelloException {
     final String outDir = runEnv.getOptionValue(ArgString.OUTPUTDIR);
     // script
@@ -176,6 +180,21 @@ public class CytometryPlotUtils {
     // plot
     final String cmd = getPlotCommand(runEnv, scriptFilename);
     Utils.executeAndWaitForCommand(cmd);
+    final File file =
+        new File(outDir + Utils.getFileSeparator() + Utils.getFilename(scriptFilename) + ".png");
+    if (file.exists()) {
+      final Result result =
+          new Result(
+              "cytometry_plot",
+              "technologyMapping",
+              "The cytometry plot for node " + node.getName() + ".",
+              file);
+      try {
+        results.addResult(result);
+      } catch (IOException e) {
+        throw new CelloException("Unable to write result.", e);
+      }
+    }
   }
 
   /**
@@ -185,13 +204,15 @@ public class CytometryPlotUtils {
    * @param lsle The logic evaluation of the netlist.
    * @param tmae The activity evaluation of the netlist.
    * @param runEnv The runtime environment that contains the output directory.
+   * @param results The results.
    * @throws CelloException Unable to generate the response plots.
    */
   public static void generatePlots(
       final Netlist netlist,
       final LSLogicEvaluation lsle,
       final TMActivityEvaluation tmae,
-      final RuntimeEnv runEnv)
+      final RuntimeEnv runEnv,
+      final Results results)
       throws CelloException {
     for (int i = 0; i < netlist.getNumVertex(); i++) {
       final NetlistNode node = netlist.getVertexAtIdx(i);
@@ -199,7 +220,7 @@ public class CytometryPlotUtils {
         continue;
       }
       EvaluationContext ec = new EvaluationContext();
-      generatePlot(node, lsle, tmae, ec, runEnv);
+      generatePlot(node, lsle, tmae, ec, runEnv, results);
     }
   }
 

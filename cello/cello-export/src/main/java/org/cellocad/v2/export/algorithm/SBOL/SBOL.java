@@ -19,6 +19,7 @@
 
 package org.cellocad.v2.export.algorithm.SBOL;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -51,6 +52,7 @@ import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistEdgeData;
 import org.cellocad.v2.export.algorithm.SBOL.data.SBOLNetlistNodeData;
 import org.cellocad.v2.export.target.data.EXTargetDataInstance;
+import org.cellocad.v2.results.common.Result;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -576,15 +578,27 @@ public class SBOL extends EXAlgorithm {
     }
   }
 
-  /** Perform postprocessing. */
+  /**
+   * Perform postprocessing.
+   *
+   * @throws CelloException Unable to perform postprocessing.
+   */
   @Override
-  protected void postprocessing() {
-    logInfo("writing SBOL document");
+  protected void postprocessing() throws CelloException {
+    logInfo("Writing SBOL document.");
     logDebug("SBOL filename " + getSbolFilename());
     try {
       SBOLWriter.write(getSbolDocument(), getSbolFilename());
     } catch (SBOLConversionException | IOException e) {
-      e.printStackTrace();
+      throw new CelloException(e);
+    }
+    Result result =
+        new Result(
+            "sbol", "export", "An SBOL representation of the design.", new File(getSbolFilename()));
+    try {
+      this.getResults().addResult(result);
+    } catch (IOException e) {
+      throw new CelloException("Unable to write result.", e);
     }
   }
 

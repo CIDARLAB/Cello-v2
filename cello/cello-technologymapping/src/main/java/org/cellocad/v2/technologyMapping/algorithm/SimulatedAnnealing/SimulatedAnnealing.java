@@ -19,6 +19,8 @@
 
 package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,6 +37,7 @@ import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.Input;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.OutputDevice;
+import org.cellocad.v2.results.common.Result;
 import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.netlist.LSResultNetlistUtils;
@@ -343,6 +346,60 @@ public class SimulatedAnnealing extends TMAlgorithm {
     }
   }
 
+  protected void writeLogicResult(final String outputFile) throws CelloException {
+    File logicFile;
+    try {
+      logicFile =
+          LSResultsUtils.writeCsvForLSLogicEvaluation(
+              getLSLogicEvaluation(), outputFile + "_logic.csv");
+    } catch (IOException e) {
+      throw new CelloException("Unable to write CSV file for truth table.", e);
+    }
+    Result logicResult =
+        new Result("logic", "technologyMapping", "The truth table for the circuit.", logicFile);
+    try {
+      this.getResults().addResult(logicResult);
+    } catch (IOException e) {
+      throw new CelloException("Unable to write metadata for truth table result.");
+    }
+  }
+
+  protected void writeToxicityResult(final String outputFile) throws CelloException {
+    File toxicityFile;
+    try {
+      toxicityFile =
+          SimulatedAnnealingResultsUtils.writeCsvForTMToxicityEvaluation(
+              getTMToxicityEvaluation(), outputFile + "_toxicity.csv");
+    } catch (IOException e) {
+      throw new CelloException("Unable to write CSV file for toxicity.", e);
+    }
+    Result toxicityResult =
+        new Result("toxicity", "technologyMapping", "The toxicity for the circuit.", toxicityFile);
+    try {
+      this.getResults().addResult(toxicityResult);
+    } catch (IOException e) {
+      throw new CelloException("Unable to write metadata for toxicity result.");
+    }
+  }
+
+  protected void writeActivityResult(final String outputFile) throws CelloException {
+    File activityFile;
+    try {
+      activityFile =
+          TMResultsUtils.writeCsvForTMActivityEvaluation(
+              getTMActivityEvaluation(), outputFile + "_activity.csv");
+    } catch (IOException e) {
+      throw new CelloException("Unable to write CSV file for activity.", e);
+    }
+    Result activityResult =
+        new Result("activity", "technologyMapping", "The activity for the circuit.", activityFile);
+    try {
+      this.getResults().addResult(activityResult);
+    } catch (IOException e) {
+      throw new CelloException("Unable to write metadata for activity result.");
+    }
+  }
+
   /**
    * Perform postprocessing.
    *
@@ -356,17 +413,15 @@ public class SimulatedAnnealing extends TMAlgorithm {
     final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
     final String outputFile = outputDir + Utils.getFileSeparator() + filename;
     // logic
-    LSResultsUtils.writeCsvForLSLogicEvaluation(getLSLogicEvaluation(), outputFile + "_logic.csv");
+    writeLogicResult(outputFile);
     // cytometry
     setTMCytometryEvaluation(new TMCytometryEvaluation());
     // toxicity
     setTMToxicityEvaluation(new TMToxicityEvaluation(getNetlist(), getTMActivityEvaluation()));
-    SimulatedAnnealingResultsUtils.writeCsvForTMToxicityEvaluation(
-        getTMToxicityEvaluation(), outputFile + "_toxicity.csv");
+    writeToxicityResult(outputFile);
     logInfo(getTMToxicityEvaluation().toString());
     // activity
-    TMResultsUtils.writeCsvForTMActivityEvaluation(
-        getTMActivityEvaluation(), outputFile + "_activity.csv");
+    writeActivityResult(outputFile);
     logInfo(getTMActivityEvaluation().toString());
     for (int i = 0; i < getNetlist().getNumVertex(); i++) {
       final NetlistNode node = getNetlist().getVertexAtIdx(i);
@@ -389,9 +444,17 @@ public class SimulatedAnnealing extends TMAlgorithm {
     // plots
     logInfo("Generating plots");
     ResponsePlotUtils.generatePlots(
-        getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(), getRuntimeEnv());
+        getNetlist(),
+        getLSLogicEvaluation(),
+        getTMActivityEvaluation(),
+        getRuntimeEnv(),
+        this.getResults());
     CytometryPlotUtils.generatePlots(
-        getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation(), getRuntimeEnv());
+        getNetlist(),
+        getLSLogicEvaluation(),
+        getTMActivityEvaluation(),
+        getRuntimeEnv(),
+        this.getResults());
   }
 
   /**

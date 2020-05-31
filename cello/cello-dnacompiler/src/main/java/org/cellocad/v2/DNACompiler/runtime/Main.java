@@ -40,10 +40,10 @@ import org.cellocad.v2.export.runtime.EXRuntimeObject;
 import org.cellocad.v2.logicSynthesis.runtime.LSRuntimeObject;
 import org.cellocad.v2.placing.runtime.PLRuntimeObject;
 import org.cellocad.v2.results.common.Results;
+import org.cellocad.v2.results.common.ResultsUtils;
 import org.cellocad.v2.results.logicSynthesis.LSResultsStats;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
-import org.cellocad.v2.results.partitioning.PTResultsStats;
 import org.cellocad.v2.results.partitioning.block.PTBlockNetlist;
 import org.cellocad.v2.technologyMapping.runtime.TMRuntimeObject;
 
@@ -169,9 +169,7 @@ public class Main {
     LS.execute();
     // Write netlist
     Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
-    final File lsDotFile = new File(outputDir, netlist.getName() + "_logicSynthesis" + ".dot");
-    NetlistUtils.writeDotFileForGraph(netlist, lsDotFile.getAbsolutePath());
-    DotUtils.dot2pdf(lsDotFile);
+    ResultsUtils.writeNetlistResults(LS.getName(), outputDir, netlist, results);
     Main.getLogger().info(LSResultsStats.getLogicSynthesisStats(netlist));
     // logicOptimization
     // currentStage = appCfg.getStageByName("logicOptimization");
@@ -193,11 +191,11 @@ public class Main {
     // PTRuntimeObject PT = new PTRuntimeObject(currentStage, td, netlistConstraint,
     // netlist, runEnv);
     // PT.execute();
-    Main.printPartitioningGraphs(runEnv, netlist);
-    Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
-    netlist = new PTBlockNetlist(netlist).getVirtualLargeNetlistFO();
+    // Main.printPartitioningGraphs(runEnv, netlist);
+    // Main.getLogger().info(PTResultsStats.getPartitioningStats(netlist));
+    // netlist = new PTBlockNetlist(netlist).getVirtualLargeNetlistFO();
     // Write netlist
-    Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
+    // Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
     /*
      * technologyMapping
      */
@@ -207,9 +205,7 @@ public class Main {
     TM.execute();
     // Write netlist
     Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
-    final File tmDotFile = new File(outputDir, netlist.getName() + "_technologyMapping" + ".dot");
-    NetlistUtils.writeDotFileForGraph(netlist, tmDotFile.getAbsolutePath());
-    DotUtils.dot2pdf(tmDotFile);
+    ResultsUtils.writeNetlistResults(TM.getName(), outputDir, netlist, results);
     /*
      * placing
      */
@@ -219,6 +215,7 @@ public class Main {
     PL.execute();
     // Write netlist
     Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
+    ResultsUtils.writeNetlistResults(PL.getName(), outputDir, netlist, results);
     /*
      * export.
      */
@@ -228,6 +225,7 @@ public class Main {
     EX.execute();
     // Write netlist
     Main.writeJsonForNetlist(runEnv, netlist, inputFilePath);
+    ResultsUtils.writeNetlistResults(EX.getName(), outputDir, netlist, results);
   }
 
   protected static void writeJsonForNetlist(

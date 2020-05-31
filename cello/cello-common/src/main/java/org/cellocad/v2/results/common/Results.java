@@ -74,6 +74,6 @@ public class Results extends CObject {
       throws JsonGenerationException, JsonMappingException, IOException {
     final JsonNode node = mapper.valueToTree(result);
     array.add(node);
-    writer.writeValue(file, node);
+    writer.writeValue(file, array);
   }
 }

@@ -34,6 +34,7 @@ import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataUtils;
 import org.cellocad.v2.logicSynthesis.runtime.environment.LSRuntimeEnv;
 import org.cellocad.v2.results.common.Results;
+import org.cellocad.v2.results.common.ResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;
 
@@ -112,7 +113,9 @@ public class Main {
       outputFilename += "_outputNetlist";
       outputFilename += ".json";
     }
+    // Results
     NetlistUtils.writeJsonForNetlist(netlist, outputFilename);
+    ResultsUtils.writeNetlistResults(LS.getName(), outputDir, netlist, results);
   }
 
   /**
