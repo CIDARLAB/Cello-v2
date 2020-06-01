@@ -19,7 +19,9 @@
 
 package org.cellocad.v2.results.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.File;
 import org.cellocad.v2.common.CObject;
@@ -30,7 +32,7 @@ import org.cellocad.v2.common.CObject;
  * @author Timothy Jones
  * @date 2020-03-30
  */
-@JsonIgnoreProperties({"type", "idx", "valid"})
+@JsonIgnoreProperties({"type", "idx", "valid"}) // do not serialize
 public class Result extends CObject {
 
   private final String stage;
@@ -47,7 +49,12 @@ public class Result extends CObject {
    * @param description A description of the result.
    * @param file The result file.
    */
-  public Result(final String name, final String stage, final String description, final File file) {
+  @JsonCreator
+  public Result(
+      @JsonProperty("name") final String name,
+      @JsonProperty("stage ") final String stage,
+      @JsonProperty("description") final String description,
+      @JsonProperty("file") final File file) {
     super();
     setName(name);
     this.stage = stage;
