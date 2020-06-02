@@ -35,11 +35,11 @@ import org.cellocad.v2.common.CObject;
 @JsonIgnoreProperties({"type", "idx", "valid"}) // do not serialize
 public class Result extends CObject {
 
-  private final String stage;
-  private final String description;
+  private String stage;
+  private String description;
 
   @JsonSerialize(using = CustomFileSerializer.class)
-  private final File file;
+  private File file;
 
   /**
    * Create a new result object.
@@ -87,5 +87,14 @@ public class Result extends CObject {
    */
   public File getFile() {
     return file;
+  }
+
+  /**
+   * Setter for {@code file}.
+   *
+   * @param file The value to set {@code file}.
+   */
+  public void setFile(final File file) {
+    this.file = file;
   }
 }
