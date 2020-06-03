@@ -139,7 +139,8 @@ public class DnaPlotLibUtils {
   }
 
   /**
-   * Gets a list of CSV records representing the Cello designs in dnaplotlib format.
+   * Gets a list of CSV records representing the Cello designs in dnaplotlib format. This is the
+   * ordered list of parts corresponding to the circuit sequence.
    *
    * @param netlist The netlist containing the designs.
    * @param tdi The target data instance containing the data used in the designs.
@@ -152,7 +153,7 @@ public class DnaPlotLibUtils {
     rtn.add("design_name,parts,");
     final Placements placements = netlist.getResultNetlistData().getPlacements();
     for (int i = 0; i < placements.getNumPlacement(); i++) {
-      final Collection<String> design = new ArrayList<>();
+      final List<String> design = new ArrayList<>();
       final Placement placement = placements.getPlacementAtIdx(i);
       String name = placement.getName();
       if (name.isEmpty()) {
@@ -174,8 +175,10 @@ public class DnaPlotLibUtils {
             }
           }
         }
-        if (j + 1 < placement.getNumPlacementGroup()) {
-          design.add(DnaPlotLibUtils.S_NONCEPAD);
+        if (j + 1 < placement.getNumPlacementGroup() // not at the end of the placement
+            && design.size() > 1
+            && !design.get(design.size() - 1).equals(S_NONCEPAD)) {
+          design.add(S_NONCEPAD);
         }
       }
       final String record = String.join(",", design);
