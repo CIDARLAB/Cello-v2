@@ -21,12 +21,11 @@ package org.cellocad.v2.DNACompiler;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import org.cellocad.v2.DNACompiler.runtime.Main;
-import org.cellocad.v2.DNACompiler.runtime.environment.DNACompilerArgString;
 import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
-import org.junit.BeforeClass;
+import org.cellocad.v2.common.runtime.environment.ArgString;
+import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.junit.Test;
 
 /**
@@ -37,37 +36,31 @@ import org.junit.Test;
  */
 public class DNACompilerIT {
 
-  /**
-   * Environment setup for tests.
-   *
-   * @throws IOException Unable to read resources.
-   * @throws CelloException Unable to instantiate supporting classes.
-   */
-  @BeforeClass
-  public static void init() throws IOException, CelloException {
-    final Path dir = Files.createTempDirectory("cello_");
-    args =
+  private static String[] getArguments(
+      final String netlist, final String prefix, final String library) throws IOException {
+    String[] rtn = null;
+    rtn =
         new String[] {
-          "-" + DNACompilerArgString.INPUTNETLIST,
-          Utils.getResource("and.v").getFile(),
-          "-" + DNACompilerArgString.USERCONSTRAINTSFILE,
-          Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
-          "-" + DNACompilerArgString.INPUTSENSORFILE,
-          Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
-          "-" + DNACompilerArgString.OUTPUTDEVICEFILE,
-          Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
-          "-" + DNACompilerArgString.OUTPUTDIR,
-          dir.toString(),
-          "-" + DNACompilerArgString.PYTHONENV,
+          "-" + StageArgString.INPUTNETLIST,
+          Utils.getResource(netlist).getFile(),
+          "-" + StageArgString.USERCONSTRAINTSFILE,
+          Utils.getResource("lib/ucf/" + prefix + "/" + library + ".UCF.json").getFile(),
+          "-" + StageArgString.INPUTSENSORFILE,
+          Utils.getResource("lib/input/" + prefix + "/" + library + ".input.json").getFile(),
+          "-" + StageArgString.OUTPUTDEVICEFILE,
+          Utils.getResource("lib/output/" + prefix + "/" + library + ".output.json").getFile(),
+          "-" + ArgString.OUTPUTDIR,
+          Files.createTempDirectory("cello_").toString(),
+          "-" + ArgString.PYTHONENV,
           "python"
         };
+    return rtn;
   }
 
   @Test
   public void main_AndGateVerilogWithReferenceLibrary_ShouldReturn()
       throws CelloException, IOException {
+    final String[] args = getArguments("and.v", "Eco", "Eco1C1G1T1");
     Main.main(args);
   }
-
-  private static String[] args;
 }
