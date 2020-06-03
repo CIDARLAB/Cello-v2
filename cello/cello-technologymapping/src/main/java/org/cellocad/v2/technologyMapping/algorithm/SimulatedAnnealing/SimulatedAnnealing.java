@@ -302,12 +302,12 @@ public class SimulatedAnnealing extends TMAlgorithm {
           continue;
         } else {
           // undo
-          swap(nodeB, gateB, nodeA, gateA);
+          swap(nodeA, gateB, nodeB, gateA);
           continue;
         }
       } else if (tmte.getMinimumGrowth() < SimulatedAnnealing.D_GROWTH_THRESHOLD) {
         // undo
-        swap(nodeB, gateB, nodeA, gateA);
+        swap(nodeA, gateB, nodeB, gateA);
         continue;
       }
 
@@ -321,7 +321,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
         setTMActivityEvaluation(tmae);
       } else {
         // undo
-        swap(nodeB, gateB, nodeA, gateA);
+        swap(nodeA, gateB, nodeB, gateA);
       }
     }
   }
