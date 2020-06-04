@@ -240,6 +240,18 @@ public class SimulatedAnnealing extends TMAlgorithm {
     return rtn;
   }
 
+  private String logReadout(final String name, final String fmt, final Object... objects) {
+    String rtn = "";
+    final String prefix = "%-16s: ";
+    Object[] args = new Object[objects.length + 1];
+    args[0] = name;
+    for (int i = 0; i < objects.length; i++) {
+      args[i + 1] = objects[i];
+    }
+    rtn = String.format(prefix + fmt, args);
+    return rtn;
+  }
+
   /**
    * Run the (core) algorithm.
    *
@@ -255,13 +267,29 @@ public class SimulatedAnnealing extends TMAlgorithm {
     assignOutputNodes();
     // logic node assignment
     assignNodes();
-    updateNetlist();
+    initEdges();
+    setNodeDeviceNames();
+
+    final int totalSteps = STEPS + T0_STEPS;
+
+    final Double numTandem =
+        SimulatedAnnealingUtils.getNumTandemPair(this.getNetlist()).doubleValue();
+    final Double numSwappable =
+        SimulatedAnnealingUtils.getNumSwappableGate(this.getNetlist()).doubleValue();
+    final Double thresh = numTandem / (numTandem + numSwappable);
+
+    logDebug("Swap likelihoods:");
+    logDebug(logReadout("tandem order", "%.2f", thresh));
+    logDebug(logReadout("gate", "%.2f", 1 - thresh));
 
     setTMActivityEvaluation(new TMActivityEvaluation(getNetlist(), getLSLogicEvaluation()));
     setTMToxicityEvaluation(new TMToxicityEvaluation(getNetlist(), getTMActivityEvaluation()));
 
     // evaluate
-    for (int j = 0; j < STEPS + T0_STEPS; ++j) {
+    for (int j = 0; j < totalSteps; ++j) {
+      logDebug("---------------------------");
+      logDebug(logReadout("iter num", "%d of %d", j, totalSteps));
+
       final Double logTemperature = LOGMAX - j * LOGINC;
       Double temperature = Math.pow(10, logTemperature);
 
@@ -269,8 +297,19 @@ public class SimulatedAnnealing extends TMAlgorithm {
         temperature = 0.0;
       }
 
+      logDebug(logReadout("temp", "%.2f", temperature));
+      logDebug(logReadout("log(temp)", "%.2f", logTemperature));
+
       final Double before =
           ScoreUtils.score(getNetlist(), getLSLogicEvaluation(), getTMActivityEvaluation());
+
+      Boolean rejectImmediately = false;
+      Boolean tandemSwap = false;
+
+      Double r = Math.random();
+      if (r < thresh) {
+        tandemSwap = true;
+      }
 
       NetlistNode nodeA = null;
       Gate gateA = getGateManager().getRandomGateFromUnassignedGroup();
@@ -285,29 +324,58 @@ public class SimulatedAnnealing extends TMAlgorithm {
       } while (nodeB == nodeA);
       gateB = (Gate) nodeB.getResultNetlistNodeData().getDevice();
 
-      swap(nodeA, gateA, nodeB, gateB);
+      NetlistNode swapNode = null;
+
+      if (!tandemSwap) {
+        logDebug("Gate swap.");
+        logDebug(logReadout("gateA", "%s", gateA.getName()));
+        logDebug(logReadout("gateB", "%s", gateB.getName()));
+        swap(nodeA, gateA, nodeB, gateB);
+      } else {
+        swapNode = SimulatedAnnealingUtils.getRandomNodeWithTandemPair(this.getNetlist());
+        logDebug("Promoter order swap.");
+        logDebug(logReadout("node", "%s", swapNode.getName()));
+        SimulatedAnnealingUtils.swapTandemOrder(swapNode);
+      }
 
       // evaluate
       final TMActivityEvaluation tmae =
           new TMActivityEvaluation(getNetlist(), getLSLogicEvaluation());
       final Double after = ScoreUtils.score(getNetlist(), getLSLogicEvaluation(), tmae);
+      logDebug(logReadout("old score", "%.2f", before));
+      logDebug(logReadout("new score", "%.2f", after));
 
       // toxicity
       final TMToxicityEvaluation tmte =
           new TMToxicityEvaluation(getNetlist(), getTMActivityEvaluation());
+      logDebug(logReadout("old growth", "%.2f", getTMToxicityEvaluation().getMinimumGrowth()));
+      logDebug(logReadout("new growth", "%.2f", tmte.getMinimumGrowth()));
       if (getTMToxicityEvaluation().getMinimumGrowth() < SimulatedAnnealing.D_GROWTH_THRESHOLD) {
         if (tmte.getMinimumGrowth() > getTMToxicityEvaluation().getMinimumGrowth()) {
           setTMToxicityEvaluation(tmte);
           setTMActivityEvaluation(tmae);
+          logDebug(
+              "Accept immediately -- already below mimimum growth threshold, and this swap helps.");
           continue;
         } else {
           // undo
-          swap(nodeA, gateB, nodeB, gateA);
-          continue;
+          rejectImmediately = true;
+          logDebug(
+              "Reject immediately -- already below mimimum growth threshold, and this swap does not help.");
         }
       } else if (tmte.getMinimumGrowth() < SimulatedAnnealing.D_GROWTH_THRESHOLD) {
         // undo
-        swap(nodeA, gateB, nodeB, gateA);
+        rejectImmediately = true;
+        logDebug("Reject immediately -- below minimum growth threshold.");
+      }
+
+      // undo
+      if (rejectImmediately) {
+        if (!tandemSwap) {
+          swap(nodeA, gateB, nodeB, gateA);
+        } else {
+          SimulatedAnnealingUtils.swapTandemOrder(swapNode);
+        }
         continue;
       }
 
@@ -315,33 +383,48 @@ public class SimulatedAnnealing extends TMAlgorithm {
       final Double probability = Math.exp((after - before) / temperature); // e^b
       final Double ep = Math.random();
 
+      logDebug(logReadout("p_accept", "%.2f", probability));
+      logDebug(logReadout("epsilon", "%.2f", ep));
+
       if (ep < probability) {
         // accept
+        logDebug("Accept swap.");
         setTMToxicityEvaluation(tmte);
         setTMActivityEvaluation(tmae);
       } else {
         // undo
-        swap(nodeA, gateB, nodeB, gateA);
+        logDebug("Reject swap.");
+        if (!tandemSwap) {
+          swap(nodeA, gateB, nodeB, gateA);
+        } else {
+          SimulatedAnnealingUtils.swapTandemOrder(swapNode);
+        }
       }
     }
   }
 
-  /** Copy the gate assignements to the netlist. */
-  protected void updateNetlist() {
+  protected void initEdges() {
+    for (int i = 0; i < getNetlist().getNumVertex(); i++) {
+      final NetlistNode node = getNetlist().getVertexAtIdx(i);
+      final AssignableDevice device = node.getResultNetlistNodeData().getDevice();
+      if (node.getNumInEdge() > device.getStructure().getInputs().size()) {
+        throw new RuntimeException("Device structure does not have enough inputs.");
+      }
+      for (int j = 0; j < node.getNumInEdge(); j++) {
+        final NetlistEdge e = node.getInEdgeAtIdx(j);
+        final Input input = device.getStructure().getInputs().get(j);
+        e.getResultNetlistEdgeData().setInput(input);
+      }
+    }
+  }
+
+  /** Set the deviceName property of each node. */
+  protected void setNodeDeviceNames() {
     for (int i = 0; i < getNetlist().getNumVertex(); i++) {
       final NetlistNode node = getNetlist().getVertexAtIdx(i);
       final AssignableDevice device = node.getResultNetlistNodeData().getDevice();
       if (device != null) {
         node.getResultNetlistNodeData().setDeviceName(device.getName());
-      }
-      final int num = node.getNumInEdge();
-      if (node.getNumInEdge() > device.getStructure().getInputs().size()) {
-        throw new RuntimeException("Device structure does not have enough inputs.");
-      }
-      for (int j = 0; j < num; j++) {
-        final NetlistEdge e = node.getInEdgeAtIdx(j);
-        final Input input = device.getStructure().getInputs().get(j);
-        e.getResultNetlistEdgeData().setInput(input);
       }
     }
   }
@@ -407,7 +490,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
    */
   @Override
   protected void postprocessing() throws CelloException {
-    updateNetlist();
+    setNodeDeviceNames();
     final String inputFilename = getNetlist().getInputFilename();
     final String filename = Utils.getFilename(inputFilename);
     final String outputDir = getRuntimeEnv().getOptionValue(ArgString.OUTPUTDIR);
@@ -661,7 +744,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
 
   private static final Double MAXTEMP = 100.0;
   private static final Double MINTEMP = 0.001;
-  private static final Integer STEPS = 500;
+  private static final Integer STEPS = 600;
   private static final Double LOGMAX = Math.log10(MAXTEMP);
   private static final Double LOGMIN = Math.log10(MINTEMP);
   private static final Double LOGINC = (LOGMAX - LOGMIN) / STEPS;

@@ -21,10 +21,8 @@ package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.exception.CelloException;
-import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.technologyMapping.runtime.Main;
 import org.junit.Test;
@@ -37,26 +35,40 @@ import org.junit.Test;
  */
 public class SimulatedAnnealingIT {
 
+  private static String[] getArguments(
+      final String netlist, final String prefix, final String library) throws IOException {
+    String[] rtn = null;
+    rtn =
+        new String[] {
+          "-" + StageArgString.INPUTNETLIST,
+          Utils.getResource(netlist).getFile(),
+          "-" + StageArgString.USERCONSTRAINTSFILE,
+          Utils.getResource("lib/ucf/" + prefix + "/" + library + ".UCF.json").getFile(),
+          "-" + StageArgString.INPUTSENSORFILE,
+          Utils.getResource("lib/input/" + prefix + "/" + library + ".input.json").getFile(),
+          "-" + StageArgString.OUTPUTDEVICEFILE,
+          Utils.getResource("lib/output/" + prefix + "/" + library + ".output.json").getFile(),
+          "-" + StageArgString.ALGORITHMNAME,
+          "SimulatedAnnealing",
+          "-" + StageArgString.OUTPUTDIR,
+          Files.createTempDirectory("cello_").toString(),
+          "-" + StageArgString.PYTHONENV,
+          "python" // TODO may not be platform independent
+        };
+    return rtn;
+  }
+
   @Test
   public void main_AndNetlistWithEco1C1G1T1Library_ShouldReturn()
       throws CelloException, IOException {
-    final Path dir = Files.createTempDirectory("cello_");
-    final String[] args = {
-      "-" + ArgString.INPUTNETLIST,
-      Utils.getResource("and_netlist.json").getFile(),
-      "-" + ArgString.USERCONSTRAINTSFILE,
-      Utils.getResource("lib/ucf/Eco/Eco1C1G1T1.UCF.json").getFile(),
-      "-" + ArgString.INPUTSENSORFILE,
-      Utils.getResource("lib/input/Eco/Eco1C1G1T1.input.json").getFile(),
-      "-" + ArgString.OUTPUTDEVICEFILE,
-      Utils.getResource("lib/output/Eco/Eco1C1G1T1.output.json").getFile(),
-      "-" + StageArgString.ALGORITHMNAME,
-      "SimulatedAnnealing",
-      "-" + ArgString.PYTHONENV,
-      "python",
-      "-" + ArgString.OUTPUTDIR,
-      dir.toString()
-    };
+    String[] args = getArguments("and_netlist.json", "Eco", "Eco1C1G1T1");
+    Main.main(args);
+  }
+
+  @Test
+  public void main_AndNetlistWithEco1C2G2T2Library_ShouldReturn()
+      throws CelloException, IOException {
+    String[] args = getArguments("and_netlist.json", "Eco", "Eco1C2G2T2");
     Main.main(args);
   }
 }

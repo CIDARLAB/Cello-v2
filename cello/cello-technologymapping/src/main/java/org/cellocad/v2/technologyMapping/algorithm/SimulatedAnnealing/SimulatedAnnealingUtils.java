@@ -19,6 +19,10 @@
 
 package org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing;
 
+import org.cellocad.v2.common.exception.CelloException;
+import org.cellocad.v2.common.exception.NotImplementedException;
+import org.cellocad.v2.common.target.data.data.Input;
+import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -72,5 +76,69 @@ public class SimulatedAnnealingUtils {
     SimulatedAnnealingNetlistData rtn = null;
     rtn = (SimulatedAnnealingNetlistData) netlist.getNetlistData();
     return rtn;
+  }
+
+  static Integer getNumTandemPair(final Netlist netlist) throws CelloException {
+    Integer rtn = 0;
+    for (int i = 0; i < netlist.getNumVertex(); i++) {
+      NetlistNode node = netlist.getVertexAtIdx(i);
+      if (node.getNumInEdge() == 2
+          && !LSResultsUtils.isAllInput(node)
+          && !LSResultsUtils.isAllOutput(node)) {
+        rtn++;
+      }
+      if (node.getNumInEdge() > 2) {
+        throw new CelloException("Encountered node with more than two inputs.");
+      }
+    }
+    return rtn;
+  }
+
+  static Integer getNumSwappableGate(final Netlist netlist) {
+    Integer rtn = 0;
+    for (int i = 0; i < netlist.getNumVertex(); i++) {
+      NetlistNode node = netlist.getVertexAtIdx(i);
+      if (!LSResultsUtils.isAllInput(node) && !LSResultsUtils.isAllOutput(node)) {
+        rtn++;
+      }
+    }
+    return rtn;
+  }
+
+  static NetlistNode getRandomNodeWithTandemPair(final Netlist netlist) throws CelloException {
+    NetlistNode rtn = null;
+    Double r = Math.random() * getNumTandemPair(netlist);
+    Integer n = r.intValue() + 1;
+    int k = 0;
+    for (int i = 0; i < netlist.getNumVertex(); i++) {
+      NetlistNode node = netlist.getVertexAtIdx(i);
+      if (!LSResultsUtils.isAllInput(node)
+          && !LSResultsUtils.isAllOutput(node)
+          && node.getNumInEdge() == 2) {
+        k++;
+      }
+      if (k == n) {
+        rtn = node;
+        break;
+      }
+    }
+    return rtn;
+  }
+
+  static void swapTandemOrder(NetlistNode node) {
+    if (node.getNumInEdge() != 2) {
+      throw new NotImplementedException("Only two-input swaps are implemented.");
+    }
+    // promoter order is tracked via idx property of edge
+    NetlistEdge e1 = node.getInEdgeAtIdx(0);
+    NetlistEdge e2 = node.getInEdgeAtIdx(1);
+    final Input in1 = e1.getResultNetlistEdgeData().getInput();
+    final Input in2 = e2.getResultNetlistEdgeData().getInput();
+    e1.getResultNetlistEdgeData().setInput(in2);
+    e2.getResultNetlistEdgeData().setInput(in1);
+    // int i1 = node.getIdx();
+    // int i2 = node.getIdx();
+    // e1.setIdx(i2);
+    // e2.setIdx(i1);
   }
 }
