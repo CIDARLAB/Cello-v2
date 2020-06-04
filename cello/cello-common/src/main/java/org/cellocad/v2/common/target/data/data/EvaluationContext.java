@@ -22,7 +22,7 @@ package org.cellocad.v2.common.target.data.data;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.netlist.NetlistEdge;
 import org.cellocad.v2.results.netlist.NetlistNode;

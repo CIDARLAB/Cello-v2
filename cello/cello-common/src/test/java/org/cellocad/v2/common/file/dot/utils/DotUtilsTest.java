@@ -21,8 +21,8 @@ package org.cellocad.v2.common.file.dot.utils;
 
 import java.io.File;
 import java.io.IOException;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.junit.Test;
 
 /**

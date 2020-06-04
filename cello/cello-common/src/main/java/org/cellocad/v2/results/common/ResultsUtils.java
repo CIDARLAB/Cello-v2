@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.file.dot.utils.DotUtils;
 import org.cellocad.v2.results.netlist.Netlist;
 import org.cellocad.v2.results.netlist.NetlistUtils;

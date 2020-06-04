@@ -21,7 +21,7 @@ package org.cellocad.v2.common.target.data;
 
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.Function;
 import org.cellocad.v2.common.target.data.data.Gate;

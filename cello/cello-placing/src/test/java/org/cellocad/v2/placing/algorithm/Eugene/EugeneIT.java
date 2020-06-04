@@ -21,8 +21,8 @@ package org.cellocad.v2.placing.algorithm.Eugene;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.placing.runtime.Main;
 import org.junit.Test;

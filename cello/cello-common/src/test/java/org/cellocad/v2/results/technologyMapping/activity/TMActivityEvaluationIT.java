@@ -23,8 +23,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Collection;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;

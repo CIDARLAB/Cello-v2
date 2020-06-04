@@ -19,7 +19,7 @@
 
 package org.cellocad.v2.common.target.data.data;
 
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONObject;
 

@@ -21,8 +21,8 @@ package org.cellocad.v2.common.target.data;
 
 import java.io.IOException;
 import java.util.Collection;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

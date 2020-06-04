@@ -21,7 +21,7 @@ package org.cellocad.v2.partitioning.runtime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.runtime.RuntimeObject;
 import org.cellocad.v2.common.runtime.environment.ArgString;

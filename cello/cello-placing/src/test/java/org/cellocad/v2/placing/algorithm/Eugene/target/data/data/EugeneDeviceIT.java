@@ -20,8 +20,8 @@
 package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.io.IOException;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.target.data.data.OutputDevice;
 import org.cellocad.v2.common.target.data.data.Structure;
 import org.cellocad.v2.common.target.data.data.StructureDevice;

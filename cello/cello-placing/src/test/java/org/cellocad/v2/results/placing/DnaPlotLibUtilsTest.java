@@ -20,8 +20,8 @@
 package org.cellocad.v2.results.placing;
 
 import java.util.List;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.common.target.data.TargetData;

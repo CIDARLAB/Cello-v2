@@ -32,7 +32,7 @@ import org.cellocad.v2.clustering.algorithm.data.CLNetlistNodeDataFactory;
 import org.cellocad.v2.clustering.netlist.data.CLStageNetlistData;
 import org.cellocad.v2.clustering.netlist.data.CLStageNetlistEdgeData;
 import org.cellocad.v2.clustering.netlist.data.CLStageNetlistNodeData;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.runtime.RuntimeObject;
 import org.cellocad.v2.common.runtime.environment.ArgString;

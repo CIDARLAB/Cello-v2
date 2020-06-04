@@ -20,9 +20,9 @@
 package org.cellocad.v2.common.file.dot.utils;
 
 import java.io.File;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.ExecCommand;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 
 /**
  * Utility methods for converting DOT files to other formats.

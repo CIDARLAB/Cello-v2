@@ -21,8 +21,8 @@ package org.cellocad.v2.logicSynthesis.algorithm.Yosys;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import org.cellocad.v2.common.CelloException;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
 import org.cellocad.v2.logicSynthesis.runtime.Main;

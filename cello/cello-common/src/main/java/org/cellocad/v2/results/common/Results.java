@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.io.File;
 import java.io.IOException;
 import org.cellocad.v2.common.CObject;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 
 /**
  * The results of an application. Writes a metadata file.

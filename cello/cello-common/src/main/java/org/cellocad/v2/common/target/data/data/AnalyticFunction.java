@@ -21,7 +21,7 @@ package org.cellocad.v2.common.target.data.data;
 
 import java.util.Map;
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.netlist.NetlistNode;

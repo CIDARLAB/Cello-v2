@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.ImmutableTable.Builder;
 import com.google.common.collect.Table;
 import org.apache.commons.math3.ml.distance.EuclideanDistance;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

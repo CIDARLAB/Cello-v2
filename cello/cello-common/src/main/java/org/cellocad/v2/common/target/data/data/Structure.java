@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.cellocad.v2.common.CObject;
 import org.cellocad.v2.common.CObjectCollection;
-import org.cellocad.v2.common.CelloException;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
