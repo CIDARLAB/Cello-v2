@@ -491,7 +491,7 @@ public class Eugene extends PLAlgorithm {
       final EugeneCollection ec = eugene.executeScript(getEugeneScript());
       setEugeneResults((EugeneArray) ec.get("allResults"));
     } catch (final EugeneException e) {
-      throw new CelloException(e);
+      throw new CelloException("Error with Eugene.", e);
     }
   }
 
