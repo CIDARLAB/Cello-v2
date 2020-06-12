@@ -38,10 +38,12 @@ import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.graph.algorithm.MyBFS;
 import org.cellocad.v2.common.runtime.environment.ArgString;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.cellocad.v2.common.target.data.data.DeviceRules;
 import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.GeneticLocation;
+import org.cellocad.v2.common.target.data.data.Input;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.Part;
 import org.cellocad.v2.common.target.data.data.StructureDevice;
@@ -253,14 +255,27 @@ public class Eugene extends PLAlgorithm {
    */
   private Collection<String> getDeviceDefinitions() {
     final Collection<String> rtn = new ArrayList<>();
-    for (final Collection<StructureDevice> devices : getDevicesMap().values()) {
-      final Iterator<StructureDevice> it = devices.iterator();
-      while (it.hasNext()) {
-        final StructureDevice d = it.next();
-        final EugeneDevice e = new EugeneDevice(d);
+    for (final NetlistNode node : getDevicesMap().keySet()) {
+      Collection<Input> inputs = new ArrayList<>();
+      Map<Input, Part> map = EugeneUtils.getInputsMap(node, this.getTargetDataInstance());
+      for (int i = 0; i < node.getNumInEdge(); i++) {
+        NetlistEdge e = node.getInEdgeAtIdx(i);
+        Input input = e.getResultNetlistEdgeData().getInput();
+        inputs.add(input);
+      }
+      for (final StructureDevice device : getDevicesMap().get(node)) {
+        final EugeneDevice e = new EugeneDevice(device, map);
         rtn.add(e.toString());
       }
     }
+    //    for (final Collection<StructureDevice> devices : getDevicesMap().values()) {
+    //      final Iterator<StructureDevice> it = devices.iterator();
+    //      while (it.hasNext()) {
+    //        final StructureDevice d = it.next();
+    //        final EugeneDevice e = new EugeneDevice(d);
+    //        rtn.add(e.toString());
+    //      }
+    //    }
     return rtn;
   }
 
@@ -422,9 +437,34 @@ public class Eugene extends PLAlgorithm {
     return rtn;
   }
 
+  protected void initEdges() {
+    for (int i = 0; i < getNetlist().getNumVertex(); i++) {
+      final NetlistNode node = getNetlist().getVertexAtIdx(i);
+      final String name = node.getResultNetlistNodeData().getDeviceName();
+      AssignableDevice device = null;
+      device = this.getTargetDataInstance().getInputSensors().findCObjectByName(name);
+      if (device == null) {
+        device = this.getTargetDataInstance().getOutputDevices().findCObjectByName(name);
+      }
+      if (device == null) {
+        device = this.getTargetDataInstance().getGates().findCObjectByName(name);
+      }
+      node.getResultNetlistNodeData().setDevice(device);
+      if (node.getNumInEdge() > device.getStructure().getInputs().size()) {
+        throw new RuntimeException("Device structure does not have enough inputs.");
+      }
+      for (int j = 0; j < node.getNumInEdge(); j++) {
+        final NetlistEdge e = node.getInEdgeAtIdx(j);
+        final Input input = device.getStructure().getInputs().get(j);
+        e.getResultNetlistEdgeData().setInput(input);
+      }
+    }
+  }
+
   /** Perform preprocessing. */
   @Override
   protected void preprocessing() {
+    initEdges();
     LSResultNetlistUtils.setVertexTypeUsingLSResult(getNetlist());
     setDevicesMap(new HashMap<NetlistNode, Collection<StructureDevice>>());
     setDeviceNameNetlistNodeMap(new HashMap<String, NetlistNode>());

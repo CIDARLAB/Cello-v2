@@ -21,11 +21,14 @@ package org.cellocad.v2.placing.algorithm.Eugene;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import org.cellocad.v2.common.CObjectCollection;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.Input;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.OutputDevice;
 import org.cellocad.v2.common.target.data.data.Part;
@@ -152,6 +155,38 @@ public class EugeneUtils {
         final StructureDevice d = (StructureDevice) o;
         rtn.addAll(EugeneUtils.getPartDefinitions(d, parts));
       }
+    }
+    return rtn;
+  }
+
+  /**
+   * Get the {@link Part} objects that act as inputs to the given node.
+   *
+   * @param node A {@link NetlistNode}.
+   * @param tdi The {@link TargetDataInstance} that describes the parts.
+   * @return A collection of {@link Part} objects that act as inputs to the given node.
+   */
+  public static Map<Input, Part> getInputsMap(
+      final NetlistNode node, final TargetDataInstance tdi) {
+    Map<Input, Part> rtn = new HashMap<>();
+    for (int i = 0; i < node.getNumInEdge(); i++) {
+      final NetlistEdge e = node.getInEdgeAtIdx(i);
+      final NetlistNode src = e.getSrc();
+      Input input = e.getResultNetlistEdgeData().getInput();
+      String inputPartName = "";
+      final String gateType = src.getResultNetlistNodeData().getDeviceName();
+      if (LSResultsUtils.isAllInput(src)) {
+        final InputSensor sensor = tdi.getInputSensors().findCObjectByName(gateType);
+        inputPartName = sensor.getStructure().getOutputs().get(0);
+      } else {
+        final Gate gate = tdi.getGates().findCObjectByName(gateType);
+        if (gate == null) {
+          new RuntimeException("Unknown gate.");
+        }
+        inputPartName = gate.getStructure().getOutputs().get(0);
+      }
+      final Part part = tdi.getParts().findCObjectByName(inputPartName);
+      rtn.put(input, part);
     }
     return rtn;
   }

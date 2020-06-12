@@ -21,9 +21,13 @@ package org.cellocad.v2.placing.algorithm.Eugene.target.data.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.cellocad.v2.common.Utils;
+import org.cellocad.v2.common.target.data.data.Input;
+import org.cellocad.v2.common.target.data.data.Part;
 import org.cellocad.v2.common.target.data.data.StructureDevice;
 import org.cellocad.v2.common.target.data.data.StructureObject;
+import org.cellocad.v2.common.target.data.data.StructurePart;
 import org.cellocad.v2.common.target.data.data.StructureTemplate;
 import org.json.simple.JSONObject;
 
@@ -41,6 +45,32 @@ public class EugeneDevice extends StructureDevice {
 
   public EugeneDevice(final StructureDevice device) {
     super(device);
+  }
+
+  /**
+   * Initializes a newly created {@link EugeneDevice}, mapping template parts to actual parts.
+   *
+   * @param device The device.
+   * @param map The input to part map.
+   */
+  public EugeneDevice(final StructureDevice device, final Map<Input, Part> map) {
+    super(device);
+    List<StructureObject> components = new ArrayList<>();
+    for (StructureObject obj : this.getComponents()) {
+      if (obj instanceof StructureTemplate) {
+        for (Input input : map.keySet()) {
+          if (input.getName().equals(obj.getName())) {
+            StructurePart p = new StructurePart();
+            p.setName(map.get(input).getName());
+            components.add(p);
+          }
+        }
+      } else {
+        components.add(obj);
+      }
+    }
+    this.getComponents().clear();
+    this.getComponents().addAll(components);
   }
 
   @Override
