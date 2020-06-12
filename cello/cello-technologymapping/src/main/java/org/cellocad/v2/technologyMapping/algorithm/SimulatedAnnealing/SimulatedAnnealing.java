@@ -33,6 +33,7 @@ import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.netlistConstraint.data.NetlistConstraint;
 import org.cellocad.v2.common.runtime.environment.ArgString;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;
+import org.cellocad.v2.common.target.data.data.DeviceRules;
 import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.Input;
 import org.cellocad.v2.common.target.data.data.InputSensor;
@@ -52,9 +53,11 @@ import org.cellocad.v2.results.technologyMapping.activity.TMActivityEvaluation;
 import org.cellocad.v2.results.technologyMapping.cytometry.TMCytometryEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.TMAlgorithm;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.assignment.GateManager;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.roadblock.RoadBlockUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.score.ScoreUtils;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.data.toxicity.TMToxicityEvaluation;
 import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.results.SimulatedAnnealingResultsUtils;
+import org.cellocad.v2.technologyMapping.algorithm.SimulatedAnnealing.target.data.SimulatedAnnealingTargetDataUtils;
 import org.cellocad.v2.technologyMapping.target.data.TMTargetDataInstance;
 import org.json.simple.JSONObject;
 
@@ -110,6 +113,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
   protected void getDataFromUcf() throws CelloException {
     final TMTargetDataInstance tdi = new TMTargetDataInstance(getTargetData());
     setTargetDataInstance(tdi);
+    setDeviceRules(SimulatedAnnealingTargetDataUtils.getDeviceRules(getTargetData()));
   }
 
   /** Set parameter values of the algorithm. */
@@ -311,6 +315,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
         tandemSwap = true;
       }
 
+      // If gate <-> library swap
       NetlistNode nodeA = null;
       Gate gateA = getGateManager().getRandomGateFromUnassignedGroup();
       if (gateA == null) {
@@ -324,18 +329,38 @@ public class SimulatedAnnealing extends TMAlgorithm {
       } while (nodeB == nodeA);
       gateB = (Gate) nodeB.getResultNetlistNodeData().getDevice();
 
+      // If promoter order swap
       NetlistNode swapNode = null;
-
       if (!tandemSwap) {
         logDebug("Gate swap.");
         logDebug(logReadout("gateA", "%s", gateA.getName()));
         logDebug(logReadout("gateB", "%s", gateB.getName()));
+        Integer numBlockedBefore =
+            RoadBlockUtils.getNumberOfRoadBlockedNodes(
+                this.getNetlist(), this.getDeviceRules(), this.getTargetDataInstance());
         swap(nodeA, gateA, nodeB, gateB);
+        Integer numBlockedAfter =
+            RoadBlockUtils.getNumberOfRoadBlockedNodes(
+                this.getNetlist(), this.getDeviceRules(), this.getTargetDataInstance());
+        if (numBlockedAfter > numBlockedBefore) {
+          swap(nodeA, gateB, nodeB, gateA);
+          continue;
+        }
       } else {
         swapNode = SimulatedAnnealingUtils.getRandomNodeWithTandemPair(this.getNetlist());
+        final Boolean blockedBefore =
+            RoadBlockUtils.isNodeRoadBlocked(
+                swapNode, this.getDeviceRules(), this.getTargetDataInstance());
         logDebug("Promoter order swap.");
         logDebug(logReadout("node", "%s", swapNode.getName()));
         SimulatedAnnealingUtils.swapTandemOrder(swapNode);
+        final Boolean blockedAfter =
+            RoadBlockUtils.isNodeRoadBlocked(
+                swapNode, this.getDeviceRules(), this.getTargetDataInstance());
+        if (!blockedBefore && blockedAfter) {
+          SimulatedAnnealingUtils.swapTandemOrder(swapNode);
+          continue;
+        }
       }
 
       // evaluate
@@ -490,6 +515,12 @@ public class SimulatedAnnealing extends TMAlgorithm {
    */
   @Override
   protected void postprocessing() throws CelloException {
+    Integer numBlocked =
+        RoadBlockUtils.getNumberOfRoadBlockedNodes(
+            this.getNetlist(), this.getDeviceRules(), this.getTargetDataInstance());
+    if (numBlocked > 0) {
+      throw new CelloException("Circuit has roadblocked nodes.");
+    }
     setNodeDeviceNames();
     final String inputFilename = getNetlist().getInputFilename();
     final String filename = Utils.getFilename(inputFilename);
@@ -723,6 +754,26 @@ public class SimulatedAnnealing extends TMAlgorithm {
   }
 
   private TMCytometryEvaluation tmce;
+
+  /**
+   * Getter for {@code deviceRules}.
+   *
+   * @return The value of {@code deviceRules}.
+   */
+  public DeviceRules getDeviceRules() {
+    return deviceRules;
+  }
+
+  /**
+   * Setter for {@code deviceRules}.
+   *
+   * @param deviceRules The value to set {@code deviceRules}.
+   */
+  public void setDeviceRules(DeviceRules deviceRules) {
+    this.deviceRules = deviceRules;
+  }
+
+  private DeviceRules deviceRules;
 
   /*
    * Random

@@ -24,6 +24,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.target.data.TargetDataInstance;
+import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.Input;
+import org.cellocad.v2.common.target.data.data.InputSensor;
+import org.cellocad.v2.common.target.data.data.Part;
+import org.cellocad.v2.results.logicSynthesis.LSResultsUtils;
+import org.cellocad.v2.results.netlist.NetlistEdge;
+import org.cellocad.v2.results.netlist.NetlistNode;
 
 /**
  * Utility methods for the <i>technologyMapping</i> stage.
@@ -66,6 +77,68 @@ public class TMUtils {
     isr.close();
     is.close();
     rtn = sb.toString();
+    return rtn;
+  }
+
+  /**
+   * Get the {@link Part} objects that act as inputs to the given node.
+   *
+   * @param node A {@link NetlistNode}.
+   * @param tdi The {@link TargetDataInstance} that describes the parts.
+   * @return A collection of {@link Part} objects that act as inputs to the given node.
+   */
+  public static CObjectCollection<Part> getInputParts(
+      final NetlistNode node, final TargetDataInstance tdi) {
+    CObjectCollection<Part> rtn = new CObjectCollection<>();
+    for (int i = 0; i < node.getNumInEdge(); i++) {
+      final NetlistEdge e = node.getInEdgeAtIdx(i);
+      final NetlistNode src = e.getSrc();
+      String input = "";
+      final String gateType = src.getResultNetlistNodeData().getDeviceName();
+      if (LSResultsUtils.isAllInput(src)) {
+        final InputSensor sensor = tdi.getInputSensors().findCObjectByName(gateType);
+        input = sensor.getStructure().getOutputs().get(0);
+      } else {
+        final Gate gate = tdi.getGates().findCObjectByName(gateType);
+        if (gate == null) {
+          new RuntimeException("Unknown gate.");
+        }
+        input = gate.getStructure().getOutputs().get(0);
+      }
+      final Part part = tdi.getParts().findCObjectByName(input);
+      rtn.add(part);
+    }
+    return rtn;
+  }
+
+  /**
+   * Get the {@link Part} objects that act as inputs to the given node.
+   *
+   * @param node A {@link NetlistNode}.
+   * @param tdi The {@link TargetDataInstance} that describes the parts.
+   * @return A collection of {@link Part} objects that act as inputs to the given node.
+   */
+  public static Map<Input, Part> getInputs(final NetlistNode node, final TargetDataInstance tdi) {
+    Map<Input, Part> rtn = new HashMap<>();
+    for (int i = 0; i < node.getNumInEdge(); i++) {
+      final NetlistEdge e = node.getInEdgeAtIdx(i);
+      final NetlistNode src = e.getSrc();
+      Input input = e.getResultNetlistEdgeData().getInput();
+      String inputPartName = "";
+      final String gateType = src.getResultNetlistNodeData().getDeviceName();
+      if (LSResultsUtils.isAllInput(src)) {
+        final InputSensor sensor = tdi.getInputSensors().findCObjectByName(gateType);
+        inputPartName = sensor.getStructure().getOutputs().get(0);
+      } else {
+        final Gate gate = tdi.getGates().findCObjectByName(gateType);
+        if (gate == null) {
+          new RuntimeException("Unknown gate.");
+        }
+        inputPartName = gate.getStructure().getOutputs().get(0);
+      }
+      final Part part = tdi.getParts().findCObjectByName(inputPartName);
+      rtn.put(input, part);
+    }
     return rtn;
   }
 }
