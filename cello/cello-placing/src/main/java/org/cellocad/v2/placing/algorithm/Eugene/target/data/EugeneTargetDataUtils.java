@@ -19,12 +19,11 @@
 
 package org.cellocad.v2.placing.algorithm.Eugene.target.data;
 
-import org.cellocad.v2.common.CObjectCollection;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.cellocad.v2.common.target.data.TargetData;
 import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.cellocad.v2.common.target.data.data.DeviceRules;
-import org.cellocad.v2.common.target.data.data.GeneticLocation;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -41,8 +40,11 @@ public class EugeneTargetDataUtils {
    *
    * @param td The {@link TargetData}.
    * @return The circuit rules contained in the target data.
+   * @throws JsonProcessingException Unable to process JSON.
+   * @throws JsonMappingException Unable to map JSON.
    */
-  public static CircuitRules getCircuitRules(final TargetData td) {
+  public static CircuitRules getCircuitRules(final TargetData td)
+      throws JsonMappingException, JsonProcessingException {
     CircuitRules rtn = null;
     final JSONObject jObj = td.getJsonObjectAtIdx(EugeneTargetDataUtils.S_CIRCUITRULES, 0);
     rtn = new CircuitRules(jObj);
@@ -62,25 +64,6 @@ public class EugeneTargetDataUtils {
     return rtn;
   }
 
-  /**
-   * Get the genetic locations objects in the target data.
-   *
-   * @param td The target data.
-   * @return The genetic locations objects in the target data.
-   */
-  public static CObjectCollection<GeneticLocation> getGeneticLocations(final TargetData td) {
-    final CObjectCollection<GeneticLocation> rtn = new CObjectCollection<>();
-    final JSONObject obj = td.getJsonObjectAtIdx(EugeneTargetDataUtils.S_GENETICLOCATIONS, 0);
-    final JSONArray locations = (JSONArray) obj.get("locations");
-    for (int i = 0; i < locations.size(); i++) {
-      final JSONObject location = (JSONObject) locations.get(i);
-      final GeneticLocation l = new GeneticLocation(location);
-      rtn.add(l);
-    }
-    return rtn;
-  }
-
   private static String S_CIRCUITRULES = "circuit_rules";
   private static String S_DEVICERULES = "device_rules";
-  private static String S_GENETICLOCATIONS = "genetic_locations";
 }

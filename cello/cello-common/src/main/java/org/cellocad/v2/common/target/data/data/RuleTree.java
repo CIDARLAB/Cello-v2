@@ -34,6 +34,25 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RuleTree {
 
+  public RuleTree() {}
+
+  /**
+   * Initializes a newly created {@link RuleTree}.
+   *
+   * @param other The other rule tree.
+   */
+  public RuleTree(final RuleTree other) {
+    this();
+    RuleTreeNode root = other.getRoot();
+    if (root instanceof TerminalRuleTreeNode) {
+      TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) root;
+      this.root = new TerminalRuleTreeNode(terminal);
+    } else if (root instanceof ParentRuleTreeNode) {
+      ParentRuleTreeNode parent = (ParentRuleTreeNode) root;
+      this.root = new ParentRuleTreeNode(parent);
+    }
+  }
+
   private RuleTreeNode root;
 
   /**

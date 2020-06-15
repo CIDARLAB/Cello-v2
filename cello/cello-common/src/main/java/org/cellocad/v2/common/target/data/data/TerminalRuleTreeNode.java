@@ -24,6 +24,7 @@ package org.cellocad.v2.common.target.data.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +38,20 @@ import java.util.List;
 public class TerminalRuleTreeNode extends RuleTreeNode {
 
   private List<String> rules;
+
+  /** Initializes a newly created {@link TerminalRuleTreeNode}. */
+  public TerminalRuleTreeNode() {}
+
+  /**
+   * Initializes a newly created {@link TerminalRuleTreeNode}.
+   *
+   * @param other The other node.
+   */
+  public TerminalRuleTreeNode(final TerminalRuleTreeNode other) {
+    this();
+    this.setFunction(other.getFunction());
+    this.setRules(new ArrayList<>(other.getRules()));
+  }
 
   /**
    * Getter for {@code rules}.

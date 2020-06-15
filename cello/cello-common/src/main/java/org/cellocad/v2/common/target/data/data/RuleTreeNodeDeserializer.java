@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package org.cellocad.v2.common.target.data.data;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -33,6 +34,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Deserializer for {@link RuleTreeNode}.
+ *
  * @author Timothy Jones
  * @date 2020-06-15
  */

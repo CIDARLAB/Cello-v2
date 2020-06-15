@@ -32,7 +32,7 @@
 			"name": "$49",
 			"nodeType": "NOR",
 			"partitionID": -1,
-			"deviceName": "P1_QacR"
+			"deviceName": "P1_CI"
 		},
 		{
 			"name": "$50",

@@ -496,6 +496,8 @@ public class CircularLinkedList<E> extends AbstractSequentialList<E>
 
     if (succ == null) {
       last = pred;
+      last.next = first;
+      first.prev = last;
     } else {
       pred.next = succ;
       succ.prev = pred;

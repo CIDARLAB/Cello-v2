@@ -20,8 +20,6 @@
 package org.cellocad.v2.common.target.data.data;
 
 import java.io.IOException;
-import org.cellocad.v2.common.Utils;
-import org.cellocad.v2.common.target.data.data.CircuitRules;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -37,7 +35,32 @@ public class CircuitRulesTest {
 
   @Test
   public void CircuitRules_MockRules_ShouldReturn() throws IOException, ParseException {
-    String str = Utils.getResourceAsString("rules.json");
+    final String str =
+        "{\n"
+            + "  \"collection\": \"circuit_rules\",\n"
+            + "  \"rules\": {\n"
+            + "  \"function\": \"AND\",\n"
+            + "  \"rules\": [\n"
+            + "    {\n"
+            + "    \"function\": \"AND\",\n"
+            + "    \"rules\": [\n"
+            + "      \"[0] EQUALS L1\",\n"
+            + "      \"[1] EQUALS Ascar\",\n"
+            + "      \"[3] EQUALS Bscar\"\n"
+            + "    ]\n"
+            + "    },\n"
+            + "    {\n"
+            + "    \"function\": \"AND\",\n"
+            + "    \"rules\": [\n"
+            + "      \"[5] EQUALS Cscar\",\n"
+            + "      \"[7] EQUALS Dscar\",\n"
+            + "      \"[9] EQUALS Escar\"\n"
+            + "    ]\n"
+            + "    }\n"
+            + "  ]\n"
+            + "  }\n"
+            + "}\n"
+            + "";
     JSONParser parser = new JSONParser();
     JSONObject obj = (JSONObject) parser.parse(str);
     new CircuitRules(obj);

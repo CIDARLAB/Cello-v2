@@ -25,6 +25,7 @@ import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.Function;
 import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.GeneticLocation;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.LogicConstraints;
 import org.cellocad.v2.common.target.data.data.Model;
@@ -48,6 +49,7 @@ public class TargetDataInstance extends CObject {
   private final CObjectCollection<Gate> gates;
   private final CObjectCollection<InputSensor> inputSensors;
   private final CObjectCollection<OutputDevice> outputDevices;
+  private final CObjectCollection<GeneticLocation> geneticLocations;
 
   /**
    * Initializes a target data instance with target data.
@@ -64,6 +66,7 @@ public class TargetDataInstance extends CObject {
     gates = TargetDataUtils.getGates(td, models, structures);
     inputSensors = TargetDataUtils.getInputSensors(td, models, structures);
     outputDevices = TargetDataUtils.getOutputDevices(td, models, structures);
+    geneticLocations = TargetDataUtils.getGeneticLocations(td);
   }
 
   @Override
@@ -142,5 +145,14 @@ public class TargetDataInstance extends CObject {
    */
   public CObjectCollection<OutputDevice> getOutputDevices() {
     return outputDevices;
+  }
+
+  /**
+   * Getter for {@code geneticLocations}.
+   *
+   * @return The value of {@code geneticLocations}.
+   */
+  public CObjectCollection<GeneticLocation> getGeneticLocations() {
+    return geneticLocations;
   }
 }

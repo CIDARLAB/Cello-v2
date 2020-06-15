@@ -35,6 +35,7 @@ import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.BivariateLookupTableFunction;
 import org.cellocad.v2.common.target.data.data.Function;
 import org.cellocad.v2.common.target.data.data.Gate;
+import org.cellocad.v2.common.target.data.data.GeneticLocation;
 import org.cellocad.v2.common.target.data.data.InputSensor;
 import org.cellocad.v2.common.target.data.data.LogicConstraints;
 import org.cellocad.v2.common.target.data.data.LookupTableFunction;
@@ -65,6 +66,7 @@ public class TargetDataUtils {
   private static final String S_INPUTSENSORS = "input_sensors";
   private static final String S_OUTPUTDEVICES = "output_devices";
   private static final String S_LOGIC_CONSTRAINTS = "logic_constraints";
+  private static final String S_GENETICLOCATIONS = "genetic_locations";
 
   /**
    * Get all the parts from the target data.
@@ -266,6 +268,24 @@ public class TargetDataUtils {
     LogicConstraints rtn = null;
     final JSONObject jObj = td.getJsonObjectAtIdx(TargetDataUtils.S_LOGIC_CONSTRAINTS, 0);
     rtn = new LogicConstraints(jObj);
+    return rtn;
+  }
+
+  /**
+   * Get the genetic locations objects in the target data.
+   *
+   * @param td The target data.
+   * @return The genetic locations objects in the target data.
+   */
+  public static CObjectCollection<GeneticLocation> getGeneticLocations(final TargetData td) {
+    final CObjectCollection<GeneticLocation> rtn = new CObjectCollection<>();
+    final JSONObject obj = td.getJsonObjectAtIdx(TargetDataUtils.S_GENETICLOCATIONS, 0);
+    final JSONArray locations = (JSONArray) obj.get("locations");
+    for (int i = 0; i < locations.size(); i++) {
+      final JSONObject location = (JSONObject) locations.get(i);
+      final GeneticLocation l = new GeneticLocation(location);
+      rtn.add(l);
+    }
     return rtn;
   }
 

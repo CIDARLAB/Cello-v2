@@ -38,7 +38,19 @@ public enum RuleTreeFunction {
     this.function = function;
   }
 
-  public String getValue() {
-    return this.function;
+  /**
+   * Get the operator string value associated with the function.
+   *
+   * @return
+   */
+  public String getOperator() {
+    switch (function) {
+      case "AND":
+        return "&";
+      case "OR":
+        return "|";
+      default:
+        return "";
+    }
   }
 }

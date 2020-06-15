@@ -19,6 +19,7 @@
 
 package org.cellocad.v2.placing.algorithm.Eugene;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -131,9 +132,12 @@ public class Eugene extends PLAlgorithm {
   @Override
   protected void getDataFromUcf() throws CelloException {
     setTargetDataInstance(new PLTargetDataInstance(getTargetData()));
-    setCircuitRules(EugeneTargetDataUtils.getCircuitRules(getTargetData()));
+    try {
+      setCircuitRules(EugeneTargetDataUtils.getCircuitRules(getTargetData()));
+    } catch (JsonProcessingException e) {
+      throw new CelloException("Unable to parse circuit rules.");
+    }
     setDeviceRules(EugeneTargetDataUtils.getDeviceRules(getTargetData()));
-    setGeneticLocations(EugeneTargetDataUtils.getGeneticLocations(getTargetData()));
   }
 
   /** Set parameter values of the algorithm. */
@@ -220,6 +224,8 @@ public class Eugene extends PLAlgorithm {
       final String str = EugeneUtils.getPartTypeDefinition(it.next());
       rtn.add(str);
     }
+    final String scar = EugeneUtils.getPartTypeDefinition(Part.S_SCAR);
+    rtn.add(scar);
     return rtn;
   }
 
@@ -243,6 +249,11 @@ public class Eugene extends PLAlgorithm {
       final CObjectCollection<Part> inputs = EugeneUtils.getInputs(node, getTargetDataInstance());
       for (final Part p : inputs) {
         rtn.add(EugeneUtils.getPartDefinition(p));
+      }
+    }
+    for (Part part : this.getTargetDataInstance().getParts()) {
+      if (part.getPartType().equals(Part.S_SCAR)) {
+        rtn.add(EugeneUtils.getPartDefinition(part));
       }
     }
     return rtn;
@@ -282,8 +293,8 @@ public class Eugene extends PLAlgorithm {
   private Collection<String> getLocationSpecifications() {
     final Collection<String> rtn = new ArrayList<>();
     rtn.add(EugeneUtils.getPartTypeDefinition(Eugene.S_FENCEPOST));
-    for (int i = 1; i < getGeneticLocations().size(); i++) {
-      final GeneticLocation l = getGeneticLocations().get(i);
+    for (int i = 0; i < this.getTargetDataInstance().getGeneticLocations().size(); i++) {
+      final GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().get(i);
       rtn.add(String.format("%s %s();", Eugene.S_FENCEPOST, l.getName()));
     }
     return rtn;
@@ -378,12 +389,28 @@ public class Eugene extends PLAlgorithm {
         rtn += ",";
       }
     }
-    for (int i = 1; i < getGeneticLocations().size(); i++) {
-      final GeneticLocation l = getGeneticLocations().get(i);
-      rtn += Utils.getNewLine();
-      rtn += Utils.getTabCharacter();
-      rtn += String.format("%s", l.getName());
-      rtn += ",";
+    //    for (int i = 0; i < this.getTargetDataInstance().getGeneticLocations().size(); i++) {
+    //      final GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().get(i);
+    //      rtn += Utils.getNewLine();
+    //      rtn += Utils.getTabCharacter();
+    //      rtn += String.format("%s", l.getName());
+    //      rtn += ",";
+    //    }
+    for (final String obj : this.getCircuitRules().getAcceptedFixedObjects()) {
+      GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().findCObjectByName(obj);
+      Part p = this.getTargetDataInstance().getParts().findCObjectByName(obj);
+      if (l != null) {
+        rtn += Utils.getNewLine();
+        rtn += Utils.getTabCharacter();
+        rtn += String.format("%s", l.getName());
+        rtn += ",";
+      }
+      if (p != null) {
+        rtn += Utils.getNewLine();
+        rtn += Utils.getTabCharacter();
+        rtn += String.format("%s", p.getPartType());
+        rtn += ",";
+      }
     }
     rtn = rtn.substring(0, rtn.length() - 1);
     rtn += Utils.getNewLine();
@@ -480,8 +507,8 @@ public class Eugene extends PLAlgorithm {
       }
     }
     final Collection<String> fenceposts = new ArrayList<>();
-    for (int i = 1; i < getGeneticLocations().size(); i++) {
-      final GeneticLocation l = getGeneticLocations().get(i);
+    for (int i = 0; i < this.getTargetDataInstance().getGeneticLocations().size(); i++) {
+      final GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().get(i);
       fenceposts.add(l.getName());
     }
 
@@ -504,7 +531,7 @@ public class Eugene extends PLAlgorithm {
     // circuit declaration
     script += getCircuitDeclaration();
     // circuit rules
-    script += getCircuitRules().filter(deviceNames, fenceposts);
+    script += getCircuitRules().filter(deviceNames, this.getTargetDataInstance());
     // results
     script += getResultsDefinition();
 
@@ -916,24 +943,6 @@ public class Eugene extends PLAlgorithm {
     this.deviceRules = deviceRules;
   }
 
-  /**
-   * Getter for {@code geneticLocations}.
-   *
-   * @return The value of {@code geneticLocations}.
-   */
-  public CObjectCollection<GeneticLocation> getGeneticLocations() {
-    return geneticLocations;
-  }
-
-  /**
-   * Setter for {@code geneticLocations}.
-   *
-   * @param geneticLocations The value to set {@code geneticLocations}.
-   */
-  public void setGeneticLocations(final CObjectCollection<GeneticLocation> geneticLocations) {
-    this.geneticLocations = geneticLocations;
-  }
-
   private Integer maxPlacements;
   private EugeneArray eugeneResults;
   private String eugeneScript;
@@ -942,7 +951,6 @@ public class Eugene extends PLAlgorithm {
   private Map<String, NetlistNode> deviceNameNetlistNodeMap;
   private CircuitRules circuitRules;
   private DeviceRules deviceRules;
-  private CObjectCollection<GeneticLocation> geneticLocations;
 
   private static String S_FENCEPOST = "fencepost";
 }

@@ -23,6 +23,7 @@
 package org.cellocad.v2.common.target.data.data;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -34,6 +35,29 @@ import java.util.Collection;
 public class ParentRuleTreeNode extends RuleTreeNode {
 
   private Collection<RuleTreeNode> children;
+
+  /** Initializes a newly created {@link ParentRuleTreeNode}. */
+  public ParentRuleTreeNode() {}
+
+  /**
+   * Initializes a newly created {@link ParentRuleTreeNode}.
+   *
+   * @param other The other node.
+   */
+  public ParentRuleTreeNode(final ParentRuleTreeNode other) {
+    this();
+    this.setFunction(other.getFunction());
+    this.setChildren(new ArrayList<RuleTreeNode>());
+    for (RuleTreeNode node : other.getChildren()) {
+      if (node instanceof TerminalRuleTreeNode) {
+        TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) node;
+        this.getChildren().add(new TerminalRuleTreeNode(terminal));
+      } else if (node instanceof ParentRuleTreeNode) {
+        ParentRuleTreeNode parent = (ParentRuleTreeNode) node;
+        this.getChildren().add(new ParentRuleTreeNode(parent));
+      }
+    }
+  }
 
   /**
    * Getter for {@code children}.
