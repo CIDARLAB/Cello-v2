@@ -389,22 +389,22 @@ public class Eugene extends PLAlgorithm {
         rtn += ",";
       }
     }
-    //    for (int i = 0; i < this.getTargetDataInstance().getGeneticLocations().size(); i++) {
-    //      final GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().get(i);
-    //      rtn += Utils.getNewLine();
-    //      rtn += Utils.getTabCharacter();
-    //      rtn += String.format("%s", l.getName());
-    //      rtn += ",";
-    //    }
+    for (int i = 0; i < this.getTargetDataInstance().getGeneticLocations().size(); i++) {
+      final GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().get(i);
+      rtn += Utils.getNewLine();
+      rtn += Utils.getTabCharacter();
+      rtn += String.format("%s", l.getName());
+      rtn += ",";
+    }
     for (final String obj : this.getCircuitRules().getAcceptedFixedObjects()) {
       GeneticLocation l = this.getTargetDataInstance().getGeneticLocations().findCObjectByName(obj);
       Part p = this.getTargetDataInstance().getParts().findCObjectByName(obj);
-      if (l != null) {
-        rtn += Utils.getNewLine();
-        rtn += Utils.getTabCharacter();
-        rtn += String.format("%s", l.getName());
-        rtn += ",";
-      }
+      //      if (l != null) {
+      //        rtn += Utils.getNewLine();
+      //        rtn += Utils.getTabCharacter();
+      //        rtn += String.format("%s", l.getName());
+      //        rtn += ",";
+      //      }
       if (p != null) {
         rtn += Utils.getNewLine();
         rtn += Utils.getTabCharacter();
