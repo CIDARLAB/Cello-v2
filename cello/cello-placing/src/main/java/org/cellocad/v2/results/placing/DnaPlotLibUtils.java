@@ -87,16 +87,18 @@ public class DnaPlotLibUtils {
    */
   public static String getPartType(final String type) {
     String rtn = null;
-    if (type.equalsIgnoreCase("promoter")) {
+    if (type.equals(Part.S_PROMOTER)) {
       rtn = DnaPlotLibUtils.S_PROMOTER;
-    } else if (type.equalsIgnoreCase("ribozyme")) {
+    } else if (type.equals(Part.S_RIBOZYME)) {
       rtn = DnaPlotLibUtils.S_RIBOZYME;
-    } else if (type.equalsIgnoreCase("rbs")) {
+    } else if (type.equals(Part.S_RBS)) {
       rtn = DnaPlotLibUtils.S_RBS;
-    } else if (type.equalsIgnoreCase("cds")) {
+    } else if (type.equals(Part.S_CDS)) {
       rtn = DnaPlotLibUtils.S_CDS;
-    } else if (type.equalsIgnoreCase("terminator")) {
+    } else if (type.equals(Part.S_TERMINATOR)) {
       rtn = DnaPlotLibUtils.S_TERMINATOR;
+    } else if (type.equals(Part.S_SCAR)) {
+      rtn = DnaPlotLibUtils.S_SCAR;
     }
     return rtn;
   }
@@ -125,6 +127,11 @@ public class DnaPlotLibUtils {
       final TargetDataInstance tdi)
       throws CelloException {
     final Collection<String> rtn = new ArrayList<>();
+    // FIXME
+    if (component.getNode() == null) {
+      rtn.add(object);
+      return rtn;
+    }
     final NetlistNode node = netlist.getVertexByName(component.getNode());
     final String deviceName = node.getResultNetlistNodeData().getDeviceName();
     final AssignableDevice device = tdi.getAssignableDeviceByName(deviceName);
@@ -248,17 +255,21 @@ public class DnaPlotLibUtils {
     String type = DnaPlotLibUtils.getPartType(part.getPartType());
     String x = "";
     String y = "";
-    final String gateType = node.getResultNetlistNodeData().getDeviceName();
-    final Gate gate = tdi.getGates().findCObjectByName(gateType);
-    if (gate != null) {
-      final Color color = gate.getColor();
-      rgb = DnaPlotLibUtils.getRgb(color);
-    }
-    if (LSResultsUtils.isPrimaryOutput(node)) {
-      type = DnaPlotLibUtils.S_USERDEFINED;
+    if (node != null) {
+      final String gateType = node.getResultNetlistNodeData().getDeviceName();
+      final Gate gate = tdi.getGates().findCObjectByName(gateType);
+      if (gate != null) {
+        final Color color = gate.getColor();
+        rgb = DnaPlotLibUtils.getRgb(color);
+      }
+      if (LSResultsUtils.isPrimaryOutput(node)) {
+        type = DnaPlotLibUtils.S_USERDEFINED;
+        rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
+        x = String.valueOf(25);
+        y = String.valueOf(5);
+      }
+    } else {
       rgb = DnaPlotLibUtils.getRgb(Color.BLACK);
-      x = String.valueOf(25);
-      y = String.valueOf(5);
     }
     rtn = String.format("%s,%s,%s,%s,,,%s,,,,,", part.getName(), type, x, y, rgb);
     return rtn;
@@ -392,6 +403,9 @@ public class DnaPlotLibUtils {
           final org.cellocad.v2.results.placing.placement.Component component =
               group.getComponentAtIdx(k);
           final String n = component.getNode();
+          if (n == null) {
+            continue;
+          }
           final NetlistNode node = netlist.getVertexByName(n);
           if (LSResultsUtils.isAllInput(node) || LSResultsUtils.isAllOutput(node)) {
             continue;
@@ -435,6 +449,7 @@ public class DnaPlotLibUtils {
   private static final String S_RBS = "RBS";
   private static final String S_CDS = "CDS";
   private static final String S_TERMINATOR = "Terminator";
+  private static final String S_SCAR = "Scar";
   private static final String S_REPRESSION = "Repression";
   private static final String S_USERDEFINED = "UserDefined";
   private static final String S_NONCEPAD = "_NONCE_PAD";

@@ -724,20 +724,17 @@ public class Eugene extends PLAlgorithm {
 
       if (placementElement instanceof Device) {
         final Device placementDevice = (Device) placementElement;
-        final List<List<Device>> deviceGroups = new ArrayList<>();
+        final List<List<NamedElement>> deviceGroups = new ArrayList<>();
         final List<NamedElement> circuitElements = placementDevice.getComponentList();
-        List<Device> deviceGroup = null;
+        List<NamedElement> deviceGroup = null;
         for (int j = 0; j < circuitElements.size(); j++) {
           final NamedElement circuitElement = circuitElements.get(j);
-          if (deviceGroup == null) {
+          if (circuitElement.toString().contains(S_FENCEPOST)) {
             deviceGroup = new ArrayList<>();
             deviceGroups.add(deviceGroup);
-          }
-          if (circuitElement instanceof Device) {
-            final Device device = (Device) circuitElement;
-            deviceGroup.add(device);
-          } else {
-            deviceGroup = null;
+          } else if (circuitElement instanceof Device
+              || circuitElement.toString().contains(Part.S_SCAR)) {
+            deviceGroup.add(circuitElement);
           }
         }
         for (int j = 0; j < deviceGroups.size(); j++) {
@@ -745,18 +742,30 @@ public class Eugene extends PLAlgorithm {
           placement.addPlacementGroup(group);
           deviceGroup = deviceGroups.get(j);
           for (int k = 0; k < deviceGroup.size(); k++) {
-            final Device componentDevice = deviceGroup.get(k);
-            final String name = EugeneUtils.getDeviceBaseName(componentDevice.getName());
-            final NetlistNode node = getDeviceNameNetlistNodeMap().get(name);
-            final List<String> parts = new ArrayList<>();
-            for (final NamedElement part : componentDevice.getComponentList()) {
-              parts.add(part.getName());
+            final NamedElement componentElement = deviceGroup.get(k);
+            if (componentElement instanceof Device) {
+              final Device componentDevice = (Device) componentElement;
+              final String name = EugeneUtils.getDeviceBaseName(componentDevice.getName());
+              final NetlistNode node = getDeviceNameNetlistNodeMap().get(name);
+              final List<String> parts = new ArrayList<>();
+              for (final NamedElement part : componentDevice.getComponentList()) {
+                parts.add(part.getName());
+              }
+              final Component component = new Component(parts, true, false);
+              component.setDirection(true);
+              component.setNode(node.getName());
+              component.setName(String.format("Group%d_Object%d", j, k));
+              group.addComponent(component);
+            } else if (componentElement instanceof org.cidarlab.eugene.dom.Part
+                && componentElement.toString().contains(Part.S_SCAR)) {
+              final List<String> parts = new ArrayList<>();
+              parts.add(componentElement.getName());
+              final Component component = new Component(parts, true, false);
+              component.setDirection(true);
+              component.setNode(null);
+              component.setName(String.format("Group%d_Object%d", j, k));
+              group.addComponent(component);
             }
-            final Component component = new Component(parts, true, false);
-            component.setDirection(true);
-            component.setNode(node.getName());
-            component.setName(String.format("Group%d_Device%d", j, k));
-            group.addComponent(component);
           }
         }
       }
