@@ -114,6 +114,12 @@ public class CytometryPlotUtils {
     return rtn;
   }
 
+  private static String getTitle(final NetlistNode node) {
+    String rtn = "";
+    rtn += node.getName() + " / " + node.getResultNetlistNodeData().getDevice().getName();
+    return rtn;
+  }
+
   private static String getPlotScript(
       final NetlistNode node,
       final LSLogicEvaluation lsle,
@@ -153,6 +159,7 @@ public class CytometryPlotUtils {
       plots += plot;
     }
     rtn = rtn.replace(S_PLOTS, plots);
+    rtn = rtn.replace(S_TITLE, getTitle(node));
     rtn = rtn.replace(S_OUTPUTFILE, output);
     return rtn;
   }
@@ -235,5 +242,6 @@ public class CytometryPlotUtils {
   private static final String S_XMIN = S_NONCE + "XMIN" + S_NONCE;
   private static final String S_XMAX = S_NONCE + "XMAX" + S_NONCE;
   private static final String S_PLOTS = S_NONCE + "PLOTS" + S_NONCE;
+  private static final String S_TITLE = S_NONCE + "TITLE" + S_NONCE;
   private static final String S_OUTPUTFILE = S_NONCE + "OUTPUTFILE" + S_NONCE;
 }

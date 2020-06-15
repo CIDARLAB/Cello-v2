@@ -184,6 +184,12 @@ public class ResponsePlotUtils {
     return rtn;
   }
 
+  private static String getTitle(final NetlistNode node) {
+    String rtn = "";
+    rtn += node.getName() + " / " + node.getResultNetlistNodeData().getDevice().getName();
+    return rtn;
+  }
+
   private static String getPlotScript(
       final NetlistNode node,
       final LSLogicEvaluation lsle,
@@ -240,6 +246,7 @@ public class ResponsePlotUtils {
         rtn.replace(
             ResponsePlotUtils.S_LOY,
             ResponsePlotUtils.getDoubleList(ResponsePlotUtils.getHiLoYData(node, lo, tmae)));
+    rtn = rtn.replace(ResponsePlotUtils.S_TITLE, ResponsePlotUtils.getTitle(node));
     rtn = rtn.replace(ResponsePlotUtils.S_OUTPUTFILE, output);
     return rtn;
   }
@@ -330,6 +337,7 @@ public class ResponsePlotUtils {
   private static String S_HIY = ResponsePlotUtils.S_NONCE + "HIY" + ResponsePlotUtils.S_NONCE;
   private static String S_LOX = ResponsePlotUtils.S_NONCE + "LOX" + ResponsePlotUtils.S_NONCE;
   private static String S_LOY = ResponsePlotUtils.S_NONCE + "LOY" + ResponsePlotUtils.S_NONCE;
+  private static String S_TITLE = ResponsePlotUtils.S_NONCE + "TITLE" + ResponsePlotUtils.S_NONCE;
   private static String S_OUTPUTFILE =
       ResponsePlotUtils.S_NONCE + "OUTPUTFILE" + ResponsePlotUtils.S_NONCE;
 }

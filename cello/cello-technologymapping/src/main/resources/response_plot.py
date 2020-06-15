@@ -20,6 +20,8 @@ plt.loglog(x,y,lw=3,color=c)
 plt.scatter(hi_x,hi_y,marker='o',s=50,color='black',zorder=10)
 plt.scatter(lo_x,lo_y,marker='o',s=50,edgecolors='black',color='none',zorder=10)
 
+plt.title("##NONCE##21##TITLE##NONCE##21##")
+
 ax.xaxis.set_major_locator(ticker.LogLocator(numticks=3))
 ax.yaxis.set_major_locator(ticker.LogLocator(numticks=3))
 
