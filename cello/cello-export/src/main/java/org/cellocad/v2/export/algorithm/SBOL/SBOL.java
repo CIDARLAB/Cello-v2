@@ -278,71 +278,81 @@ public class SBOL extends EXAlgorithm {
           final org.cellocad.v2.results.placing.placement.Component component =
               group.getComponentAtIdx(k);
 
-          // ComponentDefinition
-          final ComponentDefinition cd =
-              document.createComponentDefinition(
-                  name + component.getName(), "1", ComponentDefinition.DNA_REGION);
-          cd.addRole(SequenceOntology.ENGINEERED_REGION);
-          component.setUri(cd.getIdentity());
+          if (component.getNumPart() == 1) {
+            // Scar?
+            String partName = component.getPartAtIdx(0);
+            Part part = this.getTargetDataInstance().getParts().findCObjectByName(partName);
+            if (part.getPartType().equals(Part.S_SCAR)) {
+              continue;
+            }
+          } else {
 
-          // parts
-          String sequence = "";
-          final CObjectCollection<DnaComponent> components = new CObjectCollection<>();
-          for (int l = 0; l < component.getNumPart(); l++) {
-            final String componentName = component.getPartAtIdx(l);
-            final DnaComponent comp = getDnaComponentByName(componentName);
-            if (comp == null) {
-              final String nodeName = component.getNode();
-              final NetlistNode node = getNetlist().getVertexByName(nodeName);
-              final String deviceName = node.getResultNetlistNodeData().getDeviceName();
-              final AssignableDevice ad =
-                  getTargetDataInstance().getAssignableDeviceByName(deviceName);
-              final Structure s = ad.getStructure();
-              final StructureDevice sd = s.getDeviceByName(componentName);
-              final Collection<String> parts = SBOL.getFlattenedPartList(sd);
-              for (final String str : parts) {
-                final DnaComponent c = getDnaComponentByName(str);
-                components.add(c);
+            // ComponentDefinition
+            final ComponentDefinition cd =
+                document.createComponentDefinition(
+                    name + component.getName(), "1", ComponentDefinition.DNA_REGION);
+            cd.addRole(SequenceOntology.ENGINEERED_REGION);
+            component.setUri(cd.getIdentity());
+
+            // parts
+            String sequence = "";
+            final CObjectCollection<DnaComponent> components = new CObjectCollection<>();
+            for (int l = 0; l < component.getNumPart(); l++) {
+              final String componentName = component.getPartAtIdx(l);
+              final DnaComponent comp = getDnaComponentByName(componentName);
+              if (comp == null) {
+                final String nodeName = component.getNode();
+                final NetlistNode node = getNetlist().getVertexByName(nodeName);
+                final String deviceName = node.getResultNetlistNodeData().getDeviceName();
+                final AssignableDevice ad =
+                    getTargetDataInstance().getAssignableDeviceByName(deviceName);
+                final Structure s = ad.getStructure();
+                final StructureDevice sd = s.getDeviceByName(componentName);
+                final Collection<String> parts = SBOL.getFlattenedPartList(sd);
+                for (final String str : parts) {
+                  final DnaComponent c = getDnaComponentByName(str);
+                  components.add(c);
+                }
+              } else {
+                components.add(comp);
               }
-            } else {
-              components.add(comp);
             }
-          }
-          for (int l = 0; l < components.size(); l++) {
-            final DnaComponent co = components.get(l);
-            // Component
-            final String cDisplayId = co.getName() + "_Component";
-            final AccessType cAccess = AccessType.PUBLIC;
-            final URI cDefinitionURI = co.getUri();
-            final org.sbolstandard.core2.Component c =
-                cd.createComponent(cDisplayId, cAccess, cDefinitionURI);
+            for (int l = 0; l < components.size(); l++) {
+              final DnaComponent co = components.get(l);
+              // Component
+              final String cDisplayId = co.getName() + "_Component";
+              final AccessType cAccess = AccessType.PUBLIC;
+              final URI cDefinitionURI = co.getUri();
+              final org.sbolstandard.core2.Component c =
+                  cd.createComponent(cDisplayId, cAccess, cDefinitionURI);
 
-            // SequenceAnnotation
-            final String s = SBOLDataUtils.getDnaSequence(co);
-            final String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
-            final String saLocationId = saDisplayId + "_Range";
-            final int start = sequence.length() + 1;
-            final int end = start + s.length() - 1;
-            final SequenceAnnotation sa =
-                cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
-            sa.setComponent(c.getIdentity());
-            sequence += s;
+              // SequenceAnnotation
+              final String s = SBOLDataUtils.getDnaSequence(co);
+              final String saDisplayId = "SequenceAnnotation" + String.valueOf(l);
+              final String saLocationId = saDisplayId + "_Range";
+              final int start = sequence.length() + 1;
+              final int end = start + s.length() - 1;
+              final SequenceAnnotation sa =
+                  cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
+              sa.setComponent(c.getIdentity());
+              sequence += s;
 
-            // SequenceConstraint
-            if (l != 0) {
-              final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), l);
-              final RestrictionType scRestriction = RestrictionType.PRECEDES;
-              final URI scSubjectId =
-                  cd.getComponent(components.get(l - 1).getName() + "_Component").getIdentity();
-              final URI scObjectId = cd.getComponent(co.getName() + "_Component").getIdentity();
-              cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+              // SequenceConstraint
+              if (l != 0) {
+                final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), l);
+                final RestrictionType scRestriction = RestrictionType.PRECEDES;
+                final URI scSubjectId =
+                    cd.getComponent(components.get(l - 1).getName() + "_Component").getIdentity();
+                final URI scObjectId = cd.getComponent(co.getName() + "_Component").getIdentity();
+                cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+              }
             }
+            // Sequence
+            final Sequence s =
+                document.createSequence(
+                    cd.getDisplayId() + "_Sequence", sequence, Sequence.IUPAC_DNA);
+            cd.addSequence(s);
           }
-          // Sequence
-          final Sequence s =
-              document.createSequence(
-                  cd.getDisplayId() + "_Sequence", sequence, Sequence.IUPAC_DNA);
-          cd.addSequence(s);
         }
       }
     }
@@ -440,6 +450,7 @@ public class SBOL extends EXAlgorithm {
         final String version = "1";
         final URI type = ComponentDefinition.DNA_REGION;
 
+        // component definition for group
         final ComponentDefinition cd =
             document.createComponentDefinition(plasmidName, version, type);
         cd.addRole(SequenceOntology.ENGINEERED_REGION);
@@ -460,11 +471,20 @@ public class SBOL extends EXAlgorithm {
           }
 
           // Component
-          final String cDisplayId = component.getName() + "_Component";
-          final URI cDefinitionId = component.getUri();
-          final AccessType cAccess = AccessType.PUBLIC;
+          final String componentDisplayId = component.getName() + "_Component";
+          URI componentDefinitionId = null;
+          if (component.getNumPart() == 1) {
+            String partName = component.getPartAtIdx(0);
+            Part part = this.getTargetDataInstance().getParts().findCObjectByName(partName);
+            if (part.getPartType().equals(Part.S_SCAR)) {
+              componentDefinitionId = part.getUri();
+            }
+          } else {
+            componentDefinitionId = component.getUri();
+          }
+          final AccessType componentAccess = AccessType.PUBLIC;
           final org.sbolstandard.core2.Component c =
-              cd.createComponent(cDisplayId, cAccess, cDefinitionId);
+              cd.createComponent(componentDisplayId, componentAccess, componentDefinitionId);
 
           // SequenceAnnotation
           final String saDisplayId = String.format("SequenceAnnotation%d", k);

@@ -21,7 +21,6 @@ package org.cellocad.v2.export.algorithm.SBOL;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.stage.runtime.environment.StageArgString;
@@ -36,27 +35,33 @@ import org.junit.Test;
  */
 public class SBOLIT {
 
-  @Test
-  public void main_AndGateNetlistWithSC1C1G1T1Library_ShouldReturn()
-      throws IOException, CelloException {
-    final Path dir = Files.createTempDirectory("cello_");
-    final String[] args =
+  private static String[] getArguments(
+      final String netlist, final String prefix, final String library) throws IOException {
+    String[] rtn = null;
+    rtn =
         new String[] {
           "-" + StageArgString.INPUTNETLIST,
-          Utils.getResource("and_SC1C1G1T1_PL.netlist.json").getFile(),
+          Utils.getResource(netlist).getFile(),
           "-" + StageArgString.USERCONSTRAINTSFILE,
-          Utils.getResource("lib/ucf/SC/SC1C1G1T1.UCF.json").getFile(),
+          Utils.getResource("lib/ucf/" + prefix + "/" + library + ".UCF.json").getFile(),
           "-" + StageArgString.INPUTSENSORFILE,
-          Utils.getResource("lib/input/SC/SC1C1G1T1.input.json").getFile(),
+          Utils.getResource("lib/input/" + prefix + "/" + library + ".input.json").getFile(),
           "-" + StageArgString.OUTPUTDEVICEFILE,
-          Utils.getResource("lib/output/SC/SC1C1G1T1.output.json").getFile(),
+          Utils.getResource("lib/output/" + prefix + "/" + library + ".output.json").getFile(),
           "-" + StageArgString.ALGORITHMNAME,
           "SBOL",
           "-" + StageArgString.OUTPUTDIR,
-          dir.toString(),
+          Files.createTempDirectory("cello_").toString(),
           "-" + StageArgString.PYTHONENV,
-          "python"
+          "python" // TODO may not be platform independent
         };
+    return rtn;
+  }
+
+  @Test
+  public void main_AndGateNetlistWithSC1C1G1T1Library_ShouldReturn()
+      throws IOException, CelloException {
+    String[] args = getArguments("xor_SC1C1G1T1_PL.netlist.json", "SC", "SC1C1G1T1");
     Main.main(args);
   }
 }

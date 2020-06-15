@@ -82,23 +82,26 @@ public class SBOLUtils {
           document.createSequence(
               part.getName() + "_sequence", SBOLDataUtils.getDnaSequence(part), Sequence.IUPAC_DNA);
       rtn.addSequence(sequence);
-      if (part.getPartType().equals("promoter")) {
+      if (part.getPartType().equals(Part.S_PROMOTER)) {
         rtn.addRole(SequenceOntology.PROMOTER);
       }
-      if (part.getPartType().equals("ribozyme")) {
+      if (part.getPartType().equals(Part.S_RIBOZYME)) {
         rtn.addRole(URI.create("http://identifiers.org/so/SO:0001977"));
       }
-      if (part.getPartType().equals("rbs")) {
+      if (part.getPartType().equals(Part.S_RBS)) {
         rtn.addRole(SequenceOntology.RIBOSOME_ENTRY_SITE);
       }
-      if (part.getPartType().equals("cds")) {
+      if (part.getPartType().equals(Part.S_CDS)) {
         rtn.addRole(SequenceOntology.CDS);
       }
-      if (part.getPartType().equals("terminator")) {
+      if (part.getPartType().equals(Part.S_TERMINATOR)) {
         rtn.addRole(SequenceOntology.TERMINATOR);
       }
       if (part.getPartType().equals("cassette")) {
         rtn.addRole(SequenceOntology.ENGINEERED_REGION);
+      }
+      if (part.getPartType().equals(Part.S_SCAR)) {
+        rtn.addRole(URI.create("http://identifiers.org/so/SO:0001953"));
       }
     }
 
