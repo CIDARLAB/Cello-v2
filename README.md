@@ -1,10 +1,14 @@
 [![Build Status](https://travis-ci.org/CIDARLAB/Cello-v2.svg?branch=develop)](https://travis-ci.org/CIDARLAB/Cello-v2)
 
+# Introduction
+
+This is the repository for Cello v2, the successor of the Cello genetic circuit design software. This repository hosts the core of Cello v2, a command line tool that implements the circuit design routines. If you are looking for the web application, it is hosted at [CIDARLAB/Cello-v2-webapp][github-webapp].
+
 # Installation
 
 ## Options
 
-You have a few options to utilize Cello:
+You have a few options to install Cello:
 
 1. Get the Docker image from Docker hub and run it.
 2. Install the runtime dependencies, download a JAR file from the releases page of this repository, run the JAR file.
@@ -66,13 +70,13 @@ After execution, check the output directory for generated files.
   + [Python 3](https://www.python.org/downloads/)
   + [Yosys](http://www.clifford.at/yosys/)
     - Linux: check your package manager
-    - Mac OSX: via [Homebrew][1]: `brew install yosys`
+    - Mac OSX: via [Homebrew][homebrew]: `brew install yosys`
     - Windows:
       * download yosys-win32-mxebin-0.9.zip here: <http://www.clifford.at/yosys/download.html>
       * unzip anywhere, add the folder containing yosys.exe to `%Path%`
   + [Graphviz](http://www.graphviz.org/)
     - Linux: check your package manager
-    - Mac OSX: via [Homebrew][1]: `brew install graphviz`
+    - Mac OSX: via [Homebrew][homebrew]: `brew install graphviz`
     - Windows:
       * download and install the [latest executable package](https://graphviz.gitlab.io/_pages/Download/Download_windows.html), e.g. graphviz-2.38.msi
       * add path to dot.exe, e.g. `C:\Program Files (x86)\Graphvix2.38\bin`, to `%Path%`
@@ -83,6 +87,7 @@ After execution, check the output directory for generated files.
     - `pip install git+https://github.com/CIDARLAB/pycello-v2`
   + *The latest JAR from the releases page of this repository, or the latest snapshot from [Sonatype](https://oss.sonatype.org/#nexus-search;quick~cello-dnacompiler).*
 
+<a id="install-option-2-execution"></a>
 ### Execution
 
 Replace fields surrounded by `<>` with files or directories appropriate for your use case:
@@ -111,7 +116,7 @@ See the `sample-input` directory in this repository for example Verilog files, U
 ### Runtime dependencies
 
   + Java JDK 8 (Oracle, OpenJDK)
-  + *All other dependencies from [(Option 2)](#option-2-prepackaged-jar-file) above.*
+  + *All other dependencies from [(Option 2)](#install-option-2) above.*
 
 1. Clone the repository:
 
@@ -128,9 +133,13 @@ First go to the `target` directory:
 
     cd cello-dnacompiler/target
 
-Then proceed as in the [Execution section from (Option 2)](#execution) above.
+Then proceed as in the [Execution section from (Option 2)](#install-option-2-execution) above.
 
 # Development
+
+## Code style
+
+This project uses the [Maven Checkstyle Plugin][maven-checkstyle-plugin] with a slightly relaxed version of `google_checks.xml` to enforce code style. If the code does not match the style requirements, maven will fail during the `validate` phase. If using Eclipse, you can use the [Eclipse Checkstyle Plugin][eclipse-checkstyle-plugin] to show warnings when code does not meet the style requirements. You can also automatically format written code with the [`google-java-format`][google-java-format], which can be used from the command line, or as a plugin in Eclipse or JetBrains IDEs.
 
 ## Deployment
 
@@ -141,14 +150,14 @@ Then proceed as in the [Execution section from (Option 2)](#execution) above.
 
 ### Docker Hub
 
-  + Docker images are built and deployed via Travis CI. See `.travis.yml`.
-  + Manual
+  + Docker images are built and deployed automatically via Travis CI. See `.travis.yml`.
+  + Manual:
 
         mvn docker:build
 		mvn docker:push
-  
-## Code style
 
-  + https://github.com/google/google-java-format
-
-[1]: https://brew.sh/
+[github-webapp]: https://github.com/CIDARLAB/Cello-v2-webapp
+[homebrew]: https://brew.sh/
+[maven-checkstyle-plugin]: https://maven.apache.org/plugins/maven-checkstyle-plugin/index.html
+[eclipse-checkstyle-plugin]: https://checkstyle.org/eclipse-cs/#!/
+[google-java-format]: https://github.com/google/google-java-format
