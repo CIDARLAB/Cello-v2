@@ -125,7 +125,7 @@ public class TMUtils {
       final NetlistNode src = e.getSrc();
       Input input = e.getResultNetlistEdgeData().getInput();
       String inputPartName = "";
-      final String gateType = src.getResultNetlistNodeData().getDeviceName();
+      final String gateType = src.getResultNetlistNodeData().getDevice().getName();
       if (LSResultsUtils.isAllInput(src)) {
         final InputSensor sensor = tdi.getInputSensors().findCObjectByName(gateType);
         inputPartName = sensor.getStructure().getOutputs().get(0);
