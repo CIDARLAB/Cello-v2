@@ -99,6 +99,8 @@ public class DnaPlotLibUtils {
       rtn = DnaPlotLibUtils.S_TERMINATOR;
     } else if (type.equals(Part.S_SCAR)) {
       rtn = DnaPlotLibUtils.S_SCAR;
+    } else if (type.equals(Part.S_SPACER)) {
+      rtn = DnaPlotLibUtils.S_SPACER;
     }
     return rtn;
   }
@@ -450,6 +452,7 @@ public class DnaPlotLibUtils {
   private static final String S_CDS = "CDS";
   private static final String S_TERMINATOR = "Terminator";
   private static final String S_SCAR = "Scar";
+  private static final String S_SPACER = "Spacer";
   private static final String S_REPRESSION = "Repression";
   private static final String S_USERDEFINED = "UserDefined";
   private static final String S_NONCEPAD = "_NONCE_PAD";
