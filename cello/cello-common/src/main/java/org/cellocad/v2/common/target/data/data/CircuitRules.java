@@ -52,12 +52,14 @@ import org.logicng.transformations.dnf.DNFFactorization;
  * @author Timothy Jones
  * @date 2018-08-10
  */
+// Spaghett!
 public class CircuitRules extends AbstractRules {
 
   private Map<String, String> names;
   private Collection<String> rules;
   private RuleTree tree;
   private Collection<String> acceptedFixedObjects;
+  private final Pattern fixedPlacementRulePattern = Pattern.compile("\\[(\\d+)\\] " + EugeneRules.S_EQUALS + " ([\\.\\w]+)");
 
   /**
    * Getter for {@code acceptedFixedObjects}.
@@ -113,7 +115,7 @@ public class CircuitRules extends AbstractRules {
       }
     } else {
       TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) node;
-      Boolean keep = isFixedScarPlacementTemplate(terminal, tdi);
+      Boolean keep = isFixedPlacementRuleTemplate(terminal) && (isFixedScarPlacementTemplate(terminal, tdi) || isFixedTerminatorSpacerPlacementTemplate(terminal, tdi));
       for (final String str : terminal.getRules()) {
         final Collection<String> stuff = EugeneRules.getObjects(str);
         if (!keep
@@ -227,12 +229,11 @@ public class CircuitRules extends AbstractRules {
   }
 
   private class SortBySlot implements Comparator<String> {
-    private final Pattern r = Pattern.compile("\\[(\\d+)\\] " + EugeneRules.S_EQUALS + " (\\w+)");
 
     public int compare(String a, String b) {
-      Matcher ma = r.matcher(a);
+      Matcher ma = fixedPlacementRulePattern.matcher(a);
       ma.matches();
-      Matcher mb = r.matcher(b);
+      Matcher mb = fixedPlacementRulePattern.matcher(b);
       mb.matches();
       return Integer.valueOf(ma.group(1)) - Integer.valueOf(mb.group(1));
     }
@@ -248,11 +249,10 @@ public class CircuitRules extends AbstractRules {
     Map<GeneticLocation, Integer> lastFilled = new HashMap<>();
     List<String> rules = node.getRules();
     Collections.sort(rules, new SortBySlot());
-    Pattern r = Pattern.compile("\\[(\\d+)\\] " + EugeneRules.S_EQUALS + " (\\w+)");
     GeneticLocation loc = null;
     Integer lastIdx = 0;
     for (final String rule : rules) {
-      Matcher m = r.matcher(rule);
+      Matcher m = fixedPlacementRulePattern.matcher(rule);
       m.matches();
       String obj = m.group(2);
       Integer idx = Integer.valueOf(m.group(1));
@@ -282,7 +282,7 @@ public class CircuitRules extends AbstractRules {
       int last = lastFilled.get(key);
       Integer idx = 0;
       for (final String rule : rules) {
-        Matcher m = r.matcher(rule);
+        Matcher m = fixedPlacementRulePattern.matcher(rule);
         m.matches();
         idx = Integer.valueOf(m.group(1));
         if (idx >= first && idx < last) {
@@ -307,19 +307,80 @@ public class CircuitRules extends AbstractRules {
     return rtn;
   }
 
+  private List<String> getFixedTerminatorSpacerPlacementRules(
+      final TerminalRuleTreeNode node,
+      final Collection<String> devices,
+      final TargetDataInstance tdi) {
+    List<String> rtn = new ArrayList<>();
+    Map<GeneticLocation, Queue<Integer>> slots = new LinkedHashMap<>();
+    Map<GeneticLocation, Integer> locationIndices = new HashMap<>();
+    Map<GeneticLocation, Integer> lastFilled = new HashMap<>();
+    List<String> rules = node.getRules();
+    Collections.sort(rules, new SortBySlot());
+    GeneticLocation loc = null;
+    Integer lastIdx = 0;
+    for (final String rule : rules) {
+      Matcher m = fixedPlacementRulePattern.matcher(rule);
+      m.matches();
+      String obj = m.group(2);
+      Integer idx = Integer.valueOf(m.group(1));
+      GeneticLocation temp = tdi.getGeneticLocations().findCObjectByName(obj);
+      for (int i = lastIdx + 1; i < idx; i++) {
+        slots.get(loc).add(i);
+      }
+      lastIdx = idx;
+      if (temp != null) {
+        loc = temp;
+        slots.put(loc, new ArrayDeque<>());
+        locationIndices.put(loc, idx);
+      }
+    }
+    List<GeneticLocation> keys = new CircularLinkedList<GeneticLocation>(slots.keySet());
+    Iterator<GeneticLocation> it = keys.iterator();
+    for (final String device : devices) {
+      GeneticLocation key = it.next();
+      Queue<Integer> q = slots.get(key);
+      Integer last = q.poll();
+      lastFilled.put(key, last);
+    }
+    Integer next = 0;
+    for (GeneticLocation key : slots.keySet()) {
+      int first = locationIndices.get(key);
+      int offset = next - first;
+      int last = lastFilled.get(key) + 1;
+      Integer idx = 0;
+      for (final String rule : rules) {
+        Matcher m = fixedPlacementRulePattern.matcher(rule);
+        m.matches();
+        idx = Integer.valueOf(m.group(1));
+        if (idx >= first && idx <= last) {
+          String newRule =
+              rule.replace(
+                  "[" + String.valueOf(idx) + "]", "[" + String.valueOf(idx + offset) + "]");
+          rtn.add(newRule);
+        }
+      }
+      next = lastFilled.get(key) + 2;
+    }
+    for (final String rule : rtn) {
+      Collection<String> objs = EugeneRules.getObjects(rule);
+      Pattern p = Pattern.compile("\\[\\d+\\]");
+      for (final String obj : objs) {
+        Matcher m = p.matcher(rule);
+        if (!m.matches()) {
+          this.acceptedFixedObjects.add(obj);
+        }
+      }
+    }
+    return rtn;
+  }
+
   private Boolean isFixedScarPlacementTemplate(
       final TerminalRuleTreeNode node, final TargetDataInstance tdi) {
     Boolean rtn = true;
-    if (!node.getFunction().equals(RuleTreeFunction.AND)) {
-      return rtn;
-    }
     for (final String rule : node.getRules()) {
-      Pattern r = Pattern.compile("\\[(\\d+)\\] " + EugeneRules.S_EQUALS + " (\\w+)");
-      Matcher m = r.matcher(rule);
-      if (!m.matches()) {
-        rtn = false;
-        break;
-      }
+      Matcher m = fixedPlacementRulePattern.matcher(rule);
+      m.matches();
       String obj = m.group(2);
       GeneticLocation loc = tdi.getGeneticLocations().findCObjectByName(obj);
       Part scar = tdi.getParts().findCObjectByName(obj);
@@ -336,6 +397,46 @@ public class CircuitRules extends AbstractRules {
     return rtn;
   }
 
+  private Boolean isFixedTerminatorSpacerPlacementTemplate(
+      final TerminalRuleTreeNode node, final TargetDataInstance tdi) {
+    Boolean rtn = true;
+    for (final String rule : node.getRules()) {
+      Matcher m = fixedPlacementRulePattern.matcher(rule);
+      m.matches();
+      String obj = m.group(2);
+      GeneticLocation loc = tdi.getGeneticLocations().findCObjectByName(obj);
+      Part part = tdi.getParts().findCObjectByName(obj);
+      if (m.group(1).equals("0") && loc == null) {
+        // First slot should be a genetic location
+        rtn = false;
+        break;
+      } else if ((part == null || (!part.getPartType().equals(Part.S_TERMINATOR) && !part.getPartType().equals(Part.S_SPACER))) && loc == null) {
+        // Other slots can be terminator or spacer or location
+        rtn = false;
+        break;
+      }
+    }
+    return rtn;
+  }
+  
+  
+
+  private Boolean isFixedPlacementRuleTemplate(
+      final TerminalRuleTreeNode node) {
+    Boolean rtn = true;
+    if (!node.getFunction().equals(RuleTreeFunction.AND)) {
+      return rtn;
+    }
+    for (final String rule : node.getRules()) {
+      Matcher m = fixedPlacementRulePattern.matcher(rule);
+      if (!m.matches()) {
+        rtn = false;
+        break;
+      }
+    }
+    return rtn;
+  }
+
   /**
    * Get a new rule tree, modified for fixed scar placement, given a collection of devices.
    *
@@ -343,16 +444,46 @@ public class CircuitRules extends AbstractRules {
    * @param tdi The target data instance.
    * @return
    */
-  private RuleTree getFixedScarPlacementRuleTree(
+  private RuleTree getFixedTerminatorSpacerPlacementRuleTree(
+      RuleTree tree, Collection<String> devices, TargetDataInstance tdi) {
+    RuleTree rtn = new RuleTree(tree);
+    RuleTreeNode root = rtn.getRoot();
+    if (root instanceof TerminalRuleTreeNode) {
+      TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) root;
+      List<String> rules = getFixedTerminatorSpacerPlacementRules(terminal, devices, tdi);
+      terminal.setRules(rules);
+    } else if (root instanceof ParentRuleTreeNode) {
+      ParentRuleTreeNode parent = (ParentRuleTreeNode) root;
+      for (RuleTreeNode child : parent.getChildren()) {
+        if (child instanceof TerminalRuleTreeNode) {
+          TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) child;
+          if (isFixedTerminatorSpacerPlacementTemplate(terminal, tdi)) {
+            List<String> rules = getFixedTerminatorSpacerPlacementRules(terminal, devices, tdi);
+            terminal.setRules(rules);
+            break;
+          }
+        }
+      }
+    }
+    return rtn;
+  }
+
+
+  /**
+   * Get a new rule tree, modified for fixed scar placement, given a collection of devices.
+   *
+   * @param devices The device names.
+   * @param tdi The target data instance.
+   * @return
+   */
+  private RuleTree getFixedScarPlacementRuleTree(RuleTree tree,
       Collection<String> devices, TargetDataInstance tdi) {
     RuleTree rtn = new RuleTree(tree);
     RuleTreeNode root = rtn.getRoot();
     if (root instanceof TerminalRuleTreeNode) {
       TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) root;
-      if (isFixedScarPlacementTemplate(terminal, tdi)) {
-        List<String> rules = getFixedScarPlacementRules(terminal, devices, tdi);
-        terminal.setRules(rules);
-      }
+      List<String> rules = getFixedScarPlacementRules(terminal, devices, tdi);
+      terminal.setRules(rules);
     } else if (root instanceof ParentRuleTreeNode) {
       ParentRuleTreeNode parent = (ParentRuleTreeNode) root;
       for (RuleTreeNode child : parent.getChildren()) {
@@ -377,7 +508,35 @@ public class CircuitRules extends AbstractRules {
    * @return The rules.
    */
   public String filter(final Collection<String> devices, final TargetDataInstance tdi) {
-    RuleTree tree = getFixedScarPlacementRuleTree(devices, tdi);
+    // RuleTree tree = getFixedScarPlacementRuleTree(devices, tdi);
+    RuleTree tree = new RuleTree(this.tree);
+    RuleTreeNode root = tree.getRoot();
+    if (root instanceof TerminalRuleTreeNode) {
+      TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) root;
+      if (isFixedPlacementRuleTemplate(terminal)) {
+        if (isFixedScarPlacementTemplate(terminal, tdi)) {
+          tree = getFixedScarPlacementRuleTree(tree, devices, tdi);
+        } else if (isFixedTerminatorSpacerPlacementTemplate(terminal, tdi)) {
+          tree = getFixedTerminatorSpacerPlacementRuleTree(tree, devices, tdi);
+        }
+      }
+    } else if (root instanceof ParentRuleTreeNode) {
+      ParentRuleTreeNode parent = (ParentRuleTreeNode) root;
+      for (RuleTreeNode child : parent.getChildren()) {
+        if (child instanceof TerminalRuleTreeNode) {
+          TerminalRuleTreeNode terminal = (TerminalRuleTreeNode) child;
+          if (isFixedPlacementRuleTemplate(terminal)) {
+            if (isFixedScarPlacementTemplate(terminal, tdi)) {
+              tree = getFixedScarPlacementRuleTree(tree, devices, tdi);
+              break;
+            } else if (isFixedTerminatorSpacerPlacementTemplate(terminal, tdi)) {
+              tree = getFixedTerminatorSpacerPlacementRuleTree(tree, devices, tdi);
+              break;
+            }
+          }
+        }
+      }
+    }
     filterCircuitRules(tree, devices, tdi);
     return String.join(Utils.getNewLine(), getRules());
   }

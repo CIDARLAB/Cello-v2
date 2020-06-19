@@ -9,16 +9,17 @@
 				"components": 
 				[
 					{
-						"name": "Group0_Object0",
+						"name": "Group0_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Ascar"
+							"TCYC7",
+							"RiboJ00_S1"
 						]
 					},
 					{
-						"name": "Group0_Object1",
+						"name": "Group0_Object2",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -28,31 +29,13 @@
 						]
 					},
 					{
-						"name": "Group0_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Bscar"
-						]
-					},
-					{
-						"name": "Group0_Object3",
-						"node": "$49",
-						"direction": 1,
-						"parts": 
-						[
-							"pPhlF1_a",
-							"P1_CI_b_cassette"
-						]
-					},
-					{
 						"name": "Group0_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Cscar"
+							"TENO1",
+							"ElvJ_S3"
 						]
 					},
 					{
@@ -66,22 +49,52 @@
 						]
 					},
 					{
-						"name": "Group0_Object6",
+						"name": "Group0_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Dscar"
+							"TGND1",
+							"RiboJ51_S5"
 						]
 					},
 					{
-						"name": "Group0_Object7",
-						"node": "$50",
+						"name": "Group0_Object8",
+						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
 							"pPhlF1_a",
-							"P2_LexA_b_cassette"
+							"P1_CI_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TTIP1",
+							"RiboJ10_S7"
+						]
+					},
+					{
+						"name": "Group0_Object11",
+						"node": "$48",
+						"direction": 1,
+						"parts": 
+						[
+							"Ptet",
+							"P1_PhlF_a_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TMRP4"
 						]
 					}
 				]
@@ -91,35 +104,17 @@
 				"components": 
 				[
 					{
-						"name": "Group1_Object0",
+						"name": "Group1_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Jscar"
-						]
-					},
-					{
-						"name": "Group1_Object1",
-						"node": "out",
-						"direction": 1,
-						"parts": 
-						[
-							"pLexA2_a",
-							"YFP_reporter_cassette"
+							"TADH1",
+							"PlmJ_S2"
 						]
 					},
 					{
 						"name": "Group1_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Kscar"
-						]
-					},
-					{
-						"name": "Group1_Object3",
 						"node": "out",
 						"direction": 1,
 						"parts": 
@@ -134,36 +129,67 @@
 						"direction": 1,
 						"parts": 
 						[
-							"Lscar"
+							"TTEF1",
+							"AraJ_S4"
 						]
 					},
 					{
 						"name": "Group1_Object5",
-						"node": "$48",
+						"node": "out",
 						"direction": 1,
 						"parts": 
 						[
-							"Ptet",
-							"P1_PhlF_a_cassette"
-						]
-					},
-					{
-						"name": "Group1_Object6",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Mscar"
+							"pCI1_a",
+							"YFP_reporter_cassette"
 						]
 					},
 					{
 						"name": "Group1_Object7",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TGSY2",
+							"ScmJ_S6"
+						]
+					},
+					{
+						"name": "Group1_Object8",
+						"node": "$50",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF1_a",
+							"P2_LexA_b_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TACT1",
+							"RiboJ53_S8"
+						]
+					},
+					{
+						"name": "Group1_Object11",
 						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
 							"Ptet",
 							"P1_CI_a_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TPDC6"
 						]
 					}
 				]
@@ -175,16 +201,17 @@
 				"components": 
 				[
 					{
-						"name": "Group0_Object0",
+						"name": "Group0_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Ascar"
+							"TCYC7",
+							"RiboJ00_S1"
 						]
 					},
 					{
-						"name": "Group0_Object1",
+						"name": "Group0_Object2",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -194,31 +221,13 @@
 						]
 					},
 					{
-						"name": "Group0_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Bscar"
-						]
-					},
-					{
-						"name": "Group0_Object3",
-						"node": "$49",
-						"direction": 1,
-						"parts": 
-						[
-							"pPhlF1_a",
-							"P1_CI_b_cassette"
-						]
-					},
-					{
 						"name": "Group0_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Cscar"
+							"TENO1",
+							"ElvJ_S3"
 						]
 					},
 					{
@@ -232,22 +241,52 @@
 						]
 					},
 					{
-						"name": "Group0_Object6",
+						"name": "Group0_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Dscar"
+							"TGND1",
+							"RiboJ51_S5"
 						]
 					},
 					{
-						"name": "Group0_Object7",
-						"node": "$48",
+						"name": "Group0_Object8",
+						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
-							"Ptet",
-							"P1_PhlF_a_cassette"
+							"pPhlF1_a",
+							"P1_CI_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TTIP1",
+							"RiboJ10_S7"
+						]
+					},
+					{
+						"name": "Group0_Object11",
+						"node": "$50",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF1_a",
+							"P2_LexA_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TMRP4"
 						]
 					}
 				]
@@ -257,35 +296,17 @@
 				"components": 
 				[
 					{
-						"name": "Group1_Object0",
+						"name": "Group1_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Jscar"
-						]
-					},
-					{
-						"name": "Group1_Object1",
-						"node": "out",
-						"direction": 1,
-						"parts": 
-						[
-							"pLexA2_a",
-							"YFP_reporter_cassette"
+							"TADH1",
+							"PlmJ_S2"
 						]
 					},
 					{
 						"name": "Group1_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Kscar"
-						]
-					},
-					{
-						"name": "Group1_Object3",
 						"node": "out",
 						"direction": 1,
 						"parts": 
@@ -300,11 +321,32 @@
 						"direction": 1,
 						"parts": 
 						[
-							"Lscar"
+							"TTEF1",
+							"AraJ_S4"
 						]
 					},
 					{
 						"name": "Group1_Object5",
+						"node": "out",
+						"direction": 1,
+						"parts": 
+						[
+							"pCI1_a",
+							"YFP_reporter_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object7",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TGSY2",
+							"ScmJ_S6"
+						]
+					},
+					{
+						"name": "Group1_Object8",
 						"node": "$49",
 						"direction": 1,
 						"parts": 
@@ -314,22 +356,32 @@
 						]
 					},
 					{
-						"name": "Group1_Object6",
+						"name": "Group1_Object10",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Mscar"
+							"TACT1",
+							"RiboJ53_S8"
 						]
 					},
 					{
-						"name": "Group1_Object7",
-						"node": "$50",
+						"name": "Group1_Object11",
+						"node": "$48",
 						"direction": 1,
 						"parts": 
 						[
-							"pPhlF1_a",
-							"P2_LexA_b_cassette"
+							"Ptet",
+							"P1_PhlF_a_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TPDC6"
 						]
 					}
 				]
@@ -341,16 +393,17 @@
 				"components": 
 				[
 					{
-						"name": "Group0_Object0",
+						"name": "Group0_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Ascar"
+							"TCYC7",
+							"RiboJ00_S1"
 						]
 					},
 					{
-						"name": "Group0_Object1",
+						"name": "Group0_Object2",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -360,31 +413,13 @@
 						]
 					},
 					{
-						"name": "Group0_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Bscar"
-						]
-					},
-					{
-						"name": "Group0_Object3",
-						"node": "$49",
-						"direction": 1,
-						"parts": 
-						[
-							"pPhlF1_a",
-							"P1_CI_b_cassette"
-						]
-					},
-					{
 						"name": "Group0_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Cscar"
+							"TENO1",
+							"ElvJ_S3"
 						]
 					},
 					{
@@ -398,22 +433,52 @@
 						]
 					},
 					{
-						"name": "Group0_Object6",
+						"name": "Group0_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Dscar"
+							"TGND1",
+							"RiboJ51_S5"
 						]
 					},
 					{
-						"name": "Group0_Object7",
+						"name": "Group0_Object8",
+						"node": "$49",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF1_a",
+							"P1_CI_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TTIP1",
+							"RiboJ10_S7"
+						]
+					},
+					{
+						"name": "Group0_Object11",
 						"node": "out",
 						"direction": 1,
 						"parts": 
 						[
-							"pLexA2_a",
+							"pCI1_a",
 							"YFP_reporter_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TMRP4"
 						]
 					}
 				]
@@ -423,16 +488,17 @@
 				"components": 
 				[
 					{
-						"name": "Group1_Object0",
+						"name": "Group1_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Jscar"
+							"TADH1",
+							"PlmJ_S2"
 						]
 					},
 					{
-						"name": "Group1_Object1",
+						"name": "Group1_Object2",
 						"node": "out",
 						"direction": 1,
 						"parts": 
@@ -442,16 +508,17 @@
 						]
 					},
 					{
-						"name": "Group1_Object2",
+						"name": "Group1_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Kscar"
+							"TTEF1",
+							"AraJ_S4"
 						]
 					},
 					{
-						"name": "Group1_Object3",
+						"name": "Group1_Object5",
 						"node": "$48",
 						"direction": 1,
 						"parts": 
@@ -461,16 +528,17 @@
 						]
 					},
 					{
-						"name": "Group1_Object4",
+						"name": "Group1_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Lscar"
+							"TGSY2",
+							"ScmJ_S6"
 						]
 					},
 					{
-						"name": "Group1_Object5",
+						"name": "Group1_Object8",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -480,22 +548,32 @@
 						]
 					},
 					{
-						"name": "Group1_Object6",
+						"name": "Group1_Object10",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Mscar"
+							"TACT1",
+							"RiboJ53_S8"
 						]
 					},
 					{
-						"name": "Group1_Object7",
+						"name": "Group1_Object11",
 						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
 							"Ptet",
 							"P1_CI_a_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TPDC6"
 						]
 					}
 				]
@@ -507,16 +585,17 @@
 				"components": 
 				[
 					{
-						"name": "Group0_Object0",
+						"name": "Group0_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Ascar"
+							"TCYC7",
+							"RiboJ00_S1"
 						]
 					},
 					{
-						"name": "Group0_Object1",
+						"name": "Group0_Object2",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -526,31 +605,13 @@
 						]
 					},
 					{
-						"name": "Group0_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Bscar"
-						]
-					},
-					{
-						"name": "Group0_Object3",
-						"node": "$49",
-						"direction": 1,
-						"parts": 
-						[
-							"pPhlF1_a",
-							"P1_CI_b_cassette"
-						]
-					},
-					{
 						"name": "Group0_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Cscar"
+							"TENO1",
+							"ElvJ_S3"
 						]
 					},
 					{
@@ -564,22 +625,52 @@
 						]
 					},
 					{
-						"name": "Group0_Object6",
+						"name": "Group0_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Dscar"
+							"TGND1",
+							"RiboJ51_S5"
 						]
 					},
 					{
-						"name": "Group0_Object7",
-						"node": "$50",
+						"name": "Group0_Object8",
+						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
 							"pPhlF1_a",
-							"P2_LexA_b_cassette"
+							"P1_CI_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TTIP1",
+							"RiboJ10_S7"
+						]
+					},
+					{
+						"name": "Group0_Object11",
+						"node": "$48",
+						"direction": 1,
+						"parts": 
+						[
+							"Ptet",
+							"P1_PhlF_a_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TMRP4"
 						]
 					}
 				]
@@ -589,35 +680,17 @@
 				"components": 
 				[
 					{
-						"name": "Group1_Object0",
+						"name": "Group1_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Jscar"
-						]
-					},
-					{
-						"name": "Group1_Object1",
-						"node": "out",
-						"direction": 1,
-						"parts": 
-						[
-							"pLexA2_a",
-							"YFP_reporter_cassette"
+							"TADH1",
+							"PlmJ_S2"
 						]
 					},
 					{
 						"name": "Group1_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Kscar"
-						]
-					},
-					{
-						"name": "Group1_Object3",
 						"node": "out",
 						"direction": 1,
 						"parts": 
@@ -632,11 +705,32 @@
 						"direction": 1,
 						"parts": 
 						[
-							"Lscar"
+							"TTEF1",
+							"AraJ_S4"
 						]
 					},
 					{
 						"name": "Group1_Object5",
+						"node": "out",
+						"direction": 1,
+						"parts": 
+						[
+							"pCI1_a",
+							"YFP_reporter_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object7",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TGSY2",
+							"ScmJ_S6"
+						]
+					},
+					{
+						"name": "Group1_Object8",
 						"node": "$49",
 						"direction": 1,
 						"parts": 
@@ -646,22 +740,32 @@
 						]
 					},
 					{
-						"name": "Group1_Object6",
+						"name": "Group1_Object10",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Mscar"
+							"TACT1",
+							"RiboJ53_S8"
 						]
 					},
 					{
-						"name": "Group1_Object7",
-						"node": "$48",
+						"name": "Group1_Object11",
+						"node": "$50",
 						"direction": 1,
 						"parts": 
 						[
-							"Ptet",
-							"P1_PhlF_a_cassette"
+							"pPhlF1_a",
+							"P2_LexA_b_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TPDC6"
 						]
 					}
 				]
@@ -673,16 +777,17 @@
 				"components": 
 				[
 					{
-						"name": "Group0_Object0",
+						"name": "Group0_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Ascar"
+							"TCYC7",
+							"RiboJ00_S1"
 						]
 					},
 					{
-						"name": "Group0_Object1",
+						"name": "Group0_Object2",
 						"node": "$50",
 						"direction": 1,
 						"parts": 
@@ -692,31 +797,13 @@
 						]
 					},
 					{
-						"name": "Group0_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Bscar"
-						]
-					},
-					{
-						"name": "Group0_Object3",
-						"node": "$49",
-						"direction": 1,
-						"parts": 
-						[
-							"pPhlF1_a",
-							"P1_CI_b_cassette"
-						]
-					},
-					{
 						"name": "Group0_Object4",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Cscar"
+							"TENO1",
+							"ElvJ_S3"
 						]
 					},
 					{
@@ -730,22 +817,52 @@
 						]
 					},
 					{
-						"name": "Group0_Object6",
+						"name": "Group0_Object7",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Dscar"
+							"TGND1",
+							"RiboJ51_S5"
 						]
 					},
 					{
-						"name": "Group0_Object7",
-						"node": "$48",
+						"name": "Group0_Object8",
+						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
-							"Ptet",
-							"P1_PhlF_a_cassette"
+							"pPhlF1_a",
+							"P1_CI_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TTIP1",
+							"RiboJ10_S7"
+						]
+					},
+					{
+						"name": "Group0_Object11",
+						"node": "$50",
+						"direction": 1,
+						"parts": 
+						[
+							"pPhlF1_a",
+							"P2_LexA_b_cassette"
+						]
+					},
+					{
+						"name": "Group0_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TMRP4"
 						]
 					}
 				]
@@ -755,35 +872,17 @@
 				"components": 
 				[
 					{
-						"name": "Group1_Object0",
+						"name": "Group1_Object1",
 						"node": "null",
 						"direction": 1,
 						"parts": 
 						[
-							"Jscar"
-						]
-					},
-					{
-						"name": "Group1_Object1",
-						"node": "out",
-						"direction": 1,
-						"parts": 
-						[
-							"pLexA2_a",
-							"YFP_reporter_cassette"
+							"TADH1",
+							"PlmJ_S2"
 						]
 					},
 					{
 						"name": "Group1_Object2",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Kscar"
-						]
-					},
-					{
-						"name": "Group1_Object3",
 						"node": "out",
 						"direction": 1,
 						"parts": 
@@ -798,36 +897,67 @@
 						"direction": 1,
 						"parts": 
 						[
-							"Lscar"
+							"TTEF1",
+							"AraJ_S4"
 						]
 					},
 					{
 						"name": "Group1_Object5",
-						"node": "$50",
+						"node": "out",
 						"direction": 1,
 						"parts": 
 						[
-							"pPhlF1_a",
-							"P2_LexA_b_cassette"
-						]
-					},
-					{
-						"name": "Group1_Object6",
-						"node": "null",
-						"direction": 1,
-						"parts": 
-						[
-							"Mscar"
+							"pCI1_a",
+							"YFP_reporter_cassette"
 						]
 					},
 					{
 						"name": "Group1_Object7",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TGSY2",
+							"ScmJ_S6"
+						]
+					},
+					{
+						"name": "Group1_Object8",
+						"node": "$48",
+						"direction": 1,
+						"parts": 
+						[
+							"Ptet",
+							"P1_PhlF_a_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object10",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TACT1",
+							"RiboJ53_S8"
+						]
+					},
+					{
+						"name": "Group1_Object11",
 						"node": "$49",
 						"direction": 1,
 						"parts": 
 						[
 							"Ptet",
 							"P1_CI_a_cassette"
+						]
+					},
+					{
+						"name": "Group1_Object12",
+						"node": "null",
+						"direction": 1,
+						"parts": 
+						[
+							"TPDC6"
 						]
 					}
 				]

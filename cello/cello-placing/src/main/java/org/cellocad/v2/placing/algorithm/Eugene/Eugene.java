@@ -224,8 +224,13 @@ public class Eugene extends PLAlgorithm {
       final String str = EugeneUtils.getPartTypeDefinition(it.next());
       rtn.add(str);
     }
+    // Just add these anyway in case of fixed placement
     final String scar = EugeneUtils.getPartTypeDefinition(Part.S_SCAR);
     rtn.add(scar);
+    final String spacer = EugeneUtils.getPartTypeDefinition(Part.S_SPACER);
+    rtn.add(spacer);
+    final String terminator = EugeneUtils.getPartTypeDefinition(Part.S_TERMINATOR);
+    rtn.add(terminator);
     return rtn;
   }
 
@@ -251,8 +256,11 @@ public class Eugene extends PLAlgorithm {
         rtn.add(EugeneUtils.getPartDefinition(p));
       }
     }
+    // Just add these anyway in case of fixed placement
     for (Part part : this.getTargetDataInstance().getParts()) {
-      if (part.getPartType().equals(Part.S_SCAR)) {
+      if (part.getPartType().equals(Part.S_SCAR)
+          || part.getPartType().equals(Part.S_TERMINATOR)
+          || part.getPartType().equals(Part.S_SPACER)) {
         rtn.add(EugeneUtils.getPartDefinition(part));
       }
     }
@@ -733,7 +741,7 @@ public class Eugene extends PLAlgorithm {
             deviceGroup = new ArrayList<>();
             deviceGroups.add(deviceGroup);
           } else if (circuitElement instanceof Device
-              || circuitElement.toString().contains(Part.S_SCAR)) {
+              || circuitElement.toString().contains(Part.S_SCAR) || circuitElement.toString().contains(Part.S_TERMINATOR) || circuitElement.toString().contains(Part.S_SPACER)) {
             deviceGroup.add(circuitElement);
           }
         }
@@ -741,30 +749,53 @@ public class Eugene extends PLAlgorithm {
           final PlacementGroup group = new PlacementGroup(true, false);
           placement.addPlacementGroup(group);
           deviceGroup = deviceGroups.get(j);
+          List<String> parts = null;
+          Component component;
           for (int k = 0; k < deviceGroup.size(); k++) {
             final NamedElement componentElement = deviceGroup.get(k);
             if (componentElement instanceof Device) {
               final Device componentDevice = (Device) componentElement;
               final String name = EugeneUtils.getDeviceBaseName(componentDevice.getName());
               final NetlistNode node = getDeviceNameNetlistNodeMap().get(name);
-              final List<String> parts = new ArrayList<>();
+              parts = new ArrayList<>();
               for (final NamedElement part : componentDevice.getComponentList()) {
                 parts.add(part.getName());
               }
-              final Component component = new Component(parts, true, false);
+              component = new Component(parts, true, false);
               component.setDirection(true);
               component.setNode(node.getName());
               component.setName(String.format("Group%d_Object%d", j, k));
               group.addComponent(component);
-            } else if (componentElement instanceof org.cidarlab.eugene.dom.Part
-                && componentElement.toString().contains(Part.S_SCAR)) {
-              final List<String> parts = new ArrayList<>();
-              parts.add(componentElement.getName());
-              final Component component = new Component(parts, true, false);
-              component.setDirection(true);
-              component.setNode(null);
-              component.setName(String.format("Group%d_Object%d", j, k));
-              group.addComponent(component);
+            } else if (componentElement instanceof org.cidarlab.eugene.dom.Part) {
+              if (componentElement.toString().contains(Part.S_SCAR)) {
+                parts = new ArrayList<>();
+                parts.add(componentElement.getName());
+                component = new Component(parts, true, false);
+                component.setDirection(true);
+                component.setNode(null);
+                component.setName(String.format("Group%d_Object%d", j, k));
+                group.addComponent(component);
+              } else {
+                if (componentElement.toString().contains(Part.S_TERMINATOR)) {
+                  parts = new ArrayList<>();
+                  parts.add(componentElement.getName());
+                  if ((k + 1) == deviceGroup.size()) {
+                    component = new Component(parts, true, false);
+                    component.setDirection(true);
+                    component.setNode(null);
+                    component.setName(String.format("Group%d_Object%d", j, k));
+                    group.addComponent(component);
+                  }
+                }
+                if (componentElement.toString().contains(Part.S_SPACER)) {
+                  parts.add(componentElement.getName());
+                  component = new Component(parts, true, false);
+                  component.setDirection(true);
+                  component.setNode(null);
+                  component.setName(String.format("Group%d_Object%d", j, k));
+                  group.addComponent(component);
+                }
+              }
             }
           }
         }

@@ -95,4 +95,5 @@ public class Part extends DnaComponent {
   public static final String S_CDS = "cds";
   public static final String S_TERMINATOR = "terminator";
   public static final String S_SCAR = "scar";
+  public static final String S_SPACER = "spacer";
 }

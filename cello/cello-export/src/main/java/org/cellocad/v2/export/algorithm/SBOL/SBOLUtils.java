@@ -103,6 +103,9 @@ public class SBOLUtils {
       if (part.getPartType().equals(Part.S_SCAR)) {
         rtn.addRole(URI.create("http://identifiers.org/so/SO:0001953"));
       }
+      if (part.getPartType().equals(Part.S_SPACER)) {
+        rtn.addRole(SequenceOntology.ENGINEERED_REGION);
+      }
     }
 
     return rtn;

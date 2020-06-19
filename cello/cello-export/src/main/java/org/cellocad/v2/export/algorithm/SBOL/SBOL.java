@@ -277,14 +277,9 @@ public class SBOL extends EXAlgorithm {
         for (int k = 0; k < group.getNumComponent(); k++) {
           final org.cellocad.v2.results.placing.placement.Component component =
               group.getComponentAtIdx(k);
-
-          if (component.getNumPart() == 1) {
-            // Scar?
-            String partName = component.getPartAtIdx(0);
-            Part part = this.getTargetDataInstance().getParts().findCObjectByName(partName);
-            if (part.getPartType().equals(Part.S_SCAR)) {
-              continue;
-            }
+          final String firstPartType = this.getTargetDataInstance().getParts().findCObjectByName(component.getPartAtIdx(0)).getPartType();
+          if ((component.getNumPart() == 1 && firstPartType.equals(Part.S_SCAR)) || firstPartType.equals(Part.S_TERMINATOR)) {
+            continue;
           } else {
 
             // ComponentDefinition
@@ -430,6 +425,10 @@ public class SBOL extends EXAlgorithm {
     return rtn;
   }
 
+  private void addComponentDefinition(ComponentDefinition cd, final String componentDisplayId, final URI componentDefinitionId, String sequence, String seq, int k, PlacementGroup group) {
+
+  }
+
   /**
    * Generate plasmid component definitions.
    *
@@ -460,52 +459,128 @@ public class SBOL extends EXAlgorithm {
         String sequence = "";
 
         // transcriptional units
+        int counter = 0;
+        String lastComponent = null;
         for (int k = 0; k < group.getNumComponent(); k++) {
           final org.cellocad.v2.results.placing.placement.Component component =
               group.getComponentAtIdx(k);
-          String seq = "";
-          for (int l = 0; l < component.getNumPart(); l++) {
-            final String name = component.getPartAtIdx(l);
-            final DnaComponent c = getDnaComponentByName(name);
-            seq += SBOLDataUtils.getDnaSequence(c);
-          }
+          final Part firstPart =
+              this.getTargetDataInstance().getParts().findCObjectByName(component.getPartAtIdx(0));
+          final String firstPartType = firstPart.getPartType();
 
           // Component
-          final String componentDisplayId = component.getName() + "_Component";
+          String componentDisplayId = null;
           URI componentDefinitionId = null;
-          if (component.getNumPart() == 1) {
-            String partName = component.getPartAtIdx(0);
-            Part part = this.getTargetDataInstance().getParts().findCObjectByName(partName);
-            if (part.getPartType().equals(Part.S_SCAR)) {
-              componentDefinitionId = part.getUri();
+          if (firstPartType.equals(Part.S_TERMINATOR)) {
+            for (int l = 0; l < component.getNumPart(); l++) {
+              String seq = "";
+              final String name = component.getPartAtIdx(l);
+              final DnaComponent dnaComponent = getDnaComponentByName(name);
+              seq += SBOLDataUtils.getDnaSequence(dnaComponent);
+              componentDisplayId = dnaComponent.getName() + "_Component";
+              componentDefinitionId = dnaComponent.getUri();
+              final AccessType componentAccess = AccessType.PUBLIC;
+              final org.sbolstandard.core2.Component c =
+                  cd.createComponent(componentDisplayId, componentAccess, componentDefinitionId);
+
+              // SequenceAnnotation
+              final String saDisplayId = String.format("SequenceAnnotation%d", counter);
+              final String saLocationId = saDisplayId + "_Range";
+              final int start = sequence.length() + 1;
+              final int end = start + seq.length() - 1;
+              final SequenceAnnotation sa =
+                  cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
+              sa.setComponent(c.getIdentity());
+              sequence += seq;
+
+              // SequenceConstraint
+              if (k != 0) {
+                final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), counter);
+                final RestrictionType scRestriction = RestrictionType.PRECEDES;
+                final URI scSubjectId =
+                    cd.getComponent(lastComponent)
+                        .getIdentity();
+                final URI scObjectId =
+                    cd.getComponent(componentDisplayId).getIdentity();
+                cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+              }
+              lastComponent = componentDisplayId;
+              counter++;
             }
+          } else if (component.getNumPart() == 1 && firstPartType.equals(Part.S_SCAR)) {
+            String seq = "";
+            for (int l = 0; l < component.getNumPart(); l++) {
+              final String name = component.getPartAtIdx(l);
+              final DnaComponent c = getDnaComponentByName(name);
+              seq += SBOLDataUtils.getDnaSequence(c);
+            }
+            final String name = component.getPartAtIdx(0);
+            final DnaComponent dnaComponent = getDnaComponentByName(name);
+            componentDisplayId = dnaComponent.getName() + "_Component";
+            componentDefinitionId = dnaComponent.getUri();
+            final AccessType componentAccess = AccessType.PUBLIC;
+            final org.sbolstandard.core2.Component c =
+                cd.createComponent(componentDisplayId, componentAccess, componentDefinitionId);
+
+            // SequenceAnnotation
+            final String saDisplayId = String.format("SequenceAnnotation%d", counter);
+            final String saLocationId = saDisplayId + "_Range";
+            final int start = sequence.length() + 1;
+            final int end = start + seq.length() - 1;
+            final SequenceAnnotation sa =
+                cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
+            sa.setComponent(c.getIdentity());
+            sequence += seq;
+
+            // SequenceConstraint
+            if (k != 0) {
+              final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), counter);
+              final RestrictionType scRestriction = RestrictionType.PRECEDES;
+              final URI scSubjectId =
+                  cd.getComponent(lastComponent)
+                      .getIdentity();
+              final URI scObjectId =
+                  cd.getComponent(component.getName() + "_Component").getIdentity();
+              cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+            }
+            lastComponent = componentDisplayId;
+            counter++;
           } else {
+            String seq = "";
+            for (int l = 0; l < component.getNumPart(); l++) {
+              final String name = component.getPartAtIdx(l);
+              final DnaComponent c = getDnaComponentByName(name);
+              seq += SBOLDataUtils.getDnaSequence(c);
+            }
+            componentDisplayId = component.getName() + "_Component";
             componentDefinitionId = component.getUri();
-          }
-          final AccessType componentAccess = AccessType.PUBLIC;
-          final org.sbolstandard.core2.Component c =
-              cd.createComponent(componentDisplayId, componentAccess, componentDefinitionId);
+            final AccessType componentAccess = AccessType.PUBLIC;
+            final org.sbolstandard.core2.Component c =
+                cd.createComponent(componentDisplayId, componentAccess, componentDefinitionId);
 
-          // SequenceAnnotation
-          final String saDisplayId = String.format("SequenceAnnotation%d", k);
-          final String saLocationId = saDisplayId + "_Range";
-          final int start = sequence.length() + 1;
-          final int end = start + seq.length() - 1;
-          final SequenceAnnotation sa =
-              cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
-          sa.setComponent(c.getIdentity());
-          sequence += seq;
+            // SequenceAnnotation
+            final String saDisplayId = String.format("SequenceAnnotation%d", counter);
+            final String saLocationId = saDisplayId + "_Range";
+            final int start = sequence.length() + 1;
+            final int end = start + seq.length() - 1;
+            final SequenceAnnotation sa =
+                cd.createSequenceAnnotation(saDisplayId, saLocationId, start, end);
+            sa.setComponent(c.getIdentity());
+            sequence += seq;
 
-          // SequenceConstraint
-          if (k != 0) {
-            final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), k);
-            final RestrictionType scRestriction = RestrictionType.PRECEDES;
-            final URI scSubjectId =
-                cd.getComponent(group.getComponentAtIdx(k - 1).getName() + "_Component")
-                    .getIdentity();
-            final URI scObjectId =
-                cd.getComponent(component.getName() + "_Component").getIdentity();
-            cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+            // SequenceConstraint
+            if (k != 0) {
+              final String scDisplayId = String.format("%s_Constraint%d", cd.getDisplayId(), counter);
+              final RestrictionType scRestriction = RestrictionType.PRECEDES;
+              final URI scSubjectId =
+                  cd.getComponent(lastComponent)
+                      .getIdentity();
+              final URI scObjectId =
+                  cd.getComponent(component.getName() + "_Component").getIdentity();
+              cd.createSequenceConstraint(scDisplayId, scRestriction, scSubjectId, scObjectId);
+            }
+            lastComponent = componentDisplayId;
+            counter++;
           }
         }
 
