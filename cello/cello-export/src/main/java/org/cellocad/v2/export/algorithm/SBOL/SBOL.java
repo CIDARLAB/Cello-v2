@@ -425,10 +425,6 @@ public class SBOL extends EXAlgorithm {
     return rtn;
   }
 
-  private void addComponentDefinition(ComponentDefinition cd, final String componentDisplayId, final URI componentDefinitionId, String sequence, String seq, int k, PlacementGroup group) {
-
-  }
-
   /**
    * Generate plasmid component definitions.
    *
