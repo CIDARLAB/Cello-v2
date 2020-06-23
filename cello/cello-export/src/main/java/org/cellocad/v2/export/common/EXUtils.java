@@ -45,7 +45,8 @@ public class EXUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(EXUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          EXUtils.class.getClassLoader().getResourceAsStream("cello-export.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

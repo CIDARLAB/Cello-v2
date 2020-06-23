@@ -59,7 +59,7 @@ public final class Utils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(Utils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(Utils.class.getClassLoader().getResourceAsStream("cello-common.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

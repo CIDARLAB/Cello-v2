@@ -45,7 +45,8 @@ public class PLUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(PLUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          PLUtils.class.getClassLoader().getResourceAsStream("cello-placing.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

@@ -45,7 +45,10 @@ public class DNACompilerUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(DNACompilerUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          DNACompilerUtils.class
+              .getClassLoader()
+              .getResourceAsStream("cello-dnacompiler.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

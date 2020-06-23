@@ -56,7 +56,8 @@ public class TMUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(TMUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          TMUtils.class.getClassLoader().getResourceAsStream("cello-technologymapping.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

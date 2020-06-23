@@ -45,7 +45,8 @@ public class PTUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(PTUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          PTUtils.class.getClassLoader().getResourceAsStream("cello-partitioning.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

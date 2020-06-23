@@ -45,7 +45,8 @@ public class LOUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(LOUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          LOUtils.class.getClassLoader().getResourceAsStream("cello-logicoptimization.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

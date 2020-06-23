@@ -45,7 +45,8 @@ public class LSUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(LSUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          LSUtils.class.getClassLoader().getResourceAsStream("cello-logicsynthesis.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }

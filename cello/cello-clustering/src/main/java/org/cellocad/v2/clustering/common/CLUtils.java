@@ -45,7 +45,8 @@ public class CLUtils {
     String rtn = null;
     final Properties properties = new Properties();
     try {
-      properties.load(CLUtils.class.getClassLoader().getResourceAsStream(".properties"));
+      properties.load(
+          CLUtils.class.getClassLoader().getResourceAsStream("cello-clustering.properties"));
     } catch (IOException e) {
       throw new CelloException("Unable to get version.");
     }
