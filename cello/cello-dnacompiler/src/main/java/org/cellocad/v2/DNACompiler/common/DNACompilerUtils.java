@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Properties;
+import org.cellocad.v2.common.exception.CelloException;
 
 /**
  * The DNACompilerUtils class is class with utility methods for the <i>DNACompiler</i> application.
@@ -32,6 +34,24 @@ import java.net.URL;
  * @date 2019-02-20
  */
 public class DNACompilerUtils {
+
+  /**
+   * Get the version of this project.
+   *
+   * @return The version of this project.
+   * @throws CelloException Unable to get the version.
+   */
+  public static String getVersion() throws CelloException {
+    String rtn = null;
+    final Properties properties = new Properties();
+    try {
+      properties.load(DNACompilerUtils.class.getClassLoader().getResourceAsStream(".properties"));
+    } catch (IOException e) {
+      throw new CelloException("Unable to get version.");
+    }
+    rtn = properties.getProperty("org.cellocad.v2.cello-dnacompiler.version");
+    return rtn;
+  }
 
   /**
    * Gets the location of a resource as a {@link URL} object.

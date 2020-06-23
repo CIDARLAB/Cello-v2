@@ -26,7 +26,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import org.cellocad.v2.common.CObjectCollection;
+import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.target.data.TargetDataInstance;
 import org.cellocad.v2.common.target.data.data.Gate;
 import org.cellocad.v2.common.target.data.data.Input;
@@ -43,6 +45,24 @@ import org.cellocad.v2.results.netlist.NetlistNode;
  * @date 2019-02-20
  */
 public class TMUtils {
+
+  /**
+   * Get the version of this project.
+   *
+   * @return The version of this project.
+   * @throws CelloException Unable to get the version.
+   */
+  public static String getVersion() throws CelloException {
+    String rtn = null;
+    final Properties properties = new Properties();
+    try {
+      properties.load(TMUtils.class.getClassLoader().getResourceAsStream(".properties"));
+    } catch (IOException e) {
+      throw new CelloException("Unable to get version.");
+    }
+    rtn = properties.getProperty("org.cellocad.v2.cello-technologymapping.version");
+    return rtn;
+  }
 
   /**
    * Gets the location of a resource as a {@link URL} object.

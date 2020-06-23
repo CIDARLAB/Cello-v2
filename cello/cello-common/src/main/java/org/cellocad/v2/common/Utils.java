@@ -30,7 +30,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Pattern;
+import org.cellocad.v2.common.exception.CelloException;
 
 /**
  * The Utils class is class with utility methods for the Poros framework.
@@ -40,6 +43,29 @@ import java.util.Random;
  * @date Oct 28, 2017
  */
 public final class Utils {
+
+  // https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+  public static final Pattern SEM_VER_PATTERN =
+      Pattern.compile(
+          "^(?<major>0|[1-9]\\d*)\\.(?<minor>0|[1-9]\\d*)\\.(?<patch>0|[1-9]\\d*)(?:-(?<prerelease>(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+
+  /**
+   * Get the version of this project.
+   *
+   * @return The version of this project.
+   * @throws CelloException Unable to get the version.
+   */
+  public static String getVersion() throws CelloException {
+    String rtn = null;
+    final Properties properties = new Properties();
+    try {
+      properties.load(Utils.class.getClassLoader().getResourceAsStream(".properties"));
+    } catch (IOException e) {
+      throw new CelloException("Unable to get version.");
+    }
+    rtn = properties.getProperty("org.cellocad.v2.cello-common.version");
+    return rtn;
+  }
 
   /**
    * Gets the location of a resource as a {@link URL} object.

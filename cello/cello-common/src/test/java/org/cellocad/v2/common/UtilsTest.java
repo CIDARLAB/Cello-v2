@@ -19,6 +19,10 @@
 
 package org.cellocad.v2.common;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.regex.Matcher;
+import org.cellocad.v2.common.exception.CelloException;
 import org.junit.Test;
 
 /**
@@ -28,6 +32,13 @@ import org.junit.Test;
  * @date 2020-02-14
  */
 public class UtilsTest {
+
+  @Test
+  public void getVersion_None_ShouldReturnVersion() throws CelloException {
+    String version = Utils.getVersion();
+    Matcher m = Utils.SEM_VER_PATTERN.matcher(version);
+    assertTrue(m.matches());
+  }
 
   @Test
   public void executeAndWaitForCommand_OsDependentCommand_ShouldReturnNonNullExecCommand() {

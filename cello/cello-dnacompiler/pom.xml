@@ -62,15 +62,15 @@
     </dependency>
   </dependencies>
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-      </resource>
-      <resource>
-        <directory>${project.build.directory}/generated-resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
+    <!-- <resources> -->
+    <!--   <resource> -->
+    <!--     <directory>${basedir}/src/main/resources</directory> -->
+    <!--   </resource> -->
+    <!--   <resource> -->
+    <!--     <directory>${project.build.directory}/generated-resources</directory> -->
+    <!--     <filtering>true</filtering> -->
+    <!--   </resource> -->
+    <!-- </resources> -->
     <plugins>
       <plugin>
         <!-- http://dmp.fabric8.io/ -->
