@@ -58,9 +58,16 @@ public class DNACompilerIT {
   }
 
   @Test
-  public void main_AndGateVerilogWithReferenceLibrary_ShouldReturn()
+  public void main_AndGateVerilogWithEco1C1G1T1Library_ShouldReturn()
       throws CelloException, IOException {
     final String[] args = getArguments("and.v", "Eco", "Eco1C1G1T1");
+    Main.main(args);
+  }
+
+  @Test
+  public void main_AndGateVerilogWithEco2C1G3T1Library_ShouldReturn()
+      throws CelloException, IOException {
+    final String[] args = getArguments("and.v", "Eco", "Eco2C1G3T1");
     Main.main(args);
   }
 }
