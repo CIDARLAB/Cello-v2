@@ -70,4 +70,11 @@ public class DNACompilerIT {
     final String[] args = getArguments("and.v", "Eco", "Eco2C1G3T1");
     Main.main(args);
   }
+
+  @Test
+  public void main_XorGateVerilogWithEco2C1G3T1Library_ShouldReturn()
+      throws CelloException, IOException {
+    final String[] args = getArguments("xor.v", "Eco", "Eco2C1G3T1");
+    Main.main(args);
+  }
 }
