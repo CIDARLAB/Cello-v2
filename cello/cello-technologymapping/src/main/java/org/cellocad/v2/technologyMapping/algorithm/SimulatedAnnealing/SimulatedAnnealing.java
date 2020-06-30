@@ -77,7 +77,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
     final NetlistConstraint constraint = getNetlistConstraint();
     String type = "";
     // input constraints
-    type = "input_constraints";
+    type = "input_sensors";
     final Map<String, String> inputMap = new HashMap<>();
     for (int i = 0; i < constraint.getNumJsonObject(type); i++) {
       final JSONObject jObj = constraint.getJsonObjectAtIdx(type, i);
@@ -90,7 +90,7 @@ public class SimulatedAnnealing extends TMAlgorithm {
     }
     setInputMap(inputMap);
     // ouptut constraints
-    type = "output_constraints";
+    type = "reporters";
     final Map<String, String> outputMap = new HashMap<>();
     for (int i = 0; i < constraint.getNumJsonObject(type); i++) {
       final JSONObject jObj = constraint.getJsonObjectAtIdx(type, i);
