@@ -74,9 +74,13 @@ public class CytometryPlotUtils {
     List<Double> rtn = new ArrayList<>();
     AssignableDevice a = node.getResultNetlistNodeData().getDevice();
     Gate g = (Gate) a;
-    BivariateLookupTableFunction c =
-        (BivariateLookupTableFunction) g.getModel().getFunctionByName("cytometry");
-    rtn = c.getYDataAtIdx(0);
+    BivariateLookupTableFunction c = null;
+    c = (BivariateLookupTableFunction) g.getModel().getFunctionByName("cytometry");
+    if (c != null) {
+      rtn = c.getYDataAtIdx(0);
+    } else {
+      rtn = null;
+    }
     return rtn;
   }
 
@@ -151,6 +155,9 @@ public class CytometryPlotUtils {
     for (int i = 0; i < states.getNumStates(); i++) {
       State<NetlistNode> state = states.getStateAtIdx(i);
       final List<Double> x = getXData(node);
+      if (x == null) {
+        return null;
+      }
       final List<Double> y = getYData(node, tmae, ec, state);
       final String fmt = "ax[%d].plot([%s], [%s])" + Utils.getNewLine();
       final String xArr = String.join(",", getDoubleList(x));
@@ -182,6 +189,9 @@ public class CytometryPlotUtils {
     final String outDir = runEnv.getOptionValue(ArgString.OUTPUTDIR);
     // script
     final String script = getPlotScript(node, lsle, tmae, ec, outDir);
+    if (script == null) {
+      return;
+    }
     final String scriptFilename = outDir + Utils.getFileSeparator() + getPlotScriptFilename(node);
     Utils.writeToFile(script, scriptFilename);
     // plot

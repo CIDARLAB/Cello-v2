@@ -234,13 +234,12 @@ public class EugeneUtils {
    */
   static Collection<StructureDevice> getDevices(
       final NetlistNode node,
-      final CObjectCollection<Gate> gates,
-      final CObjectCollection<OutputDevice> reporters) {
+      final TargetDataInstance tdi) {
     final Collection<StructureDevice> rtn = new ArrayList<>();
     final String gateType = node.getResultNetlistNodeData().getDeviceName();
     final Integer num = node.getNumInEdge();
-    final Gate gate = gates.findCObjectByName(gateType);
-    final OutputDevice reporter = reporters.findCObjectByName(gateType);
+    final Gate gate = tdi.getGates().findCObjectByName(gateType);
+    final OutputDevice reporter = tdi.getOutputDevices().findCObjectByName(gateType);
     if (reporter != null) {
       final Collection<StructureDevice> devices = reporter.getStructure().getDevices();
       Integer i = 0;
@@ -271,20 +270,31 @@ public class EugeneUtils {
     if (gate != null) {
       final Collection<StructureDevice> devices = gate.getStructure().getDevices();
       Integer i = 0;
+      Map<Input, Part> inputMap = getInputsMap(node, tdi);
       for (final StructureDevice d : devices) {
         final StructureDevice e = new StructureDevice(d);
         final Collection<StructureTemplate> inputs = new ArrayList<>();
+        final Collection<StructureTemplate> empty = new ArrayList<>();
         for (final StructureObject o : e.getComponents()) {
           if (o instanceof StructureTemplate) {
             i++;
             final StructureTemplate t = (StructureTemplate) o;
-            if (i <= num) {
-              continue;
+            for (Input input : inputMap.keySet()) {
+              if (input.getName().equals(o.getName())) {
+                inputs.add(t);
+              }
             }
-            inputs.add(t);
           }
         }
-        for (final StructureTemplate t : inputs) {
+        for (final StructureObject o : e.getComponents()) {
+          if (o instanceof StructureTemplate) {
+            final StructureTemplate t = (StructureTemplate) o;
+            if (!inputs.contains(t)) {
+              empty.add(t);
+            }
+          }
+        }
+        for (StructureTemplate t : empty) {
           e.getComponents().remove(t);
         }
         for (final StructureObject o : e.getComponents()) {

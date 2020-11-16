@@ -175,7 +175,7 @@ public class Eugene extends PLAlgorithm {
     while (node != null) {
       final Collection<StructureDevice> devices =
           EugeneUtils.getDevices(
-              node, getTargetDataInstance().getGates(), getTargetDataInstance().getOutputDevices());
+              node, getTargetDataInstance());
       getDevicesMap().put(node, devices);
       for (final StructureDevice d : devices) {
         getDeviceNameNetlistNodeMap().put(d.getName(), node);

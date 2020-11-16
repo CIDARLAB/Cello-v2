@@ -57,15 +57,18 @@ public class EugeneDevice extends StructureDevice {
     super(device);
     List<StructureObject> components = new ArrayList<>();
     for (StructureObject obj : this.getComponents()) {
+      Boolean emptyInput = false;
       if (obj instanceof StructureTemplate) {
         for (Input input : map.keySet()) {
           if (input.getName().equals(obj.getName())) {
             StructurePart p = new StructurePart();
             p.setName(map.get(input).getName());
             components.add(p);
+          } else {
+            emptyInput = true;
           }
         }
-      } else {
+      } else if (!emptyInput) {
         components.add(obj);
       }
     }
