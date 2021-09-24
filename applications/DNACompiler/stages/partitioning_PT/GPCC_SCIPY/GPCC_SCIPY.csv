@@ -1,6 +1,0 @@
-AuthorName,Vincent Mirian,
-ApplicationNames,DNACompiler
-StagePrefix,PT,
-StageName,partitioning,
-AlgorithmName,GPCC_SCIPY,
-AlgorithmExtends,GPCC_SCIP,

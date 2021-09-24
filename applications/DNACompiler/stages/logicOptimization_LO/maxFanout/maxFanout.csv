@@ -1,7 +1,0 @@
-AuthorName,Vincent Mirian,
-ApplicationNames,DNACompiler
-StagePrefix,LO,
-StageName,logicOptimization,
-AlgorithmName,maxFanout,
-AlgorithmExtends,,
-max,3,int,
