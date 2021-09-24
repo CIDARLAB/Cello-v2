@@ -43,9 +43,9 @@
   <modules>
     <module>cello-common</module>
     <module>cello-logicsynthesis</module>
-    <module>cello-logicoptimization</module>
-    <module>cello-clustering</module>
-    <module>cello-partitioning</module>
+    <!-- <module>cello-logicoptimization</module> -->
+    <!-- <module>cello-clustering</module> -->
+    <!-- <module>cello-partitioning</module> -->
     <module>cello-technologymapping</module>
     <module>cello-placing</module>
     <module>cello-export</module>
@@ -118,7 +118,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <configuration>
           <consoleOutput>true</consoleOutput>
           <!-- Inclued src/test/java -->
