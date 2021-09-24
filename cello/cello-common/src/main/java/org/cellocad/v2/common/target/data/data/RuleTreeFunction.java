@@ -41,7 +41,7 @@ public enum RuleTreeFunction {
   /**
    * Get the operator string value associated with the function.
    *
-   * @return
+   * @return The operator string value associated with the function.
    */
   public String getOperator() {
     switch (function) {

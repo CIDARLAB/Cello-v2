@@ -198,7 +198,7 @@ public class YosysEdifUtils {
    *
    * @param name The name of the {@link NetlistNode}.
    * @param type The result for the <i>logicSynthesis</i> stage.
-   * @param S_MAP The translation bookeeper.
+   * @param map The translation bookeeper.
    * @param netlist The {@link Netlist}.
    * @return The assigned or initialized {@link NetlistNode}.
    */

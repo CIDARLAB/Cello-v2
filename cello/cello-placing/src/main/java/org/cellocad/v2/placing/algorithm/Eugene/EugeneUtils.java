@@ -139,7 +139,7 @@ public class EugeneUtils {
    *
    * @param device A {@link StructureDevice}.
    * @param parts The {@link Part} objects that describe the part names in the given device.
-   * @return
+   * @return A set of strings containing all the part definitions for the parts that appear in the given device.
    */
   public static Set<String> getPartDefinitions(
       final StructureDevice device, final CObjectCollection<Part> parts) {
@@ -227,9 +227,7 @@ public class EugeneUtils {
    * specified in a gate than there are inputs to the node, the extra devices will be discarded.
    *
    * @param node The {@link NetlistNode}.
-   * @param gates The Gate objects.
-   * @param sensors The InputSensor objects.
-   * @param reporters The OutputReporter objects.
+   * @param tdi The {@link TargetDataInstance}.
    * @return A collection of StructureDevice objects associated with the NetlistNode.
    */
   static Collection<StructureDevice> getDevices(

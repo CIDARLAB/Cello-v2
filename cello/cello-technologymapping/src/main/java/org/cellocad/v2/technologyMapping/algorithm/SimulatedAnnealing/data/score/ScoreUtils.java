@@ -43,7 +43,7 @@ public class ScoreUtils {
    * @param netlist A netlist.
    * @param lsle The logic evaluation of the netlist.
    * @param tmae The activity evaluation of the netlist.
-   * @return
+   * @return The score of a netlist using its logic and activity evaluations.
    */
   public static Double score(
       final Netlist netlist, final LSLogicEvaluation lsle, final TMActivityEvaluation tmae) {

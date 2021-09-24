@@ -245,7 +245,7 @@ public class DnaPlotLibUtils {
   /**
    * Get the dnaplotlib part information for a particular non-promoter part.
    *
-   * @param name The parts.
+   * @param part The parts
    * @param node The netlist node in which the part exists.
    * @param tdi The target data instance containing parts information.
    * @return The part information string.

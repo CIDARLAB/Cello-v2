@@ -378,7 +378,7 @@ public class SBOL extends EXAlgorithm {
    *
    * @param selectedRepo The specified synbiohub repository the user wants VPR model generator to
    *     connect to.
-   * @param generatedModel The file to generate the model from.
+   * @param document The file to generate the model from.
    * @param name The top level design name.
    * @return The SBOL Document with interactions.
    * @throws SBOLValidationException Unable to validate SBOL.

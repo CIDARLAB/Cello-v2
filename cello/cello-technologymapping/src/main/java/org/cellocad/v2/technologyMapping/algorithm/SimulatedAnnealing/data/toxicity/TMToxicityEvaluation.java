@@ -170,7 +170,7 @@ public class TMToxicityEvaluation extends CObject {
   /**
    * Gets the minimum relative growth over all states of the circuit.
    *
-   * @return
+   * @return The mimimum relative growth over all states of the circuit.
    */
   public Double getMinimumGrowth() {
     Double rtn = TMToxicityEvaluation.D_MAXGROWTH;

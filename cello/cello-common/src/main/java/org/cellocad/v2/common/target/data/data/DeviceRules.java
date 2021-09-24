@@ -89,7 +89,7 @@ public class DeviceRules extends AbstractRules {
    *
    * @param st A <code>{@link java.util.StringTokenizer StringTokenizer}</code> instantiated with
    *     the DNF rule set.
-   * @param names A map from an object name in a rule to the desired name.
+   * @param name A map from an object name in a rule to the desired name.
    * @param num A numeral for the rule used in naming.
    * @return A string representation of the Rule block.
    */

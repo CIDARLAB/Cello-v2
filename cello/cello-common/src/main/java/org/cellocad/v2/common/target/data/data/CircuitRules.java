@@ -442,7 +442,7 @@ public class CircuitRules extends AbstractRules {
    *
    * @param devices The device names.
    * @param tdi The target data instance.
-   * @return
+   * @return The rule tree.
    */
   private RuleTree getFixedTerminatorSpacerPlacementRuleTree(
       RuleTree tree, Collection<String> devices, TargetDataInstance tdi) {
@@ -474,7 +474,7 @@ public class CircuitRules extends AbstractRules {
    *
    * @param devices The device names.
    * @param tdi The target data instance.
-   * @return
+   * @return The rule tree.
    */
   private RuleTree getFixedScarPlacementRuleTree(RuleTree tree,
       Collection<String> devices, TargetDataInstance tdi) {
