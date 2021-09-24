@@ -197,7 +197,7 @@
     </module>
     <module name="JavadocMethod">
       <property name="allowedAnnotations" value="Override, Test"/>
-      <property name="scope" value="public"/>
+      <!-- <property name="scope" value="public"/> -->
       <property name="allowMissingParamTags" value="true"/>
       <property name="allowMissingReturnTag" value="true"/>
       <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF"/>
@@ -228,7 +228,7 @@
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
   <module name="SuppressionFilter">
-    <property name="file" value="${org.checkstyle.google.suppressionfilter.config}"/>
+    <property name="file" value="${samedir}/checkstyle-suppressions.xml"/>
     <property name="optional" value="true"/>
   </module>
   <module name="FileTabCharacter">
