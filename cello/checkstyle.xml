@@ -228,7 +228,8 @@
     <property name="fileNamePattern" value="module\-info\.java$"/>
   </module>
   <module name="SuppressionFilter">
-    <property name="file" value="${samedir}/checkstyle-suppressions.xml"/>
+    <!-- <property name="file" value="${samedir}/checkstyle-suppressions.xml"/> -->
+    <property name="file" value="${checkstyle.suppressionfilter}"/>
     <property name="optional" value="true"/>
   </module>
   <module name="FileTabCharacter">
