@@ -1,0 +1,11 @@
+[ {
+  "collection" : "input_sensors",
+  "sensor_map" : {
+    "in1" : "aTc_sensor",
+    "in2" : "OHC14_sensor",
+    "in3" : "Van_sensor"
+  }
+}, {
+  "collection" : "reporters",
+  "reporter_map" : { }
+} ]
