@@ -68,7 +68,7 @@ public class YosysIT {
   @Test
   public void main_A1CircuitWithEco1C1G1T1Library_ShouldReturn()
       throws CelloException, IOException {
-    final String[] args = getArguments("A1.v", "Eco", "Eco1C1G1T1");
+    final String[] args = getArguments("0xA1.v", "Eco", "Eco1C1G1T1");
     Main.main(args);
   }
 }
