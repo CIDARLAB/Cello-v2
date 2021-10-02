@@ -25,9 +25,9 @@ package org.cellocad.v2.common.target.data.data;
  * @author Timothy Jones
  * @date 2020-02-12
  */
-final class Reference {
+public final class Reference {
 
-  static final String S_MAP = "map";
-  static final String S_DELIM = "/";
-  static final String S_REFCHAR = "#/";
+  public static final String S_MAP = "map";
+  public static final String S_DELIM = "/";
+  public static final String S_REFCHAR = "#/";
 }

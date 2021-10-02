@@ -19,7 +19,9 @@
 
 package org.cellocad.v2.common.target.data.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import org.cellocad.v2.common.exception.CelloException;
@@ -37,7 +39,7 @@ import org.cellocad.v2.results.netlist.data.ResultNetlistEdgeData;
 public class EvaluationContext {
 
   private void init() {
-    cache = new HashMap<>();
+    memo = new HashMap<>();
   }
 
   public EvaluationContext() {
@@ -87,6 +89,28 @@ public class EvaluationContext {
     return rtn;
   }
 
+  private String reduceInput(
+      final StringTokenizer st, final String map, final NetlistNode node, final Input input)
+      throws CelloException {
+    String rtn = null;
+    NetlistNode src = null;
+    for (int i = 0; i < node.getNumInEdge(); i++) {
+      final NetlistEdge edge = node.getInEdgeAtIdx(i);
+      final ResultNetlistEdgeData data = edge.getResultNetlistEdgeData();
+      final Input in = data.getInput();
+      if (in.equals(input)) {
+        src = edge.getSrc();
+        List<String> tokens = new ArrayList<>();
+        tokens.add(src.getName());
+        while (st.hasMoreTokens()) {
+          tokens.add(st.nextToken());
+        }
+        rtn = String.join(Reference.S_DELIM, tokens);
+      }
+    }
+    return rtn;
+  }
+
   private Evaluatable dereferenceStructure(
       final StringTokenizer st, final String map, final NetlistNode node, final Structure structure)
       throws CelloException {
@@ -100,6 +124,32 @@ public class EvaluationContext {
         name = st.nextToken();
         final Input input = structure.getInputs().findCObjectByName(name);
         rtn = dereferenceInput(st, map, node, input);
+        break;
+      case Structure.S_OUTPUTS:
+        EvaluationContext.isUnsupportedTokenException(map, token);
+        break;
+      case Structure.S_DEVICES:
+        EvaluationContext.isUnsupportedTokenException(map, token);
+        break;
+      default:
+        EvaluationContext.isInvalidTokenException(map, token);
+    }
+    return rtn;
+  }
+
+  private String reduceStructure(
+      final StringTokenizer st, final String map, final NetlistNode node, final Structure structure)
+      throws CelloException {
+    String rtn = null;
+    EvaluationContext.isTooShortException(st, map);
+    final String token = st.nextToken();
+    String name = null;
+    switch (token) {
+      case Structure.S_INPUTS:
+        EvaluationContext.isTooShortException(st, map);
+        name = st.nextToken();
+        final Input input = structure.getInputs().findCObjectByName(name);
+        rtn = reduceInput(st, map, node, input);
         break;
       case Structure.S_OUTPUTS:
         EvaluationContext.isUnsupportedTokenException(map, token);
@@ -159,6 +209,24 @@ public class EvaluationContext {
     return rtn;
   }
 
+  private String reduceRoot(final StringTokenizer st, final String map, final NetlistNode node)
+      throws CelloException {
+    String rtn = null;
+    // TODO check cache or originate entry
+    EvaluationContext.isTooShortException(st, map);
+    final String token = st.nextToken();
+    final AssignableDevice d = node.getResultNetlistNodeData().getDevice();
+    switch (token) {
+      case AssignableDevice.S_STRUCTURE:
+        final Structure s = d.getStructure();
+        rtn = reduceStructure(st, map, node, s);
+        break;
+      default:
+        EvaluationContext.isInvalidTokenException(map, token);
+    }
+    return rtn;
+  }
+
   /**
    * Dereference the given pointer string.
    *
@@ -182,6 +250,38 @@ public class EvaluationContext {
     final StringTokenizer st = new StringTokenizer(str, Reference.S_DELIM);
     if (root) {
       rtn = dereferenceRoot(st, map, getNode());
+    } else {
+      final String fmt = "%s: '%s'.";
+      throw new CelloException(String.format(fmt, EvaluationContext.S_UNSUPPORTED, str));
+    }
+    return rtn;
+  }
+  
+  /**
+   * Partial dereference. Return a new pointer to an object without any "node hops."
+   * 
+   * <p>For example, {@code #//structure/inputs/in1/model/functions/my_func} would become {@code some_node/model/functions/my_func}.
+   *
+   * @param map A pointer string.
+   * @return The new pointer with no hops.
+   * @throws CelloException Unable to dereference the given pointer string.
+   */
+  public String reduce(final String map) throws CelloException {
+    String rtn = null;
+    String str = map;
+    if (!str.startsWith(Reference.S_REFCHAR)) {
+      final String fmt = "%s: '%s' must begin with '%s'.";
+      throw new CelloException(
+          String.format(fmt, EvaluationContext.S_INVALID, str, Reference.S_REFCHAR));
+    }
+    str = str.substring(Reference.S_REFCHAR.length());
+    Boolean root = false;
+    if (str.startsWith(Reference.S_DELIM)) {
+      root = true;
+    }
+    final StringTokenizer st = new StringTokenizer(str, Reference.S_DELIM);
+    if (root) {
+      rtn = reduceRoot(st, map, getNode());
     } else {
       final String fmt = "%s: '%s'.";
       throw new CelloException(String.format(fmt, EvaluationContext.S_UNSUPPORTED, str));
@@ -238,19 +338,19 @@ public class EvaluationContext {
   private State<NetlistNode> state;
 
   /*
-   * Cache
+   * Memo
    */
 
   /**
-   * Getter for {@code cache}.
+   * Getter for {@code memo}.
    *
-   * @return The value of {@code cache}.
+   * @return The value of {@code memo}.
    */
-  public Map<String, Number> getCache() {
-    return cache;
+  public Map<State<NetlistNode>, Map<String, Number>> getMemo() {
+    return memo;
   }
 
-  private Map<String, Number> cache;
+  private Map<State<NetlistNode>, Map<String, Number>> memo;
 
   private static final String S_INVALID = "Invalid reference string";
   private static final String S_UNSUPPORTED = "Unsupported reference string";

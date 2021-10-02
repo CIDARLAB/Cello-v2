@@ -28,8 +28,11 @@ import java.util.Map;
 import org.cellocad.v2.common.Utils;
 import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.graph.algorithm.MyBFS;
+import org.cellocad.v2.common.target.data.data.AssignableDevice;
 import org.cellocad.v2.common.target.data.data.EvaluationContext;
 import org.cellocad.v2.common.target.data.data.FunctionType;
+import org.cellocad.v2.common.target.data.data.Model;
+import org.cellocad.v2.common.target.data.data.Reference;
 import org.cellocad.v2.results.logicSynthesis.logic.LSLogicEvaluation;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.State;
 import org.cellocad.v2.results.logicSynthesis.logic.truthtable.States;
@@ -58,7 +61,7 @@ public class TMActivityEvaluation {
    *
    * @param netlist A netlist.
    * @throws CelloException Unable to initialize object.
-   */
+   */  
   public TMActivityEvaluation(final Netlist netlist, final LSLogicEvaluation lsle)
       throws CelloException {
     init();
@@ -111,6 +114,9 @@ public class TMActivityEvaluation {
       final State<NetlistNode> inputState = activityTable.getStateAtIdx(i);
       final Activity<NetlistNode> outputActivity = activityTable.getActivityOutput(inputState);
       ec.setState(inputState);
+      if (!ec.getMemo().containsKey(inputState)) {
+        ec.getMemo().put(inputState, new HashMap<>());
+      }
       final Double result =
           node.getResultNetlistNodeData()
               .getDevice()
@@ -118,6 +124,7 @@ public class TMActivityEvaluation {
               .getFunctionByName(FunctionType.S_RESPONSEFUNCTION)
               .evaluate(ec)
               .doubleValue();
+      ec.getMemo().get(inputState).put(String.format("%s%s%s%s%s%s%s", node.getName(), Reference.S_DELIM, AssignableDevice.S_MODEL, Reference.S_DELIM, Model.S_FUNCTIONS, Reference.S_DELIM, FunctionType.S_RESPONSEFUNCTION), result);
       if (outputActivity.getNumActivityPosition() != 1) {
         throw new RuntimeException("Invalid number of output(s)!");
       }

@@ -19,6 +19,7 @@
 
 package org.cellocad.v2.common.target.data.data;
 
+import java.util.HashMap;
 import org.cellocad.v2.common.exception.CelloException;
 import org.cellocad.v2.common.profile.ProfileUtils;
 import org.cellocad.v2.results.netlist.NetlistNode;
@@ -59,12 +60,25 @@ public class Variable extends Evaluatable {
   public Number evaluate(final EvaluationContext ec) throws CelloException {
     Number rtn = null;
     final NetlistNode node = ec.getNode();
+    String shMap = null;
+    // FIXME: HACK
+    if (getMap().contains(Structure.S_INPUTS)) {
+      shMap = ec.reduce(getMap());
+    }
+    if (shMap != null && ec.getMemo().containsKey(ec.getState()) && ec.getMemo().get(ec.getState()).containsKey(shMap)) {
+      return ec.getMemo().get(ec.getState()).get(shMap);
+    }
+    // otherwise
     final Evaluatable e = ec.dereference(getMap());
     if (e == null) {
       throw new RuntimeException("Dereference failed.");
     }
     rtn = e.evaluate(ec);
     ec.setNode(node);
+    if (!ec.getMemo().containsKey(ec.getState())) {
+      ec.getMemo().put(ec.getState(), new HashMap<>());
+    }
+    ec.getMemo().get(ec.getState()).put(String.format("%s%s", node.getName(), getMap().substring(Reference.S_REFCHAR.length())), rtn);
     return rtn;
   }
 

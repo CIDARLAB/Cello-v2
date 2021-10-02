@@ -55,10 +55,10 @@ public class ParameterReference extends Parameter {
   }
 
   @Override
-  public Number evaluate(final EvaluationContext ce) throws CelloException {
+  public Number evaluate(final EvaluationContext ec) throws CelloException {
     Number rtn = null;
-    final Evaluatable e = ce.dereference(getMap());
-    rtn = e.evaluate(ce);
+    final Evaluatable e = ec.dereference(getMap());
+    rtn = e.evaluate(ec);
     return rtn;
   }
 
