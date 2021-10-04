@@ -173,15 +173,41 @@ public class RoadBlockUtils {
       if (StringUtils.countMatches(rule, "STARTSWITH") > 1) {
         return true;
       }
-      for (int i = 1; i < inputs.size(); i++) {
+      for (int i = 0; i < inputs.size(); i++) {
         Input input = inputs.get(i);
-        Pattern r = Pattern.compile("STARTSWITH " + inputMap.get(input).getName());
+        // startswith
+        Pattern r = Pattern.compile("STARTSWITH " + inputMap.get(input).getName(), Pattern.DOTALL);
         Matcher m = r.matcher(rule);
-        if (m.matches()) {
+        if (i > 0 && m.matches()) {
           return true;
         }
-        if (rule.contains("STARTSWITH " + inputMap.get(input).getName())) {
-          return true;
+        // before
+        r = Pattern.compile(".*" + inputMap.get(input).getName() + " BEFORE ([A-Za-z0-9]+).*", Pattern.DOTALL);
+        m = r.matcher(rule);
+        if (m.matches()) {
+          for (int j = 0; j < inputs.size(); j++) {
+            if (i == j) {
+              continue;
+            }
+            Input other = inputs.get(j);
+            if (inputMap.get(other).getName().equals(m.group(1)) && j < i) {
+              return true;
+            }
+          }
+        }
+        // after
+        r = Pattern.compile(".*" + inputMap.get(input).getName() + " AFTER ([A-Za-z0-9]+).*", Pattern.DOTALL);
+        m = r.matcher(rule);
+        if (m.matches()) {
+          for (int j = 0; j < inputs.size(); j++) {
+            if (i == j) {
+              continue;
+            }
+            Input other = inputs.get(j);
+            if (inputMap.get(other).getName().equals(m.group(1)) && j > i) {
+              return true;
+            }
+          }
         }
       }
     }
