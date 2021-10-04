@@ -136,9 +136,14 @@ public class SimulatedAnnealingUtils {
     final Input in2 = e2.getResultNetlistEdgeData().getInput();
     e1.getResultNetlistEdgeData().setInput(in2);
     e2.getResultNetlistEdgeData().setInput(in1);
-    // int i1 = node.getIdx();
-    // int i2 = node.getIdx();
-    // e1.setIdx(i2);
-    // e2.setIdx(i1);
+    // mirrored in CObject idx for writing to netlist
+    int i1 = e1.getIdx();
+    int i2 = e2.getIdx();
+    if (i1 == -1 && i2 == -1) {
+      i1 = 0;
+      i2 = 1;
+    }
+    e1.setIdx(i2);
+    e2.setIdx(i1);
   }
 }

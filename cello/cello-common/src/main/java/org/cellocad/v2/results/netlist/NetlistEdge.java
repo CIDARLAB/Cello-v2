@@ -71,6 +71,7 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
     super(other);
     setSrc(other.getSrc());
     setDst(other.getDst());
+    setIdx(other.getIdx());
     setDefault();
     setResultNetlistEdgeData(new ResultNetlistEdgeData(other.getResultNetlistEdgeData()));
   }
@@ -96,8 +97,16 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
     }
   }
 
+  private void parseIdx(final JSONObject jsonObj) {
+    final Integer idx = ProfileUtils.getInteger(jsonObj, "idx");
+    if (idx != null) {
+      setIdx(idx);
+    }
+  }
+
   private void parse(final JSONObject jsonObj) {
     parseName(jsonObj);
+    parseIdx(jsonObj);
     getResultNetlistEdgeData().parse(jsonObj);
   }
 
@@ -117,6 +126,8 @@ public class NetlistEdge extends EdgeTemplate<NetlistNode> {
     rtn += JsonUtils.getEntryToString("src", getSrc().getName());
     // dst
     rtn += JsonUtils.getEntryToString("dst", getDst().getName());
+    // idx
+    rtn += JsonUtils.getEntryToString("idx", getIdx());
     return rtn;
   }
 

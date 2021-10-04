@@ -490,7 +490,11 @@ public class Eugene extends PLAlgorithm {
       }
       for (int j = 0; j < node.getNumInEdge(); j++) {
         final NetlistEdge e = node.getInEdgeAtIdx(j);
-        final Input input = device.getStructure().getInputs().get(j);
+        int n = j;
+        if (e.getIdx() != -1) {
+          n = e.getIdx();
+        }
+        final Input input = device.getStructure().getInputs().get(n);
         e.getResultNetlistEdgeData().setInput(input);
       }
     }
