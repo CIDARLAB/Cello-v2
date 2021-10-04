@@ -180,6 +180,9 @@ public class RoadBlockUtils {
         if (m.matches()) {
           return true;
         }
+        if (rule.contains("STARTSWITH " + inputMap.get(input).getName())) {
+          return true;
+        }
       }
     }
     return rtn;
